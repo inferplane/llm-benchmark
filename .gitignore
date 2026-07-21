@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+.playwright-mcp/
+.claude/*.local.json
+.claude/scheduled_tasks.lock

@@ -1,0 +1,110 @@
+# One-time setup on the shared mall-apne2-mgmt cluster: a dedicated GPU
+# EC2NodeClass + NodePool for vLLM benchmark serving. Apply once (idempotent):
+#   kubectl --context mall-apne2-mgmt apply -f deploy/karpenter-gpu.yaml
+#
+# Mirrors the cluster's existing "benchmark" EC2NodeClass (same subnets/SG/IAM
+# role — see CLAUDE.md/AGENTS.md for how those were confirmed against the live
+# cluster, since the checked-in configs in ../aws-ec2-benchmark are known to
+# drift from what's actually running). Kept as its own EC2NodeClass/NodePool
+# rather than reusing "benchmark" so GPU nodes get their own taint (gpu-bench)
+# — reusing the "benchmark" taint would let other teams' non-GPU benchmark
+# pods land on (and waste) an expensive GPU node.
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
+metadata:
+  name: gpu-bench
+spec:
+  amiSelectorTerms:
+    - alias: al2023@latest   # Karpenter's AL2023 family auto-picks the NVIDIA-enabled AMI variant for GPU instance types
+  role: mall-apne2-mgmt-node-group-apne2-mgmt
+  subnetSelectorTerms:
+    - tags:
+        Tier: private
+  securityGroupSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: mall-apne2-mgmt
+  blockDeviceMappings:
+    - deviceName: /dev/xvda
+      ebs:
+        volumeSize: 200Gi   # HF model cache (emptyDir) — 70B fp16 alone is ~140GB
+        volumeType: gp3
+        iops: 3000
+        throughput: 125
+        encrypted: true
+        deleteOnTermination: true
+  tags:
+    Environment: llm-bench
+    ManagedBy: karpenter
+---
+apiVersion: karpenter.sh/v1
+kind: NodePool
+metadata:
+  name: gpu-bench
+spec:
+  template:
+    metadata:
+      labels:
+        node-pool: gpu-bench
+        workload: llm-bench
+    spec:
+      requirements:
+        # g6 (NVIDIA L4) — cheaper than g6e in ap-northeast-2 and available in
+        # both AZs the cluster actually schedules into. Sizes cover the model
+        # roster in config.toml: 4xlarge (1 GPU/22GB) for <=13B, 12xlarge
+        # (4 GPU/89GB) for 27-32B, 48xlarge (8 GPU/179GB) for 70B.
+        #
+        # Tried g7e ("RTX PRO Server 6000", 96GB/GPU, exists per live
+        # `aws ec2 describe-instance-types`) as a cheaper/simpler single-GPU
+        # alternative for 27B+ — checked twice, including with all 3 AZs
+        # allowed (ruling out a zone-capacity fluke), both attempts failed
+        # identically: "no instance type met all requirements" for
+        # g7e.4xlarge with nvidia.com/gpu:1. Root cause: this cluster's
+        # Karpenter controller is v1.9.0; g7e.4xlarge appears in Karpenter's
+        # own instance-type reference docs only under the v1.14 (latest)
+        # version — the AWS API knows the instance type, but this
+        # Karpenter's bundled instance-type data does not yet. Reverted
+        # rather than chase a Karpenter upgrade on a cluster this repo
+        # doesn't own — revisit if that cluster's Karpenter gets upgraded.
+        # Also tried g6e.12xlarge (4x L40S, 178.8GB — near-identical VRAM to
+        # g6.48xlarge at ~21% lower cost and TP=4 instead of TP=8). Unlike
+        # g7e, Karpenter DOES recognize it and scheduled a pod onto a real
+        # g6e.12xlarge node — but that node landed in the ap-northeast-2b
+        # subnet (g6e isn't offered in 2c, where g6 nodes normally land) and
+        # outbound HTTPS to huggingface.co failed there: an instant HTTP 504
+        # (0.03s — too fast to be a real timeout, points at a proxy/firewall
+        # actively rejecting the connection, not a routing gap; the subnet's
+        # route table itself was a normal, valid NAT gateway route). That 2b
+        # subnet's tags (Environment=production, Team=platform) suggest it's
+        # a more locked-down zone than whatever 2a/2c subnets the "benchmark"
+        # tier normally uses. Reverted — not worth the fragility for a ~21%
+        # cost saving on one model in the roster, on a cluster this repo
+        # doesn't control the network policy of.
+        - key: node.kubernetes.io/instance-type
+          operator: In
+          values: [g6.4xlarge, g6.12xlarge, g6.48xlarge, g6e.12xlarge]
+        - key: topology.kubernetes.io/zone
+          operator: In
+          # Restricted to 2a only (dropped 2c): g6e.12xlarge scheduled fine in 2b
+          # but that subnet's network policy blocks HF downloads (instant 0.03s
+          # HTTP 504 — a firewall, not a routing gap; that subnet is tagged
+          # Environment=production/Team=platform, unlike the benchmark-tier 2a/2c
+          # subnets). 2a alone carries all four instance types above, so no
+          # capacity is lost by dropping 2c.
+          values: [ap-northeast-2a]
+        - key: karpenter.sh/capacity-type
+          operator: In
+          values: [on-demand]
+      nodeClassRef:
+        group: karpenter.k8s.aws
+        kind: EC2NodeClass
+        name: gpu-bench
+      taints:
+        - key: gpu-bench
+          value: "true"
+          effect: NoSchedule
+      expireAfter: 720h
+  limits:
+    cpu: "208"     # one g6.48xlarge (192) + one g6.4xlarge (16) headroom; hard cap against runaway provisioning
+  disruption:
+    consolidationPolicy: WhenEmpty
+    consolidateAfter: 60s   # auto-terminates the GPU node ~60s after the vLLM pod is deleted — no manual scale-down step needed

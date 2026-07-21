@@ -1,0 +1,101 @@
+# One model at a time on the shared mall-apne2-mgmt cluster: vLLM Deployment +
+# ClusterIP Service, OpenAI-compatible. Rendered via envsubst (see
+# deploy/serve.sh) — needs $MODEL, $TP, and $INSTANCE_TYPE set. Requires
+# deploy/karpenter-gpu.yaml applied once first (provisions the gpu-bench
+# NodePool this targets).
+#
+# The EXTRA_VLLM_ARGS_YAML env var (below, substituted by envsubst — note:
+# no leading "$" here, or envsubst would mangle this very comment too, same
+# as it does to every other literal "$VAR" mention in this file) is a
+# per-model escape hatch for config.toml's extra_vllm_args, rendered by
+# serve.sh as extra `- --flag=value` list items already indented to match
+# the args: block, or as an empty line if unset — used e.g. for
+# gemma-4-31b's --quantization=fp8 (see config.toml).
+#
+# $INSTANCE_TYPE is required, not optional: the gpu-bench NodePool offers
+# multiple instance types with different VRAM per GPU (g6.4xlarge 22GB vs
+# g7e.4xlarge 96GB, both "1 GPU" to Kubernetes' nvidia.com/gpu resource count).
+# Without pinning the instance type, Karpenter provisions whichever is
+# cheapest that satisfies the GPU *count* — which silently OOMs a large model
+# onto a small-VRAM GPU instead of failing to schedule. Verified live: this
+# happened on the first deploy of a 27B model.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm
+  namespace: llm-bench
+  labels: { app: vllm }
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: vllm }
+  template:
+    metadata:
+      labels: { app: vllm }
+    spec:
+      # Kubernetes auto-injects <SERVICE_NAME>_PORT etc. into every pod's env for
+      # service discovery. Our Service is named "vllm", so that becomes VLLM_PORT —
+      # which collides with vLLM's own env var of the same name (its internal engine
+      # port) and crashes the engine with "VLLM_PORT ... appears to be a URI".
+      # Disabling the legacy service-links env injection avoids the whole class of
+      # collision (we don't use it — bench/run.py talks to a port-forward, not
+      # in-cluster service env vars).
+      enableServiceLinks: false
+      nodeSelector:
+        node-pool: gpu-bench
+        node.kubernetes.io/instance-type: $INSTANCE_TYPE
+      tolerations:
+        - key: gpu-bench
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+      containers:
+        - name: vllm
+          image: vllm/vllm-openai:latest
+          args:
+            - --model=$MODEL
+            - --tensor-parallel-size=$TP
+            - --host=0.0.0.0
+            - --port=8000
+            # Caps the KV cache vLLM reserves at startup to this scenario's actual
+            # needs (financial-doc segments are at most a few hundred tokens in,
+            # MAX_OUTPUT_TOKENS=4096 out) instead of the model's native max —
+            # some models here go up to 262144, which reserves far more KV cache
+            # than the GPU has room for after loading weights and fails to start
+            # ("KV cache is needed ... larger than the available KV cache memory",
+            # hit live on Qwen3.6-27B). Also keeps every model on the same
+            # decoding-context budget, consistent with bench/run.py's shared
+            # MAX_OUTPUT_TOKENS cap.
+            - --max-model-len=8192
+$EXTRA_VLLM_ARGS_YAML
+          env:
+            - name: HF_TOKEN
+              valueFrom:
+                secretKeyRef: { name: hf-token, key: token }
+          ports:
+            - containerPort: 8000
+          resources:
+            limits:
+              nvidia.com/gpu: "$TP"
+          volumeMounts:
+            - name: model-cache
+              mountPath: /root/.cache/huggingface
+          readinessProbe:
+            httpGet: { path: /health, port: 8000 }
+            initialDelaySeconds: 60   # model download + load; raise for 70B-class models
+            periodSeconds: 15
+            failureThreshold: 20
+      volumes:
+        - name: model-cache
+          emptyDir: {}   # re-downloads weights per model swap; switch to a PVC if that gets slow
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vllm
+  namespace: llm-bench
+spec:
+  selector: { app: vllm }
+  ports:
+    - port: 8000
+      targetPort: 8000

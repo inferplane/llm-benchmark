@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM Translation Ledger — 금융 도메인 번역 벤치마크</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.5/dist/purify.min.js"></script>
+<style>
+  :root {
+    color-scheme: dark;
+    --page:        #0B1220;
+    --surface:     #131B2C;
+    --surface-2:   #182238;
+    --ink:         #F5F3EC;
+    --ink-2:       #AEB6C9;
+    --ink-muted:   #6E7690;
+    --gridline:    #263047;
+    --border:      rgba(245,243,236,0.10);
+    --gold:        #C79A46;
+    --gold-soft:   rgba(199,154,70,0.16);
+    --bedrock:        #3987e5;
+    --openai:         #008300;
+    --vllm:           #d55181;
+    --bedrock-mantle: #8a6fe0;
+    --good-bg:     rgba(46,158,140,0.14);
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --page:        #F6F3EA;
+    --surface:     #FFFFFF;
+    --surface-2:   #FBF9F2;
+    --ink:         #17140C;
+    --ink-2:       #4B4638;
+    --ink-muted:   #86806E;
+    --gridline:    #E5DFCC;
+    --border:      rgba(23,20,12,0.10);
+    --gold:        #A87A2E;
+    --gold-soft:   rgba(168,122,46,0.14);
+    --bedrock:        #2a78d6;
+    --openai:         #008300;
+    --vllm:           #e87ba4;
+    --bedrock-mantle: #6b4fcb;
+    --good-bg:     rgba(31,122,108,0.10);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--page);
+    color: var(--ink);
+    font-family: "Inter", "Pretendard Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: "IBM Plex Mono", "Pretendard Variable", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  a { color: var(--gold); }
+
+  /* Scenario nav — translation is the only scenario today, but this repo's
+     bench pipeline is designed to grow a second, structurally different
+     scenario (e.g. document parsing) later (see CLAUDE.md). Mirrors
+     ../aws-ec2-benchmark/site's navbar-over-a-TABS-array pattern: adding a
+     scenario is one entry in SCENARIOS (docs/app.js) + that scenario's own
+     page, not a shared conditional-rendering mega-app. */
+  .scenario-nav { background: var(--surface-2); border-bottom: 1px solid var(--border); }
+  .scenario-nav-inner {
+    max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px);
+    display: flex; align-items: center; gap: 22px; height: 40px;
+  }
+  .scenario-nav-brand {
+    font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
+    font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);
+  }
+  .scenario-nav-links { display: flex; gap: 4px; }
+  .scenario-nav-links a {
+    font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
+    font-size: 12.5px; color: var(--ink-2); text-decoration: none;
+    padding: 5px 10px; border-radius: 4px;
+  }
+  .scenario-nav-links a:hover { background: var(--surface); color: var(--ink); }
+  .scenario-nav-links a.active { background: var(--gold-soft); color: var(--gold); }
+
+  .masthead {
+    border-bottom: 1px solid var(--border);
+    padding: 28px clamp(16px, 4vw, 48px) 22px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .masthead .ticker-rule {
+    font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin: 0 0 6px;
+  }
+  .masthead h1 {
+    font-family: "Fraunces", "Pretendard Variable", serif;
+    font-weight: 600;
+    font-size: clamp(24px, 3.4vw, 34px);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .masthead .sub {
+    color: var(--ink-2);
+    font-size: 14px;
+    margin: 6px 0 0;
+    max-width: 62ch;
+  }
+  .masthead-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
+    font-size: 12.5px;
+  }
+  select, button.theme-toggle {
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 7px 10px;
+    font: inherit;
+    font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
+    cursor: pointer;
+  }
+  button.theme-toggle { padding: 7px 11px; }
+
+  main { padding: 8px clamp(16px, 4vw, 48px) 60px; max-width: 1180px; margin: 0 auto; }
+
+  section.panel {
+    margin-top: 34px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px clamp(16px, 3vw, 28px) 26px;
+  }
+  .panel-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px; margin-bottom: 4px; }
+  .panel-head h2 {
+    font-family: "Fraunces", "Pretendard Variable", serif;
+    font-weight: 600;
+    font-size: 19px;
+    margin: 0;
+  }
+  .panel-head .eyebrow {
+    font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .subpanel-head {
+    display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px;
+    margin: 30px 0 4px; padding-top: 18px; border-top: 1px solid var(--border);
+  }
+  .subpanel-head h3 {
+    font-family: "Fraunces", "Pretendard Variable", serif;
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0;
+    color: var(--ink-2);
+  }
+  .subpanel-head .eyebrow {
+    font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .panel-note { color: var(--ink-muted); font-size: 13px; margin: 2px 0 18px; }
+
+  .chart-wrap { position: relative; height: 420px; }
+  .chart-wrap.short { height: 300px; }
+
+  .legend-row { display: flex; gap: 18px; flex-wrap: wrap; margin: 2px 0 16px; font-size: 12.5px; color: var(--ink-2); }
+  .legend-row .dot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .legend-row .legend-note { color: var(--ink-muted); font-style: italic; }
+
+  .pair-chip {
+    display: inline-block;
+    font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.02em;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 2px 6px;
+    background: var(--surface-2);
+    white-space: nowrap;
+  }
+
+  .toggle-group { display: inline-flex; border: 1px solid var(--border); border-radius: 5px; overflow: hidden; }
+  .toggle-group button {
+    background: var(--surface);
+    color: var(--ink-2);
+    border: none;
+    padding: 6px 13px;
+    font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .toggle-group button.active { background: var(--gold-soft); color: var(--gold); }
+  .toggle-group button + button { border-left: 1px solid var(--border); }
+
+  table.heatmap { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+  table.heatmap th, table.heatmap td { padding: 7px 9px; text-align: center; border-bottom: 1px solid var(--gridline); }
+  table.heatmap th.rowhead, table.heatmap td.rowhead {
+    text-align: left; font-family: "IBM Plex Mono", "Pretendard Variable", monospace; color: var(--ink-2); white-space: nowrap;
+  }
+  table.heatmap td.rowhead {
+    border-left: 3px solid transparent; padding-left: 8px;
+  }
+  table.heatmap td.rowhead .dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 7px; vertical-align: -1px;
+  }
+  table.heatmap thead th { color: var(--ink-muted); font-weight: 500; font-size: 11px; }
+  table.heatmap td.cell { font-family: "IBM Plex Mono", "Pretendard Variable", monospace; color: var(--ink); border-radius: 3px; }
+  table.heatmap td.cell.empty { color: var(--ink-muted); }
+  .heatmap-scroll { overflow-x: auto; }
+  .heatmap-panel-legend { display: flex; gap: 16px; flex-wrap: wrap; margin: 0 0 14px; font-size: 12px; color: var(--ink-2); }
+  .heatmap-panel-legend .dot { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+  #samples-toggle { margin-bottom: 14px; }
+  .samples-controls { margin-bottom: 16px; }
+  .samples-controls select { min-width: 320px; }
+  .sample-source {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 13.5px;
+  }
+  .sample-source dt { color: var(--ink-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 8px; }
+  .sample-source dt:first-child { margin-top: 0; }
+  .sample-source dd { margin: 2px 0 0; color: var(--ink); }
+  table.sample-compare { border-collapse: collapse; width: 100%; font-size: 13px; }
+  table.sample-compare th, table.sample-compare td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--gridline); vertical-align: top; }
+  table.sample-compare thead th { color: var(--ink-muted); font-weight: 500; font-size: 11px; }
+  table.sample-compare td.model-cell { white-space: nowrap; font-family: "IBM Plex Mono", "Pretendard Variable", monospace; font-size: 12px; }
+  table.sample-compare td.model-cell .dot { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  table.sample-compare td.score-cell { font-family: "IBM Plex Mono", "Pretendard Variable", monospace; text-align: center; white-space: nowrap; }
+  table.sample-compare td.error-cell { color: var(--ink-muted); font-style: italic; }
+
+  .interpretation-body p { margin: 0 0 12px; font-size: 14px; line-height: 1.7; }
+  .interpretation-body p:last-child { margin-bottom: 0; }
+  .interpretation-body strong { color: var(--gold); font-weight: 600; }
+
+  /* Rendered markdown (financial-document source/reference/output text and the
+     interpretation note) — scoped so headers/tables/code fit inside small
+     containers (dd, table cells) instead of using full-page heading sizes. */
+  .md-content { font-size: 13.5px; line-height: 1.65; color: var(--ink); }
+  .md-content > *:first-child { margin-top: 0; }
+  .md-content > *:last-child { margin-bottom: 0; }
+  .md-content p { margin: 0 0 10px; }
+  .md-content strong { color: var(--gold); font-weight: 600; }
+  .md-content h1, .md-content h2, .md-content h3, .md-content h4 {
+    font-family: "Fraunces", "Pretendard Variable", serif;
+    font-weight: 600; line-height: 1.3; color: var(--ink); margin: 14px 0 8px;
+  }
+  .md-content h1 { font-size: 16px; }
+  .md-content h2 { font-size: 15px; }
+  .md-content h3, .md-content h4 { font-size: 13.5px; color: var(--ink-2); }
+  .md-content ul, .md-content ol { margin: 0 0 10px; padding-left: 20px; }
+  .md-content li { margin: 2px 0; }
+  .md-content code { font-family: "IBM Plex Mono", "Pretendard Variable", monospace; font-size: 12px; background: var(--surface-2); border-radius: 3px; padding: 1px 4px; }
+  .md-content pre { background: var(--surface-2); border-radius: 6px; padding: 10px 12px; overflow-x: auto; }
+  .md-content pre code { background: none; padding: 0; }
+  .md-content blockquote { margin: 0 0 10px; padding-left: 12px; border-left: 2px solid var(--border); color: var(--ink-2); }
+  .md-content a { color: var(--gold); }
+  .md-content hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+  .md-content table { border-collapse: collapse; width: 100%; margin: 4px 0 10px; font-size: 12.5px; }
+  .md-content th, .md-content td { padding: 6px 8px; text-align: left; border: 1px solid var(--gridline); }
+  .md-content thead th { color: var(--ink-2); background: var(--surface-2); font-weight: 500; }
+  .md-table-wrap { overflow-x: auto; margin: 4px 0 10px; }
+  .md-table-wrap table { margin: 0; }
+
+  .reco-tag {
+    font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
+    font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--gold); background: var(--gold-soft);
+    border-radius: 3px; padding: 2px 6px; margin-left: 8px;
+  }
+  .ci-note { color: var(--ink-muted); font-size: 11.5px; }
+  .filter-row {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    margin: 0 0 16px; font-family: "IBM Plex Mono", "Pretendard Variable", monospace; font-size: 12px;
+  }
+  .filter-row label { color: var(--ink-muted); margin-left: 6px; }
+  .filter-row label:first-child { margin-left: 0; }
+  .filter-row select { padding: 5px 8px; font-size: 12px; }
+  .reco-tag.warn { color: #d9534f; background: rgba(217,83,79,0.14); }
+  .score-cell.gap-warn { color: #d9534f; font-weight: 600; }
+
+  table.model-table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  table.model-table th, table.model-table td { padding: 9px 10px; text-align: left; border-bottom: 1px solid var(--gridline); }
+  table.model-table thead th { color: var(--ink-muted); font-weight: 500; font-size: 11px; }
+  table.model-table tr.model-row { cursor: pointer; }
+  table.model-table tr.model-row:hover { background: var(--surface-2); }
+  table.model-table td.model-cell { white-space: nowrap; font-family: "IBM Plex Mono", "Pretendard Variable", monospace; font-size: 12px; }
+  table.model-table td.model-cell .dot { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  table.model-table td.score-cell { font-family: "IBM Plex Mono", "Pretendard Variable", monospace; white-space: nowrap; }
+  table.model-table tr.detail-row td { background: var(--surface-2); font-size: 12.5px; line-height: 1.7; }
+  .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  .detail-grid strong { color: var(--ink-2); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .axis-chip {
+    display: inline-block; font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
+    font-size: 11.5px; border: 1px solid var(--border); border-radius: 3px;
+    padding: 2px 6px; margin: 3px 4px 0 0; background: var(--surface);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 46px 20px;
+    color: var(--ink-muted);
+    font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
+    font-size: 13px;
+  }
+  .empty-state .glyph { font-size: 22px; color: var(--gold); display: block; margin-bottom: 10px; }
+
+  footer.methodology {
+    margin-top: 34px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    color: var(--ink-muted);
+    font-size: 12.5px;
+    line-height: 1.7;
+  }
+  footer.methodology dt { color: var(--ink-2); font-family: "IBM Plex Mono", "Pretendard Variable", monospace; font-size: 11px; margin-top: 10px; }
+  footer.methodology dd { margin: 2px 0 0; }
+
+  @media (max-width: 560px) {
+    .masthead { flex-direction: column; align-items: flex-start; }
+    .chart-wrap { height: 320px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="scenario-nav">
+  <div class="scenario-nav-inner">
+    <span class="scenario-nav-brand">LLM 벤치마크</span>
+    <div class="scenario-nav-links" id="scenario-nav-links"></div>
+  </div>
+</nav>
+
+<header class="masthead">
+  <div>
+    <p class="ticker-rule">KO ⇄ 15 LANGS · FINANCIAL DOMAIN · COST/QUALITY LEDGER</p>
+    <h1>LLM Translation Ledger</h1>
+    <p class="sub" id="run-summary">불러오는 중…</p>
+  </div>
+  <div class="masthead-controls">
+    <label for="run-select" style="color:var(--ink-muted)">RUN</label>
+    <select id="run-select"></select>
+    <button class="theme-toggle" id="theme-toggle" title="라이트/다크 전환" aria-label="테마 전환">◐</button>
+  </div>
+</header>
+
+<main>
+
+  <section class="panel" id="interpretation-panel" hidden>
+    <div class="panel-head">
+      <h2>해석</h2>
+      <span class="eyebrow">Interpretation</span>
+    </div>
+    <p class="panel-note">이 런의 실제 수치를 사람이 직접 읽고 정리한 요약입니다 — 점수에서 자동 생성된 문구가 아닙니다.</p>
+    <div id="interpretation-body" class="interpretation-body"></div>
+  </section>
+
+  <section class="panel" id="hero-panel">
+    <div class="panel-head">
+      <h2>가성비: 비용 대비 품질</h2>
+      <span class="eyebrow">Cost / Quality Frontier</span>
+    </div>
+    <p class="panel-note">
+      x축은 <strong>세그먼트당 비용</strong>(GPU 모델은 실측 처리량 기준 환산) — 모든 모델이 동일한 세그먼트 집합을 번역하므로 출력 토큰 수가 아니라 실제 문서 1건당 비용으로 비교합니다(출력이 긴 모델이 $/1M 토큰 기준으로 저렴해 보이는 왜곡을 피함).
+      y축은 아래에서 고른 트랙의 LLM-judge 종합 점수(1–5, FLORES의 인간 참조 번역과 합성 데이터의 LLM 생성 참조는 judge에 노출하지 않아 참조 오염을 배제).
+      원 크기는 <strong>속도</strong>(p50 지연시간의 역수) — 클수록 빠릅니다.
+      금색 실선으로 이어진 점은 <strong>가성비 프론티어</strong> — 해당 비용 이하에서 더 높은 품질을 내는 모델이 없는 지점입니다.
+      <em>gpt-5.5는 세그먼트당 비용이 다른 모델보다 3.7배 이상 높아 이 차트에서만 제외했습니다(다른 모든 표·샘플에는 포함) — 언어쌍 히트맵, 런 히스토리, 원본 데이터(<code class="mono">docs/results/</code>)에서 확인 가능합니다.</em>
+    </p>
+    <div class="toggle-group" id="track-toggle" style="margin-bottom:14px;">
+      <button data-track="synthetic" class="active">합성 금융문서</button>
+      <button data-track="flores">FLORES</button>
+      <button data-track="all">전체 (평균, 주의)</button>
+    </div>
+    <div class="legend-row" id="hero-legend"></div>
+    <div class="chart-wrap"><canvas id="scatter-chart"></canvas></div>
+
+    <div class="subpanel-head">
+      <h3>저비용 구간 확대</h3>
+      <span class="eyebrow">Zoomed — Under <span id="scatter-zoom-threshold"></span></span>
+    </div>
+    <p class="panel-note">위 차트에서 뭉쳐 보이는 저비용 모델들만 다시 그린 확대판입니다 — 세그먼트당 비용이 <span id="scatter-zoom-threshold-2"></span> 이하인 모델만 포함합니다.</p>
+    <div class="legend-row" id="hero-zoom-legend"></div>
+    <div class="chart-wrap"><canvas id="scatter-zoom-chart"></canvas></div>
+  </section>
+
+  <section class="panel" id="recommendations-panel">
+    <div class="panel-head">
+      <h2>추천 모델</h2>
+      <span class="eyebrow">Cost-Effective Frontier Picks</span>
+    </div>
+    <p class="panel-note">위 차트의 가성비 프론티어를 그대로 표로 정리한 것입니다 — 별도의 임의 기준으로 다시 고른 목록이 아닙니다.</p>
+    <div id="recommendations-body"></div>
+  </section>
+
+  <section class="panel" id="model-table-panel">
+    <div class="panel-head">
+      <h2>모델 상세</h2>
+      <span class="eyebrow">Per-Model Detail</span>
+    </div>
+    <p class="panel-note">Judge 종합(위 트랙 선택 기준) 높은 순. 행을 클릭하면 트랙별 품질, judge 세부 축, 실행 설정(run_config — vLLM GPU/TP/동시성 또는 API 단가)이 펼쳐집니다.</p>
+    <table class="model-table">
+      <thead>
+        <tr><th>모델</th><th>비용/세그먼트</th><th id="model-table-score-head">Judge 종합</th><th>지연 p50 / p95</th><th>처리량</th><th>상태</th></tr>
+      </thead>
+      <tbody id="model-table-body"></tbody>
+    </table>
+  </section>
+
+  <section class="panel" id="lang-coverage-panel">
+    <div class="panel-head">
+      <h2>언어 커버리지: 주요 언어 vs 기타 언어</h2>
+      <span class="eyebrow">Major vs Lower-Resource Languages</span>
+    </div>
+    <p class="panel-note">
+      주요 언어 = EN·JA·ZH·ES·FR·DE·PT·RU·IT (학습 데이터가 풍부한 고자원 언어), 기타 언어 = VI·ID·TH·AR·HI·TR (상대적으로 저자원 언어) — 이 런의 점수로 사후에 정한 기준이 아니라 통상적인 자원량 분류입니다.
+      전체 평균으로는 격차가 크지 않아 보여도, <strong>모델별로는 격차가 크게 갈립니다</strong> — 전체/주요 언어 점수만 보고 고르면 실제로는 기타 언어에서 크게 떨어지는 모델을 놓칠 수 있습니다.
+    </p>
+    <p class="panel-note mono" id="lang-coverage-summary" style="margin-top:-6px;"></p>
+    <div class="filter-row">
+      <label for="lang-filter-major">주요 언어</label>
+      <select id="lang-filter-major"><option value="0">전체</option></select>
+      <label for="lang-filter-other">기타 언어</label>
+      <select id="lang-filter-other"><option value="0">전체</option></select>
+      <label for="lang-coverage-sort">정렬</label>
+      <select id="lang-coverage-sort">
+        <option value="gap">격차 작은 순</option>
+        <option value="gap_desc">격차 큰 순</option>
+        <option value="major_desc">주요 언어 높은 순</option>
+        <option value="other_desc">기타 언어 높은 순</option>
+        <option value="cost_asc">비용 낮은 순</option>
+        <option value="cost_desc">비용 높은 순</option>
+      </select>
+    </div>
+    <table class="model-table">
+      <thead>
+        <tr><th>모델</th><th>주요 언어</th><th>기타 언어</th><th>격차(Δ)</th><th>비용/세그먼트</th></tr>
+      </thead>
+      <tbody id="lang-coverage-body"></tbody>
+    </table>
+    <div id="lang-coverage-reco" class="interpretation-body" style="margin-top:14px;"></div>
+  </section>
+
+  <section class="panel" id="heatmap-panel">
+    <div class="panel-head">
+      <h2>언어쌍별 품질</h2>
+      <span class="eyebrow">Model × Pair</span>
+    </div>
+    <p class="panel-note">모델 × 언어쌍 매트릭스. 셀 색상 진하기는 judge 종합 점수(1–5)를 나타냅니다. <span id="heatmap-scale-note" class="mono"></span></p>
+    <div class="toggle-group" id="direction-toggle" style="margin-bottom:16px;">
+      <button data-dir="from-ko" class="active">KO → X</button>
+      <button data-dir="to-ko">X → KO</button>
+    </div>
+    <div class="heatmap-panel-legend" id="heatmap-legend"></div>
+    <div class="heatmap-scroll"><table class="heatmap" id="heatmap-table"></table></div>
+  </section>
+
+  <section class="panel" id="samples-panel">
+    <div class="panel-head">
+      <h2>번역 샘플</h2>
+      <span class="eyebrow">Sample Inspector</span>
+    </div>
+    <p class="panel-note">언어쌍별 대표 세그먼트 <span id="samples-per-pair-note"></span>건을 골라 모델별 실제 번역 결과와 judge 채점을 나란히 비교합니다.</p>
+    <button class="theme-toggle" id="samples-toggle" aria-expanded="false">샘플 보기 ▾</button>
+    <div id="samples-body" hidden>
+      <div class="samples-controls">
+        <select id="sample-select"></select>
+      </div>
+      <div id="sample-detail"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="history-panel">
+    <div class="panel-head">
+      <h2>런 히스토리</h2>
+      <span class="eyebrow">Judge Score Over Time</span>
+    </div>
+    <p class="panel-note">모델별 judge 종합 점수의 런 간 변화. 모델 라인업이나 프롬프트가 바뀌면 점수가 흔들릴 수 있습니다.</p>
+    <div id="history-body">
+      <div class="chart-wrap short"><canvas id="history-chart"></canvas></div>
+    </div>
+  </section>
+
+  <footer class="methodology">
+    <dl>
+      <dt>데이터셋</dt>
+      <dd id="meta-dataset">—</dd>
+      <dt>평가 방식</dt>
+      <dd>LLM-as-judge, 서로 다른 두 모델 계열(gpt-5.6-sol · claude-fable-5)이 독립적으로 채점한 뒤 축별로 평균 — 단일 judge의 자체 스타일/제공사 편향을 완화하기 위함입니다. adequacy / terminology / numbers·entities·dates / fluency / format, 각 1–5점. FLORES(인간 참조)만 judge에 참조를 보여주고 chrF를 계산합니다 — 합성 금융문서의 참조는 벤치마크 후보 모델(claude-sonnet-4.5)이 직접 생성했기 때문에 judge/chrF에 노출하면 같은 계열 모델에 유리하게 편향됩니다. 두 트랙(FLORES/synthetic)의 점수는 항상 분리 집계되며 서로 평균 내지 않습니다 — 위 차트의 트랙 선택기로 직접 전환해 확인할 수 있습니다("전체"는 두 트랙을 합친 참고용 숫자이며 금융 도메인 단독 점수가 아닙니다). 판단이 근소한 차이(신뢰구간이 겹치는 경우)는 순위로 단정하지 않는 것을 권장합니다.</dd>
+      <dt>생성 조건</dt>
+      <dd>모든 모델 temperature=0, 출력 토큰 상한 4096 통일. Bedrock/OpenAI/vLLM 동시성은 다르므로(기본 8 vs vLLM 32) provider 간 지연시간(latency) 직접 비교는 참고용입니다.</dd>
+      <dt>비용 산정</dt>
+      <dd>대표 지표는 <strong>세그먼트당 비용</strong>(모든 모델이 동일한 세그먼트를 번역). API 모델은 실제 입출력 토큰 × 단가. 자체 호스팅(vLLM) 모델은 GPU 시간당 비용 ÷ 모델 전체 배치의 실측 처리량(웜업 제외 미구현, run_config에 GPU 종류·동시성·TP 설정 기록)으로 환산합니다. 비용/처리량은 모델 전체 단위로만 집계하며 언어쌍·트랙별로는 제공하지 않습니다 — 한 모델의 모든 요청이 동시에 GPU를 공유하므로 부분집합의 처리량은 다른 요청과 뒤섞여 의미가 흐려지기 때문입니다.</dd>
+      <dt>표본 규모</dt>
+      <dd id="meta-sample-size">—</dd>
+      <dt>소스</dt>
+      <dd><a href="https://github.com/inferplane/llm-benchmark" id="repo-link">GitHub 저장소</a> · results/&lt;run_id&gt;.json 원본 데이터는 <code class="mono">docs/results/</code> 참고</dd>
+    </dl>
+  </footer>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

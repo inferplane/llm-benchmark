@@ -271,7 +271,7 @@ function renderScatterChart(report, { canvasId, legendId, chartKey, filterFn, em
   legend.innerHTML =
     providers.map((p) => `<span><span class="dot" style="background:${cssVar(PROVIDER_VAR[p] || "--ink-2")}"></span>${PROVIDER_LABEL[p] || p}</span>`).join("") +
     `<span><span class="dot" style="background:${cssVar("--gold")}"></span>가성비 프론티어</span>` +
-    `<span class="legend-note">원 크기 = 속도 (클수록 빠름)</span>`;
+    `<span class="legend-note">원 크기 = 속도 (클수록 빠름) · 드래그로 확대, 더블클릭으로 원래대로</span>`;
 
   const datasets = providers.map((p) => ({
     label: PROVIDER_LABEL[p] || p,
@@ -332,9 +332,25 @@ function renderScatterChart(report, { canvasId, legendId, chartKey, filterFn, em
             },
           },
         },
+        // Drag-to-zoom on both axes (chartjs-plugin-zoom, loaded in
+        // index.html) — this chart's whole point is comparing a cheap
+        // cluster against a few expensive outliers, so a reader needs to be
+        // able to zoom into the cluster themselves rather than only relying
+        // on the pre-built "확대판" chart below, which only zooms the x-axis
+        // to one fixed threshold.
+        zoom: {
+          zoom: { drag: { enabled: true, backgroundColor: "rgba(199,154,70,0.15)", borderColor: cssVar("--gold"), borderWidth: 1 }, mode: "xy" },
+          pan: { enabled: true, mode: "xy", modifierKey: "shift" },
+        },
       },
     },
   });
+
+  // Zoom-drag leaves the chart zoomed until explicitly reset — double-click
+  // is the plugin's own documented convention for "reset to the original
+  // view", so wire it here rather than adding a separate always-visible
+  // reset button for a feature most visitors won't use every time.
+  document.getElementById(canvasId).ondblclick = () => state.charts[chartKey]?.resetZoom();
 }
 
 function renderScatter(report) {

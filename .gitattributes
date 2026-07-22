@@ -1,0 +1,7 @@
+# Raw per-run JSONL caches (translations/judgments) grow unbounded run over
+# run and routinely exceed GitHub's 50MB recommended file size — LFS keeps
+# them out of the main git object store.
+# docs/results/*.json is deliberately EXCLUDED: GitHub Pages serves it
+# directly to the dashboard's fetch() calls, and Pages does not resolve LFS
+# pointers, so putting it in LFS would break the live site.
+results/**/*.jsonl filter=lfs diff=lfs merge=lfs -text

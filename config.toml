@@ -110,6 +110,21 @@ model_id = "us.amazon.nova-lite-v1:0"
 price_in = 0.06
 price_out = 0.24
 
+# ── Amazon Translate — a managed, non-LLM MT baseline (bench.run.call_translate).
+# Confirmed live: supports all 15 target languages here (`aws translate
+# list-languages`) and 10,000-byte synchronous input cap comfortably covers
+# this dataset's longest source segment (~5KB, a synthetic financial doc).
+# Priced per INPUT character, not per token — $0.000015/char verified live via
+# `aws pricing get-products --service-code translate` for us-west-2's
+# TranslateText usage type. model_id is nominal (there's no selectable model),
+# kept only so manifest.json/report.py's schema doesn't need a special case.
+[[models]]
+name = "amazon-translate"
+api = "translate"
+model_id = "aws.translate.text"
+translate_region = "us-west-2"
+price_per_char = 0.000015
+
 # ── OpenAI models, accessed via Bedrock's bedrock-mantle endpoint (api =
 # "bedrock_mantle") — SigV4-authenticated with the caller's own AWS
 # credentials, no OPENAI_API_KEY needed (see bench.run.call_mantle). Pricing

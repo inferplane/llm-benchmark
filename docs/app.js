@@ -32,8 +32,8 @@ const LANG_ORDER = ["en", "ja", "zh", "es", "fr", "de", "pt", "ru", "it", "vi", 
 // gpt-5.x — bedrock_mantle is a Bedrock API surface (the /openai/v1/responses
 // path), not an OpenAI-specific one. "Bedrock Runtime" vs "Bedrock Mantle"
 // names the two Bedrock-hosted APIs themselves instead of implying a vendor.
-const PROVIDER_LABEL = { bedrock: "Bedrock Runtime", openai: "OpenAI", vllm: "vLLM (self-hosted)", bedrock_mantle: "Bedrock Mantle" };
-const PROVIDER_VAR = { bedrock: "--bedrock", openai: "--openai", vllm: "--vllm", bedrock_mantle: "--bedrock-mantle" };
+const PROVIDER_LABEL = { bedrock: "Bedrock Runtime", openai: "OpenAI", vllm: "vLLM (self-hosted)", bedrock_mantle: "Bedrock Mantle", translate: "Amazon Translate" };
+const PROVIDER_VAR = { bedrock: "--bedrock", openai: "--openai", vllm: "--vllm", bedrock_mantle: "--bedrock-mantle", translate: "--translate" };
 const TRACK_LABEL = { all: "전체 (FLORES+합성, 평균)", flores: "FLORES (일반 문장)", synthetic: "합성 금융문서" };
 const AXIS_LABEL = { adequacy: "정확성", terminology: "용어", numbers_entities_dates: "숫자·개체·날짜", fluency: "유창성", format: "형식" };
 
@@ -415,6 +415,10 @@ function runConfigLines(rc) {
     if (rc.quantization) lines.push(`양자화: ${rc.quantization}`);
     if (rc.extra_vllm_args?.length) lines.push(`vLLM 옵션: ${rc.extra_vllm_args.join(" ")}`);
     lines.push(`GPU 시간당 비용: ${fmtUsd(rc.gpu_hourly_usd)}`);
+  } else if (rc.price_per_char_usd != null) {
+    // Amazon Translate: no tokens, no concurrency knob worth surfacing here —
+    // just the per-character rate that actually drives its cost.
+    lines.push(`단가: $${rc.price_per_char_usd.toFixed(6)}/문자 (입력 기준)`);
   } else {
     lines.push(`동시성: ${rc.concurrency}`);
     if (rc.price_in_usd_per_mtok != null) lines.push(`단가: ${fmtUsd(rc.price_in_usd_per_mtok)}/1M in · ${fmtUsd(rc.price_out_usd_per_mtok)}/1M out`);

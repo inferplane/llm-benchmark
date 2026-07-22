@@ -93,6 +93,16 @@ def compute_cost(model_cfg: dict, tokens_in: int, tokens_out: int, throughput_to
             return 0.0, None
         usd_per_mtok_out = model_cfg["gpu_hourly_usd"] / (throughput_tok_s * 3600) * 1e6
         return round(usd_per_mtok_out * tokens_out / 1e6, 4), round(usd_per_mtok_out, 4)
+    if model_cfg.get("price_per_char") is not None:
+        # Amazon Translate (api="translate") bills per INPUT character, not
+        # per token in/out — verified live against aws.amazon.com/translate/pricing.
+        # bench.run.call_translate stores char counts under tokens_in/tokens_out
+        # so this model flows through the same ResultCache/report.py join as every
+        # LLM candidate, but cost here reads only tokens_in (=src chars); there is
+        # no separate "output" price to apply to tokens_out.
+        cost_total = tokens_in * model_cfg["price_per_char"]
+        usd_per_mtok_out = cost_total / (tokens_out / 1e6) if tokens_out else None
+        return round(cost_total, 4), (round(usd_per_mtok_out, 4) if usd_per_mtok_out is not None else None)
     price_in = model_cfg.get("price_in", 0)
     price_out = model_cfg.get("price_out", 0)
     cost_total = tokens_in / 1e6 * price_in + tokens_out / 1e6 * price_out
@@ -238,6 +248,12 @@ def run_config_of(model_cfg: dict, default_concurrency: int) -> dict:
             "extra_vllm_args": model_cfg.get("extra_vllm_args"),  # e.g. --enforce-eager, --quantization=fp8 — affects throughput comparability
             "warmup_excluded": False,  # throughput includes any cold-start; not yet measured separately
         })
+    elif model_cfg.get("price_per_char") is not None:
+        # Amazon Translate has no token-based pricing to report — a per-char
+        # rate instead, so it gets its own branch rather than being squeezed
+        # into price_in_usd_per_mtok/price_out_usd_per_mtok (which would be
+        # None/None and read as "unpriced" in the dashboard).
+        cfg["price_per_char_usd"] = model_cfg["price_per_char"]
     else:
         cfg.update({"price_in_usd_per_mtok": model_cfg.get("price_in"), "price_out_usd_per_mtok": model_cfg.get("price_out")})
         if model_cfg.get("mantle_reasoning_effort") is not None:
@@ -423,6 +439,14 @@ def _selfcheck():
     # 1000 tok/s -> 1M tokens takes 1000s -> $1000 spent producing 1M output tokens
     assert per_mtok == 1000.0, f"expected 1000.0, got {per_mtok}"
     assert cost == 1000.0, f"expected 1000.0, got {cost}"
+
+    # Amazon Translate: billed per INPUT character (tokens_in here IS char
+    # count, see bench.run.call_translate) — tokens_out must NOT be priced,
+    # unlike every LLM branch above.
+    translate_model = {"api": "translate", "price_per_char": 0.000015}
+    cost, per_mtok = compute_cost(translate_model, tokens_in=1000, tokens_out=1200, throughput_tok_s=None)
+    assert cost == 0.015, f"expected 0.015, got {cost}"
+    assert per_mtok == round(0.015 / (1200 / 1e6), 4), per_mtok
 
     assert percentile([1, 2, 3, 4, 5], 0.5) == 3
     assert percentile([], 0.5) is None

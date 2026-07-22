@@ -198,6 +198,30 @@ async def call_openai(client, model_id: str, prompt: str, chat_template_kwargs: 
     return {"text": text, "tokens_in": usage.prompt_tokens, "tokens_out": usage.completion_tokens}
 
 
+async def call_translate(client, src_lang: str, tgt_lang: str, src_text: str) -> dict:
+    """Amazon Translate's TranslateText — a managed, non-LLM MT baseline. No
+    prompt/temperature/tokens: it's billed per INPUT character (not tokens),
+    verified live against aws.amazon.com/translate/pricing and
+    docs.aws.amazon.com/translate/latest/dg/what-is-limits.html (10,000-byte
+    synchronous input cap — well above this dataset's longest source segment,
+    ~5KB). Returns char counts under the tokens_in/tokens_out keys so it flows
+    through the same ResultCache/report.py cost path as every LLM candidate;
+    bench/report.py's compute_cost reads price_per_char instead of
+    price_in/price_out for this api type and ignores tokens_out for pricing
+    (there IS no separate "output" price), but still stores it for parity
+    with the other rows' schema and any token-count-based diagnostics.
+    boto3 has no async client, so the synchronous call is offloaded via
+    asyncio.to_thread — same pattern as call_bedrock."""
+    def _invoke():
+        return client.translate_text(
+            Text=src_text, SourceLanguageCode=src_lang, TargetLanguageCode=tgt_lang,
+        )
+
+    resp = await asyncio.to_thread(_invoke)
+    text = resp["TranslatedText"]
+    return {"text": text, "tokens_in": len(src_text), "tokens_out": len(text)}
+
+
 def mantle_url(region: str) -> str:
     # NOT the plain /v1/responses path other Bedrock-hosted models use — every
     # OpenAI proprietary model (gpt-5.4/5.5/5.6-*) on bedrock-mantle requires
@@ -256,6 +280,9 @@ def make_client(model_cfg: dict, aws_region: str):
     elif model_cfg["api"] == "bedrock_mantle":
         import boto3
         return boto3.Session()
+    elif model_cfg["api"] == "translate":
+        import boto3
+        return boto3.client("translate", region_name=model_cfg.get("translate_region", aws_region))
     else:
         from openai import AsyncOpenAI
         import os
@@ -282,7 +309,9 @@ async def run_model(model_cfg: dict, segments: list[dict], cache: ResultCache, a
 
     async def one(seg: dict):
         async with sem:
-            prompt = build_prompt(seg)
+            # translate skips build_prompt entirely — TranslateText takes the raw
+            # source text directly, not an LLM instruction-following prompt.
+            prompt = None if model_cfg["api"] == "translate" else build_prompt(seg)
             t0 = time.monotonic()
             try:
                 if model_cfg["api"] == "bedrock":
@@ -295,6 +324,8 @@ async def run_model(model_cfg: dict, segments: list[dict], cache: ResultCache, a
                         client, model_cfg.get("mantle_region", "us-east-1"), model_cfg["model_id"], prompt,
                         reasoning_effort=model_cfg.get("mantle_reasoning_effort"),
                     )
+                elif model_cfg["api"] == "translate":
+                    result = await call_translate(client, seg["src_lang"], seg["tgt_lang"], seg["src_text"])
                 else:
                     result = await call_openai(client, model_cfg["model_id"], prompt, model_cfg.get("chat_template_kwargs"))
                 error = None
@@ -390,6 +421,8 @@ def write_manifest(run_id, cfg, scenario, models, segments, started_at, finished
                 "mantle_region": m.get("mantle_region"),
                 "mantle_reasoning_effort": m.get("mantle_reasoning_effort"),
                 "bedrock_reasoning_effort": m.get("bedrock_reasoning_effort"),
+                "translate_region": m.get("translate_region"),
+                "price_per_char": m.get("price_per_char"),
                 # some OpenAI reasoning-tier models on bedrock-mantle, and
                 # claude-sonnet-5 on plain Bedrock, reject `temperature`
                 # outright — see MANTLE_NO_TEMPERATURE/BEDROCK_NO_TEMPERATURE.

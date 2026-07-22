@@ -718,6 +718,11 @@ function renderHistory(reports) {
 
 // ── sample inspector: per-segment, per-model translation comparison ─────────
 
+// Landing sample for the inspector — a short, single-sentence FLORES
+// segment (en→ko) rather than whichever id happens to sort first
+// alphabetically, so the panel opens on something quick to read at a glance.
+const DEFAULT_SAMPLE_ID = "flores-101-en-ko";
+
 function renderSamples(report) {
   const select = document.getElementById("sample-select");
   const note = document.getElementById("samples-per-pair-note");
@@ -749,7 +754,9 @@ function renderSamples(report) {
     })
     .join("");
 
-  renderSampleDetail(report, select.value || samples[0].id);
+  const defaultId = samples.some((s) => s.id === DEFAULT_SAMPLE_ID) ? DEFAULT_SAMPLE_ID : samples[0].id;
+  select.value = defaultId;
+  renderSampleDetail(report, defaultId);
 }
 
 function truncate(text, n) {

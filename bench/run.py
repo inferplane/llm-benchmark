@@ -43,7 +43,9 @@ MANTLE_NO_TEMPERATURE = {"openai.gpt-5.6-sol", "openai.gpt-5.6-terra", "openai.g
 # but write_manifest's temperature_omitted check covers both sets.
 # claude-fable-5 (used as the second judge, see config.toml's
 # scenario.translation.judges) rejects it too, same "deprecated" error.
-BEDROCK_NO_TEMPERATURE = {"us.anthropic.claude-sonnet-5", "us.anthropic.claude-fable-5"}
+# claude-opus-4-8 (fable-5's content-filter fallback judge, same config
+# section) also rejects it, same error.
+BEDROCK_NO_TEMPERATURE = {"us.anthropic.claude-sonnet-5", "us.anthropic.claude-fable-5", "us.anthropic.claude-opus-4-8"}
 
 # claude-sonnet-5 defaults to extended thinking; on long synthetic financial
 # documents it can burn the entire MAX_OUTPUT_TOKENS budget on reasoningContent
@@ -142,6 +144,18 @@ def build_prompt(seg: dict) -> str:
     )
 
 
+class ContentFilteredError(Exception):
+    """Bedrock Converse returned stopReason == "content_filtered" (an empty
+    content list — a real safety-system block, not a text/parsing failure).
+    Verified live on claude-fable-5 as deterministic: the identical prompt
+    hit the same verdict on 3/3 repeat calls, on FLORES sentences with no
+    apparent sensitive content (e.g. tuberculosis statistics, Casablanca's
+    naming history) — so callers must NOT treat this as a retriable error the
+    way a timeout/500 is; blind retries never recover it. Distinguished from
+    a plain crash so bench/judge.py's dual-judge scoring can let this judge
+    abstain on the segment instead of failing the whole judgment."""
+
+
 async def call_bedrock(client, model_id: str, prompt: str, reasoning_effort: str | None = None) -> dict:
     # temperature=0 + a shared max-token cap so Bedrock isn't compared against
     # OpenAI/vLLM under different decoding conditions (Bedrock defaults to each
@@ -173,6 +187,8 @@ async def call_bedrock(client, model_id: str, prompt: str, reasoning_effort: str
         )
 
     resp = await asyncio.to_thread(_invoke)
+    if resp.get("stopReason") == "content_filtered":
+        raise ContentFilteredError(f"content filtered by Bedrock safety system for model {model_id}")
     # Not content[0]: reasoning models put a reasoningContent block before the
     # text block, so pick the first block that actually carries text.
     text = next(b["text"] for b in resp["output"]["message"]["content"] if "text" in b)

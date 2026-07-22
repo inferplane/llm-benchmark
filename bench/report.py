@@ -110,6 +110,23 @@ def compute_cost(model_cfg: dict, tokens_in: int, tokens_out: int, throughput_to
     return round(cost_total, 4), (round(usd_per_mtok_out, 4) if usd_per_mtok_out is not None else None)
 
 
+def expand_judges_with_fallbacks(judges_cfg: list[dict]) -> list[dict]:
+    """A judge's fallback (see config.toml's fallback_model_id — currently
+    only fable-5's content-filter fallback to opus-4.8) is a genuinely
+    different model at a different price, so it needs its own entry in the
+    list compute_judge_cost prices over — otherwise its `{fallback_name}_
+    tokens_in/out` fields (written by bench/judge.py's
+    call_judge_with_fallback) would go completely unpriced and uncounted."""
+    expanded = list(judges_cfg)
+    for j in judges_cfg:
+        if j.get("fallback_name"):
+            expanded.append({
+                "name": j["fallback_name"], "model_id": j["fallback_model_id"],
+                "price_in": j.get("fallback_price_in"), "price_out": j.get("fallback_price_out"),
+            })
+    return expanded
+
+
 def compute_judge_cost(judgments: list[dict], judges_cfg: list[dict]) -> dict:
     """Judge cost is a run-level spend independent of how many candidate
     models exist — not part of any candidate's own cost_per_segment_usd,
@@ -410,7 +427,7 @@ def build_report(run_id: str, scenario_cfg: dict, models_cfg: list[dict], datase
             "tracks": {t: sum(1 for id_, dt in doc_type_by_id.items() if track_of(dt) == t) for t in ("flores", "synthetic")},
         },
         "manifest": manifest,
-        "judge_cost": compute_judge_cost(judgments, scenario_cfg["judges"]),
+        "judge_cost": compute_judge_cost(judgments, expand_judges_with_fallbacks(scenario_cfg["judges"])),
         "models": models_out,
         "samples": build_samples(joined, segments),
     }
@@ -512,6 +529,20 @@ def _selfcheck():
     assert by_name["judge-b"]["judged_segments"] == 2, jc  # both rows
     assert by_name["judge-b"]["cost_usd"] == 10.0, jc  # 4M in @ $2 + 200k out @ $10 = 8.0 + 2.0
     assert jc["cost_usd_total"] == 13.5, jc  # 3.5 + 10.0
+
+    # expand_judges_with_fallbacks must add the fallback as its OWN priced
+    # entry (a different model at a different rate — see config.toml's
+    # fallback_model_id) — a judge with no fallback configured must pass
+    # through unchanged.
+    judges_with_fb = [
+        {"name": "sol", "model_id": "m-sol", "price_in": 5.0, "price_out": 30.0},
+        {"name": "fable-5", "model_id": "m-fable", "price_in": 10.0, "price_out": 50.0,
+         "fallback_name": "fable-5-fallback", "fallback_model_id": "m-opus", "fallback_price_in": 5.0, "fallback_price_out": 25.0},
+    ]
+    expanded = expand_judges_with_fallbacks(judges_with_fb)
+    assert [j["name"] for j in expanded] == ["sol", "fable-5", "fable-5-fallback"], expanded
+    fb_entry = expanded[-1]
+    assert fb_entry["model_id"] == "m-opus" and fb_entry["price_in"] == 5.0 and fb_entry["price_out"] == 25.0, fb_entry
     unpriced_judges = [{"name": "judge-a", "model_id": "m-a", "price_in": None, "price_out": None}]
     assert compute_judge_cost(judgments_jc, unpriced_judges)["cost_usd_total"] is None
 

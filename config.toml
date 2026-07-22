@@ -33,9 +33,10 @@ synthetic_per_pair = 10
 # both are deliberately excluded from the candidate list (avoids a judge
 # scoring its own tier). sol price verified against
 # developers.openai.com/api/docs/pricing on 2026-07-17. fable-5 price
-# confirmed live against aws.amazon.com/bedrock/pricing on 2026-07-21 —
-# $10/$50 per 1M in/out, exactly 2x Claude Opus 4.8's $6/$30 (Bedrock rate,
-# not GovCloud) at this Mythos-tier model.
+# confirmed live against aws.amazon.com/bedrock/pricing (standard commercial
+# region, us-west-2/us-east-*, NOT the GovCloud table) on 2026-07-21 —
+# $10/$50 per 1M in/out, exactly 2x Claude Opus 4.8's own standard-region
+# price of $5/$25 (also confirmed live same day) at this Mythos-tier model.
 [[scenario.translation.judges]]
 name = "sol"
 api = "bedrock_mantle"
@@ -44,12 +45,29 @@ mantle_region = "us-east-1"
 price_in = 5.00
 price_out = 30.00
 
+# fable-5 has a "strong safeguards" content-safety classifier (per AWS's
+# GA announcement) that deterministically content_filters ~4.5% of FLORES
+# general-domain sentences with no apparent sensitive content (verified
+# live: identical prompt hit the same content_filtered verdict on 3/3
+# repeat calls — e.g. tuberculosis statistics, Casablanca's naming history;
+# zero such blocks on the synthetic financial-document track). Retrying
+# never recovers these, so bench/judge.py substitutes the fallback judge
+# below (a full second opinion, not a silent single-judge downgrade) only
+# for the specific segments fable-5 itself refuses — see judge_one's
+# call_judge_with_fallback. fallback_name becomes that segment's per-judge
+# key in judgments.jsonl (e.g. "fable-5-fallback_overall"), and
+# bench/report.py's build_report expands this into its own compute_judge_cost
+# entry so its tokens are billed at opus-4.8's rate, not fable-5's.
 [[scenario.translation.judges]]
 name = "fable-5"
 api = "bedrock"
 model_id = "us.anthropic.claude-fable-5"
 price_in = 10.00
 price_out = 50.00
+fallback_name = "fable-5-fallback"
+fallback_model_id = "us.anthropic.claude-opus-4-8"
+fallback_price_in = 5.00
+fallback_price_out = 25.00
 
 # FLORES-200(flores_plus) language codes, indexed by the ISO code above
 [scenario.translation.flores_codes]

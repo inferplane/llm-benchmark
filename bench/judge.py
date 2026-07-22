@@ -21,7 +21,7 @@ from pathlib import Path
 
 import sacrebleu
 
-from bench.run import LANG_NAMES, load_dataset, ResultCache, DATA_DIR, dedupe_latest, call_mantle, call_bedrock
+from bench.run import LANG_NAMES, load_dataset, ResultCache, DATA_DIR, dedupe_latest, call_mantle, call_bedrock, ContentFilteredError
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "config.toml"
@@ -80,23 +80,56 @@ async def call_judge(clients: dict, judge_cfg: dict, prompt: str) -> dict:
         return await call_bedrock(clients["bedrock_client"], judge_cfg["model_id"], prompt)
 
 
+async def call_judge_with_fallback(clients: dict, judge_cfg: dict, prompt: str) -> tuple[str, dict]:
+    """Returns (name_actually_used, result). On a ContentFilteredError from
+    the primary judge, substitutes its configured fallback model (see
+    config.toml's fallback_model_id — currently only fable-5 has one) so the
+    segment still gets a genuine second opinion instead of quietly dropping
+    to single-judge. If the fallback ALSO raises (including a second
+    ContentFilteredError — not specially handled, since a double-filter is
+    rare enough that falling through to the normal retriable-failure path is
+    fine), that exception propagates up like any other judge failure."""
+    try:
+        result = await call_judge(clients, judge_cfg, prompt)
+        return judge_cfg["name"], result
+    except ContentFilteredError:
+        fallback_id = judge_cfg.get("fallback_model_id")
+        if not fallback_id:
+            raise
+        result = await call_judge(clients, {"api": "bedrock", "model_id": fallback_id}, prompt)
+        return judge_cfg["fallback_name"], result
+
+
 async def judge_one(clients: dict, judges_cfg: list[dict], seg: dict, candidate: str) -> dict:
     prompt = build_rubric_prompt(seg, candidate)
-    # Both judges are called concurrently and must BOTH succeed — averaging a
-    # real score with a missing one would silently reintroduce the exact
-    # single-judge bias this dual-judge setup exists to remove. gather without
-    # return_exceptions lets the first failure raise immediately, same
-    # all-or-nothing contract as a single judge_one call failing.
-    results = await asyncio.gather(*(call_judge(clients, j, prompt) for j in judges_cfg))
+    # Any exception (timeout, 500, malformed JSON — anything call_judge_with_
+    # fallback doesn't itself resolve) fails the WHOLE judgment, same
+    # all-or-nothing contract as before content-filter fallback existed —
+    # those failures are transient and must keep getting retried by
+    # bench.judge's normal rerun-on-cache-miss mechanism, not silently
+    # downgraded.
+    outcomes = await asyncio.gather(
+        *(call_judge_with_fallback(clients, j, prompt) for j in judges_cfg), return_exceptions=True,
+    )
 
     per_judge = {}
-    for j, result in zip(judges_cfg, results):
+    for outcome in outcomes:
+        if isinstance(outcome, BaseException):
+            raise outcome
+        name, result = outcome
         scores = parse_scores(result["text"])
         scores["overall"] = round(sum(scores.values()) / len(scores), 3)
-        per_judge[j["name"]] = {**scores, "tokens_in": result["tokens_in"], "tokens_out": result["tokens_out"]}
+        per_judge[name] = {**scores, "tokens_in": result["tokens_in"], "tokens_out": result["tokens_out"]}
 
-    averaged = {a: round(sum(per_judge[j["name"]][a] for j in judges_cfg) / len(judges_cfg), 3) for a in AXES}
+    contributing_names = list(per_judge.keys())
+    averaged = {a: round(sum(per_judge[n][a] for n in contributing_names) / len(contributing_names), 3) for a in AXES}
     averaged["overall"] = round(sum(averaged.values()) / len(averaged), 3)
+    # Recorded so a report can be honest about which judge actually scored
+    # this segment (same "don't silently blend" rationale as
+    # temperature_omitted/mantle_reasoning_effort elsewhere in this
+    # codebase) — almost every segment is judges_used == ["sol", "fable-5"];
+    # only fable-5's content-filter cases show "fable-5-fallback" instead.
+    averaged["judges_used"] = contributing_names
 
     # chrF against an LLM-generated reference measures "similarity to that LLM's
     # style," not translation quality — same contamination as the ref_block above.
@@ -170,10 +203,10 @@ async def main_async(args):
                 # failed pair (e.g. sol succeeded, fable-5 timed out) never
                 # leaves stray per-judge fields for report.py to average
                 # against a missing counterpart.
-                scores = {a: None for a in AXES} | {"overall": None, "chrf": None}
-                for j in judges_cfg:
-                    scores |= {f"{j['name']}_{a}": None for a in AXES}
-                    scores |= {f"{j['name']}_overall": None, f"{j['name']}_tokens_in": None, f"{j['name']}_tokens_out": None}
+                scores = {a: None for a in AXES} | {"overall": None, "chrf": None, "judges_used": None}
+                for name in [n for j in judges_cfg for n in (j["name"], j.get("fallback_name")) if n]:
+                    scores |= {f"{name}_{a}": None for a in AXES}
+                    scores |= {f"{name}_overall": None, f"{name}_tokens_in": None, f"{name}_tokens_out": None}
                 error = str(e)
             await cache.append({"model": t["model"], "id": t["id"], **scores, "error": error})
 

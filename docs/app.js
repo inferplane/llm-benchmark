@@ -45,6 +45,7 @@ const AXIS_LABEL = { adequacy: "정확성", terminology: "용어", numbers_entit
 const state = {
   runs: [], reports: [], current: null, direction: "from-ko", track: "synthetic", charts: {},
   langFilter: { minMajor: 0, minOther: 0, sortBy: "gap" },
+  zoomMode: {}, // per-chartKey: "zoom" (drag = box-zoom) | "pan" (drag = move)
 };
 
 function cssVar(name) {
@@ -268,10 +269,18 @@ function renderScatterChart(report, { canvasId, legendId, chartKey, filterFn, em
   const points = rawPoints.map((p) => ({ ...p, r: speedToRadius(allLatencies, p.latencyP50) }));
 
   const providers = [...new Set(points.map((p) => p.provider))];
+  // Explicit buttons, not a modifier-key convention (shift+drag, dblclick) —
+  // those turned out to not be discoverable in practice. A mode toggle
+  // switches what plain drag does (zoom vs. pan) so there's never an
+  // ambiguous "which gesture does what" question, and reset is always one
+  // visible click away regardless of how the chart got zoomed.
+  if (!(chartKey in state.zoomMode)) state.zoomMode[chartKey] = "zoom";
   legend.innerHTML =
     providers.map((p) => `<span><span class="dot" style="background:${cssVar(PROVIDER_VAR[p] || "--ink-2")}"></span>${PROVIDER_LABEL[p] || p}</span>`).join("") +
     `<span><span class="dot" style="background:${cssVar("--gold")}"></span>가성비 프론티어</span>` +
-    `<span class="legend-note">원 크기 = 속도 (클수록 빠름) · 드래그로 확대, 더블클릭으로 원래대로</span>`;
+    `<span class="legend-note">원 크기 = 속도 (클수록 빠름)</span>` +
+    `<button type="button" class="theme-toggle zoom-mode-btn" data-chart="${chartKey}"></button>` +
+    `<button type="button" class="theme-toggle" data-reset="${chartKey}">↺ 초기화</button>`;
 
   const datasets = providers.map((p) => ({
     label: PROVIDER_LABEL[p] || p,
@@ -332,25 +341,37 @@ function renderScatterChart(report, { canvasId, legendId, chartKey, filterFn, em
             },
           },
         },
-        // Drag-to-zoom on both axes (chartjs-plugin-zoom, loaded in
-        // index.html) — this chart's whole point is comparing a cheap
-        // cluster against a few expensive outliers, so a reader needs to be
-        // able to zoom into the cluster themselves rather than only relying
-        // on the pre-built "확대판" chart below, which only zooms the x-axis
-        // to one fixed threshold.
+        // chartjs-plugin-zoom (loaded in index.html). Plain drag does ONE of
+        // zoom-box or pan at a time, switched by the mode-toggle button
+        // below — not by a modifier key, so it always does what the visible
+        // button label says.
         zoom: {
-          zoom: { drag: { enabled: true, backgroundColor: "rgba(199,154,70,0.15)", borderColor: cssVar("--gold"), borderWidth: 1 }, mode: "xy" },
-          pan: { enabled: true, mode: "xy", modifierKey: "shift" },
+          zoom: { drag: { enabled: state.zoomMode[chartKey] === "zoom", backgroundColor: "rgba(199,154,70,0.15)", borderColor: cssVar("--gold"), borderWidth: 1 }, mode: "xy" },
+          pan: { enabled: state.zoomMode[chartKey] === "pan", mode: "xy" },
         },
       },
     },
   });
 
-  // Zoom-drag leaves the chart zoomed until explicitly reset — double-click
-  // is the plugin's own documented convention for "reset to the original
-  // view", so wire it here rather than adding a separate always-visible
-  // reset button for a feature most visitors won't use every time.
-  document.getElementById(canvasId).ondblclick = () => state.charts[chartKey]?.resetZoom();
+  setUpZoomControls(legend, chartKey);
+}
+
+function setUpZoomControls(legend, chartKey) {
+  const modeBtn = legend.querySelector(".zoom-mode-btn");
+  const syncModeLabel = () => {
+    modeBtn.textContent = state.zoomMode[chartKey] === "zoom" ? "🔍 확대 모드" : "✋ 이동 모드";
+  };
+  syncModeLabel();
+  modeBtn.addEventListener("click", () => {
+    state.zoomMode[chartKey] = state.zoomMode[chartKey] === "zoom" ? "pan" : "zoom";
+    syncModeLabel();
+    const chart = state.charts[chartKey];
+    const isZoom = state.zoomMode[chartKey] === "zoom";
+    chart.options.plugins.zoom.zoom.drag.enabled = isZoom;
+    chart.options.plugins.zoom.pan.enabled = !isZoom;
+    chart.update();
+  });
+  legend.querySelector("[data-reset]").addEventListener("click", () => state.charts[chartKey]?.resetZoom());
 }
 
 function renderScatter(report) {

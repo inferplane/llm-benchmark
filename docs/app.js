@@ -918,6 +918,8 @@ async function init() {
     localStorage.setItem("theme", current);
     renderAll();
   });
+  // Default theme is light (set via <html data-theme="light"> in index.html) —
+  // only override it if the visitor has explicitly toggled before.
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme) document.documentElement.dataset.theme = savedTheme;
 

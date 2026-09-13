@@ -212,6 +212,24 @@ price_out = 2.50
 mantle_reasoning_effort = "none"
 enabled = true
 
+# Grok 4.6 added 2026-09-13. Model ID, us-west-2 Mantle availability, and
+# Standard In-Region pricing verified against the AWS model card:
+# https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-xai-grok-4-6.html
+# $2.20/$6.60 per 1M input/output tokens (not Global CRIS's $2/$6).
+# Live SigV4 smoke call accepted temperature=0 and reasoning effort "low".
+# Unlike grok-4.3, the documented choices start at low: reasoning remains on.
+# Keep the shared 4096 output-token cap and record this comparability caveat
+# through the existing mantle_reasoning_effort manifest/report field.
+[[models]]
+name = "grok-4.6"
+api = "bedrock_mantle"
+model_id = "xai.grok-4.6"
+mantle_region = "us-west-2"
+price_in = 2.20
+price_out = 6.60
+mantle_reasoning_effort = "low"
+enabled = true
+
 # ── Bedrock third-party low-cost models: every model on Bedrock with output
 # pricing ≤ $1/1M tok, latest generation only (older/tiny variants — llama-3.2,
 # mistral-7b/mixtral, ministral-3b/8b, gemma-3, nova-2-lite — deliberately

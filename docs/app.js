@@ -44,6 +44,7 @@ const AXIS_LABEL = { adequacy: "정확성", terminology: "용어", numbers_entit
 // that actually matters; "all" is kept as an explicit, clearly-labeled option.
 const state = {
   runs: [], reports: [], current: null, direction: "from-ko", track: "synthetic", charts: {},
+  qualitySort: "pass",
   langFilter: { minMajor: 0, minOther: 0, sortBy: "gap" },
   zoomMode: {}, // per-chartKey: "zoom" (drag = box-zoom) | "pan" (drag = move)
 };
@@ -208,18 +209,15 @@ function speedToRadius(latencies, latency) {
   return BUBBLE_R_MIN + t * (BUBBLE_R_MAX - BUBBLE_R_MIN);
 }
 
-// Excluded from the cost/quality chart only (still shown everywhere else —
-// heatmap, samples, footer methodology): gpt-5.5's cost_per_segment_usd is a
-// severe outlier (3.7x the next-highest model), which on a linear zero-start
-// x-axis compresses every other model into an unreadable cluster near the
-// origin. A log axis would show it fine, but a linear axis was a deliberate
-// choice (see below) — excluding this one point from the plot is the fix,
-// not re-introducing log scale.
+// Retain the original chart's display choice: omit gpt-5.5 to keep the linear
+// x-axis focused on the other API models. It remains in tables and samples.
+// Do not attach a fixed price multiple to this choice: new models and runs
+// change the observed cost range.
 const SCATTER_EXCLUDE_MODELS = new Set(["gpt-5.5"]);
 
 // Shown only in the zoomed-in chart: the low-cost cluster is unreadable in
 // the main chart even after excluding gpt-5.5, since it still spans a wide
-// range ($0-0.0023). This second chart re-scales to just the cheap segment
+// cost range. This second chart re-scales to just the cheap segment
 // so bubble separation within that cluster is actually visible.
 const SCATTER_ZOOM_MAX_COST = 0.0003;
 
@@ -432,10 +430,12 @@ function renderRecommendations(report) {
     .join("");
 
   body.innerHTML = `
+    <div class="table-scroll" tabindex="0" role="region" aria-label="추천 모델 비교 표">
     <table class="sample-compare">
       <thead><tr><th>모델</th><th>Judge 종합 (${TRACK_LABEL[state.track]})</th><th>세그먼트당 비용</th></tr></thead>
       <tbody>${rowsHtml}</tbody>
     </table>
+    </div>
     <p class="panel-note" style="margin-top:12px;">가성비 프론티어에 오른 ${frontier.length}개 모델 — 표의 각 모델보다 낮은 비용에서 더 높은 품질을 내는 모델은 이 런에 없습니다. 신뢰구간이 겹치는 모델 간 순위는 근소한 차이로 단정하지 마세요.</p>`;
 }
 
@@ -447,6 +447,8 @@ function renderRecommendations(report) {
 function runConfigLines(rc) {
   if (!rc) return "—";
   const lines = [];
+  if (rc.mantle_region) lines.push(`Mantle 리전: ${rc.mantle_region}`);
+  if (rc.temperature_omitted) lines.push("temperature: 미전송 (모델 예외)");
   if (rc.gpu_instance_type) {
     lines.push(`GPU: ${rc.gpu_instance_type} (TP=${rc.tensor_parallel_size ?? "?"}, 동시성=${rc.concurrency})`);
     if (rc.quantization) lines.push(`양자화: ${rc.quantization}`);
@@ -540,6 +542,94 @@ function renderModelTable(report) {
   });
 }
 
+// ── quality diagnostics: complete raw judging, selected track only ─────────
+
+function fmtQualityPercent(value) {
+  return Number.isFinite(value) ? `${(value * 100).toFixed(1)}%` : "—";
+}
+
+function fmtQualityCount(value) {
+  return Number.isFinite(value) ? value.toLocaleString("ko-KR") : "—";
+}
+
+function fmtQualityDelta(value) {
+  return Number.isFinite(value) ? `${value > 0 ? "+" : ""}${value.toFixed(3)}` : "—";
+}
+
+function qualityRateCell(quality, rateField, countField) {
+  return `<td class="score-cell">${fmtQualityPercent(quality?.[rateField])}
+    <small class="quality-sub">${fmtQualityCount(quality?.[countField])} / ${fmtQualityCount(quality?.quality_eligible_segments)}건</small></td>`;
+}
+
+function renderQualityDiagnostics(report) {
+  const body = document.getElementById("quality-table-body");
+  const baselineBody = document.getElementById("quality-baseline-body");
+  document.getElementById("quality-track-note").textContent =
+    `품질 트랙: ${TRACK_LABEL[state.track]} · 위 트랙 선택과 연동 · — 제공 안 됨`;
+
+  // Read the fixed report contract. Never derive eligibility from the older
+  // judged_segments count: merged scores can lack one judge's raw axes.
+  const rows = report.models.map((model) => {
+    const quality = state.track === "all" ? model.aggregate : model.by_track?.[state.track];
+    const comparison = quality?.baseline_comparison;
+    return {
+      model, quality,
+      baseline: comparison?.baseline_model === "amazon-translate" ? comparison : null,
+    };
+  });
+  const sortValue = (row) => {
+    if (state.qualitySort === "risk") return row.quality?.high_risk_rate;
+    if (state.qualitySort === "p10") return row.quality?.judge_overall_p10;
+    if (state.qualitySort === "baseline") return row.baseline?.mean_delta;
+    return row.quality?.quality_pass_rate;
+  };
+  rows.sort((a, b) => {
+    const av = sortValue(a), bv = sortValue(b);
+    if (Number.isFinite(av) !== Number.isFinite(bv)) return Number.isFinite(av) ? -1 : 1;
+    const delta = Number.isFinite(av) ? (state.qualitySort === "risk" ? av - bv : bv - av) : 0;
+    return delta || a.model.name.localeCompare(b.model.name);
+  });
+
+  if (!rows.length) {
+    const empty = `<div class="empty-state">모델 데이터가 없습니다.</div>`;
+    body.innerHTML = `<tr><td colspan="7">${empty}</td></tr>`;
+    baselineBody.innerHTML = `<tr><td colspan="5">${empty}</td></tr>`;
+    return;
+  }
+
+  const modelCell = (model) => `<td class="model-cell"><span class="dot" style="background:${cssVar(PROVIDER_VAR[model.provider] || "--ink-2")}"></span>${escapeHtml(model.name)}</td>`;
+  body.innerHTML = rows.map(({ model, quality: q }) => {
+    // Cost comes ONLY from the whole-model field, even while synthetic or
+    // FLORES is selected. Missing cost is unavailable, never recomputed using
+    // a track's pass count or assumed to be free.
+    const cost = model.aggregate?.cost_per_quality_pass_usd;
+    return `<tr>
+      ${modelCell(model)}
+      ${qualityRateCell(q, "quality_pass_rate", "quality_pass_segments")}
+      ${qualityRateCell(q, "high_risk_rate", "high_risk_segments")}
+      <td class="score-cell">${Number.isFinite(q?.judge_overall_p10) ? q.judge_overall_p10.toFixed(2) : "—"}</td>
+      ${qualityRateCell(q, "judge_disagreement_rate", "judge_disagreement_segments")}
+      <td class="score-cell">${fmtQualityCount(q?.quality_eligible_segments)} / ${fmtQualityCount(q?.segments)}
+        <small class="quality-sub">원점수 ${fmtQualityPercent(q?.quality_coverage_rate)} · 채점 ${fmtQualityPercent(q?.judge_coverage_rate)}</small>
+        <small class="quality-sub">번역 성공 ${fmtQualityCount(q?.successful_translations)}건 기준</small></td>
+      <td class="score-cell">${Number.isFinite(cost) ? fmtUsd(cost) : "—"}</td>
+    </tr>`;
+  }).join("");
+
+  baselineBody.innerHTML = rows.map(({ model, baseline: b }) => {
+    const ci = b?.mean_delta_ci95;
+    const ciText = Array.isArray(ci) && ci.length === 2 && ci.every(Number.isFinite)
+      ? `${fmtQualityDelta(ci[0])} ~ ${fmtQualityDelta(ci[1])}` : "—";
+    return `<tr>
+      ${modelCell(model)}
+      <td class="score-cell">${fmtQualityCount(b?.paired_segments)}</td>
+      <td class="score-cell">${fmtQualityPercent(b?.win_rate)} / ${fmtQualityPercent(b?.tie_rate)} / ${fmtQualityPercent(b?.loss_rate)}</td>
+      <td class="score-cell">${fmtQualityDelta(b?.mean_delta)}</td>
+      <td class="score-cell">${ciText}</td>
+    </tr>`;
+  }).join("");
+}
+
 // ── language coverage: major (high-resource) vs other (lower-resource) ──────
 // LANG_GROUP membership lives in bench/report.py (by_lang_group is computed
 // there) — this panel only reads the two pre-aggregated numbers per model,
@@ -587,13 +677,18 @@ function renderLanguageCoverage(report) {
   const costMax = Math.max(...rows.map((r) => r.cost || 0));
 
   const filtered = rows.filter((r) => r.maj >= state.langFilter.minMajor && r.oth >= state.langFilter.minOther);
+  const compareCost = (a, b, descending = false) => {
+    const aKnown = Number.isFinite(a.cost), bKnown = Number.isFinite(b.cost);
+    if (aKnown !== bKnown) return aKnown ? -1 : 1;
+    return aKnown ? (descending ? b.cost - a.cost : a.cost - b.cost) : 0;
+  };
   const SORTERS = {
     gap: (a, b) => a.gap - b.gap,
     gap_desc: (a, b) => b.gap - a.gap,
     major_desc: (a, b) => b.maj - a.maj,
     other_desc: (a, b) => b.oth - a.oth,
-    cost_asc: (a, b) => a.cost - b.cost,
-    cost_desc: (a, b) => b.cost - a.cost,
+    cost_asc: (a, b) => compareCost(a, b),
+    cost_desc: (a, b) => compareCost(a, b, true),
   };
   const displayRows = [...filtered].sort(SORTERS[state.langFilter.sortBy] || SORTERS.gap);
 
@@ -619,12 +714,16 @@ function renderLanguageCoverage(report) {
   // filtered view — it's a finding about the run, not about whatever subset
   // the user currently has filtered into view.
   const sorted = [...rows].sort((a, b) => a.gap - b.gap);
-  const stable = sorted.filter((r) => r.gap <= 0.05).sort((a, b) => a.cost - b.cost);
+  const stable = sorted.filter((r) => r.gap <= 0.05).sort((a, b) => compareCost(a, b));
   const worst = sorted.filter((r) => r.gap >= GAP_WARN).sort((a, b) => b.gap - a.gap);
   const recoEl = document.getElementById("lang-coverage-reco");
   const bits = [];
   if (stable.length) {
-    bits.push(`다국어 커버리지가 필요하면 <strong>${stable.slice(0, 3).map((r) => escapeHtml(r.name)).join(", ")}</strong> 등 격차 0.05점 이하 모델을 우선 검토하세요 (그중 가장 저렴한 건 ${escapeHtml(stable[0].name)}, ${fmtUsd(stable[0].cost)}/segment).`);
+    const cheapest = stable.find((r) => Number.isFinite(r.cost));
+    const costNote = cheapest
+      ? ` (비용이 확인된 모델 중 가장 저렴한 건 ${escapeHtml(cheapest.name)}, ${fmtUsd(cheapest.cost)}/segment)`
+      : " (비용 정보는 제공되지 않습니다)";
+    bits.push(`다국어 커버리지가 필요하면 <strong>${stable.slice(0, 3).map((r) => escapeHtml(r.name)).join(", ")}</strong> 등 격차 0.05점 이하 모델을 우선 검토하세요${costNote}.`);
   }
   if (worst.length) {
     bits.push(`반대로 <strong>${worst.slice(0, 3).map((r) => `${escapeHtml(r.name)}(+${r.gap.toFixed(2)})`).join(", ")}</strong>은 전체/주요 언어 점수는 무난해 보여도 기타 언어에서 크게 떨어지므로, 해당 언어권 문서를 다룬다면 전체 평균만 보고 고르지 마세요.`);
@@ -817,10 +916,10 @@ function renderSampleDetail(report, sampleId) {
   const rowsHtml = rows
     .map((r) => {
       const dot = `<span class="dot" style="background:${cssVar(PROVIDER_VAR[r.provider] || "--ink-2")}"></span>`;
-      if (r.translation_error) {
-        return `<tr><td class="model-cell">${dot}${escapeHtml(r.model)}</td><td class="error-cell" colspan="2">번역 실패: ${escapeHtml(r.translation_error)}</td></tr>`;
+      if (r.translation_error != null) {
+        return `<tr><td class="model-cell">${dot}${escapeHtml(r.model)}</td><td class="error-cell" colspan="2">번역 실패: ${escapeHtml(r.translation_error || "오류 설명이 기록되지 않았습니다.")}</td></tr>`;
       }
-      const score = r.overall != null ? r.overall.toFixed(2) : (r.judge_error ? "judge 실패" : "채점 대기");
+      const score = r.judge_error != null ? "judge 실패" : (r.overall != null ? r.overall.toFixed(2) : "채점 대기");
       const outHtml = r.output_text ? `<div class="md-content">${renderMarkdown(r.output_text)}</div>` : "—";
       return `<tr><td class="model-cell">${dot}${escapeHtml(r.model)}</td><td class="score-cell">${score}</td><td>${outHtml}</td></tr>`;
     })
@@ -832,16 +931,52 @@ function renderSampleDetail(report, sampleId) {
       <dd><div class="md-content">${renderMarkdown(sample.src_text)}</div></dd>
       ${sample.ref_text ? `<dt>참조 번역</dt><dd><div class="md-content">${renderMarkdown(sample.ref_text)}</div></dd>` : ""}
     </dl>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="모델별 번역 샘플 비교 표">
     <table class="sample-compare">
       <thead><tr><th>모델</th><th>Judge 종합</th><th>번역 결과</th></tr></thead>
       <tbody>${rowsHtml}</tbody>
-    </table>`;
+    </table>
+    </div>`;
   wrapMdTables(detail);
 }
 
 // ── chrome: run selector, summary, direction/theme toggles ──────────────────
 
+function renderRunProvenance(report) {
+  const note = document.getElementById("run-provenance");
+  const sources = report.source_runs || [];
+  note.hidden = sources.length < 2;
+  note.textContent = "";
+  if (note.hidden) return;
+
+  const primary = sources.find((source) => source.run_id === report.run_id);
+  const measured = (primary?.manifest?.models || report.manifest?.models || []).map((m) => m.name).filter(Boolean);
+  const label = (name) => name === "grok-4.6" ? "Grok 4.6" : name === "grok-4.3" ? "Grok 4.3" : name;
+  const parts = [
+    "수집일이 다른 관측값을 함께 표시합니다.",
+    measured.length ? `신규 측정: ${measured.map(label).join(", ")}.` : "이번 실행의 신규 측정과 이전 관측값을 함께 비교합니다.",
+    "기존 모델은 이전 실행의 캐시 관측값을 재사용했습니다. 전체 모델을 같은 날짜에 재실행한 결과가 아닙니다.",
+    `포함 실행: ${sources.map((source) => source.run_id).filter(Boolean).join(" · ")}.`,
+  ];
+
+  // Use recorded settings, so this caveat follows the selected report rather
+  // than attributing today's Grok decoding configuration to historical runs.
+  const recorded = sources.flatMap((source) => source.manifest?.models || []);
+  const decoding = ["grok-4.6", "grok-4.3"].flatMap((name) => {
+    const model = report.models.find((m) => m.name === name);
+    if (!model) return [];
+    const config = recorded.find((m) => m.name === name);
+    const effort = model.run_config?.mantle_reasoning_effort ?? config?.mantle_reasoning_effort;
+    const region = model.run_config?.mantle_region ?? config?.mantle_region;
+    if (effort == null) return [];
+    return [`${label(name)}: Mantle${region ? ` ${region}` : ""}, reasoning=${effort}`];
+  });
+  if (decoding.length) parts.push(`생성 조건: ${decoding.join(" / ")}. 모델별 reasoning 차이는 품질·지연 비교 시 함께 확인하세요.`);
+  note.textContent = parts.join(" ");
+}
+
 function renderSummary(report) {
+  renderRunProvenance(report);
   document.getElementById("run-summary").textContent =
     `${report.run_id} · ${report.models.length}개 모델 · ${report.dataset.pairs}개 언어쌍 방향`;
   document.getElementById("meta-dataset").textContent =
@@ -871,6 +1006,7 @@ function renderAll() {
   renderScatterZoom(report);
   renderRecommendations(report);
   renderModelTable(report);
+  renderQualityDiagnostics(report);
   renderLanguageCoverage(report);
   renderHeatmapSafe(report);
   renderSamples(report);
@@ -896,6 +1032,7 @@ async function init() {
     document.querySelectorAll(`#hero-panel .chart-wrap, #heatmap-panel .heatmap-scroll`).forEach((el) => { el.innerHTML = emptyRunHtml; });
     document.getElementById("recommendations-body").innerHTML = emptyRunHtml;
     document.getElementById("model-table-body").innerHTML = `<tr><td colspan="6">${emptyRunHtml}</td></tr>`;
+    renderQualityDiagnostics({ models: [] });
     document.getElementById("lang-coverage-body").innerHTML = `<tr><td colspan="5">${emptyRunHtml}</td></tr>`;
     document.getElementById("lang-coverage-summary").textContent = "";
     document.getElementById("lang-coverage-reco").innerHTML = "";
@@ -931,7 +1068,13 @@ async function init() {
       renderScatterZoom(state.current);
       renderRecommendations(state.current);
       renderModelTable(state.current); // score column AND sort order are both track-aware
+      renderQualityDiagnostics(state.current);
     });
+  });
+
+  document.getElementById("quality-sort").addEventListener("change", (e) => {
+    state.qualitySort = e.target.value;
+    renderQualityDiagnostics(state.current);
   });
 
   document.getElementById("lang-filter-major").addEventListener("change", (e) => {

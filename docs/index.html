@@ -232,7 +232,7 @@
 
   #samples-toggle { margin-bottom: 14px; }
   .samples-controls { margin-bottom: 16px; }
-  .samples-controls select { min-width: 320px; }
+  .samples-controls select { min-width: min(320px, 100%); max-width: 100%; }
   .sample-source {
     background: var(--surface-2);
     border: 1px solid var(--border);
@@ -319,6 +319,25 @@
     padding: 2px 6px; margin: 3px 4px 0 0; background: var(--surface);
   }
 
+  .quality-scroll, .table-scroll { overflow-x: auto; }
+  .quality-scroll:focus-visible, .table-scroll:focus-visible, .quality-details summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  table.quality-table th, table.quality-table td { vertical-align: top; }
+  table.quality-table thead th { white-space: nowrap; color: var(--ink-2); }
+  #quality-panel .panel-note, #quality-panel .methodology-link { color: var(--ink-2); }
+  .quality-sub { display: block; margin-top: 3px; color: var(--ink-2); font-size: 12px; font-weight: 400; }
+  .quality-details { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 12px; }
+  .quality-details summary { color: var(--ink-2); font-size: 13px; cursor: pointer; }
+  .quality-details[open] summary { margin-bottom: 12px; }
+  .quality-definitions { margin: 0; font-size: 12.5px; color: var(--ink-2); }
+  .quality-definitions dt { margin-top: 10px; font-weight: 600; color: var(--ink); }
+  .quality-definitions dd { margin: 2px 0 0; }
+  .run-provenance {
+    margin: 22px 0 0; padding: 12px 16px;
+    border-left: 3px solid var(--gold); border-radius: 4px;
+    background: var(--gold-soft); color: var(--ink-2);
+    font-size: 12.5px; line-height: 1.7; overflow-wrap: anywhere;
+  }
+
   .empty-state {
     text-align: center;
     padding: 46px 20px;
@@ -369,6 +388,8 @@
 
 <main>
 
+  <aside id="run-provenance" class="run-provenance" aria-label="수집 시점과 생성 조건" hidden></aside>
+
   <section class="panel" id="interpretation-panel" hidden>
     <div class="panel-head">
       <h2>해석</h2>
@@ -385,10 +406,10 @@
     </div>
     <p class="panel-note">
       x축은 <strong>세그먼트당 비용</strong>(GPU 모델은 실측 처리량 기준 환산) — 모든 모델이 동일한 세그먼트 집합을 번역하므로 출력 토큰 수가 아니라 실제 문서 1건당 비용으로 비교합니다(출력이 긴 모델이 $/1M 토큰 기준으로 저렴해 보이는 왜곡을 피함).
-      y축은 아래에서 고른 트랙의 LLM-judge 종합 점수(1–5, FLORES의 인간 참조 번역과 합성 데이터의 LLM 생성 참조는 judge에 노출하지 않아 참조 오염을 배제).
+      y축은 아래에서 고른 트랙의 LLM-judge 종합 점수(1–5)입니다. FLORES의 인간 참조 번역은 judge에 제공하고, 합성 데이터의 LLM 생성 참조는 제공하지 않습니다.
       원 크기는 <strong>속도</strong>(p50 지연시간의 역수) — 클수록 빠릅니다.
       금색 실선으로 이어진 점은 <strong>가성비 프론티어</strong> — 해당 비용 이하에서 더 높은 품질을 내는 모델이 없는 지점입니다.
-      <em>gpt-5.5는 세그먼트당 비용이 다른 모델보다 3.7배 이상 높아 이 차트에서만 제외했습니다(다른 모든 표·샘플에는 포함) — 언어쌍 히트맵, 런 히스토리, 원본 데이터(<code class="mono">docs/results/</code>)에서 확인 가능합니다.</em>
+      <em>축의 가독성을 위해 gpt-5.5는 이 차트에서만 제외했습니다. 전체 비교표·샘플·언어쌍 히트맵·런 히스토리에는 포함되어 있습니다.</em>
     </p>
     <div class="toggle-group" id="track-toggle" style="margin-bottom:14px;">
       <button data-track="synthetic" class="active">합성 금융문서</button>
@@ -422,12 +443,98 @@
       <span class="eyebrow">Per-Model Detail</span>
     </div>
     <p class="panel-note">Judge 종합(위 트랙 선택 기준) 높은 순. 행을 클릭하면 트랙별 품질, judge 세부 축, 실행 설정(run_config — vLLM GPU/TP/동시성 또는 API 단가)이 펼쳐집니다.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="모델 상세 비교 표">
     <table class="model-table">
       <thead>
         <tr><th>모델</th><th>비용/세그먼트</th><th id="model-table-score-head">Judge 종합</th><th>지연 p50 / p95</th><th>처리량</th><th>상태</th></tr>
       </thead>
       <tbody id="model-table-body"></tbody>
     </table>
+    </div>
+  </section>
+
+  <section class="panel" id="quality-panel">
+    <div class="panel-head">
+      <h2>번역 품질 진단</h2>
+      <span class="eyebrow">Quality Diagnostics</span>
+    </div>
+    <p class="panel-note" id="quality-track-note" aria-live="polite"></p>
+    <p class="panel-note"><a class="methodology-link" href="benchmark-methodology.md">평가 기준·비용 범위·실험 한계와 후속 시나리오</a></p>
+    <p class="panel-note">
+      통과·위험 의심·불일치 비율은 <strong>두 judge의 모든 축 원점수가 완비된 세그먼트</strong> 기준입니다. 평가 가능 건수와 커버리지를 함께 확인하세요.
+      위험 의심률은 <strong>judge의 의심 신호</strong>이며, 검증된 숫자 오류율이 아닙니다.
+    </p>
+    <div class="filter-row">
+      <label for="quality-sort">정렬</label>
+      <select id="quality-sort">
+        <option value="pass">통과율 높은 순</option>
+        <option value="risk">위험 의심률 낮은 순</option>
+        <option value="p10">하위 10% 점수 높은 순</option>
+        <option value="baseline">기준 대비 평균차 높은 순</option>
+      </select>
+    </div>
+    <div class="quality-scroll" tabindex="0" role="region" aria-label="트랙별 품질 진단 표">
+      <table class="model-table quality-table">
+        <thead>
+          <tr>
+            <th scope="col">모델</th>
+            <th scope="col">통과율 ↑</th>
+            <th scope="col">위험 의심률 ↓</th>
+            <th scope="col">종합 P10 ↑<small class="quality-sub">하위 10% · 1–5점</small></th>
+            <th scope="col">Judge 불일치율 ↓</th>
+            <th scope="col">평가 가능 / 전체<small class="quality-sub">건수 · 커버리지</small></th>
+            <th scope="col">통과 1건당 비용<small class="quality-sub">전체 데이터셋 · USD</small></th>
+          </tr>
+        </thead>
+        <tbody id="quality-table-body"></tbody>
+      </table>
+    </div>
+    <p class="panel-note" style="margin-top:12px;">
+      통과·위험 의심·불일치 비율 아래는 해당 건수 / 평가 가능 건수입니다. 두 커버리지의 분모는 번역 성공 건수입니다.
+      비용은 트랙 선택과 무관하게 <strong>전체 데이터셋 추정 번역비 ÷ 전체 통과 건수</strong>이며, judge 평가 비용은 제외합니다.
+      전체 데이터셋의 번역 성공 건 모두에 두 judge의 원점수가 있고 통과가 1건 이상일 때만 제공합니다.
+      한 모델에 여러 실행의 부분 결과가 섞이면 GPU 기반 비용과 처리량은 제공하지 않습니다.
+    </p>
+    <details class="quality-details">
+      <summary>Amazon Translate 대비 승/무/패·평균차 보기</summary>
+      <p class="panel-note">
+        선택한 트랙에서 <code class="mono">amazon-translate</code>와 공통으로 유효한 평가가 있는 세그먼트만 비교합니다.
+        평균차 = 모델 종합 점수 − 기준 모델 점수. 양수는 모델 우세입니다.
+        95% 신뢰구간은 원문 문서 단위 부트스트랩으로, 다국어 사본을 독립 문서로 세지 않습니다.
+        구간이 0을 포함하면 우열을 단정하지 마세요.
+      </p>
+      <div class="quality-scroll" tabindex="0" role="region" aria-label="Amazon Translate 대비 품질 비교 표">
+        <table class="model-table quality-table">
+          <thead>
+            <tr>
+              <th scope="col">모델</th>
+              <th scope="col">공통 평가 건수</th>
+              <th scope="col">승 / 무 / 패<small class="quality-sub">공통 평가 대비 비율</small></th>
+              <th scope="col">평균차 (점)</th>
+              <th scope="col">평균차 95% CI</th>
+            </tr>
+          </thead>
+          <tbody id="quality-baseline-body"></tbody>
+        </table>
+      </div>
+    </details>
+    <details class="quality-details">
+      <summary>지표 기준·분모 보기</summary>
+      <dl class="quality-definitions">
+        <dt>평가 가능·커버리지</dt>
+        <dd>대체 judge를 포함해 실제 두 judge의 5개 축 원점수가 모두 있는 세그먼트만 평가 가능합니다. 원점수 커버리지 = 평가 가능 건수 / 번역 성공 건수. 채점 커버리지 = 유효 종합 채점 건수 / 번역 성공 건수. 표의 전체 건수는 번역 실패를 포함합니다. 번역 실패·채점 실패·채점 대기·원점수 누락은 통과로 세지 않습니다.</dd>
+        <dt>통과율</dt>
+        <dd>두 judge 모두 모든 축 ≥ 4점인 건수 / 평가 가능 건수.</dd>
+        <dt>위험 의심률</dt>
+        <dd>어느 한 judge라도 숫자·개체·날짜 축 ≤ 2점인 건수 / 평가 가능 건수. 사실 오류의 확정 판정이 아닌 judge 의심 신호입니다.</dd>
+        <dt>종합 P10</dt>
+        <dd>유효한 종합 채점이 있는 세그먼트의 점수 하위 10% 경계값. 두 judge의 원점수 완비 여부와 별도로 집계해 낮은 품질 구간을 확인합니다.</dd>
+        <dt>Judge 불일치율</dt>
+        <dd>|두 judge의 종합 점수 차이| ≥ 1점인 건수 / 평가 가능 건수.</dd>
+        <dt>누락값·이전 보고서</dt>
+        <dd>새 지표가 없거나 계산할 수 없는 값은 —로 표시합니다. 0%와 구분해 읽어주세요.</dd>
+      </dl>
+    </details>
   </section>
 
   <section class="panel" id="lang-coverage-panel">
@@ -455,12 +562,14 @@
         <option value="cost_desc">비용 높은 순</option>
       </select>
     </div>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="주요 언어와 기타 언어 비교 표">
     <table class="model-table">
       <thead>
         <tr><th>모델</th><th>주요 언어</th><th>기타 언어</th><th>격차(Δ)</th><th>비용/세그먼트</th></tr>
       </thead>
       <tbody id="lang-coverage-body"></tbody>
     </table>
+    </div>
     <div id="lang-coverage-reco" class="interpretation-body" style="margin-top:14px;"></div>
   </section>
 
@@ -511,7 +620,7 @@
       <dt>평가 방식</dt>
       <dd>LLM-as-judge, 서로 다른 두 모델 계열(gpt-5.6-sol · claude-fable-5)이 독립적으로 채점한 뒤 축별로 평균 — 단일 judge의 자체 스타일/제공사 편향을 완화하기 위함입니다. adequacy / terminology / numbers·entities·dates / fluency / format, 각 1–5점. FLORES(인간 참조)만 judge에 참조를 보여주고 chrF를 계산합니다 — 합성 금융문서의 참조는 벤치마크 후보 모델(claude-sonnet-4.5)이 직접 생성했기 때문에 judge/chrF에 노출하면 같은 계열 모델에 유리하게 편향됩니다. 두 트랙(FLORES/synthetic)의 점수는 항상 분리 집계되며 서로 평균 내지 않습니다 — 위 차트의 트랙 선택기로 직접 전환해 확인할 수 있습니다("전체"는 두 트랙을 합친 참고용 숫자이며 금융 도메인 단독 점수가 아닙니다). 판단이 근소한 차이(신뢰구간이 겹치는 경우)는 순위로 단정하지 않는 것을 권장합니다.</dd>
       <dt>생성 조건</dt>
-      <dd>모든 모델 temperature=0, 출력 토큰 상한 4096 통일. Bedrock/OpenAI/vLLM 동시성은 다르므로(기본 8 vs vLLM 32) provider 간 지연시간(latency) 직접 비교는 참고용입니다.</dd>
+      <dd>temperature는 지원 모델에 0을 요청하며, 파라미터 미지원·reasoning 설정 등 모델별 예외가 있습니다. 출력 토큰 상한은 4096입니다. 실제 생성 조건은 모델 상세와 각 실행 기록(manifest)을 기준으로 확인하세요. Bedrock/OpenAI/vLLM 동시성도 다르므로 provider 간 지연시간(latency) 직접 비교는 참고용입니다.</dd>
       <dt>비용 산정</dt>
       <dd>대표 지표는 <strong>세그먼트당 비용</strong>(모든 모델이 동일한 세그먼트를 번역). API 모델은 실제 입출력 토큰 × 단가. 자체 호스팅(vLLM) 모델은 GPU 시간당 비용 ÷ 모델 전체 배치의 실측 처리량(웜업 제외 미구현, run_config에 GPU 종류·동시성·TP 설정 기록)으로 환산합니다. 비용/처리량은 모델 전체 단위로만 집계하며 언어쌍·트랙별로는 제공하지 않습니다 — 한 모델의 모든 요청이 동시에 GPU를 공유하므로 부분집합의 처리량은 다른 요청과 뒤섞여 의미가 흐려지기 때문입니다.</dd>
       <dt>표본 규모</dt>

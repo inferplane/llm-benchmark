@@ -44,6 +44,7 @@ const AXIS_LABEL = { adequacy: "정확성", terminology: "용어", numbers_entit
 // that actually matters; "all" is kept as an explicit, clearly-labeled option.
 const state = {
   runs: [], reports: [], current: null, direction: "from-ko", track: "synthetic", charts: {},
+  qualitySort: "pass",
   langFilter: { minMajor: 0, minOther: 0, sortBy: "gap" },
   zoomMode: {}, // per-chartKey: "zoom" (drag = box-zoom) | "pan" (drag = move)
 };
@@ -432,10 +433,12 @@ function renderRecommendations(report) {
     .join("");
 
   body.innerHTML = `
+    <div class="table-scroll" tabindex="0" role="region" aria-label="추천 모델 비교 표">
     <table class="sample-compare">
       <thead><tr><th>모델</th><th>Judge 종합 (${TRACK_LABEL[state.track]})</th><th>세그먼트당 비용</th></tr></thead>
       <tbody>${rowsHtml}</tbody>
     </table>
+    </div>
     <p class="panel-note" style="margin-top:12px;">가성비 프론티어에 오른 ${frontier.length}개 모델 — 표의 각 모델보다 낮은 비용에서 더 높은 품질을 내는 모델은 이 런에 없습니다. 신뢰구간이 겹치는 모델 간 순위는 근소한 차이로 단정하지 마세요.</p>`;
 }
 
@@ -447,6 +450,8 @@ function renderRecommendations(report) {
 function runConfigLines(rc) {
   if (!rc) return "—";
   const lines = [];
+  if (rc.mantle_region) lines.push(`Mantle 리전: ${rc.mantle_region}`);
+  if (rc.temperature_omitted) lines.push("temperature: 미전송 (모델 예외)");
   if (rc.gpu_instance_type) {
     lines.push(`GPU: ${rc.gpu_instance_type} (TP=${rc.tensor_parallel_size ?? "?"}, 동시성=${rc.concurrency})`);
     if (rc.quantization) lines.push(`양자화: ${rc.quantization}`);
@@ -538,6 +543,94 @@ function renderModelTable(report) {
       detail.hidden = !detail.hidden;
     });
   });
+}
+
+// ── quality diagnostics: complete raw judging, selected track only ─────────
+
+function fmtQualityPercent(value) {
+  return Number.isFinite(value) ? `${(value * 100).toFixed(1)}%` : "—";
+}
+
+function fmtQualityCount(value) {
+  return Number.isFinite(value) ? value.toLocaleString("ko-KR") : "—";
+}
+
+function fmtQualityDelta(value) {
+  return Number.isFinite(value) ? `${value > 0 ? "+" : ""}${value.toFixed(3)}` : "—";
+}
+
+function qualityRateCell(quality, rateField, countField) {
+  return `<td class="score-cell">${fmtQualityPercent(quality?.[rateField])}
+    <small class="quality-sub">${fmtQualityCount(quality?.[countField])} / ${fmtQualityCount(quality?.quality_eligible_segments)}건</small></td>`;
+}
+
+function renderQualityDiagnostics(report) {
+  const body = document.getElementById("quality-table-body");
+  const baselineBody = document.getElementById("quality-baseline-body");
+  document.getElementById("quality-track-note").textContent =
+    `품질 트랙: ${TRACK_LABEL[state.track]} · 위 트랙 선택과 연동 · — 제공 안 됨`;
+
+  // Read the fixed report contract. Never derive eligibility from the older
+  // judged_segments count: merged scores can lack one judge's raw axes.
+  const rows = report.models.map((model) => {
+    const quality = state.track === "all" ? model.aggregate : model.by_track?.[state.track];
+    const comparison = quality?.baseline_comparison;
+    return {
+      model, quality,
+      baseline: comparison?.baseline_model === "amazon-translate" ? comparison : null,
+    };
+  });
+  const sortValue = (row) => {
+    if (state.qualitySort === "risk") return row.quality?.high_risk_rate;
+    if (state.qualitySort === "p10") return row.quality?.judge_overall_p10;
+    if (state.qualitySort === "baseline") return row.baseline?.mean_delta;
+    return row.quality?.quality_pass_rate;
+  };
+  rows.sort((a, b) => {
+    const av = sortValue(a), bv = sortValue(b);
+    if (Number.isFinite(av) !== Number.isFinite(bv)) return Number.isFinite(av) ? -1 : 1;
+    const delta = Number.isFinite(av) ? (state.qualitySort === "risk" ? av - bv : bv - av) : 0;
+    return delta || a.model.name.localeCompare(b.model.name);
+  });
+
+  if (!rows.length) {
+    const empty = `<div class="empty-state">모델 데이터가 없습니다.</div>`;
+    body.innerHTML = `<tr><td colspan="7">${empty}</td></tr>`;
+    baselineBody.innerHTML = `<tr><td colspan="5">${empty}</td></tr>`;
+    return;
+  }
+
+  const modelCell = (model) => `<td class="model-cell"><span class="dot" style="background:${cssVar(PROVIDER_VAR[model.provider] || "--ink-2")}"></span>${escapeHtml(model.name)}</td>`;
+  body.innerHTML = rows.map(({ model, quality: q }) => {
+    // Cost comes ONLY from the whole-model field, even while synthetic or
+    // FLORES is selected. Missing cost is unavailable, never recomputed using
+    // a track's pass count or assumed to be free.
+    const cost = model.aggregate?.cost_per_quality_pass_usd;
+    return `<tr>
+      ${modelCell(model)}
+      ${qualityRateCell(q, "quality_pass_rate", "quality_pass_segments")}
+      ${qualityRateCell(q, "high_risk_rate", "high_risk_segments")}
+      <td class="score-cell">${Number.isFinite(q?.judge_overall_p10) ? q.judge_overall_p10.toFixed(2) : "—"}</td>
+      ${qualityRateCell(q, "judge_disagreement_rate", "judge_disagreement_segments")}
+      <td class="score-cell">${fmtQualityCount(q?.quality_eligible_segments)} / ${fmtQualityCount(q?.segments)}
+        <small class="quality-sub">원점수 ${fmtQualityPercent(q?.quality_coverage_rate)} · 채점 ${fmtQualityPercent(q?.judge_coverage_rate)}</small>
+        <small class="quality-sub">번역 성공 ${fmtQualityCount(q?.successful_translations)}건 기준</small></td>
+      <td class="score-cell">${Number.isFinite(cost) ? fmtUsd(cost) : "—"}</td>
+    </tr>`;
+  }).join("");
+
+  baselineBody.innerHTML = rows.map(({ model, baseline: b }) => {
+    const ci = b?.mean_delta_ci95;
+    const ciText = Array.isArray(ci) && ci.length === 2 && ci.every(Number.isFinite)
+      ? `${fmtQualityDelta(ci[0])} ~ ${fmtQualityDelta(ci[1])}` : "—";
+    return `<tr>
+      ${modelCell(model)}
+      <td class="score-cell">${fmtQualityCount(b?.paired_segments)}</td>
+      <td class="score-cell">${fmtQualityPercent(b?.win_rate)} / ${fmtQualityPercent(b?.tie_rate)} / ${fmtQualityPercent(b?.loss_rate)}</td>
+      <td class="score-cell">${fmtQualityDelta(b?.mean_delta)}</td>
+      <td class="score-cell">${ciText}</td>
+    </tr>`;
+  }).join("");
 }
 
 // ── language coverage: major (high-resource) vs other (lower-resource) ──────
@@ -832,16 +925,52 @@ function renderSampleDetail(report, sampleId) {
       <dd><div class="md-content">${renderMarkdown(sample.src_text)}</div></dd>
       ${sample.ref_text ? `<dt>참조 번역</dt><dd><div class="md-content">${renderMarkdown(sample.ref_text)}</div></dd>` : ""}
     </dl>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="모델별 번역 샘플 비교 표">
     <table class="sample-compare">
       <thead><tr><th>모델</th><th>Judge 종합</th><th>번역 결과</th></tr></thead>
       <tbody>${rowsHtml}</tbody>
-    </table>`;
+    </table>
+    </div>`;
   wrapMdTables(detail);
 }
 
 // ── chrome: run selector, summary, direction/theme toggles ──────────────────
 
+function renderRunProvenance(report) {
+  const note = document.getElementById("run-provenance");
+  const sources = report.source_runs || [];
+  note.hidden = sources.length < 2;
+  note.textContent = "";
+  if (note.hidden) return;
+
+  const primary = sources.find((source) => source.run_id === report.run_id);
+  const measured = (primary?.manifest?.models || report.manifest?.models || []).map((m) => m.name).filter(Boolean);
+  const label = (name) => name === "grok-4.6" ? "Grok 4.6" : name === "grok-4.3" ? "Grok 4.3" : name;
+  const parts = [
+    "수집일이 다른 관측값을 함께 표시합니다.",
+    measured.length ? `신규 측정: ${measured.map(label).join(", ")}.` : "이번 실행의 신규 측정과 이전 관측값을 함께 비교합니다.",
+    "기존 모델은 이전 실행의 캐시 관측값을 재사용했습니다. 전체 모델을 같은 날짜에 재실행한 결과가 아닙니다.",
+    `포함 실행: ${sources.map((source) => source.run_id).filter(Boolean).join(" · ")}.`,
+  ];
+
+  // Use recorded settings, so this caveat follows the selected report rather
+  // than attributing today's Grok decoding configuration to historical runs.
+  const recorded = sources.flatMap((source) => source.manifest?.models || []);
+  const decoding = ["grok-4.6", "grok-4.3"].flatMap((name) => {
+    const model = report.models.find((m) => m.name === name);
+    if (!model) return [];
+    const config = recorded.find((m) => m.name === name);
+    const effort = model.run_config?.mantle_reasoning_effort ?? config?.mantle_reasoning_effort;
+    const region = model.run_config?.mantle_region ?? config?.mantle_region;
+    if (effort == null) return [];
+    return [`${label(name)}: Mantle${region ? ` ${region}` : ""}, reasoning=${effort}`];
+  });
+  if (decoding.length) parts.push(`생성 조건: ${decoding.join(" / ")}. 모델별 reasoning 차이는 품질·지연 비교 시 함께 확인하세요.`);
+  note.textContent = parts.join(" ");
+}
+
 function renderSummary(report) {
+  renderRunProvenance(report);
   document.getElementById("run-summary").textContent =
     `${report.run_id} · ${report.models.length}개 모델 · ${report.dataset.pairs}개 언어쌍 방향`;
   document.getElementById("meta-dataset").textContent =
@@ -871,6 +1000,7 @@ function renderAll() {
   renderScatterZoom(report);
   renderRecommendations(report);
   renderModelTable(report);
+  renderQualityDiagnostics(report);
   renderLanguageCoverage(report);
   renderHeatmapSafe(report);
   renderSamples(report);
@@ -896,6 +1026,7 @@ async function init() {
     document.querySelectorAll(`#hero-panel .chart-wrap, #heatmap-panel .heatmap-scroll`).forEach((el) => { el.innerHTML = emptyRunHtml; });
     document.getElementById("recommendations-body").innerHTML = emptyRunHtml;
     document.getElementById("model-table-body").innerHTML = `<tr><td colspan="6">${emptyRunHtml}</td></tr>`;
+    renderQualityDiagnostics({ models: [] });
     document.getElementById("lang-coverage-body").innerHTML = `<tr><td colspan="5">${emptyRunHtml}</td></tr>`;
     document.getElementById("lang-coverage-summary").textContent = "";
     document.getElementById("lang-coverage-reco").innerHTML = "";
@@ -931,7 +1062,13 @@ async function init() {
       renderScatterZoom(state.current);
       renderRecommendations(state.current);
       renderModelTable(state.current); // score column AND sort order are both track-aware
+      renderQualityDiagnostics(state.current);
     });
+  });
+
+  document.getElementById("quality-sort").addEventListener("change", (e) => {
+    state.qualitySort = e.target.value;
+    renderQualityDiagnostics(state.current);
   });
 
   document.getElementById("lang-filter-major").addEventListener("change", (e) => {

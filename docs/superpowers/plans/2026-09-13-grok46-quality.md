@@ -42,9 +42,9 @@ multilingual copies do not masquerade as independent documents.
 
 ## Work
 
-- [ ] Verify Grok 4.6 documentation, credentials, decoding and live invocation.
-- [ ] Add hand-computed selfchecks, implement quality and paired comparisons.
-- [ ] Expose track-aware metrics and coverage in the dashboard.
+- [x] Verify Grok 4.6 documentation, credentials, decoding and live invocation.
+- [x] Add hand-computed selfchecks, implement quality and paired comparisons.
+- [x] Expose track-aware metrics and coverage in the dashboard.
 - [ ] Run Grok 4.6 translation and both judges; retry transient failures.
 - [ ] Publish a separate reevaluation report with explicit reuse provenance.
 - [ ] Document findings and next scenarios: extraction, grounded QA, factual

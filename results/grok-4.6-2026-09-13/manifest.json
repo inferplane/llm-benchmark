@@ -1,0 +1,416 @@
+{
+  "run_id": "grok-4.6-2026-09-13",
+  "git_commit": "78c674dde35a2fc0b7e78a425bbefc66446ad111",
+  "prompt_sha256": "932639fe5f75",
+  "rubric_sha256": "d06c98b162ad",
+  "dataset_segments": 3300,
+  "judge_models": [
+    "openai.gpt-5.6-sol",
+    "us.anthropic.claude-fable-5"
+  ],
+  "generation_parameters": {
+    "temperature": 0,
+    "max_tokens": 4096
+  },
+  "models": [
+    {
+      "name": "grok-4.6",
+      "api": "bedrock_mantle",
+      "model_id": "xai.grok-4.6",
+      "concurrency": 8,
+      "gpu_hourly_usd": null,
+      "gpu_instance_type": null,
+      "tensor_parallel_size": null,
+      "extra_vllm_args": null,
+      "mantle_region": "us-west-2",
+      "mantle_reasoning_effort": "low",
+      "bedrock_reasoning_effort": null,
+      "translate_region": null,
+      "price_per_char": null,
+      "temperature_omitted": false,
+      "thinking_disabled": false,
+      "warmup_excluded": false
+    }
+  ],
+  "started_at": "2026-09-13T01:55:10.322313+00:00",
+  "finished_at": "2026-09-13T04:26:52.530327+00:00",
+  "executions": [
+    {
+      "run_id": "grok-4.6-2026-09-13",
+      "git_commit": "78c674dde35a2fc0b7e78a425bbefc66446ad111",
+      "prompt_sha256": "932639fe5f75",
+      "rubric_sha256": "d06c98b162ad",
+      "dataset_segments": 3300,
+      "judge_models": [
+        "openai.gpt-5.6-sol",
+        "us.anthropic.claude-fable-5"
+      ],
+      "generation_parameters": {
+        "temperature": 0,
+        "max_tokens": 4096
+      },
+      "models": [
+        {
+          "name": "grok-4.6",
+          "api": "bedrock_mantle",
+          "model_id": "xai.grok-4.6",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-west-2",
+          "mantle_reasoning_effort": "low",
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "temperature_omitted": false,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        }
+      ],
+      "started_at": "2026-09-13T01:55:10.322313+00:00",
+      "finished_at": "2026-09-13T03:31:03.757939+00:00"
+    },
+    {
+      "run_id": "grok-4.6-2026-09-13",
+      "git_commit": "78c674dde35a2fc0b7e78a425bbefc66446ad111",
+      "prompt_sha256": "932639fe5f75",
+      "rubric_sha256": "d06c98b162ad",
+      "dataset_segments": 3300,
+      "judge_models": [
+        "openai.gpt-5.6-sol",
+        "us.anthropic.claude-fable-5"
+      ],
+      "generation_parameters": {
+        "temperature": 0,
+        "max_tokens": 4096
+      },
+      "models": [
+        {
+          "name": "grok-4.6",
+          "api": "bedrock_mantle",
+          "model_id": "xai.grok-4.6",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-west-2",
+          "mantle_reasoning_effort": "low",
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "temperature_omitted": false,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        }
+      ],
+      "started_at": "2026-09-13T03:31:08.484866+00:00",
+      "finished_at": "2026-09-13T03:53:06.103013+00:00"
+    },
+    {
+      "run_id": "grok-4.6-2026-09-13",
+      "git_commit": "78c674dde35a2fc0b7e78a425bbefc66446ad111",
+      "prompt_sha256": "932639fe5f75",
+      "rubric_sha256": "d06c98b162ad",
+      "dataset_segments": 3300,
+      "judge_models": [
+        "openai.gpt-5.6-sol",
+        "us.anthropic.claude-fable-5"
+      ],
+      "generation_parameters": {
+        "temperature": 0,
+        "max_tokens": 4096
+      },
+      "models": [
+        {
+          "name": "grok-4.6",
+          "api": "bedrock_mantle",
+          "model_id": "xai.grok-4.6",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-west-2",
+          "mantle_reasoning_effort": "low",
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "temperature_omitted": false,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        }
+      ],
+      "started_at": "2026-09-13T03:53:06.326990+00:00",
+      "finished_at": "2026-09-13T04:11:06.446400+00:00"
+    },
+    {
+      "run_id": "grok-4.6-2026-09-13",
+      "git_commit": "78c674dde35a2fc0b7e78a425bbefc66446ad111",
+      "prompt_sha256": "932639fe5f75",
+      "rubric_sha256": "d06c98b162ad",
+      "dataset_segments": 3300,
+      "judge_models": [
+        "openai.gpt-5.6-sol",
+        "us.anthropic.claude-fable-5"
+      ],
+      "generation_parameters": {
+        "temperature": 0,
+        "max_tokens": 4096
+      },
+      "models": [
+        {
+          "name": "grok-4.6",
+          "api": "bedrock_mantle",
+          "model_id": "xai.grok-4.6",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-west-2",
+          "mantle_reasoning_effort": "low",
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "temperature_omitted": false,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        }
+      ],
+      "started_at": "2026-09-13T04:11:06.678617+00:00",
+      "finished_at": "2026-09-13T04:26:52.530327+00:00"
+    }
+  ],
+  "translation_outcome": {
+    "expected_segments": 3300,
+    "attempted_segments": 3300,
+    "successful_translations": 3245,
+    "empty_success_rows": [],
+    "errors": [
+      {
+        "id": "flores-334-ko-en",
+        "error": ""
+      },
+      {
+        "id": "flores-638-ko-ja",
+        "error": ""
+      },
+      {
+        "id": "flores-483-ko-zh",
+        "error": ""
+      },
+      {
+        "id": "flores-850-zh-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-694-ko-es",
+        "error": ""
+      },
+      {
+        "id": "flores-964-ko-es",
+        "error": ""
+      },
+      {
+        "id": "flores-483-ko-es",
+        "error": ""
+      },
+      {
+        "id": "flores-827-es-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-709-es-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-713-es-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-709-ko-fr",
+        "error": ""
+      },
+      {
+        "id": "flores-410-ko-fr",
+        "error": ""
+      },
+      {
+        "id": "flores-299-ko-fr",
+        "error": ""
+      },
+      {
+        "id": "flores-503-fr-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-352-ko-de",
+        "error": ""
+      },
+      {
+        "id": "flores-572-ko-de",
+        "error": ""
+      },
+      {
+        "id": "flores-298-de-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-409-ko-pt",
+        "error": ""
+      },
+      {
+        "id": "flores-729-ko-pt",
+        "error": ""
+      },
+      {
+        "id": "flores-1003-pt-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-410-pt-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-107-pt-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-188-pt-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-116-pt-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-973-ko-ru",
+        "error": ""
+      },
+      {
+        "id": "flores-483-ko-ru",
+        "error": ""
+      },
+      {
+        "id": "flores-957-ru-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-944-ru-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-641-ko-it",
+        "error": ""
+      },
+      {
+        "id": "flores-295-ko-it",
+        "error": ""
+      },
+      {
+        "id": "flores-957-it-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-850-ko-vi",
+        "error": ""
+      },
+      {
+        "id": "flores-331-vi-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-899-vi-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-726-ko-id",
+        "error": ""
+      },
+      {
+        "id": "flores-298-id-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-85-ko-th",
+        "error": ""
+      },
+      {
+        "id": "flores-248-ko-th",
+        "error": ""
+      },
+      {
+        "id": "flores-111-ko-th",
+        "error": ""
+      },
+      {
+        "id": "flores-248-th-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-726-th-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-17-ko-ar",
+        "error": ""
+      },
+      {
+        "id": "flores-211-ar-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-974-ko-hi",
+        "error": ""
+      },
+      {
+        "id": "flores-724-ko-hi",
+        "error": ""
+      },
+      {
+        "id": "flores-638-ko-hi",
+        "error": ""
+      },
+      {
+        "id": "flores-181-ko-hi",
+        "error": ""
+      },
+      {
+        "id": "flores-175-hi-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-957-hi-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-17-hi-ko",
+        "error": ""
+      },
+      {
+        "id": "flores-1003-ko-tr",
+        "error": ""
+      },
+      {
+        "id": "flores-713-ko-tr",
+        "error": ""
+      },
+      {
+        "id": "synthetic-ko2-ko-th",
+        "error": ""
+      },
+      {
+        "id": "synthetic-ko5-ko-ja",
+        "error": ""
+      },
+      {
+        "id": "synthetic-ko6-ko-ar",
+        "error": ""
+      }
+    ]
+  },
+  "collection_note": "Only Grok 4.6 was newly executed. The comparison report includes cached observations from full-2026-07-18. Executions preserve initial and retry windows."
+}

@@ -45,10 +45,12 @@ multilingual copies do not masquerade as independent documents.
 - [x] Verify Grok 4.6 documentation, credentials, decoding and live invocation.
 - [x] Add hand-computed selfchecks, implement quality and paired comparisons.
 - [x] Expose track-aware metrics and coverage in the dashboard.
-- [ ] Run Grok 4.6 translation and both judges; retry transient failures.
-- [ ] Publish a separate reevaluation report with explicit reuse provenance.
-- [ ] Document findings and next scenarios: extraction, grounded QA, factual
+- [x] Run Grok 4.6 translation and both judges; retry transient failures.
+      All 3,300 attempted; 3,245 successful translations judged, 55 persistent
+      call failures retained after up to three retries.
+- [x] Generate a separate reevaluation report with explicit reuse provenance.
+- [x] Document findings and next scenarios: extraction, grounded QA, factual
       summarization, and instruction/format adherence.
-- [ ] Run selfchecks and browser verification, then review the final diff.
+- [x] Run selfchecks and browser verification, then review the final diff.
 - [ ] Create PR, check latest-HEAD AI reviews and required checks, fix any
       Critical/Major findings, and merge when all conditions are met.

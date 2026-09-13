@@ -677,13 +677,18 @@ function renderLanguageCoverage(report) {
   const costMax = Math.max(...rows.map((r) => r.cost || 0));
 
   const filtered = rows.filter((r) => r.maj >= state.langFilter.minMajor && r.oth >= state.langFilter.minOther);
+  const compareCost = (a, b, descending = false) => {
+    const aKnown = Number.isFinite(a.cost), bKnown = Number.isFinite(b.cost);
+    if (aKnown !== bKnown) return aKnown ? -1 : 1;
+    return aKnown ? (descending ? b.cost - a.cost : a.cost - b.cost) : 0;
+  };
   const SORTERS = {
     gap: (a, b) => a.gap - b.gap,
     gap_desc: (a, b) => b.gap - a.gap,
     major_desc: (a, b) => b.maj - a.maj,
     other_desc: (a, b) => b.oth - a.oth,
-    cost_asc: (a, b) => a.cost - b.cost,
-    cost_desc: (a, b) => b.cost - a.cost,
+    cost_asc: (a, b) => compareCost(a, b),
+    cost_desc: (a, b) => compareCost(a, b, true),
   };
   const displayRows = [...filtered].sort(SORTERS[state.langFilter.sortBy] || SORTERS.gap);
 
@@ -709,12 +714,16 @@ function renderLanguageCoverage(report) {
   // filtered view — it's a finding about the run, not about whatever subset
   // the user currently has filtered into view.
   const sorted = [...rows].sort((a, b) => a.gap - b.gap);
-  const stable = sorted.filter((r) => r.gap <= 0.05).sort((a, b) => a.cost - b.cost);
+  const stable = sorted.filter((r) => r.gap <= 0.05).sort((a, b) => compareCost(a, b));
   const worst = sorted.filter((r) => r.gap >= GAP_WARN).sort((a, b) => b.gap - a.gap);
   const recoEl = document.getElementById("lang-coverage-reco");
   const bits = [];
   if (stable.length) {
-    bits.push(`다국어 커버리지가 필요하면 <strong>${stable.slice(0, 3).map((r) => escapeHtml(r.name)).join(", ")}</strong> 등 격차 0.05점 이하 모델을 우선 검토하세요 (그중 가장 저렴한 건 ${escapeHtml(stable[0].name)}, ${fmtUsd(stable[0].cost)}/segment).`);
+    const cheapest = stable.find((r) => Number.isFinite(r.cost));
+    const costNote = cheapest
+      ? ` (비용이 확인된 모델 중 가장 저렴한 건 ${escapeHtml(cheapest.name)}, ${fmtUsd(cheapest.cost)}/segment)`
+      : " (비용 정보는 제공되지 않습니다)";
+    bits.push(`다국어 커버리지가 필요하면 <strong>${stable.slice(0, 3).map((r) => escapeHtml(r.name)).join(", ")}</strong> 등 격차 0.05점 이하 모델을 우선 검토하세요${costNote}.`);
   }
   if (worst.length) {
     bits.push(`반대로 <strong>${worst.slice(0, 3).map((r) => `${escapeHtml(r.name)}(+${r.gap.toFixed(2)})`).join(", ")}</strong>은 전체/주요 언어 점수는 무난해 보여도 기타 언어에서 크게 떨어지므로, 해당 언어권 문서를 다룬다면 전체 평균만 보고 고르지 마세요.`);
@@ -907,10 +916,10 @@ function renderSampleDetail(report, sampleId) {
   const rowsHtml = rows
     .map((r) => {
       const dot = `<span class="dot" style="background:${cssVar(PROVIDER_VAR[r.provider] || "--ink-2")}"></span>`;
-      if (r.translation_error) {
-        return `<tr><td class="model-cell">${dot}${escapeHtml(r.model)}</td><td class="error-cell" colspan="2">번역 실패: ${escapeHtml(r.translation_error)}</td></tr>`;
+      if (r.translation_error != null) {
+        return `<tr><td class="model-cell">${dot}${escapeHtml(r.model)}</td><td class="error-cell" colspan="2">번역 실패: ${escapeHtml(r.translation_error || "오류 설명이 기록되지 않았습니다.")}</td></tr>`;
       }
-      const score = r.overall != null ? r.overall.toFixed(2) : (r.judge_error ? "judge 실패" : "채점 대기");
+      const score = r.judge_error != null ? "judge 실패" : (r.overall != null ? r.overall.toFixed(2) : "채점 대기");
       const outHtml = r.output_text ? `<div class="md-content">${renderMarkdown(r.output_text)}</div>` : "—";
       return `<tr><td class="model-cell">${dot}${escapeHtml(r.model)}</td><td class="score-cell">${score}</td><td>${outHtml}</td></tr>`;
     })

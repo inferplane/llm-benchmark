@@ -209,18 +209,15 @@ function speedToRadius(latencies, latency) {
   return BUBBLE_R_MIN + t * (BUBBLE_R_MAX - BUBBLE_R_MIN);
 }
 
-// Excluded from the cost/quality chart only (still shown everywhere else —
-// heatmap, samples, footer methodology): gpt-5.5's cost_per_segment_usd is a
-// severe outlier (3.7x the next-highest model), which on a linear zero-start
-// x-axis compresses every other model into an unreadable cluster near the
-// origin. A log axis would show it fine, but a linear axis was a deliberate
-// choice (see below) — excluding this one point from the plot is the fix,
-// not re-introducing log scale.
+// Retain the original chart's display choice: omit gpt-5.5 to keep the linear
+// x-axis focused on the other API models. It remains in tables and samples.
+// Do not attach a fixed price multiple to this choice: new models and runs
+// change the observed cost range.
 const SCATTER_EXCLUDE_MODELS = new Set(["gpt-5.5"]);
 
 // Shown only in the zoomed-in chart: the low-cost cluster is unreadable in
 // the main chart even after excluding gpt-5.5, since it still spans a wide
-// range ($0-0.0023). This second chart re-scales to just the cheap segment
+// cost range. This second chart re-scales to just the cheap segment
 // so bubble separation within that cluster is actually visible.
 const SCATTER_ZOOM_MAX_COST = 0.0003;
 

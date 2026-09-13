@@ -409,7 +409,7 @@
       y축은 아래에서 고른 트랙의 LLM-judge 종합 점수(1–5)입니다. FLORES의 인간 참조 번역은 judge에 제공하고, 합성 데이터의 LLM 생성 참조는 제공하지 않습니다.
       원 크기는 <strong>속도</strong>(p50 지연시간의 역수) — 클수록 빠릅니다.
       금색 실선으로 이어진 점은 <strong>가성비 프론티어</strong> — 해당 비용 이하에서 더 높은 품질을 내는 모델이 없는 지점입니다.
-      <em>gpt-5.5는 세그먼트당 비용이 다른 모델보다 3.7배 이상 높아 이 차트에서만 제외했습니다(다른 모든 표·샘플에는 포함) — 언어쌍 히트맵, 런 히스토리, 원본 데이터(<code class="mono">docs/results/</code>)에서 확인 가능합니다.</em>
+      <em>축의 가독성을 위해 gpt-5.5는 이 차트에서만 제외했습니다. 전체 비교표·샘플·언어쌍 히트맵·런 히스토리에는 포함되어 있습니다.</em>
     </p>
     <div class="toggle-group" id="track-toggle" style="margin-bottom:14px;">
       <button data-track="synthetic" class="active">합성 금융문서</button>
@@ -493,6 +493,7 @@
       통과·위험 의심·불일치 비율 아래는 해당 건수 / 평가 가능 건수입니다. 두 커버리지의 분모는 번역 성공 건수입니다.
       비용은 트랙 선택과 무관하게 <strong>전체 데이터셋 추정 번역비 ÷ 전체 통과 건수</strong>이며, judge 평가 비용은 제외합니다.
       전체 데이터셋의 번역 성공 건 모두에 두 judge의 원점수가 있고 통과가 1건 이상일 때만 제공합니다.
+      한 모델에 여러 실행의 부분 결과가 섞이면 GPU 기반 비용과 처리량은 제공하지 않습니다.
     </p>
     <details class="quality-details">
       <summary>Amazon Translate 대비 승/무/패·평균차 보기</summary>

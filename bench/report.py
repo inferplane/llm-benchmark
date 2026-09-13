@@ -291,24 +291,29 @@ def aggregate_full(rows: list[dict], model_cfg: dict, src_chars_by_id: dict[str,
     tokens_out_total = sum(r["tokens_out"] or 0 for r in successful)
     latencies = [r["latency_s"] for r in successful if r.get("latency_s") is not None]
 
-    # Included and primary runs can contain distinct batches for the same
-    # model. Sum observed batch spans instead of pricing idle days between runs.
-    by_source = {}
-    for row in successful:
-        by_source.setdefault(row.get("translation_source_run"), []).append(row)
-    wall_s = sum(wall_clock_seconds(batch) for batch in by_source.values())
+    # Cross-run deduplication can retain only a middle slice of an old batch.
+    # Its timestamp span is not an independent batch measurement. Count ALL
+    # rows here: a failed primary replacement still makes the old successful
+    # rows a partial batch, even when only one source has successful rows.
+    mixed_sources = len({row.get("translation_source_run") for row in rows}) > 1
+    wall_s = wall_clock_seconds(successful) if not mixed_sources else 0.0
     throughput_tok_s = round(tokens_out_total / wall_s, 2) if wall_s > 0 else None
-    cost_total, usd_per_mtok_out = compute_cost(model_cfg, tokens_in_total, tokens_out_total, throughput_tok_s)
+    if mixed_sources and model_cfg.get("gpu_hourly_usd") is not None:
+        # compute_cost(None throughput) returns zero for legacy empty batches;
+        # unknown mixed-run GPU spend must instead remain explicitly unknown.
+        cost_total, usd_per_mtok_out = None, None
+    else:
+        cost_total, usd_per_mtok_out = compute_cost(model_cfg, tokens_in_total, tokens_out_total, throughput_tok_s)
 
     src_chars_total = sum(src_chars_by_id.get(r["id"], 0) for r in successful)
-    cost_per_segment_usd = round(cost_total / len(successful), 5) if successful else None
-    cost_per_1k_src_chars_usd = round(cost_total / (src_chars_total / 1000), 5) if src_chars_total else None
+    cost_per_segment_usd = round(cost_total / len(successful), 5) if cost_total is not None and successful else None
+    cost_per_1k_src_chars_usd = round(cost_total / (src_chars_total / 1000), 5) if cost_total is not None and src_chars_total else None
     # This retains the existing estimate: latest successful translation rows
     # only, excluding retries/failed attempts, judge spend and GPU idle/setup
     # outside the observed batch. Translation failures cannot be judged.
     passes = quality["quality_pass_segments"]
     complete_quality = quality["judged_segments"] == quality["quality_eligible_segments"] == len(successful)
-    cost_per_quality_pass_usd = round(cost_total / passes, 5) if complete_quality and passes else None
+    cost_per_quality_pass_usd = round(cost_total / passes, 5) if cost_total is not None and complete_quality and passes else None
 
     return {
         **quality,
@@ -448,7 +453,11 @@ def metric_policy() -> dict:
                 "GPU setup/idle time outside each observed source-run batch",
             ],
             "pricing_source": "supplied model configuration; retain historical rates for reused models",
-            "multi_run_timing": "sum observed source-run batch spans, excluding gaps between runs",
+            "multi_run_timing": (
+                "Throughput is unavailable when a model retains rows from multiple source runs, "
+                "including failed replacements: retained subsets do not prove full source-batch membership. "
+                "All GPU-derived costs are then null; token/character-priced costs remain available."
+            ),
             "cost_per_quality_pass_usd": (
                 "whole-model cost_total_usd / quality_pass_segments; null if zero passes or any successful "
                 "translation lacks a valid judgment or complete raw two-judge scores"
@@ -1087,6 +1096,7 @@ def _selfcheck():
         retry_model = next(m for m in retry_report["models"] if m["name"] == "candidate")
         assert retry_model["aggregate"]["baseline_comparison"]["win_rate"] == 0.5
         assert retry_model["aggregate"]["cost_per_quality_pass_usd"] == 3.5
+        assert retry_model["aggregate"]["throughput_tok_s"] is None
         primary_only = build_report(primary_id, fixture_scenario, fixture_models, [dataset_path])
         assert len(primary_only["models"]) == len(primary_only["source_runs"]) == 1
         assert primary_only["models"][0]["aggregate"]["baseline_comparison"]["paired_segments"] == 0
@@ -1110,6 +1120,39 @@ def _selfcheck():
         assert pending_output["judgment_source_run"] is None and pending_output["overall"] is None
         assert pending_model["observation_provenance"]["judgments_by_run"] == {source_ids[0]: 1}
 
+        # Real include-run partial overrides must not price a retained middle
+        # segment as an isolated GPU batch. Old A ran at49–50s while overridden
+        # old B occupied0–100s; new B runs for1s in a different execution.
+        gpu_models = [
+            {"name": "candidate", **vllm_model, "base_url": "http://localhost:8000/v1"},
+            {"name": "amazon-translate", **translate_model},
+        ]
+        old_gpu_rows = [
+            {**passed, "id": fixture_segments[0]["id"], "latency_s": 1,
+             "timestamp": "2026-01-01T00:00:50+00:00"},
+            {**passed, "id": fixture_segments[1]["id"], "latency_s": 100,
+             "timestamp": "2026-01-01T00:01:40+00:00"},
+        ]
+        assert aggregate_full(old_gpu_rows, vllm_model, {})["cost_total_usd"] == 100
+        replacement = {**passed, "id": fixture_segments[1]["id"], "latency_s": 1,
+                       "timestamp": "2026-01-02T00:00:01+00:00"}
+        baseline_fixture = [r for r in old_rows if r["model"] == "amazon-translate"]
+        write_inputs(source_ids[0], old_gpu_rows + baseline_fixture, old_manifest)
+        for replacement_error in (None, "timeout"):
+            write_inputs(primary_id, [{**replacement, "translation_error": replacement_error}], primary_manifest)
+            mixed_report = build_report(primary_id, fixture_scenario, gpu_models, [dataset_path], [source_ids[0]])
+            mixed_gpu = next(m["aggregate"] for m in mixed_report["models"] if m["name"] == "candidate")
+            assert mixed_gpu["throughput_tok_s"] is None, mixed_gpu
+            assert all(mixed_gpu[field] is None for field in (
+                "cost_total_usd", "cost_per_segment_usd", "cost_per_1k_src_chars_usd",
+                "cost_per_quality_pass_usd", "usd_per_mtok_out")), mixed_gpu
+            assert mixed_gpu["translation_failures"] == int(replacement_error is not None)
+            assert mixed_gpu["quality_pass_segments"] == (1 if replacement_error else 2)
+            # A different model retained entirely from the included run keeps
+            # its full-model cost/throughput (the actual Grok reuse pattern).
+            only_old = next(m["aggregate"] for m in mixed_report["models"] if m["name"] == "amazon-translate")
+            assert only_old["cost_total_usd"] == 30 and only_old["throughput_tok_s"] is not None
+
         for hash_key in ("prompt_sha256", "rubric_sha256", "dataset_sha256"):
             write_inputs(source_ids[0], old_rows, {**old_manifest, hash_key: "first-hash"})
             write_inputs(primary_id, [new_row], {**primary_manifest, hash_key: "different-hash"})
@@ -1120,21 +1163,27 @@ def _selfcheck():
             else:
                 raise AssertionError(f"conflicting {hash_key} must prevent combining runs")
 
-    # A model reused across separate runs must not price the idle days between
-    # runs as GPU batch time: two 10s batches at $1/sec are $20, two passes $10.
+    # Retained cross-run rows cannot prove full original batch membership.
+    # Time-based metrics are unavailable; token/character costs remain additive.
     separate_batches = [
         {**passed, "translation_source_run": "old"},
         {**passed, "id": "flores-2-ko-en", "translation_source_run": "new",
          "timestamp": "2026-01-03T00:00:10+00:00"},
     ]
     batch_cost = aggregate_full(separate_batches, vllm_model, {})
-    assert batch_cost["cost_total_usd"] == 20 and batch_cost["cost_per_quality_pass_usd"] == 10, batch_cost
+    assert batch_cost["throughput_tok_s"] is None and batch_cost["cost_total_usd"] is None, batch_cost
+    assert batch_cost["cost_per_quality_pass_usd"] is None
+    mixed_api = aggregate_full(separate_batches, api_model, {})
+    assert mixed_api["throughput_tok_s"] is None
+    assert mixed_api["cost_total_usd"] == 7 and mixed_api["cost_per_quality_pass_usd"] == 3.5, mixed_api
+    mixed_chars = aggregate_full(separate_batches, translate_model, {})
+    assert mixed_chars["cost_total_usd"] == 30 and mixed_chars["cost_per_quality_pass_usd"] == 15
 
     # UI decoding provenance must survive when a source manifest only records
     # the last model executed. Region comes from config, omission from runner rules.
     grok_config = run_config_of({
         "api": "bedrock_mantle", "model_id": "xai.grok-4.6", "mantle_region": "us-west-2",
-        "mantle_reasoning_effort": "low", "price_in": 2, "price_out": 6,
+        "mantle_reasoning_effort": "low", "price_in": 2.2, "price_out": 6.6,
     }, 8)
     assert grok_config.get("mantle_region") == "us-west-2", grok_config
     assert grok_config["temperature_omitted"] is False and grok_config["mantle_reasoning_effort"] == "low"

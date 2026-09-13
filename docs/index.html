@@ -322,8 +322,9 @@
   .quality-scroll, .table-scroll { overflow-x: auto; }
   .quality-scroll:focus-visible, .table-scroll:focus-visible, .quality-details summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
   table.quality-table th, table.quality-table td { vertical-align: top; }
-  table.quality-table thead th { white-space: nowrap; }
-  .quality-sub { display: block; margin-top: 3px; color: var(--ink-2); font-size: 11px; font-weight: 400; }
+  table.quality-table thead th { white-space: nowrap; color: var(--ink-2); }
+  #quality-panel .panel-note, #quality-panel .methodology-link { color: var(--ink-2); }
+  .quality-sub { display: block; margin-top: 3px; color: var(--ink-2); font-size: 12px; font-weight: 400; }
   .quality-details { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 12px; }
   .quality-details summary { color: var(--ink-2); font-size: 13px; cursor: pointer; }
   .quality-details[open] summary { margin-bottom: 12px; }
@@ -405,7 +406,7 @@
     </div>
     <p class="panel-note">
       x축은 <strong>세그먼트당 비용</strong>(GPU 모델은 실측 처리량 기준 환산) — 모든 모델이 동일한 세그먼트 집합을 번역하므로 출력 토큰 수가 아니라 실제 문서 1건당 비용으로 비교합니다(출력이 긴 모델이 $/1M 토큰 기준으로 저렴해 보이는 왜곡을 피함).
-      y축은 아래에서 고른 트랙의 LLM-judge 종합 점수(1–5, FLORES의 인간 참조 번역과 합성 데이터의 LLM 생성 참조는 judge에 노출하지 않아 참조 오염을 배제).
+      y축은 아래에서 고른 트랙의 LLM-judge 종합 점수(1–5)입니다. FLORES의 인간 참조 번역은 judge에 제공하고, 합성 데이터의 LLM 생성 참조는 제공하지 않습니다.
       원 크기는 <strong>속도</strong>(p50 지연시간의 역수) — 클수록 빠릅니다.
       금색 실선으로 이어진 점은 <strong>가성비 프론티어</strong> — 해당 비용 이하에서 더 높은 품질을 내는 모델이 없는 지점입니다.
       <em>gpt-5.5는 세그먼트당 비용이 다른 모델보다 3.7배 이상 높아 이 차트에서만 제외했습니다(다른 모든 표·샘플에는 포함) — 언어쌍 히트맵, 런 히스토리, 원본 데이터(<code class="mono">docs/results/</code>)에서 확인 가능합니다.</em>
@@ -458,6 +459,7 @@
       <span class="eyebrow">Quality Diagnostics</span>
     </div>
     <p class="panel-note" id="quality-track-note" aria-live="polite"></p>
+    <p class="panel-note"><a class="methodology-link" href="benchmark-methodology.md">평가 기준·비용 범위·실험 한계와 후속 시나리오</a></p>
     <p class="panel-note">
       통과·위험 의심·불일치 비율은 <strong>두 judge의 모든 축 원점수가 완비된 세그먼트</strong> 기준입니다. 평가 가능 건수와 커버리지를 함께 확인하세요.
       위험 의심률은 <strong>judge의 의심 신호</strong>이며, 검증된 숫자 오류율이 아닙니다.

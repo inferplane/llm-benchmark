@@ -182,6 +182,10 @@ class InvalidResponseError(ValueError):
     """A provider response cannot count as a completed translation."""
 
 
+class RunnerInputError(ValueError):
+    """Controlled local validation messages safe to show without provider data."""
+
+
 def _safe_identifier(value) -> str | None:
     if isinstance(value, str) and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:/=-]{0,199}", value):
         return value
@@ -637,13 +641,13 @@ async def main_async(args):
     ]
     segments = load_dataset(dataset_paths)
     if not segments:
-        raise ValueError("no segments loaded; run bench/dataset.py first or pass --dataset")
+        raise RunnerInputError("no segments loaded; run bench/dataset.py first or pass --dataset")
 
     pairs = set(args.pairs.split(",")) if args.pairs else None
     segments = filter_dataset(segments, pairs, args.limit)
     segments = dedupe_latest(segments, lambda seg: seg["id"])
     if not segments:
-        raise ValueError("no segments selected")
+        raise RunnerInputError("no segments selected; check --pairs and --limit")
     print(f"{len(segments)} segments selected")
 
     wanted_models = set(args.models.split(",")) if args.models else None
@@ -652,7 +656,7 @@ async def main_async(args):
         if m.get("enabled", True) and (wanted_models is None or m["name"] in wanted_models)
     ]
     if not models:
-        raise ValueError("no models selected (check --models and config.toml enabled flags)")
+        raise RunnerInputError("no models selected (check --models and config.toml enabled flags)")
 
     run_id = args.run_id or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
     cache = ResultCache(RESULTS_DIR / run_id / "translations.jsonl")
@@ -1057,6 +1061,8 @@ def _selfcheck_manifest():
 
 def _selfcheck_cli():
     """A failed client must produce a manifest and nonzero CLI status."""
+    import contextlib
+    import io
     import tempfile
     from types import SimpleNamespace
     from unittest.mock import patch
@@ -1084,6 +1090,21 @@ def _selfcheck_cli():
         cache = ResultCache(Path(directory) / "cached" / "translations.jsonl")
         asyncio.run(cache.append({**segment, "model": "offline", "output_text": "translated", "error": None}))
         assert main(["--dataset", str(dataset), "--models", "offline", "--run-id", "cached"]) == 0
+        cases = [
+            (["--dataset", str(Path(directory) / "missing.jsonl")], "no segments loaded"),
+            (["--dataset", str(dataset), "--pairs", "en-ja"], "no segments selected"),
+            (["--dataset", str(dataset), "--models", "unknown"], "no models selected"),
+        ]
+        for arguments, expected in cases:
+            error_output = io.StringIO()
+            with contextlib.redirect_stderr(error_output):
+                assert main(arguments) == 1
+            assert expected in error_output.getvalue(), error_output.getvalue()
+        with patch(__name__ + ".main_async", side_effect=ValueError("private provider payload")):
+            error_output = io.StringIO()
+            with contextlib.redirect_stderr(error_output):
+                assert main([]) == 1
+            assert "private provider payload" not in error_output.getvalue()
 
 
 def _selfcheck():
@@ -1109,6 +1130,9 @@ def main(argv=None) -> int:
         return 0
     try:
         summary = asyncio.run(main_async(args))
+    except RunnerInputError as error:
+        print(f"runner failed: {error}", file=sys.stderr)
+        return 1
     except Exception as error:
         print(f"runner failed: {failure_details(error)['message']}", file=sys.stderr)
         return 1

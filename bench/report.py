@@ -28,7 +28,7 @@ from collections import Counter
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from bench.run import BEDROCK_NO_TEMPERATURE, DATA_DIR, MANTLE_NO_TEMPERATURE, dedupe_latest, load_dataset
+from bench.run import BEDROCK_NO_TEMPERATURE, DATA_DIR, MANTLE_NO_TEMPERATURE, REQUEST_TIMEOUT_S, dedupe_latest, load_dataset
 
 SCHEMA_VERSION = 2
 ROOT = Path(__file__).resolve().parent.parent
@@ -545,9 +545,11 @@ def run_config_of(model_cfg: dict, default_concurrency: int) -> dict:
     cfg = {
         "concurrency": model_cfg.get("concurrency", default_concurrency),
         "temperature_omitted": model_id in MANTLE_NO_TEMPERATURE or model_id in BEDROCK_NO_TEMPERATURE,
+        "request_max_attempts": model_cfg.get("request_max_attempts", 1),
     }
     if model_cfg.get("api") == "bedrock_mantle":
         cfg["mantle_region"] = model_cfg.get("mantle_region", "us-east-1")
+        cfg["request_timeout_s"] = REQUEST_TIMEOUT_S
     if model_cfg.get("gpu_hourly_usd") is not None:
         cfg.update({
             "gpu_hourly_usd": model_cfg["gpu_hourly_usd"],
@@ -1184,15 +1186,20 @@ def _selfcheck():
     grok_config = run_config_of({
         "api": "bedrock_mantle", "model_id": "xai.grok-4.6", "mantle_region": "us-west-2",
         "mantle_reasoning_effort": "low", "price_in": 2.2, "price_out": 6.6,
+        "request_max_attempts": 4,
     }, 8)
     assert grok_config.get("mantle_region") == "us-west-2", grok_config
     assert grok_config["temperature_omitted"] is False and grok_config["mantle_reasoning_effort"] == "low"
+    assert grok_config.get("request_max_attempts") == 4
+    assert grok_config.get("request_timeout_s") == 120
     sol_config = run_config_of({"api": "bedrock_mantle", "model_id": "openai.gpt-5.6-sol"}, 8)
     assert sol_config["temperature_omitted"] is True
     assert sol_config["mantle_region"] == "us-east-1"  # runner default when not configured
     sonnet_config = run_config_of({"api": "bedrock", "model_id": "us.anthropic.claude-sonnet-5"}, 8)
     assert sonnet_config["temperature_omitted"] is True
     assert run_config_of(api_model, 8)["temperature_omitted"] is False
+    assert run_config_of(api_model, 8)["request_max_attempts"] == 1
+    assert "request_timeout_s" not in run_config_of(api_model, 8)
 
     # judge cost is a run-level spend independent of candidate count, split
     # across two independently-priced judges (see config.toml's

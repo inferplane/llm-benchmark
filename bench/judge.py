@@ -194,6 +194,7 @@ async def main_async(args):
             print(f"WARN: segment {t['id']} not found in dataset, skipping judge")
             return
         async with sem:
+            details = None
             try:
                 scores = await judge_one(clients, judges_cfg, seg, t["output_text"])
                 error = None
@@ -207,22 +208,108 @@ async def main_async(args):
                 for name in [n for j in judges_cfg for n in (j["name"], j.get("fallback_name")) if n]:
                     scores |= {f"{name}_{a}": None for a in AXES}
                     scores |= {f"{name}_overall": None, f"{name}_tokens_in": None, f"{name}_tokens_out": None}
-                error = str(e)
-            await cache.append({"model": t["model"], "id": t["id"], **scores, "error": error})
+                from bench.run import failure_details
+                details = failure_details(e)
+                error = f"{details['type']}: {details['message']}"
+            await cache.append({
+                "model": t["model"], "id": t["id"], **scores, "error": error,
+                "judge_error_details": details,
+            })
 
     await asyncio.gather(*(one(t) for t in todo))
-    print(f"done -> {cache.path}")
+    successful = sum(cache.has(row["model"], row["id"]) for row in translations)
+    summary = {"requested": len(translations), "successful": successful, "failed": len(translations) - successful}
+    status = "complete" if summary["failed"] == 0 else "incomplete"
+    print(f"{status}: {successful}/{len(translations)} judged -> {cache.path}")
+    return summary
+
+
+def _selfcheck():
+    """Offline completion, failure-diagnostic and resume checks."""
+    import contextlib
+    import io
+    import tempfile
+    from types import SimpleNamespace
+    from unittest.mock import AsyncMock, patch
+    import httpx
+
+    scores = {axis: 4.0 for axis in AXES} | {"overall": 4.0, "chrf": None}
+    with tempfile.TemporaryDirectory() as directory:
+        temp = Path(directory)
+        run = temp / "fixture"
+        run.mkdir()
+        data = temp / "data.jsonl"
+        segments = [
+            {"id": key, "src_lang": "ko", "tgt_lang": "en", "src_text": key, "ref_source": "llm"}
+            for key in ("a", "b", "c")
+        ]
+        data.write_text("\n".join(json.dumps(row) for row in segments))
+        translations = [{"model": "m", "id": row["id"], "output_text": row["id"], "error": None}
+                        for row in segments]
+        (run / "translations.jsonl").write_text("\n".join(json.dumps(row) for row in translations))
+        (run / "judgments.jsonl").write_text(json.dumps({"model": "m", "id": "a", **scores, "error": None}) + "\n")
+        args = SimpleNamespace(run_id="fixture", dataset=str(data), limit=None, concurrency=1)
+        config = {"aws": {"region": "us-west-2"}, "scenario": {"translation": {"judges": [{"name": "test"}]}}}
+
+        async def fail_one(_clients, _judges, segment, _candidate):
+            if segment["id"] == "c":
+                raise httpx.ReadTimeout("")
+            return scores
+
+        with (patch(__name__ + ".RESULTS_DIR", temp),
+              patch(__name__ + ".load_config", return_value=config),
+              patch("boto3.Session", return_value=object()),
+              patch("boto3.client", return_value=object()),
+              contextlib.redirect_stdout(io.StringIO())):
+            with patch(__name__ + ".judge_one", new=AsyncMock(side_effect=fail_one)) as invocation:
+                summary = asyncio.run(main_async(args))
+                assert isinstance(summary, dict), "Judge must report incomplete work instead of unconditional success"
+                assert summary["requested"] == 3 and summary["successful"] == 2 and summary["failed"] == 1
+                assert invocation.await_count == 2
+            rows = [json.loads(line) for line in (run / "judgments.jsonl").read_text().splitlines()]
+            failed = next(row for row in rows if row["id"] == "c")
+            assert failed["error"] and "ReadTimeout" in failed["error"]
+            assert failed["judge_error_details"]["type"] == "ReadTimeout"
+            assert failed["judge_error_details"]["retryable"] is True
+            with patch(__name__ + ".judge_one", new=AsyncMock(return_value=scores)) as invocation:
+                summary = asyncio.run(main_async(args))
+                assert summary["failed"] == 0 and summary["successful"] == 3
+                assert invocation.await_count == 1
+            rows = [json.loads(line) for line in (run / "judgments.jsonl").read_text().splitlines()]
+            assert len(rows) == 4 and sum(row["id"] == "a" for row in rows) == 1
+            assert next(row for row in reversed(rows) if row["id"] == "c")["error"] is None
+
+            missing = temp / "missing"
+            missing.mkdir()
+            (missing / "translations.jsonl").write_text(json.dumps({
+                "model": "m", "id": "not-in-dataset", "output_text": "text", "error": None,
+            }) + "\n")
+            summary = asyncio.run(main_async(SimpleNamespace(**{**vars(args), "run_id": "missing"})))
+            assert summary["failed"] == 1 and summary["successful"] == 0
+        with patch("sys.argv", ["bench.judge", "--run-id", "fixture"]):
+            with patch(__name__ + ".main_async", new=AsyncMock(return_value={"failed": 1})):
+                assert main() == 1
+            with patch(__name__ + ".main_async", new=AsyncMock(return_value={"failed": 0})):
+                assert main() == 0
+    print("judge selfcheck OK")
 
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--run-id", required=True)
+    p.add_argument("--run-id")
+    p.add_argument("--selfcheck", action="store_true", help="run offline completion and resume checks")
     p.add_argument("--limit", type=int, help="judge only the first N cached translations (smoke runs)")
     p.add_argument("--dataset", help="comma-separated jsonl paths (default: data/flores.jsonl,data/synthetic.jsonl)")
     p.add_argument("--concurrency", type=int, default=8)
     args = p.parse_args()
-    asyncio.run(main_async(args))
+    if args.selfcheck:
+        _selfcheck()
+        return 0
+    if not args.run_id:
+        p.error("--run-id is required unless --selfcheck is used")
+    summary = asyncio.run(main_async(args))
+    return 1 if summary["failed"] else 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

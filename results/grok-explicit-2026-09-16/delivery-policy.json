@@ -9,6 +9,8 @@
   "background_wait_limit_s": 3600,
   "service_tier": "default",
   "request_scheduling_changed": true,
+  "expired_response_policy": "Only recreate after operator-verified repeated404 responses with a retrievable completed control in the same account and region.",
+  "background_generation_attempt_limit": 4,
   "reason": "A previously timed-out input returned a completed response after 276.225 seconds with identical generation settings.",
   "diagnostic_input_id": "flores-643-en-ko",
   "diagnostic_included_in_benchmark": false,

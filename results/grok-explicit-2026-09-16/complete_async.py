@@ -138,14 +138,28 @@ async def execute():
                 body = json.dumps(payload)
                 payload_sha = hashlib.sha256(body.encode()).hexdigest()
                 handle = ledger.get((name, id_))
-                if handle and handle.get("status") == "rejected":
-                    handle = None  # an explicit4xx response did not accept an inference
+                generation_attempt = 1
+                superseded_response_id = None
                 url = mantle_url(model["mantle_region"])
                 request_started = stamp()
                 try:
                     if handle:
                         if handle["payload_sha256"] != payload_sha or handle["protocol_sha256"] != protocol_sha:
                             raise RuntimeError("Stored inference belongs to different inputs")
+                        generation_attempt = handle.get("generation_attempt", 1)
+                        if handle.get("status") == "expired":
+                            # Operator-verified repeated404 only; never a
+                            # transient poll error or an in-progress request.
+                            if not handle.get("expiry_verified_at") or handle.get("expiry_http_status") != 404:
+                                raise RuntimeError("Inference expiry has not been verified")
+                            superseded_response_id = handle["response_id"]
+                            generation_attempt += 1
+                            if generation_attempt > model["request_max_attempts"]:
+                                raise RuntimeError("Background inference attempt limit reached")
+                            handle = None
+                        elif handle.get("status") == "rejected":
+                            handle = None  # an explicit4xx did not accept an inference
+                    if handle:
                         if not handle.get("response_id"):
                             raise RuntimeError("Previous submission has unknown acceptance; do not submit a duplicate")
                         counters[name]["retrieved_inferences"] += 1
@@ -157,6 +171,8 @@ async def execute():
                             "model": name, "id": id_, "payload_sha256": payload_sha,
                             "protocol_sha256": protocol_sha, "started_at": request_started,
                             "status": "submitting", "response_id": None,
+                            "generation_attempt": generation_attempt,
+                            "superseded_response_id": superseded_response_id,
                         }
                         data, handle = await submit(name, url, body, handle)
                         request_started = handle["started_at"]

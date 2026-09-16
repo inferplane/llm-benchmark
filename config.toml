@@ -228,6 +228,7 @@ mantle_region = "us-west-2"
 price_in = 2.20
 price_out = 6.60
 mantle_reasoning_effort = "low"
+request_max_attempts = 4  # initial request + up to 3 transient retries; timeout remains 120s
 enabled = true
 
 # ── Bedrock third-party low-cost models: every model on Bedrock with output

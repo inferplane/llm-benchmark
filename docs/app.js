@@ -448,6 +448,8 @@ function runConfigLines(rc) {
   if (!rc) return "—";
   const lines = [];
   if (rc.mantle_region) lines.push(`Mantle 리전: ${rc.mantle_region}`);
+  if (rc.request_timeout_s != null) lines.push(`네트워크 단계별 제한: ${rc.request_timeout_s}초`);
+  if ((rc.request_max_attempts ?? 1) > 1) lines.push(`실행기 최대 시도: ${rc.request_max_attempts}회 (첫 호출 포함)`);
   if (rc.temperature_omitted) lines.push("temperature: 미전송 (모델 예외)");
   if (rc.gpu_instance_type) {
     lines.push(`GPU: ${rc.gpu_instance_type} (TP=${rc.tensor_parallel_size ?? "?"}, 동시성=${rc.concurrency})`);
@@ -954,8 +956,8 @@ function renderRunProvenance(report) {
   const label = (name) => name === "grok-4.6" ? "Grok 4.6" : name === "grok-4.3" ? "Grok 4.3" : name;
   const parts = [
     "수집일이 다른 관측값을 함께 표시합니다.",
-    measured.length ? `신규 측정: ${measured.map(label).join(", ")}.` : "이번 실행의 신규 측정과 이전 관측값을 함께 비교합니다.",
-    "기존 모델은 이전 실행의 캐시 관측값을 재사용했습니다. 전체 모델을 같은 날짜에 재실행한 결과가 아닙니다.",
+    measured.length ? `신규 기록: ${measured.map(label).join(", ")}${Number.isFinite(primary?.retained_translations) ? ` · ${primary.retained_translations.toLocaleString("ko-KR")}건` : ""}.` : "이번 실행의 신규 측정과 이전 관측값을 함께 비교합니다.",
+    "나머지 관측값은 이전 실행의 캐시를 재사용했습니다. 전체 모델을 같은 날짜에 재실행한 결과가 아닙니다.",
     `포함 실행: ${sources.map((source) => source.run_id).filter(Boolean).join(" · ")}.`,
   ];
 

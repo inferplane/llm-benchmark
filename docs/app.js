@@ -254,14 +254,24 @@ function renderScatterChart(report, { canvasId, legendId, chartKey, filterFn, em
   // costs, since every model translates the exact same fixed set of segments.
   const rawPoints = scatterPoints(report, filterFn, state.track);
 
-  if (state.charts[chartKey]) state.charts[chartKey].destroy();
+  if (state.charts[chartKey]) {
+    state.charts[chartKey].destroy();
+    delete state.charts[chartKey];
+  }
 
   if (!rawPoints.length) {
-    canvasWrap.innerHTML = `<div class="empty-state"><span class="glyph">◐</span>${emptyMsg}</div>`;
+    canvas.hidden = true;
+    if (!canvasWrap.querySelector(".empty-state")) {
+      const empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.innerHTML = `<span class="glyph">◐</span>${emptyMsg}`;
+      canvasWrap.appendChild(empty);
+    }
     legend.innerHTML = "";
     return;
   }
-  if (!canvasWrap.querySelector("canvas")) canvasWrap.innerHTML = `<canvas id="${canvasId}"></canvas>`;
+  canvas.hidden = false;
+  canvasWrap.querySelector(".empty-state")?.remove();
 
   const allLatencies = rawPoints.map((p) => p.latencyP50);
   const points = rawPoints.map((p) => ({ ...p, r: speedToRadius(allLatencies, p.latencyP50) }));
@@ -926,6 +936,9 @@ function renderSampleDetail(report, sampleId) {
     .join("");
 
   detail.innerHTML = `
+    <p class="sample-origin">${sample.doc_type === "flores"
+      ? "FLORES 일반 문장 · 참조 번역은 사람이 작성했습니다."
+      : "합성 예시 · 원문과 참조 번역을 모델이 생성했습니다."}</p>
     <dl class="sample-source">
       <dt>원문 (${escapeHtml(sample.pair.split("-")[0].toUpperCase())})</dt>
       <dd><div class="md-content">${renderMarkdown(sample.src_text)}</div></dd>

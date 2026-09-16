@@ -1,6 +1,6 @@
 {
   "run_id": "grok-explicit-2026-09-16",
-  "git_commit": "782d2c40e7954c8858a84a8db77225455e50f3ae",
+  "git_commit": "83286c280d84f1176ea48db84e2bc5df2d4837e6",
   "prompt_sha256": "002886c783e9",
   "rubric_sha256": "d06c98b162ad",
   "dataset_segments": 3300,
@@ -56,14 +56,14 @@
       "warmup_excluded": false
     }
   ],
-  "started_at": "2026-09-16T11:05:28.243121+00:00",
-  "finished_at": "2026-09-16T12:06:16.921474+00:00",
+  "started_at": "2026-09-16T12:20:53.196710+00:00",
+  "finished_at": "2026-09-16T13:11:43.173299+00:00",
   "completion_summary": {
     "requested": 6600,
-    "successful": 6593,
-    "failed": 7,
-    "cached": 6558,
-    "request_attempts": 42,
+    "successful": 6600,
+    "failed": 0,
+    "cached": 6593,
+    "request_attempts": 7,
     "models": [
       {
         "model": "grok-4.3",
@@ -77,10 +77,10 @@
       {
         "model": "grok-4.6",
         "requested": 3300,
-        "successful": 3293,
-        "failed": 7,
-        "cached": 3258,
-        "request_attempts": 42,
+        "successful": 3300,
+        "failed": 0,
+        "cached": 3293,
+        "request_attempts": 7,
         "retrieved_inferences": 0
       }
     ]
@@ -354,6 +354,94 @@
           }
         ]
       }
+    },
+    {
+      "run_id": "grok-explicit-2026-09-16",
+      "git_commit": "83286c280d84f1176ea48db84e2bc5df2d4837e6",
+      "prompt_sha256": "002886c783e9",
+      "rubric_sha256": "d06c98b162ad",
+      "dataset_segments": 3300,
+      "judge_models": [
+        "openai.gpt-5.6-sol",
+        "us.anthropic.claude-fable-5"
+      ],
+      "generation_parameters": {
+        "temperature": 0,
+        "max_tokens": 4096
+      },
+      "models": [
+        {
+          "name": "grok-4.3",
+          "api": "bedrock_mantle",
+          "model_id": "xai.grok-4.3",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-west-2",
+          "mantle_reasoning_effort": "low",
+          "request_timeout_s": 600,
+          "mantle_background": true,
+          "request_max_attempts": 4,
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "temperature_omitted": false,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        },
+        {
+          "name": "grok-4.6",
+          "api": "bedrock_mantle",
+          "model_id": "xai.grok-4.6",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-west-2",
+          "mantle_reasoning_effort": "low",
+          "request_timeout_s": 600,
+          "mantle_background": true,
+          "request_max_attempts": 4,
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "temperature_omitted": false,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        }
+      ],
+      "started_at": "2026-09-16T12:20:53.196710+00:00",
+      "finished_at": "2026-09-16T13:11:43.173299+00:00",
+      "completion_summary": {
+        "requested": 6600,
+        "successful": 6600,
+        "failed": 0,
+        "cached": 6593,
+        "request_attempts": 7,
+        "models": [
+          {
+            "model": "grok-4.3",
+            "requested": 3300,
+            "successful": 3300,
+            "failed": 0,
+            "cached": 3300,
+            "request_attempts": 0,
+            "retrieved_inferences": 0
+          },
+          {
+            "model": "grok-4.6",
+            "requested": 3300,
+            "successful": 3300,
+            "failed": 0,
+            "cached": 3293,
+            "request_attempts": 7,
+            "retrieved_inferences": 0
+          }
+        ]
+      }
     }
   ],
   "dataset_sha256": "fdcd71a74faded38f4060b0521d8918b896bca0dedb60cae4bc44ced66d09583",
@@ -448,6 +536,8 @@
     "background_wait_limit_s": 3600,
     "service_tier": "default",
     "request_scheduling_changed": true,
+    "expired_response_policy": "Only recreate after operator-verified repeated404 responses with a retrievable completed control in the same account and region.",
+    "background_generation_attempt_limit": 4,
     "reason": "A previously timed-out input returned a completed response after 276.225 seconds with identical generation settings.",
     "diagnostic_input_id": "flores-643-en-ko",
     "diagnostic_included_in_benchmark": false,

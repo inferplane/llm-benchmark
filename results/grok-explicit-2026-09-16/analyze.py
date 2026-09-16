@@ -4,6 +4,7 @@ import hashlib
 import json
 import statistics
 import sys
+from decimal import Decimal
 from pathlib import Path
 
 RUN = Path(__file__).resolve().parent
@@ -68,7 +69,8 @@ def main():
                 "high_risk_segments": sum(
                     any(score["numbers_entities_dates"] <= 2 for score in scores) for scores in raw),
                 "judge_disagreement_segments": sum(
-                    abs(scores[0]["overall"] - scores[1]["overall"]) >= 1 for scores in raw),
+                    abs(Decimal(str(scores[0]["overall"])) - Decimal(str(scores[1]["overall"]))) >= 1
+                    for scores in raw),
             }
         comparisons[group] = {
             "candidate_model": "grok-4.6", "reference_model": "grok-4.3",

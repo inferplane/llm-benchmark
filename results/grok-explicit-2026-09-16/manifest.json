@@ -1,0 +1,549 @@
+{
+  "run_id": "grok-explicit-2026-09-16",
+  "git_commit": "83286c280d84f1176ea48db84e2bc5df2d4837e6",
+  "prompt_sha256": "002886c783e9",
+  "rubric_sha256": "d06c98b162ad",
+  "dataset_segments": 3300,
+  "judge_models": [
+    "openai.gpt-5.6-sol",
+    "us.anthropic.claude-fable-5"
+  ],
+  "generation_parameters": {
+    "temperature": 0,
+    "max_tokens": 4096
+  },
+  "models": [
+    {
+      "name": "grok-4.3",
+      "api": "bedrock_mantle",
+      "model_id": "xai.grok-4.3",
+      "concurrency": 8,
+      "gpu_hourly_usd": null,
+      "gpu_instance_type": null,
+      "tensor_parallel_size": null,
+      "extra_vllm_args": null,
+      "mantle_region": "us-west-2",
+      "mantle_reasoning_effort": "low",
+      "request_timeout_s": 600,
+      "mantle_background": true,
+      "request_max_attempts": 4,
+      "bedrock_reasoning_effort": null,
+      "translate_region": null,
+      "price_per_char": null,
+      "temperature_omitted": false,
+      "thinking_disabled": false,
+      "warmup_excluded": false
+    },
+    {
+      "name": "grok-4.6",
+      "api": "bedrock_mantle",
+      "model_id": "xai.grok-4.6",
+      "concurrency": 8,
+      "gpu_hourly_usd": null,
+      "gpu_instance_type": null,
+      "tensor_parallel_size": null,
+      "extra_vllm_args": null,
+      "mantle_region": "us-west-2",
+      "mantle_reasoning_effort": "low",
+      "request_timeout_s": 600,
+      "mantle_background": true,
+      "request_max_attempts": 4,
+      "bedrock_reasoning_effort": null,
+      "translate_region": null,
+      "price_per_char": null,
+      "temperature_omitted": false,
+      "thinking_disabled": false,
+      "warmup_excluded": false
+    }
+  ],
+  "started_at": "2026-09-16T12:20:53.196710+00:00",
+  "finished_at": "2026-09-16T13:11:43.173299+00:00",
+  "completion_summary": {
+    "requested": 6600,
+    "successful": 6600,
+    "failed": 0,
+    "cached": 6593,
+    "request_attempts": 7,
+    "models": [
+      {
+        "model": "grok-4.3",
+        "requested": 3300,
+        "successful": 3300,
+        "failed": 0,
+        "cached": 3300,
+        "request_attempts": 0,
+        "retrieved_inferences": 0
+      },
+      {
+        "model": "grok-4.6",
+        "requested": 3300,
+        "successful": 3300,
+        "failed": 0,
+        "cached": 3293,
+        "request_attempts": 7,
+        "retrieved_inferences": 0
+      }
+    ]
+  },
+  "executions": [
+    {
+      "run_id": "grok-explicit-2026-09-16",
+      "git_commit": "173089bfb3a766d8bc222f1559b94e1732867f5a",
+      "prompt_sha256": "002886c783e9",
+      "rubric_sha256": "d06c98b162ad",
+      "dataset_segments": 3300,
+      "judge_models": [
+        "openai.gpt-5.6-sol",
+        "us.anthropic.claude-fable-5"
+      ],
+      "generation_parameters": {
+        "temperature": 0,
+        "max_tokens": 4096
+      },
+      "models": [
+        {
+          "name": "grok-4.3",
+          "api": "bedrock_mantle",
+          "model_id": "xai.grok-4.3",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-west-2",
+          "mantle_reasoning_effort": "low",
+          "request_timeout_s": 120,
+          "request_max_attempts": 4,
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "temperature_omitted": false,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        },
+        {
+          "name": "grok-4.6",
+          "api": "bedrock_mantle",
+          "model_id": "xai.grok-4.6",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-west-2",
+          "mantle_reasoning_effort": "low",
+          "request_timeout_s": 120,
+          "request_max_attempts": 4,
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "temperature_omitted": false,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        }
+      ],
+      "started_at": "2026-09-16T08:26:40.049031+00:00",
+      "finished_at": "2026-09-16T09:56:34.154805+00:00",
+      "completion_summary": {
+        "requested": 6600,
+        "successful": 6547,
+        "failed": 53,
+        "cached": 0,
+        "request_attempts": 6710,
+        "models": [
+          {
+            "model": "grok-4.3",
+            "requested": 3300,
+            "successful": 3300,
+            "failed": 0,
+            "cached": 0,
+            "request_attempts": 3302
+          },
+          {
+            "model": "grok-4.6",
+            "requested": 3300,
+            "successful": 3247,
+            "failed": 53,
+            "cached": 0,
+            "request_attempts": 3408
+          }
+        ]
+      },
+      "dataset_sha256": "fdcd71a74faded38f4060b0521d8918b896bca0dedb60cae4bc44ced66d09583",
+      "protocol_sha256": "f4bd9ab311e4594b51e229fe093782c67e5c12882cfcdd2997bdea62724c9595",
+      "interrupted": true,
+      "unrecorded_inflight_attempts_max": 8,
+      "interruption_reason": "A diagnostic response completed after 276.225 seconds; increase client read deadline without changing generation parameters."
+    },
+    {
+      "run_id": "grok-explicit-2026-09-16",
+      "git_commit": "458a884e5298476d2cd0d5fc0567a0c7debd3e1c",
+      "prompt_sha256": "002886c783e9",
+      "rubric_sha256": "d06c98b162ad",
+      "dataset_segments": 3300,
+      "judge_models": [
+        "openai.gpt-5.6-sol",
+        "us.anthropic.claude-fable-5"
+      ],
+      "generation_parameters": {
+        "temperature": 0,
+        "max_tokens": 4096
+      },
+      "models": [
+        {
+          "name": "grok-4.3",
+          "api": "bedrock_mantle",
+          "model_id": "xai.grok-4.3",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-west-2",
+          "mantle_reasoning_effort": "low",
+          "request_timeout_s": 600,
+          "mantle_background": false,
+          "request_max_attempts": 4,
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "temperature_omitted": false,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        },
+        {
+          "name": "grok-4.6",
+          "api": "bedrock_mantle",
+          "model_id": "xai.grok-4.6",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-west-2",
+          "mantle_reasoning_effort": "low",
+          "request_timeout_s": 600,
+          "mantle_background": false,
+          "request_max_attempts": 4,
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "temperature_omitted": false,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        }
+      ],
+      "started_at": "2026-09-16T10:00:01.899381+00:00",
+      "finished_at": "2026-09-16T11:00:12.103704+00:00",
+      "completion_summary": {
+        "requested": 6600,
+        "successful": 6558,
+        "failed": 42,
+        "cached": 6547,
+        "request_attempts": 51,
+        "models": [
+          {
+            "model": "grok-4.3",
+            "requested": 3300,
+            "successful": 3300,
+            "failed": 0,
+            "cached": 3300,
+            "request_attempts": 0
+          },
+          {
+            "model": "grok-4.6",
+            "requested": 3300,
+            "successful": 3258,
+            "failed": 42,
+            "cached": 3247,
+            "request_attempts": 51
+          }
+        ]
+      },
+      "interrupted": true,
+      "unrecorded_inflight_attempts_max": 8,
+      "interruption_reason": "Use durable background response IDs instead of re-submitting long-running requests.",
+      "started_at_provenance": "earliest recorded request timestamp minus its measured latency",
+      "dataset_sha256": "fdcd71a74faded38f4060b0521d8918b896bca0dedb60cae4bc44ced66d09583",
+      "protocol_sha256": "f4bd9ab311e4594b51e229fe093782c67e5c12882cfcdd2997bdea62724c9595"
+    },
+    {
+      "run_id": "grok-explicit-2026-09-16",
+      "git_commit": "782d2c40e7954c8858a84a8db77225455e50f3ae",
+      "prompt_sha256": "002886c783e9",
+      "rubric_sha256": "d06c98b162ad",
+      "dataset_segments": 3300,
+      "judge_models": [
+        "openai.gpt-5.6-sol",
+        "us.anthropic.claude-fable-5"
+      ],
+      "generation_parameters": {
+        "temperature": 0,
+        "max_tokens": 4096
+      },
+      "models": [
+        {
+          "name": "grok-4.3",
+          "api": "bedrock_mantle",
+          "model_id": "xai.grok-4.3",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-west-2",
+          "mantle_reasoning_effort": "low",
+          "request_timeout_s": 600,
+          "mantle_background": true,
+          "request_max_attempts": 4,
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "temperature_omitted": false,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        },
+        {
+          "name": "grok-4.6",
+          "api": "bedrock_mantle",
+          "model_id": "xai.grok-4.6",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-west-2",
+          "mantle_reasoning_effort": "low",
+          "request_timeout_s": 600,
+          "mantle_background": true,
+          "request_max_attempts": 4,
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "temperature_omitted": false,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        }
+      ],
+      "started_at": "2026-09-16T11:05:28.243121+00:00",
+      "finished_at": "2026-09-16T12:06:16.921474+00:00",
+      "completion_summary": {
+        "requested": 6600,
+        "successful": 6593,
+        "failed": 7,
+        "cached": 6558,
+        "request_attempts": 42,
+        "models": [
+          {
+            "model": "grok-4.3",
+            "requested": 3300,
+            "successful": 3300,
+            "failed": 0,
+            "cached": 3300,
+            "request_attempts": 0,
+            "retrieved_inferences": 0
+          },
+          {
+            "model": "grok-4.6",
+            "requested": 3300,
+            "successful": 3293,
+            "failed": 7,
+            "cached": 3258,
+            "request_attempts": 42,
+            "retrieved_inferences": 0
+          }
+        ]
+      }
+    },
+    {
+      "run_id": "grok-explicit-2026-09-16",
+      "git_commit": "83286c280d84f1176ea48db84e2bc5df2d4837e6",
+      "prompt_sha256": "002886c783e9",
+      "rubric_sha256": "d06c98b162ad",
+      "dataset_segments": 3300,
+      "judge_models": [
+        "openai.gpt-5.6-sol",
+        "us.anthropic.claude-fable-5"
+      ],
+      "generation_parameters": {
+        "temperature": 0,
+        "max_tokens": 4096
+      },
+      "models": [
+        {
+          "name": "grok-4.3",
+          "api": "bedrock_mantle",
+          "model_id": "xai.grok-4.3",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-west-2",
+          "mantle_reasoning_effort": "low",
+          "request_timeout_s": 600,
+          "mantle_background": true,
+          "request_max_attempts": 4,
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "temperature_omitted": false,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        },
+        {
+          "name": "grok-4.6",
+          "api": "bedrock_mantle",
+          "model_id": "xai.grok-4.6",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-west-2",
+          "mantle_reasoning_effort": "low",
+          "request_timeout_s": 600,
+          "mantle_background": true,
+          "request_max_attempts": 4,
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "temperature_omitted": false,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        }
+      ],
+      "started_at": "2026-09-16T12:20:53.196710+00:00",
+      "finished_at": "2026-09-16T13:11:43.173299+00:00",
+      "completion_summary": {
+        "requested": 6600,
+        "successful": 6600,
+        "failed": 0,
+        "cached": 6593,
+        "request_attempts": 7,
+        "models": [
+          {
+            "model": "grok-4.3",
+            "requested": 3300,
+            "successful": 3300,
+            "failed": 0,
+            "cached": 3300,
+            "request_attempts": 0,
+            "retrieved_inferences": 0
+          },
+          {
+            "model": "grok-4.6",
+            "requested": 3300,
+            "successful": 3300,
+            "failed": 0,
+            "cached": 3293,
+            "request_attempts": 7,
+            "retrieved_inferences": 0
+          }
+        ]
+      }
+    }
+  ],
+  "dataset_sha256": "fdcd71a74faded38f4060b0521d8918b896bca0dedb60cae4bc44ced66d09583",
+  "protocol_sha256": "f4bd9ab311e4594b51e229fe093782c67e5c12882cfcdd2997bdea62724c9595",
+  "protocol": {
+    "run_id": "grok-explicit-2026-09-16",
+    "models": [
+      "grok-4.3",
+      "grok-4.6"
+    ],
+    "segments_per_model": 3300,
+    "tracks_per_model": {
+      "flores": 3000,
+      "synthetic": 300
+    },
+    "translation_directions": 30,
+    "dataset_sha256": "fdcd71a74faded38f4060b0521d8918b896bca0dedb60cae4bc44ced66d09583",
+    "source_files_sha256": {
+      "data/flores.jsonl": "8432c47c95f3a8d68cabb6b5c78aa8f14447e6119e169a5df33a60b8e5a0278b",
+      "data/synthetic.jsonl": "24815d3c145aeee78b0fd077c5f07c867108afeda4bb51b780be0e595ecc3bd0"
+    },
+    "prompt_sha256": "002886c783e95ddbb6802dd9e425867a61bf2a4b3306afe513d8cb544f1c3ad8",
+    "rubric_sha256": "d06c98b162adc83606dc6ed37eb230177b325fbeaf1347e81a37ceb8faccf139",
+    "config_sha256": "21a76c3458bf543de4856bed856c91c5e1b20f169bf27baf3913c949b9ffeecf",
+    "recorded_model_configs": [
+      {
+        "name": "grok-4.3",
+        "api": "bedrock_mantle",
+        "model_id": "xai.grok-4.3",
+        "mantle_region": "us-west-2",
+        "price_in": 1.25,
+        "price_out": 2.5,
+        "mantle_reasoning_effort": "low",
+        "request_max_attempts": 4,
+        "enabled": true
+      },
+      {
+        "name": "grok-4.6",
+        "api": "bedrock_mantle",
+        "model_id": "xai.grok-4.6",
+        "mantle_region": "us-west-2",
+        "price_in": 2.2,
+        "price_out": 6.6,
+        "mantle_reasoning_effort": "low",
+        "request_max_attempts": 4,
+        "enabled": true
+      }
+    ],
+    "judge_configs": [
+      {
+        "name": "sol",
+        "api": "bedrock_mantle",
+        "model_id": "openai.gpt-5.6-sol",
+        "mantle_region": "us-east-1",
+        "price_in": 5.0,
+        "price_out": 30.0
+      },
+      {
+        "name": "fable-5",
+        "api": "bedrock",
+        "model_id": "us.anthropic.claude-fable-5",
+        "price_in": 10.0,
+        "price_out": 50.0,
+        "fallback_name": "fable-5-fallback",
+        "fallback_model_id": "us.anthropic.claude-opus-4-8",
+        "fallback_price_in": 5.0,
+        "fallback_price_out": 25.0
+      }
+    ],
+    "temperature": 0,
+    "max_output_tokens": 4096,
+    "execution_mode": "concurrent_model_batches",
+    "concurrency_per_model": 8,
+    "total_candidate_concurrency": 16,
+    "fresh_observations": true,
+    "diagnostic_or_historical_results_included": false
+  },
+  "response_delivery": "background",
+  "background_poll_interval_s": 10,
+  "background_wait_limit_s": 3600,
+  "background_max_outstanding_jobs_per_model": 64,
+  "background_submission_interval_s": 2,
+  "background_poll_request_timeout_s": 30,
+  "delivery_policy": {
+    "initial_request_timeout_s": 120,
+    "completion_request_timeout_s": 600,
+    "completion_delivery": "background_polling",
+    "background_max_outstanding_jobs_per_model": 64,
+    "api_concurrency_per_model": 8,
+    "background_submission_interval_s": 2,
+    "background_poll_interval_s": 10,
+    "background_wait_limit_s": 3600,
+    "service_tier": "default",
+    "request_scheduling_changed": true,
+    "expired_response_policy": "Only recreate after operator-verified repeated404 responses with a retrievable completed control in the same account and region.",
+    "background_generation_attempt_limit": 4,
+    "reason": "A previously timed-out input returned a completed response after 276.225 seconds with identical generation settings.",
+    "diagnostic_input_id": "flores-643-en-ko",
+    "diagnostic_included_in_benchmark": false,
+    "generation_parameters_changed": false,
+    "dataset_or_prompt_changed": false,
+    "original_attempt_records_preserved": true,
+    "grok_4_6_throughput_comparison_available": false
+  }
+}

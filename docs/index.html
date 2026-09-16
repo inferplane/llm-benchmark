@@ -100,6 +100,7 @@
     justify-content: space-between;
     gap: 16px;
   }
+  .masthead > div { min-width: 0; max-width: 100%; }
   .masthead .ticker-rule {
     font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
     font-size: 11px;
@@ -120,6 +121,7 @@
     font-size: 14px;
     margin: 6px 0 0;
     max-width: 62ch;
+    overflow-wrap: anywhere;
   }
   .masthead-controls {
     display: flex;
@@ -128,6 +130,8 @@
     font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
     font-size: 12.5px;
   }
+  .masthead-controls select { min-width: 0; flex: 1; }
+  .masthead-controls button { flex-shrink: 0; }
   select, button.theme-toggle {
     background: var(--surface);
     color: var(--ink);
@@ -236,6 +240,12 @@
   #samples-toggle { margin-bottom: 14px; }
   .samples-controls { margin-bottom: 16px; }
   .samples-controls select { min-width: min(320px, 100%); max-width: 100%; }
+  .sample-origin {
+    margin: 0 0 12px;
+    color: var(--ink-2);
+    font-size: var(--reading-font-size);
+    line-height: 1.6;
+  }
   .sample-source {
     background: var(--surface-2);
     border: 1px solid var(--border);
@@ -387,6 +397,7 @@
 
   @media (max-width: 560px) {
     .masthead { flex-direction: column; align-items: flex-start; }
+    .masthead-controls { width: 100%; }
     .chart-wrap { height: 320px; }
     #quality-panel .quality-table :is(th:first-child, td.model-cell) {
       width: 12ch; min-width: 12ch; max-width: 12ch;

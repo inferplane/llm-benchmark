@@ -201,15 +201,13 @@ enabled = true
 name = "grok-4.3"
 api = "bedrock_mantle"
 model_id = "xai.grok-4.3"
-mantle_region = "us-east-1"
+mantle_region = "us-west-2"
 price_in = 1.25
 price_out = 2.50
-# Reasoning is always-on by default (effort defaults to "low") per AWS's docs
-# — disabled here for the same reason Qwen3.6's enable_thinking is disabled:
-# translation doesn't need chain-of-thought, and leaving it on would bias
-# this model's cost/latency against every non-reasoning model in the roster
-# for a task that doesn't call for reasoning.
-mantle_reasoning_effort = "none"
+# The explicit-prompt comparison matches Grok 4.6's region and reasoning.
+# July observations retain their recorded us-east-1 / none settings.
+mantle_reasoning_effort = "low"
+request_max_attempts = 4
 enabled = true
 
 # Grok 4.6 added 2026-09-13. Model ID, us-west-2 Mantle availability, and

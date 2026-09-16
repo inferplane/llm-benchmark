@@ -1,0 +1,161 @@
+{
+  "run_id": "grok-explicit-2026-09-16",
+  "comparisons": {
+    "all": {
+      "candidate_model": "grok-4.6",
+      "reference_model": "grok-4.3",
+      "paired_segments": 3300,
+      "paired_source_documents": 260,
+      "wins": 1055,
+      "ties": 1327,
+      "losses": 918,
+      "mean_delta": 0.041,
+      "mean_delta_ci95": [
+        0.026,
+        0.061
+      ],
+      "bootstrap_unit": "source_document",
+      "models": {
+        "grok-4.3": {
+          "segments": 3300,
+          "judge_overall": 4.743,
+          "judge": {
+            "adequacy": 4.726,
+            "terminology": 4.615,
+            "numbers_entities_dates": 4.819,
+            "fluency": 4.57,
+            "format": 4.985
+          },
+          "quality_pass_segments": 2619,
+          "high_risk_segments": 218,
+          "judge_disagreement_segments": 47
+        },
+        "grok-4.6": {
+          "segments": 3300,
+          "judge_overall": 4.784,
+          "judge": {
+            "adequacy": 4.795,
+            "terminology": 4.659,
+            "numbers_entities_dates": 4.892,
+            "fluency": 4.584,
+            "format": 4.991
+          },
+          "quality_pass_segments": 2741,
+          "high_risk_segments": 136,
+          "judge_disagreement_segments": 38
+        }
+      }
+    },
+    "flores": {
+      "candidate_model": "grok-4.6",
+      "reference_model": "grok-4.3",
+      "paired_segments": 3000,
+      "paired_source_documents": 100,
+      "wins": 901,
+      "ties": 1284,
+      "losses": 815,
+      "mean_delta": 0.032,
+      "mean_delta_ci95": [
+        0.017,
+        0.05
+      ],
+      "bootstrap_unit": "source_document",
+      "models": {
+        "grok-4.3": {
+          "segments": 3000,
+          "judge_overall": 4.773,
+          "judge": {
+            "adequacy": 4.763,
+            "terminology": 4.655,
+            "numbers_entities_dates": 4.879,
+            "fluency": 4.586,
+            "format": 4.984
+          },
+          "quality_pass_segments": 2457,
+          "high_risk_segments": 132,
+          "judge_disagreement_segments": 24
+        },
+        "grok-4.6": {
+          "segments": 3000,
+          "judge_overall": 4.805,
+          "judge": {
+            "adequacy": 4.808,
+            "terminology": 4.702,
+            "numbers_entities_dates": 4.923,
+            "fluency": 4.601,
+            "format": 4.99
+          },
+          "quality_pass_segments": 2541,
+          "high_risk_segments": 86,
+          "judge_disagreement_segments": 17
+        }
+      }
+    },
+    "synthetic": {
+      "candidate_model": "grok-4.6",
+      "reference_model": "grok-4.3",
+      "paired_segments": 300,
+      "paired_source_documents": 160,
+      "wins": 154,
+      "ties": 43,
+      "losses": 103,
+      "mean_delta": 0.138,
+      "mean_delta_ci95": [
+        0.091,
+        0.184
+      ],
+      "bootstrap_unit": "source_document",
+      "models": {
+        "grok-4.3": {
+          "segments": 300,
+          "judge_overall": 4.437,
+          "judge": {
+            "adequacy": 4.362,
+            "terminology": 4.208,
+            "numbers_entities_dates": 4.213,
+            "fluency": 4.403,
+            "format": 4.997
+          },
+          "quality_pass_segments": 162,
+          "high_risk_segments": 86,
+          "judge_disagreement_segments": 23
+        },
+        "grok-4.6": {
+          "segments": 300,
+          "judge_overall": 4.575,
+          "judge": {
+            "adequacy": 4.66,
+            "terminology": 4.233,
+            "numbers_entities_dates": 4.573,
+            "fluency": 4.412,
+            "format": 4.995
+          },
+          "quality_pass_segments": 200,
+          "high_risk_segments": 50,
+          "judge_disagreement_segments": 21
+        }
+      }
+    }
+  },
+  "whole_model_costs": {
+    "grok-4.3": {
+      "tokens_in": 766516,
+      "tokens_out": 2320839,
+      "cost_total_usd": 6.7602,
+      "cost_per_segment_usd": 0.00205,
+      "cost_per_quality_pass_usd": 0.00258
+    },
+    "grok-4.6": {
+      "tokens_in": 731940,
+      "tokens_out": 1727899,
+      "cost_total_usd": 13.0144,
+      "cost_per_segment_usd": 0.00394,
+      "cost_per_quality_pass_usd": 0.00475
+    }
+  },
+  "validated_translation_keys": 6600,
+  "validated_judgment_keys": 6600,
+  "protocol_sha256": "f4bd9ab311e4594b51e229fe093782c67e5c12882cfcdd2997bdea62724c9595",
+  "prompt_sha256": "002886c783e95ddbb6802dd9e425867a61bf2a4b3306afe513d8cb544f1c3ad8",
+  "rubric_sha256": "d06c98b162adc83606dc6ed37eb230177b325fbeaf1347e81a37ceb8faccf139"
+}

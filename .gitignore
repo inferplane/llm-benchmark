@@ -4,3 +4,4 @@ __pycache__/
 .playwright-mcp/
 .claude/*.local.json
 .claude/scheduled_tasks.lock
+results/*/.execution.lock

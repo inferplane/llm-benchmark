@@ -725,6 +725,7 @@ def write_manifest(run_id, cfg, scenario, models, segments, started_at, finished
                 "mantle_region": m.get("mantle_region"),
                 "mantle_reasoning_effort": m.get("mantle_reasoning_effort"),
                 "request_timeout_s": REQUEST_TIMEOUT_S if m["api"] == "bedrock_mantle" else None,
+                "mantle_background": m.get("mantle_background", False),
                 "request_max_attempts": m.get("request_max_attempts", 1),
                 "bedrock_reasoning_effort": m.get("bedrock_reasoning_effort"),
                 "translate_region": m.get("translate_region"),

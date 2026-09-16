@@ -13,6 +13,7 @@ import hashlib
 import json
 import sys
 from collections import Counter
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -27,6 +28,17 @@ from bench.run import (
 
 NAMES = ("grok-4.3", "grok-4.6")
 RUBRIC = ROOT / "scenarios/translation/rubric.txt"
+
+
+@contextmanager
+def execution_lock():
+    import fcntl
+    with (RUN_DIR / ".execution.lock").open("a") as stream:
+        try:
+            fcntl.flock(stream, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as error:
+            raise RuntimeError("Another experiment writer is active") from error
+        yield
 
 
 def sha(path):
@@ -132,7 +144,8 @@ def main():
     if action == "prepare":
         prepare()
         return 0
-    return asyncio.run(execute())
+    with execution_lock():
+        return asyncio.run(execute())
 
 
 if __name__ == "__main__":

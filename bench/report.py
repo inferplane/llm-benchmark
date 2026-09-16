@@ -458,6 +458,11 @@ def metric_policy() -> dict:
                 "including failed replacements: retained subsets do not prove full source-batch membership. "
                 "All GPU-derived costs are then null; token/character-priced costs remain available."
             ),
+            "request_deadline_timing": (
+                "Mantle throughput is also unavailable when recorded invocations changed the "
+                "client request deadline. Fully cached invocations made no requests and are ignored. "
+                "Recorded deadline history is exposed in run_config; token-priced costs remain available."
+            ),
             "cost_per_quality_pass_usd": (
                 "whole-model cost_total_usd / quality_pass_segments; null if zero passes or any successful "
                 "translation lacks a valid judgment or complete raw two-judge scores"
@@ -550,6 +555,7 @@ def run_config_of(model_cfg: dict, default_concurrency: int) -> dict:
     if model_cfg.get("api") == "bedrock_mantle":
         cfg["mantle_region"] = model_cfg.get("mantle_region", "us-east-1")
         cfg["request_timeout_s"] = REQUEST_TIMEOUT_S
+        cfg["response_delivery"] = "background" if model_cfg.get("mantle_background") else "blocking"
     if model_cfg.get("gpu_hourly_usd") is not None:
         cfg.update({
             "gpu_hourly_usd": model_cfg["gpu_hourly_usd"],
@@ -572,6 +578,31 @@ def run_config_of(model_cfg: dict, default_concurrency: int) -> dict:
         if model_cfg.get("bedrock_reasoning_effort") is not None:
             cfg["bedrock_reasoning_effort"] = model_cfg["bedrock_reasoning_effort"]
     return cfg
+
+
+def recorded_model_invocations(name: str, source_ids: set[str], source_runs: list[dict]):
+    """Only executions with actual inference or retrieval requests."""
+    for source in source_runs:
+        if source["run_id"] not in source_ids:
+            continue
+        manifest = source.get("manifest") or {}
+        for execution in manifest.get("executions") or [manifest]:
+            summary = next((m for m in execution.get("completion_summary", {}).get("models", [])
+                            if m.get("model") == name), None)
+            if (summary is not None and summary.get("request_attempts") == 0
+                    and not summary.get("retrieved_inferences")):
+                continue
+            model = next((m for m in execution.get("models", []) if m.get("name") == name), None)
+            if model is not None:
+                yield model
+
+
+def request_timeout_history(name: str, source_ids: set[str], source_runs: list[dict]) -> list:
+    return sorted({
+        m["request_timeout_s"] for m in recorded_model_invocations(name, source_ids, source_runs)
+        if type(m.get("request_timeout_s")) in (int, float)
+        and 0 < m["request_timeout_s"] < float("inf")
+    })
 
 
 SAMPLES_PER_PAIR = 7
@@ -701,10 +732,31 @@ def build_report(run_id: str, scenario_cfg: dict, models_cfg: list[dict], datase
         provider = "vllm" if model_cfg.get("base_url") else model_cfg["api"]
         aggregate = aggregate_full(rows, model_cfg, src_chars_by_id)
         aggregate["baseline_comparison"] = baseline_comparison(rows, baseline_rows)
+        run_config = run_config_of(model_cfg, default_concurrency)
+        if model_cfg["api"] == "bedrock_mantle":
+            timeouts = request_timeout_history(
+                name, {r["translation_source_run"] for r in rows}, source_runs)
+            if timeouts:
+                run_config["request_timeout_s"] = timeouts[0] if len(timeouts) == 1 else None
+            if len(timeouts) > 1:
+                run_config["request_timeouts_s"] = timeouts
+                aggregate["throughput_tok_s"] = None
+                aggregate["throughput_unavailable_reason"] = "request_deadline_changed"
+            deliveries = sorted({
+                "background" if m.get("mantle_background") else "blocking"
+                for m in recorded_model_invocations(
+                    name, {r["translation_source_run"] for r in rows}, source_runs)
+            })
+            if deliveries:
+                run_config["response_delivery"] = deliveries[0] if len(deliveries) == 1 else "mixed"
+            if len(deliveries) > 1:
+                run_config["response_deliveries"] = deliveries
+                aggregate["throughput_tok_s"] = None
+                aggregate.setdefault("throughput_unavailable_reason", "response_delivery_changed")
         models_out.append({
             "name": name,
             "provider": provider,
-            "run_config": run_config_of(model_cfg, default_concurrency),
+            "run_config": run_config,
             "aggregate": aggregate,
             "observation_provenance": {
                 "translations_by_run": dict(Counter(r["translation_source_run"] for r in rows)),
@@ -1164,6 +1216,46 @@ def _selfcheck():
                 assert hash_key in str(exc) and source_ids[0] in str(exc) and primary_id in str(exc), exc
             else:
                 raise AssertionError(f"conflicting {hash_key} must prevent combining runs")
+
+        # A client-deadline change within one run invalidates throughput, not
+        # token-priced cost. Two500K-output rows over5s otherwise give200Ktok/s.
+        deadline_rows = [{**passed, "id": s["id"], "latency_s": 5}
+                         for s in fixture_segments]
+        deadline_models = [{"name": "candidate", **api_model, "api": "bedrock_mantle"}]
+        early = {"models": [{"name": "candidate", "request_timeout_s": 120}],
+                 "completion_summary": {"models": [{"model": "candidate", "request_attempts": 2}]}}
+        late = {"models": [{"name": "candidate", "request_timeout_s": 600}],
+                "completion_summary": {"models": [{"model": "candidate", "request_attempts": 1}]}}
+        deadline_manifest = {**primary_manifest, "executions": [early, late]}
+        write_inputs(primary_id, deadline_rows, deadline_manifest)
+        deadline_report = build_report(primary_id, fixture_scenario, deadline_models, [dataset_path])
+        deadline_model = deadline_report["models"][0]
+        assert deadline_model["aggregate"]["throughput_tok_s"] is None
+        assert deadline_model["aggregate"]["cost_total_usd"] == 7
+        assert deadline_model["aggregate"]["cost_per_quality_pass_usd"] == 3.5
+        assert deadline_model["run_config"]["request_timeout_s"] is None
+        assert deadline_model["run_config"]["request_timeouts_s"] == [120, 600]
+
+        # A model fully cached during the second invocation was never called
+        # with its new deadline: retain its actual120s metadata and throughput.
+        late["completion_summary"]["models"][0]["request_attempts"] = 0
+        write_inputs(primary_id, deadline_rows, deadline_manifest)
+        cached_report = build_report(primary_id, fixture_scenario, deadline_models, [dataset_path])
+        cached_model = cached_report["models"][0]
+        assert cached_model["aggregate"]["throughput_tok_s"] == 200000
+        assert cached_model["run_config"]["request_timeout_s"] == 120
+
+        # Background delivery also invalidates direct throughput comparisons
+        # even if both invocations used the same network deadline.
+        late["completion_summary"]["models"][0]["request_attempts"] = 1
+        late["models"][0].update(request_timeout_s=120, mantle_background=True)
+        write_inputs(primary_id, deadline_rows, deadline_manifest)
+        delivery_report = build_report(primary_id, fixture_scenario, deadline_models, [dataset_path])
+        delivery_model = delivery_report["models"][0]
+        assert delivery_model["aggregate"]["throughput_tok_s"] is None
+        assert delivery_model["aggregate"]["cost_total_usd"] == 7
+        assert delivery_model["aggregate"]["cost_per_quality_pass_usd"] == 3.5
+        assert delivery_model["run_config"]["response_delivery"] == "mixed"
 
     # Retained cross-run rows cannot prove full original batch membership.
     # Time-based metrics are unavailable; token/character costs remain additive.

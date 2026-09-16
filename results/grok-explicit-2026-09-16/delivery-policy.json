@@ -1,0 +1,11 @@
+{
+  "initial_request_timeout_s": 120,
+  "completion_request_timeout_s": 600,
+  "reason": "A previously timed-out input returned a completed response after 276.225 seconds with identical generation settings.",
+  "diagnostic_input_id": "flores-643-en-ko",
+  "diagnostic_included_in_benchmark": false,
+  "generation_parameters_changed": false,
+  "dataset_or_prompt_changed": false,
+  "original_attempt_records_preserved": true,
+  "grok_4_6_throughput_comparison_available": false
+}

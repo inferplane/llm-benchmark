@@ -1191,7 +1191,7 @@ def _selfcheck():
     assert grok_config.get("mantle_region") == "us-west-2", grok_config
     assert grok_config["temperature_omitted"] is False and grok_config["mantle_reasoning_effort"] == "low"
     assert grok_config.get("request_max_attempts") == 4
-    assert grok_config.get("request_timeout_s") == 120
+    assert grok_config.get("request_timeout_s") == 600
     sol_config = run_config_of({"api": "bedrock_mantle", "model_id": "openai.gpt-5.6-sol"}, 8)
     assert sol_config["temperature_omitted"] is True
     assert sol_config["mantle_region"] == "us-east-1"  # runner default when not configured

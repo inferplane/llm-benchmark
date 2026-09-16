@@ -31,7 +31,7 @@ RESULTS_DIR = ROOT / "results"
 PROMPT_PATH = ROOT / "scenarios/translation/prompt.txt"
 PROMPT_TEMPLATE = PROMPT_PATH.read_text(encoding="utf-8")
 MAX_OUTPUT_TOKENS = 4096  # shared cap for Bedrock + OpenAI/vLLM so no provider gets a bigger budget by default
-REQUEST_TIMEOUT_S = 120  # unchanged HTTPX timeout; recovery is not a timeout extension
+REQUEST_TIMEOUT_S = 600  # a valid Grok response took 276s; allow completion without changing decoding
 MAX_RETRY_DELAY_S = 30
 TRANSIENT_HTTP_STATUSES = {408, 429, 500, 502, 503, 504}
 
@@ -862,7 +862,7 @@ def _selfcheck_mantle():
             assert payload["temperature"] == 0 and payload["max_output_tokens"] == 4096
             assert payload["reasoning"] == {"effort": "low"}
             assert payload.get("stream", False) is False, "transport streaming must not alter generation"
-            assert request.extensions["timeout"]["read"] == 120
+            assert request.extensions["timeout"]["read"] == 600
             if isinstance(response_or_error, Exception):
                 raise response_or_error
             return response_or_error
@@ -1044,7 +1044,7 @@ def _selfcheck_manifest():
         write_manifest("check", {}, scenario, models, [], "new-start", "new-end")
         manifest = json.loads(path.read_text())
         assert manifest.get("executions", [None])[0] == original, "resuming must preserve the original manifest"
-        assert manifest["models"][0]["request_timeout_s"] == 120
+        assert manifest["models"][0]["request_timeout_s"] == 600
         assert manifest["models"][0]["request_max_attempts"] == 4
         assert manifest["models"][1]["request_max_attempts"] == 1
         assert manifest["generation_parameters"] == {"temperature": 0, "max_tokens": 4096}

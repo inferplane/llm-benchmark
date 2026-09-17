@@ -435,11 +435,6 @@
 <main>
 
   <aside id="run-provenance" class="run-provenance" aria-label="수집 시점과 생성 조건" hidden></aside>
-  <div id="cohort-control" class="run-provenance" hidden>
-    <label for="cohort-select">평가 조건</label>
-    <select id="cohort-select" style="max-width:100%"></select>
-    <p>기존 번역 지시: Grok을 제외한 27개 모델 · 명시적 번역 지시: Grok 4.3 / 4.6</p>
-  </div>
 
   <section class="panel" id="interpretation-panel" hidden>
     <div class="panel-head">
@@ -449,6 +444,12 @@
     <p class="panel-note">이 런의 관측값과 실행 조건을 바탕으로 정리한 해석입니다. 품질 수치와 비교의 한계를 함께 확인하세요.</p>
     <div id="interpretation-body" class="interpretation-body"></div>
   </section>
+
+  <div id="cohort-control" class="run-provenance" hidden>
+    <label for="cohort-select">평가 조건</label>
+    <select id="cohort-select" style="max-width:100%"></select>
+    <p>기존 번역 지시: Grok을 제외한 27개 모델 · 명시적 번역 지시: Grok 4.3 / 4.6</p>
+  </div>
 
   <section class="panel" id="hero-panel">
     <div class="panel-head">

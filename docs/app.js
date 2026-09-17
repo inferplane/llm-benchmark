@@ -1025,7 +1025,7 @@ function renderRunProvenance(report) {
 function renderSummary(report) {
   renderRunProvenance(report);
   document.getElementById("run-summary").textContent =
-    `${report.title || report.run_id} · 현재 ${report.models.length}개 모델 · ${report.dataset.pairs}개 언어쌍 방향`;
+    `${report.report_kind === "integrated" ? "통합 벤치마크 결과" : report.run_id} · 현재 ${report.models.length}개 모델 · ${report.dataset.pairs}개 언어쌍 방향`;
   document.getElementById("meta-dataset").textContent =
     `FLORES-200 ${report.dataset.flores_per_pair}쌍/방향 + 합성 금융문서 ${report.dataset.synthetic_per_pair}건/방향`;
   document.getElementById("meta-sample-size").textContent =

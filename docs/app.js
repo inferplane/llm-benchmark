@@ -243,6 +243,31 @@ function scatterPoints(report, filterFn, track) {
     .filter((p) => p.x != null && p.y != null);
 }
 
+function mixedCohorts(report) {
+  return new Set(report.models.map((m) => m.evaluation_cohort).filter(Boolean)).size > 1;
+}
+
+function cohortBadge(model) {
+  if (!model.evaluation_cohort) return "";
+  return `<span class="cohort-label">${model.evaluation_cohort === "explicit" ? "명시적 지시" : "기존 지시"}</span>`;
+}
+
+function selectReport(report, cohort = "all") {
+  const control = document.getElementById("cohort-control");
+  const select = document.getElementById("cohort-select");
+  control.hidden = !report.cohorts;
+  select.innerHTML = `<option value="all">전체 모델 · 평가 조건별 관측값</option>` +
+    Object.entries(report.cohorts || {}).map(([key, label]) =>
+      `<option value="${escapeHtml(key)}">${escapeHtml(label)}</option>`).join("");
+  select.value = cohort;
+  const models = report.models.filter((m) => cohort === "all" || m.evaluation_cohort === cohort);
+  const names = new Set(models.map((m) => m.name));
+  state.current = { ...report, models, samples: (report.samples || []).map((s) => ({
+    ...s, by_model: Object.fromEntries(Object.entries(s.by_model).filter(([name]) => names.has(name))),
+  })) };
+  renderAll();
+}
+
 function renderScatterChart(report, { canvasId, legendId, chartKey, filterFn, emptyMsg }) {
   const canvas = document.getElementById(canvasId);
   const canvasWrap = canvas.closest(".chart-wrap");
@@ -285,7 +310,8 @@ function renderScatterChart(report, { canvasId, legendId, chartKey, filterFn, em
   if (!(chartKey in state.zoomMode)) state.zoomMode[chartKey] = "zoom";
   legend.innerHTML =
     providers.map((p) => `<span><span class="dot" style="background:${cssVar(PROVIDER_VAR[p] || "--ink-2")}"></span>${PROVIDER_LABEL[p] || p}</span>`).join("") +
-    `<span><span class="dot" style="background:${cssVar("--gold")}"></span>가성비 프론티어</span>` +
+    (mixedCohorts(report) ? `<span>평가 조건이 다른 관측값 · 프론티어는 그룹 선택 시 표시</span>` :
+      `<span><span class="dot" style="background:${cssVar("--gold")}"></span>가성비 프론티어</span>`) +
     `<span class="legend-note">원 크기 = 속도 (클수록 빠름)</span>` +
     `<button type="button" class="theme-toggle zoom-mode-btn" data-chart="${chartKey}"></button>` +
     `<button type="button" class="theme-toggle" data-reset="${chartKey}">↺ 초기화</button>`;
@@ -299,7 +325,7 @@ function renderScatterChart(report, { canvasId, legendId, chartKey, filterFn, em
   }));
 
   const frontier = paretoFrontier(points);
-  datasets.push({
+  if (!mixedCohorts(report)) datasets.push({
     label: "가성비 프론티어",
     type: "line",
     data: frontier,
@@ -412,6 +438,10 @@ function renderScatterZoom(report) {
 
 function renderRecommendations(report) {
   const body = document.getElementById("recommendations-body");
+  if (mixedCohorts(report)) {
+    body.textContent = "전체 모델의 품질과 비용은 아래 표에서 확인하세요. 가성비 추천은 상단의 평가 조건에서 그룹을 선택하면 표시됩니다. 번역 지시가 다른 그룹 사이에는 통합 순위를 산출하지 않습니다.";
+    return;
+  }
   const points = scatterPoints(report, (m) => !SCATTER_EXCLUDE_MODELS.has(m.name), state.track);
   const frontier = paretoFrontier(points);
 
@@ -524,7 +554,7 @@ function renderModelTable(report) {
 
       return `
         <tr class="model-row" data-detail="detail-${i}">
-          <td class="model-cell">${dot}${escapeHtml(m.name)}</td>
+          <td class="model-cell">${dot}${escapeHtml(m.name)} ${cohortBadge(m)}</td>
           <td class="score-cell" style="${barStyle(barPctSqrtMax(a.cost_per_segment_usd, costMax))}">${fmtUsd(a.cost_per_segment_usd)}</td>
           <td class="score-cell" style="${barStyle(barPctMinMax(q?.judge_overall, scoreLo, scoreHi))}">${q?.judge_overall != null ? q.judge_overall.toFixed(2) : "—"}${ci}</td>
           <td class="score-cell">${a.latency_e2e_p50_s?.toFixed(2) ?? "—"}s / ${a.latency_e2e_p95_s?.toFixed(2) ?? "—"}s</td>
@@ -607,7 +637,7 @@ function renderQualityDiagnostics(report) {
     return;
   }
 
-  const modelCell = (model) => `<td class="model-cell"><span class="dot" style="background:${cssVar(PROVIDER_VAR[model.provider] || "--ink-2")}"></span>${escapeHtml(model.name)}</td>`;
+  const modelCell = (model) => `<td class="model-cell"><span class="dot" style="background:${cssVar(PROVIDER_VAR[model.provider] || "--ink-2")}"></span>${escapeHtml(model.name)} ${cohortBadge(model)}</td>`;
   body.innerHTML = rows.map(({ model, quality: q }) => {
     // Cost comes ONLY from the whole-model field, even while synthetic or
     // FLORES is selected. Missing cost is unavailable, never recomputed using
@@ -727,6 +757,10 @@ function renderLanguageCoverage(report) {
   const stable = sorted.filter((r) => r.gap <= 0.05).sort((a, b) => compareCost(a, b));
   const worst = sorted.filter((r) => r.gap >= GAP_WARN).sort((a, b) => b.gap - a.gap);
   const recoEl = document.getElementById("lang-coverage-reco");
+  if (mixedCohorts(report)) {
+    recoEl.textContent = "언어별 관측 결과입니다. 모델 선택을 위한 추천은 평가 조건별 그룹에서 확인하세요.";
+    return;
+  }
   const bits = [];
   if (stable.length) {
     const cheapest = stable.find((r) => Number.isFinite(r.cost));
@@ -891,6 +925,7 @@ function renderSamples(report) {
     byPair.get(s.pair).push(s);
   }
 
+  const previousId = select.value;
   select.innerHTML = [...byPair.entries()]
     .map(([pair, group]) => {
       const options = group
@@ -901,8 +936,9 @@ function renderSamples(report) {
     .join("");
 
   const defaultId = samples.some((s) => s.id === DEFAULT_SAMPLE_ID) ? DEFAULT_SAMPLE_ID : samples[0].id;
-  select.value = defaultId;
-  renderSampleDetail(report, defaultId);
+  const selectedId = samples.some((s) => s.id === previousId) ? previousId : defaultId;
+  select.value = selectedId;
+  renderSampleDetail(report, selectedId);
 }
 
 function truncate(text, n) {
@@ -957,6 +993,11 @@ function renderSampleDetail(report, sampleId) {
 
 function renderRunProvenance(report) {
   const note = document.getElementById("run-provenance");
+  if (report.comparison_note) {
+    note.hidden = false;
+    note.textContent = report.comparison_note;
+    return;
+  }
   const sources = report.source_runs || [];
   note.hidden = sources.length < 2;
   note.textContent = "";
@@ -986,7 +1027,7 @@ function renderRunProvenance(report) {
 function renderSummary(report) {
   renderRunProvenance(report);
   document.getElementById("run-summary").textContent =
-    `${report.run_id} · ${report.models.length}개 모델 · ${report.dataset.pairs}개 언어쌍 방향`;
+    `${report.report_kind === "integrated" ? "통합 벤치마크 결과" : report.run_id} · 현재 ${report.models.length}개 모델 · ${report.dataset.pairs}개 언어쌍 방향`;
   document.getElementById("meta-dataset").textContent =
     `FLORES-200 ${report.dataset.flores_per_pair}쌍/방향 + 합성 금융문서 ${report.dataset.synthetic_per_pair}건/방향`;
   document.getElementById("meta-sample-size").textContent =
@@ -1018,7 +1059,7 @@ function renderAll() {
   renderLanguageCoverage(report);
   renderHeatmapSafe(report);
   renderSamples(report);
-  renderHistory(state.reports);
+  renderHistory(state.reports.filter((r) => r.report_kind !== "integrated"));
 }
 
 function renderHeatmapSafe(report) {
@@ -1049,13 +1090,16 @@ async function init() {
   }
 
   const select = document.getElementById("run-select");
-  select.innerHTML = state.reports.map((r, i) => `<option value="${i}">${r.run_id}</option>`).join("");
-  select.selectedIndex = state.reports.length - 1;
-  state.current = state.reports[state.reports.length - 1];
+  select.innerHTML = state.reports.map((r, i) => `<option value="${i}">${escapeHtml(r.title || r.run_id)}</option>`).join("");
+  const integratedIndex = state.reports.findLastIndex((r) => r.report_kind === "integrated");
+  select.selectedIndex = integratedIndex >= 0 ? integratedIndex : state.reports.length - 1;
+  state.current = state.reports[select.selectedIndex];
 
   select.addEventListener("change", () => {
-    state.current = state.reports[Number(select.value)];
-    renderAll();
+    selectReport(state.reports[Number(select.value)]);
+  });
+  document.getElementById("cohort-select").addEventListener("change", (event) => {
+    selectReport(state.reports[Number(select.value)], event.target.value);
   });
 
   document.querySelectorAll("#direction-toggle button").forEach((btn) => {
@@ -1122,7 +1166,7 @@ async function init() {
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme) document.documentElement.dataset.theme = savedTheme;
 
-  renderAll();
+  selectReport(state.current);
 }
 
 init();

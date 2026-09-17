@@ -249,7 +249,7 @@ function mixedCohorts(report) {
 
 function cohortBadge(model) {
   if (!model.evaluation_cohort) return "";
-  return `<span class="ci-note">${model.evaluation_cohort === "explicit" ? "명시적 지시" : "기존 지시"}</span>`;
+  return `<span class="cohort-label">${model.evaluation_cohort === "explicit" ? "명시적 지시" : "기존 지시"}</span>`;
 }
 
 function selectReport(report, cohort = "all") {
@@ -925,6 +925,7 @@ function renderSamples(report) {
     byPair.get(s.pair).push(s);
   }
 
+  const previousId = select.value;
   select.innerHTML = [...byPair.entries()]
     .map(([pair, group]) => {
       const options = group
@@ -935,8 +936,9 @@ function renderSamples(report) {
     .join("");
 
   const defaultId = samples.some((s) => s.id === DEFAULT_SAMPLE_ID) ? DEFAULT_SAMPLE_ID : samples[0].id;
-  select.value = defaultId;
-  renderSampleDetail(report, defaultId);
+  const selectedId = samples.some((s) => s.id === previousId) ? previousId : defaultId;
+  select.value = selectedId;
+  renderSampleDetail(report, selectedId);
 }
 
 function truncate(text, n) {

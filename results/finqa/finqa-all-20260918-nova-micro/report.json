@@ -1,0 +1,277 @@
+{
+  "scenario": "finqa",
+  "run_id": "finqa-all-20260918-nova-micro",
+  "models": [
+    {
+      "name": "nova-micro",
+      "aggregate": {
+        "questions": 20,
+        "correct": 0,
+        "incorrect_result": 1,
+        "invalid_program_causes": {
+          "unsupported_reference": 12,
+          "wrong_arity": 1,
+          "invalid_json": 2,
+          "invalid_payload": 0,
+          "invalid_program": 4
+        },
+        "execution_accuracy": 0.0,
+        "response_coverage": 1.0,
+        "evidence_exact_match": 0.0,
+        "scored": 1,
+        "invalid_program": 19,
+        "request_failed": 0,
+        "missing": 0,
+        "response_latency_median_s": 0.5135000000000001
+      }
+    }
+  ],
+  "dataset_sha256": "46d59a76e909267fa4bca3d8d20bb8800c45e2f513da78df63746fa39ddc412d",
+  "prompt_sha256": "8c275a1e7187df89bd066e244d01c6425fba04eae75aea583d7f2c727a397a39",
+  "assessment_scope": "protocol_pilot",
+  "warnings": [
+    "형식 준수·문서 읽기·계산·원본 정답 단위가 섞인 파일럿입니다. 금융 추론 성능 순위로 사용하지 마세요."
+  ],
+  "policy": "Primary metric: execution_accuracy = correct program executions / selected questions.\nExecute the model's program using the bounded allowlisted FinQA operations.\nRound only the final numeric result to 5 decimal places, then compare exactly\nwith the dataset qa.exe_ans. Compare greater results exactly as yes/no.\nDo not accept arbitrary 100x/0.01x matches or unsigned matches.\nThe program must come from the candidate; never execute the reference program\nas a replacement for a missing or invalid candidate program.\n\nRequest failures, invalid outputs and missing predictions are not correct.\nReport these states separately. Keep response coverage visible.\nClassify invalid candidate programs separately from executable but incorrect results.\nShow original candidate outputs and error details for diagnosis; these are not\nevaluator crashes. Preserve historical prompt snapshots and warn when a run used\nthe former blanket percentage-to-fraction instruction.\nEvidence exact match compares sets of supplied evidence IDs with gold_inds.\nIt is diagnostic and is not part of execution_accuracy.\n\nThis is a zero-shot, full-document FinQA-style evaluation on a fixed dev subset.\nIt is not the official retrieval/training setup or a leaderboard submission.\nProgram equivalence accuracy is not implemented.\nThe upstream executable labels can disagree with the human-readable answer,\nincluding percentage scale and annotation errors; exe_ans remains authoritative.\nRemoving a conflicting prompt instruction does not resolve upstream unit ambiguity.\nTreat these reports as protocol pilots, not validated financial-reasoning rankings.\nThe model is never shown qa.answer, qa.exe_ans, qa.program, or qa.gold_inds.\n",
+  "evaluations": [
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-MRO/2009/page_139.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "17a80c661ac6d505b32bfc2a8d54634a75b9dacd28fe8991ad0bf0f2ed588dec",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_2[2009]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-CB/2010/page_88.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": 41.31944,
+      "prediction_sha256": "2e6a6566ad7ec8fd240dc80c3311e7a55098c0c56bd42eb29b53d6aaf3a13be4",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-FBHS/2017/page_23.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "4b3fb6aaa439df8d6a0726e09065091269d2a4bdd73b82b9d4cb475e0141ed79",
+      "status": "invalid_program",
+      "evaluation_error": "invalid program syntax",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-VRTX/2003/page_71.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "07c4bfb1109361fcfefce2b62057b8462a32082580254f4a6c5d55f66c718b5f",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_3[2]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-AMT/2005/page_54.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "cff25c65de0b9eb05d2f5b64d8635c6a6d7a149f9f6b192f054ea6cc0115b1e1",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_5'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-UNP/2013/page_54.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "96fb435d3a2dffbc286f5ab12f756970bb7c560d3cb5d9bbeb64612577805822",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_1[2012]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-MAS/2018/page_60.pdf-2",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "9ab7772c21ce6926cd824736a780040fa689390431a2390a19bd929b20d990c7",
+      "status": "invalid_program",
+      "evaluation_error": "Expecting ',' delimiter: line 1 column 67 (char 66)",
+      "evaluation_error_code": "invalid_json",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-PM/2018/page_31.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "ee02bb0bb490895ebbc1bf1fad9d52cf07579b414c3587dac07ac4b6168dd626",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-MAS/2018/page_35.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "194e55285c51f4841610f961ccc5dffcab3251ca24caa2e89951895d2dfc3426",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_6[2017]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-FIS/2007/page_94.pdf-4",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "04cd93e52c240f25b7ddf220e00690f3638cac69d3c5477b5c8fee48f61c0e5a",
+      "status": "invalid_program",
+      "evaluation_error": "invalid program syntax",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-BLL/2007/page_35.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "bf11e0a824101bc2a0df4c19efd8eb56c8c0d152830fa866f2dc6430f7bff1cb",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_2[average pricepaid per share]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-APTV/2014/page_49.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "bfd459a0ceaf7fdbcf8fee998297bdb0665471ae4ed7af2fe85b2acd12a0e28e",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_1[1]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-JPM/2018/page_110.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "1bdbbec9e4c47fcf32de1535953ce3ba4db0d07e3a4cea0fef57c599338e0613",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_6[2017]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-UNP/2013/page_54.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "a69c4cbb8637edbb0beeeefe9ec0f097135257320c72028abf500b2ab672d1f1",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_2[automotive]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-UNP/2011/page_76.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "ea08513fe1479e9afe6b2cbaaceb64ade82a2076d94cab66fca33b6cf7ababc2",
+      "status": "invalid_program",
+      "evaluation_error": "arithmetic requires exactly two operands without thousands separators",
+      "evaluation_error_code": "wrong_arity",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-INTC/2013/page_33.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "3484400492707beba585e8ccfab5ca32b3a71021118c388baba0638220f07c31",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-ALLE/2016/page_43.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "2a22de2dde2fb28645755891feea5a1d8934b926c3a3fc9121a3ce23ca6bc92f",
+      "status": "invalid_program",
+      "evaluation_error": "Extra data: line 1 column 180 (char 179)",
+      "evaluation_error_code": "invalid_json",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-PNC/2009/page_41.pdf-2",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "62bfd0bc1a0f2d656d68792944c469d7ab4b155db35ea43909e4411dfb0be17e",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_1[dec.31 2009]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-APD/2014/page_39.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "de6b310545aded15cebd342515fe87ea63f9747cce971d9c91f208772d6d94f6",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_2[2014]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-micro",
+      "id": "finqa-dev-UPS/2006/page_32.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "71265307ca793af30ff6dd7b8f1de86a8008c1d337b21a45958c4701dc1090d5",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_1[6]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    }
+  ]
+}

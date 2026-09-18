@@ -536,7 +536,8 @@ def make_client(model_cfg: dict, aws_region: str):
                            max_retries=0 if "request_max_attempts" in model_cfg else 3)
 
 
-async def run_model(model_cfg: dict, segments: list[dict], cache: ResultCache, aws_region: str, default_concurrency: int):
+async def run_model(model_cfg: dict, segments: list[dict], cache: ResultCache, aws_region: str, default_concurrency: int,
+                    *, prompt_builder=None):
     name = model_cfg["name"]
     segments = dedupe_latest(segments, lambda seg: seg["id"])
     todo = [s for s in segments if not cache.has(name, s["id"])]
@@ -571,7 +572,7 @@ async def run_model(model_cfg: dict, segments: list[dict], cache: ResultCache, a
                 summary["request_attempts"] += 1
                 try:
                     # TranslateText uses raw source text instead of a prompt.
-                    prompt = None if model_cfg["api"] == "translate" else build_prompt(seg)
+                    prompt = None if model_cfg["api"] == "translate" else (prompt_builder or build_prompt)(seg)
                     if model_cfg["api"] == "bedrock":
                         result = await call_bedrock(
                             client, model_cfg["model_id"], prompt,

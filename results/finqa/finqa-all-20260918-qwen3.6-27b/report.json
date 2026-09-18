@@ -1,0 +1,259 @@
+{
+  "scenario": "finqa",
+  "run_id": "finqa-all-20260918-qwen3.6-27b",
+  "models": [
+    {
+      "name": "qwen3.6-27b",
+      "aggregate": {
+        "questions": 20,
+        "correct": 14,
+        "incorrect_result": 5,
+        "invalid_program_causes": {
+          "unsupported_reference": 0,
+          "wrong_arity": 0,
+          "invalid_json": 0,
+          "invalid_payload": 0,
+          "invalid_program": 1
+        },
+        "execution_accuracy": 0.7,
+        "response_coverage": 1.0,
+        "evidence_exact_match": 0.6,
+        "scored": 19,
+        "invalid_program": 1,
+        "request_failed": 0,
+        "missing": 0,
+        "response_latency_median_s": 23.622
+      }
+    }
+  ],
+  "dataset_sha256": "46d59a76e909267fa4bca3d8d20bb8800c45e2f513da78df63746fa39ddc412d",
+  "prompt_sha256": "8c275a1e7187df89bd066e244d01c6425fba04eae75aea583d7f2c727a397a39",
+  "assessment_scope": "protocol_pilot",
+  "warnings": [
+    "형식 준수·문서 읽기·계산·원본 정답 단위가 섞인 파일럿입니다. 금융 추론 성능 순위로 사용하지 마세요."
+  ],
+  "policy": "Primary metric: execution_accuracy = correct program executions / selected questions.\nExecute the model's program using the bounded allowlisted FinQA operations.\nRound only the final numeric result to 5 decimal places, then compare exactly\nwith the dataset qa.exe_ans. Compare greater results exactly as yes/no.\nDo not accept arbitrary 100x/0.01x matches or unsigned matches.\nThe program must come from the candidate; never execute the reference program\nas a replacement for a missing or invalid candidate program.\n\nRequest failures, invalid outputs and missing predictions are not correct.\nReport these states separately. Keep response coverage visible.\nClassify invalid candidate programs separately from executable but incorrect results.\nShow original candidate outputs and error details for diagnosis; these are not\nevaluator crashes. Preserve historical prompt snapshots and warn when a run used\nthe former blanket percentage-to-fraction instruction.\nEvidence exact match compares sets of supplied evidence IDs with gold_inds.\nIt is diagnostic and is not part of execution_accuracy.\n\nThis is a zero-shot, full-document FinQA-style evaluation on a fixed dev subset.\nIt is not the official retrieval/training setup or a leaderboard submission.\nProgram equivalence accuracy is not implemented.\nThe upstream executable labels can disagree with the human-readable answer,\nincluding percentage scale and annotation errors; exe_ans remains authoritative.\nRemoving a conflicting prompt instruction does not resolve upstream unit ambiguity.\nTreat these reports as protocol pilots, not validated financial-reasoning rankings.\nThe model is never shown qa.answer, qa.exe_ans, qa.program, or qa.gold_inds.\n",
+  "evaluations": [
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-MRO/2009/page_139.pdf-3",
+      "correct": false,
+      "evidence_exact": true,
+      "execution_result": 14.0,
+      "prediction_sha256": "5b1ea8681a3671f339683f8397114d42266c771b9d9d89c84a18460d060e1425",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-CB/2010/page_88.pdf-1",
+      "correct": true,
+      "evidence_exact": true,
+      "execution_result": -0.38206,
+      "prediction_sha256": "fe651d8af1c1fd209f49f71cbd69673f589da72fb783d6cd6c2521b3fbee6f90",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-FBHS/2017/page_23.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": 1373.658,
+      "prediction_sha256": "fef97ed301708e110e07a175a846d4c60c67259ce4a722bb38d9dd045a278eba",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-VRTX/2003/page_71.pdf-3",
+      "correct": true,
+      "evidence_exact": false,
+      "execution_result": 0.01713,
+      "prediction_sha256": "df81ee5b482f74e1b9b9d7030a932e17479fcba5948741669946b101cfd49fd5",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-AMT/2005/page_54.pdf-1",
+      "correct": true,
+      "evidence_exact": false,
+      "execution_result": -0.05751,
+      "prediction_sha256": "c5d9770b8a19313f51df10414a97289c6f14fc5185fcbfe94bd3067f4a7ac63f",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-UNP/2013/page_54.pdf-1",
+      "correct": true,
+      "evidence_exact": true,
+      "execution_result": 0.16662,
+      "prediction_sha256": "6248cdd9ea974aaa317d5ae7e250a5900d5fe4fb01b9c724b30de22d8844435f",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-MAS/2018/page_60.pdf-2",
+      "correct": true,
+      "evidence_exact": false,
+      "execution_result": 0.11658,
+      "prediction_sha256": "32ccac8cc205ab7c307e87c6c1a1c86d48c6726065f046c7c7634b163428eeeb",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-PM/2018/page_31.pdf-1",
+      "correct": true,
+      "evidence_exact": true,
+      "execution_result": 0.28125,
+      "prediction_sha256": "a19d7ad1f2026704c4164c9353281cf5821fef9df7b0a1e4b4293a0128592201",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-MAS/2018/page_35.pdf-1",
+      "correct": false,
+      "evidence_exact": true,
+      "execution_result": 0.6,
+      "prediction_sha256": "aa41bcaaa5f29649fe64836cd561bffa11ccf389893ba7dd47c21cc0cee69fa2",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-FIS/2007/page_94.pdf-4",
+      "correct": true,
+      "evidence_exact": true,
+      "execution_result": 0.14162,
+      "prediction_sha256": "cb9c50af0d785929ceac1b73d0a39ec470a00bbbb0a151523674929ed824d8bc",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-BLL/2007/page_35.pdf-3",
+      "correct": true,
+      "evidence_exact": true,
+      "execution_result": 20.74359,
+      "prediction_sha256": "397aefe422b4c6a5001fc6802ea96161d90fd0b3119d9661cfdc2f85ae95ede3",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-APTV/2014/page_49.pdf-1",
+      "correct": true,
+      "evidence_exact": false,
+      "execution_result": -10.73,
+      "prediction_sha256": "1850d6ef6b2a64096489f8db4c408012b4f158a65586f0c4b322042b90926c4f",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-JPM/2018/page_110.pdf-3",
+      "correct": true,
+      "evidence_exact": true,
+      "execution_result": 0.19249,
+      "prediction_sha256": "4b60f8775289dc60896b5f10e5e46ba1c9a98364fe1cec3dad49c0abab84349c",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-UNP/2013/page_54.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": 10.04158,
+      "prediction_sha256": "e5eb11b954f74d3414d90dc886a846282ad429b1fb28591cf3b82de976644e56",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-UNP/2011/page_76.pdf-3",
+      "correct": true,
+      "evidence_exact": true,
+      "execution_result": 0.11979,
+      "prediction_sha256": "d5d5fd00b9242fcd1ce2af81da3d35788bbcdb001a1af2525d5c91f18d05a8a8",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-INTC/2013/page_33.pdf-1",
+      "correct": true,
+      "evidence_exact": true,
+      "execution_result": -0.01187,
+      "prediction_sha256": "d974e03e960cf6daff830ce7f846b316fe5487ffa7a54c2d2f6ed2612b3d5d41",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-ALLE/2016/page_43.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "3a4a711873ab55ad00c29dcfbc2f408d77553c69121d1dc45b79f1d3449c4e18",
+      "status": "invalid_program",
+      "evaluation_error": "unknown or empty table row",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-PNC/2009/page_41.pdf-2",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": 0.08224,
+      "prediction_sha256": "3d0a31ce625b4ee523141faa12575d5551a97493564257e6ddd277afbbd26385",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-APD/2014/page_39.pdf-1",
+      "correct": true,
+      "evidence_exact": true,
+      "execution_result": 0.19583,
+      "prediction_sha256": "25eedace7ea57f9db8e97d0909328ad671aae3ae3587f5a7226c60cd0b48c0f3",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "id": "finqa-dev-UPS/2006/page_32.pdf-3",
+      "correct": true,
+      "evidence_exact": true,
+      "execution_result": 13.9,
+      "prediction_sha256": "6372ca5964b8487879d77bb02dd8ee3b82d0850a1ea1d3cfb80dc801abb92bd6",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    }
+  ]
+}

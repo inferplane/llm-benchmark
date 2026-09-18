@@ -5,3 +5,4 @@ __pycache__/
 .claude/*.local.json
 .claude/scheduled_tasks.lock
 results/*/.execution.lock
+results/finqa/*/.execution.lock

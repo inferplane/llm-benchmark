@@ -67,7 +67,7 @@
   .mono { font-family: "IBM Plex Mono", "Pretendard Variable", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
   a { color: var(--gold); }
 
-  /* Scenario nav — translation is the only scenario today, but this repo's
+  /* Scenario nav — each benchmark has its own page. This repo's
      bench pipeline is designed to grow a second, structurally different
      scenario (e.g. document parsing) later (see CLAUDE.md). Mirrors
      ../aws-ec2-benchmark/site's navbar-over-a-TABS-array pattern: adding a
@@ -76,13 +76,13 @@
   .scenario-nav { background: var(--surface-2); border-bottom: 1px solid var(--border); }
   .scenario-nav-inner {
     max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px);
-    display: flex; align-items: center; gap: 22px; height: 40px;
+    display: flex; align-items: center; gap: 12px; min-height: 44px; flex-wrap: wrap; padding-block: 8px;
   }
   .scenario-nav-brand {
     font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
     font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);
   }
-  .scenario-nav-links { display: flex; gap: 4px; }
+  .scenario-nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
   .scenario-nav-links a {
     font-family: "IBM Plex Mono", "Pretendard Variable", monospace;
     font-size: 12.5px; color: var(--ink-2); text-decoration: none;
@@ -417,7 +417,10 @@
 <nav class="scenario-nav">
   <div class="scenario-nav-inner">
     <span class="scenario-nav-brand">LLM 벤치마크</span>
-    <div class="scenario-nav-links" id="scenario-nav-links"></div>
+    <div class="scenario-nav-links" id="scenario-nav-links">
+      <a href="index.html" class="active">번역: KO ↔ 15언어</a>
+      <a href="finqa.html">금융 수치 추론</a>
+    </div>
   </div>
 </nav>
 

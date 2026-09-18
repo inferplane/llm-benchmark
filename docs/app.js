@@ -15,6 +15,7 @@
 // rather than being squeezed into this one's conditional rendering.
 const SCENARIOS = [
   { id: "translation", name: "번역: KO ↔ 15언어", href: "index.html" },
+  { id: "finqa", name: "금융 수치 추론", href: "finqa.html" },
 ];
 
 function renderScenarioNav() {

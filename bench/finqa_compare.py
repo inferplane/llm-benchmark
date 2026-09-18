@@ -51,7 +51,7 @@ def normalize_prediction(prediction):
         return prediction, []  # no extraction from explanations or broken JSON
     if isinstance(obj, dict) and isinstance(obj.get("program"), list):
         steps = obj["program"]
-        if not steps or not all(isinstance(step, str) and step.strip() for step in steps):
+        if not steps or not all(isinstance(step, str) and finqa.STEP.fullmatch(step.strip()) for step in steps):
             return prediction, []
         obj = {**obj, "program": ", ".join(steps)}
         text = json.dumps(obj, ensure_ascii=False)
@@ -114,6 +114,17 @@ def compose(run_id, source_root=finqa.RESULTS, cfg=None, roster=None):
         contract = manifest["contract"]
         if len(contract["models"]) != 1 or contract["models"][0]["name"] != name:
             raise ValueError(f"source model mismatch: {name}")
+        # Bind the display name to the actual provider model, route, reasoning,
+        # chat template, GPU and request settings. Pricing is historical metadata
+        # and may gain a later expiry annotation without changing generation.
+        metadata_keys = {"enabled", "price_in", "price_out", "price_per_char",
+                         "gpu_hourly_usd", "pricing_valid_until"}
+        expected = {key: value for key, value in current.items() if key not in metadata_keys}
+        observed = {key: value for key, value in contract["models"][0].items() if key not in metadata_keys}
+        if expected != observed:
+            changed = sorted(key for key in expected.keys() | observed.keys()
+                             if expected.get(key) != observed.get(key))
+            raise ValueError(f"source execution settings differ for {name}: {', '.join(changed)}")
         if not rows:
             raise ValueError("empty comparison dataset")
         # Sharing a model name isn't enough: every question/prompt/generation cap must match.
@@ -262,6 +273,8 @@ def selfcheck():
     assert evaluate_one(record, steps)["correct"] and not evaluate_one(record, steps)["strict_correct"]
     for invalid in (
         '{"program":["add(10, 5)", 5]}', '{"program":[]}',
+        '{"program":["add(1", "2)"]}',
+        '{"program":["add(10, 5), add(#0, 5)"]}',
         'Explanation: ' + raw["output_text"],
         '```json\n' + raw["output_text"] + '\n```\nExplanation',
         '{"program":["add(table_1, 0)"]}', '{"program":["add(20, 0, 0)"]}',
@@ -273,7 +286,7 @@ def selfcheck():
     assert not evaluate_one(record, wrong)["correct"]
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
-        configs = [{"name": name, "api": "bedrock", "price_in": 1, "price_out": 5}
+        configs = [{"name": name, "model_id": name + "-id", "api": "bedrock", "price_in": 1, "price_out": 5}
                    for name in ("model-a", "model-b")]
         cfg = {"models": [*configs, {"name": "translator", "api": "translate"}]}
         roster = {"models": [{"name": item["name"]} for item in cfg["models"]]}
@@ -305,6 +318,23 @@ def selfcheck():
         assert len(comparison["models"]) == 2 and len(comparison["excluded_models"]) == 1
         assert [m["aggregate"]["correct"] for m in comparison["models"]] == [1, 1]
         assert [m["aggregate"]["strict_correct"] for m in comparison["models"]] == [1, 0]
+        source_path = root / "fixture-model-a/manifest.json"
+        original_source = json.loads(source_path.read_text())
+        for key, value in (
+            ("model_id", "different-provider-model"), ("api", "bedrock_mantle"),
+            ("base_url", "http://different-server"), ("bedrock_reasoning_effort", "high"),
+            ("chat_template_kwargs", {"enable_thinking": True}), ("concurrency", 32),
+        ):
+            changed = json.loads(json.dumps(original_source))
+            changed["contract"]["models"][0][key] = value
+            finqa.write_json(source_path, changed)
+            try:
+                compose("fixture", root, cfg, roster)
+            except ValueError:
+                pass
+            else:
+                raise AssertionError(f"changed inference setting accepted: {key}")
+        finqa.write_json(source_path, original_source)
         write_comparison(comparison, root / "public")
         assert json.loads((root / "public/index.json").read_text())["latest"] == "fixture"
         # A failed latest attempt must override an old success, not silently disappear.

@@ -1,0 +1,269 @@
+{
+  "scenario": "finqa",
+  "run_id": "finqa-nova-lite-pilot-v2-20260917",
+  "models": [
+    {
+      "name": "nova-lite",
+      "aggregate": {
+        "questions": 20,
+        "correct": 2,
+        "incorrect_result": 8,
+        "invalid_program_causes": {
+          "unsupported_reference": 8,
+          "wrong_arity": 2,
+          "invalid_json": 0,
+          "invalid_payload": 0,
+          "invalid_program": 0
+        },
+        "execution_accuracy": 0.1,
+        "response_coverage": 1.0,
+        "evidence_exact_match": 0.2,
+        "scored": 10,
+        "invalid_program": 10,
+        "request_failed": 0,
+        "missing": 0,
+        "response_latency_median_s": 0.8025
+      }
+    }
+  ],
+  "dataset_sha256": "46d59a76e909267fa4bca3d8d20bb8800c45e2f513da78df63746fa39ddc412d",
+  "prompt_sha256": "e3950aba4ccfb6216466de67978521730e7a04ee017a7ec4dff0503e585419c9",
+  "assessment_scope": "protocol_pilot",
+  "warnings": [
+    "형식 준수·문서 읽기·계산·원본 정답 단위가 섞인 파일럿입니다. 금융 추론 성능 순위로 사용하지 마세요.",
+    "이 실행의 백분율 강제 변환 지시는 일부 공식 정답 단위와 충돌합니다. 지시를 수정했어도 이 보고서의 응답은 수정 전 결과입니다."
+  ],
+  "policy": "Primary metric: execution_accuracy = correct program executions / selected questions.\nExecute the model's program using the bounded allowlisted FinQA operations.\nRound only the final numeric result to 5 decimal places, then compare exactly\nwith the dataset qa.exe_ans. Compare greater results exactly as yes/no.\nDo not accept arbitrary 100x/0.01x matches or unsigned matches.\nThe program must come from the candidate; never execute the reference program\nas a replacement for a missing or invalid candidate program.\n\nRequest failures, invalid outputs and missing predictions are not correct.\nReport these states separately. Keep response coverage visible.\nClassify invalid candidate programs separately from executable but incorrect results.\nShow original candidate outputs and error details for diagnosis; these are not\nevaluator crashes. Preserve historical prompt snapshots and warn when a run used\nthe former blanket percentage-to-fraction instruction.\nEvidence exact match compares sets of supplied evidence IDs with gold_inds.\nIt is diagnostic and is not part of execution_accuracy.\n\nThis is a zero-shot, full-document FinQA-style evaluation on a fixed dev subset.\nIt is not the official retrieval/training setup or a leaderboard submission.\nProgram equivalence accuracy is not implemented.\nThe upstream executable labels can disagree with the human-readable answer,\nincluding percentage scale and annotation errors; exe_ans remains authoritative.\nRemoving a conflicting prompt instruction does not resolve upstream unit ambiguity.\nTreat these reports as protocol pilots, not validated financial-reasoning rankings.\nThe model is never shown qa.answer, qa.exe_ans, qa.program, or qa.gold_inds.\n",
+  "evaluations": [
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-MRO/2009/page_139.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "98d0e1a9b6f9aa05313b05057c3be36fe4089a5cc6fc0e938c6838b5b5906bcf",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_2[3]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-CB/2010/page_88.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": 0.04109,
+      "prediction_sha256": "99126ba2dc44eb5596bca3b943094312c42ca1c8766f81364d850ffa504497ff",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-FBHS/2017/page_23.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": 1253.658,
+      "prediction_sha256": "a308eabac9279975007084f1fa20039ca4b5d5bfc3b9d289b5ad594d1575b5b3",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-VRTX/2003/page_71.pdf-3",
+      "correct": true,
+      "evidence_exact": false,
+      "execution_result": 0.01713,
+      "prediction_sha256": "1302a85560cc0fc083b7f4a4e0efa308f24cf2e1c91d48d610dc0ad211735823",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-AMT/2005/page_54.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "fdb2dbb5c06eb513b08f0685a6d5453932f3f2497394c4c2293fcf92dcd6ebd1",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_5'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-UNP/2013/page_54.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "abb4643f51856f5cb44c4fdd090a6391f3cf7b0c3365f6bcb61246246ee4d196",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_1[3280]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-MAS/2018/page_60.pdf-2",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "dd0b16d400c1010b2c8972642f6f6ddc02a4065905cfa8bccd8186395f269ab2",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_5[goodwill]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-PM/2018/page_31.pdf-1",
+      "correct": false,
+      "evidence_exact": true,
+      "execution_result": 0.25,
+      "prediction_sha256": "ca563eb89e8d78b5338c32d178c377f932f72278cab6f0782059c23627a1b9ef",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-MAS/2018/page_35.pdf-1",
+      "correct": true,
+      "evidence_exact": true,
+      "execution_result": 0.006,
+      "prediction_sha256": "a87aa4e04e9add0f01ff93b6d015214f6ec02288b08cc002c1cfe2186d7c1500",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-FIS/2007/page_94.pdf-4",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "725cce4ce7d20853ad7a45c1c0d195c8f1b41d6b7b3ef4fce5dc7badc9e52bce",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_2'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-BLL/2007/page_35.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "9ac431ce817dc51d6c5eb4b7a66bd49fc50ab9c9069bcb40ff5fd1ec78c9dcb3",
+      "status": "invalid_program",
+      "evaluation_error": "arithmetic requires exactly two operands without thousands separators",
+      "evaluation_error_code": "wrong_arity",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-APTV/2014/page_49.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": 0.0098,
+      "prediction_sha256": "a9e16c6342fd005dadd0c917f7f39f6f50c3f1585ca16ce5a68340ce10dbeb64",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-JPM/2018/page_110.pdf-3",
+      "correct": false,
+      "evidence_exact": true,
+      "execution_result": 0.12676,
+      "prediction_sha256": "cca99a752b4dfd900b57be60fa881abbf9f4e80dd18045b27985be34bfc35247",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-UNP/2013/page_54.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "9d602f7fdf640bcfb84d249027b43cabe29f1eb6fcd28743ab981bf7308c16de",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_2[automotive]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-UNP/2011/page_76.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "f4cf7332cb16e45644e529dfe90dce5313d6c1c757eed307cd26c224e7288a8f",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_5[325]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-INTC/2013/page_33.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": 0.01187,
+      "prediction_sha256": "40482447b8d6dfea3a588755f3a0ce5dac9b72060c14f5af0ec39546b1fa3cbc",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-ALLE/2016/page_43.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "0376496ab9eb35fa43b8aac8d7c3ed014f93d4c20ec0af24410ec14487e19cda",
+      "status": "invalid_program",
+      "evaluation_error": "table operation requires one row label and none",
+      "evaluation_error_code": "wrong_arity",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-PNC/2009/page_41.pdf-2",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": -0.39432,
+      "prediction_sha256": "320228fb3e7bafc769e800c2d1d3234eb3d0529f351e4a7242173d12600fb283",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-APD/2014/page_39.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "971733994e6585775078c2ce6aeb7d79ce2d914cf44a9e1f6258727f953801fc",
+      "status": "invalid_program",
+      "evaluation_error": "numeric operand required, received 'table_2[88.2]'",
+      "evaluation_error_code": "unsupported_reference",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nova-lite",
+      "id": "finqa-dev-UPS/2006/page_32.pdf-3",
+      "correct": false,
+      "evidence_exact": true,
+      "execution_result": 0.139,
+      "prediction_sha256": "266cc1f3059a778a24b8629ed61377f0b8cbfb1494ff2981e6a323ce6b63ef4b",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    }
+  ]
+}

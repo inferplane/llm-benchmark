@@ -1,0 +1,212 @@
+<!doctype html><html lang="ko"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FinQA 금융 수치 추론</title>
+<style>body{font:16px system-ui;margin:2rem;line-height:1.6;color:#172337}
+table{border-collapse:collapse}th,td{padding:.7rem;border:1px solid #ccd3dd;text-align:right}
+th:first-child,td:first-child{text-align:left}pre{white-space:pre-wrap}.scroll{overflow:auto}</style>
+<h1>FinQA 금융 수치 추론</h1><p>실행: finqa-nova-lite-pilot-v3-20260917</p><p><strong>형식 준수·문서 읽기·계산·원본 정답 단위가 섞인 파일럿입니다. 금융 추론 성능 순위로 사용하지 마세요.</strong></p><p>실행 정답률 = 계산 결과가 정답인 문항 / 선택한 전체 문항. 높을수록 좋습니다. 실패·미응답도 분모에 포함합니다. 개발용 소표본 결과이며 공식 리더보드 점수가 아닙니다.</p><div class=scroll><table><thead><tr><th>모델</th><th>정답 / 전체</th><th>실행 정답률</th><th>응답 커버리지</th><th>모델 계산식 실행불가</th><th>요청 실패</th><th>미응답</th><th>근거 ID 완전일치율</th></tr></thead><tbody><tr><td>nova-lite</td><td>1 / 20</td><td>5.0%</td><td>100.0%</td><td>12</td><td>0</td><td>0</td><td>20.0%</td></tr></tbody></table></div><p>근거 지표는 정답 근거 ID 집합과의 일치 여부이며, 다른 타당한 근거도 불일치로 처리될 수 있습니다. 기존 모델별 추론 설정을 유지하며 단위·부호 오류를 자동 보정하지 않습니다.</p><p>nova-lite: 숫자 대신 표·본문 참조 사용 8건 · 연산 인자 개수 오류 1건 · 기타 계산식 오류 3건. 실행은 됐지만 정답과 다른 결과 7건.</p><details><summary>문항별 원본 응답·실행 결과·정답 확인</summary><h3>nova-lite · finqa-dev-MRO/2009/page_139.pdf-3</h3><pre>{
+  &quot;question&quot;: &quot;by how much did contingent rental liability decrease from 2007 to 2009?&quot;,
+  &quot;status&quot;: &quot;scored&quot;,
+  &quot;error&quot;: null,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;subtract(33, 22), subtract(#0, 33), divide(#1, 33)\&quot;, \&quot;evidence\&quot;: [\&quot;table_2\&quot;, \&quot;table_2\&quot;, \&quot;table_2\&quot;]}&quot;,
+  &quot;execution_result&quot;: -0.66667,
+  &quot;gold_answer&quot;: -0.42424,
+  &quot;reference_answer&quot;: &quot;-42.4%&quot;,
+  &quot;reference_program&quot;: &quot;subtract(19, 33), divide(#0, 33)&quot;
+}</pre><h3>nova-lite · finqa-dev-CB/2010/page_88.pdf-1</h3><pre>{
+  &quot;question&quot;: &quot;what was the percentage change of the net favorable prior period development from 2010 to 2008&quot;,
+  &quot;status&quot;: &quot;scored&quot;,
+  &quot;error&quot;: null,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;subtract(const_814, const_576), divide(#0, const_576), multiply(#1, const_100)\&quot;, \&quot;evidence\&quot;: [\&quot;text_7\&quot;, \&quot;text_6\&quot;]}&quot;,
+  &quot;execution_result&quot;: 41.31944,
+  &quot;gold_answer&quot;: -0.38206,
+  &quot;reference_answer&quot;: &quot;38.2%&quot;,
+  &quot;reference_program&quot;: &quot;subtract(503, 814), divide(#0, 814)&quot;
+}</pre><h3>nova-lite · finqa-dev-FBHS/2017/page_23.pdf-1</h3><pre>{
+  &quot;question&quot;: &quot;in 2017 what was amount net sales applicable to international market in millions&quot;,
+  &quot;status&quot;: &quot;scored&quot;,
+  &quot;error&quot;: null,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;multiply(5283.3, 0.26), divide(#0, 100)\&quot;, \&quot;evidence\&quot;: [\&quot;table_5\&quot;, \&quot;text_1\&quot;]}&quot;,
+  &quot;execution_result&quot;: 13.73658,
+  &quot;gold_answer&quot;: 1320.825,
+  &quot;reference_answer&quot;: &quot;1320.8&quot;,
+  &quot;reference_program&quot;: &quot;multiply(25%, 5283.3)&quot;
+}</pre><h3>nova-lite · finqa-dev-VRTX/2003/page_71.pdf-3</h3><pre>{
+  &quot;question&quot;: &quot;what was the percentage change in the common stock and option&quot;,
+  &quot;status&quot;: &quot;invalid_program&quot;,
+  &quot;error&quot;: &quot;numeric operand required, received &#x27;table_1&#x27;&quot;,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;subtract(table_1, table_2), divide(#0, table_3), multiply(#1, const_100)\&quot;, \&quot;evidence\&quot;: [\&quot;table_1\&quot;, \&quot;table_2\&quot;, \&quot;table_3\&quot;]}&quot;,
+  &quot;execution_result&quot;: null,
+  &quot;gold_answer&quot;: 0.01713,
+  &quot;reference_answer&quot;: &quot;1.7%&quot;,
+  &quot;reference_program&quot;: &quot;subtract(22203, 21829), divide(#0, 21829)&quot;
+}</pre><h3>nova-lite · finqa-dev-AMT/2005/page_54.pdf-1</h3><pre>{
+  &quot;question&quot;: &quot;what portion of the adjusted consolidated cash flow for the twelve months ended december 31 , 2005 is related to non-tower cash flow?&quot;,
+  &quot;status&quot;: &quot;invalid_program&quot;,
+  &quot;error&quot;: &quot;invalid program syntax&quot;,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;divide(subtract(table_4, table_2), table_4)\&quot;, \&quot;evidence\&quot;: [\&quot;table_4\&quot;, \&quot;table_2\&quot;]}&quot;,
+  &quot;execution_result&quot;: null,
+  &quot;gold_answer&quot;: -0.05751,
+  &quot;reference_answer&quot;: &quot;-5.8%&quot;,
+  &quot;reference_program&quot;: &quot;multiply(30584, const_m1), divide(#0, 531822)&quot;
+}</pre><h3>nova-lite · finqa-dev-UNP/2013/page_54.pdf-1</h3><pre>{
+  &quot;question&quot;: &quot;as of december 312012 what was the percent of the total total freight revenues from agriculture&quot;,
+  &quot;status&quot;: &quot;invalid_program&quot;,
+  &quot;error&quot;: &quot;numeric operand required, received &#x27;table_1[2012]&#x27;&quot;,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;divide(table_1[2012], table_7[2012]), multiply(#0, const_100)\&quot;, \&quot;evidence\&quot;: [\&quot;table_1\&quot;, \&quot;table_7\&quot;]}&quot;,
+  &quot;execution_result&quot;: null,
+  &quot;gold_answer&quot;: 0.16662,
+  &quot;reference_answer&quot;: &quot;16.7%&quot;,
+  &quot;reference_program&quot;: &quot;divide(3280, 19686)&quot;
+}</pre><h3>nova-lite · finqa-dev-MAS/2018/page_60.pdf-2</h3><pre>{
+  &quot;question&quot;: &quot;what portion of the revised purchase price of kichler is dedicated to goodwill?&quot;,
+  &quot;status&quot;: &quot;scored&quot;,
+  &quot;error&quot;: null,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;divide(64, 549)\&quot;, \&quot;evidence\&quot;: [\&quot;table_5\&quot;, \&quot;table_10\&quot;]}&quot;,
+  &quot;execution_result&quot;: 0.11658,
+  &quot;gold_answer&quot;: 0.11658,
+  &quot;reference_answer&quot;: &quot;11.7%&quot;,
+  &quot;reference_program&quot;: &quot;divide(64, 549)&quot;
+}</pre><h3>nova-lite · finqa-dev-PM/2018/page_31.pdf-1</h3><pre>{
+  &quot;question&quot;: &quot;by what percentage will the 2019 pre-tax pension and postretirement expense be higher than that of 2018?&quot;,
+  &quot;status&quot;: &quot;scored&quot;,
+  &quot;error&quot;: null,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;:\&quot;subtract(160, 205), divide(#0, 160), multiply(#1, const_100)\&quot;, \&quot;evidence\&quot;:[\&quot;text_31\&quot;,\&quot;text_31\&quot;]}&quot;,
+  &quot;execution_result&quot;: -28.125,
+  &quot;gold_answer&quot;: 0.28125,
+  &quot;reference_answer&quot;: &quot;28.1%&quot;,
+  &quot;reference_program&quot;: &quot;subtract(205, 160), divide(#0, 160)&quot;
+}</pre><h3>nova-lite · finqa-dev-MAS/2018/page_35.pdf-1</h3><pre>{
+  &quot;question&quot;: &quot;what was the difference in operating profit margins as adjusted between 2016 and 2017?&quot;,
+  &quot;status&quot;: &quot;invalid_program&quot;,
+  &quot;error&quot;: &quot;numeric operand required, received &#x27;table_6[2017]&#x27;&quot;,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;subtract(table_6[2017], table_6[2016])\&quot;, \&quot;evidence\&quot;: [\&quot;table_6\&quot;]}&quot;,
+  &quot;execution_result&quot;: null,
+  &quot;gold_answer&quot;: 0.006,
+  &quot;reference_answer&quot;: &quot;.6%&quot;,
+  &quot;reference_program&quot;: &quot;subtract(15.7%, 15.1%)&quot;
+}</pre><h3>nova-lite · finqa-dev-FIS/2007/page_94.pdf-4</h3><pre>{
+  &quot;question&quot;: &quot;what percentage of total future minimum operating lease payments for leases with remaining terms greater than one year are due in 2010?&quot;,
+  &quot;status&quot;: &quot;invalid_program&quot;,
+  &quot;error&quot;: &quot;numeric operand required, received &#x27;table_2&#x27;&quot;,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;divide(table_2, table_6), multiply(#0, const_100)\&quot;, \&quot;evidence\&quot;: [\&quot;table_2\&quot;, \&quot;table_6\&quot;]}&quot;,
+  &quot;execution_result&quot;: null,
+  &quot;gold_answer&quot;: 0.14162,
+  &quot;reference_answer&quot;: &quot;14%&quot;,
+  &quot;reference_program&quot;: &quot;divide(35269, 249038)&quot;
+}</pre><h3>nova-lite · finqa-dev-BLL/2007/page_35.pdf-3</h3><pre>{
+  &quot;question&quot;: &quot;what is the total amount of cash outflow used for shares repurchased during november 2007 , in millions?&quot;,
+  &quot;status&quot;: &quot;invalid_program&quot;,
+  &quot;error&quot;: &quot;arithmetic requires exactly two operands without thousands separators&quot;,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;multiply(431170, 48.11), add(#0, 8310, 44.99), multiply(#1, const_1000000)\&quot;, \&quot;evidence\&quot;: [\&quot;table_2\&quot;, \&quot;table_3\&quot;, \&quot;text_14\&quot;]}&quot;,
+  &quot;execution_result&quot;: null,
+  &quot;gold_answer&quot;: 20.74359,
+  &quot;reference_answer&quot;: &quot;20.7&quot;,
+  &quot;reference_program&quot;: &quot;multiply(431170, 48.11), divide(#0, const_1000000)&quot;
+}</pre><h3>nova-lite · finqa-dev-APTV/2014/page_49.pdf-1</h3><pre>{
+  &quot;question&quot;: &quot;what is the lowest return for the first month of the investment?&quot;,
+  &quot;status&quot;: &quot;scored&quot;,
+  &quot;error&quot;: null,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;:\&quot;subtract(100.98,100), divide(#0,100)\&quot;,\&quot;evidence\&quot;:[\&quot;table_1\&quot;,\&quot;table_2\&quot;]}&quot;,
+  &quot;execution_result&quot;: 0.0098,
+  &quot;gold_answer&quot;: -10.73,
+  &quot;reference_answer&quot;: &quot;-10.73%&quot;,
+  &quot;reference_program&quot;: &quot;subtract(89.27, const_100)&quot;
+}</pre><h3>nova-lite · finqa-dev-JPM/2018/page_110.pdf-3</h3><pre>{
+  &quot;question&quot;: &quot;in 2017 what was the ratio of the htm investment securities ( period-end ) compared to investment securities portfolio ( period 2013end )&quot;,
+  &quot;status&quot;: &quot;invalid_program&quot;,
+  &quot;error&quot;: &quot;numeric operand required, received &#x27;table_6[2017]&#x27;&quot;,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;divide(table_6[2017], table_7[2013])\&quot;, \&quot;evidence\&quot;: [\&quot;table_6\&quot;, \&quot;table_7\&quot;]}&quot;,
+  &quot;execution_result&quot;: null,
+  &quot;gold_answer&quot;: 0.19249,
+  &quot;reference_answer&quot;: &quot;0.19&quot;,
+  &quot;reference_program&quot;: &quot;divide(47733, 247980)&quot;
+}</pre><h3>nova-lite · finqa-dev-UNP/2013/page_54.pdf-3</h3><pre>{
+  &quot;question&quot;: &quot;what percentage of total freight revenues was automotive in 2013?&quot;,
+  &quot;status&quot;: &quot;invalid_program&quot;,
+  &quot;error&quot;: &quot;numeric operand required, received &#x27;table_2[2013]&#x27;&quot;,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;divide(table_2[2013], table_7[2013]), multiply(#0, const_100)\&quot;, \&quot;evidence\&quot;: [\&quot;table_2\&quot;, \&quot;table_7\&quot;]}&quot;,
+  &quot;execution_result&quot;: null,
+  &quot;gold_answer&quot;: 0.09457,
+  &quot;reference_answer&quot;: &quot;9%&quot;,
+  &quot;reference_program&quot;: &quot;divide(2077, 21963)&quot;
+}</pre><h3>nova-lite · finqa-dev-UNP/2011/page_76.pdf-3</h3><pre>{
+  &quot;question&quot;: &quot;what percentage of total accounts payable and other current liabilities was accrued casualty costs at december 31 , 2010?&quot;,
+  &quot;status&quot;: &quot;invalid_program&quot;,
+  &quot;error&quot;: &quot;numeric operand required, received &#x27;table_5[325]&#x27;&quot;,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;divide(table_5[325], table_9[2713]), multiply(#0, const_100)\&quot;, \&quot;evidence\&quot;: [\&quot;table_5\&quot;, \&quot;table_9\&quot;]}&quot;,
+  &quot;execution_result&quot;: null,
+  &quot;gold_answer&quot;: 0.11979,
+  &quot;reference_answer&quot;: &quot;12%&quot;,
+  &quot;reference_program&quot;: &quot;divide(325, 2713)&quot;
+}</pre><h3>nova-lite · finqa-dev-INTC/2013/page_33.pdf-1</h3><pre>{
+  &quot;question&quot;: &quot;what was the percent of the change in the net revenues from dec . 282012 dec . 29 2013&quot;,
+  &quot;status&quot;: &quot;invalid_program&quot;,
+  &quot;error&quot;: &quot;invalid program syntax&quot;,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;divide(subtract(52708, 53341), 53341)\&quot;, \&quot;evidence\&quot;: [\&quot;table_1\&quot;, \&quot;table_1\&quot;]}&quot;,
+  &quot;execution_result&quot;: null,
+  &quot;gold_answer&quot;: -0.01187,
+  &quot;reference_answer&quot;: &quot;-1.2%&quot;,
+  &quot;reference_program&quot;: &quot;subtract(52708, 53341), divide(#0, 53341)&quot;
+}</pre><h3>nova-lite · finqa-dev-ALLE/2016/page_43.pdf-1</h3><pre>{
+  &quot;question&quot;: &quot;considering the year 2015 , what was the lowest return for the investment?&quot;,
+  &quot;status&quot;: &quot;invalid_program&quot;,
+  &quot;error&quot;: &quot;table operation requires none&quot;,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;table_min(allegion plc, december 31 2015), table_min(s&amp;p 500, december 31 2015), table_min(s&amp;p 400 capital goods, december 31 2015), greater(#0, #1), greater(#2, if(#3, #2, #1)), if(#4, #0, #1)\&quot;, \&quot;evidence\&quot;: [\&quot;table_1\&quot;, \&quot;table_2\&quot;, \&quot;table_3\&quot;, \&quot;text_2\&quot;]}&quot;,
+  &quot;execution_result&quot;: null,
+  &quot;gold_answer&quot;: -0.1,
+  &quot;reference_answer&quot;: &quot;-0.1%&quot;,
+  &quot;reference_program&quot;: &quot;subtract(99.90, 100)&quot;
+}</pre><h3>nova-lite · finqa-dev-PNC/2009/page_41.pdf-2</h3><pre>{
+  &quot;question&quot;: &quot;what was the percentage gain recognized on the commercial mortgages held for sale in 2009&quot;,
+  &quot;status&quot;: &quot;scored&quot;,
+  &quot;error&quot;: null,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;subtract(1301, 2148), divide(#0, 2148), multiply(#1, const_100)\&quot;, \&quot;evidence\&quot;: [\&quot;table_3\&quot;, \&quot;table_3\&quot;]}&quot;,
+  &quot;execution_result&quot;: -39.43203,
+  &quot;gold_answer&quot;: 19.81481,
+  &quot;reference_answer&quot;: &quot;2%&quot;,
+  &quot;reference_program&quot;: &quot;divide(107, 5.4)&quot;
+}</pre><h3>nova-lite · finqa-dev-APD/2014/page_39.pdf-1</h3><pre>{
+  &quot;question&quot;: &quot;what was the operating margin for 2014?&quot;,
+  &quot;status&quot;: &quot;invalid_program&quot;,
+  &quot;error&quot;: &quot;numeric operand required, received &#x27;table_2[88.2]&#x27;&quot;,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;divide(table_2[88.2], table_1[450.4])\&quot;, \&quot;evidence\&quot;: [\&quot;table_1\&quot;, \&quot;table_2\&quot;]}&quot;,
+  &quot;execution_result&quot;: null,
+  &quot;gold_answer&quot;: 0.19583,
+  &quot;reference_answer&quot;: &quot;19.58%&quot;,
+  &quot;reference_program&quot;: &quot;divide(88.2, 450.4)&quot;
+}</pre><h3>nova-lite · finqa-dev-UPS/2006/page_32.pdf-3</h3><pre>{
+  &quot;question&quot;: &quot;for the five years ended 12/31/2006 what is the performance difference of the class b common stock of united parcel service , inc . and the s&amp;p 500 index?&quot;,
+  &quot;status&quot;: &quot;scored&quot;,
+  &quot;error&quot;: null,
+  &quot;output&quot;: &quot;{\&quot;program\&quot;: \&quot;subtract(148.92, 135.02), divide(#0, 100.00)\&quot;, \&quot;evidence\&quot;: [\&quot;table_1\&quot;, \&quot;table_2\&quot;]}&quot;,
+  &quot;execution_result&quot;: 0.139,
+  &quot;gold_answer&quot;: 13.9,
+  &quot;reference_answer&quot;: &quot;13.9%&quot;,
+  &quot;reference_program&quot;: &quot;subtract(148.92, const_100), subtract(135.02, const_100), subtract(#0, #1)&quot;
+}</pre></details><details><summary>평가 규칙</summary><pre>Primary metric: execution_accuracy = correct program executions / selected questions.
+Execute the model&#x27;s program using the bounded allowlisted FinQA operations.
+Round only the final numeric result to 5 decimal places, then compare exactly
+with the dataset qa.exe_ans. Compare greater results exactly as yes/no.
+Do not accept arbitrary 100x/0.01x matches or unsigned matches.
+The program must come from the candidate; never execute the reference program
+as a replacement for a missing or invalid candidate program.
+
+Request failures, invalid outputs and missing predictions are not correct.
+Report these states separately. Keep response coverage visible.
+Classify invalid candidate programs separately from executable but incorrect results.
+Show original candidate outputs and error details for diagnosis; these are not
+evaluator crashes. Preserve historical prompt snapshots and warn when a run used
+the former blanket percentage-to-fraction instruction.
+Evidence exact match compares sets of supplied evidence IDs with gold_inds.
+It is diagnostic and is not part of execution_accuracy.
+
+This is a zero-shot, full-document FinQA-style evaluation on a fixed dev subset.
+It is not the official retrieval/training setup or a leaderboard submission.
+Program equivalence accuracy is not implemented.
+The upstream executable labels can disagree with the human-readable answer,
+including percentage scale and annotation errors; exe_ans remains authoritative.
+Removing a conflicting prompt instruction does not resolve upstream unit ambiguity.
+Treat these reports as protocol pilots, not validated financial-reasoning rankings.
+The model is never shown qa.answer, qa.exe_ans, qa.program, or qa.gold_inds.
+</pre></details></html>

@@ -1,0 +1,17 @@
+{
+  "latest": "finqa-nova-lite-pilot-v3-20260917",
+  "runs": [
+    {
+      "id": "finqa-nova-lite-pilot-v3-20260917",
+      "label": "단위 지시 수정 후 재측정"
+    },
+    {
+      "id": "finqa-nova-lite-pilot-v2-20260917",
+      "label": "숫자 입력 규칙 명시"
+    },
+    {
+      "id": "finqa-nova-lite-pilot-20260917",
+      "label": "첫 파일럿"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "run_id": "finqa-all-20260918-exaone-3.5-32b",
+  "contract": {
+    "scenario": "finqa",
+    "dataset_sha256": "46d59a76e909267fa4bca3d8d20bb8800c45e2f513da78df63746fa39ddc412d",
+    "prompt_sha256": "8c275a1e7187df89bd066e244d01c6425fba04eae75aea583d7f2c727a397a39",
+    "models": [
+      {
+        "name": "exaone-3.5-32b",
+        "api": "openai",
+        "base_url": "http://localhost:8000/v1",
+        "model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
+        "extra_vllm_args": [
+          "--trust-remote-code",
+          "--enforce-eager"
+        ],
+        "gpu_instance_type": "g6.12xlarge",
+        "tensor_parallel_size": 4,
+        "gpu_hourly_usd": 5.6582,
+        "concurrency": 32,
+        "enabled": true
+      }
+    ],
+    "aws_region": "us-west-2",
+    "concurrency_default": 2,
+    "max_output_tokens": 4096,
+    "temperature": 0,
+    "temperature_omitted_model_ids": [
+      "google.gemma-4-31b",
+      "openai.gpt-5.5",
+      "openai.gpt-5.6-luna",
+      "openai.gpt-5.6-sol",
+      "openai.gpt-5.6-terra",
+      "us.anthropic.claude-fable-5",
+      "us.anthropic.claude-opus-4-8",
+      "us.anthropic.claude-sonnet-5"
+    ],
+    "request_timeout_s": 600,
+    "runner_sha256": "6e0f6ab03b83cf495c5df01f59b7803ca1ef4bf13cd266889ad87a2d5af04ec5",
+    "finqa_sha256": "d5e947fc33990141337c7281b092d049b94bdc729008a4add663659c43bd0ce4"
+  },
+  "executions": [
+    {
+      "started_at": "2026-09-18T08:33:35.358566+00:00",
+      "models": [
+        {
+          "model": "exaone-3.5-32b",
+          "requested": 20,
+          "cached": 0,
+          "successful": 20,
+          "failed": 0,
+          "request_attempts": 20
+        }
+      ],
+      "finished_at": "2026-09-18T08:33:57.569723+00:00"
+    }
+  ]
+}

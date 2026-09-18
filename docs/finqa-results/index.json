@@ -1,6 +1,10 @@
 {
-  "latest": "finqa-nova-lite-pilot-v3-20260917",
+  "latest": "finqa-all-20260918",
   "runs": [
+    {
+      "id": "finqa-all-20260918",
+      "label": "전체 28개 모델 비교"
+    },
     {
       "id": "finqa-nova-lite-pilot-v3-20260917",
       "label": "단위 지시 수정 후 재측정"

@@ -12,6 +12,12 @@ const percent = (value) => Number.isFinite(value) ? `${(value * 100).toFixed(1)}
 const count = (value) => Number.isFinite(value) ? value.toLocaleString("ko-KR") : "—";
 const validId = (id) => typeof id === "string" && /^[A-Za-z0-9][A-Za-z0-9_.-]{0,99}$/.test(id);
 const providerLabel = { bedrock: "Bedrock Runtime", bedrock_mantle: "Bedrock Mantle", vllm: "자체 호스팅" };
+const costReasonLabel = {
+  configured_price_expired: "설정 단가 유효기간 만료로 비용 미표시",
+  multiple_gpu_invocations: "여러 GPU 실행이 섞여 비용 미표시",
+  incomplete_responses: "실패 응답이 있어 비용 미표시",
+  missing_responses: "미응답이 있어 비용 미표시",
+};
 let selectedEntry = null;
 let fallbackId = "finqa-all-20260918";
 const usd = (value) => Number.isFinite(value) ? `$${value.toFixed(5)}` : "—";
@@ -69,13 +75,14 @@ function renderSelected(entry) {
     const m = model.aggregate;
     addRow(byId("model-body"), [
       model.name, providerLabel[model.provider] || "—", `${count(m.correct)} / ${count(m.questions)}`, percent(m.execution_accuracy),
+      usd(m.estimated_cost_per_question_usd), `${seconds(m.latency_p50_s ?? m.response_latency_median_s)} / ${seconds(m.latency_p95_s)}`,
       count(m.incorrect_result), count(m.invalid_program), count(m.format_adjusted), count(m.request_failed), count(m.missing),
-      usd(m.estimated_cost_per_question_usd), `${seconds(m.latency_p50_s)} / ${seconds(m.latency_p95_s)}`,
     ]);
     const p = document.createElement("p");
     const causes = Object.entries(m.invalid_program_causes || {})
       .filter(([, n]) => n > 0).map(([code, n]) => `${errorLabels[code] || code} ${count(n)}건`);
-    p.textContent = `${model.name} — ${causes.join(" · ") || "계산식 실행 불가 없음"}`;
+    p.textContent = `${model.name} — ${causes.join(" · ") || "계산식 실행 불가 없음"}` +
+      (m.cost_unavailable_reason ? ` · ${costReasonLabel[m.cost_unavailable_reason] || "비용 추정 불가"}` : "");
     byId("diagnostics").append(p);
   }
   if (report.models.length === 1) {

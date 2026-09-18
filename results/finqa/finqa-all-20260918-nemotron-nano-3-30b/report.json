@@ -1,0 +1,276 @@
+{
+  "scenario": "finqa",
+  "run_id": "finqa-all-20260918-nemotron-nano-3-30b",
+  "models": [
+    {
+      "name": "nemotron-nano-3-30b",
+      "aggregate": {
+        "questions": 20,
+        "correct": 0,
+        "incorrect_result": 2,
+        "invalid_program_causes": {
+          "unsupported_reference": 0,
+          "wrong_arity": 0,
+          "invalid_json": 0,
+          "invalid_payload": 0,
+          "invalid_program": 18
+        },
+        "execution_accuracy": 0.0,
+        "response_coverage": 1.0,
+        "evidence_exact_match": 0.0,
+        "scored": 2,
+        "invalid_program": 18,
+        "request_failed": 0,
+        "missing": 0,
+        "response_latency_median_s": 0.6355
+      }
+    }
+  ],
+  "dataset_sha256": "46d59a76e909267fa4bca3d8d20bb8800c45e2f513da78df63746fa39ddc412d",
+  "prompt_sha256": "8c275a1e7187df89bd066e244d01c6425fba04eae75aea583d7f2c727a397a39",
+  "assessment_scope": "protocol_pilot",
+  "warnings": [
+    "형식 준수·문서 읽기·계산·원본 정답 단위가 섞인 파일럿입니다. 금융 추론 성능 순위로 사용하지 마세요."
+  ],
+  "policy": "Primary metric: execution_accuracy = correct program executions / selected questions.\nExecute the model's program using the bounded allowlisted FinQA operations.\nRound only the final numeric result to 5 decimal places, then compare exactly\nwith the dataset qa.exe_ans. Compare greater results exactly as yes/no.\nDo not accept arbitrary 100x/0.01x matches or unsigned matches.\nThe program must come from the candidate; never execute the reference program\nas a replacement for a missing or invalid candidate program.\n\nRequest failures, invalid outputs and missing predictions are not correct.\nReport these states separately. Keep response coverage visible.\nClassify invalid candidate programs separately from executable but incorrect results.\nShow original candidate outputs and error details for diagnosis; these are not\nevaluator crashes. Preserve historical prompt snapshots and warn when a run used\nthe former blanket percentage-to-fraction instruction.\nEvidence exact match compares sets of supplied evidence IDs with gold_inds.\nIt is diagnostic and is not part of execution_accuracy.\n\nThis is a zero-shot, full-document FinQA-style evaluation on a fixed dev subset.\nIt is not the official retrieval/training setup or a leaderboard submission.\nProgram equivalence accuracy is not implemented.\nThe upstream executable labels can disagree with the human-readable answer,\nincluding percentage scale and annotation errors; exe_ans remains authoritative.\nRemoving a conflicting prompt instruction does not resolve upstream unit ambiguity.\nTreat these reports as protocol pilots, not validated financial-reasoning rankings.\nThe model is never shown qa.answer, qa.exe_ans, qa.program, or qa.gold_inds.\n",
+  "evaluations": [
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-MRO/2009/page_139.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "9e4a57da7a98a82be4d7670a18ba5cc8de1aeb3a78e55c1d565949549975a055",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-CB/2010/page_88.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "480fa2a63a62b09344d2eb473b5083248d2065e253ccfa67a4f05aa62728b021",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-FBHS/2017/page_23.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": 186.4,
+      "prediction_sha256": "c3741238446da08e897cd59a23ad55aec651c77750a130e392783e86b23822ae",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-VRTX/2003/page_71.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "f587211740081160414fc589a1857a845a5308c818dab4c314d6b73ff84740d6",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-AMT/2005/page_54.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "1ebe8d594915ea010db37efe332d03dcf1b5f408203202511627c42b4bbd9189",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-UNP/2013/page_54.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "3081246dd9de69fcda1c511ad9fd2f5b6a24aae67c557674682450ca5a861430",
+      "status": "invalid_program",
+      "evaluation_error": "invalid program syntax",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-MAS/2018/page_60.pdf-2",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "15d770838d6cd0a2a8b92c90255e55096ac5f1e70e21d6df88457a466f36253a",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-PM/2018/page_31.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "daa71ca396a4a707dc7d7ddafe91daf9209e5ffc7220cd95bfab42b1001b22e7",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-MAS/2018/page_35.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "5f6f8aacb021b16c395d2c6091d071f11858380c42b21b88bc5f4249d037df4e",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-FIS/2007/page_94.pdf-4",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "1c2dd6525619572cc0a1ab0927a36c868cb4f45db779120d27ad99ec4c70b9d6",
+      "status": "invalid_program",
+      "evaluation_error": "invalid program syntax",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-BLL/2007/page_35.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "894890e667137dba33ef7ddf68ade6d8522a9efef69db8fd82061ed17ab2cb17",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-APTV/2014/page_49.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "533d8a473a997ebb2d8262f3b4c0f21ac900dd08c9c51a0f07eaf628ff5b3697",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-JPM/2018/page_110.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "5781ecad5d415eb91a82f0082af7d30b7ab6ab119f784e093160b2be8e4bbf26",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-UNP/2013/page_54.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "6c5c96c023a64e55f393cc342cdde8967fb7d190c1418c1a0264eddd7e13fdc0",
+      "status": "invalid_program",
+      "evaluation_error": "invalid program syntax",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-UNP/2011/page_76.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "06c73098b925c9cc0e2ffcc3ba7dc38c678927826d09ad7b974622a64f11b17f",
+      "status": "invalid_program",
+      "evaluation_error": "invalid program syntax",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-INTC/2013/page_33.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "b06b7aaa3f4ceaab02b74218e67549fd6100e304fb6dcb4f36ff241224ef1b9a",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-ALLE/2016/page_43.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "7714f55a4bcec66c8f36799f36b5217c3740b19ac46be9f2fb7a9d38889db29e",
+      "status": "invalid_program",
+      "evaluation_error": "table operation requires none",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-PNC/2009/page_41.pdf-2",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": 0.5,
+      "prediction_sha256": "ac1f8d2aa5a9689c67dfa70f383bc29b0531e342fd676612fc4eaa16b5ddcb00",
+      "status": "scored",
+      "evidence_valid": true,
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-APD/2014/page_39.pdf-1",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "fd8e114522ae358c1950addf33c3993d873b7cd35d2de4b87fd0caa189a8d0fb",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "id": "finqa-dev-UPS/2006/page_32.pdf-3",
+      "correct": false,
+      "evidence_exact": false,
+      "execution_result": null,
+      "prediction_sha256": "6d45822dc7d673f8fda9c619b20fc3be6a29bb8fe3d5098b26ba64ab7d84a362",
+      "status": "invalid_program",
+      "evaluation_error": "forward reference",
+      "evaluation_error_code": "invalid_program",
+      "evaluator_sha256": "85872e66a2fc0ef49015fcfd156d8aac8ce9e36bf646f11cc98bd4f96de0896a"
+    }
+  ]
+}

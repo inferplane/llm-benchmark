@@ -1,0 +1,18 @@
+{
+  "model_id": "meta-llama/Llama-3.3-70B-Instruct",
+  "tensor_parallel_size": 8,
+  "max_model_len": 8192,
+  "image": "vllm/vllm-openai:latest",
+  "image_id": "docker.io/vllm/vllm-openai@sha256:c2914767605584b6d8f45686b82de173ecc99e781897aa3d0a66dacd72c51ae1",
+  "node_instance_type": "g6.48xlarge",
+  "shared_memory_limit": "2Gi",
+  "enable_service_links": false,
+  "vllm_args": [
+    "--model=meta-llama/Llama-3.3-70B-Instruct",
+    "--tensor-parallel-size=8",
+    "--host=0.0.0.0",
+    "--port=8000",
+    "--max-model-len=8192",
+    "--enforce-eager"
+  ]
+}

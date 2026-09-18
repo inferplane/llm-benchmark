@@ -841,6 +841,30 @@ def _selfcheck():
     ]
     assert wall_clock_seconds(rows_timing) == 15.0, wall_clock_seconds(rows_timing)
 
+    # FinQA reuses whole-model cost math even for an unparseable (but billed)
+    # response. Two requests each cost $1 input + $2.50 output = $7 total.
+    from bench.finqa_compare import performance_of
+    finqa_rows = [
+        {**row, "model": "check", "id": str(i), "error": None,
+         "output_text": "invalid program", "tokens_in": 1_000_000, "tokens_out": 500_000}
+        for i, row in enumerate(rows_timing)
+    ]
+    finqa_perf = performance_of(finqa_rows, api_model)
+    assert finqa_perf["estimated_cost_usd"] == 7
+    assert finqa_perf["estimated_cost_per_question_usd"] == 3.5
+    assert finqa_perf["latency_p50_s"] == 10 and finqa_perf["latency_p95_s"] == 10
+    # At $3600/hour ($1/sec), the concurrent GPU batch spans 15 seconds,
+    # not the sum of its two 10-second request latencies.
+    gpu_perf = performance_of(finqa_rows, {"gpu_hourly_usd": 3600, "base_url": "http://localhost"})
+    assert abs(gpu_perf["estimated_cost_usd"] - 15) < 0.001
+    assert gpu_perf["estimated_cost_per_question_usd"] == 7.5
+    assert performance_of(finqa_rows, api_model, pricing_valid_until="2026-08-31",
+                          as_of="2026-09-18")["estimated_cost_usd"] is None
+    assert performance_of(finqa_rows, {"gpu_hourly_usd": 3600, "base_url": "http://localhost"},
+                          invocations=2)["estimated_cost_usd"] is None
+    assert performance_of([finqa_rows[0], {**finqa_rows[1], "error": "timeout"}],
+                          api_model)["estimated_cost_per_question_usd"] is None
+
     # translation_error vs judge_error must be independent: a translation that
     # succeeded but whose judge call failed must still count as a successful
     # translation (tokens/cost intact) while contributing zero judged segments.

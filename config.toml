@@ -4,6 +4,13 @@
 [aws]
 region = "us-west-2"
 
+[scenario.finqa]
+concurrency_default = 2
+sample_size = 20
+seed = 13
+split = "dev"
+source_revision = "0f16e2867befa6840783e58be38c9efb9229d742"
+
 [scenario.translation]
 src_lang = "ko"
 targets = ["en", "ja", "zh", "es", "fr", "de", "pt", "ru", "it", "vi", "id", "th", "ar", "hi", "tr"]
@@ -108,6 +115,7 @@ price_out = 15.00
 name = "claude-sonnet-5"
 api = "bedrock"
 model_id = "us.anthropic.claude-sonnet-5"
+pricing_valid_until = "2026-08-31"
 # Promotional launch pricing (aws.amazon.com/bedrock/pricing, checked 2026-07-15),
 # in effect through 2026-08-31; reverts to standard $3.00/$15.00 after that —
 # re-check before publishing any report generated after that date.

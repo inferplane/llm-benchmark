@@ -5,13 +5,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 A benchmark harness for financial-industry LLM selection: which models give the
-best cost/quality tradeoff for specific customer scenarios. The first (and
-currently only) scenario is Korean↔15-language financial document translation,
+best cost/quality tradeoff for specific customer scenarios. The first
+scenario is Korean↔15-language financial document translation,
 comparing Bedrock models, OpenAI API models, and open-weight models served via
 vLLM on the shared `mall-apne2-mgmt` EKS cluster (ap-northeast-2 — see
 `../aws-ec2-benchmark` for that cluster's own tooling/conventions; this repo
 only adds a dedicated GPU NodePool to it, see below). Results accumulate as
 JSON and are visualized by a static dashboard on GitHub Pages.
+A second scenario, FinQA-style financial numerical QA, uses a fixed English
+dev subset and deterministic program execution, with separate static reports.
 
 ## Commands
 
@@ -35,6 +37,15 @@ uv run python3 -m bench.judge --run-id my-run --limit 20
 # aggregate to the dashboard (writes docs/results/<run_id>.json + index.json)
 uv run python3 -m bench.report --run-id my-run
 uv run python3 -m bench.report --selfcheck    # money-path check (cost math, aggregation) — no run-id needed
+
+# FinQA numerical QA (separate pipeline; evaluate/report require no judge API)
+uv run python3 -m bench.finqa prepare
+uv run python3 -m bench.finqa run --models nova-lite --run-id finqa-pilot
+uv run python3 -m bench.finqa evaluate --run-id finqa-pilot
+uv run python3 -m bench.finqa report --run-id finqa-pilot
+uv run python3 -m bench.finqa selfcheck
+uv run python3 -m bench.finqa_compare --run-id finqa-all-20260918
+uv run python3 -m bench.finqa_compare --selfcheck
 
 # preview the dashboard locally
 python3 -m http.server 8000 -d docs   # then open localhost:8000/index.html
@@ -60,6 +71,20 @@ the `translation` scenario's prompt-building (`build_prompt`,
 `build_rubric_prompt`); adding a second scenario means adding its directory,
 its config section, and a second prompt-builder function — not a plugin
 registry. Don't build one preemptively.
+
+**FinQA uses `bench/finqa.py` with its own prompt builder**, passed explicitly
+to `bench.run.run_model`. Its files live under `results/finqa/<run_id>/` and
+`docs/finqa-results/`, never the translation result index. The primary metric
+is program execution accuracy against `qa.exe_ans` over all selected questions,
+including failures and missing answers. Never show answer/program/evidence
+annotations to candidates or silently accept a 100x percentage mismatch.
+`bench/finqa_compare.py` composes the translation roster's per-model FinQA runs
+only after confirming identical datasets/prompts/generation parameters. Its v2
+scorer unwraps JSON fences and joins arrays of step strings without editing
+arithmetic; raw strict correctness stays visible. Never substitute this v2
+score into a historical strict-format pilot.
+Immutable run contracts prevent cached answers from surviving data, prompt,
+model-configuration or runner-code changes. See `scenarios/finqa/README.md`.
 
 **`config.toml` is the single source of truth for models.** Every model is one
 `[[models]]` table with a `name`, an `api` (`"bedrock"` | `"openai"` |

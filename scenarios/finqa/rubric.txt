@@ -1,0 +1,25 @@
+Primary metric: execution_accuracy = correct program executions / selected questions.
+Execute the model's program using the bounded allowlisted FinQA operations.
+Round only the final numeric result to 5 decimal places, then compare exactly
+with the dataset qa.exe_ans. Compare greater results exactly as yes/no.
+Do not accept arbitrary 100x/0.01x matches or unsigned matches.
+The program must come from the candidate; never execute the reference program
+as a replacement for a missing or invalid candidate program.
+
+Request failures, invalid outputs and missing predictions are not correct.
+Report these states separately. Keep response coverage visible.
+Classify invalid candidate programs separately from executable but incorrect results.
+Show original candidate outputs and error details for diagnosis; these are not
+evaluator crashes. Preserve historical prompt snapshots and warn when a run used
+the former blanket percentage-to-fraction instruction.
+Evidence exact match compares sets of supplied evidence IDs with gold_inds.
+It is diagnostic and is not part of execution_accuracy.
+
+This is a zero-shot, full-document FinQA-style evaluation on a fixed dev subset.
+It is not the official retrieval/training setup or a leaderboard submission.
+Program equivalence accuracy is not implemented.
+The upstream executable labels can disagree with the human-readable answer,
+including percentage scale and annotation errors; exe_ans remains authoritative.
+Removing a conflicting prompt instruction does not resolve upstream unit ambiguity.
+Treat these reports as protocol pilots, not validated financial-reasoning rankings.
+The model is never shown qa.answer, qa.exe_ans, qa.program, or qa.gold_inds.

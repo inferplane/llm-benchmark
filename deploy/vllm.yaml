@@ -27,6 +27,9 @@ metadata:
   labels: { app: vllm }
 spec:
   replicas: 1
+  # One GPU model at a time; replace the old pod before requesting its GPUs.
+  strategy:
+    type: Recreate
   selector:
     matchLabels: { app: vllm }
   template:
@@ -80,6 +83,8 @@ $EXTRA_VLLM_ARGS_YAML
           volumeMounts:
             - name: model-cache
               mountPath: /root/.cache/huggingface
+            - name: shared-memory
+              mountPath: /dev/shm
           readinessProbe:
             httpGet: { path: /health, port: 8000 }
             initialDelaySeconds: 60   # model download + load; raise for 70B-class models
@@ -88,6 +93,12 @@ $EXTRA_VLLM_ARGS_YAML
       volumes:
         - name: model-cache
           emptyDir: {}   # re-downloads weights per model swap; switch to a PVC if that gets slow
+        # vLLM tensor-parallel IPC needs more than the container's default
+        # 64MiB (TP=4 on v0.29 requires at least 160MiB). Keep IPC pod-local.
+        - name: shared-memory
+          emptyDir:
+            medium: Memory
+            sizeLimit: 2Gi
 ---
 apiVersion: v1
 kind: Service

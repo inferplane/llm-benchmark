@@ -351,7 +351,9 @@ async def call_bedrock(client, model_id: str, prompt: str, reasoning_effort: str
     # text block, so pick the first block that actually carries text.
     text = next(b["text"] for b in resp["output"]["message"]["content"] if "text" in b)
     usage = resp["usage"]
-    return {"text": text, "tokens_in": usage["inputTokens"], "tokens_out": usage["outputTokens"]}
+    return {"text": text, "tokens_in": usage["inputTokens"], "tokens_out": usage["outputTokens"],
+            "finish_reason": resp.get("stopReason"),
+            "request_id": resp.get("ResponseMetadata", {}).get("RequestId")}
 
 
 async def call_openai(client, model_id: str, prompt: str, chat_template_kwargs: dict | None = None) -> dict:
@@ -369,7 +371,10 @@ async def call_openai(client, model_id: str, prompt: str, chat_template_kwargs: 
     )
     text = resp.choices[0].message.content
     usage = resp.usage
-    return {"text": text, "tokens_in": usage.prompt_tokens, "tokens_out": usage.completion_tokens}
+    details = getattr(usage, "completion_tokens_details", None)
+    return {"text": text, "tokens_in": usage.prompt_tokens, "tokens_out": usage.completion_tokens,
+            "finish_reason": resp.choices[0].finish_reason, "reported_model": resp.model,
+            "reasoning_tokens": getattr(details, "reasoning_tokens", None)}
 
 
 async def call_translate(client, src_lang: str, tgt_lang: str, src_text: str) -> dict:
@@ -491,6 +496,9 @@ async def call_mantle(
             "text": "".join(text_parts),
             "tokens_in": usage.get("input_tokens"), "tokens_out": usage.get("output_tokens"),
             "response_status": "completed", "http_status": context["http_status"],
+            "reported_model": data.get("model"),
+            "reported_reasoning": data.get("reasoning"),
+            "reasoning_tokens": (usage.get("output_tokens_details") or {}).get("reasoning_tokens"),
         }
         if "request_id" in context:
             result["request_id"] = context["request_id"]
@@ -603,7 +611,8 @@ async def run_model(model_cfg: dict, segments: list[dict], cache: ResultCache, a
                 if details:
                     row["translation_error_details"] = details
                 else:
-                    for field in ("request_id", "response_id", "response_status", "http_status"):
+                    for field in ("request_id", "response_id", "response_status", "http_status",
+                                  "finish_reason", "reported_model", "reported_reasoning", "reasoning_tokens"):
                         if field in result:
                             row[field] = result[field]
                 # Append before deciding on a retry: every failed call survives

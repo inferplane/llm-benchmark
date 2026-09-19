@@ -11,6 +11,13 @@ seed = 13
 split = "dev"
 source_revision = "0f16e2867befa6840783e58be38c9efb9229d742"
 
+[scenario.finqa_audited]
+concurrency_default = 2
+sample_size = 20
+seed = 20260919
+split = "dev"
+source_revision = "0f16e2867befa6840783e58be38c9efb9229d742"
+
 [scenario.translation]
 src_lang = "ko"
 targets = ["en", "ja", "zh", "es", "fr", "de", "pt", "ru", "it", "vi", "id", "th", "ar", "hi", "tr"]

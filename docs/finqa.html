@@ -50,16 +50,16 @@
     <div class="eyebrow">FINANCIAL NUMERICAL REASONING · FINQA</div>
     <h1>금융 문서를 읽고, 숫자로 답하기</h1>
     <p class="sub">영어 재무 문서의 본문과 표에서 필요한 값을 찾아 계산하는 벤치마크입니다.
-      번역 평가와 별도의 결과로, 모델이 생성한 계산식을 실행해 공식 정답과 비교합니다.</p>
+      모델의 계산식과 선언 단위를 함께 평가하고, 번역 평가와 별도로 비교합니다.</p>
   </header>
   <aside class="notice">
     <strong>동일 20문항의 모델 비교 · 금융 업무 전반의 순위는 아닙니다</strong><br>
-    계산식 문법 준수와 금융 추론이 함께 반영됩니다. 원본 정답에 단위·분모 불일치가 확인돼,
-    이 점수를 금융 추론 능력만의 지표로 해석할 수 없습니다.
+    정답률에는 문서 읽기·계산·형식 및 단위 준수가 함께 반영됩니다.
+    한 문항이 5%p이며, 작은 점수 차이만으로 우열을 확정할 수 없습니다.
   </aside>
   <p id="status" role="status">결과를 불러오는 중…</p>
   <noscript><p>JavaScript를 켜면 실행 이력을 비교할 수 있습니다.
-    <a href="finqa-results/finqa-all-20260918.html">전체 모델 상세 보고서</a>는 바로 열 수 있습니다.</p></noscript>
+    <a href="finqa-results/finqa-audited-20260919.html">전체 모델 상세 보고서</a>는 바로 열 수 있습니다.</p></noscript>
   <div id="results" hidden>
     <section class="panel" aria-labelledby="result-title">
       <h2 id="result-title">실행 결과</h2>
@@ -70,17 +70,23 @@
         </select>
       </div>
       <p id="result-summary" aria-live="polite"></p>
+      <p id="protocol-label" class="notice"></p>
       <div id="warnings"></div>
       <div class="scroll" tabindex="0" role="region" aria-label="모델별 수치 추론 결과">
         <table><thead><tr>
           <th scope="col">모델</th><th scope="col">제공 방식</th><th scope="col">정답 / 전체</th><th scope="col">실행 정답률 ↑</th>
+          <th scope="col">95% 구간</th>
           <th scope="col">추정 비용/문항</th><th scope="col">지연 p50 / p95 (초)</th>
-          <th scope="col">실행 가능한 오답</th><th scope="col">계산식 실행 불가</th><th scope="col">형식 정규화</th>
+          <th scope="col">실행 가능한 오답</th><th scope="col">계산식·단위 오류</th>
+          <th scope="col">선언 단위 유효</th><th scope="col">요청 단위 준수</th><th scope="col">형식 정규화</th>
           <th scope="col">요청 실패</th><th scope="col">미응답</th>
         </tr></thead><tbody id="model-body"></tbody></table>
       </div>
       <p class="sub">표를 좌우로 스크롤하면 모든 지표를 확인할 수 있습니다. 분모는 선택한 전체 문항 수이며,
         실행 불가·요청 실패·미응답도 제외하지 않습니다.</p>
+      <p class="sub">단위 유효는 선언한 단위의 종류가 맞는 응답 수이며, 수치 정답 수와 다릅니다.
+        요청 단위 준수는 질문에서 요구한 단위·배율과 같은 표현을 사용한 수입니다.
+        95% 구간은 Wilson 표본 구간이며, 문항의 선별 편향이나 모델 실행 간 변동을 포함하지 않습니다.</p>
       <p class="sub">비용은 설정 단가와 성공 응답 기준의 추정치입니다. GPU 준비·다운로드·유휴 시간과 실패·재시도 청구액은 포함하지 않습니다.
         단가 유효기간이 지난 모델이나 계산할 수 없는 값은 —로 표시합니다.</p>
       <div id="excluded"></div>
@@ -89,8 +95,8 @@
     </section>
     <section class="panel" aria-labelledby="history-title">
       <h2 id="history-title">실행 이력</h2>
-      <p class="sub">전체 모델 비교는 코드블록·계산 단계 목록만 공통 정규화합니다. 이전 nova-lite 파일럿은 정규화 전 채점이므로
-        점수를 직접 비교하지 마세요. 같은 모델과 문항이라도 프롬프트나 평가 규칙이 다르면 별도 실행입니다.</p>
+      <p class="sub">새 평가는 문항과 단위 채점 규약이 다릅니다. 구 규약의 65% 대 20% 같은 차이에는 백분율 표현 차이가 섞여 있습니다.
+        이전 점수를 새 점수와 직접 비교하거나 한 순위로 합치지 않습니다.</p>
       <div class="scroll" tabindex="0" role="region" aria-label="FinQA 실행 이력">
         <table><thead><tr><th scope="col">실행</th><th scope="col">모델</th><th scope="col">정답 / 전체</th><th scope="col">실행 정답률</th><th scope="col">계산식 실행 불가</th></tr></thead>
           <tbody id="history-body"></tbody></table>
@@ -99,22 +105,29 @@
   </div>
   <section class="panel">
     <h2>무엇을 측정하나요?</h2>
-    <p>FinQA 공식 개발 데이터에서 seed 13으로 고정 추출한 20문항을 사용합니다.
-      모델에는 본문·표·질문만 제공하고, 정답과 정답 계산식은 보여주지 않습니다.
-      응답은 허용된 연산으로 실행하며, 최종 수치를 소수점 다섯 자리로 반올림해 <code>qa.exe_ans</code>와 비교합니다.</p>
+    <p id="method-summary">선택한 실행의 평가 규약을 불러오는 중입니다.</p>
+    <p>모델에는 본문·표·질문과 공통 출력 규약만 제공합니다. 정답, 정답 계산식, 문항 감사 메모는 입력에서 제외합니다.</p>
+    <p id="audit-links" hidden>
+      <a href="finqa-results/audited-selection-20260919.json">문항 선정·제외 근거</a> ·
+      <a href="finqa-results/audited-dataset-20260919.json">문서·표·감사 정답</a> ·
+      <a href="finqa-results/legacy-audit-20260919.json">이전 560개 응답 진단</a>
+    </p>
     <p><a href="https://github.com/czyssrs/FinQA/tree/0f16e2867befa6840783e58be38c9efb9229d742">FinQA 데이터 출처</a>
       · <a href="finqa-results/LICENSE.FinQA">MIT 라이선스 고지</a></p>
     <details><summary>결과를 읽을 때 주의할 점</summary>
       <p>계산식 실행 불가는 서버 장애와 다릅니다. 숫자 대신 표 참조를 쓰거나, 이항 연산에 인자를 세 개 넣는 등
         지원하지 않는 계산식을 모델이 출력한 경우입니다. 요청 실패는 별도로 집계합니다.</p>
-      <p>전체 비교에서는 JSON 코드블록의 바깥 표시와 문자열 배열로 표현된 계산 단계만 공통 정규화합니다.
-        숫자·연산·단위·참조를 고치지 않으며, 중첩 연산이나 잘못된 표 참조는 그대로 실행 불가입니다.
+      <p>JSON 코드블록의 바깥 표시와 문자열 배열로 표현된 계산 단계는 공통 정규화합니다.
+        숫자·연산·참조를 고치지 않으며, 중첩 연산이나 잘못된 표 참조는 그대로 실행 불가입니다.
         원래 형식으로도 정답인 건수와 정규화 건수는 상세 보고서에 함께 기록합니다.</p>
-      <p>초기 프롬프트의 일괄 백분율 변환 지시는 일부 정답 단위와 충돌해 제거했습니다.
-        그러나 원본 정답의 million/billion 환산 누락과 분모 불일치는 남아 있습니다.
-        정답 라벨을 바꾸거나 100배 차이를 자동 정답 처리하지 않았습니다.</p>
+      <p>새 규약은 예를 들어 28.125 percent와 0.28125 ratio를 같은 비율로 환산합니다.
+        단위를 누락하거나 28.125 ratio처럼 실제 값이 100배 틀리면 자동으로 구제하지 않습니다.
+        퍼센트포인트 차이와 상대적인 변화율은 구분합니다.</p>
+      <p>사전 감사는 질문에 필요한 근거·계산을 검토한 것입니다. 문서의 모든 OCR 셀이 완벽하거나
+        데이터가 모델 학습에 포함되지 않았음을 보장하지 않습니다. 모델별 추론 설정은 기존 값을 유지하며,
+        제공자 기본값이 생략된 경우 실제 추론량이 같다고 가정하지 않습니다.</p>
       <p>공식 학습·검색 설정 또는 공식 test 리더보드 점수와 동일하지 않습니다.
-        단위 정합성을 검증한 데이터와 더 큰 표본이 있어야 금융 업무 성능을 비교할 수 있습니다.</p>
+        이 선별 표본에서의 결과를 금융 업무 전체의 성능으로 일반화하지 마세요.</p>
     </details>
   </section>
 </main>

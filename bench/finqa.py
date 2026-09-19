@@ -13,6 +13,7 @@ import hashlib
 import html
 import json
 import math
+from numbers import Real
 from pathlib import Path
 import random
 import re
@@ -157,7 +158,7 @@ def number(text: str) -> float:
     return value
 
 
-def execute(program: str, table: list[list[str]]):
+def execute(program: str, table: list[list[str]], *, round_final: bool = True, numeric_parser=number):
     """Bounded FinQA DSL interpreter; never eval/exec candidate text."""
     if not isinstance(program, str) or not program.strip() or len(program) > 16000:
         raise ValueError("missing or oversized program")
@@ -184,10 +185,10 @@ def execute(program: str, table: list[list[str]]):
                 if index >= len(results):
                     raise ValueError("forward reference")
                 value = results[index]
-                if not isinstance(value, (float, int)):
+                if not isinstance(value, Real):
                     raise ValueError("non-numeric intermediate")
                 return value
-            return number(arg)
+            return numeric_parser(arg)
 
         if op in {"table_sum", "table_average", "table_min", "table_max"}:
             if "," in left and re.match(r"table_\d+", left):
@@ -198,7 +199,7 @@ def execute(program: str, table: list[list[str]]):
             if left not in by_label or not by_label[left]:
                 raise ValueError("unknown or empty table row")
             # Same numeric cleanup as upstream process_row.
-            values = [number(cell.replace("$", "").split("(")[0].strip()) for cell in by_label[left]]
+            values = [numeric_parser(cell.replace("$", "").split("(")[0].strip()) for cell in by_label[left]]
             result = {
                 "table_sum": lambda: sum(values),
                 "table_average": lambda: sum(values) / len(values),
@@ -236,7 +237,7 @@ def execute(program: str, table: list[list[str]]):
                 raise ValueError("invalid step separator")
             remaining = remaining[1:].strip()
     final = results[-1]
-    return round(final, 5) if isinstance(final, (float, int)) else final
+    return round(final, 5) if round_final and isinstance(final, (float, int)) else final
 
 
 def score(record: dict, prediction: dict | None) -> dict:
@@ -304,10 +305,10 @@ def cmd_prepare(args):
     print(f"prepared {len(records)} questions -> {args.output}")
 
 
-async def run_candidates(args, directory: Path):
+async def run_candidates(args, directory: Path, *, scenario_name="finqa", extra_contract=None):
     cfg = runner.load_config()
-    scenario = cfg["scenario"]["finqa"]
-    prompt_text = SCENARIO.joinpath("prompt.txt").read_text()
+    scenario = cfg["scenario"][scenario_name]
+    prompt_text = (ROOT / "scenarios" / scenario_name / "prompt.txt").read_text()
     wanted = set(args.models.split(","))
     models = [model for model in cfg["models"] if model["name"] in wanted]
     if wanted != {model["name"] for model in models}:
@@ -325,7 +326,7 @@ async def run_candidates(args, directory: Path):
             raise ValueError("not a prepared FinQA dataset")
     # Immutable run contract prevents stale answers after prompt/data/model changes.
     contract = {
-        "scenario": "finqa", "dataset_sha256": digest(records),
+        "scenario": scenario_name, "dataset_sha256": digest(records),
         "prompt_sha256": hashlib.sha256(prompt_text.encode()).hexdigest(),
         "models": models, "aws_region": cfg["aws"]["region"],
         "concurrency_default": scenario["concurrency_default"],
@@ -335,6 +336,8 @@ async def run_candidates(args, directory: Path):
         "runner_sha256": hashlib.sha256(Path(runner.__file__).read_bytes()).hexdigest(),
         "finqa_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
     }
+    if extra_contract is not None:
+        contract["evaluation_protocol"] = extra_contract
     path = directory / "manifest.json"
     if path.exists():
         manifest = json.loads(path.read_text())

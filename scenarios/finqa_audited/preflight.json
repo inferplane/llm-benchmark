@@ -1,0 +1,266 @@
+{
+  "checked_at": "2026-09-19T02:26:20.982620+00:00",
+  "account": "180294183052",
+  "target": "mgmt instance role; shared mall-apne2-mgmt only llm-bench/gpu-bench",
+  "models": [
+    {
+      "model": "claude-haiku-4.5",
+      "configured_price_in": 1.0,
+      "configured_price_out": 5.0,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0387,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.44417
+    },
+    {
+      "model": "claude-sonnet-4.5",
+      "configured_price_in": 3.0,
+      "configured_price_out": 15.0,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.1178,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 1.33251
+    },
+    {
+      "model": "claude-sonnet-5",
+      "configured_price_in": 2.0,
+      "configured_price_out": 10.0,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": "2026-08-31",
+      "prior20_observed_estimated_cost_usd": null,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": null
+    },
+    {
+      "model": "nova-pro",
+      "configured_price_in": 0.8,
+      "configured_price_out": 3.2,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.032,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.290595
+    },
+    {
+      "model": "nova-lite",
+      "configured_price_in": 0.06,
+      "configured_price_out": 0.24,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0024,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.021795
+    },
+    {
+      "model": "gpt-5.4",
+      "configured_price_in": 2.5,
+      "configured_price_out": 15.0,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0884,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 1.307977
+    },
+    {
+      "model": "gpt-5.5",
+      "configured_price_in": 5.0,
+      "configured_price_out": 30.0,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.3727,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 2.615955
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "configured_price_in": 2.5,
+      "configured_price_out": 15.0,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.1207,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 1.307977
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "configured_price_in": 1.0,
+      "configured_price_out": 6.0,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0597,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.523191
+    },
+    {
+      "model": "grok-4.3",
+      "configured_price_in": 1.25,
+      "configured_price_out": 2.5,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0739,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.244719
+    },
+    {
+      "model": "grok-4.6",
+      "configured_price_in": 2.2,
+      "configured_price_out": 6.6,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.1,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.61189
+    },
+    {
+      "model": "nova-micro",
+      "configured_price_in": 0.035,
+      "configured_price_out": 0.14,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0014,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.012714
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "configured_price_in": 0.06,
+      "configured_price_out": 0.24,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0023,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.021805
+    },
+    {
+      "model": "glm-4.7-flash",
+      "configured_price_in": 0.07,
+      "configured_price_out": 0.4,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0026,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.035006
+    },
+    {
+      "model": "gpt-oss-20b",
+      "configured_price_in": 0.07,
+      "configured_price_out": 0.3,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0033,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.026878
+    },
+    {
+      "model": "gpt-oss-120b",
+      "configured_price_in": 0.15,
+      "configured_price_out": 0.6,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0072,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.054086
+    },
+    {
+      "model": "qwen3-32b",
+      "configured_price_in": 0.15,
+      "configured_price_out": 0.6,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0058,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.054406
+    },
+    {
+      "model": "nemotron-super-3-120b",
+      "configured_price_in": 0.15,
+      "configured_price_out": 0.65,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0058,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.058609
+    },
+    {
+      "model": "llama4-scout",
+      "configured_price_in": 0.17,
+      "configured_price_out": 0.66,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0059,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.059537
+    },
+    {
+      "model": "ministral-14b",
+      "configured_price_in": 0.2,
+      "configured_price_out": 0.2,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0073,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.02348
+    },
+    {
+      "model": "qwen3-235b-a22b",
+      "configured_price_in": 0.22,
+      "configured_price_out": 0.88,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0084,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.079778
+    },
+    {
+      "model": "llama4-maverick",
+      "configured_price_in": 0.24,
+      "configured_price_out": 0.97,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0084,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.087185
+    },
+    {
+      "model": "llama-3.3-70b-bedrock",
+      "configured_price_in": 0.72,
+      "configured_price_out": 0.72,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0237,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.082283
+    },
+    {
+      "model": "gemma-4-31b-bedrock",
+      "configured_price_in": 0.14,
+      "configured_price_out": 0.4,
+      "configured_gpu_hourly_usd": null,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0053,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": 0.037821
+    },
+    {
+      "model": "llama-3.1-8b",
+      "configured_price_in": null,
+      "configured_price_out": null,
+      "configured_gpu_hourly_usd": 1.627,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0054,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": null
+    },
+    {
+      "model": "llama-3.3-70b",
+      "configured_price_in": null,
+      "configured_price_out": null,
+      "configured_gpu_hourly_usd": 16.416,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.1899,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": null
+    },
+    {
+      "model": "qwen3.6-27b",
+      "configured_price_in": null,
+      "configured_price_out": null,
+      "configured_gpu_hourly_usd": 5.6582,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0393,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": null
+    },
+    {
+      "model": "exaone-3.5-32b",
+      "configured_price_in": null,
+      "configured_price_out": null,
+      "configured_gpu_hourly_usd": 5.6582,
+      "pricing_valid_until": null,
+      "prior20_observed_estimated_cost_usd": 0.0344,
+      "assumption_cost_20_at_output_cap_prior_input_tokens_usd": null
+    }
+  ],
+  "pricing_check": {
+    "source": "https://aws.amazon.com/bedrock/pricing/",
+    "sha256": "08fea1f33b3ad7148e0806e183119807d201749541ad9cbbef8727f8c8703c83",
+    "finding": "Official page retrieved. Dynamic price placeholders do not independently confirm all numeric rates. Preserve configured rates as estimates and withhold expired Sonnet5; no guessed replacement."
+  },
+  "budget_interpretation": "Model/20-question scope unchanged. API estimate assumes prior-run input tokens and every answer reaches4096 output tokens; it is not a bill or hard upper bound. GPU actual spend depends on cold download/startup/idle and is outside response-runtime cost. New generations not started at this checkpoint.",
+  "source_verified_sha256": "a847fb7e0d61a3125a1e2909852df6b89f1ee64d2c5ff1bf689e332214deee51"
+}

@@ -93,8 +93,9 @@ function renderSelected(entry) {
     const causes = Object.entries(m.invalid_program_causes || {})
       .filter(([, n]) => n > 0).map(([code, n]) => `${errorLabels[code] || code} ${count(n)}건`);
     p.textContent = `${model.name} — ${causes.join(" · ") || "계산식 실행 불가 없음"}` +
+      (m.truncated ? ` · 출력 상한에 따른 잘림 ${count(m.truncated)}건` : "") +
       (m.cost_unavailable_reason ? ` · ${costReasonLabel[m.cost_unavailable_reason] || "비용 추정 불가"}` : "") +
-      (audited ? ` · 추론 설정: ${model.request_settings?.reasoning_effort ?? "확인 불가"}` : "");
+      (audited ? ` · reasoning_effort 요청 값: ${model.request_settings?.reasoning_effort ?? "확인 불가"}` : "");
     byId("diagnostics").append(p);
   }
   if (report.models.length === 1) {
@@ -102,7 +103,7 @@ function renderSelected(entry) {
     byId("result-summary").textContent = `${name} · 정답 ${count(m.correct)}/${count(m.questions)} · ${percent(m.execution_accuracy)}`;
   } else {
     const completed = report.models.filter((m) => m.aggregate.request_failed === 0 && m.aggregate.missing === 0).length;
-    byId("result-summary").textContent = `${report.models.length}개 모델 · 동일 ${count(report.dataset?.questions)}문항 · 응답 수집 완료 ${completed}개`;
+    byId("result-summary").textContent = `${report.models.length}개 모델 · 동일 ${count(report.dataset?.questions)}문항 · 전체 응답 정상 종료 ${completed}개 모델`;
   }
   byId("detail-link").href = `finqa-results/${id}.html`;
   byId("json-link").href = `finqa-results/${id}.json`;

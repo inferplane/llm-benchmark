@@ -1,0 +1,29 @@
+{
+  "model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
+  "tensor_parallel_size": 4,
+  "max_model_len": 8192,
+  "image": "vllm/vllm-openai@sha256:c2914767605584b6d8f45686b82de173ecc99e781897aa3d0a66dacd72c51ae1",
+  "image_id": "docker.io/vllm/vllm-openai@sha256:c2914767605584b6d8f45686b82de173ecc99e781897aa3d0a66dacd72c51ae1",
+  "node_instance_type": "g6.12xlarge",
+  "shared_memory_limit": "2Gi",
+  "enable_service_links": false,
+  "vllm_args": [
+    "--model=LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
+    "--tensor-parallel-size=4",
+    "--host=0.0.0.0",
+    "--port=8000",
+    "--max-model-len=8192",
+    "--trust-remote-code",
+    "--enforce-eager"
+  ],
+  "verified_before_call_at": "2026-09-19T03:23:56.692260+00:00",
+  "node_provider_id": "aws:///ap-northeast-2a/i-07d6900a3f24d6530",
+  "checkpoint_provenance": {
+    "recorded_at": "2026-09-19T03:16:48.604981+00:00",
+    "snapshots": {
+      "models--LGAI-EXAONE--EXAONE-3.5-32B-Instruct": [
+        "3d27aab477c042df2e174d36eea47b77c8871ef0"
+      ]
+    }
+  }
+}

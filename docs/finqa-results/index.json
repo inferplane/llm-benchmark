@@ -1,21 +1,25 @@
 {
-  "latest": "finqa-all-20260918",
+  "latest": "finqa-audited-20260919",
   "runs": [
     {
+      "id": "finqa-audited-20260919",
+      "label": "감사된 금융 QA · 새 20문항 · 28개 모델"
+    },
+    {
       "id": "finqa-all-20260918",
-      "label": "전체 28개 모델 비교"
+      "label": "구 규약 · 전체 28개 모델 비교"
     },
     {
       "id": "finqa-nova-lite-pilot-v3-20260917",
-      "label": "단위 지시 수정 후 재측정"
+      "label": "구 규약 · 단위 지시 수정 후 재측정"
     },
     {
       "id": "finqa-nova-lite-pilot-v2-20260917",
-      "label": "숫자 입력 규칙 명시"
+      "label": "구 규약 · 숫자 입력 규칙 명시"
     },
     {
       "id": "finqa-nova-lite-pilot-20260917",
-      "label": "첫 파일럿"
+      "label": "구 규약 · 첫 파일럿"
     }
   ]
 }

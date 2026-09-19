@@ -14,6 +14,7 @@ import html
 import json
 import math
 from pathlib import Path
+import re
 
 from bench import finqa, finqa_compare, run as runner
 
@@ -22,6 +23,8 @@ SCENARIO = ROOT / "scenarios/finqa_audited"
 DATASET = ROOT / "data/finqa-audited-dev.jsonl"
 FREEZE = SCENARIO / "freeze.json"
 VERSION = "audited-financial-qa-v1"
+MAX_RATIONAL_BITS = 4096
+MAX_DECIMAL_EXPONENT = 308
 UNITS = {
     "ratio": ("ratio", Fraction(1)),
     "percent": ("ratio", Fraction(1, 100)),
@@ -45,6 +48,8 @@ Ratio and percent may represent the same proportion; percentage-point difference
 different dimension. Requested-unit compliance is reported separately from numeric correctness.
 Arithmetic uses exact rational operands for add/subtract/multiply/divide and table operations.
 Exponentiation retains the bounded interpreter's floating-point implementation.
+Decimal exponents are bounded to +/-308 and exact intermediate numerators/denominators
+to 4096 bits; oversized arithmetic is rejected before multiplication/addition allocation.
 Round once, after conversion to the canonical unit, to five decimal places, ties to even.
 All scheduled questions remain in the primary denominator, including invalid and failed responses.
 Fences and arrays of complete operation strings may normalize; raw strict correctness remains.
@@ -59,17 +64,70 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+class BoundedFraction(Fraction):
+    """Bound every rational operation, including sum() inside table aggregates."""
+    @staticmethod
+    def calculate(left, right, op):
+        left, right = Fraction(left), Fraction(right)
+        a, b = abs(left.numerator).bit_length(), left.denominator.bit_length()
+        c, d = abs(right.numerator).bit_length(), right.denominator.bit_length()
+        if max(a, b, c, d) > MAX_RATIONAL_BITS:
+            raise ValueError("exact operand exceeds bit budget")
+        if op in ("add", "subtract"):
+            bounds = (max(a+d, c+b)+1, b+d)
+        elif op == "multiply":
+            bounds = (a+c, b+d)
+        else:
+            bounds = (a+d, b+c)
+        if max(bounds) > MAX_RATIONAL_BITS:
+            raise ValueError("exact operation exceeds bit budget")
+        operation = {"add": Fraction.__add__, "subtract": Fraction.__sub__,
+                     "multiply": Fraction.__mul__, "divide": Fraction.__truediv__}[op]
+        result = operation(left, right)
+        return BoundedFraction(result.numerator, result.denominator)
+
+    def __add__(self, other):
+        return self.calculate(self, other, "add")
+
+    def __radd__(self, other):
+        return self.calculate(other, self, "add")
+
+    def __sub__(self, other):
+        return self.calculate(self, other, "subtract")
+
+    def __rsub__(self, other):
+        return self.calculate(other, self, "subtract")
+
+    def __mul__(self, other):
+        return self.calculate(self, other, "multiply")
+
+    def __rmul__(self, other):
+        return self.calculate(other, self, "multiply")
+
+    def __truediv__(self, other):
+        return self.calculate(self, other, "divide")
+
+    def __rtruediv__(self, other):
+        return self.calculate(other, self, "divide")
+
+
 def rational_number(text):
     """Same numeric syntax as FinQA, exact decimal/percent conversion."""
     if len(text) > 128:
         raise ValueError("numeric literal too long")
-    finqa.number(text)  # syntax, finite float range, and constant validation
+    original = text
     text = text.strip().replace(",", "")
     if text.startswith("const_"):
         text = text[6:]
         if text == "m1":
             text = "-1"
-    return Fraction(text[:-1].strip()) / 100 if text.endswith("%") else Fraction(text)
+    percent = text.endswith("%")
+    text = text[:-1].strip() if percent else text
+    exponent = re.search(r"[eE]([+-]?\d+)$", text)
+    if exponent and abs(int(exponent[1])) > MAX_DECIMAL_EXPONENT:
+        raise ValueError("decimal exponent exceeds budget")
+    finqa.number(original)  # syntax, finite float range, and constant validation
+    return BoundedFraction(text) / 100 if percent else BoundedFraction(text)
 
 
 def rounded(value):
@@ -107,11 +165,13 @@ def _score(record, prediction):
     if prediction is None:
         return {**result, "status": "missing"}
     text = prediction.get("output_text")
+    known_truncation = prediction.get("finish_reason") in {"length", "max_tokens"} or (
+        prediction.get("translation_error_details", {}).get("incomplete_reason") == "max_output_tokens")
+    if known_truncation:
+        return {**result, "status": "request_failed", "evaluation_error_code": "truncated"}
     if (prediction.get("error") is not None or not isinstance(text, str) or not text.strip()
             or prediction.get("response_status", "completed") != "completed"):
         return {**result, "status": "request_failed"}
-    if prediction.get("finish_reason") in {"length", "max_tokens"}:
-        return {**result, "status": "request_failed", "evaluation_error_code": "truncated"}
     try:
         payload = json.loads(prediction["output_text"])
         if not isinstance(payload, dict):
@@ -124,10 +184,14 @@ def _score(record, prediction):
             raise finqa.ProgramError("invalid_unit", "unit must be a declared string")
         result["declared_unit"] = unit
         canonical = convert(value, unit, result["canonical_unit"])
-        expected = rounded(Fraction(record["audit"]["expected_rational"]))
+        expected_raw = record["audit"]["expected_rational"]
+        expected = expected_raw if result["canonical_unit"] == "boolean" else rounded(Fraction(expected_raw))
+        numeric_result = canonical if isinstance(canonical, str) else float(canonical)
+        if not isinstance(numeric_result, str) and not math.isfinite(numeric_result):
+            raise finqa.ProgramError("numeric_range", "result exceeds supported numeric range")
         result.update(
             unit_valid=True, requested_unit_compliant=unit == result["requested_unit"],
-            execution_result=float(canonical), correct=canonical == expected,
+            execution_result=numeric_result, correct=canonical == expected,
         )
     except (ValueError, TypeError, OverflowError, ArithmeticError) as error:
         code = "invalid_json" if isinstance(error, json.JSONDecodeError) else getattr(error, "code", "invalid_program")
@@ -145,10 +209,22 @@ def evaluate_one(record, prediction):
     normalized, changes = finqa_compare.normalize_prediction(prediction)
     result = _score(record, normalized)
     return {**result, "strict_correct": strict["correct"], "strict_status": strict["status"],
-            "normalizations": changes, "prediction_sha256": finqa.digest(prediction)}
+            "normalizations": changes, "prediction_sha256": finqa.digest(prediction),
+            "response_metadata": {key: prediction[key] for key in (
+                "finish_reason", "response_status", "reported_model", "reported_reasoning",
+                "reasoning_tokens", "failed_response", "translation_error_details",
+            ) if prediction is not None and key in prediction}}
 
 
 def protocol_identity():
+    cfg = runner.load_config()
+    roster = json.loads((ROOT / "docs/results/integrated-2026-09-17.json").read_text())
+    configs = {model["name"]: model for model in cfg["models"]}
+    metadata_keys = {"enabled", "price_in", "price_out", "price_per_char",
+                     "gpu_hourly_usd", "pricing_valid_until"}
+    models = [{k: v for k, v in configs[item["name"]].items() if k not in metadata_keys}
+              for item in roster["models"] if configs[item["name"]]["api"] != "translate"
+              and configs[item["name"]].get("enabled", True)]
     return {
         "version": VERSION, "policy": POLICY,
         "dataset_sha256": finqa.digest(finqa.read_rows(DATASET)),
@@ -156,6 +232,14 @@ def protocol_identity():
         "selection_audit_sha256": sha(SCENARIO / "selection-audit.json"),
         "evaluator_sha256": sha(__file__), "dsl_sha256": sha(finqa.__file__),
         "normalizer_sha256": sha(finqa_compare.__file__), "runner_sha256": sha(runner.__file__),
+        "rubric_sha256": sha(SCENARIO / "rubric.txt"),
+        "preparation_sha256": sha(SCENARIO / "prepare.py"),
+        "dataset_review_sha256": sha(SCENARIO / "dataset-review.md"),
+        "models": models, "scenario_config": cfg["scenario"]["finqa_audited"],
+        "aws_region": cfg["aws"]["region"],
+        "max_output_tokens": runner.MAX_OUTPUT_TOKENS, "request_timeout_s": runner.REQUEST_TIMEOUT_S,
+        "temperature": 0,
+        "temperature_omitted_model_ids": sorted(runner.MANTLE_NO_TEMPERATURE | runner.BEDROCK_NO_TEMPERATURE),
         "units": {k: [dimension, str(scale)] for k, (dimension, scale) in UNITS.items()},
     }
 
@@ -193,6 +277,8 @@ def validate_dataset():
 def freeze():
     validate_dataset()
     saved = {"frozen_at": datetime.now(timezone.utc).isoformat(), "protocol": protocol_identity()}
+    if len(saved["protocol"]["models"]) != 28:
+        raise ValueError("this experiment requires the complete 28-model roster")
     if FREEZE.exists():
         verify_freeze()
         return  # never silently replace the pre-call timestamp
@@ -201,7 +287,9 @@ def freeze():
 
 async def run_candidates(args):
     frozen = verify_freeze()
-    args.dataset = str(DATASET)
+    if not set(args.models.split(",")) <= {m["name"] for m in frozen["protocol"]["models"]}:
+        raise ValueError("requested model is outside the frozen roster")
+    args.dataset = DATASET
     args.limit = None
     directory = finqa.run_directory(args.run_id)
     directory.mkdir(parents=True, exist_ok=True)
@@ -223,9 +311,10 @@ def wilson(correct, total):
 
 def compose(run_id):
     frozen = verify_freeze()
-    comparison = finqa_compare.compose(run_id, evaluation_fn=evaluate_one)
-    for model in comparison["models"]:
-        directory = finqa.RESULTS / model["source_run_id"]
+    protocol = frozen["protocol"]
+    # Validate before scoring. A freeze attachment alone is not provenance.
+    for model in protocol["models"]:
+        directory = finqa.RESULTS / f"{run_id}-{model['name']}"
         manifest = json.loads((directory / "manifest.json").read_text())
         if manifest["contract"].get("evaluation_protocol") != frozen:
             raise ValueError(f"unfrozen or different evaluation protocol: {model['name']}")
@@ -233,6 +322,35 @@ def compose(run_id):
             raise ValueError("not an audited run")
         if manifest["executions"][0]["started_at"] < frozen["frozen_at"]:
             raise ValueError("candidate called before protocol freeze")
+        contract = manifest["contract"]
+        for field in ("dataset_sha256", "prompt_sha256", "runner_sha256", "max_output_tokens",
+                      "request_timeout_s", "aws_region", "temperature", "temperature_omitted_model_ids"):
+            if contract[field] != protocol[field]:
+                raise ValueError(f"run {field} differs from frozen protocol")
+        if contract["finqa_sha256"] != protocol["dsl_sha256"]:
+            raise ValueError("run DSL hash differs from frozen protocol")
+        if contract["concurrency_default"] != protocol["scenario_config"]["concurrency_default"]:
+            raise ValueError("run concurrency differs from frozen protocol")
+        metadata_keys = {"enabled", "price_in", "price_out", "price_per_char",
+                         "gpu_hourly_usd", "pricing_valid_until"}
+        observed = [{k: v for k, v in m.items() if k not in metadata_keys} for m in contract["models"]]
+        if observed != [model]:
+            raise ValueError("run model settings differ from frozen protocol")
+        records = finqa.read_rows(directory / "dataset.jsonl")
+        if (finqa.digest(records) != protocol["dataset_sha256"] or len(records) != 20
+                or sha(directory / "prompt.txt") != protocol["prompt_sha256"]):
+            raise ValueError("run input snapshots differ from frozen protocol")
+    comparison = finqa_compare.compose(run_id, source_root=finqa.RESULTS, evaluation_fn=evaluate_one)
+    if [m["name"] for m in comparison["models"]] != [m["name"] for m in protocol["models"]]:
+        raise ValueError("comparison roster differs from frozen protocol")
+    for model in comparison["models"]:
+        if model["provider"] == "vllm":
+            serving = model["serving_config"]
+            expected_image = protocol["scenario_config"]["vllm_image"]
+            if not serving["image_id"].endswith(expected_image.split("@", 1)[1]):
+                raise ValueError("served vLLM image differs from frozen image")
+            if serving["max_model_len"] != protocol["scenario_config"]["max_model_len"]:
+                raise ValueError("served context differs from frozen context")
         evaluations = [r for r in comparison["evaluations"] if r["model"] == model["name"]]
         a = model["aggregate"]
         a.update(
@@ -254,8 +372,8 @@ def compose(run_id):
             "reasoning_effort": config.get("mantle_reasoning_effort",
                 config.get("bedrock_reasoning_effort", "omitted/provider default; effective value unknown")),
             "chat_template_kwargs": config.get("chat_template_kwargs"),
-            "max_output_tokens": runner.MAX_OUTPUT_TOKENS,
-            "concurrency": config.get("concurrency", 2),
+            "max_output_tokens": protocol["max_output_tokens"],
+            "concurrency": config.get("concurrency", protocol["scenario_config"]["concurrency_default"]),
         }
     comparison.update(
         assessment_scope="audited_financial_qa", evaluator=VERSION, evaluator_sha256=sha(__file__),
@@ -339,6 +457,16 @@ def selfcheck():
     assert not score("divide(1, 0)", "ratio")["correct"]
     assert not score("divide(table_1, 160)", "ratio")["correct"]
     assert not score("divide(45, 160, 2)", "ratio")["correct"]
+    for literal in ("1e-1000000000", "1e-1000000000 %", "const_1e-1000000000"):
+        assert score(f"add({literal}, 0)", "ratio")["status"] == "invalid_program"
+    squaring = "multiply(1e100, 1e100), multiply(#0, #0), multiply(#1, #1), multiply(#2, #2)"
+    assert score(squaring, "ratio")["status"] == "invalid_program"
+    huge = score("multiply(1e308, 10)", "ratio")
+    assert huge["status"] == "invalid_program" and huge["evaluation_error_code"] == "numeric_range"
+    json.dumps(huge, allow_nan=False)
+    boolean = {**record, "audit": {"canonical_unit": "boolean", "requested_unit": "boolean",
+                                    "expected_rational": "yes"}}
+    assert score("greater(2, 1)", "boolean", boolean)["correct"]
     assert convert(Fraction("3.4"), "usd_million", "usd_thousand") == Decimal("3400")
     assert convert(Fraction("3.4"), "usd_billion", "usd_million") == Decimal("3400")
     assert rounded(Fraction("0.000005")) == Decimal("0.00000")
@@ -354,15 +482,17 @@ def selfcheck():
     assert evaluate_one(record, fenced)["correct"] and not evaluate_one(record, fenced)["strict_correct"]
     assert evaluate_one(record, None)["status"] == "missing"
     assert evaluate_one(record, {**raw, "finish_reason": "length"})["status"] == "request_failed"
+    assert evaluate_one(record, {**raw, "output_text": "", "finish_reason": "max_tokens"})["evaluation_error_code"] == "truncated"
     for low, high in (wilson(0, 20), wilson(20, 20), wilson(10, 20)):
         assert 0 <= low <= high <= 1
     validate_dataset()
     request_selfcheck()
+    integration_selfcheck()
     print("Audited units, negative controls, exact arithmetic, leakage and 20 gold references OK")
 
 
 def request_selfcheck():
-    """Inspect real transport payloads for every roster model, without network."""
+    """Inspect Mantle JSON and other SDK arguments for every roster model, offline."""
     import httpx
     from botocore.credentials import Credentials
     from types import SimpleNamespace
@@ -436,7 +566,120 @@ def request_selfcheck():
                 assert result["finish_reason"] == "stop" and result["reported_model"] == model_id
         assert checked == 28
     asyncio.run(check())
-    print("28 actual request serializers checked offline; no API calls")
+    print("28 request paths checked offline: Mantle JSON / other SDK arguments; no API calls")
+
+
+def integration_selfcheck():
+    """Real audited wrapper + source composition; mutation probes use no API."""
+    from copy import deepcopy
+    from tempfile import TemporaryDirectory
+    from types import SimpleNamespace
+    from unittest.mock import AsyncMock, patch
+    import sys
+    module = sys.modules[__name__]
+    cfg = runner.load_config()
+    frozen = {"frozen_at": "2026-09-19T00:00:00+00:00", "protocol": protocol_identity()}
+    records = finqa.read_rows(DATASET)
+    with TemporaryDirectory() as temporary:
+        root = Path(temporary)
+        with patch.object(module, "FREEZE", root / "freeze.json"), patch.object(finqa, "RESULTS", root / "runs"):
+            finqa.write_json(FREEZE, frozen)
+            successful = {"text": '{"program":"add(0,0)","unit":"ratio"}', "tokens_in": 1,
+                          "tokens_out": 1, "response_status": "completed"}
+            args = SimpleNamespace(models="gpt-5.5", run_id="wrapper-gpt-5.5")
+            with patch.object(runner, "make_client", return_value=object()), \
+                    patch.object(runner, "call_mantle", new=AsyncMock(return_value=successful)):
+                assert asyncio.run(run_candidates(args)) == 0
+            folder = finqa.RESULTS / args.run_id
+            manifest = json.loads((folder / "manifest.json").read_text())
+            assert len(finqa.read_rows(folder / "answers.jsonl")) == 20
+            assert manifest["contract"]["evaluation_protocol"] == frozen
+            assert manifest["executions"][0]["models"][0]["successful"] == 20
+            with patch.object(runner, "make_client", side_effect=AssertionError("cached")):
+                assert asyncio.run(run_candidates(args)) == 0
+            baseline = deepcopy(cfg)
+            model_index = next(i for i, m in enumerate(cfg["models"]) if m["name"] == "gpt-5.5")
+            for field, value in (("model_id", "wrong"), ("mantle_region", "wrong"),
+                                 ("mantle_reasoning_effort", "high"),
+                                 ("chat_template_kwargs", {"enable_thinking": True}),
+                                 ("concurrency", 19), ("enabled", False)):
+                mutated = deepcopy(baseline)
+                mutated["models"][model_index][field] = value
+                with patch.object(runner, "load_config", return_value=mutated):
+                    try:
+                        verify_freeze()
+                    except ValueError:
+                        pass
+                    else:
+                        raise AssertionError(f"freeze accepted model mutation: {field}")
+            mutated = deepcopy(baseline)
+            mutated["scenario"]["finqa_audited"]["concurrency_default"] = 19
+            with patch.object(runner, "load_config", return_value=mutated):
+                try:
+                    verify_freeze()
+                except ValueError:
+                    pass
+                else:
+                    raise AssertionError("freeze accepted default concurrency mutation")
+            # Build all28 fixture sources with verified normal snapshots. Responses are
+            # gold programs, so unit conversion and all-question aggregation are exercised.
+            by_name = {m["name"]: m for m in cfg["models"]}
+            for frozen_model in frozen["protocol"]["models"]:
+                model = by_name[frozen_model["name"]]
+                directory = finqa.RESULTS / ("fixture-" + model["name"])
+                source = deepcopy(manifest)
+                source["run_id"] = "fixture-" + model["name"]
+                source["contract"]["models"] = [model]
+                source["executions"] = [{"started_at": "2026-09-19T01:00:00+00:00",
+                                         "finished_at": "2026-09-19T01:00:02+00:00"}]
+                finqa.write_json(directory / "manifest.json", source)
+                finqa.write_rows(directory / "dataset.jsonl", records)
+                (directory / "prompt.txt").write_text((SCENARIO / "prompt.txt").read_text())
+                answers = [{"model": model["name"], "id": r["id"], "error": None,
+                            "output_text": json.dumps({"program": r["reference_program"],
+                                                      "unit": r["audit"]["canonical_unit"]}),
+                            "tokens_in": 1, "tokens_out": 1, "latency_s": 1,
+                            "timestamp": f"2026-09-19T01:00:{i+1:02d}+00:00"} for i, r in enumerate(records)]
+                finqa.write_rows(directory / "answers.jsonl", answers)
+                if model.get("base_url"):
+                    finqa.write_json(directory / "serving.json", {
+                        "model_id": model["model_id"], "node_instance_type": model["gpu_instance_type"],
+                        "tensor_parallel_size": model["tensor_parallel_size"], "max_model_len": 8192,
+                        "image_id": frozen["protocol"]["scenario_config"]["vllm_image"],
+                    })
+            valid = compose("fixture")
+            assert len(valid["models"]) == 28 and len(valid["evaluations"]) == 560
+            assert all(m["aggregate"]["correct"] == 20 for m in valid["models"])
+            first = finqa.RESULTS / ("fixture-" + frozen["protocol"]["models"][0]["name"])
+            original = json.loads((first / "manifest.json").read_text())
+            for field in ("dataset_sha256", "prompt_sha256", "runner_sha256", "finqa_sha256",
+                          "max_output_tokens", "concurrency_default", "aws_region"):
+                mutated = deepcopy(original)
+                mutated["contract"][field] = 17 if field in ("max_output_tokens", "concurrency_default") else "wrong"
+                finqa.write_json(first / "manifest.json", mutated)
+                try:
+                    compose("fixture")
+                except ValueError:
+                    pass
+                else:
+                    raise AssertionError(f"valid freeze attachment accepted altered {field}")
+            finqa.write_json(first / "manifest.json", original)
+            (first / "prompt.txt").write_text("different prompt")
+            try:
+                compose("fixture")
+            except ValueError:
+                pass
+            else:
+                raise AssertionError("changed prompt snapshot accepted")
+            (first / "prompt.txt").write_text((SCENARIO / "prompt.txt").read_text())
+            finqa.write_rows(first / "dataset.jsonl", records[:1])
+            try:
+                compose("fixture")
+            except ValueError:
+                pass
+            else:
+                raise AssertionError("changed dataset snapshot accepted")
+    print("Audited wrapper20 + composition28/560 + frozen-input/settings mutation checks OK")
 
 
 def main():

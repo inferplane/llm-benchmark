@@ -46,6 +46,8 @@ uv run python3 -m bench.finqa report --run-id finqa-pilot
 uv run python3 -m bench.finqa selfcheck
 uv run python3 -m bench.finqa_compare --run-id finqa-all-20260918
 uv run python3 -m bench.finqa_compare --selfcheck
+uv run python3 -m bench.finqa_audited selfcheck
+uv run python3 -m bench.finqa_audited report --run-id finqa-audited-20260919
 
 # preview the dashboard locally
 python3 -m http.server 8000 -d docs   # then open localhost:8000/index.html
@@ -85,6 +87,15 @@ arithmetic; raw strict correctness stays visible. Never substitute this v2
 score into a historical strict-format pilot.
 Immutable run contracts prevent cached answers from surviving data, prompt,
 model-configuration or runner-code changes. See `scenarios/finqa/README.md`.
+
+`bench/finqa_audited.py` adds a separate, pre-audited FinQA-derived sample and
+explicit declared-unit scoring. `scenarios/finqa_audited/freeze.json` must be
+created before candidate calls and preserved in each manifest. Never overwrite
+the freeze or mix old executions after changing data/prompt/evaluation code.
+Do not accept 100x differences by looking at the answer: conversion requires
+the model's compatible declared unit. The old20 questions are diagnostic only;
+new20 questions are screened and reviewed before calling the same28 models.
+This is not official FinQA accuracy. See `scenarios/finqa_audited/README.md`.
 
 **`config.toml` is the single source of truth for models.** Every model is one
 `[[models]]` table with a `name`, an `api` (`"bedrock"` | `"openai"` |

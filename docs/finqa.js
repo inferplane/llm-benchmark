@@ -6,6 +6,9 @@ const errorLabels = {
   invalid_json: "JSON 형식 오류",
   invalid_payload: "JSON 객체 형식 오류",
   invalid_program: "기타 계산식 오류",
+  invalid_unit: "선언 단위 누락·오류",
+  incompatible_unit: "단위 차원 불일치",
+  truncated: "출력 상한에 따른 잘림",
 };
 const byId = (id) => document.getElementById(id);
 const percent = (value) => Number.isFinite(value) ? `${(value * 100).toFixed(1)}%` : "—";
@@ -19,7 +22,7 @@ const costReasonLabel = {
   missing_responses: "미응답이 있어 비용 미표시",
 };
 let selectedEntry = null;
-let fallbackId = "finqa-all-20260918";
+let fallbackId = "finqa-audited-20260919";
 const usd = (value) => Number.isFinite(value) ? `$${value.toFixed(5)}` : "—";
 const seconds = (value) => Number.isFinite(value) ? value.toFixed(2) : "—";
 
@@ -56,6 +59,12 @@ function addRow(body, values) {
 function renderSelected(entry) {
   selectedEntry = entry;
   const { report, id } = entry;
+  const audited = report.assessment_scope === "audited_financial_qa";
+  byId("protocol-label").textContent = audited ? "감사된 금융 QA · 선언 단위 환산" : "구 규약 · 공식 실행값 일치";
+  byId("method-summary").textContent = audited ?
+    "이전 20문항을 제외하고 고정 seed 20260919 순서에서 문항을 감사한 새 20문항입니다. 원문과 정답의 단위·분모·시점을 호출 전에 검토했습니다. 계산식 결과를 모델이 선언한 단위로 환산하고, 기준 단위에서 소수점 다섯 자리로 한 번 반올림해 비교합니다. 표본은 사전 선별된 개발 데이터이며 공식 FinQA 점수가 아닙니다." :
+    "기존 seed 13의 20문항입니다. 계산식 최종 값을 소수점 다섯 자리로 반올림해 공식 qa.exe_ans와 비교합니다. 단위·분모 불일치가 확인된 과거 규약이므로 새 평가 점수와 직접 비교하지 마세요.";
+  byId("audit-links").hidden = !audited;
   byId("model-body").replaceChildren();
   byId("diagnostics").replaceChildren();
   byId("warnings").replaceChildren();
@@ -75,14 +84,18 @@ function renderSelected(entry) {
     const m = model.aggregate;
     addRow(byId("model-body"), [
       model.name, providerLabel[model.provider] || "—", `${count(m.correct)} / ${count(m.questions)}`, percent(m.execution_accuracy),
+      m.execution_accuracy_ci95 ? m.execution_accuracy_ci95.map(percent).join(" – ") : "—",
       usd(m.estimated_cost_per_question_usd), `${seconds(m.latency_p50_s ?? m.response_latency_median_s)} / ${seconds(m.latency_p95_s)}`,
-      count(m.incorrect_result), count(m.invalid_program), count(m.format_adjusted), count(m.request_failed), count(m.missing),
+      count(m.incorrect_result), count(m.invalid_program), count(m.unit_valid), count(m.requested_unit_compliant),
+      count(m.format_adjusted), count(m.request_failed), count(m.missing),
     ]);
     const p = document.createElement("p");
     const causes = Object.entries(m.invalid_program_causes || {})
       .filter(([, n]) => n > 0).map(([code, n]) => `${errorLabels[code] || code} ${count(n)}건`);
     p.textContent = `${model.name} — ${causes.join(" · ") || "계산식 실행 불가 없음"}` +
-      (m.cost_unavailable_reason ? ` · ${costReasonLabel[m.cost_unavailable_reason] || "비용 추정 불가"}` : "");
+      (m.truncated ? ` · 출력 상한에 따른 잘림 ${count(m.truncated)}건` : "") +
+      (m.cost_unavailable_reason ? ` · ${costReasonLabel[m.cost_unavailable_reason] || "비용 추정 불가"}` : "") +
+      (audited ? ` · reasoning_effort 요청 값: ${model.request_settings?.reasoning_effort ?? "확인 불가"}` : "");
     byId("diagnostics").append(p);
   }
   if (report.models.length === 1) {
@@ -90,7 +103,7 @@ function renderSelected(entry) {
     byId("result-summary").textContent = `${name} · 정답 ${count(m.correct)}/${count(m.questions)} · ${percent(m.execution_accuracy)}`;
   } else {
     const completed = report.models.filter((m) => m.aggregate.request_failed === 0 && m.aggregate.missing === 0).length;
-    byId("result-summary").textContent = `${report.models.length}개 모델 · 동일 ${count(report.dataset?.questions)}문항 · 응답 수집 완료 ${completed}개`;
+    byId("result-summary").textContent = `${report.models.length}개 모델 · 동일 ${count(report.dataset?.questions)}문항 · 전체 응답 정상 종료 ${completed}개 모델`;
   }
   byId("detail-link").href = `finqa-results/${id}.html`;
   byId("json-link").href = `finqa-results/${id}.json`;

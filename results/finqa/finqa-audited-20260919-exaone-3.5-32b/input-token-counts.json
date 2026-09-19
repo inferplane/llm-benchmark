@@ -1,0 +1,82 @@
+[
+  {
+    "id": "finqa-dev-HII/2017/page_104.pdf-1",
+    "input_tokens": 2361
+  },
+  {
+    "id": "finqa-dev-RE/2015/page_33.pdf-1",
+    "input_tokens": 2429
+  },
+  {
+    "id": "finqa-dev-LMT/2013/page_74.pdf-2",
+    "input_tokens": 2032
+  },
+  {
+    "id": "finqa-dev-ETR/2008/page_355.pdf-4",
+    "input_tokens": 1597
+  },
+  {
+    "id": "finqa-dev-ETR/2002/page_86.pdf-4",
+    "input_tokens": 1817
+  },
+  {
+    "id": "finqa-dev-IP/2007/page_75.pdf-4",
+    "input_tokens": 2353
+  },
+  {
+    "id": "finqa-dev-SNPS/2006/page_69.pdf-2",
+    "input_tokens": 1765
+  },
+  {
+    "id": "finqa-dev-ETR/2002/page_86.pdf-1",
+    "input_tokens": 1836
+  },
+  {
+    "id": "finqa-dev-ABMD/2009/page_88.pdf-3",
+    "input_tokens": 2058
+  },
+  {
+    "id": "finqa-dev-LMT/2015/page_54.pdf-1",
+    "input_tokens": 2121
+  },
+  {
+    "id": "finqa-dev-CB/2010/page_88.pdf-2",
+    "input_tokens": 2376
+  },
+  {
+    "id": "finqa-dev-OKE/2012/page_52.pdf-1",
+    "input_tokens": 1822
+  },
+  {
+    "id": "finqa-dev-PM/2018/page_31.pdf-2",
+    "input_tokens": 2296
+  },
+  {
+    "id": "finqa-dev-MO/2012/page_44.pdf-1",
+    "input_tokens": 2750
+  },
+  {
+    "id": "finqa-dev-ETFC/2014/page_26.pdf-1",
+    "input_tokens": 1097
+  },
+  {
+    "id": "finqa-dev-AES/2015/page_117.pdf-3",
+    "input_tokens": 2441
+  },
+  {
+    "id": "finqa-dev-SWKS/2006/page_81.pdf-1",
+    "input_tokens": 2359
+  },
+  {
+    "id": "finqa-dev-K/2013/page_62.pdf-2",
+    "input_tokens": 1678
+  },
+  {
+    "id": "finqa-dev-CNP/2010/page_31.pdf-1",
+    "input_tokens": 2057
+  },
+  {
+    "id": "finqa-dev-AES/2003/page_52.pdf-1",
+    "input_tokens": 2002
+  }
+]

@@ -299,6 +299,8 @@ def failure_details(exception: Exception) -> dict:
         "completed", "failed", "incomplete", "in_progress", "queued", "cancelled",
     }:
         details["response_status"] = response_status
+    if context.get("incomplete_reason") in {"max_output_tokens", "content_filter"}:
+        details["incomplete_reason"] = context["incomplete_reason"]
     return details
 
 
@@ -349,9 +351,11 @@ async def call_bedrock(client, model_id: str, prompt: str, reasoning_effort: str
         raise ContentFilteredError(f"content filtered by Bedrock safety system for model {model_id}")
     # Not content[0]: reasoning models put a reasoningContent block before the
     # text block, so pick the first block that actually carries text.
-    text = next(b["text"] for b in resp["output"]["message"]["content"] if "text" in b)
+    text = "".join(b["text"] for b in resp["output"]["message"]["content"] if "text" in b)
     usage = resp["usage"]
-    return {"text": text, "tokens_in": usage["inputTokens"], "tokens_out": usage["outputTokens"]}
+    return {"text": text, "tokens_in": usage["inputTokens"], "tokens_out": usage["outputTokens"],
+            "finish_reason": resp.get("stopReason"),
+            "request_id": resp.get("ResponseMetadata", {}).get("RequestId")}
 
 
 async def call_openai(client, model_id: str, prompt: str, chat_template_kwargs: dict | None = None) -> dict:
@@ -369,7 +373,10 @@ async def call_openai(client, model_id: str, prompt: str, chat_template_kwargs: 
     )
     text = resp.choices[0].message.content
     usage = resp.usage
-    return {"text": text, "tokens_in": usage.prompt_tokens, "tokens_out": usage.completion_tokens}
+    details = getattr(usage, "completion_tokens_details", None)
+    return {"text": text, "tokens_in": usage.prompt_tokens, "tokens_out": usage.completion_tokens,
+            "finish_reason": resp.choices[0].finish_reason, "reported_model": resp.model,
+            "reasoning_tokens": getattr(details, "reasoning_tokens", None)}
 
 
 async def call_translate(client, src_lang: str, tgt_lang: str, src_text: str) -> dict:
@@ -429,6 +436,7 @@ async def call_mantle(
         payload["reasoning"] = {"effort": reasoning_effort}
 
     context = {"phase": "credentials"}
+    failed_response = None
     try:
         body = json.dumps(payload)
         url = mantle_url(region)
@@ -459,6 +467,18 @@ async def call_mantle(
         if not isinstance(data, dict):
             raise InvalidResponseError("response is not an object")
         context["response_status"] = data.get("status")
+        incomplete = data.get("incomplete_details")
+        if isinstance(incomplete, dict):
+            context["incomplete_reason"] = incomplete.get("reason")
+        if data.get("status") == "incomplete":
+            parts = [part["text"] for item in data.get("output", []) if isinstance(item, dict)
+                     for part in (item.get("content") or []) if isinstance(part, dict)
+                     and part.get("type") == "output_text" and isinstance(part.get("text"), str)]
+            usage = data.get("usage") if isinstance(data.get("usage"), dict) else {}
+            failed_response = {
+                "output_text": "".join(parts), "usage": usage,
+                "response_status": "incomplete", "reported_model": data.get("model"),
+            }
         output = data.get("output")
         if not isinstance(output, list):
             raise InvalidResponseError("output is not a list")
@@ -491,6 +511,9 @@ async def call_mantle(
             "text": "".join(text_parts),
             "tokens_in": usage.get("input_tokens"), "tokens_out": usage.get("output_tokens"),
             "response_status": "completed", "http_status": context["http_status"],
+            "reported_model": data.get("model"),
+            "reported_reasoning": data.get("reasoning"),
+            "reasoning_tokens": (usage.get("output_tokens_details") or {}).get("reasoning_tokens"),
         }
         if "request_id" in context:
             result["request_id"] = context["request_id"]
@@ -500,6 +523,8 @@ async def call_mantle(
         return result
     except Exception as error:
         error._request_context = context
+        if failed_response is not None:
+            error._failed_response = failed_response
         raise
 
 
@@ -567,9 +592,11 @@ async def run_model(model_cfg: dict, segments: list[dict], cache: ResultCache, a
     async def one(seg: dict):
         for attempt in range(1, max_attempts + 1):
             details = None
+            failed_response = None
             async with sem:
                 t0 = time.monotonic()
                 summary["request_attempts"] += 1
+                result = None
                 try:
                     # TranslateText uses raw source text instead of a prompt.
                     prompt = None if model_cfg["api"] == "translate" else (prompt_builder or build_prompt)(seg)
@@ -589,6 +616,12 @@ async def run_model(model_cfg: dict, segments: list[dict], cache: ResultCache, a
                         result = await call_openai(client, model_cfg["model_id"], prompt, model_cfg.get("chat_template_kwargs"))
                     _validate_result(result)
                 except Exception as e:
+                    failed_response = getattr(e, "_failed_response", None)
+                    if failed_response is None and isinstance(result, dict):
+                        failed_response = {
+                            "output_text": result.get("text"), "tokens_in": result.get("tokens_in"),
+                            "tokens_out": result.get("tokens_out"), "finish_reason": result.get("finish_reason"),
+                        }
                     result = {"text": None, "tokens_in": None, "tokens_out": None}
                     details = failure_details(e)
                 latency = time.monotonic() - t0
@@ -602,8 +635,13 @@ async def run_model(model_cfg: dict, segments: list[dict], cache: ResultCache, a
                 }
                 if details:
                     row["translation_error_details"] = details
+                    if failed_response is not None:
+                        row["failed_response"] = failed_response
+                        if failed_response.get("finish_reason") is not None:
+                            row["finish_reason"] = failed_response["finish_reason"]
                 else:
-                    for field in ("request_id", "response_id", "response_status", "http_status"):
+                    for field in ("request_id", "response_id", "response_status", "http_status",
+                                  "finish_reason", "reported_model", "reported_reasoning", "reasoning_tokens"):
                         if field in result:
                             row[field] = result[field]
                 # Append before deciding on a retry: every failed call survives
@@ -904,6 +942,16 @@ def _selfcheck_mantle():
         result = await invoke(httpx.Response(200, json=completed, headers={"x-request-id": "req-success"}))
         assert result["text"] == "translated" and result["tokens_out"] == 3
         assert result["request_id"] == "req-success" and result["response_status"] == "completed"
+        capped = {**completed, "status": "incomplete",
+                  "incomplete_details": {"reason": "max_output_tokens"}}
+        try:
+            await invoke(httpx.Response(200, json=capped))
+        except InvalidResponseError as error:
+            assert failure_details(error)["incomplete_reason"] == "max_output_tokens"
+            assert error._failed_response["output_text"] == "translated"
+            assert error._failed_response["usage"]["output_tokens"] == 3
+        else:
+            raise AssertionError("incomplete response accepted")
         refusal = {**completed, "output": [{"type": "message", "content": [
             {"type": "refusal", "refusal": "private prompt"},
         ]}]}

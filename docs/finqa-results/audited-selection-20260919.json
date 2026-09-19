@@ -1,0 +1,558 @@
+{
+  "seed": 20260919,
+  "ordering": "sort by source id, exclude old20 IDs, random.Random(seed).shuffle, first20 approved",
+  "source_revision": "0f16e2867befa6840783e58be38c9efb9229d742",
+  "source_sha256": "a847fb7e0d61a3125a1e2909852df6b89f1ee64d2c5ff1bf689e332214deee51",
+  "candidate_count": 38,
+  "selected": 20,
+  "excluded": 18,
+  "candidate_order_sha256": "f6a3d2abfb1bbea63de90b8ed845804842fa40d1d81d3875e12d823ed542da9d",
+  "records": [
+    {
+      "candidate_index": 0,
+      "source_id": "HIG/2008/page_318.pdf-1",
+      "question": "in 2008 what was the percent of the total gaap stockholders 2019 equity and aggregate statutory capital associated with life operations",
+      "reference_program": "divide(6047, 13777)",
+      "reference_answer": "43.9%",
+      "source_evidence": {
+        "table_1": "the life operations of 2008 is $ 6047 ; the life operations of 2007 is $ 5786 ;",
+        "table_4": "the total of 2008 is $ 13777 ; the total of 2007 is $ 15915 ;"
+      },
+      "decision": "exclude",
+      "reason": "scope_mismatch: question combines GAAP equity and statutory capital; table is statutory surplus only. GAAP9.3bn differs from statutory13.8bn."
+    },
+    {
+      "candidate_index": 1,
+      "source_id": "HII/2017/page_104.pdf-1",
+      "question": "what is the percentage change in the unamortized debt issuance costs associated with the senior notes from 2016 to 2017?",
+      "reference_program": "subtract(15, 19), divide(#0, 19)",
+      "reference_answer": "-21.1%",
+      "source_evidence": {
+        "table_2": "( $ in millions ) the senior notes due november 15 2025 5.000% ( 5.000 % ) of december 31 2017 is 600 ; the senior notes due november 15 2025 5.000% ( 5.000 % ) of december 31 2016 is 600 ;",
+        "text_22": "the company had unamortized debt issuance costs associated with the senior notes of $ 15 million and $ 19 million as of december 31 , 2017 and 2016 , respectively. ."
+      },
+      "decision": "include",
+      "canonical_unit": "ratio",
+      "requested_unit": "percent",
+      "expected_rational": "-4/19",
+      "reason": "text_22: senior-note issuance costs 15m (2017), 19m (2016); change divided by 2016 base."
+    },
+    {
+      "candidate_index": 2,
+      "source_id": "RE/2015/page_33.pdf-1",
+      "question": "what is the book to market ratio of the commercial mortgage-backed securities",
+      "reference_program": "divide(264.9, 266.3)",
+      "reference_answer": "0.99",
+      "source_evidence": {
+        "text_7": "the company 2019s investment portfolio includes structured commercial mortgage-backed securities ( 201ccmbs 201d ) with a book value of $ 264.9 million and a market value of $ 266.3 million ."
+      },
+      "decision": "include",
+      "canonical_unit": "ratio",
+      "requested_unit": "ratio",
+      "expected_rational": "2649/2663",
+      "reason": "text_7: CMBS book264.9m divided by market266.3m."
+    },
+    {
+      "candidate_index": 3,
+      "source_id": "LMT/2013/page_74.pdf-2",
+      "question": "what was the percentage of the total severance actions related to our aeronautics , space systems , and our is&gs business segments and corporate headquarters in 2011 related to the aeronautics",
+      "reference_program": "add(49, 48), add(39, #0), divide(49, #1)",
+      "reference_answer": "36%",
+      "source_evidence": {
+        "text_15": "during 2011 , we recorded charges related to certain severance actions totaling $ 136 million , net of state tax benefits , of which $ 49 million , $ 48 million , and $ 39 million related to our aeronautics , space systems , and our is&gs business segments and corporate headquarters ."
+      },
+      "decision": "include",
+      "canonical_unit": "ratio",
+      "requested_unit": "percent",
+      "expected_rational": "49/136",
+      "reason": "text_15: Aeronautics49m; total49+48+39=136m; same2011 severance scope."
+    },
+    {
+      "candidate_index": 4,
+      "source_id": "ETR/2008/page_355.pdf-4",
+      "question": "what is the percent change in gas customers between 2007 and 2008?",
+      "reference_program": "subtract(93000, 86000), divide(#0, 86000)",
+      "reference_answer": "8%",
+      "source_evidence": {
+        "text_5": "entergy new orleans estimates that approximately 141000 electric customers and 93000 gas customers have returned since hurricane katrina and are taking service as of december 31 , 2008 , compared to approximately 132000 electric customers and 86000 gas customers as of december 31 , 2007 ."
+      },
+      "decision": "include",
+      "canonical_unit": "ratio",
+      "requested_unit": "percent",
+      "expected_rational": "7/86",
+      "reason": "text_5: gas customers93000 (2008) vs86000 (2007); exclude electric customers."
+    },
+    {
+      "candidate_index": 5,
+      "source_id": "ETR/2002/page_86.pdf-4",
+      "question": "what was the sum of the notes entergy issued to nypa with seven and eight annual payment installments",
+      "reference_program": "multiply(108, const_7), multiply(20, const_8), add(#1, #0)",
+      "reference_answer": "916",
+      "source_evidence": {
+        "text_10": "entergy issued notes to nypa with seven annual installments of approximately $ 108 million commencing one year from the date of the closing , and eight annual installments of $ 20 million commencing eight years from the date of the closing ."
+      },
+      "decision": "include",
+      "canonical_unit": "usd_million",
+      "requested_unit": "usd_million",
+      "expected_rational": "916/1",
+      "reason": "text_10: seven108m plus eight20m installments. Exclude separate Indian Point2 notes in text_12."
+    },
+    {
+      "candidate_index": 6,
+      "source_id": "IP/2007/page_75.pdf-4",
+      "question": "what was the percent of the benefit related to the effective settlement of tax audits recorded as part of the company recorded an income tax provision for 2007",
+      "reference_program": "divide(41, 415)",
+      "reference_answer": "9.9%",
+      "source_evidence": {
+        "text_2": "the company recorded an income tax provision for 2007 of $ 415 million , including a $ 41 million benefit related to the effective settlement of tax audits , and $ 8 million of other tax benefits ."
+      },
+      "decision": "include",
+      "canonical_unit": "ratio",
+      "requested_unit": "percent",
+      "expected_rational": "41/415",
+      "reason": "text_2: tax audit benefit41m as share of2007 income tax provision415m."
+    },
+    {
+      "candidate_index": 7,
+      "source_id": "JPM/2008/page_85.pdf-3",
+      "question": "what was jpmorgan chase & co's common equity tier 1 ( cet1 ) ratio in 2008?",
+      "reference_program": "divide(136104, 1244659)",
+      "reference_answer": "10.94%",
+      "source_evidence": {
+        "table_1": "december 31 ( in millions ) the total tier 1capital ( a ) of 2008 is $ 136104 ; the total tier 1capital ( a ) of 2007 is $ 88746 ;",
+        "table_4": "december 31 ( in millions ) the risk-weighted assets of 2008 is $ 1244659 ; the risk-weighted assets of 2007 is $ 1051879 ;"
+      },
+      "decision": "exclude",
+      "reason": "metric_mismatch: question asks common-equity Tier1, numerator is total Tier1 capital, not CET1."
+    },
+    {
+      "candidate_index": 8,
+      "source_id": "SNPS/2006/page_69.pdf-2",
+      "question": "what percentage of the total purchase price is represented by goodwill?",
+      "reference_program": "multiply(3.4, const_1000), divide(#0, 15704)",
+      "reference_answer": "22%",
+      "source_evidence": {
+        "table_4": "the total purchase price of ( in thousands ) is $ 15704 ;",
+        "text_14": "goodwill , representing the excess of the purchase price over the fair value of the net tangible and identifiable intangible assets acquired in the merger was $ 3.4 million ."
+      },
+      "decision": "include",
+      "canonical_unit": "ratio",
+      "requested_unit": "percent",
+      "expected_rational": "425/1963",
+      "reason": "text_14: goodwill3.4m=3400thousand; table_4 purchase price15704thousand."
+    },
+    {
+      "candidate_index": 9,
+      "source_id": "ETR/2002/page_86.pdf-1",
+      "question": "what is the percent change in annual long-term debt maturities ( excluding lease obligations ) and annual cash sinking fund requirements for debt outstanding from 2005 to 2004?",
+      "reference_program": "subtract(925005, 540372), divide(#0, 540372)",
+      "reference_answer": "71.2%",
+      "source_evidence": {
+        "table_1": "2003 the 2004 of $ 1150786 is $ 925005 ;",
+        "table_2": "2003 the 2005 of $ 1150786 is $ 540372 ;",
+        "text_6": "the annual long-term debt maturities ( excluding lease obligations ) and annual cash sinking fund requirements for debt outstanding as of december 31 , 2002 , for the next five years are as follows ( in thousands ) : ."
+      },
+      "decision": "include",
+      "canonical_unit": "ratio",
+      "requested_unit": "percent",
+      "expected_rational": "128211/180124",
+      "reason": "table_1/2 and text_6: explicit from2005 to2004; base540372 (2005), target925005 (2004), both thousand."
+    },
+    {
+      "candidate_index": 10,
+      "source_id": "VTR/2007/page_47.pdf-3",
+      "question": "based on the given average price per share , how much money did the repurchases cost in 2007?",
+      "reference_program": "multiply(14669, 43.89)",
+      "reference_answer": "643822.41",
+      "source_evidence": {
+        "table_3": "the december 1 through december 31 of number of shares repurchased ( 1 ) is 14669 ; the december 1 through december 31 of average price per share is $ 43.89 ;"
+      },
+      "decision": "exclude",
+      "reason": "period_ambiguity: question asks2007 repurchases; text_10 table is only quarter endedDec31, no annual total is supplied."
+    },
+    {
+      "candidate_index": 11,
+      "source_id": "UNP/2014/page_25.pdf-2",
+      "question": "if overall freight revenues in 2014 grow as the same rate as agricultural arc growth , what would projected 2015 revenues be in millions?",
+      "reference_program": "add(22560, 5%)",
+      "reference_answer": "23688",
+      "source_evidence": {
+        "table_1": "millions the freight revenues of 2014 is $ 22560 ; the freight revenues of 2013 is $ 20684 ; the freight revenues of 2012 is $ 19686 ; the freight revenues of % ( % ) change 2014 v 2013 is 9% ( 9 % ) ; the freight revenues of % ( % ) change 2013 v 2012 is 5% ( 5 % ) ;",
+        "text_12": "revenue from agricultural products was down slightly compared to 2012 ."
+      },
+      "decision": "exclude",
+      "reason": "incorrect_reference_operation: projected revenue should grow multiplicatively; official add(22560,5%)=22560.05 disagrees with reference answer23688."
+    },
+    {
+      "candidate_index": 12,
+      "source_id": "AES/2003/page_52.pdf-2",
+      "question": "for the three months ended december 2003 what were the total sales proceeds for subsidiaries assets in millions?",
+      "reference_program": "add(145, 23), add(#0, 78), add(#1, 150)",
+      "reference_answer": "396",
+      "source_evidence": {
+        "table_7": "project name the aes haripur private ltd/aes meghnaghat ltd of date completed is december 2003 ; the aes haripur private ltd/aes meghnaghat ltd of sales proceeds ( in millions ) is $ 145 ; the aes haripur private ltd/aes meghnaghat ltd of location is bangladesh ;",
+        "table_8": "project name the aes mtkvari/aes khrami/aes telasi of date completed is august 2003 ; the aes mtkvari/aes khrami/aes telasi of sales proceeds ( in millions ) is $ 23 ; the aes mtkvari/aes khrami/aes telasi of location is republic of georgia ;",
+        "table_9": "project name the medway power limited/aes medway operations limited of date completed is november 2003 ; the medway power limited/aes medway operations limited of sales proceeds ( in millions ) is a347/$ 78 ; the medway power limited/aes medway operations limited of location is united kingdom ;",
+        "table_10": "project name the aes oasis limited of date completed is december 2003 ; the aes oasis limited of sales proceeds ( in millions ) is $ 150 ; the aes oasis limited of location is pakistan/oman ;"
+      },
+      "decision": "exclude",
+      "reason": "period_mismatch: quarter endedDec2003 excludes August23m; official includes it."
+    },
+    {
+      "candidate_index": 13,
+      "source_id": "ABMD/2009/page_88.pdf-3",
+      "question": "what is the total contingent payments to impella 2019s former shareholders if all targets are achieved?",
+      "reference_program": "add(5583333, 5583333), add(#0, 5583334)",
+      "reference_answer": "16750000",
+      "source_evidence": {
+        "text_28": "commitments and contingencies the company 2019s acquisition of impella provided that abiomed was required to make contingent payments to impella 2019s former shareholders as follows : 2022 upon fda approval of the impella 2.5 device , a payment of $ 5583333 2022 upon fda approval of the impella 5.0 device , a payment of $ 5583333 , and 2022 upon the sale of 1000 units of impella 2019s products worldwide , a payment of $ 5583334 ."
+      },
+      "decision": "include",
+      "canonical_unit": "usd",
+      "requested_unit": "usd",
+      "expected_rational": "16750000/1",
+      "reason": "text_28: three contingent USD payments, all targets assumed achieved; total16750000."
+    },
+    {
+      "candidate_index": 14,
+      "source_id": "LMT/2015/page_54.pdf-1",
+      "question": "what were average net sales for mfc from 2013 to 2015 in millions?",
+      "reference_program": "table_average(net sales, none)",
+      "reference_answer": "6886",
+      "source_evidence": {
+        "table_1": "the net sales of 2015 is $ 6770 ; the net sales of 2014 is $ 7092 ; the net sales of 2013 is $ 6795 ;"
+      },
+      "decision": "include",
+      "canonical_unit": "usd_million",
+      "requested_unit": "usd_million",
+      "expected_rational": "20657/3",
+      "reason": "table_1 and text_7: MFC sales6770/7092/6795 million across2015/2014/2013; arithmetic mean."
+    },
+    {
+      "candidate_index": 15,
+      "source_id": "IP/2005/page_35.pdf-4",
+      "question": "what was the percent of the total contractual obligations for future payments for total debt in 2005",
+      "reference_program": "divide(1181, 4617)",
+      "reference_answer": "25.6%",
+      "source_evidence": {
+        "table_1": "in millions the total debt of 2006 is $ 1181 ; the total debt of 2007 is $ 570 ; the total debt of 2008 is $ 308 ; the total debt of 2009 is $ 2330 ; the total debt of 2010 is $ 1534 ; the total debt of thereafter is $ 6281 ;",
+        "table_4": "in millions the total of 2006 is $ 4617 ; the total of 2007 is $ 1107 ; the total of 2008 is $ 707 ; the total of 2009 is $ 2646 ; the total of 2010 is $ 1801 ; the total of thereafter is $ 7657 ;"
+      },
+      "decision": "exclude",
+      "reason": "period_mismatch: question asks2005 but official uses first2006 maturity column."
+    },
+    {
+      "candidate_index": 16,
+      "source_id": "LMT/2012/page_47.pdf-4",
+      "question": "what was the average operating profit of the space results from 2010 to 2012",
+      "reference_program": "subtract(1083, 1063), add(#0, 1030), add(#1, const_3), divide(#2, const_2)",
+      "reference_answer": "1059",
+      "source_evidence": {
+        "table_2": "the operating profit of 2012 is 1083 ; the operating profit of 2011 is 1063 ; the operating profit of 2010 is 1030 ;"
+      },
+      "decision": "exclude",
+      "reason": "incorrect_reference_operation: average of1083/1063/1030 not526.5; official sequence subtracts and divides by2."
+    },
+    {
+      "candidate_index": 17,
+      "source_id": "CB/2010/page_88.pdf-2",
+      "question": "what was the average catastrophe losses from 2008 to 2010 in millions",
+      "reference_program": "add(366, 137), add(567, #0), divide(#1, const_3)",
+      "reference_answer": "356.7",
+      "source_evidence": {
+        "text_1": "we recorded net pre-tax catastrophe losses of $ 366 million in 2010 compared with net pre-tax catastrophe losses of $ 137 million and $ 567 million in 2009 and 2008 , respectively ."
+      },
+      "decision": "include",
+      "canonical_unit": "usd_million",
+      "requested_unit": "usd_million",
+      "expected_rational": "1070/3",
+      "reason": "text_1: catastrophe losses366m2010,137m2009,567m2008; three-year mean."
+    },
+    {
+      "candidate_index": 18,
+      "source_id": "OKE/2012/page_52.pdf-1",
+      "question": "what percentage of employees are subject to collective bargaining agreements?",
+      "reference_program": "divide(705, 4859)",
+      "reference_answer": "15%",
+      "source_evidence": {
+        "text_19": "employees we employed 4859 people at january 31 , 2013 , including 705 people at kansas gas service who are subject to collective bargaining agreements ."
+      },
+      "decision": "include",
+      "canonical_unit": "ratio",
+      "requested_unit": "percent",
+      "expected_rational": "705/4859",
+      "reason": "text_19:705 collectively bargained employees out of4859; table406+299 corroborates705."
+    },
+    {
+      "candidate_index": 19,
+      "source_id": "MRO/2008/page_69.pdf-3",
+      "question": "during 2008 , what was the change in average realized price for synthetic crude oil and vacuum gas oil between the end of 2007 and the end of 2008 , per barrel?",
+      "reference_program": "subtract(91.90, 24.97)",
+      "reference_answer": "66.93",
+      "source_evidence": {
+        "text_21": "during 2008 , our average realized price for synthetic crude oil and vacuum gas oil was $ 91.90 per barrel , up from 2007 , but ended the year at $ 24.97 per barrel impacted by a heavier yield in december and a seasonal decrease in the value of our heavy output ."
+      },
+      "decision": "exclude",
+      "reason": "period_mismatch: annual2008 average91.90 vs end2008 price24.97 is not end2007 vs end2008."
+    },
+    {
+      "candidate_index": 20,
+      "source_id": "HOLX/2010/page_124.pdf-1",
+      "question": "what percentage of the total estimated purchase price was cash?",
+      "reference_program": "divide(2094800, 6156900)",
+      "reference_answer": "34%",
+      "source_evidence": {
+        "table_5": "cash portion of consideration the total estimated purchase price of $ 2094800 is $ 6156900 ;"
+      },
+      "decision": "exclude",
+      "reason": "source_unit_conflict: text_10 says2.1million cash whereas text_5 says2.1billion and table2094800thousand. Exclude contradictory source rather than repair."
+    },
+    {
+      "candidate_index": 21,
+      "source_id": "PM/2018/page_31.pdf-2",
+      "question": "what is the percentage change in weighted average discount rate for postretirement plans from 2017 to 2018?",
+      "reference_program": "subtract(3.97, 3.79), divide(#0, 3.79)",
+      "reference_answer": "4.7%",
+      "source_evidence": {
+        "table_2": "the postretirement plans of 2018 is 3.97% ( 3.97 % ) ; the postretirement plans of 2017 is 3.79% ( 3.79 % ) ;"
+      },
+      "decision": "include",
+      "canonical_unit": "ratio",
+      "requested_unit": "percent",
+      "expected_rational": "18/379",
+      "reason": "table_2: postretirement discount rate3.79%2017 to3.97%2018; relative change, not percentage-point subtraction."
+    },
+    {
+      "candidate_index": 22,
+      "source_id": "HOLX/2012/page_113.pdf-2",
+      "question": "what is the expected yearly stock-based compensation expense over the remaining vesting period , ( in millions ) ?",
+      "reference_program": "divide(23.2, 3.5)",
+      "reference_answer": "6.6",
+      "source_evidence": {
+        "text_26": "the remainder of the fair value of these options of $ 23.2 million will be recognized as stock-based compensation expense over the remaining vesting period , which is approximately 3.5 years ."
+      },
+      "decision": "exclude",
+      "reason": "recognition_schedule_ambiguity: total23.2m over3.5years establishes an annualized average but not yearly recognition without an even-recognition assumption."
+    },
+    {
+      "candidate_index": 23,
+      "source_id": "GPN/2017/page_77.pdf-3",
+      "question": "what are the total amount of net tangible assets obtained through the acquisition?",
+      "reference_program": "subtract(265982, 203828)",
+      "reference_answer": "$ 62154",
+      "source_evidence": {
+        "table_8": "cash the goodwill of $ 45826 is 203828 ;",
+        "table_9": "cash the total purchase consideration of $ 45826 is $ 265982 ;",
+        "text_1": "goodwill of $ 203.8 million arising from the acquisition , included in the asia-pacific segment , was attributable to expected growth opportunities in australia and new zealand , as well as growth opportunities and operating synergies in integrated payments in our existing asia-pacific and north america markets ."
+      },
+      "decision": "exclude",
+      "reason": "metric_mismatch: subtracting goodwill leaves identifiable assets including other intangibles, not net tangible assets as asked."
+    },
+    {
+      "candidate_index": 24,
+      "source_id": "MO/2012/page_44.pdf-1",
+      "question": "what are the higher charges related to tobacco and health judgments as a percentage of the operating companies income increase?",
+      "reference_program": "divide(87, 119)",
+      "reference_answer": "73.1%",
+      "source_evidence": {
+        "text_12": "operating companies income increased $ 119 million ( 2.1% ( 2.1 % ) ) , due primarily to higher net pricing ( $ 831 million ) , which includes higher promotional investments , marketing , administration , and research savings reflecting cost reduction initiatives ( $ 198 million ) and 2010 implementation costs related to the closure of the cabarrus , north carolina manufacturing facility ( $ 75 million ) , partially offset by lower volume ( $ 527 million ) , higher asset impairment and exit costs due primarily to the 2011 cost reduction program ( $ 158 million ) , higher per unit settlement charges ( $ 120 million ) , higher charges related to tobacco and health judgments ( $ 87 million ) and higher fda user fees ( $ 73 million ) ."
+      },
+      "decision": "include",
+      "canonical_unit": "ratio",
+      "requested_unit": "percent",
+      "expected_rational": "87/119",
+      "reason": "text_10/12:2011 vs2010; higher tobacco/health judgment charges87m divided by operating income increase119m."
+    },
+    {
+      "candidate_index": 25,
+      "source_id": "ETFC/2014/page_26.pdf-1",
+      "question": "what was the percent of the return on the e*trade financial corporation common stock from 2009 to 2014",
+      "reference_program": "subtract(137.81, const_100), divide(#0, const_100)",
+      "reference_answer": "37.81%",
+      "source_evidence": {
+        "table_1": "the e*trade financial corporation of 12/09 is 100.00 ; the e*trade financial corporation of 12/10 is 90.91 ; the e*trade financial corporation of 12/11 is 45.23 ; the e*trade financial corporation of 12/12 is 50.85 ; the e*trade financial corporation of 12/13 is 111.59 ; the e*trade financial corporation of 12/14 is 137.81 ;"
+      },
+      "decision": "include",
+      "canonical_unit": "ratio",
+      "requested_unit": "percent",
+      "expected_rational": "3781/10000",
+      "reason": "table_1:2009 investment100 to2014 value137.81; cumulative return37.81%."
+    },
+    {
+      "candidate_index": 26,
+      "source_id": "GPN/2009/page_70.pdf-3",
+      "question": "what percent of assets acquired by the acquisition are non-tangible assets?",
+      "reference_program": "add(13536, 4091), add(#0, 1031), divide(#1, 19427)",
+      "reference_answer": "96%",
+      "source_evidence": {
+        "table_1": "the goodwill of total is $ 13536 ;",
+        "table_2": "the customer-related intangible assets of total is 4091 ;",
+        "table_3": "the contract-based intangible assets of total is 1031 ;",
+        "table_4": "the property and equipment of total is 267 ;",
+        "table_5": "the other current assets of total is 502 ;",
+        "table_6": "the total assets acquired of total is 19427 ;",
+        "text_13": "the following table summarizes the preliminary purchase price allocations of all these fiscal 2008 business acquisitions ( in thousands ) : ."
+      },
+      "decision": "exclude",
+      "reason": "scope_ambiguity: unnamed acquisition could mean aggregate fiscal2008 acquisitions in table or separate Canadian intangible purchase in text_17/19."
+    },
+    {
+      "candidate_index": 27,
+      "source_id": "IP/2009/page_37.pdf-3",
+      "question": "considering the years 2008 and 2009 , what is the variation observed in the operating profit , in millions?",
+      "reference_program": "subtract(433, 17)",
+      "reference_answer": "416",
+      "source_evidence": {
+        "table_2": "in millions the operating profit of 2009 is 433 ; the operating profit of 2008 is 17 ; the operating profit of 2007 is 112 ;"
+      },
+      "decision": "exclude",
+      "reason": "scope_ambiguity: question does not name segment; table consumer-packaging profit433/17 coexists with multiple other segment operating profits in text."
+    },
+    {
+      "candidate_index": 28,
+      "source_id": "AES/2015/page_117.pdf-3",
+      "question": "what were average proportional recoverable environmental capital expenditures for the years december 31 , 2015 , 2014 and 2013 , in millions?",
+      "reference_program": "add(205, 163), add(110, #0), divide(#1, const_3)",
+      "reference_answer": "159.3",
+      "source_evidence": {
+        "text_26": "( 4 ) excludes ipl's proportional recoverable environmental capital expenditures of $ 205 million , $ 163 million and $ 110 million for the years december 31 , 2015 , 2014 and 2013 , respectively. ."
+      },
+      "decision": "include",
+      "canonical_unit": "usd_million",
+      "requested_unit": "usd_million",
+      "expected_rational": "478/3",
+      "reason": "text_26: recoverable environmental capex205m/163m/110m2015/14/13. Not nonrecoverable table row."
+    },
+    {
+      "candidate_index": 29,
+      "source_id": "ABMD/2007/page_52.pdf-2",
+      "question": "how much of the total contractual commitments are current?",
+      "reference_program": "divide(8381, 14090)",
+      "reference_answer": "59.5%",
+      "source_evidence": {
+        "table_3": "contractual obligations the total obligations of payments due by fiscal year total is $ 14090 ; the total obligations of payments due by fiscal year less than 1 year is $ 8381 ; the total obligations of payments due by fiscal year 1-3 years is $ 3441 ; the total obligations of payments due by fiscal year 3-5 years is $ 1652 ; the total obligations of payments due by fiscal year more than 5 years is $ 616 ;"
+      },
+      "decision": "exclude",
+      "reason": "answer_unit_ambiguity: how much current commitments can mean amount8381 or ratio8381/14090; no percent request."
+    },
+    {
+      "candidate_index": 30,
+      "source_id": "SWKS/2006/page_81.pdf-1",
+      "question": "what are the total pension liability adjustment from 2004 to 2006?",
+      "reference_program": "multiply(351, const_m1), add(#0, 538)",
+      "reference_answer": "187",
+      "source_evidence": {
+        "text_2": "these differences may significantly impact future pension or retiree medical expenses .",
+        "text_4": "the expected return on plan assets is calculated by applying an assumed long-term rate of return to the fair value of plan assets .",
+        "table_2": "the change in period of pension adjustments is -351 ( 351 ) ; the change in period of accumulated other comprehensive loss is -351 ( 351 ) ;",
+        "table_4": "the change in period of pension adjustments is 538 ; the change in period of accumulated other comprehensive loss is 538 ;"
+      },
+      "decision": "include",
+      "canonical_unit": "usd_thousand",
+      "requested_unit": "usd_thousand",
+      "expected_rational": "187/1",
+      "reason": "table_2/4: two signed pension adjustments total187; reconciles end-599 minus start-786. text_14 explicitly states in thousands."
+    },
+    {
+      "candidate_index": 31,
+      "source_id": "VTR/2007/page_47.pdf-1",
+      "question": "prior to the shares repurchased in 2007 , how many shares of common stock were outstanding?",
+      "reference_program": "add(138311810, 14669)",
+      "reference_answer": "138326479",
+      "source_evidence": {
+        "table_3": "the december 1 through december 31 of number of shares repurchased ( 1 ) is 14669 ; the december 1 through december 31 of average price per share is $ 43.89 ;",
+        "text_0": "as of february 15 , 2008 , there were 138311810 shares of our common stock outstanding held by approximately 2979 stockholders of record ."
+      },
+      "decision": "exclude",
+      "reason": "period_gap: Feb2008 outstanding shares plus2007 buybacks does not account for intervening issuance; cannot establish pre-buyback outstanding count."
+    },
+    {
+      "candidate_index": 32,
+      "source_id": "K/2013/page_62.pdf-2",
+      "question": "what percent of total derivatives are from interest rate contracts in 2013?",
+      "reference_program": "divide(2400, 3278)",
+      "reference_answer": "73.22",
+      "source_evidence": {
+        "text_5": "as a matter of policy , the company does not engage in trading or speculative hedging transactions .",
+        "table_2": "( millions ) the interest rate contracts of 2013 is 2400 ; the interest rate contracts of 2012 is 2150 ;",
+        "table_4": "( millions ) the total of 2013 is $ 3278 ; the total of 2012 is $ 3040 ;"
+      },
+      "decision": "include",
+      "canonical_unit": "ratio",
+      "requested_unit": "percent",
+      "expected_rational": "1200/1639",
+      "reason": "table_2/4:2013 interest rate derivatives2400 out of total3278; not2012."
+    },
+    {
+      "candidate_index": 33,
+      "source_id": "LMT/2006/page_90.pdf-3",
+      "question": "at december 31 , 2006 what was the ratio of the expected future pension benefits after 2012 compared to 2008",
+      "reference_program": "divide(9530, 1490)",
+      "reference_answer": "6.4",
+      "source_evidence": {
+        "table_2": "( in millions ) the 2008 of pensionbenefits is 1490 ; the 2008 of otherbenefits is 260 ;",
+        "table_6": "( in millions ) the years 2012 2013 2016 of pensionbenefits is 9530 ; the years 2012 2013 2016 of otherbenefits is 1260 ;"
+      },
+      "decision": "exclude",
+      "reason": "period_ambiguity: after2012 excludes2012 but numerator row combines2012 through2016, no post2012-only sum."
+    },
+    {
+      "candidate_index": 34,
+      "source_id": "CME/2017/page_97.pdf-1",
+      "question": "how many class a common stocks issued and outstanding were issued between 2016 and 2017 in thousands?",
+      "reference_program": "subtract(339235, 338240)",
+      "reference_answer": "995",
+      "source_evidence": {
+        "table_2": "( in thousands ) the class a common stock issued and outstanding of december 31 , 2017 is 339235 ; the class a common stock issued and outstanding of december 31 , 2016 is 338240 ;"
+      },
+      "decision": "exclude",
+      "reason": "gross_vs_net_issuance: outstanding stock change995thousand does not establish shares issued during year without share movements or repurchases; question asks issued."
+    },
+    {
+      "candidate_index": 35,
+      "source_id": "CNP/2010/page_31.pdf-1",
+      "question": "considering the state of arkansas , what is the percentage of residential customers concerning the total customers?",
+      "reference_program": "divide(390668, 438701)",
+      "reference_answer": "89.05%",
+      "source_evidence": {
+        "table_1": "the arkansas of residential is 390668 ; the arkansas of commercial/industrial is 48033 ; the arkansas of total customers is 438701 ;"
+      },
+      "decision": "include",
+      "canonical_unit": "ratio",
+      "requested_unit": "percent",
+      "expected_rational": "390668/438701",
+      "reason": "table_1 and text_5: Arkansas residential390668 / total438701 as ofDec31 2010. Commercial48033 corroborates sum; exclude throughput42%."
+    },
+    {
+      "candidate_index": 36,
+      "source_id": "BLL/2010/page_28.pdf-2",
+      "question": "did the five year total return on ball corporation outperform the dj containers & packaging index?",
+      "reference_program": "greater(178.93, 105.34)",
+      "reference_answer": "yes",
+      "source_evidence": {
+        "table_1": "the ball corporation of 12/31/05 is $ 100.00 ; the ball corporation of 12/31/06 is $ 110.86 ; the ball corporation of 12/31/07 is $ 115.36 ; the ball corporation of 12/31/08 is $ 107.58 ; the ball corporation of 12/31/09 is $ 134.96 ; the ball corporation of 12/31/10 is $ 178.93 ;",
+        "table_2": "the dj containers & packaging index of 12/31/05 is $ 100.00 ; the dj containers & packaging index of 12/31/06 is $ 112.09 ; the dj containers & packaging index of 12/31/07 is $ 119.63 ; the dj containers & packaging index of 12/31/08 is $ 75.00 ; the dj containers & packaging index of 12/31/09 is $ 105.34 ; the dj containers & packaging index of 12/31/10 is $ 123.56 ;"
+      },
+      "decision": "exclude",
+      "reason": "reference_period_mismatch: official greater(178.93,105.34) compares2010 Ball to2009 index, not same5year2010 endpoint123.56. Boolean answer happens to match but reference operands are wrong."
+    },
+    {
+      "candidate_index": 37,
+      "source_id": "AES/2003/page_52.pdf-1",
+      "question": "for the three months ended march 2003 what were the total sales proceeds for subsidiaries assets in millions?",
+      "reference_program": "add(495, 59), add(#0, 30), add(#1, 29)",
+      "reference_answer": "",
+      "source_evidence": {
+        "table_1": "project name the cilcorp/medina valley of date completed is january 2003 ; the cilcorp/medina valley of sales proceeds ( in millions ) is $ 495 ; the cilcorp/medina valley of location is united states ;",
+        "table_2": "project name the aes ecogen/aes mt . stuart of date completed is january 2003 ; the aes ecogen/aes mt . stuart of sales proceeds ( in millions ) is $ 59 ; the aes ecogen/aes mt . stuart of location is australia ;",
+        "table_3": "project name the mountainview of date completed is march 2003 ; the mountainview of sales proceeds ( in millions ) is $ 30 ; the mountainview of location is united states ;",
+        "table_4": "project name the kelvin of date completed is march 2003 ; the kelvin of sales proceeds ( in millions ) is $ 29 ; the kelvin of location is south africa ;"
+      },
+      "decision": "include",
+      "canonical_unit": "usd_million",
+      "requested_unit": "usd_million",
+      "expected_rational": "613/1",
+      "reason": "table_1/2/3/4 with text_5/6: Jan2003 sales495m and59m plus Mar2003 30m and29m=613m for quarter endedMarch. Exclude April and later dates."
+    }
+  ]
+}

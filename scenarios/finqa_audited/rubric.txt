@@ -1,0 +1,8 @@
+Primary metric: all-question execution accuracy under audited-financial-qa-v1.
+Execute the bounded arithmetic DSL; convert ONLY using the declared compatible unit.
+Round once after conversion to the canonical unit, five decimals, ties to even.
+Compare against the independently audited rational reference.
+Do not infer or repair absent units, signs, denominators, operands, or operations.
+Keep failures, missing answers, invalid programs, and invalid units in the denominator.
+Record requested-unit compliance and evidence quality separately.
+This is a FinQA-derived screened dev pilot, not official FinQA or a general ability ranking.

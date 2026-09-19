@@ -93,7 +93,7 @@ def performance_of(predictions, model_cfg, invocations=1, pricing_valid_until=No
     }
 
 
-def compose(run_id, source_root=finqa.RESULTS, cfg=None, roster=None):
+def compose(run_id, source_root=finqa.RESULTS, cfg=None, roster=None, *, evaluation_fn=evaluate_one):
     cfg = cfg or runner.load_config()
     configs = {model["name"]: model for model in cfg["models"]}
     if roster is None:
@@ -143,7 +143,7 @@ def compose(run_id, source_root=finqa.RESULTS, cfg=None, roster=None):
         raw_rows = []
         for record in rows:
             prediction = predictions.get((name, record["id"]))
-            scores.append({"model": name, **evaluate_one(record, prediction)})
+            scores.append({"model": name, **evaluation_fn(record, prediction)})
             if prediction is not None:
                 raw_rows.append(prediction)
             samples.append({

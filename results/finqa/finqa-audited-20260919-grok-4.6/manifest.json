@@ -1,0 +1,317 @@
+{
+  "run_id": "finqa-audited-20260919-grok-4.6",
+  "contract": {
+    "scenario": "finqa_audited",
+    "dataset_sha256": "b814465bce83b3ba4afd168112d9e1059c6a41d3052b893a032cd9652aaba099",
+    "prompt_sha256": "723996abba008acfc67ec298ded769cbdcbd0af071b72f794d853b9aa50504c7",
+    "models": [
+      {
+        "name": "grok-4.6",
+        "api": "bedrock_mantle",
+        "model_id": "xai.grok-4.6",
+        "mantle_region": "us-west-2",
+        "price_in": 2.2,
+        "price_out": 6.6,
+        "mantle_reasoning_effort": "low",
+        "request_max_attempts": 4,
+        "enabled": true
+      }
+    ],
+    "aws_region": "us-west-2",
+    "concurrency_default": 2,
+    "max_output_tokens": 4096,
+    "temperature": 0,
+    "temperature_omitted_model_ids": [
+      "google.gemma-4-31b",
+      "openai.gpt-5.5",
+      "openai.gpt-5.6-luna",
+      "openai.gpt-5.6-sol",
+      "openai.gpt-5.6-terra",
+      "us.anthropic.claude-fable-5",
+      "us.anthropic.claude-opus-4-8",
+      "us.anthropic.claude-sonnet-5"
+    ],
+    "request_timeout_s": 600,
+    "runner_sha256": "6c6e4738b13b447b417b6a651ef51499bff2fd5bf2875fda7f1940c737c0fe5c",
+    "finqa_sha256": "bd4b05630aa05d80eecc3d9045f6c7465aa81041239df9dfeca661f08eb0cda8",
+    "evaluation_protocol": {
+      "frozen_at": "2026-09-19T02:44:25.643306+00:00",
+      "protocol": {
+        "version": "audited-financial-qa-v1",
+        "policy": "Audited financial QA v1, derived from FinQA dev; not official FinQA accuracy.\nTwenty previously unused question IDs were selected in seeded order and audited before calls.\nAmbiguous or inconsistent questions were excluded before observing candidate answers.\nEvery candidate receives the same document, table, question, prompt and output cap.\nThe candidate must declare its final program's unit. Only predeclared compatible units\nconvert to the question's canonical unit. No answer-dependent scale/sign/denominator repair.\nRatio and percent may represent the same proportion; percentage-point difference is a\ndifferent dimension. Requested-unit compliance is reported separately from numeric correctness.\nArithmetic uses exact rational operands for add/subtract/multiply/divide and table operations.\nExponentiation retains the bounded interpreter's floating-point implementation.\nDecimal exponents are bounded to +/-308 and exact intermediate numerators/denominators\nto 4096 bits; oversized arithmetic is rejected before multiplication/addition allocation.\nRound once, after conversion to the canonical unit, to five decimal places, ties to even.\nAll scheduled questions remain in the primary denominator, including invalid and failed responses.\nFences and arrays of complete operation strings may normalize; raw strict correctness remains.\nWilson 95% intervals describe this small screened sample, not population-wide model superiority.\nExisting model-specific reasoning settings are preserved; provider defaults are not assumed equal.\nCosts are configured-rate successful-response/runtime estimates, not total experiment bills.\nProvisioning/download/idle GPU time and failed/retried calls are excluded; expired prices withheld.\n",
+        "dataset_sha256": "b814465bce83b3ba4afd168112d9e1059c6a41d3052b893a032cd9652aaba099",
+        "prompt_sha256": "723996abba008acfc67ec298ded769cbdcbd0af071b72f794d853b9aa50504c7",
+        "selection_audit_sha256": "daf08588d7d27771456028d4e20041533b62ca3f4c6b05f6dec33602162ba745",
+        "evaluator_sha256": "5c3bebb856196c593e4273a8283c0402bf9def4c14c5d6ed6cb1954caf03997a",
+        "dsl_sha256": "bd4b05630aa05d80eecc3d9045f6c7465aa81041239df9dfeca661f08eb0cda8",
+        "normalizer_sha256": "8b3eeb66dcbe0347d114eb99fcc976f7f09b370eae145591bb1a119f64cdecd4",
+        "runner_sha256": "6c6e4738b13b447b417b6a651ef51499bff2fd5bf2875fda7f1940c737c0fe5c",
+        "rubric_sha256": "6cc4081bd68c91f9401b9b59163e20e3fceb900604fcce1c4aa3cc9efd7d5fd4",
+        "preparation_sha256": "71a0be6a9ea5deb49c21405c30a21822cc3e7eddac8f481610a62f26bc3d4c25",
+        "dataset_review_sha256": "5467817b170ab052679260379f91c7d3e084e39cf33be6699c68239ea520402f",
+        "models": [
+          {
+            "name": "claude-haiku-4.5",
+            "api": "bedrock",
+            "model_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0"
+          },
+          {
+            "name": "claude-sonnet-4.5",
+            "api": "bedrock",
+            "model_id": "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
+          },
+          {
+            "name": "claude-sonnet-5",
+            "api": "bedrock",
+            "model_id": "us.anthropic.claude-sonnet-5"
+          },
+          {
+            "name": "nova-pro",
+            "api": "bedrock",
+            "model_id": "us.amazon.nova-pro-v1:0"
+          },
+          {
+            "name": "nova-lite",
+            "api": "bedrock",
+            "model_id": "us.amazon.nova-lite-v1:0"
+          },
+          {
+            "name": "gpt-5.4",
+            "api": "bedrock_mantle",
+            "model_id": "openai.gpt-5.4",
+            "mantle_region": "us-east-1"
+          },
+          {
+            "name": "gpt-5.5",
+            "api": "bedrock_mantle",
+            "model_id": "openai.gpt-5.5",
+            "mantle_region": "us-east-1"
+          },
+          {
+            "name": "gpt-5.6-terra",
+            "api": "bedrock_mantle",
+            "model_id": "openai.gpt-5.6-terra",
+            "mantle_region": "us-east-1"
+          },
+          {
+            "name": "gpt-5.6-luna",
+            "api": "bedrock_mantle",
+            "model_id": "openai.gpt-5.6-luna",
+            "mantle_region": "us-east-1"
+          },
+          {
+            "name": "nova-micro",
+            "api": "bedrock",
+            "model_id": "us.amazon.nova-micro-v1:0"
+          },
+          {
+            "name": "nemotron-nano-3-30b",
+            "api": "bedrock",
+            "model_id": "nvidia.nemotron-nano-3-30b"
+          },
+          {
+            "name": "glm-4.7-flash",
+            "api": "bedrock",
+            "model_id": "zai.glm-4.7-flash"
+          },
+          {
+            "name": "gpt-oss-20b",
+            "api": "bedrock",
+            "model_id": "openai.gpt-oss-20b-1:0",
+            "bedrock_reasoning_effort": "low"
+          },
+          {
+            "name": "gpt-oss-120b",
+            "api": "bedrock",
+            "model_id": "openai.gpt-oss-120b-1:0",
+            "bedrock_reasoning_effort": "low"
+          },
+          {
+            "name": "qwen3-32b",
+            "api": "bedrock",
+            "model_id": "qwen.qwen3-32b-v1:0"
+          },
+          {
+            "name": "nemotron-super-3-120b",
+            "api": "bedrock",
+            "model_id": "nvidia.nemotron-super-3-120b"
+          },
+          {
+            "name": "llama4-scout",
+            "api": "bedrock",
+            "model_id": "us.meta.llama4-scout-17b-instruct-v1:0"
+          },
+          {
+            "name": "ministral-14b",
+            "api": "bedrock",
+            "model_id": "mistral.ministral-3-14b-instruct"
+          },
+          {
+            "name": "qwen3-235b-a22b",
+            "api": "bedrock",
+            "model_id": "qwen.qwen3-235b-a22b-2507-v1:0"
+          },
+          {
+            "name": "llama4-maverick",
+            "api": "bedrock",
+            "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0"
+          },
+          {
+            "name": "llama-3.3-70b-bedrock",
+            "api": "bedrock",
+            "model_id": "us.meta.llama3-3-70b-instruct-v1:0"
+          },
+          {
+            "name": "gemma-4-31b-bedrock",
+            "api": "bedrock_mantle",
+            "model_id": "google.gemma-4-31b",
+            "mantle_region": "us-west-2"
+          },
+          {
+            "name": "llama-3.1-8b",
+            "api": "openai",
+            "base_url": "http://localhost:8000/v1",
+            "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+            "gpu_instance_type": "g6.4xlarge",
+            "tensor_parallel_size": 1,
+            "concurrency": 32
+          },
+          {
+            "name": "llama-3.3-70b",
+            "api": "openai",
+            "base_url": "http://localhost:8000/v1",
+            "model_id": "meta-llama/Llama-3.3-70B-Instruct",
+            "extra_vllm_args": [
+              "--enforce-eager"
+            ],
+            "gpu_instance_type": "g6.48xlarge",
+            "tensor_parallel_size": 8,
+            "concurrency": 32
+          },
+          {
+            "name": "qwen3.6-27b",
+            "api": "openai",
+            "base_url": "http://localhost:8000/v1",
+            "model_id": "Qwen/Qwen3.6-27B",
+            "chat_template_kwargs": {
+              "enable_thinking": false
+            },
+            "gpu_instance_type": "g6.12xlarge",
+            "tensor_parallel_size": 4,
+            "concurrency": 32
+          },
+          {
+            "name": "exaone-3.5-32b",
+            "api": "openai",
+            "base_url": "http://localhost:8000/v1",
+            "model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
+            "extra_vllm_args": [
+              "--trust-remote-code",
+              "--enforce-eager"
+            ],
+            "gpu_instance_type": "g6.12xlarge",
+            "tensor_parallel_size": 4,
+            "concurrency": 32
+          },
+          {
+            "name": "grok-4.3",
+            "api": "bedrock_mantle",
+            "model_id": "xai.grok-4.3",
+            "mantle_region": "us-west-2",
+            "mantle_reasoning_effort": "low",
+            "request_max_attempts": 4
+          },
+          {
+            "name": "grok-4.6",
+            "api": "bedrock_mantle",
+            "model_id": "xai.grok-4.6",
+            "mantle_region": "us-west-2",
+            "mantle_reasoning_effort": "low",
+            "request_max_attempts": 4
+          }
+        ],
+        "scenario_config": {
+          "concurrency_default": 2,
+          "sample_size": 20,
+          "seed": 20260919,
+          "split": "dev",
+          "source_revision": "0f16e2867befa6840783e58be38c9efb9229d742",
+          "vllm_image": "vllm/vllm-openai@sha256:c2914767605584b6d8f45686b82de173ecc99e781897aa3d0a66dacd72c51ae1",
+          "max_model_len": 8192
+        },
+        "aws_region": "us-west-2",
+        "max_output_tokens": 4096,
+        "request_timeout_s": 600,
+        "temperature": 0,
+        "temperature_omitted_model_ids": [
+          "google.gemma-4-31b",
+          "openai.gpt-5.5",
+          "openai.gpt-5.6-luna",
+          "openai.gpt-5.6-sol",
+          "openai.gpt-5.6-terra",
+          "us.anthropic.claude-fable-5",
+          "us.anthropic.claude-opus-4-8",
+          "us.anthropic.claude-sonnet-5"
+        ],
+        "units": {
+          "ratio": [
+            "ratio",
+            "1"
+          ],
+          "percent": [
+            "ratio",
+            "1/100"
+          ],
+          "percentage_point": [
+            "point_difference",
+            "1"
+          ],
+          "usd": [
+            "money",
+            "1"
+          ],
+          "usd_thousand": [
+            "money",
+            "1000"
+          ],
+          "usd_million": [
+            "money",
+            "1000000"
+          ],
+          "usd_billion": [
+            "money",
+            "1000000000"
+          ],
+          "count": [
+            "count",
+            "1"
+          ],
+          "count_thousand": [
+            "count",
+            "1000"
+          ],
+          "boolean": [
+            "boolean",
+            "1"
+          ]
+        }
+      }
+    }
+  },
+  "executions": [
+    {
+      "started_at": "2026-09-19T02:46:54.834488+00:00",
+      "models": [
+        {
+          "model": "grok-4.6",
+          "requested": 20,
+          "cached": 0,
+          "successful": 20,
+          "failed": 0,
+          "request_attempts": 20
+        }
+      ],
+      "finished_at": "2026-09-19T02:47:10.576485+00:00"
+    }
+  ]
+}

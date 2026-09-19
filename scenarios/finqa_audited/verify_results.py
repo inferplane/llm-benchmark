@@ -12,7 +12,22 @@ from pathlib import Path
 from bench import finqa, finqa_audited as audited, run as runner
 
 
+def raw_percentile(latencies, percentile):
+    """Reproduce the frozen binary-float interpolation order from raw timings.
+
+    Algebraically equivalent weighted sums can round differently at half-ms
+    boundaries. This verifier checks the recorded convention, not new metrics.
+    """
+    ordered = sorted(latencies)
+    position = (len(ordered)-1)*percentile
+    lower = int(position)
+    upper = min(lower+1, len(ordered)-1)
+    return round(ordered[lower] + (ordered[upper]-ordered[lower])*(position-lower), 3)
+
+
 def verify(run_id):
+    # Actual retained Sonnet 5 tail: weighted-sum order falsely yielded 2.518.
+    assert raw_percentile([0]*18 + [2.511, 2.661], .95) == 2.519
     frozen = audited.verify_freeze()
     report_path = finqa.REPORTS / f"{run_id}.json"
     report = json.loads(report_path.read_text())
@@ -66,7 +81,10 @@ def verify(run_id):
             assert serving["image_id"].endswith(frozen["protocol"]["scenario_config"]["vllm_image"].split("@")[1])
             assert datetime.fromisoformat(serving["verified_before_call_at"]) <= datetime.fromisoformat(manifest["executions"][0]["started_at"])
             token_counts = json.loads((directory / "input-token-counts.json").read_text())
-            assert {r["id"] for r in token_counts} == wanted
+            assert len(token_counts) == 20 and {r["id"] for r in token_counts} == wanted
+            assert all(type(r["input_tokens"]) is int and r["input_tokens"] >= 0 for r in token_counts)
+            token_by_id = {r["id"]: r["input_tokens"] for r in token_counts}
+            assert all(token_by_id[r["id"]] == r["tokens_in"] for r in responses)
             assert max(r["input_tokens"] for r in token_counts) + 4096 <= 8192
             token_check = json.loads((directory / "token-count-check.json").read_text())
             assert token_check["checked_responses"] == len(physical) and not token_check["differences"]
@@ -88,8 +106,8 @@ def verify(run_id):
         elif expired:
             assert a["cost_unavailable_reason"] == "configured_price_expired"
         latencies = sorted(r["latency_s"] for r in responses)
-        assert a["latency_p50_s"] == round((latencies[9]+latencies[10])/2, 3)
-        assert a["latency_p95_s"] == round(latencies[18]*.95+latencies[19]*.05, 3)
+        assert a["latency_p50_s"] == raw_percentile(latencies, .5)
+        assert a["latency_p95_s"] == raw_percentile(latencies, .95)
         checks.append({
             "model": name, "physical_attempt_rows": len(physical), "retained_responses": 20,
             "transport_failures": 0, "truncated_answers": capped,

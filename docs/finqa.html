@@ -37,7 +37,7 @@
   :focus-visible { outline:3px solid #236ac0; outline-offset:3px; }
   @media(max-width:600px) { main { padding:24px 16px; } .panel { padding:18px; } nav .inner { padding:10px 16px; } }
 </style>
-<script src="finqa.js" defer></script>
+<script src="finqa.js?v=audited-20260919" defer></script>
 </head>
 <body>
 <nav aria-label="벤치마크 시나리오"><div class="inner">
@@ -119,9 +119,10 @@
     <details><summary>결과를 읽을 때 주의할 점</summary>
       <p>계산식 실행 불가는 서버 장애와 다릅니다. 숫자 대신 표 참조를 쓰거나, 이항 연산에 인자를 세 개 넣는 등
         지원하지 않는 계산식을 모델이 출력한 경우입니다. 요청 실패는 별도로 집계합니다.</p>
-      <p>JSON 코드블록의 바깥 표시와 문자열 배열로 표현된 계산 단계는 공통 정규화합니다.
+      <p>다중 모델 비교에서는 JSON 코드블록의 바깥 표시와 문자열 배열로 표현된 계산 단계를 공통 정규화합니다.
         숫자·연산·참조를 고치지 않으며, 중첩 연산이나 잘못된 표 참조는 그대로 실행 불가입니다.
-        원래 형식으로도 정답인 건수와 정규화 건수는 상세 보고서에 함께 기록합니다.</p>
+        원래 형식으로도 정답인 건수와 정규화 건수는 상세 보고서에 함께 기록합니다.
+        초기 단일 nova-lite 파일럿은 이런 정규화 없이 엄격한 원래 형식으로 채점한 별도 기록입니다.</p>
       <p>새 규약은 예를 들어 28.125 percent와 0.28125 ratio를 같은 비율로 환산합니다.
         단위를 누락하거나 28.125 ratio처럼 실제 값이 100배 틀리면 자동으로 구제하지 않습니다.
         퍼센트포인트 차이와 상대적인 변화율은 구분합니다.</p>

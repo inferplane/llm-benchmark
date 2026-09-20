@@ -1,0 +1,44 @@
+{
+  "recorded_at": "2026-09-20T13:29:16.236853+00:00",
+  "recorded_after_collection": true,
+  "identity": {
+    "policy": "One recorded collector attempt per scheduled input, all3300 inputs retained.\nNo regeneration or output-cap increase to remove empty or capped outcomes.\nUse the originally frozen translation rubric and two judges on returned nonempty\noutputs, including visible capped outputs. Empty/invalid responses remain translation\nfailures with no invented judgment. Report quality coverage and cap counts explicitly.\nExisting quality statistics are conditional on eligible returned translations, not\nan all-input success score. Cost estimates cover successfully returned text only;\nfailed-call cache usage is not fully retained, so this is not a total experiment bill.\nThis reporting policy was recorded after observing collection outcomes, before judging.",
+    "original_contract_sha256": "f30c8b5995ad42bc3a7b51405bcab046fb43f000f03c4151fdca710765ae3912",
+    "translations_sha256": "5eda0b9f1aba12238d79e5eeba2baf45e5ac2fef1429bcaee0e2b0957e54e180",
+    "dataset_sha256": "9f1b6a8db80dab47be8d180007e13cbafec3dbeaf2137baadd0c6560e3fda8c9",
+    "rubric_sha256": "d06c98b162adc83606dc6ed37eb230177b325fbeaf1347e81a37ceb8faccf139",
+    "judge_code_sha256": "9b1d479ae002f729b830c9e8a56f72575d94c9c36d867f1e1c0aaad31350c8b9",
+    "judges": [
+      {
+        "name": "sol",
+        "api": "bedrock_mantle",
+        "model_id": "openai.gpt-5.6-sol",
+        "mantle_region": "us-east-1",
+        "price_in": 5.0,
+        "price_out": 30.0
+      },
+      {
+        "name": "fable-5",
+        "api": "bedrock",
+        "model_id": "us.anthropic.claude-fable-5",
+        "price_in": 10.0,
+        "price_out": 50.0,
+        "fallback_name": "fable-5-fallback",
+        "fallback_model_id": "us.anthropic.claude-opus-4-8",
+        "fallback_price_in": 5.0,
+        "fallback_price_out": 25.0
+      }
+    ],
+    "reporter_sha256": "8c197efe0a8332c3c0a8b4b94942189000542c4df076b98d92ea1e35fc5c077a",
+    "model": {
+      "name": "kimi-k3",
+      "api": "bedrock",
+      "model_id": "us.moonshotai.kimi-k3",
+      "price_in": 3.3,
+      "price_out": 16.5,
+      "price_cache_read": 0.33,
+      "price_cache_write": 4.125,
+      "enabled": true
+    }
+  }
+}

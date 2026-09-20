@@ -1,0 +1,47 @@
+{
+  "checked_at": "2026-09-20T12:04:42.301355+00:00",
+  "model_id": "us.moonshotai.kimi-k3",
+  "region": "us-west-2",
+  "temperature": "omitted after live ValidationException",
+  "max_output_tokens": 4096,
+  "reasoning": "provider default, reasoningContent observed",
+  "cache_probes": [
+    {
+      "usage": {
+        "inputTokens": 7,
+        "outputTokens": 36,
+        "totalTokens": 1737,
+        "cacheReadInputTokens": 0,
+        "cacheWriteInputTokens": 1694
+      },
+      "stop_reason": "end_turn",
+      "request_id": "2a294383-5a40-4ea6-9da9-eae27d64b0f1",
+      "output_text": "OK",
+      "reasoning_content_present": true
+    },
+    {
+      "usage": {
+        "inputTokens": 7,
+        "outputTokens": 90,
+        "totalTokens": 1791,
+        "cacheReadInputTokens": 1694,
+        "cacheWriteInputTokens": 0
+      },
+      "stop_reason": "end_turn",
+      "request_id": "f640f4f2-f78b-41c0-8a2a-cf3f357f04cd",
+      "output_text": "OK",
+      "reasoning_content_present": true
+    }
+  ],
+  "harness_smoke": {
+    "text": "OK",
+    "tokens_in": 92,
+    "tokens_out": 46,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "finish_reason": "end_turn",
+    "request_id": "975a474a-b6a2-4626-89f5-d1d67dd2318f"
+  },
+  "model_card": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-moonshot-ai-kimi-k3.html",
+  "model_card_sha256": "6e878272d4c24de4f8973f5f9ad27d59bac10f7a61e2801910dcb40b2a51e22d"
+}

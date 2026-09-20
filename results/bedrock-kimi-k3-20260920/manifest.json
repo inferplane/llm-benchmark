@@ -1,0 +1,128 @@
+{
+  "run_id": "bedrock-kimi-k3-20260920",
+  "git_commit": "c8a96d055bd07a2e2caf1e7107a0c42ed5f481d3",
+  "prompt_sha256": "002886c783e9",
+  "rubric_sha256": "d06c98b162ad",
+  "dataset_segments": 3300,
+  "dataset_sha256": "9f1b6a8db80dab47be8d180007e13cbafec3dbeaf2137baadd0c6560e3fda8c9",
+  "aws_region": "us-west-2",
+  "judge_models": [
+    "openai.gpt-5.6-sol",
+    "us.anthropic.claude-fable-5"
+  ],
+  "generation_parameters": {
+    "temperature": 0,
+    "max_tokens": 4096
+  },
+  "models": [
+    {
+      "name": "kimi-k3",
+      "api": "bedrock",
+      "model_id": "us.moonshotai.kimi-k3",
+      "concurrency": 8,
+      "gpu_hourly_usd": null,
+      "gpu_instance_type": null,
+      "tensor_parallel_size": null,
+      "extra_vllm_args": null,
+      "mantle_region": null,
+      "mantle_reasoning_effort": null,
+      "request_timeout_s": null,
+      "mantle_background": false,
+      "request_max_attempts": 1,
+      "bedrock_reasoning_effort": null,
+      "translate_region": null,
+      "price_per_char": null,
+      "price_in": 3.3,
+      "price_out": 16.5,
+      "price_cache_read": 0.33,
+      "price_cache_write": 4.125,
+      "temperature_omitted": true,
+      "thinking_disabled": false,
+      "warmup_excluded": false
+    }
+  ],
+  "started_at": "2026-09-20T12:40:15.233824+00:00",
+  "finished_at": "2026-09-20T13:23:11.588826+00:00",
+  "completion_summary": {
+    "requested": 3300,
+    "successful": 3286,
+    "failed": 14,
+    "cached": 0,
+    "request_attempts": 3300,
+    "models": [
+      {
+        "model": "kimi-k3",
+        "requested": 3300,
+        "cached": 0,
+        "successful": 3286,
+        "failed": 14,
+        "request_attempts": 3300
+      }
+    ]
+  },
+  "executions": [
+    {
+      "run_id": "bedrock-kimi-k3-20260920",
+      "git_commit": "c8a96d055bd07a2e2caf1e7107a0c42ed5f481d3",
+      "prompt_sha256": "002886c783e9",
+      "rubric_sha256": "d06c98b162ad",
+      "dataset_segments": 3300,
+      "dataset_sha256": "9f1b6a8db80dab47be8d180007e13cbafec3dbeaf2137baadd0c6560e3fda8c9",
+      "aws_region": "us-west-2",
+      "judge_models": [
+        "openai.gpt-5.6-sol",
+        "us.anthropic.claude-fable-5"
+      ],
+      "generation_parameters": {
+        "temperature": 0,
+        "max_tokens": 4096
+      },
+      "models": [
+        {
+          "name": "kimi-k3",
+          "api": "bedrock",
+          "model_id": "us.moonshotai.kimi-k3",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": null,
+          "mantle_reasoning_effort": null,
+          "request_timeout_s": null,
+          "mantle_background": false,
+          "request_max_attempts": 1,
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "price_in": 3.3,
+          "price_out": 16.5,
+          "price_cache_read": 0.33,
+          "price_cache_write": 4.125,
+          "temperature_omitted": true,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        }
+      ],
+      "started_at": "2026-09-20T12:40:15.233824+00:00",
+      "finished_at": "2026-09-20T13:23:11.588826+00:00",
+      "completion_summary": {
+        "requested": 3300,
+        "successful": 3286,
+        "failed": 14,
+        "cached": 0,
+        "request_attempts": 3300,
+        "models": [
+          {
+            "model": "kimi-k3",
+            "requested": 3300,
+            "cached": 0,
+            "successful": 3286,
+            "failed": 14,
+            "request_attempts": 3300
+          }
+        ]
+      }
+    }
+  ]
+}

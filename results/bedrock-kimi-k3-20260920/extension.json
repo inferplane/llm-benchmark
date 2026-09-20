@@ -1,0 +1,112 @@
+{
+  "frozen_at": "2026-09-20T12:39:24.647293+00:00",
+  "identity": {
+    "kind": "single-model audited-QA extension",
+    "model": {
+      "name": "kimi-k3",
+      "api": "bedrock",
+      "model_id": "us.moonshotai.kimi-k3",
+      "price_in": 3.3,
+      "price_out": 16.5,
+      "price_cache_read": 0.33,
+      "price_cache_write": 4.125,
+      "enabled": true
+    },
+    "parent_report_sha256": "8352c1b90b1fed3a8e78a313cca7493203409f820c0de4966e510cb6ea0a273e",
+    "parent_freeze_sha256": "2625b06d93e656991d6e0a9c9ae508253bced15f1fadbce2e46b751e0a263513",
+    "dataset_sha256": "b814465bce83b3ba4afd168112d9e1059c6a41d3052b893a032cd9652aaba099",
+    "prompt_sha256": "723996abba008acfc67ec298ded769cbdcbd0af071b72f794d853b9aa50504c7",
+    "evaluator_sha256": "5c3bebb856196c593e4273a8283c0402bf9def4c14c5d6ed6cb1954caf03997a",
+    "dsl_sha256": "bd4b05630aa05d80eecc3d9045f6c7465aa81041239df9dfeca661f08eb0cda8",
+    "normalizer_sha256": "8b3eeb66dcbe0347d114eb99fcc976f7f09b370eae145591bb1a119f64cdecd4",
+    "collector_sha256": "6acd0b170c08620e2d1c6b628d964c29d44747a1548e9cfe018a948db7c9e2db",
+    "extension_sha256": "473ab314b59586deaa3433ed4c17f9153b8956200007919887826778fa359f88",
+    "cost_code_sha256": "48733dd5d678b8e655a752ad4a7c356daaea1c32ecf454b78ab40d358c4375da",
+    "aws_region": "us-west-2",
+    "concurrency_default": 2,
+    "max_output_tokens": 4096,
+    "scenario": "finqa_audited",
+    "temperature": 0,
+    "request_timeout_s": 600,
+    "temperature_omitted_model_ids": [
+      "google.gemma-4-31b",
+      "openai.gpt-5.5",
+      "openai.gpt-5.6-luna",
+      "openai.gpt-5.6-sol",
+      "openai.gpt-5.6-terra",
+      "us.anthropic.claude-fable-5",
+      "us.anthropic.claude-opus-4-8",
+      "us.anthropic.claude-sonnet-5",
+      "us.moonshotai.kimi-k3"
+    ],
+    "translation_dataset_sha256": "9f1b6a8db80dab47be8d180007e13cbafec3dbeaf2137baadd0c6560e3fda8c9",
+    "translation_cohort": "explicit",
+    "translation_parent_sha256": "5355821d0bdfb592cbfc2ea116b7c4d518d1900a7ffd3e93b44f65f24b310c01",
+    "translation_prompt_sha256": "002886c783e95ddbb6802dd9e425867a61bf2a4b3306afe513d8cb544f1c3ad8",
+    "translation_rubric_sha256": "d06c98b162adc83606dc6ed37eb230177b325fbeaf1347e81a37ceb8faccf139",
+    "translation_scenario": {
+      "src_lang": "ko",
+      "targets": [
+        "en",
+        "ja",
+        "zh",
+        "es",
+        "fr",
+        "de",
+        "pt",
+        "ru",
+        "it",
+        "vi",
+        "id",
+        "th",
+        "ar",
+        "hi",
+        "tr"
+      ],
+      "directions": "both",
+      "concurrency_default": 8,
+      "flores_per_pair": 100,
+      "synthetic_per_pair": 10,
+      "judges": [
+        {
+          "name": "sol",
+          "api": "bedrock_mantle",
+          "model_id": "openai.gpt-5.6-sol",
+          "mantle_region": "us-east-1",
+          "price_in": 5.0,
+          "price_out": 30.0
+        },
+        {
+          "name": "fable-5",
+          "api": "bedrock",
+          "model_id": "us.anthropic.claude-fable-5",
+          "price_in": 10.0,
+          "price_out": 50.0,
+          "fallback_name": "fable-5-fallback",
+          "fallback_model_id": "us.anthropic.claude-opus-4-8",
+          "fallback_price_in": 5.0,
+          "fallback_price_out": 25.0
+        }
+      ],
+      "flores_codes": {
+        "ko": "kor_Hang",
+        "en": "eng_Latn",
+        "ja": "jpn_Jpan",
+        "zh": "cmn_Hans",
+        "es": "spa_Latn",
+        "fr": "fra_Latn",
+        "de": "deu_Latn",
+        "pt": "por_Latn",
+        "ru": "rus_Cyrl",
+        "it": "ita_Latn",
+        "vi": "vie_Latn",
+        "id": "ind_Latn",
+        "th": "tha_Thai",
+        "ar": "arb_Arab",
+        "hi": "hin_Deva",
+        "tr": "tur_Latn"
+      }
+    },
+    "judge_code_sha256": "9b1d479ae002f729b830c9e8a56f72575d94c9c36d867f1e1c0aaad31350c8b9"
+  }
+}

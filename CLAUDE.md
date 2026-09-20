@@ -48,6 +48,20 @@ uv run python3 -m bench.finqa_compare --run-id finqa-all-20260918
 uv run python3 -m bench.finqa_compare --selfcheck
 uv run python3 -m bench.finqa_audited selfcheck
 uv run python3 -m bench.finqa_audited report --run-id finqa-audited-20260919
+# Kimi addition: separate contract, old snapshots/QA grader remain immutable
+uv run python3 -m bench.kimi_benchmark selfcheck
+uv run python3 -m bench.kimi_benchmark verify-parent
+uv run python3 -m bench.kimi_benchmark freeze
+uv run python3 -m bench.kimi_benchmark run-qa
+uv run python3 -m bench.kimi_benchmark run-translation
+uv run python3 -m bench.kimi_benchmark judge-translation
+uv run python3 -m bench.kimi_benchmark report-qa
+uv run python3 -m bench.kimi_benchmark report-translation
+# Real Kimi first-attempt failures/caps: preserve outcomes, do not regenerate
+uv run python3 -m bench.kimi_observed policy
+uv run python3 -m bench.kimi_observed judge
+uv run python3 -m bench.kimi_observed report
+uv run python3 validation/kimi-k3/final_check.py
 
 # preview the dashboard locally
 python3 -m http.server 8000 -d docs   # then open localhost:8000/index.html
@@ -96,6 +110,19 @@ Do not accept 100x differences by looking at the answer: conversion requires
 the model's compatible declared unit. The old20 questions are diagnostic only;
 new20 questions are screened and reviewed before calling the same28 models.
 This is not official FinQA accuracy. See `scenarios/finqa_audited/README.md`.
+
+Kimi K3 uses `us.moonshotai.kimi-k3` through single-turn text Converse.
+It rejects temperature and implicitly caches prompts. Preserve its uncached
+input, cache-read and cache-write token counts separately; the latter two have
+their own verified Standard prices. See `validation/kimi-k3/README.md`.
+The new collector hash must not replace the historical QA freeze. The original
+2026-09-19 collector replay requires its original Git revision; the additive
+Kimi entrypoint verifies unchanged grading/results and records a new contract.
+Observed empty/capped translations use `bench/kimi_observed.py`: all 3,300
+recorded first attempts stay in the population, only returned text receives the
+unchanged paired judgment, and quality coverage/caps are explicit. Its separate
+reporting policy is recorded after collection and before judging. Do not
+regenerate model answers or alter the 4,096-token cap to make this report pass.
 
 **`config.toml` is the single source of truth for models.** Every model is one
 `[[models]]` table with a `name`, an `api` (`"bedrock"` | `"openai"` |

@@ -543,7 +543,10 @@ function renderModelTable(report) {
       const q = state.track === "all" ? a : m.by_track?.[state.track];
       const dot = `<span class="dot" style="background:${cssVar(PROVIDER_VAR[m.provider] || "--ink-2")}"></span>`;
       const ci = q?.judge_overall_ci95 ? ` <span class="ci-note">(${q.judge_overall_ci95[0].toFixed(2)}–${q.judge_overall_ci95[1].toFixed(2)})</span>` : "";
-      const failNote = a.translation_failures || a.judge_failures ? `<span class="ci-note">${a.translation_failures}건 번역실패 · ${a.judge_failures}건 채점실패</span>` : "정상";
+      const observed = m.collection_diagnostics;
+      const failNote = observed ?
+        `<span class="ci-note">전체 입력 ${fmtQualityCount(observed.scheduled_inputs)}건 · 출력 미반환 ${fmtQualityCount(observed.unreturned_outputs)}건 · 상한 도달 ${fmtQualityCount(observed.capped_outputs)}건 (중복 가능)</span>` :
+        (a.translation_failures || a.judge_failures ? `<span class="ci-note">${a.translation_failures}건 번역실패 · ${a.judge_failures}건 채점실패</span>` : "정상");
 
       const axesHtml = Object.entries(q?.judge || {})
         .map(([k, v]) => `<span class="axis-chip">${AXIS_LABEL[k] || k}: ${v.toFixed(2)}</span>`)

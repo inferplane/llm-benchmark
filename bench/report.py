@@ -20,6 +20,7 @@ Usage:
 
 import argparse
 import json
+import math
 import random
 import re
 import statistics
@@ -93,7 +94,8 @@ def bootstrap_ci95(values: list[float]) -> list[float] | None:
     return [round(lo, 3), round(hi, 3)]
 
 
-def compute_cost(model_cfg: dict, tokens_in: int, tokens_out: int, throughput_tok_s: float | None) -> tuple[float, float | None]:
+def compute_cost(model_cfg: dict, tokens_in: int, tokens_out: int, throughput_tok_s: float | None,
+                 *, cache_read_tokens: int = 0, cache_write_tokens: int = 0) -> tuple[float, float | None]:
     """Returns (cost_total_usd, usd_per_mtok_out)."""
     if model_cfg.get("gpu_hourly_usd") is not None:
         if not throughput_tok_s:
@@ -113,6 +115,16 @@ def compute_cost(model_cfg: dict, tokens_in: int, tokens_out: int, throughput_to
     price_in = model_cfg.get("price_in", 0)
     price_out = model_cfg.get("price_out", 0)
     cost_total = tokens_in / 1e6 * price_in + tokens_out / 1e6 * price_out
+    # Converse inputTokens excludes the separately reported cache token classes.
+    # Do not silently price a cache write/read as a free or ordinary input token.
+    for count, key in ((cache_read_tokens, "price_cache_read"), (cache_write_tokens, "price_cache_write")):
+        if type(count) is not int or count < 0:
+            raise ValueError("cache token count must be a nonnegative integer")
+        if count:
+            price = model_cfg.get(key)
+            if not isinstance(price, (int, float)) or isinstance(price, bool) or not math.isfinite(price) or price < 0:
+                raise ValueError(f"missing or invalid {key} for observed cache usage")
+            cost_total += count / 1e6 * price
     usd_per_mtok_out = cost_total / (tokens_out / 1e6) if tokens_out else None
     return round(cost_total, 4), (round(usd_per_mtok_out, 4) if usd_per_mtok_out is not None else None)
 
@@ -289,6 +301,8 @@ def aggregate_full(rows: list[dict], model_cfg: dict, src_chars_by_id: dict[str,
 
     tokens_in_total = sum(r["tokens_in"] or 0 for r in successful)
     tokens_out_total = sum(r["tokens_out"] or 0 for r in successful)
+    cache_read_total = sum(r.get("cache_read_tokens", 0) for r in successful)
+    cache_write_total = sum(r.get("cache_write_tokens", 0) for r in successful)
     latencies = [r["latency_s"] for r in successful if r.get("latency_s") is not None]
 
     # Cross-run deduplication can retain only a middle slice of an old batch.
@@ -303,7 +317,8 @@ def aggregate_full(rows: list[dict], model_cfg: dict, src_chars_by_id: dict[str,
         # unknown mixed-run GPU spend must instead remain explicitly unknown.
         cost_total, usd_per_mtok_out = None, None
     else:
-        cost_total, usd_per_mtok_out = compute_cost(model_cfg, tokens_in_total, tokens_out_total, throughput_tok_s)
+        cost_total, usd_per_mtok_out = compute_cost(model_cfg, tokens_in_total, tokens_out_total, throughput_tok_s,
+                                                   cache_read_tokens=cache_read_total, cache_write_tokens=cache_write_total)
 
     src_chars_total = sum(src_chars_by_id.get(r["id"], 0) for r in successful)
     cost_per_segment_usd = round(cost_total / len(successful), 5) if cost_total is not None and successful else None
@@ -319,6 +334,8 @@ def aggregate_full(rows: list[dict], model_cfg: dict, src_chars_by_id: dict[str,
         **quality,
         "usd_per_mtok_out": usd_per_mtok_out,
         "cost_total_usd": cost_total,
+        "cache_read_tokens": cache_read_total,
+        "cache_write_tokens": cache_write_total,
         "cost_per_segment_usd": cost_per_segment_usd,
         "cost_per_quality_pass_usd": cost_per_quality_pass_usd,
         "cost_per_1k_src_chars_usd": cost_per_1k_src_chars_usd,
@@ -573,6 +590,10 @@ def run_config_of(model_cfg: dict, default_concurrency: int) -> dict:
         cfg["price_per_char_usd"] = model_cfg["price_per_char"]
     else:
         cfg.update({"price_in_usd_per_mtok": model_cfg.get("price_in"), "price_out_usd_per_mtok": model_cfg.get("price_out")})
+        if model_cfg.get("price_cache_read") is not None:
+            cfg["price_cache_read_usd_per_mtok"] = model_cfg["price_cache_read"]
+        if model_cfg.get("price_cache_write") is not None:
+            cfg["price_cache_write_usd_per_mtok"] = model_cfg["price_cache_write"]
         if model_cfg.get("mantle_reasoning_effort") is not None:
             cfg["mantle_reasoning_effort"] = model_cfg["mantle_reasoning_effort"]
         if model_cfg.get("bedrock_reasoning_effort") is not None:
@@ -813,6 +834,25 @@ def _selfcheck():
     assert cost == 1.0 + 2.5, f"expected 3.5, got {cost}"
     # usd_per_mtok_out blends input+output cost, amortized over output tokens: 3.5 / 0.5 = 7.0
     assert per_mtok == 7.0, f"expected 7.0 usd/mtok_out, got {per_mtok}"
+    kimi = {"api": "bedrock", "price_in": 3.3, "price_out": 16.5,
+            "price_cache_read": .33, "price_cache_write": 4.125}
+    # One million of each distinct token class: 3.3 + 16.5 + .33 + 4.125.
+    assert compute_cost(kimi, 1_000_000, 1_000_000, None,
+                        cache_read_tokens=1_000_000, cache_write_tokens=1_000_000) == (24.255, 24.255)
+    cached_rows = [{
+        "id": str(i), "output_text": "ok", "translation_error": None,
+        "tokens_in": 500_000, "tokens_out": 500_000, "cache_read_tokens": 500_000,
+        "cache_write_tokens": 500_000, "latency_s": 1, "timestamp": f"2026-09-20T00:00:0{i+1}+00:00",
+    } for i in range(2)]
+    cached = aggregate_full(cached_rows, kimi, {})
+    assert cached["cost_total_usd"] == 24.255 and cached["cost_per_segment_usd"] == 12.1275
+    assert cached["cache_read_tokens"] == cached["cache_write_tokens"] == 1_000_000
+    try:
+        compute_cost(api_model, 100, 100, None, cache_read_tokens=100)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("unpriced cache tokens treated as free")
 
     vllm_model = {"api": "openai", "gpu_hourly_usd": 3600.0}  # $1/sec, easy mental math
     cost, per_mtok = compute_cost(vllm_model, tokens_in=0, tokens_out=1_000_000, throughput_tok_s=1000)

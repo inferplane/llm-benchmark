@@ -53,7 +53,9 @@ MANTLE_NO_TEMPERATURE = {"openai.gpt-5.6-sol", "openai.gpt-5.6-terra", "openai.g
 # scenario.translation.judges) rejects it too, same "deprecated" error.
 # claude-opus-4-8 (fable-5's content-filter fallback judge, same config
 # section) also rejects it, same error.
-BEDROCK_NO_TEMPERATURE = {"us.anthropic.claude-sonnet-5", "us.anthropic.claude-fable-5", "us.anthropic.claude-opus-4-8"}
+# Kimi K3 US profile: live Converse ValidationException with temperature=0,
+# successful end_turn when omitted (2026-09-20).
+BEDROCK_NO_TEMPERATURE = {"us.anthropic.claude-sonnet-5", "us.anthropic.claude-fable-5", "us.anthropic.claude-opus-4-8", "us.moonshotai.kimi-k3"}
 
 # claude-sonnet-5 defaults to extended thinking; on long synthetic financial
 # documents it can burn the entire MAX_OUTPUT_TOKENS budget on reasoningContent
@@ -314,6 +316,10 @@ def _validate_result(result: dict):
         value = result.get(field)
         if type(value) is not int or value < 0:
             raise InvalidResponseError("invalid usage")
+    for field in ("cache_read_tokens", "cache_write_tokens"):
+        value = result.get(field, 0)
+        if type(value) is not int or value < 0:
+            raise InvalidResponseError("invalid cache usage")
 
 
 async def call_bedrock(client, model_id: str, prompt: str, reasoning_effort: str | None = None) -> dict:
@@ -354,6 +360,8 @@ async def call_bedrock(client, model_id: str, prompt: str, reasoning_effort: str
     text = "".join(b["text"] for b in resp["output"]["message"]["content"] if "text" in b)
     usage = resp["usage"]
     return {"text": text, "tokens_in": usage["inputTokens"], "tokens_out": usage["outputTokens"],
+            "cache_read_tokens": usage.get("cacheReadInputTokens", 0),
+            "cache_write_tokens": usage.get("cacheWriteInputTokens", 0),
             "finish_reason": resp.get("stopReason"),
             "request_id": resp.get("ResponseMetadata", {}).get("RequestId")}
 
@@ -641,7 +649,8 @@ async def run_model(model_cfg: dict, segments: list[dict], cache: ResultCache, a
                             row["finish_reason"] = failed_response["finish_reason"]
                 else:
                     for field in ("request_id", "response_id", "response_status", "http_status",
-                                  "finish_reason", "reported_model", "reported_reasoning", "reasoning_tokens"):
+                                  "finish_reason", "reported_model", "reported_reasoning", "reasoning_tokens",
+                                  "cache_read_tokens", "cache_write_tokens"):
                         if field in result:
                             row[field] = result[field]
                 # Append before deciding on a retry: every failed call survives
@@ -751,6 +760,9 @@ def write_manifest(run_id, cfg, scenario, models, segments, started_at, finished
         "prompt_sha256": _sha256_file(PROMPT_PATH),
         "rubric_sha256": _sha256_file(ROOT / "scenarios/translation/rubric.txt"),
         "dataset_segments": len(segments),
+        "dataset_sha256": hashlib.sha256(json.dumps(
+            segments, sort_keys=True, ensure_ascii=False, allow_nan=False).encode()).hexdigest(),
+        "aws_region": cfg.get("aws", {}).get("region"),
         "judge_models": [j["model_id"] for j in scenario["judges"]],
         "generation_parameters": {"temperature": 0, "max_tokens": MAX_OUTPUT_TOKENS},
         "models": [
@@ -769,6 +781,10 @@ def write_manifest(run_id, cfg, scenario, models, segments, started_at, finished
                 "bedrock_reasoning_effort": m.get("bedrock_reasoning_effort"),
                 "translate_region": m.get("translate_region"),
                 "price_per_char": m.get("price_per_char"),
+                "price_in": m.get("price_in"),
+                "price_out": m.get("price_out"),
+                "price_cache_read": m.get("price_cache_read"),
+                "price_cache_write": m.get("price_cache_write"),
                 # some OpenAI reasoning-tier models on bedrock-mantle, and
                 # claude-sonnet-5 on plain Bedrock, reject `temperature`
                 # outright — see MANTLE_NO_TEMPERATURE/BEDROCK_NO_TEMPERATURE.
@@ -1157,10 +1173,31 @@ def _selfcheck_cli():
             assert "private provider payload" not in error_output.getvalue()
 
 
+def _selfcheck_kimi():
+    from types import SimpleNamespace
+    async def check():
+        for model_id, omitted in (("us.moonshotai.kimi-k3", True), ("us.amazon.nova-lite-v1:0", False)):
+            def converse(**kwargs):
+                assert kwargs["modelId"] == model_id
+                assert kwargs["inferenceConfig"]["maxTokens"] == MAX_OUTPUT_TOKENS
+                assert ("temperature" not in kwargs["inferenceConfig"]) is omitted
+                assert kwargs.get("additionalModelRequestFields", {}) == {}
+                return {"output": {"message": {"content": [
+                    {"reasoningContent": {"reasoningText": {"text": "not output"}}}, {"text": "OK"},
+                ]}}, "usage": {"inputTokens": 50, "outputTokens": 4,
+                               "cacheReadInputTokens": 101, "cacheWriteInputTokens": 202},
+                        "stopReason": "end_turn"}
+            result = await call_bedrock(SimpleNamespace(converse=converse), model_id, "check")
+            _validate_result(result)
+            assert result["text"] == "OK" and result["tokens_in"] == 50
+            assert result["cache_read_tokens"] == 101 and result["cache_write_tokens"] == 202
+    asyncio.run(check())
+
+
 def _selfcheck():
     for check in (
         _selfcheck_diagnostics, _selfcheck_cache, _selfcheck_mantle,
-        _selfcheck_runner, _selfcheck_client_attempts, _selfcheck_manifest, _selfcheck_cli,
+        _selfcheck_runner, _selfcheck_client_attempts, _selfcheck_manifest, _selfcheck_cli, _selfcheck_kimi,
     ):
         check()
         print(f"PASS {check.__name__}")

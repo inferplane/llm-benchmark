@@ -138,6 +138,20 @@ model_id = "us.amazon.nova-pro-v1:0"
 price_in = 0.80
 price_out = 3.20
 
+# US Geo profile and Standard prices verified against live Bedrock profile API,
+# AWS Price List API and model-card-moonshot-ai-kimi-k3.html on 2026-09-20.
+# Single-turn text Converse is supported. Temperature is rejected; reasoning
+# remains provider-default (observed reasoningContent), never silently disabled.
+[[models]]
+name = "kimi-k3"
+api = "bedrock"
+model_id = "us.moonshotai.kimi-k3"
+price_in = 3.30
+price_out = 16.50
+price_cache_read = 0.33
+price_cache_write = 4.125
+enabled = true
+
 [[models]]
 name = "nova-lite"
 api = "bedrock"

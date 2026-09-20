@@ -22,7 +22,7 @@ const costReasonLabel = {
   missing_responses: "미응답이 있어 비용 미표시",
 };
 let selectedEntry = null;
-let fallbackId = "finqa-audited-20260919";
+let fallbackId = "finqa-kimi-k3-20260920";
 const usd = (value) => Number.isFinite(value) ? `$${value.toFixed(5)}` : "—";
 const seconds = (value) => Number.isFinite(value) ? value.toFixed(2) : "—";
 

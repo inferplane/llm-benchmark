@@ -1,6 +1,10 @@
 {
-  "latest": "finqa-audited-20260919",
+  "latest": "finqa-kimi-k3-20260920",
   "runs": [
+    {
+      "id": "finqa-kimi-k3-20260920",
+      "label": "Kimi K3 추가 · 감사된 금융 QA · 29개 모델"
+    },
     {
       "id": "finqa-audited-20260919",
       "label": "감사된 금융 QA · 새 20문항 · 28개 모델"

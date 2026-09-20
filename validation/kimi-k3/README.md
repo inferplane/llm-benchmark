@@ -50,6 +50,10 @@ uv run python -m bench.kimi_benchmark report-qa
 uv run python -m bench.kimi_benchmark report-translation
 ```
 
+실제 수집에서 빈 응답·상한 도달이 관측된 경우에는 정상 출력만 얻기 위해
+다시 생성하지 않는다. 최초3300개 결과를 보존하는
+`observation-policy.md`의 별도 보고·채점 절차를 사용한다.
+
 기존 금융 QA의 `freeze.json`은 수정하지 않는다. 신규 모델을 지원하는 수집기와
 캐시 비용 코드의 해시는 별도 추가 측정 계약에 기록한다. 이전28개 점수·비용을
 그대로 유지하고, 신규1개만 합친다. 기존560개 판정의 재현과 변경 없는 채점기·

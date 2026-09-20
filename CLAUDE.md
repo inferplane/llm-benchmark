@@ -57,6 +57,11 @@ uv run python3 -m bench.kimi_benchmark run-translation
 uv run python3 -m bench.kimi_benchmark judge-translation
 uv run python3 -m bench.kimi_benchmark report-qa
 uv run python3 -m bench.kimi_benchmark report-translation
+# Real Kimi first-attempt failures/caps: preserve outcomes, do not regenerate
+uv run python3 -m bench.kimi_observed policy
+uv run python3 -m bench.kimi_observed judge
+uv run python3 -m bench.kimi_observed report
+uv run python3 validation/kimi-k3/final_check.py
 
 # preview the dashboard locally
 python3 -m http.server 8000 -d docs   # then open localhost:8000/index.html
@@ -113,6 +118,11 @@ their own verified Standard prices. See `validation/kimi-k3/README.md`.
 The new collector hash must not replace the historical QA freeze. The original
 2026-09-19 collector replay requires its original Git revision; the additive
 Kimi entrypoint verifies unchanged grading/results and records a new contract.
+Observed empty/capped translations use `bench/kimi_observed.py`: all 3,300
+recorded first attempts stay in the population, only returned text receives the
+unchanged paired judgment, and quality coverage/caps are explicit. Its separate
+reporting policy is recorded after collection and before judging. Do not
+regenerate model answers or alter the 4,096-token cap to make this report pass.
 
 **`config.toml` is the single source of truth for models.** Every model is one
 `[[models]]` table with a `name`, an `api` (`"bedrock"` | `"openai"` |

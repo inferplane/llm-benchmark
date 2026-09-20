@@ -1,0 +1,38 @@
+{
+  "verified_at": "2026-09-20T14:00:35.794316+00:00",
+  "checks": {
+    "qa": {
+      "rows_on_disk": 20,
+      "retained": 20,
+      "usable_outputs": 20,
+      "recorded_failed_attempts": 0,
+      "usage": {
+        "tokens_in": 140,
+        "tokens_out": 6987,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 37300
+      },
+      "exact_configured_cost_usd": "0.2696100",
+      "displayed_cost_usd": "0.2696",
+      "report_sha256": "94a3813fff141321b7c42017fa335dc7874649e8cd82a30b585b63e88c69e654",
+      "source_sha256": "9ad29930ae16bc6f6eb9e94bab946ce7df1ac04a19c487be3201d7e6cd293d08"
+    },
+    "translation": {
+      "rows_on_disk": 3300,
+      "retained": 3300,
+      "usable_outputs": 3286,
+      "recorded_failed_attempts": 14,
+      "usage": {
+        "tokens_in": 580101,
+        "tokens_out": 2957476,
+        "cache_read_tokens": 4990,
+        "cache_write_tokens": 430961
+      },
+      "exact_configured_cost_usd": "52.492048125",
+      "displayed_cost_usd": "52.492",
+      "report_sha256": "2e22095c2efe772a8bf21b9cceaad46a997c02664a08b500706665e1d23d3d84",
+      "source_sha256": "5eda0b9f1aba12238d79e5eeba2baf45e5ac2fef1429bcaee0e2b0957e54e180"
+    }
+  },
+  "scope": "Real retained outputs only; full source/contract/grade coverage and parent snapshot preservation checked by exact rebuilding; fee arithmetic independently checked with Decimal."
+}

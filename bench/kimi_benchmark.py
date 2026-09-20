@@ -20,6 +20,7 @@ NAME = "kimi-k3"
 BASE_QA = "finqa-audited-20260919"
 QA_RUN = "finqa-kimi-k3-20260920"
 BASE_TRANSLATION = "integrated-2026-09-17"
+TRANSLATION_COHORT = "explicit"
 TRANSLATION_RUN = "bedrock-kimi-k3-20260920"
 TRANSLATION_COMPARISON = "integrated-2026-09-20"
 CONTRACT = finqa.ROOT / "validation/kimi-k3/qa-extension.json"
@@ -81,6 +82,12 @@ def verify_parent():
 def extension_identity():
     base, records, frozen = verify_parent()
     cfg = run.load_config()
+    translation_parent = finqa.ROOT/"docs/results"/f"{BASE_TRANSLATION}.json"
+    parent = json.loads(translation_parent.read_text())
+    selected = next(r for r in parent["source_reports"] if r["cohort"] == TRANSLATION_COHORT)
+    if (sha(run.PROMPT_PATH)[:12] != selected["prompt_sha256"] or
+            sha(finqa.ROOT/"scenarios/translation/rubric.txt")[:12] != selected["rubric_sha256"]):
+        raise ValueError("selected translation cohort differs from the actual collector prompt/rubric")
     return {
         "kind": "single-model audited-QA extension", "model": model_config(),
         "parent_report_sha256": sha(finqa.REPORTS/f"{BASE_QA}.json"),
@@ -97,6 +104,8 @@ def extension_identity():
         "scenario": "finqa_audited", "temperature": 0, "request_timeout_s": run.REQUEST_TIMEOUT_S,
         "temperature_omitted_model_ids": sorted(run.MANTLE_NO_TEMPERATURE | run.BEDROCK_NO_TEMPERATURE),
         "translation_dataset_sha256": finqa.digest(finqa.read_rows(TRANSLATION_SOURCE)),
+        "translation_cohort": TRANSLATION_COHORT,
+        "translation_parent_sha256": sha(translation_parent),
         "translation_prompt_sha256": sha(run.PROMPT_PATH),
         "translation_rubric_sha256": sha(finqa.ROOT/"scenarios/translation/rubric.txt"),
         "translation_scenario": cfg["scenario"]["translation"],
@@ -380,13 +389,13 @@ def translation_comparison():
 def append_translation(base, new, report_sha):
     if base["dataset"] != new["dataset"] or [m["name"] for m in new["models"]] != [NAME]:
         raise ValueError("translation dataset/model coverage differs")
-    original = next(r for r in base["source_reports"] if r["cohort"] == "original")
-    if (new["manifest"]["prompt_sha256"] != original["prompt_sha256"] or
-            new["manifest"]["rubric_sha256"] != original["rubric_sha256"]):
-        raise ValueError("translation prompt/rubric differs from original cohort")
+    selected = next(r for r in base["source_reports"] if r["cohort"] == TRANSLATION_COHORT)
+    if (new["manifest"]["prompt_sha256"] != selected["prompt_sha256"] or
+            new["manifest"]["rubric_sha256"] != selected["rubric_sha256"]):
+        raise ValueError("translation prompt/rubric differs from selected cohort")
     result = copy.deepcopy(base)
     kimi = copy.deepcopy(new["models"][0])
-    kimi.update(evaluation_cohort="original", source_report=TRANSLATION_RUN)
+    kimi.update(evaluation_cohort=TRANSLATION_COHORT, source_report=TRANSLATION_RUN)
     result["models"].append(kimi)
     new_samples = {s["id"]: s for s in new["samples"]}
     if len(new_samples) != len(base["samples"]):
@@ -397,10 +406,10 @@ def append_translation(base, new, report_sha):
             raise ValueError("sample metadata differs")
         sample["by_model"][NAME] = copy.deepcopy(incoming["by_model"][NAME])
     result.update(run_id=TRANSLATION_COMPARISON, title="통합 벤치마크 결과 · 30개 모델",
-                  comparison_note="기존 29개 결과를 보존하고 Kimi K3의 추가 실측을 합쳤습니다. 기존 번역 지시 28개 모델과 명시적 지시 Grok 2개 모델은 지시가 다르며, 측정 시점도 다릅니다.")
-    result["cohorts"]["original"] = "기존 번역 지시 · Kimi 포함 28개 모델"
+                  comparison_note="기존 29개 결과를 보존하고 Kimi K3의 추가 실측을 합쳤습니다. 기존 번역 지시 27개 모델과 명시적 지시 Grok·Kimi 3개 모델은 지시가 다르며, 측정 시점도 다릅니다.")
+    result["cohorts"]["explicit"] = "명시적 번역 지시 · Grok·Kimi 3개 모델"
     result["source_reports"].append({
-        "run_id": TRANSLATION_RUN, "cohort": "original",
+        "run_id": TRANSLATION_RUN, "cohort": TRANSLATION_COHORT,
         "report_sha256": report_sha,
         "prompt_sha256": new["manifest"]["prompt_sha256"],
         "rubric_sha256": new["manifest"]["rubric_sha256"],
@@ -455,6 +464,15 @@ def selfcheck():
                 "finish_reason": "end_turn"}
     with TemporaryDirectory() as directory:
         temporary = Path(directory)
+        bad_prompt = temporary/"wrong-prompt.txt"
+        bad_prompt.write_text("not the selected cohort prompt")
+        with patch.object(run, "PROMPT_PATH", bad_prompt):
+            try:
+                extension_identity()
+            except ValueError:
+                pass
+            else:
+                raise AssertionError("prompt/cohort mismatch accepted before collection")
         # Parent verification is exercised above; the mock isolates new-run I/O.
         with patch.object(module, "CONTRACT", temporary/"extension.json"), \
              patch.object(module, "verify_parent", return_value=(base, records, frozen)), \
@@ -551,7 +569,8 @@ def selfcheck():
             else:
                 raise AssertionError("changed extension accepted")
         original_translation = json.loads((report.DOCS_RESULTS_DIR/f"{BASE_TRANSLATION}.json").read_text())
-        origin = next(r for r in original_translation["source_reports"] if r["cohort"] == "original")
+        origin = next(r for r in original_translation["source_reports"] if r["cohort"] == TRANSLATION_COHORT)
+        assert origin["prompt_sha256"] == sha(run.PROMPT_PATH)[:12]
         source_name = original_translation["models"][0]["name"]
         added = {
             "dataset": copy.deepcopy(original_translation["dataset"]),

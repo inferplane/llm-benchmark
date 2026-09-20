@@ -34,12 +34,14 @@ Converse의 이전 추론 블록을 포함한 다중 턴·첨부 PDF 제한은 �
 ## 측정과 이력
 
 번역은 보존된 `grok-explicit-2026-09-16/dataset.jsonl`의3,300개 입력과
-현재 데이터가 전부 일치함을 확인했다. 기존 번역 프롬프트·두 평가자를 사용한다.
+현재 데이터가 전부 일치함을 확인했다. 현재 저장소의 명시적 번역 프롬프트
+(Grok 2개 모델과 같은 지시)와 기존 두 평가자를 사용한다.
 금융 QA는 감사된 기존20문항·프롬프트·채점기를 그대로 사용한다.
 Kimi 추가 전 계약을 고정하고, 번역 데이터와 평가에 사용한 번역 원본 해시를 보존한다.
 
 ```bash
 uv run python -m bench.kimi_benchmark selfcheck
+uv run python validation/kimi-k3/workflow_selfcheck.py  # 3,300개 전체 경로, API는 모의 처리
 uv run python -m bench.kimi_benchmark freeze
 uv run python -m bench.kimi_benchmark run-qa
 uv run python -m bench.kimi_benchmark run-translation
@@ -56,5 +58,6 @@ uv run python -m bench.kimi_benchmark report-translation
 별도 체크아웃해 실행해야 한다. 현재 수집기를 이전 freeze로 위장하지 않는다.
 
 번역의 공개 비교는 이전29개 스냅샷에 Kimi를 더한30개 모델이다.
+기존 지시27개 모델, 명시적 지시3개 모델(Grok2개와 Kimi)로 구분한다.
 금융 QA는 이전28개 스냅샷에 Kimi를 더한29개 모델이다.
 이전 모델을 새로 측정한 결과처럼 표시하지 않으며, 측정 시점·요청 설정 차이를 명시한다.

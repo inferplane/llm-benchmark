@@ -528,6 +528,7 @@
         <option value="pass">통과율 높은 순</option>
         <option value="risk">위험 의심률 낮은 순</option>
         <option value="p10">하위 10% 점수 높은 순</option>
+        <option value="weakest">최약축 점수 높은 순</option>
         <option value="baseline">기준 대비 평균차 높은 순</option>
       </select>
     </div>
@@ -539,6 +540,7 @@
             <th scope="col">통과율 ↑</th>
             <th scope="col">위험 의심률 ↓</th>
             <th scope="col">종합 P10 ↑<small class="quality-sub">하위 10% · 1–5점</small></th>
+            <th scope="col">최약축 점수 ↑<small class="quality-sub">최저 축의 평균 · 1–5점</small></th>
             <th scope="col">Judge 불일치율 ↓</th>
             <th scope="col">평가 가능 / 전체<small class="quality-sub">건수 · 커버리지</small></th>
             <th scope="col">통과 1건당 비용<small class="quality-sub">전체 데이터셋 · USD</small></th>
@@ -589,6 +591,8 @@
         <dd>유효한 종합 채점이 있는 세그먼트의 점수 하위 10% 경계값. 두 judge의 원점수 완비 여부와 별도로 집계해 낮은 품질 구간을 확인합니다.</dd>
         <dt>Judge 불일치율</dt>
         <dd>|두 judge의 종합 점수 차이| ≥ 1점인 건수 / 평가 가능 건수.</dd>
+        <dt>최약축 점수</dt>
+        <dd>세그먼트마다 실제 두 judge의 5개 평가축 원점수 중 최저점을 구한 뒤, 평가 가능한 세그먼트 전체에서 평균냅니다. 1–5점이며 높을수록 좋습니다. 예를 들어 두 세그먼트의 최저점이 4점과 2점이면 3점입니다. 평균 종합 점수에 가려지는 약점을 살펴보기 위한 자체 지표로, 검증된 오류율은 아닙니다. 번역 실패·채점 실패·채점 대기·원점수 누락은 제외하므로 커버리지와 함께 읽어주세요.</dd>
         <dt>누락값·이전 보고서</dt>
         <dd>새 지표가 없거나 계산할 수 없는 값은 —로 표시합니다. 0%와 구분해 읽어주세요.</dd>
       </dl>
@@ -690,6 +694,6 @@
 
 </main>
 
-<script src="app.js?v=kimi-k3-20260920"></script>
+<script src="app.js?v=gpt-6-luna-20260925"></script>
 </body>
 </html>

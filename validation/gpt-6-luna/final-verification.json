@@ -1,0 +1,172 @@
+{
+  "qa_arithmetic": [
+    {
+      "id": "finqa-dev-HII/2017/page_104.pdf-1",
+      "computed_rational": "-4/19",
+      "expected_rational": "-4/19",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-RE/2015/page_33.pdf-1",
+      "computed_rational": "2649/2663",
+      "expected_rational": "2649/2663",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-LMT/2013/page_74.pdf-2",
+      "computed_rational": "49/136",
+      "expected_rational": "49/136",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-ETR/2008/page_355.pdf-4",
+      "computed_rational": "7/86",
+      "expected_rational": "7/86",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-ETR/2002/page_86.pdf-4",
+      "computed_rational": "916",
+      "expected_rational": "916",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-IP/2007/page_75.pdf-4",
+      "computed_rational": "41/415",
+      "expected_rational": "41/415",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-SNPS/2006/page_69.pdf-2",
+      "computed_rational": "425/1963",
+      "expected_rational": "425/1963",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-ETR/2002/page_86.pdf-1",
+      "computed_rational": "-128211/308335",
+      "expected_rational": "128211/180124",
+      "correct": false
+    },
+    {
+      "id": "finqa-dev-ABMD/2009/page_88.pdf-3",
+      "computed_rational": "16750000",
+      "expected_rational": "16750000",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-LMT/2015/page_54.pdf-1",
+      "computed_rational": "20657/3",
+      "expected_rational": "20657/3",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-CB/2010/page_88.pdf-2",
+      "computed_rational": "1070/3",
+      "expected_rational": "1070/3",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-OKE/2012/page_52.pdf-1",
+      "computed_rational": "705/4859",
+      "expected_rational": "705/4859",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-PM/2018/page_31.pdf-2",
+      "computed_rational": "18/379",
+      "expected_rational": "18/379",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-MO/2012/page_44.pdf-1",
+      "computed_rational": "87/119",
+      "expected_rational": "87/119",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-ETFC/2014/page_26.pdf-1",
+      "computed_rational": "3781/10000",
+      "expected_rational": "3781/10000",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-AES/2015/page_117.pdf-3",
+      "computed_rational": "478/3",
+      "expected_rational": "478/3",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-SWKS/2006/page_81.pdf-1",
+      "computed_rational": "187",
+      "expected_rational": "187",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-K/2013/page_62.pdf-2",
+      "computed_rational": "1200/1639",
+      "expected_rational": "1200/1639",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-CNP/2010/page_31.pdf-1",
+      "computed_rational": "390668/438701",
+      "expected_rational": "390668/438701",
+      "correct": true
+    },
+    {
+      "id": "finqa-dev-AES/2003/page_52.pdf-1",
+      "computed_rational": "59",
+      "expected_rational": "613",
+      "correct": false
+    }
+  ],
+  "qa_cost": {
+    "successful_calls": 20,
+    "counters": {
+      "tokens_in": 940,
+      "tokens_out": 2462,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 34672
+    },
+    "exact_usd": "0.0062249",
+    "rounded_usd": 0.0062
+  },
+  "translation_cost": {
+    "successful_calls": 3300,
+    "counters": {
+      "tokens_in": 683426,
+      "tokens_out": 794721,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 1034
+    },
+    "exact_usd": "0.512415585",
+    "rounded_usd": 0.5124
+  },
+  "translation_diagnostics": {
+    "scheduled_inputs": 3300,
+    "recorded_attempts": 3300,
+    "returned_outputs": 3300,
+    "unreturned_outputs": 0,
+    "capped_outputs": 0,
+    "capped_with_text": 0,
+    "capped_without_text": 0,
+    "regenerated_attempts": 0,
+    "all_input_quality_coverage": 1.0,
+    "error_types": {},
+    "failed_with_partial_text": 0
+  },
+  "finalizer_sha256": "a7e99bf391c142125866e510ec9bb0df7c1c56ccc251499f773078744e3bb69f",
+  "files": {
+    "docs/finqa-results/finqa-gpt-6-luna-20260925.json": "bbe75f2f20cead10e850f3e59e31c9cd45deec1fea340844b48220adb03a7e59",
+    "docs/finqa-results/finqa-gpt-6-luna-20260925.html": "53c9ba8a3e8103e2397ca8138f31301ded7db84a7d3a4983a28277830c07a532",
+    "docs/results/bedrock-gpt-6-luna-20260925.json": "2b1f4787c262d2942852d20f1a7ae21bddb68b2baf624c3369074534f6b6e56e",
+    "docs/results/integrated-2026-09-25.json": "16242919fddfff63ba37be49125722d6fec34b7799f5c500f46ddc421d2fa420",
+    "results/bedrock-gpt-6-luna-20260925/translations.jsonl": "ce3f2472d49f32b5d754b5b8cd1acc28b80f296c341fa9dfb1ea17ec9d4df58f",
+    "results/bedrock-gpt-6-luna-20260925/judgments.jsonl": "c91b56c434e0ad0020d0fdb193fd7ee53bd6f0f3046030e8aed90978ee205de5",
+    "results/finqa/finqa-gpt-6-luna-20260925/answers.jsonl": "3f348ca32513206c5308ccef7a0c4b69b747c57263095a6a7d5d084f37b8336b",
+    "validation/gpt-6-luna/contract.json": "b16fb8511f9b6fd395474e81e1f57b1a8c4547d5e5b26f66ad82b0cc5e276fc4",
+    "results/bedrock-gpt-6-luna-20260925/judge-scheduling.json": "83f6b163ee44fbf71473f027afc5935a5a9501f7ba454f79cd6434f7058bcf3a",
+    "validation/gpt-6-luna/judge_continue.py": "950b3d91b3fa985af61410c834fc8db6b7a2ab7fa2e1495405803e41fa5303ac"
+  }
+}

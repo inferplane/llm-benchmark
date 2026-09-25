@@ -1,0 +1,94 @@
+{
+  "checked_at": "2026-09-25T05:59:49.914662+00:00",
+  "region": "us-east-1",
+  "account": "180294183052",
+  "requests": [
+    {
+      "temperature_omitted": false,
+      "status": 400,
+      "body": {
+        "error": {
+          "code": "unsupported_parameter",
+          "message": "Unsupported parameter: 'temperature' is not supported with this model.",
+          "param": "temperature",
+          "type": "invalid_request_error"
+        }
+      }
+    },
+    {
+      "temperature_omitted": true,
+      "status": 200,
+      "body": {
+        "model": "openai.gpt-6-luna",
+        "status": "completed",
+        "reasoning": {
+          "summary": null,
+          "effort": "medium",
+          "context": "all_turns"
+        },
+        "usage": {
+          "input_tokens": 11,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0
+          },
+          "output_tokens": 17,
+          "output_tokens_details": {
+            "reasoning_tokens": 10
+          },
+          "total_tokens": 28
+        },
+        "max_output_tokens": 4096,
+        "temperature": 1.0,
+        "service_tier": "default"
+      },
+      "output_text": "OK"
+    }
+  ],
+  "cache_probe": [
+    {
+      "status": 200,
+      "usage": {
+        "input_tokens": 2432,
+        "input_tokens_details": {
+          "cache_write_tokens": 2430,
+          "cached_tokens": 0
+        },
+        "output_tokens": 5,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2437
+      },
+      "model": "openai.gpt-6-luna",
+      "reasoning": {
+        "summary": null,
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "response_status": "completed"
+    },
+    {
+      "status": 200,
+      "usage": {
+        "input_tokens": 2432,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 2430
+        },
+        "output_tokens": 5,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 2437
+      },
+      "model": "openai.gpt-6-luna",
+      "reasoning": {
+        "summary": null,
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "response_status": "completed"
+    }
+  ]
+}

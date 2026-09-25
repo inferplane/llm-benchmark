@@ -42,7 +42,7 @@ TRANSIENT_HTTP_STATUSES = {408, 429, 500, 502, 503, 504}
 # decoding parity (see call_bedrock/call_openai) cannot be perfectly uniform
 # across every model — it's an intrinsic limitation of these specific model
 # IDs, not a config knob, hence hardcoded here rather than in config.toml.
-MANTLE_NO_TEMPERATURE = {"openai.gpt-5.6-sol", "openai.gpt-5.6-terra", "openai.gpt-5.6-luna", "openai.gpt-5.5", "google.gemma-4-31b"}
+MANTLE_NO_TEMPERATURE = {"openai.gpt-5.6-sol", "openai.gpt-5.6-terra", "openai.gpt-5.6-luna", "openai.gpt-5.5", "google.gemma-4-31b", "openai.gpt-6-luna"}
 
 # Same exception, plain Bedrock Converse API this time: claude-sonnet-5 400s
 # with "`temperature` is deprecated for this model" (verified live via a
@@ -419,6 +419,21 @@ def mantle_url(region: str) -> str:
     return f"https://bedrock-mantle.{region}.api.aws/openai/v1/responses"
 
 
+def luna_usage(usage: dict) -> dict:
+    """GPT-6 Luna: inclusive Responses input -> disjoint billing counters.
+
+    Verified with a live write/read pair on 2026-09-25. Keep historical
+    Mantle/judge accounting unchanged until those models are separately audited.
+    """
+    total = usage.get("input_tokens")
+    details = usage.get("input_tokens_details") or {}
+    read, write = details.get("cached_tokens", 0), details.get("cache_write_tokens", 0)
+    if any(type(n) is not int or n < 0 for n in (total, read, write)) or read + write > total:
+        raise InvalidResponseError("invalid Luna inclusive cache usage")
+    return {"tokens_in": total - read - write, "cache_read_tokens": read,
+            "cache_write_tokens": write, "reported_input_tokens": total}
+
+
 async def call_mantle(
     session, region: str, model_id: str, prompt: str,
     response_format: dict | None = None, reasoning_effort: str | None = None,
@@ -523,6 +538,8 @@ async def call_mantle(
             "reported_reasoning": data.get("reasoning"),
             "reasoning_tokens": (usage.get("output_tokens_details") or {}).get("reasoning_tokens"),
         }
+        if model_id == "openai.gpt-6-luna":
+            result.update(luna_usage(usage))
         if "request_id" in context:
             result["request_id"] = context["request_id"]
         if response_id := _safe_identifier(data.get("id")):
@@ -650,7 +667,7 @@ async def run_model(model_cfg: dict, segments: list[dict], cache: ResultCache, a
                 else:
                     for field in ("request_id", "response_id", "response_status", "http_status",
                                   "finish_reason", "reported_model", "reported_reasoning", "reasoning_tokens",
-                                  "cache_read_tokens", "cache_write_tokens"):
+                                  "cache_read_tokens", "cache_write_tokens", "reported_input_tokens"):
                         if field in result:
                             row[field] = result[field]
                 # Append before deciding on a retry: every failed call survives

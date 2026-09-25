@@ -260,6 +260,9 @@ def aggregate_quality(rows: list[dict]) -> dict:
 
     raw_scores = [scores for r in judged if (scores := raw_judge_scores(r)) is not None]
     eligible = len(raw_scores)
+    # Take the minimum per segment BEFORE averaging, so a strong axis or
+    # a more generous judge cannot hide that segment's weakest assessment.
+    weakest_axes = [min(score[a] for score in scores for a in AXES) for scores in raw_scores]
     passes = sum(all(score[a] >= QUALITY_PASS_MIN for score in scores for a in AXES) for scores in raw_scores)
     high_risk = sum(any(score["numbers_entities_dates"] <= HIGH_RISK_MAX for score in scores) for scores in raw_scores)
     disagreement = sum(round(abs(scores[0]["overall"] - scores[1]["overall"]), 3) >= JUDGE_DISAGREEMENT_MIN
@@ -274,6 +277,7 @@ def aggregate_quality(rows: list[dict]) -> dict:
         "judge_overall_p10": percentile(overalls, 0.1),
         "judge_overall_ci95": bootstrap_ci95(overalls),
         "quality_eligible_segments": eligible,
+        "judge_weakest_axis_mean": round(statistics.mean(weakest_axes), 3) if weakest_axes else None,
         "quality_pass_segments": passes,
         "quality_pass_rate": passes / eligible if eligible else None,
         "high_risk_segments": high_risk,
@@ -420,6 +424,15 @@ def metric_policy() -> dict:
             "extra groups or incomplete evidence are unavailable. Never infer raw scores from averages."
         ),
         "quality_pass": {"minimum_axis_score": QUALITY_PASS_MIN, "rule": "every axis from both judges"},
+        "judge_weakest_axis_mean": {
+            "population": "quality_eligible_segments",
+            "method": "mean of each segment's minimum raw axis score across both actual judges",
+            "scale": [1, 5],
+            "higher_is_better": True,
+            "rounding_decimals": 3,
+            "unavailable": None,
+            "interpretation": "Custom conservative quality diagnostic, not a verified error rate.",
+        },
         "high_risk": {
             "maximum_numbers_entities_dates_score": HIGH_RISK_MAX,
             "rule": "either actual judge; a judge risk flag, not a verified factual error",
@@ -829,6 +842,25 @@ def write_report(report: dict):
 
 def _selfcheck():
     """Hand-computed quality, cost, pairing and source-provenance checks."""
+    # Luna Responses input includes its cache subsets; count each token once.
+    from bench.run import luna_usage
+    luna = {"api": "bedrock_mantle", "price_in": .11, "price_out": .55,
+            "price_cache_read": .011, "price_cache_write": .1375}
+    usage = luna_usage({"input_tokens": 1_000_000, "input_tokens_details":
+                       {"cached_tokens": 200_000, "cache_write_tokens": 400_000}})
+    assert usage["tokens_in"] == 400_000
+    cost, _ = compute_cost(luna, usage["tokens_in"], 100_000, None,
+                          cache_read_tokens=usage["cache_read_tokens"],
+                          cache_write_tokens=usage["cache_write_tokens"])
+    assert cost == .1562  # .044 + .055 + .0022 + .055
+    for bad in ({"input_tokens": 2, "input_tokens_details": {"cached_tokens": 3}},
+                {"input_tokens": True}, {"input_tokens": 2, "input_tokens_details": {"cache_write_tokens": -1}}):
+        try:
+            luna_usage(bad)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("invalid inclusive cache usage accepted")
     api_model = {"api": "bedrock", "price_in": 1.0, "price_out": 5.0}
     cost, per_mtok = compute_cost(api_model, tokens_in=1_000_000, tokens_out=500_000, throughput_tok_s=100)
     assert cost == 1.0 + 2.5, f"expected 3.5, got {cost}"
@@ -1049,8 +1081,22 @@ def _selfcheck():
         iq = aggregate_quality([incomplete])
         assert iq["quality_eligible_segments"] == 0 and iq["quality_pass_rate"] is None, iq
         assert iq["high_risk_rate"] is None and iq["judge_disagreement_rate"] is None, iq
+        assert iq["judge_weakest_axis_mean"] is None, iq
 
     no_rows = aggregate_quality([])
+    assert no_rows["judge_weakest_axis_mean"] is None
+    assert aggregate_quality([legacy])["judge_weakest_axis_mean"] is None
+    # Per-segment minima are 4 and 2, even though risk's averaged low axis is 3.5.
+    assert aggregate_quality([passed, risk])["judge_weakest_axis_mean"] == 3
+    assert aggregate_quality([passed])["judge_weakest_axis_mean"] == 4
+    assert fq["judge_weakest_axis_mean"] == 4  # use the actual fallback, not stale primary
+    # Weak axes differ by segment: mean(minima)=1, min(axis means)=3.
+    weak_first = scored_row("weak-first", [1, 5, 5, 5, 5], [5] * 5)
+    weak_second = scored_row("weak-second", [5, 1, 5, 5, 5], [5] * 5)
+    assert aggregate_quality([weak_first, weak_second])["judge_weakest_axis_mean"] == 1
+    assert aggregate_quality([passed, risk, legacy, *rows[1:]])["judge_weakest_axis_mean"] == 3
+    perfect = scored_row("perfect", [5] * 5, [5] * 5)
+    assert aggregate_quality([perfect])["judge_weakest_axis_mean"] == 5
     assert no_rows["judge_coverage_rate"] is None and no_rows["quality_coverage_rate"] is None
     assert no_rows["judge_overall_p10"] is None
     p10_rows = [scored_row(f"flores-{n}-ko-en", [n] * 5, [n] * 5) for n in range(1, 6)]

@@ -20,6 +20,7 @@ const base=process.env.BENCHMARK_SITE || 'http://127.0.0.1:8782/';
   assert.match(await p.locator('#'+await row.getAttribute('data-detail')).innerText(),/출력 미반환 0건/);
   await p.locator('#recommendations-body a[data-model="gpt-6-luna"]').first().click();
   assert.equal(await p.locator('#sample-model-a').inputValue(),'gpt-6-luna');
+  assert.notEqual(await p.locator('#sample-model-b').inputValue(),'gpt-6-luna');assert.equal(await p.locator('#sample-detail tbody tr').count(),2);
   assert.match(await p.locator('#sample-detail tbody').innerText(),/gpt-6-luna/);
   await p.locator('#hero-panel').evaluate(el=>el.closest('details').open=true);
   await p.waitForTimeout(200);
@@ -32,6 +33,8 @@ const base=process.env.BENCHMARK_SITE || 'http://127.0.0.1:8782/';
   await p.setViewportSize({width:390,height:844});await p.waitForFunction(()=>document.documentElement.scrollWidth<=innerWidth,null,{timeout:5000});
   await p.goto(base+'finqa.html');await p.locator('#model-body tr').first().waitFor();
   assert.equal(await p.locator('#model-body tr').count(),30);assert.equal(await p.locator('#qa-recommendations .workload-card').count(),3);
+  await p.locator('#qa-recommendations a[data-model="grok-4.3"]').first().click();
+  assert.equal(await p.locator('#qa-model-a').inputValue(),'grok-4.3');assert.notEqual(await p.locator('#qa-model-b').inputValue(),'grok-4.3');assert.equal(await p.locator('#qa-example-body .answer').count(),2);
   const qaRow=p.locator('#model-body tr').filter({has:p.locator('strong',{hasText:'gpt-6-luna'})});
   assert.match(await qaRow.innerText(),/18 \/ 20 · 90\.0%/);assert.equal(await qaRow.locator('.model-family').getAttribute('data-family'),'gpt');
   await p.locator('#customer-volume').fill('1000');assert.match(await qaRow.locator('td').nth(4).innerText(),/\$0\.31/);
@@ -42,7 +45,15 @@ const base=process.env.BENCHMARK_SITE || 'http://127.0.0.1:8782/';
   assert.match(await p.locator('#qa-example-body .answer').nth(1).innerText(),/정답과 일치/);
   assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   const options=await p.locator('#run-select option').evaluateAll(xs=>xs.map(x=>x.value));
-  for(const option of options){await p.selectOption('#run-select',option);assert((await p.locator('#model-body tr').count())>0);}
+  for(const option of options){
+    await p.selectOption('#run-select',option);assert((await p.locator('#model-body tr').count())>0);
+    if(option==='finqa-all-20260918' || option.includes('pilot')) {
+      assert.equal(await p.locator('#qa-question').isDisabled(),true);assert.match(await p.locator('#qa-correct-head').innerText(),/구 기준 일치/);
+      const text=await p.locator('#qa-example-body').innerText();assert.match(text,/과거 평가 기준/);assert(!/확인된 정답|원문 단위|정답과 일치/.test(text));
+      assert.equal(await p.locator('#qa-example-body .answer').count(),0);
+    }
+  }
+  await p.selectOption('#run-select','finqa-gpt-6-luna-20260925');assert.equal(await p.locator('#qa-question').isDisabled(),false);assert.equal(await p.locator('#qa-example-body .answer').count(),2);
   assert.deepEqual(errors,[]);
   console.log('PASS both customer views, five family colors, cohort filters, accurate volume quotes, candidate links, two-model outputs, QA wrong-answer visibility, chart resize, mobile/dark mode and historical reports');
  } finally {await browser.close();}

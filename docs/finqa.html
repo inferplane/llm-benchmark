@@ -65,7 +65,7 @@
     <section class="panel" aria-labelledby="result-title"><h2 id="result-title">정확도·시간·비용 한눈에 비교</h2>
       <p id="result-summary" aria-live="polite"></p>
       <div class="controls"><label for="sort-select">중요한 기준</label><select id="sort-select"><option value="accuracy">정답률 높은 순</option><option value="cost">비용 낮은 순</option><option value="latency">응답 빠른 순</option><option value="name">모델명</option></select></div>
-      <div class="scroll" tabindex="0" role="region" aria-label="모델별 품질 시간 비용 비교"><table><thead><tr><th>모델</th><th>맞힌 질문 / 전체</th><th>한 건 응답</th><th>측정 비용(추정)</th><th id="volume-column">10,000건 예상 비용</th><th>검토할 활용 방식</th></tr></thead><tbody id="model-body"></tbody></table></div>
+      <div class="scroll" tabindex="0" role="region" aria-label="모델별 품질 시간 비용 비교"><table><thead><tr><th>모델</th><th id="qa-correct-head">맞힌 질문 / 전체</th><th>한 건 응답</th><th>측정 비용(추정)</th><th id="volume-column">10,000건 예상 비용</th><th>검토할 활용 방식</th></tr></thead><tbody id="model-body"></tbody></table></div>
       <p class="customer-note">실측 비용은 이번 문항 응답의 설정 단가 기반 추정치입니다. 계산 가능한 비용만 표시하며 최신 단가 견적은 아닙니다. 정답률은 모든 질문을 분모로 계산합니다. 활용 방식은 표본 정답률90%와 중앙 응답2초를 참고한 검토 가이드입니다.</p>
     </section>
     <section class="panel" id="qa-examples"><h2>실제 질문에 어떻게 답했나요?</h2>

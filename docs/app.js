@@ -901,6 +901,8 @@ function renderSamples(report) {
     picker.innerHTML=report.models.map(m=>`<option value="${escapeHtml(m.name)}">${escapeHtml(m.name)} · ${B.family(m.name).label}</option>`).join("");
     picker.value=report.models.some(m=>m.name===previous) ? previous : defaults[i] || report.models[i]?.name || report.models[0]?.name || "";
   });
+  const [a,b]=B.pair(document.getElementById("sample-model-a").value,document.getElementById("sample-model-b").value,report.models.map(m=>m.name));
+  document.getElementById("sample-model-a").value=a; document.getElementById("sample-model-b").value=b;
   const previousId = select.value;
   select.innerHTML = [...byPair.entries()]
     .map(([pair, group]) => {
@@ -1062,12 +1064,17 @@ async function init() {
     document.getElementById("volume-column").textContent=`${volume.toLocaleString("ko-KR")}건 예상 비용`;
     if (state.current) { renderRecommendations(state.current); renderModelTable(state.current); }
   });
-  ["sample-model-a","sample-model-b"].forEach(id => document.getElementById(id).addEventListener("change",()=>renderSampleDetail(state.current,document.getElementById("sample-select").value)));
+  ["sample-model-a","sample-model-b"].forEach(id => document.getElementById(id).addEventListener("change",()=>{
+    const selected=document.getElementById(id), other=document.getElementById(id==="sample-model-a" ? "sample-model-b" : "sample-model-a");
+    [selected.value,other.value]=B.pair(selected.value,other.value,state.current.models.map(m=>m.name));
+    renderSampleDetail(state.current,document.getElementById("sample-select").value);
+  }));
   document.getElementById("recommendations-body").addEventListener("click", event => {
     const link=event.target.closest("a[data-model]"); if (!link) return;
     document.getElementById("samples-body").hidden=false;
     document.getElementById("samples-toggle").setAttribute("aria-expanded","true");
-    document.getElementById("sample-model-a").value=link.dataset.model;
+    const a=document.getElementById("sample-model-a"), b=document.getElementById("sample-model-b");
+    [a.value,b.value]=B.pair(link.dataset.model,b.value===link.dataset.model ? a.value : b.value,state.current.models.map(m=>m.name));
     document.getElementById("samples-toggle").textContent="샘플 숨기기 ▴";
     renderSampleDetail(state.current,document.getElementById("sample-select").value);
   });

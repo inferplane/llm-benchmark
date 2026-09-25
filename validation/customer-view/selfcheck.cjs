@@ -24,4 +24,8 @@ assert.equal(B.shortlist([noPrice],'translation')[0].candidates.length,1);
 assert.equal(B.shortlist([noPrice],'translation')[1].candidates.length,0);
 assert(B.escape('<img src=x onerror=alert(1)>').startsWith('&lt;img'));
 assert(B.cards(tr.models,'translation','synthetic',10000).includes('data-model="gpt-6-luna"'));
+
+assert.equal(B.pair('a','a',['a','b']).join(','),'a,b');
+assert.equal(B.pair('b','a',['a','b']).join(','),'b,a');
+assert.equal(B.pair('a','a',['a']).join(','),'a,a');
 console.log('PASS family mapping, cohort-isolated shortlist, quality thresholds, incomplete/missing cost handling, exact volume scaling and escaped output');

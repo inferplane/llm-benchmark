@@ -58,6 +58,11 @@ window.BenchmarkView = (() => {
       return pool.slice(0,scenario==="qa" && kind==="quality" ? 2 : 1);
     })}));
   }
+  function pair(preferred, other, names) {
+    const first=names.includes(preferred) ? preferred : names[0] || "";
+    const second=other!==first && names.includes(other) ? other : names.find(name=>name!==first) || first;
+    return [first,second];
+  }
   function workload(m,scenario,track="synthetic") {
     const v=measure(m,scenario,track);
     if (!v.complete || !Number.isFinite(v.score)) return "도입 전 추가 확인";
@@ -73,5 +78,5 @@ window.BenchmarkView = (() => {
       ["각 비교 조건 안에서 4/5 이상이며 관측 품질이 높은 후보입니다.","번역 평가 4/5 이상 후보 중 비용이 낮은 모델입니다.","번역 평가 4/5 이상 후보 중 한 건 응답 시간이 짧은 모델입니다."];
     return shortlist(models,scenario,track).map((entry,i) => `<article class="workload-card"><span class="customer-kicker">${["QUALITY FIRST","COST FIRST","RESPONSE FIRST"][i]}</span><h3>${titles[i]}</h3><p>${reasons[i]}</p>${entry.candidates.length ? entry.candidates.map(v => `<div class="candidate" style="--family:${family(v.name).color}">${badge(v.name)}<strong>${escape(v.name)}</strong>${!qa && v.cohort!=="shared" ? `<small>비교 조건 ${v.cohort==="explicit" ? "B" : "A"}</small>` : ""}<dl><div><dt>${qa ? "정답" : "번역 평가"}</dt><dd>${qa ? `${v.model.aggregate.correct}/${v.model.aggregate.questions} · ${(v.score*100).toFixed(0)}%` : `${v.score.toFixed(2)}/5`}</dd></div><div><dt>한 건 응답</dt><dd>${time(v.latency)}</dd></div><div><dt>${volume.toLocaleString("ko-KR")}건 예상 비용</dt><dd>${money(Number.isFinite(v.cost) ? v.cost*volume : null)}</dd></div></dl><a data-model="${escape(v.name)}" href="${qa ? "#qa-examples" : "#samples-panel"}">실제 결과물 확인 ↓</a></div>`).join("") : '<p>이 조건으로 추천할 만큼의 측정 근거가 없습니다.</p>'}</article>`).join("");
   }
-  return {groups,family,escape,money,time,badge,legend,measure,shortlist,workload,cards};
+  return {groups,family,escape,money,time,badge,legend,measure,shortlist,pair,workload,cards};
 })();

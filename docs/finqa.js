@@ -62,6 +62,7 @@ function renderSelected(entry) {
   selectedEntry = entry;
   const { report, id } = entry;
   const audited = report.assessment_scope === "audited_financial_qa";
+  byId("qa-correct-head").textContent=audited ? "맞힌 질문 / 전체" : "구 기준 일치 / 전체";
   byId("protocol-label").textContent = audited ? "감사된 금융 QA · 선언 단위 환산" : "구 규약 · 공식 실행값 일치";
   byId("method-summary").textContent = audited ?
     "이전 20문항을 제외하고 고정 seed 20260919 순서에서 문항을 감사한 새 20문항입니다. 원문과 정답의 단위·분모·시점을 호출 전에 검토했습니다. 계산식 결과를 모델이 선언한 단위로 환산하고, 기준 단위에서 소수점 다섯 자리로 한 번 반올림해 비교합니다. 표본은 사전 선별된 개발 데이터이며 공식 FinQA 점수가 아닙니다." :
@@ -91,7 +92,7 @@ function renderSelected(entry) {
       nameCell, `${count(m.correct)} / ${count(m.questions)} · ${percent(m.execution_accuracy)}`,
       B.time(m.latency_p50_s ?? m.response_latency_median_s), B.money(m.estimated_cost_usd),
       B.money(Number.isFinite(B.measure(model,"qa").cost) ? B.measure(model,"qa").cost*customerVolume : null),
-      B.workload(model,"qa"),
+      audited ? B.workload(model,"qa") : "과거 기준 · 새 평가에서 확인",
     ]);
     const p = document.createElement("p");
     const causes = Object.entries(m.invalid_program_causes || {})
@@ -116,6 +117,9 @@ function renderSelected(entry) {
 }
 
 function renderExamples(report) {
+  const audited=report.assessment_scope==="audited_financial_qa";
+  ["qa-question","qa-model-a","qa-model-b"].forEach(id=>{byId(id).disabled=!audited; if(!audited) byId(id).replaceChildren();});
+  if(!audited) { renderExampleAnswer(report); return; }
   const questions=[...new Map((report.evaluations || []).filter(e=>typeof e.question === "string" && e.gold_answer != null).map(e=>[e.id,e])).values()];
   const picker=byId("qa-question"), old=picker.value;
   picker.innerHTML=questions.map((e,i)=>`<option value="${B.escape(e.id)}">${i+1}. ${B.escape(e.question.slice(0,100))}</option>`).join("");
@@ -127,13 +131,18 @@ function renderExamples(report) {
     el.innerHTML=report.models.map(m=>`<option value="${B.escape(m.name)}">${B.escape(m.name)} · ${B.family(m.name).label}</option>`).join("");
     el.value=report.models.some(m=>m.name===previous) ? previous : defaults[i] || report.models[i]?.name || report.models[0]?.name || "";
   });
+  [byId("qa-model-a").value,byId("qa-model-b").value]=B.pair(byId("qa-model-a").value,byId("qa-model-b").value,report.models.map(m=>m.name));
   renderExampleAnswer(report);
 }
 function renderExampleAnswer(report) {
+  if(report.assessment_scope!=="audited_financial_qa") {
+    byId("qa-example-body").textContent="과거 평가 기준의 기록입니다. 정답·단위 해석 문제가 확인된 기록이므로, 검증된 QA 답변 비교와 구분하여 전체 원본 보고서에서 확인하세요.";
+    return;
+  }
   const rows=(report.evaluations || []).filter(e=>e.id===byId("qa-question").value);
-  if (!rows.length) { byId("qa-example-body").textContent="이 과거 결과의 질문·답변은 전체 원본 보고서에서 확인하세요."; return; }
+  if (!rows.length) { byId("qa-example-body").textContent="이 결과의 질문·답변은 전체 원본 보고서에서 확인하세요."; return; }
   const units={ratio:"비율",percent:"%",usd:"달러",usd_million:"백만 달러",usd_thousand:"천 달러",count:"개",percentage_point:"%p"};
-  const unit=e=>units[e.canonical_unit] || e.canonical_unit || "원문 단위";
+  const unit=e=>units[e.canonical_unit] || e.canonical_unit || "단위 정보 없음";
   const names=[...new Set([byId("qa-model-a").value,byId("qa-model-b").value])];
   byId("qa-example-body").innerHTML=`<div class="qa-example"><h3>${B.escape(rows[0].question)}</h3><p>확인된 정답: <strong>${B.escape(rows[0].gold_answer)} ${B.escape(unit(rows[0]))}</strong></p><div class="qa-example-grid">${names.map(name=>{
     const e=rows.find(r=>r.model===name); if (!e) return '<p>답변 기록이 없습니다.</p>';
@@ -151,10 +160,18 @@ async function main() {
     customerVolume=volume; byId("volume-column").textContent=`${volume.toLocaleString("ko-KR")}건 예상 비용`;
     if (selectedEntry) renderSelected(selectedEntry);
   });
-  ["qa-question","qa-model-a","qa-model-b"].forEach(id=>byId(id).addEventListener("change",()=>renderExampleAnswer(selectedEntry.report)));
+  ["qa-question","qa-model-a","qa-model-b"].forEach(id=>byId(id).addEventListener("change",()=>{
+    if(id!=="qa-question") {
+      const selected=byId(id), other=byId(id==="qa-model-a" ? "qa-model-b" : "qa-model-a");
+      [selected.value,other.value]=B.pair(selected.value,other.value,selectedEntry.report.models.map(m=>m.name));
+    }
+    renderExampleAnswer(selectedEntry.report);
+  }));
   byId("qa-recommendations").addEventListener("click",event=>{
     const link=event.target.closest("a[data-model]");if(!link)return;
-    byId("qa-model-a").value=link.dataset.model;renderExampleAnswer(selectedEntry.report);
+    const a=byId("qa-model-a"),b=byId("qa-model-b");
+    [a.value,b.value]=B.pair(link.dataset.model,b.value===link.dataset.model ? a.value : b.value,selectedEntry.report.models.map(m=>m.name));
+    renderExampleAnswer(selectedEntry.report);
   });
   try {
     const index = await loadJson("finqa-results/index.json");

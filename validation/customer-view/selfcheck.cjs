@@ -13,6 +13,7 @@ for(const choice of B.shortlist(tr.models,'translation')) {
  for(const v of choice.candidates){assert(v.complete);assert(v.score>=4);assert(tr.models.includes(v.model));}
 }
 assert.equal(B.shortlist(qa.models,'qa')[1].candidates[0].name,'gpt-6-luna');
+assert.equal(B.workload(qa.models.find(m=>m.aggregate.execution_accuracy===0),'qa'),'수치 정확성 재검증 필요');
 for(const choice of B.shortlist(qa.models,'qa'))for(const v of choice.candidates)assert(v.score>=.9);
 const incomplete=JSON.parse(JSON.stringify(luna));incomplete.aggregate.translation_failures=1;
 assert.equal(B.shortlist([incomplete],'translation').flatMap(x=>x.candidates).length,0);

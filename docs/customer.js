@@ -61,7 +61,7 @@ window.BenchmarkView = (() => {
   function workload(m,scenario,track="synthetic") {
     const v=measure(m,scenario,track);
     if (!v.complete || !Number.isFinite(v.score)) return "도입 전 추가 확인";
-    if (v.score < (scenario==="qa" ? .9 : 4)) return "사람이 검토하는 초안 작업";
+    if (v.score < (scenario==="qa" ? .9 : 4)) return scenario==="qa" ? "수치 정확성 재검증 필요" : "검수 부담을 확인할 초안 작업";
     if (Number.isFinite(v.latency) && v.latency<=2) return "대화형 도우미·반복 업무 검토";
     return "품질 중심의 문서 처리 검토";
   }

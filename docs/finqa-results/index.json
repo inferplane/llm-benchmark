@@ -1,6 +1,10 @@
 {
-  "latest": "finqa-kimi-k3-20260920",
+  "latest": "finqa-gpt-6-luna-20260925",
   "runs": [
+    {
+      "id": "finqa-gpt-6-luna-20260925",
+      "label": "GPT-6 Luna 추가 · 감사된 금융 QA · 30개 모델"
+    },
     {
       "id": "finqa-kimi-k3-20260920",
       "label": "Kimi K3 추가 · 감사된 금융 QA · 29개 모델"

@@ -1,0 +1,4 @@
+3300 segments selected
+run_id=bedrock-gpt-6-luna-20260925 models=['gpt-6-luna']
+[gpt-6-luna] running 3300 segments (concurrency=8, max_attempts=1)
+successful=3300 failed=0 -> /home/atomoh/llm-benchmark/results/bedrock-gpt-6-luna-20260925/translations.jsonl

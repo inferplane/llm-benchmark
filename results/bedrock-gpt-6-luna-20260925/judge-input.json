@@ -1,0 +1,25 @@
+{
+  "translations_sha256": "ce3f2472d49f32b5d754b5b8cd1acc28b80f296c341fa9dfb1ea17ec9d4df58f",
+  "contract_sha256": "b16fb8511f9b6fd395474e81e1f57b1a8c4547d5e5b26f66ad82b0cc5e276fc4",
+  "judges": [
+    {
+      "name": "sol",
+      "api": "bedrock_mantle",
+      "model_id": "openai.gpt-5.6-sol",
+      "mantle_region": "us-east-1",
+      "price_in": 5.0,
+      "price_out": 30.0
+    },
+    {
+      "name": "fable-5",
+      "api": "bedrock",
+      "model_id": "us.anthropic.claude-fable-5",
+      "price_in": 10.0,
+      "price_out": 50.0,
+      "fallback_name": "fable-5-fallback",
+      "fallback_model_id": "us.anthropic.claude-opus-4-8",
+      "fallback_price_in": 5.0,
+      "fallback_price_out": 25.0
+    }
+  ]
+}

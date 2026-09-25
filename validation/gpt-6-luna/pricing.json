@@ -1,0 +1,37 @@
+{
+  "verified_at": "2026-09-25T05:59:49.914339+00:00",
+  "model_id": "openai.gpt-6-luna",
+  "region": "us-east-1",
+  "api": "bedrock_mantle",
+  "tier": "standard",
+  "currency": "USD",
+  "unit": "1M tokens",
+  "direct_standard": {
+    "input": 0.1,
+    "output": 0.5,
+    "cache_read": 0.01,
+    "cache_write": 0.125
+  },
+  "regional_processing_factor": 1.1,
+  "configured_rates": {
+    "price_in": 0.11,
+    "price_out": 0.55,
+    "price_cache_read": 0.011,
+    "price_cache_write": 0.1375
+  },
+  "basis": "Official OpenAI pricing table plus its Bedrock guide: region-specific Bedrock services use regional-processing pricing (10% uplift). Estimates, not invoice reconciliation. AWS Price List model attribute did not yet list GPT-6 Luna; AWS pricing landing page listed the model but redirected to the roster.",
+  "sources": [
+    {
+      "url": "https://aws.amazon.com/bedrock/pricing/",
+      "sha256": "662edf486e7bb47036d8cb67c67b1bbdf42e0f0f34f27c6fbbac8e045f4662b3"
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/pricing",
+      "sha256": "e9a102b9855573f2e12c3a26f0f5adb6bedc76d93f0f73040373d02822c6c33f"
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/amazon-bedrock",
+      "sha256": "32c196872e81f0c3585a300460bd7609491f7f4e5c52e84faf8ac156c4fab013"
+    }
+  ]
+}

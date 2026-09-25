@@ -22,7 +22,7 @@ const costReasonLabel = {
   missing_responses: "미응답이 있어 비용 미표시",
 };
 let selectedEntry = null;
-let fallbackId = "finqa-kimi-k3-20260920";
+let fallbackId = "finqa-gpt-6-luna-20260925";
 const usd = (value) => Number.isFinite(value) ? `$${value.toFixed(5)}` : "—";
 const seconds = (value) => Number.isFinite(value) ? value.toFixed(2) : "—";
 

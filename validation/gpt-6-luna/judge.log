@@ -1,0 +1,38 @@
+3300/3300 translations need judging
+Traceback (most recent call last):
+  File "/home/atomoh/.local/share/uv/python/cpython-3.12.13-linux-aarch64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/atomoh/.local/share/uv/python/cpython-3.12.13-linux-aarch64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/atomoh/llm-benchmark/bench/luna_benchmark.py", line 186, in judge_translations
+    summary = await judge.main_async(SimpleNamespace(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/atomoh/llm-benchmark/bench/judge.py", line 219, in main_async
+    await asyncio.gather(*(one(t) for t in todo))
+  File "/home/atomoh/llm-benchmark/bench/judge.py", line 196, in one
+    async with sem:
+               ^^^
+  File "/home/atomoh/.local/share/uv/python/cpython-3.12.13-linux-aarch64-gnu/lib/python3.12/asyncio/locks.py", line 14, in __aenter__
+    await self.acquire()
+  File "/home/atomoh/.local/share/uv/python/cpython-3.12.13-linux-aarch64-gnu/lib/python3.12/asyncio/locks.py", line 386, in acquire
+    await fut
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/atomoh/llm-benchmark/bench/luna_benchmark.py", line 363, in <module>
+    main()
+  File "/home/atomoh/llm-benchmark/bench/luna_benchmark.py", line 350, in main
+    raise SystemExit(asyncio.run(judge_translations()))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/atomoh/.local/share/uv/python/cpython-3.12.13-linux-aarch64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/atomoh/.local/share/uv/python/cpython-3.12.13-linux-aarch64-gnu/lib/python3.12/asyncio/runners.py", line 123, in run
+    raise KeyboardInterrupt()
+KeyboardInterrupt

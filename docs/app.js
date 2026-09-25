@@ -624,6 +624,7 @@ function renderQualityDiagnostics(report) {
   const sortValue = (row) => {
     if (state.qualitySort === "risk") return row.quality?.high_risk_rate;
     if (state.qualitySort === "p10") return row.quality?.judge_overall_p10;
+    if (state.qualitySort === "weakest") return row.quality?.judge_weakest_axis_mean;
     if (state.qualitySort === "baseline") return row.baseline?.mean_delta;
     return row.quality?.quality_pass_rate;
   };
@@ -636,7 +637,7 @@ function renderQualityDiagnostics(report) {
 
   if (!rows.length) {
     const empty = `<div class="empty-state">모델 데이터가 없습니다.</div>`;
-    body.innerHTML = `<tr><td colspan="7">${empty}</td></tr>`;
+    body.innerHTML = `<tr><td colspan="8">${empty}</td></tr>`;
     baselineBody.innerHTML = `<tr><td colspan="5">${empty}</td></tr>`;
     return;
   }
@@ -652,6 +653,7 @@ function renderQualityDiagnostics(report) {
       ${qualityRateCell(q, "quality_pass_rate", "quality_pass_segments")}
       ${qualityRateCell(q, "high_risk_rate", "high_risk_segments")}
       <td class="score-cell">${Number.isFinite(q?.judge_overall_p10) ? q.judge_overall_p10.toFixed(2) : "—"}</td>
+      <td class="score-cell">${Number.isFinite(q?.judge_weakest_axis_mean) ? q.judge_weakest_axis_mean.toFixed(2) : "—"}</td>
       ${qualityRateCell(q, "judge_disagreement_rate", "judge_disagreement_segments")}
       <td class="score-cell">${fmtQualityCount(q?.quality_eligible_segments)} / ${fmtQualityCount(q?.segments)}
         <small class="quality-sub">원점수 ${fmtQualityPercent(q?.quality_coverage_rate)} · 채점 ${fmtQualityPercent(q?.judge_coverage_rate)}</small>

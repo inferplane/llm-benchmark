@@ -1,0 +1,184 @@
+{
+  "run_id": "finqa-gpt-6-luna-20260925",
+  "contract": {
+    "scenario": "finqa_audited",
+    "dataset_sha256": "b814465bce83b3ba4afd168112d9e1059c6a41d3052b893a032cd9652aaba099",
+    "prompt_sha256": "723996abba008acfc67ec298ded769cbdcbd0af071b72f794d853b9aa50504c7",
+    "models": [
+      {
+        "name": "gpt-6-luna",
+        "api": "bedrock_mantle",
+        "model_id": "openai.gpt-6-luna",
+        "mantle_region": "us-east-1",
+        "price_in": 0.11,
+        "price_out": 0.55,
+        "price_cache_read": 0.011,
+        "price_cache_write": 0.1375,
+        "enabled": true
+      }
+    ],
+    "aws_region": "us-west-2",
+    "concurrency_default": 2,
+    "max_output_tokens": 4096,
+    "temperature": 0,
+    "temperature_omitted_model_ids": [
+      "google.gemma-4-31b",
+      "openai.gpt-5.5",
+      "openai.gpt-5.6-luna",
+      "openai.gpt-5.6-sol",
+      "openai.gpt-5.6-terra",
+      "openai.gpt-6-luna",
+      "us.anthropic.claude-fable-5",
+      "us.anthropic.claude-opus-4-8",
+      "us.anthropic.claude-sonnet-5",
+      "us.moonshotai.kimi-k3"
+    ],
+    "request_timeout_s": 600,
+    "runner_sha256": "19648f4ae3a362a784ec2e4f3dde959c4ec189954cf6cdebe9f4bc3333205115",
+    "finqa_sha256": "bd4b05630aa05d80eecc3d9045f6c7465aa81041239df9dfeca661f08eb0cda8",
+    "evaluation_protocol": {
+      "frozen_at": "2026-09-25T06:02:06.407804+00:00",
+      "identity": {
+        "model": {
+          "name": "gpt-6-luna",
+          "api": "bedrock_mantle",
+          "model_id": "openai.gpt-6-luna",
+          "mantle_region": "us-east-1",
+          "price_in": 0.11,
+          "price_out": 0.55,
+          "price_cache_read": 0.011,
+          "price_cache_write": 0.1375,
+          "enabled": true
+        },
+        "files": {
+          "bench/luna_benchmark.py": "973d4ea573d600381aa78a1cd0f2bddaeceb568a0c2c6e1c406b7f2733e1bd34",
+          "bench/run.py": "19648f4ae3a362a784ec2e4f3dde959c4ec189954cf6cdebe9f4bc3333205115",
+          "bench/report.py": "b935242591408463592f66ce816dd86e9f7d8a31b0f7101e136fd6e82e6692c5",
+          "bench/judge.py": "9b1d479ae002f729b830c9e8a56f72575d94c9c36d867f1e1c0aaad31350c8b9",
+          "bench/finqa.py": "bd4b05630aa05d80eecc3d9045f6c7465aa81041239df9dfeca661f08eb0cda8",
+          "bench/finqa_audited.py": "5c3bebb856196c593e4273a8283c0402bf9def4c14c5d6ed6cb1954caf03997a",
+          "bench/finqa_compare.py": "8b3eeb66dcbe0347d114eb99fcc976f7f09b370eae145591bb1a119f64cdecd4",
+          "bench/kimi_benchmark.py": "473ab314b59586deaa3433ed4c17f9153b8956200007919887826778fa359f88",
+          "data/finqa-audited-dev.jsonl": "db21d90c2f96a942576d173e13a068f880d14b2e16a244153d90eaa0fef08ab6",
+          "scenarios/finqa_audited/freeze.json": "2625b06d93e656991d6e0a9c9ae508253bced15f1fadbce2e46b751e0a263513",
+          "scenarios/finqa_audited/prompt.txt": "723996abba008acfc67ec298ded769cbdcbd0af071b72f794d853b9aa50504c7",
+          "scenarios/translation/prompt.txt": "002886c783e95ddbb6802dd9e425867a61bf2a4b3306afe513d8cb544f1c3ad8",
+          "scenarios/translation/rubric.txt": "d06c98b162adc83606dc6ed37eb230177b325fbeaf1347e81a37ceb8faccf139",
+          "docs/finqa-results/finqa-kimi-k3-20260920.json": "94a3813fff141321b7c42017fa335dc7874649e8cd82a30b585b63e88c69e654",
+          "docs/results/integrated-2026-09-20.json": "2e22095c2efe772a8bf21b9cceaad46a997c02664a08b500706665e1d23d3d84",
+          "validation/gpt-6-luna/pricing.json": "9779d09b7b0b4115cce13389a8d5d9645b132161547a33b172f7e80bb3c45972"
+        },
+        "translation_dataset_sha256": "9f1b6a8db80dab47be8d180007e13cbafec3dbeaf2137baadd0c6560e3fda8c9",
+        "qa_dataset_sha256": "b814465bce83b3ba4afd168112d9e1059c6a41d3052b893a032cd9652aaba099",
+        "aws_region": "us-west-2",
+        "translation_scenario": {
+          "src_lang": "ko",
+          "targets": [
+            "en",
+            "ja",
+            "zh",
+            "es",
+            "fr",
+            "de",
+            "pt",
+            "ru",
+            "it",
+            "vi",
+            "id",
+            "th",
+            "ar",
+            "hi",
+            "tr"
+          ],
+          "directions": "both",
+          "concurrency_default": 8,
+          "flores_per_pair": 100,
+          "synthetic_per_pair": 10,
+          "judges": [
+            {
+              "name": "sol",
+              "api": "bedrock_mantle",
+              "model_id": "openai.gpt-5.6-sol",
+              "mantle_region": "us-east-1",
+              "price_in": 5.0,
+              "price_out": 30.0
+            },
+            {
+              "name": "fable-5",
+              "api": "bedrock",
+              "model_id": "us.anthropic.claude-fable-5",
+              "price_in": 10.0,
+              "price_out": 50.0,
+              "fallback_name": "fable-5-fallback",
+              "fallback_model_id": "us.anthropic.claude-opus-4-8",
+              "fallback_price_in": 5.0,
+              "fallback_price_out": 25.0
+            }
+          ],
+          "flores_codes": {
+            "ko": "kor_Hang",
+            "en": "eng_Latn",
+            "ja": "jpn_Jpan",
+            "zh": "cmn_Hans",
+            "es": "spa_Latn",
+            "fr": "fra_Latn",
+            "de": "deu_Latn",
+            "pt": "por_Latn",
+            "ru": "rus_Cyrl",
+            "it": "ita_Latn",
+            "vi": "vie_Latn",
+            "id": "ind_Latn",
+            "th": "tha_Thai",
+            "ar": "arb_Arab",
+            "hi": "hin_Deva",
+            "tr": "tur_Latn"
+          }
+        },
+        "qa_scenario": {
+          "concurrency_default": 2,
+          "sample_size": 20,
+          "seed": 20260919,
+          "split": "dev",
+          "source_revision": "0f16e2867befa6840783e58be38c9efb9229d742",
+          "vllm_image": "vllm/vllm-openai@sha256:c2914767605584b6d8f45686b82de173ecc99e781897aa3d0a66dacd72c51ae1",
+          "max_model_len": 8192
+        },
+        "max_output_tokens": 4096,
+        "request_timeout_s": 600,
+        "temperature": 0,
+        "temperature_omitted": true,
+        "temperature_omitted_model_ids": [
+          "google.gemma-4-31b",
+          "openai.gpt-5.5",
+          "openai.gpt-5.6-luna",
+          "openai.gpt-5.6-sol",
+          "openai.gpt-5.6-terra",
+          "openai.gpt-6-luna",
+          "us.anthropic.claude-fable-5",
+          "us.anthropic.claude-opus-4-8",
+          "us.anthropic.claude-sonnet-5",
+          "us.moonshotai.kimi-k3"
+        ],
+        "reasoning": "provider default; medium observed in preflight",
+        "translation_cohort": "explicit",
+        "policy": "Preserve one recorded attempt for every input, including empty/capped/failed responses. No candidate regeneration, reasoning change, or cap increase after seeing outcomes. Grade successful returned translations with the existing two judges and rubric. Failed/nonterminal Responses remain failures even when partial text is retained. Translation quality is conditional on eligible returned text. Cost estimates cover successful calls with known token usage, not the entire experiment invoice. Preserve all prior model snapshots; report prompt cohort and measurement dates."
+      }
+    }
+  },
+  "executions": [
+    {
+      "started_at": "2026-09-25T06:02:27.123797+00:00",
+      "models": [
+        {
+          "model": "gpt-6-luna",
+          "requested": 20,
+          "cached": 0,
+          "successful": 20,
+          "failed": 0,
+          "request_attempts": 20
+        }
+      ],
+      "finished_at": "2026-09-25T06:02:44.043240+00:00"
+    }
+  ]
+}

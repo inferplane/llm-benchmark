@@ -1,9 +1,11 @@
 [
+  "bedrock-gpt-6-luna-20260925.json",
   "bedrock-kimi-k3-20260920.json",
   "full-2026-07-18.json",
   "grok-4.6-2026-09-13.json",
   "grok-4.6-2026-09-16.json",
   "grok-explicit-2026-09-16.json",
   "integrated-2026-09-17.json",
-  "integrated-2026-09-20.json"
+  "integrated-2026-09-20.json",
+  "integrated-2026-09-25.json"
 ]

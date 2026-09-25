@@ -1,4 +1,6 @@
 "use strict";
+const B = window.BenchmarkView;
+let customerVolume = 10000;
 
 const errorLabels = {
   unsupported_reference: "숫자 대신 표·본문 참조",
@@ -82,12 +84,14 @@ function renderSelected(entry) {
   }
   for (const model of sortedModels(report.models)) {
     const m = model.aggregate;
+    const nameCell = document.createElement("span");
+    nameCell.className="customer-model";
+    nameCell.innerHTML=B.badge(model.name)+`<strong>${B.escape(model.name)}</strong>`;
     addRow(byId("model-body"), [
-      model.name, providerLabel[model.provider] || "—", `${count(m.correct)} / ${count(m.questions)}`, percent(m.execution_accuracy),
-      m.execution_accuracy_ci95 ? m.execution_accuracy_ci95.map(percent).join(" – ") : "—",
-      usd(m.estimated_cost_per_question_usd), `${seconds(m.latency_p50_s ?? m.response_latency_median_s)} / ${seconds(m.latency_p95_s)}`,
-      count(m.incorrect_result), count(m.invalid_program), count(m.unit_valid), count(m.requested_unit_compliant),
-      count(m.format_adjusted), count(m.request_failed), count(m.missing),
+      nameCell, `${count(m.correct)} / ${count(m.questions)} · ${percent(m.execution_accuracy)}`,
+      B.time(m.latency_p50_s ?? m.response_latency_median_s), B.money(m.estimated_cost_usd),
+      B.money(Number.isFinite(B.measure(model,"qa").cost) ? B.measure(model,"qa").cost*customerVolume : null),
+      B.workload(model,"qa"),
     ]);
     const p = document.createElement("p");
     const causes = Object.entries(m.invalid_program_causes || {})
@@ -103,13 +107,55 @@ function renderSelected(entry) {
     byId("result-summary").textContent = `${name} · 정답 ${count(m.correct)}/${count(m.questions)} · ${percent(m.execution_accuracy)}`;
   } else {
     const completed = report.models.filter((m) => m.aggregate.request_failed === 0 && m.aggregate.missing === 0).length;
-    byId("result-summary").textContent = `${report.models.length}개 모델 · 동일 ${count(report.dataset?.questions)}문항 · 전체 응답 정상 종료 ${completed}개 모델`;
+    byId("result-summary").textContent = `${report.models.length}개 모델 · 같은 ${count(report.dataset?.questions)}개 질문에 대한 관측 결과`;
   }
+  byId("qa-recommendations").innerHTML = audited ? B.cards(report.models,"qa",null,customerVolume) : '<p>과거 평가 기준의 결과입니다. 도입 후보 추천은 최신 결과를 선택해 확인하세요.</p>';
+  renderExamples(report);
   byId("detail-link").href = `finqa-results/${id}.html`;
   byId("json-link").href = `finqa-results/${id}.json`;
 }
 
+function renderExamples(report) {
+  const questions=[...new Map((report.evaluations || []).filter(e=>typeof e.question === "string" && e.gold_answer != null).map(e=>[e.id,e])).values()];
+  const picker=byId("qa-question"), old=picker.value;
+  picker.innerHTML=questions.map((e,i)=>`<option value="${B.escape(e.id)}">${i+1}. ${B.escape(e.question.slice(0,100))}</option>`).join("");
+  picker.value=questions.some(e=>e.id===old) ? old : questions[0]?.id || "";
+  const recommendations=B.shortlist(report.models,"qa");
+  const defaults=[recommendations[1]?.candidates[0]?.name,recommendations[0]?.candidates[0]?.name];
+  ["qa-model-a","qa-model-b"].forEach((id,i)=>{
+    const el=byId(id), previous=el.value;
+    el.innerHTML=report.models.map(m=>`<option value="${B.escape(m.name)}">${B.escape(m.name)} · ${B.family(m.name).label}</option>`).join("");
+    el.value=report.models.some(m=>m.name===previous) ? previous : defaults[i] || report.models[i]?.name || report.models[0]?.name || "";
+  });
+  renderExampleAnswer(report);
+}
+function renderExampleAnswer(report) {
+  const rows=(report.evaluations || []).filter(e=>e.id===byId("qa-question").value);
+  if (!rows.length) { byId("qa-example-body").textContent="이 과거 결과의 질문·답변은 전체 원본 보고서에서 확인하세요."; return; }
+  const units={ratio:"비율",percent:"%",usd:"달러",usd_million:"백만 달러",usd_thousand:"천 달러",count:"개",percentage_point:"%p"};
+  const unit=e=>units[e.canonical_unit] || e.canonical_unit || "원문 단위";
+  const names=[...new Set([byId("qa-model-a").value,byId("qa-model-b").value])];
+  byId("qa-example-body").innerHTML=`<div class="qa-example"><h3>${B.escape(rows[0].question)}</h3><p>확인된 정답: <strong>${B.escape(rows[0].gold_answer)} ${B.escape(unit(rows[0]))}</strong></p><div class="qa-example-grid">${names.map(name=>{
+    const e=rows.find(r=>r.model===name); if (!e) return '<p>답변 기록이 없습니다.</p>';
+    return `<article class="answer" style="--family:${B.family(name).color}">${B.badge(name)}<h3>${B.escape(name)}</h3><p>${e.execution_result!=null ? B.escape(e.execution_result)+" "+B.escape(unit(e)) : "수치 답변을 확인할 수 없음"}</p><p>${e.correct ? "원문에서 확인한 정답과 일치" : "원문 정답과 차이가 있어 검토 필요"}</p><details><summary>모델이 작성한 계산 근거 보기</summary><pre>${B.escape(e.output_text || "응답 없음")}</pre></details></article>`;
+  }).join("")}</div></div>`;
+}
+
 async function main() {
+  byId("customer-family-legend").innerHTML=B.legend();
+  byId("customer-volume").addEventListener("input", event=>{
+    const volume=Number(event.target.value),valid=Number.isInteger(volume)&&volume>=1&&volume<=1000000000;
+    event.target.setAttribute("aria-invalid",String(!valid));
+    byId("volume-feedback").textContent=valid ? "" : `1~1,000,000,000 사이 정수를 입력하세요. 현재 표는 ${customerVolume.toLocaleString("ko-KR")}건 기준입니다.`;
+    if(!valid) return;
+    customerVolume=volume; byId("volume-column").textContent=`${volume.toLocaleString("ko-KR")}건 예상 비용`;
+    if (selectedEntry) renderSelected(selectedEntry);
+  });
+  ["qa-question","qa-model-a","qa-model-b"].forEach(id=>byId(id).addEventListener("change",()=>renderExampleAnswer(selectedEntry.report)));
+  byId("qa-recommendations").addEventListener("click",event=>{
+    const link=event.target.closest("a[data-model]");if(!link)return;
+    byId("qa-model-a").value=link.dataset.model;renderExampleAnswer(selectedEntry.report);
+  });
   try {
     const index = await loadJson("finqa-results/index.json");
     if (!Array.isArray(index.runs) || !index.runs.length ||

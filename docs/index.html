@@ -411,6 +411,8 @@
     }
   }
 </style>
+<link rel="stylesheet" href="customer.css?v=customer-20260925">
+<script src="customer.js?v=customer-20260925"></script>
 </head>
 <body>
 
@@ -426,21 +428,26 @@
 
 <header class="masthead">
   <div>
-    <p class="ticker-rule">KO ⇄ 15 LANGS · FINANCIAL DOMAIN · COST/QUALITY LEDGER</p>
-    <h1>LLM Translation Ledger</h1>
+    <p class="ticker-rule">LLM ADOPTION GUIDE · TRANSLATION</p>
+    <h1>우리 업무에 맞는 번역 모델 찾기</h1>
     <p class="sub" id="run-summary">불러오는 중…</p>
   </div>
   <div class="masthead-controls">
-    <label for="run-select" style="color:var(--ink-muted)">RUN</label>
+    <label for="run-select" style="color:var(--ink-muted)">결과 기준</label>
     <select id="run-select"></select>
     <button class="theme-toggle" id="theme-toggle" title="라이트/다크 전환" aria-label="테마 전환">◐</button>
   </div>
 </header>
 
 <main>
+  <p class="customer-intro">고객에게 전달할 문서의 품질이 중요한가요, 대량 처리 비용이 중요한가요? 실제 측정값으로 후보를 좁히고, 번역 결과물을 직접 비교해 보세요.</p>
+  <div id="customer-family-legend" class="customer-legend" aria-label="모델 계열 색상 안내"></div>
+  <p class="customer-note">GPT·Claude는 별도 계열, 나머지는 개발사 소재 기준입니다. 모델별 측정 시점과 번역 지시가 달라 조건 A·B 안에서 후보를 고릅니다. 작은 점수 차이보다 실제 원문과 결과물을 함께 확인하세요.</p>
 
-  <aside id="run-provenance" class="run-provenance" aria-label="수집 시점과 생성 조건" hidden></aside>
 
+  <details class="customer-disclosure"><summary>모델별 비교 조건 확인</summary><aside id="run-provenance" class="run-provenance" aria-label="수집 시점과 생성 조건" hidden></aside></details>
+
+<details class="customer-disclosure"><summary>측정 기록과 해석</summary>
   <section class="panel" id="interpretation-panel" hidden>
     <div class="panel-head">
       <h2>벤치마크 결과 요약</h2>
@@ -449,13 +456,27 @@
     <p class="panel-note">이 런의 관측값과 실행 조건을 바탕으로 정리한 해석입니다. 품질 수치와 비교의 한계를 함께 확인하세요.</p>
     <div id="interpretation-body" class="interpretation-body"></div>
   </section>
+</details>
 
   <div id="cohort-control" class="run-provenance" hidden>
     <label for="cohort-select">평가 조건</label>
     <select id="cohort-select" style="max-width:100%"></select>
-    <p>기존 번역 지시: Grok을 제외한 27개 모델 · 명시적 번역 지시: Grok 4.3 / 4.6</p>
+    <p>조건 A: 기존 번역 지시 · 조건 B: 명시적 번역 지시. 각 조건 안에서 품질·비용을 비교합니다.</p>
   </div>
 
+  <section class="panel" id="recommendations-panel">
+    <h2>어떤 업무에 도입하시나요?</h2>
+    <div class="toggle-group" id="track-toggle" style="margin-bottom:14px;">
+      <button data-track="synthetic" class="active">금융 문서(예시)</button>
+      <button data-track="flores">일반 문장</button>
+      <button data-track="all">전체 문서</button>
+    </div>
+    <div class="customer-toolbar"><label for="customer-volume">예상 처리량 · 문장/문서 조각</label><input id="customer-volume" type="number" min="1" max="1000000000" step="1" value="10000"><span>건</span><span id="volume-feedback" role="status"></span></div>
+    <p class="customer-note">예상 비용은 같은 평균 분량을 처리한다고 가정한 단순 비례값(USD)입니다. 완성 문서 한 부의 견적이 아닙니다. 품질은 선택한 문서 유형, 시간·비용은 전체 번역 실측 기준입니다.</p>
+    <div id="recommendations-body" class="workload-grid"></div>
+    <p class="customer-note">번역 평가는 두 평가자의 5점 척도이며 정확도 %가 아닙니다. 응답 시간은 한 건이 돌아오기까지의 중앙값입니다. 후보는 측정이 완료된 모델에서 고르며 최종 배포 적합성은 자사 문서로 확인하세요.</p>
+  </section>
+<details class="customer-disclosure"><summary>비용·품질 차트로 자세히 비교</summary>
   <section class="panel" id="hero-panel">
     <div class="panel-head">
       <h2>가성비: 비용 대비 품질</h2>
@@ -468,11 +489,6 @@
       금색 실선으로 이어진 점은 <strong>가성비 프론티어</strong> — 해당 비용 이하에서 더 높은 품질을 내는 모델이 없는 지점입니다.
       <em>축의 가독성을 위해 gpt-5.5는 이 차트에서만 제외했습니다. 전체 비교표·샘플·언어쌍 히트맵·런 히스토리에는 포함되어 있습니다.</em>
     </p>
-    <div class="toggle-group" id="track-toggle" style="margin-bottom:14px;">
-      <button data-track="synthetic" class="active">합성 금융문서</button>
-      <button data-track="flores">FLORES</button>
-      <button data-track="all">전체 (평균, 주의)</button>
-    </div>
     <div class="legend-row" id="hero-legend"></div>
     <div class="chart-wrap"><canvas id="scatter-chart"></canvas></div>
 
@@ -484,32 +500,42 @@
     <div class="legend-row" id="hero-zoom-legend"></div>
     <div class="chart-wrap"><canvas id="scatter-zoom-chart"></canvas></div>
   </section>
+</details>
 
-  <section class="panel" id="recommendations-panel">
-    <div class="panel-head">
-      <h2>추천 모델</h2>
-      <span class="eyebrow">Cost-Effective Frontier Picks</span>
-    </div>
-    <p class="panel-note">위 차트의 가성비 프론티어를 그대로 표로 정리한 것입니다 — 별도의 임의 기준으로 다시 고른 목록이 아닙니다.</p>
-    <div id="recommendations-body"></div>
-  </section>
+
 
   <section class="panel" id="model-table-panel">
     <div class="panel-head">
-      <h2>모델 상세</h2>
-      <span class="eyebrow">Per-Model Detail</span>
+      <h2>품질·시간·비용 한눈에 비교</h2>
+      <span class="eyebrow">MODEL COMPARISON</span>
     </div>
-    <p class="panel-note">Judge 종합(위 트랙 선택 기준) 높은 순. 행을 클릭하면 트랙별 품질, judge 세부 축, 실행 설정(run_config — vLLM GPU/TP/동시성 또는 API 단가)이 펼쳐집니다.</p>
+    <p class="panel-note">관측 품질 높은 순입니다. 비용은 측정 당시 단가와 반환된 결과 기준이며 평가자·운영·사람의 검수 비용은 포함하지 않습니다. 활용 방식은 번역 평가4점과 중앙 응답2초를 참고한 검토 가이드입니다. 모델 이름을 누르면 측정 상세를 볼 수 있습니다.</p>
     <div class="table-scroll" tabindex="0" role="region" aria-label="모델 상세 비교 표">
     <table class="model-table">
       <thead>
-        <tr><th>모델</th><th>비용/세그먼트</th><th id="model-table-score-head">Judge 종합</th><th>지연 p50 / p95</th><th>처리량</th><th>상태</th></tr>
+        <tr><th>모델</th><th id="model-table-score-head">번역 평가</th><th>한 건 응답</th><th>측정 비용(추정)</th><th id="volume-column">10,000건 예상 비용</th><th>검토할 활용 방식</th></tr>
       </thead>
       <tbody id="model-table-body"></tbody>
     </table>
     </div>
   </section>
+  <section class="panel" id="samples-panel">
+    <div class="panel-head">
+      <h2>실제 결과물, 두 모델로 비교하기</h2>
+      <span class="eyebrow">Sample Inspector</span>
+    </div>
+    <p class="panel-note">언어쌍별 대표 세그먼트 <span id="samples-per-pair-note"></span>건을 골라 모델별 실제 번역 결과와 judge 채점을 나란히 비교합니다.</p>
+    <button class="theme-toggle" id="samples-toggle" aria-expanded="true">샘플 숨기기 ▴</button>
+    <div id="samples-body">
+      <div class="samples-controls">
+        <label for="sample-select">원문 선택</label><select id="sample-select"></select>
+        <label for="sample-model-a">모델 A</label><select id="sample-model-a"></select><label for="sample-model-b">모델 B</label><select id="sample-model-b"></select>
+      </div>
+      <div id="sample-detail"></div>
+    </div>
+  </section>
 
+<details class="customer-disclosure"><summary>세부 품질 지표와 검증 내역</summary>
   <section class="panel" id="quality-panel">
     <div class="panel-head">
       <h2>번역 품질 진단</h2>
@@ -598,7 +624,9 @@
       </dl>
     </details>
   </section>
+</details>
 
+<details class="customer-disclosure"><summary>언어별 적용 범위 확인</summary>
   <section class="panel" id="lang-coverage-panel">
     <div class="panel-head">
       <h2>언어 커버리지: 주요 언어 vs 기타 언어</h2>
@@ -634,7 +662,9 @@
     </div>
     <div id="lang-coverage-reco" class="interpretation-body" style="margin-top:14px;"></div>
   </section>
+</details>
 
+<details class="customer-disclosure"><summary>언어 방향별 품질 비교</summary>
   <section class="panel" id="heatmap-panel">
     <div class="panel-head">
       <h2>언어쌍별 품질</h2>
@@ -648,22 +678,11 @@
     <div class="heatmap-panel-legend" id="heatmap-legend"></div>
     <div class="heatmap-scroll"><table class="heatmap" id="heatmap-table"></table></div>
   </section>
+</details>
 
-  <section class="panel" id="samples-panel">
-    <div class="panel-head">
-      <h2>번역 샘플</h2>
-      <span class="eyebrow">Sample Inspector</span>
-    </div>
-    <p class="panel-note">언어쌍별 대표 세그먼트 <span id="samples-per-pair-note"></span>건을 골라 모델별 실제 번역 결과와 judge 채점을 나란히 비교합니다.</p>
-    <button class="theme-toggle" id="samples-toggle" aria-expanded="true">샘플 숨기기 ▴</button>
-    <div id="samples-body">
-      <div class="samples-controls">
-        <select id="sample-select"></select>
-      </div>
-      <div id="sample-detail"></div>
-    </div>
-  </section>
 
+
+<details class="customer-disclosure"><summary>과거 측정 결과</summary>
   <section class="panel" id="history-panel">
     <div class="panel-head">
       <h2>런 히스토리</h2>
@@ -674,8 +693,9 @@
       <div class="chart-wrap short"><canvas id="history-chart"></canvas></div>
     </div>
   </section>
+</details>
 
-  <footer class="methodology">
+<details class="customer-disclosure"><summary>측정 방식·비용 산정 근거</summary>  <footer class="methodology">
     <dl>
       <dt>데이터셋</dt>
       <dd id="meta-dataset">—</dd>
@@ -690,10 +710,10 @@
       <dt>소스</dt>
       <dd><a href="https://github.com/inferplane/llm-benchmark" id="repo-link">GitHub 저장소</a> · results/&lt;run_id&gt;.json 원본 데이터는 <code class="mono">docs/results/</code> 참고</dd>
     </dl>
-  </footer>
+  </footer></details>
 
 </main>
 
-<script src="app.js?v=gpt-6-luna-20260925"></script>
+<script src="app.js?v=customer-20260925"></script>
 </body>
 </html>

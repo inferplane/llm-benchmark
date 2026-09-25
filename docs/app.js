@@ -1,3 +1,4 @@
+const B = window.BenchmarkView;
 // LLM Translation Ledger — static dashboard, no build step.
 // Reads docs/results/index.json + docs/results/<run_id>.json (schema_version 2,
 // written by bench/report.py) and renders three views: cost/quality scatter,
@@ -35,7 +36,7 @@ const LANG_ORDER = ["en", "ja", "zh", "es", "fr", "de", "pt", "ru", "it", "vi", 
 // names the two Bedrock-hosted APIs themselves instead of implying a vendor.
 const PROVIDER_LABEL = { bedrock: "Bedrock Runtime", openai: "OpenAI", vllm: "vLLM (self-hosted)", bedrock_mantle: "Bedrock Mantle", translate: "Amazon Translate" };
 const PROVIDER_VAR = { bedrock: "--bedrock", openai: "--openai", vllm: "--vllm", bedrock_mantle: "--bedrock-mantle", translate: "--translate" };
-const TRACK_LABEL = { all: "전체 (FLORES+합성, 평균)", flores: "FLORES (일반 문장)", synthetic: "합성 금융문서" };
+const TRACK_LABEL = { all: "전체 문서", flores: "일반 문장", synthetic: "예시 금융문서" };
 const AXIS_LABEL = { adequacy: "정확성", terminology: "용어", numbers_entities_dates: "숫자·개체·날짜", fluency: "유창성", format: "형식" };
 
 // Default to the synthetic (financial-domain) track, not "all" — the hero
@@ -45,7 +46,7 @@ const AXIS_LABEL = { adequacy: "정확성", terminology: "용어", numbers_entit
 // that actually matters; "all" is kept as an explicit, clearly-labeled option.
 const state = {
   runs: [], reports: [], current: null, direction: "from-ko", track: "synthetic", charts: {},
-  qualitySort: "pass",
+  qualitySort: "pass", volume: 10000,
   langFilter: { minMajor: 0, minOther: 0, sortBy: "gap" },
   zoomMode: {}, // per-chartKey: "zoom" (drag = box-zoom) | "pan" (drag = move)
 };
@@ -236,7 +237,7 @@ function scatterPoints(report, filterFn, track) {
         y: q?.judge_overall,
         ci95: q?.judge_overall_ci95,
         name: m.name,
-        provider: m.provider,
+        provider: m.provider, family: B.family(m.name).key,
         usdPerMtok: m.aggregate.usd_per_mtok_out,
         latencyP50: m.aggregate.latency_e2e_p50_s,
       };
@@ -250,7 +251,7 @@ function mixedCohorts(report) {
 
 function cohortBadge(model) {
   if (!model.evaluation_cohort) return "";
-  return `<span class="cohort-label">${model.evaluation_cohort === "explicit" ? "명시적 지시" : "기존 지시"}</span>`;
+  return `<span class="cohort-label">${model.evaluation_cohort === "explicit" ? "조건 B" : "조건 A"}</span>`;
 }
 
 function selectReport(report, cohort = "all") {
@@ -302,7 +303,7 @@ function renderScatterChart(report, { canvasId, legendId, chartKey, filterFn, em
   const allLatencies = rawPoints.map((p) => p.latencyP50);
   const points = rawPoints.map((p) => ({ ...p, r: speedToRadius(allLatencies, p.latencyP50) }));
 
-  const providers = [...new Set(points.map((p) => p.provider))];
+  const providers = [...new Set(points.map((p) => p.family))];
   // Explicit buttons, not a modifier-key convention (shift+drag, dblclick) —
   // those turned out to not be discoverable in practice. A mode toggle
   // switches what plain drag does (zoom vs. pan) so there's never an
@@ -310,7 +311,7 @@ function renderScatterChart(report, { canvasId, legendId, chartKey, filterFn, em
   // visible click away regardless of how the chart got zoomed.
   if (!(chartKey in state.zoomMode)) state.zoomMode[chartKey] = "zoom";
   legend.innerHTML =
-    providers.map((p) => `<span><span class="dot" style="background:${cssVar(PROVIDER_VAR[p] || "--ink-2")}"></span>${PROVIDER_LABEL[p] || p}</span>`).join("") +
+    providers.map((p) => `<span><span class="dot" style="background:${B.groups[p].color}"></span>${B.groups[p].label}</span>`).join("") +
     (mixedCohorts(report) ? `<span>평가 조건이 다른 관측값 · 프론티어는 그룹 선택 시 표시</span>` :
       `<span><span class="dot" style="background:${cssVar("--gold")}"></span>가성비 프론티어</span>`) +
     `<span class="legend-note">원 크기 = 속도 (클수록 빠름)</span>` +
@@ -318,11 +319,11 @@ function renderScatterChart(report, { canvasId, legendId, chartKey, filterFn, em
     `<button type="button" class="theme-toggle" data-reset="${chartKey}">↺ 초기화</button>`;
 
   const datasets = providers.map((p) => ({
-    label: PROVIDER_LABEL[p] || p,
+    label: B.groups[p].label,
     type: "bubble",
-    data: points.filter((pt) => pt.provider === p),
-    backgroundColor: cssVar(PROVIDER_VAR[p] || "--ink-2"),
-    hoverBackgroundColor: cssVar(PROVIDER_VAR[p] || "--ink-2"),
+    data: points.filter((pt) => pt.family === p),
+    backgroundColor: B.groups[p].color,
+    hoverBackgroundColor: B.groups[p].color,
   }));
 
   const frontier = paretoFrontier(points);
@@ -438,46 +439,7 @@ function renderScatterZoom(report) {
 // subjective ranking on top of a chart that already answers the question.
 
 function renderRecommendations(report) {
-  const body = document.getElementById("recommendations-body");
-  if (mixedCohorts(report)) {
-    body.textContent = "전체 모델의 품질과 비용은 아래 표에서 확인하세요. 가성비 추천은 상단의 평가 조건에서 그룹을 선택하면 표시됩니다. 번역 지시가 다른 그룹 사이에는 통합 순위를 산출하지 않습니다.";
-    return;
-  }
-  const points = scatterPoints(report, (m) => !SCATTER_EXCLUDE_MODELS.has(m.name), state.track);
-  const frontier = paretoFrontier(points);
-
-  if (!frontier.length) {
-    body.innerHTML = `<div class="empty-state"><span class="glyph">◐</span>추천할 모델이 없습니다.</div>`;
-    return;
-  }
-
-  const costMax = Math.max(...frontier.map((p) => p.x || 0));
-  const scoreVals = frontier.map((p) => p.y).filter((v) => v != null);
-  const scoreLo = Math.min(...scoreVals), scoreHi = Math.max(...scoreVals);
-
-  const rowsHtml = frontier
-    .slice()
-    .reverse() // cheapest last → show best-quality-first
-    .map((p, i) => {
-      const dot = `<span class="dot" style="background:${cssVar(PROVIDER_VAR[p.provider] || "--ink-2")}"></span>`;
-      const tag = i === 0 ? `<span class="reco-tag">최고 품질</span>` : i === frontier.length - 1 ? `<span class="reco-tag">최저 비용</span>` : "";
-      const ci = p.ci95 ? ` <span class="ci-note">(95% CI ${p.ci95[0].toFixed(2)}–${p.ci95[1].toFixed(2)})</span>` : "";
-      return `<tr>
-        <td class="model-cell">${dot}${escapeHtml(p.name)} ${tag}</td>
-        <td class="score-cell" style="text-align:left;${barStyle(barPctMinMax(p.y, scoreLo, scoreHi))}">${p.y.toFixed(2)}${ci}</td>
-        <td class="score-cell" style="text-align:left;${barStyle(barPctSqrtMax(p.x, costMax))}">${fmtUsd(p.x)}</td>
-      </tr>`;
-    })
-    .join("");
-
-  body.innerHTML = `
-    <div class="table-scroll" tabindex="0" role="region" aria-label="추천 모델 비교 표">
-    <table class="sample-compare">
-      <thead><tr><th>모델</th><th>Judge 종합 (${TRACK_LABEL[state.track]})</th><th>세그먼트당 비용</th></tr></thead>
-      <tbody>${rowsHtml}</tbody>
-    </table>
-    </div>
-    <p class="panel-note" style="margin-top:12px;">가성비 프론티어에 오른 ${frontier.length}개 모델 — 표의 각 모델보다 낮은 비용에서 더 높은 품질을 내는 모델은 이 런에 없습니다. 신뢰구간이 겹치는 모델 간 순위는 근소한 차이로 단정하지 마세요.</p>`;
+  document.getElementById("recommendations-body").innerHTML = B.cards(report.models,"translation",state.track,state.volume);
 }
 
 // ── model detail table: every field report.py computes, one row per model ───
@@ -511,14 +473,13 @@ function runConfigLines(rc) {
 function renderModelTable(report) {
   const body = document.getElementById("model-table-body");
   const scoreHead = document.getElementById("model-table-score-head");
-  if (scoreHead) scoreHead.textContent = `Judge 종합 (${TRACK_LABEL[state.track]})`;
+  if (scoreHead) scoreHead.textContent = `번역 평가 · ${TRACK_LABEL[state.track]}`;
   // Sorted by Judge 종합 (track-aware, same score shown in the column) descending
   // — best quality first, not cost — matches how a reader actually scans this
   // table: "which models are good" before "which are cheap" (cost has its own
   // dedicated ordering in the 가성비 scatter/추천 모델 panels above).
   const trackScore = (m) => (state.track === "all" ? m.aggregate : m.by_track?.[state.track])?.judge_overall;
   const models = [...report.models]
-    .filter((m) => m.aggregate.cost_per_segment_usd != null)
     .sort((a, b) => (trackScore(b) ?? -Infinity) - (trackScore(a) ?? -Infinity));
 
   if (!models.length) {
@@ -541,7 +502,7 @@ function renderModelTable(report) {
       // volume), which silently disagreed with the financial-domain-only
       // number shown above in the hero chart.
       const q = state.track === "all" ? a : m.by_track?.[state.track];
-      const dot = `<span class="dot" style="background:${cssVar(PROVIDER_VAR[m.provider] || "--ink-2")}"></span>`;
+      const dot = `<span class="dot" style="background:${B.family(m.name).color}"></span>`;
       const ci = q?.judge_overall_ci95 ? ` <span class="ci-note">(${q.judge_overall_ci95[0].toFixed(2)}–${q.judge_overall_ci95[1].toFixed(2)})</span>` : "";
       const observed = m.collection_diagnostics;
       const failNote = observed ?
@@ -558,18 +519,19 @@ function renderModelTable(report) {
 
       return `
         <tr class="model-row" data-detail="detail-${i}">
-          <td class="model-cell">${dot}${escapeHtml(m.name)} ${cohortBadge(m)}</td>
-          <td class="score-cell" style="${barStyle(barPctSqrtMax(a.cost_per_segment_usd, costMax))}">${fmtUsd(a.cost_per_segment_usd)}</td>
-          <td class="score-cell" style="${barStyle(barPctMinMax(q?.judge_overall, scoreLo, scoreHi))}">${q?.judge_overall != null ? q.judge_overall.toFixed(2) : "—"}${ci}</td>
-          <td class="score-cell">${a.latency_e2e_p50_s?.toFixed(2) ?? "—"}s / ${a.latency_e2e_p95_s?.toFixed(2) ?? "—"}s</td>
-          <td class="score-cell" style="${barStyle(barPctSqrtMax(a.throughput_tok_s, throughputMax))}">${a.throughput_tok_s?.toFixed(1) ?? "—"} tok/s</td>
-          <td class="score-cell">${failNote}</td>
+          <td class="model-cell"><div class="customer-model">${B.badge(m.name)}<button class="model-expand" aria-expanded="false" aria-controls="detail-${i}">${escapeHtml(m.name)} ▾</button>${cohortBadge(m)}</div></td>
+          <td class="score-cell">${q?.judge_overall != null ? q.judge_overall.toFixed(2)+" / 5" : "측정값 없음"}</td>
+          <td class="score-cell">${B.time(a.latency_e2e_p50_s)}</td>
+          <td class="score-cell">${B.money(a.cost_total_usd)}<small class="customer-cost-note">${(a.successful_translations ?? 0).toLocaleString("ko-KR")}건 반환 기준</small></td>
+          <td class="score-cell">${B.money(Number.isFinite(B.measure(m,"translation",state.track).cost) ? B.measure(m,"translation",state.track).cost*state.volume : null)}</td>
+          <td>${B.workload(m,"translation",state.track)}</td>
         </tr>
         <tr class="detail-row" id="detail-${i}" hidden>
           <td colspan="6">
             <div class="detail-grid">
               <div><strong>트랙별 품질</strong><br>${trackHtml || "—"}</div>
               <div><strong>Judge 세부 축</strong><br>${axesHtml || "—"}</div>
+              <div><strong>측정 상세</strong><br>${failNote}<br>응답 시간 95% 지점: ${B.time(a.latency_e2e_p95_s)}<br>처리량: ${a.throughput_tok_s ?? "—"} tok/s${ci}</div>
               <div><strong>실행 설정 (run_config)</strong><br>${runConfigLines(m.run_config)}</div>
             </div>
           </td>
@@ -579,9 +541,10 @@ function renderModelTable(report) {
 
   body.innerHTML = rowsHtml;
   body.querySelectorAll(".model-row").forEach((row) => {
-    row.addEventListener("click", () => {
+    row.querySelector("button").addEventListener("click", (event) => {
       const detail = document.getElementById(row.dataset.detail);
       detail.hidden = !detail.hidden;
+      event.currentTarget.setAttribute("aria-expanded",String(!detail.hidden));
     });
   });
 }
@@ -642,7 +605,7 @@ function renderQualityDiagnostics(report) {
     return;
   }
 
-  const modelCell = (model) => `<td class="model-cell"><span class="dot" style="background:${cssVar(PROVIDER_VAR[model.provider] || "--ink-2")}"></span>${escapeHtml(model.name)} ${cohortBadge(model)}</td>`;
+  const modelCell = (model) => `<td class="model-cell"><span class="dot" style="background:${B.family(model.name).color}"></span>${escapeHtml(model.name)} ${cohortBadge(model)}</td>`;
   body.innerHTML = rows.map(({ model, quality: q }) => {
     // Cost comes ONLY from the whole-model field, even while synthetic or
     // FLORES is selected. Missing cost is unavailable, never recomputed using
@@ -743,7 +706,7 @@ function renderLanguageCoverage(report) {
   } else {
     body.innerHTML = displayRows
       .map((r) => {
-        const dot = `<span class="dot" style="background:${cssVar(PROVIDER_VAR[r.provider] || "--ink-2")}"></span>`;
+        const dot = `<span class="dot" style="background:${B.family(r.name || r.model).color}"></span>`;
         const tag = r.gap >= GAP_WARN ? `<span class="reco-tag warn">저자원 언어 격차 큼</span>` : r.gap <= 0.05 ? `<span class="reco-tag">다국어 안정적</span>` : "";
         return `<tr>
           <td class="model-cell">${dot}${escapeHtml(r.name)} ${tag}</td>
@@ -815,9 +778,9 @@ function renderHeatmap(report) {
 
   const legend = document.getElementById("heatmap-legend");
   if (legend) {
-    const providersHere = [...new Set(rows.map((r) => r.provider))];
+    const providersHere = [...new Set(rows.map((r) => B.family(r.name).key))];
     legend.innerHTML = providersHere
-      .map((p) => `<span><span class="dot" style="background:${cssVar(PROVIDER_VAR[p] || "--ink-2")}"></span>${PROVIDER_LABEL[p] || p}</span>`)
+      .map((p) => `<span><span class="dot" style="background:${B.groups[p].color}"></span>${B.groups[p].label}</span>`)
       .join("");
   }
 
@@ -839,8 +802,8 @@ function renderHeatmap(report) {
 
   let body = `<tbody>`;
   for (const row of rows) {
-    const providerColor = cssVar(PROVIDER_VAR[row.provider] || "--ink-2");
-    body += `<tr><td class="rowhead" style="border-left-color:${providerColor}"><span class="dot" style="background:${providerColor}" title="${PROVIDER_LABEL[row.provider] || row.provider}"></span>${escapeHtml(row.name)}</td>`;
+    const providerColor = B.family(row.name).color;
+    body += `<tr><td class="rowhead" style="border-left-color:${providerColor}"><span class="dot" style="background:${providerColor}" title="${B.family(row.name).label}"></span>${escapeHtml(row.name)}</td>`;
     for (const l of columns) {
       const key = isFromKo ? `ko-${l}` : `${l}-ko`;
       const entry = row.pairs.find(([k]) => k === key);
@@ -878,8 +841,8 @@ function renderHistory(reports) {
       const m = r.models.find((mm) => mm.name === name);
       return m ? m.aggregate.judge_overall : null;
     }),
-    borderColor: cssVar(PROVIDER_VAR[providerOf[name]] || "--ink-2"),
-    backgroundColor: cssVar(PROVIDER_VAR[providerOf[name]] || "--ink-2"),
+    borderColor: B.family(name).color,
+    backgroundColor: B.family(name).color,
     spanGaps: true,
     tension: 0.15,
     pointRadius: 3,
@@ -931,6 +894,13 @@ function renderSamples(report) {
     byPair.get(s.pair).push(s);
   }
 
+  const candidates = B.shortlist(report.models,"translation",state.track);
+  const defaults = [...new Set([...(candidates[1]?.candidates || []), ...(candidates[0]?.candidates || [])].map(v=>v.name))];
+  ["sample-model-a","sample-model-b"].forEach((id,i) => {
+    const picker=document.getElementById(id), previous=picker.value;
+    picker.innerHTML=report.models.map(m=>`<option value="${escapeHtml(m.name)}">${escapeHtml(m.name)} · ${B.family(m.name).label}</option>`).join("");
+    picker.value=report.models.some(m=>m.name===previous) ? previous : defaults[i] || report.models[i]?.name || report.models[0]?.name || "";
+  });
   const previousId = select.value;
   select.innerHTML = [...byPair.entries()]
     .map(([pair, group]) => {
@@ -961,13 +931,15 @@ function renderSampleDetail(report, sampleId) {
   }
 
   const providerByModel = Object.fromEntries(report.models.map((m) => [m.name, m.provider]));
+  const chosen = new Set([document.getElementById("sample-model-a").value, document.getElementById("sample-model-b").value]);
   const rows = Object.entries(sample.by_model)
+    .filter(([name]) => chosen.has(name))
     .map(([model, r]) => ({ model, provider: providerByModel[model], ...r }))
     .sort((a, b) => (b.overall ?? -1) - (a.overall ?? -1));
 
   const rowsHtml = rows
     .map((r) => {
-      const dot = `<span class="dot" style="background:${cssVar(PROVIDER_VAR[r.provider] || "--ink-2")}"></span>`;
+      const dot = `<span class="dot" style="background:${B.family(r.name || r.model).color}"></span>`;
       if (r.translation_error != null) {
         return `<tr><td class="model-cell">${dot}${escapeHtml(r.model)}</td><td class="error-cell" colspan="2">번역 실패: ${escapeHtml(r.translation_error || "오류 설명이 기록되지 않았습니다.")}</td></tr>`;
       }
@@ -988,7 +960,7 @@ function renderSampleDetail(report, sampleId) {
     </dl>
     <div class="table-scroll" tabindex="0" role="region" aria-label="모델별 번역 샘플 비교 표">
     <table class="sample-compare">
-      <thead><tr><th>모델</th><th>Judge 종합</th><th>번역 결과</th></tr></thead>
+      <thead><tr><th>모델</th><th>번역 평가</th><th>번역 결과</th></tr></thead>
       <tbody>${rowsHtml}</tbody>
     </table>
     </div>`;
@@ -1033,7 +1005,7 @@ function renderRunProvenance(report) {
 function renderSummary(report) {
   renderRunProvenance(report);
   document.getElementById("run-summary").textContent =
-    `${report.report_kind === "integrated" ? "통합 벤치마크 결과" : report.run_id} · 현재 ${report.models.length}개 모델 · ${report.dataset.pairs}개 언어쌍 방향`;
+    `${report.models.length}개 모델의 품질·응답 시간·비용을 실제 번역 결과와 함께 비교하세요.`;
   document.getElementById("meta-dataset").textContent =
     `FLORES-200 ${report.dataset.flores_per_pair}쌍/방향 + 합성 금융문서 ${report.dataset.synthetic_per_pair}건/방향`;
   document.getElementById("meta-sample-size").textContent =
@@ -1079,11 +1051,31 @@ function renderHeatmapSafe(report) {
 
 async function init() {
   renderScenarioNav();
+  document.getElementById("customer-family-legend").innerHTML=B.legend();
+  document.getElementById("customer-volume").addEventListener("input", event => {
+    const volume=Number(event.target.value);
+    const valid=Number.isInteger(volume) && volume>=1 && volume<=1000000000;
+    event.target.setAttribute("aria-invalid",String(!valid));
+    document.getElementById("volume-feedback").textContent=valid ? "" : `1~1,000,000,000 사이 정수를 입력하세요. 현재 표는 ${state.volume.toLocaleString("ko-KR")}건 기준입니다.`;
+    if (!valid) return;
+    state.volume=volume;
+    document.getElementById("volume-column").textContent=`${volume.toLocaleString("ko-KR")}건 예상 비용`;
+    if (state.current) { renderRecommendations(state.current); renderModelTable(state.current); }
+  });
+  ["sample-model-a","sample-model-b"].forEach(id => document.getElementById(id).addEventListener("change",()=>renderSampleDetail(state.current,document.getElementById("sample-select").value)));
+  document.getElementById("recommendations-body").addEventListener("click", event => {
+    const link=event.target.closest("a[data-model]"); if (!link) return;
+    document.getElementById("samples-body").hidden=false;
+    document.getElementById("samples-toggle").setAttribute("aria-expanded","true");
+    document.getElementById("sample-model-a").value=link.dataset.model;
+    document.getElementById("samples-toggle").textContent="샘플 숨기기 ▴";
+    renderSampleDetail(state.current,document.getElementById("sample-select").value);
+  });
   state.reports = await loadRuns();
   if (!state.reports.length) {
     document.getElementById("run-summary").textContent = "벤치마크 런이 아직 없습니다.";
     document.getElementById("interpretation-panel").hidden = true;
-    const emptyRunHtml = `<div class="empty-state"><span class="glyph">◐</span>아직 게시된 런이 없습니다. bench/run.py → bench/judge.py → bench/report.py 를 실행해 첫 결과를 만들어 보세요.</div>`;
+    const emptyRunHtml = `<div class="empty-state"><span class="glyph">◐</span>아직 게시된 런이 없습니다. 결과가 준비되면 이곳에서 비교할 수 있습니다.</div>`;
     document.querySelectorAll(`#hero-panel .chart-wrap, #heatmap-panel .heatmap-scroll`).forEach((el) => { el.innerHTML = emptyRunHtml; });
     document.getElementById("recommendations-body").innerHTML = emptyRunHtml;
     document.getElementById("model-table-body").innerHTML = `<tr><td colspan="6">${emptyRunHtml}</td></tr>`;

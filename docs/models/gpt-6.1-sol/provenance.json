@@ -25,6 +25,62 @@
   "generation_status": "generated",
   "generation": "free-expression-20261012",
   "prompt_available": true,
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 2.2,
+      "price_out": 11.0,
+      "price_cache_read": 0.11,
+      "price_cache_write": 2.75
+    },
+    "estimated_total_usd": 0.0945769,
+    "estimated_final_response_usd": 0.0520949,
+    "recorded_attempts": 2,
+    "successful_code_responses": 2,
+    "additional_attempts": 1,
+    "known_cost_attempts": 2,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 212,
+      "tokens_out": 7568,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 3950
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:09:52.163153+00:00",
+        "status": "generated",
+        "request_id": "req_ztwaic73t3gfc4kg54nl66q2h6qa7p6vetotvaqztxze7o3utica",
+        "usage_available": true,
+        "estimated_cost_usd": 0.042482,
+        "request_seconds": null,
+        "record_sha256": "cf26dfd48f2870289e6abe647ceffd900fffc99c2b43163fec241dfd3dde24fb",
+        "response_sha256": "a054c178e8a0227efd9917be6757b62cd9447777e8cab9082713c7bdb05b841c"
+      },
+      {
+        "requested_at": "2026-10-12T08:52:10.108119+00:00",
+        "status": "generated",
+        "request_id": "req_i74bjjpo25y72bcprzy4kdoq2xu5orhqmssw3edzxb7hmln7cy6a",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0520949,
+        "request_seconds": null,
+        "record_sha256": "445db1bf9d3a9f6d31665b170e50a54ce294061622e9ebe713f7652fe4976bee",
+        "response_sha256": "6b01ab859a47ebf9bd9f5a9c8d947ba61ae90bd609b61a60b9c608c1976c4008"
+      }
+    ]
+  },
   "prompt_url": "prompt.txt",
   "published_prompt_sha256": "3cda852700ecd527a4255539f548285149e02266842bf9e1a37fea1dcbcfde35",
   "initial_prompt_url": "initial-prompt.txt",

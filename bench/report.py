@@ -842,6 +842,10 @@ def write_report(report: dict):
 
 def _selfcheck():
     """Hand-computed quality, cost, pairing and source-provenance checks."""
+    # Artwork-only money path: $3.50 truncated + $3.975 repaired = $7.475;
+    # unknown timeout usage stays unpriced, cache classes never double count.
+    from tools.self_portrait_costs import _selfcheck as artwork_cost_checks
+    artwork_cost_checks()
     # Luna Responses input includes its cache subsets; count each token once.
     from bench.run import luna_usage
     luna = {"api": "bedrock_mantle", "price_in": .11, "price_out": .55,

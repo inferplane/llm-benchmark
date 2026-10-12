@@ -39,9 +39,9 @@ async function main() {
     if (!/^[a-z0-9][a-z0-9.-]*$/.test(model.model)) throw new Error("Unsafe model path");
     allowed.set(`${base}models/${model.model}/`, { file: path.join(root, "docs/models", model.model, "index.html"), type: "text/html" });
     allowed.set(`${base}models/${model.model}/artwork.html`, { file: path.join(root, "docs/models", model.model, "artwork.html"), type: "text/html", artwork: true });
-    for (const name of ["prompt.txt", "initial-prompt.txt"]) {
+    for (const name of ["prompt.txt", "initial-prompt.txt", "implementation-cost.json"]) {
       const file = path.join(root, "docs/models", model.model, name);
-      if (fs.existsSync(file)) allowed.set(`${base}models/${model.model}/${name}`, { file, type: "text/plain" });
+      if (fs.existsSync(file)) allowed.set(`${base}models/${model.model}/${name}`, { file, type: name.endsWith(".json") ? "application/json" : "text/plain" });
     }
     const page = await context.newPage();
     const errors = [], warnings = [], network = [];
@@ -65,6 +65,17 @@ async function main() {
       if (texts.at(-1) !== expected) errors.push("Prompt dialog does not display the actual request text.");
       await page.keyboard.press("Escape");
       if (await dialog.isVisible()) errors.push("Prompt dialog Escape did not close.");
+    }
+    const costButton = page.locator("[data-open-cost]");
+    if (await costButton.count()) {
+      await page.locator(".viewer-actions > details > summary").click();
+      await costButton.click();
+      const cost = JSON.parse(fs.readFileSync(path.join(directory, "implementation-cost.json"), "utf8"));
+      const dialog = page.locator("#cost-dialog");
+      if (await dialog.locator("tbody tr").count() !== cost.recorded_attempts) errors.push("Cost dialog request count differs from records.");
+      await page.keyboard.press("Escape");
+      if (await dialog.isVisible()) errors.push("Cost dialog Escape did not close.");
+      await page.locator(".viewer-actions > details > summary").click();
     }
     const frame = page.frames().find(item => item.url().endsWith("/artwork.html"));
     if (!frame) { errors.push("The artwork iframe did not load."); }
@@ -126,6 +137,18 @@ async function main() {
       if (!mobileDialog.fits || mobileDialog.overflow) errors.push("Mobile prompt dialog overflows viewport.");
       await page.locator("[data-close-prompts]").click();
     }
+    if (await costButton.count()) {
+      await page.locator(".viewer-actions > details > summary").click();
+      await costButton.click();
+      const fits = await page.locator("#cost-dialog").evaluate(dialog => {
+        const rect = dialog.getBoundingClientRect();
+        return rect.left >= 0 && rect.right <= innerWidth && rect.top >= 0 && rect.bottom <= innerHeight
+          && dialog.scrollWidth <= dialog.clientWidth + 1;
+      });
+      if (!fits) errors.push("Mobile cost dialog overflows viewport.");
+      await page.keyboard.press("Escape");
+      await page.locator(".viewer-actions > details > summary").click();
+    }
     if (frame) {
       const mobile = await frame.evaluate(() => {
         const controls = Array.from(document.querySelectorAll("button")).filter(button => {
@@ -160,6 +183,7 @@ async function main() {
     allowed.delete(`${base}models/${model.model}/artwork.html`);
     allowed.delete(`${base}models/${model.model}/prompt.txt`);
     allowed.delete(`${base}models/${model.model}/initial-prompt.txt`);
+    allowed.delete(`${base}models/${model.model}/implementation-cost.json`);
   }
   await browser.close();
   const validation = path.join(root, "validation/self-portraits");

@@ -20,6 +20,60 @@
   "generation_status": "generated",
   "generation": "free-expression-20261012",
   "prompt_available": true,
+  "implementation_cost": {
+    "kind": "gpu_request_time",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "gpu_hourly_usd": 5.6582
+    },
+    "estimated_total_usd": 0.30835046013716666,
+    "estimated_final_response_usd": 0.1571667039055,
+    "recorded_attempts": 2,
+    "successful_code_responses": 2,
+    "additional_attempts": 1,
+    "known_cost_attempts": 2,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": 196.18635899999998,
+    "tokens": {
+      "tokens_in": 2115,
+      "tokens_out": 2869,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "GPU_model_loading_and_idle_time",
+      "other_infrastructure"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T09:45:12.029825+00:00",
+        "status": "generated",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.15118375623166666,
+        "request_seconds": 96.18987,
+        "record_sha256": "641a51b3784b791fd23593efa802377a9a13bdbf2fb714379a2b772b04bad114",
+        "response_sha256": "736c6187fe1db079562c0dae2839922c9ad3c24483040eba180244ce13fc269a"
+      },
+      {
+        "requested_at": "2026-10-12T09:49:35.109227+00:00",
+        "status": "generated",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.1571667039055,
+        "request_seconds": 99.996489,
+        "record_sha256": "7ae9b2a008a3c9a4130af884cc39289140cd14328cf0720cd870fc774d8e00b8",
+        "response_sha256": "d3ab9791ad802ba1dce8a3a2728e1c176b8931713c33abab6dfe161a1f3d9965"
+      }
+    ]
+  },
   "prompt_url": "prompt.txt",
   "published_prompt_sha256": "f154aa27e5285e8ed478ec63d042797dcc7f918296d43781bca575840d9ffd6d",
   "initial_prompt_url": "initial-prompt.txt",

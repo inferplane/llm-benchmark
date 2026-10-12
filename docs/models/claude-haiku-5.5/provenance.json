@@ -17,6 +17,62 @@
   "generation_status": "generated",
   "generation": "free-expression-20261012",
   "prompt_available": true,
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.11,
+      "price_out": 0.55,
+      "price_cache_read": 0.011,
+      "price_cache_write": 0.1375
+    },
+    "estimated_total_usd": 0.00956065,
+    "estimated_final_response_usd": 0.00501105,
+    "recorded_attempts": 2,
+    "successful_code_responses": 1,
+    "additional_attempts": 1,
+    "known_cost_attempts": 2,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 800,
+      "tokens_out": 17223,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:06:53.863825+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.0045496,
+        "request_seconds": null,
+        "record_sha256": "a43eca00e7d1572226e497564aaafb45c37d4a1c3759c1515d833c7f093a91fe",
+        "response_sha256": "9f414c5edf1a0356b2ba24b5839418d2567be15977b2c6a8fc2bd54000c86e69"
+      },
+      {
+        "requested_at": "2026-10-12T08:20:15.898862+00:00",
+        "status": "generated",
+        "request_id": "df51e7cc-888c-4ad4-a2ef-f77a6db09992",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00501105,
+        "request_seconds": null,
+        "record_sha256": "3bca2b59b93a61b06c2c87c6091c81475b19e26cba0e5deaabf55c72942e25f7",
+        "response_sha256": "32a16b0bef584f5e15d71cf67db8baa5dddbc324f8178c1021a4b21ea6ba2582"
+      }
+    ]
+  },
   "prompt_url": "prompt.txt",
   "published_prompt_sha256": "7da2aafbfbcbf914f1eb48858841eda18769352861335ab4897ce9a68156da70",
   "content_review": {

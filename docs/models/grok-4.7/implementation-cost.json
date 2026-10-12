@@ -1,0 +1,46 @@
+{
+  "kind": "api_tokens",
+  "generation": "free-expression-20261012",
+  "currency": "USD",
+  "price_source": "config.toml",
+  "price_snapshot": {
+    "price_in": 3.3,
+    "price_out": 12.65,
+    "price_cache_read": 0.825,
+    "price_cache_write": 4.125
+  },
+  "estimated_total_usd": 0.02089725,
+  "estimated_final_response_usd": 0.02089725,
+  "recorded_attempts": 1,
+  "successful_code_responses": 1,
+  "additional_attempts": 0,
+  "known_cost_attempts": 1,
+  "unknown_usage_attempts": 0,
+  "missing_duration_attempts": 0,
+  "total_request_seconds": null,
+  "tokens": {
+    "tokens_in": 249,
+    "tokens_out": 1587,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "complete_request_estimate": true,
+  "excludes": [
+    "reviewer_and_coordinator_calls",
+    "historical_generations",
+    "taxes_and_discounts",
+    "requests_without_returned_usage"
+  ],
+  "attempts": [
+    {
+      "requested_at": "2026-10-12T08:10:12.401468+00:00",
+      "status": "generated",
+      "request_id": "d14fdf4a-7685-465b-923d-ea07301c985f",
+      "usage_available": true,
+      "estimated_cost_usd": 0.02089725,
+      "request_seconds": null,
+      "record_sha256": "5fe2c5444cf50453bafd2dbf7c05395db8747671465b73441ad4b04416ffdb9e",
+      "response_sha256": "fd394d2f993f7422991f3c8076fca9744ffb9e402b40e07484272312932a4f74"
+    }
+  ]
+}

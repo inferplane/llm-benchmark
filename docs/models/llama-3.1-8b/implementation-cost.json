@@ -1,0 +1,54 @@
+{
+  "kind": "gpu_request_time",
+  "generation": "free-expression-20261012",
+  "currency": "USD",
+  "price_source": "config.toml",
+  "price_snapshot": {
+    "gpu_hourly_usd": 1.627
+  },
+  "estimated_total_usd": 0.19080897261083332,
+  "estimated_final_response_usd": 0.021873411049166666,
+  "recorded_attempts": 2,
+  "successful_code_responses": 1,
+  "additional_attempts": 1,
+  "known_cost_attempts": 2,
+  "unknown_usage_attempts": 0,
+  "missing_duration_attempts": 0,
+  "total_request_seconds": 422.19563700000003,
+  "tokens": {
+    "tokens_in": 508,
+    "tokens_out": 6953,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "complete_request_estimate": true,
+  "excludes": [
+    "reviewer_and_coordinator_calls",
+    "historical_generations",
+    "taxes_and_discounts",
+    "GPU_model_loading_and_idle_time",
+    "other_infrastructure"
+  ],
+  "attempts": [
+    {
+      "requested_at": "2026-10-12T08:43:25.520312+00:00",
+      "status": "failed",
+      "request_id": null,
+      "usage_available": true,
+      "estimated_cost_usd": 0.16893556156166667,
+      "request_seconds": 373.797186,
+      "record_sha256": "9eff440bd5707d721e31c0876afff469faea937e6c0f732de772c4602b845a0d",
+      "response_sha256": "b19c8176e001de4f2c36836cd7352a29f4979a5d7f2f32cb28d8ce2b76b9e407"
+    },
+    {
+      "requested_at": "2026-10-12T08:51:29.810807+00:00",
+      "status": "generated",
+      "request_id": null,
+      "usage_available": true,
+      "estimated_cost_usd": 0.021873411049166666,
+      "request_seconds": 48.398451,
+      "record_sha256": "b40d8915f13062865b770eac880811367cbe944a4f64b0319ec6ec36630c180b",
+      "response_sha256": "6c5246ab7d3324357af8ef429cfb0c80abb5c61de463f36e55c4e6efe35c3d37"
+    }
+  ]
+}

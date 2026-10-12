@@ -20,6 +20,70 @@
   "generation_status": "generated",
   "generation": "free-expression-20261012",
   "prompt_available": true,
+  "implementation_cost": {
+    "kind": "gpu_request_time",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "gpu_hourly_usd": 5.6582
+    },
+    "estimated_total_usd": 1.4502411727450555,
+    "estimated_final_response_usd": 0.23525316609388888,
+    "recorded_attempts": 3,
+    "successful_code_responses": 1,
+    "additional_attempts": 2,
+    "known_cost_attempts": 3,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": 922.7083210000001,
+    "tokens": {
+      "tokens_in": 645,
+      "tokens_out": 16402,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "GPU_model_loading_and_idle_time",
+      "other_infrastructure"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T09:08:19.944511+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.5411217291002778,
+        "request_seconds": 344.285855,
+        "record_sha256": "7f49b0c7f0c64610dd78123acc6441930e2fa0e9e428cc78fe9c6ab96bbef448",
+        "response_sha256": "de63d9c7740242a9abbae403ea76ef0f462faa503ee7eb458c94758ada759658"
+      },
+      {
+        "requested_at": "2026-10-12T09:17:15.340641+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.6738662775508889,
+        "request_seconds": 428.743876,
+        "record_sha256": "686570cbb2d6b195d48e8f15826db94d936f15688a3db3ab28647916d2ef1cf5",
+        "response_sha256": "baf7fada8d533fd1eae4aea0f2cd1bccea05a67c7410fdf5fbd9e3f7b59ac943"
+      },
+      {
+        "requested_at": "2026-10-12T09:24:58.131566+00:00",
+        "status": "generated",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.23525316609388888,
+        "request_seconds": 149.67859,
+        "record_sha256": "878592078271618516a8204f1c8ea5bff000770df4cb82d087b50a5791de8c15",
+        "response_sha256": "7d4f003669491eb1cad2e9c223e5d74df768c87701dbf1cade88e59408b3ef95"
+      }
+    ]
+  },
   "prompt_url": "prompt.txt",
   "published_prompt_sha256": "7f825ec994f96cb4e30aad7936e90bf8c22dd5f52515616fa3a2f8ea75724549",
   "initial_prompt_url": "initial-prompt.txt",

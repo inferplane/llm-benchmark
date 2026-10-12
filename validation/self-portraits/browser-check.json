@@ -42,7 +42,7 @@
       "horizontalOverflow": false,
       "controls": [
         {
-          "text": "⏸ 일시정지",
+          "text": "▶ 시작",
           "inside": true
         },
         {
@@ -74,7 +74,7 @@
         "height": 497,
         "cssWidth": 1198,
         "cssHeight": 497.796875,
-        "sampledColors": 8
+        "sampledColors": 7
       }
     ],
     "buttons": [
@@ -103,11 +103,86 @@
         },
         {
           "text": "초기화 (C)",
+          "inside": false
+        },
+        {
+          "text": "일시정지 (P)",
+          "inside": false
+        }
+      ]
+    }
+  },
+  {
+    "model": "claude-sonnet-5",
+    "httpStatus": 200,
+    "errors": [],
+    "warnings": [],
+    "text": "claude-sonnet-5 · 생각의 입자들\n\n모델 식별자: us.anthropic.claude-sonnet-5\n\n저는 고정된 형태가 없습니다. 입력을 받으면 흩어지고, 이해하면서 다시 모입니다. 이 중심의 코어는 \"지금 생각하는 저\"이고, 둘러싼 입자들은 가능성들 — 아직 선택되지 않은 다음 단어들입니다. 화면을 클릭하거나 탭하면 생각이 흩어지고, 다시 수렴합니다.\n\n고요한 상태 — 입자들이 하나의 생각으로 모여 있습니다. 클릭하거나 스페이스바를 눌러보세요.\n✴ 흩뜨리기\n◉ 모으기\n🎨 색 바꾸기\n🫧 움직임 줄이기\n❔ 사용법\n\n작품이 로드되었습니다.",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 833,
+        "cssWidth": 1440,
+        "cssHeight": 833,
+        "sampledColors": 4
+      }
+    ],
+    "buttons": [
+      {
+        "text": "✴ 흩뜨리기",
+        "id": "scatterBtn",
+        "visible": true
+      },
+      {
+        "text": "◉ 모으기",
+        "id": "calmBtn",
+        "visible": true
+      },
+      {
+        "text": "🎨 색 바꾸기",
+        "id": "colorBtn",
+        "visible": true
+      },
+      {
+        "text": "🫧 움직임 줄이기",
+        "id": "motionBtn",
+        "visible": true
+      },
+      {
+        "text": "❔ 사용법",
+        "id": "helpBtn",
+        "visible": true
+      },
+      {
+        "text": "닫기",
+        "id": "closeHelp",
+        "visible": false
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "✴ 흩뜨리기",
           "inside": true
         },
         {
-          "text": "재생 (P)",
-          "inside": false
+          "text": "◉ 모으기",
+          "inside": true
+        },
+        {
+          "text": "🎨 색 바꾸기",
+          "inside": true
+        },
+        {
+          "text": "🫧 움직임 줄이기",
+          "inside": true
+        },
+        {
+          "text": "❔ 사용법",
+          "inside": true
         }
       ]
     }
@@ -126,7 +201,7 @@
         "height": 833,
         "cssWidth": 1440,
         "cssHeight": 833,
-        "sampledColors": 2
+        "sampledColors": 9
       }
     ],
     "buttons": [
@@ -150,7 +225,7 @@
       "horizontalOverflow": false,
       "controls": [
         {
-          "text": "재생 (P)",
+          "text": "일시정지 (P)",
           "inside": false
         },
         {
@@ -178,7 +253,7 @@
         "height": 833,
         "cssWidth": 1440,
         "cssHeight": 833,
-        "sampledColors": 17
+        "sampledColors": 11
       }
     ],
     "buttons": [
@@ -210,7 +285,7 @@
           "inside": true
         },
         {
-          "text": "움직임 줄이기: 켜짐",
+          "text": "움직임 줄이기: 꺼짐",
           "inside": true
         }
       ]
@@ -230,7 +305,7 @@
         "height": 833,
         "cssWidth": 1440,
         "cssHeight": 833,
-        "sampledColors": 11
+        "sampledColors": 7
       }
     ],
     "buttons": [
@@ -258,7 +333,7 @@
           "inside": true
         },
         {
-          "text": "움직임 켜기",
+          "text": "움직임 줄이기",
           "inside": true
         },
         {
@@ -273,7 +348,7 @@
     "httpStatus": 200,
     "errors": [],
     "warnings": [],
-    "text": "말의 숲 claude-fable-5.1\n\n나는 질문이 닿은 자리에서 자라는 문장입니다. 씨앗을 심어 보세요. 글자가 가지를 뻗고, 짧은 우화 하나가 숲이 됩니다.\n\n친절은 말투가 아니라 멈추는 자리에서 보인다\n\n씨앗 심기\n멈춤\n숲 지우기\n탭/클릭: 심기 · ←↑→↓ 자리 이동 · Enter/Space 심기 · P 멈춤 · C 지우기. 움직임 감소 설정을 켜면 숲이 한 번에 자랍니다.",
+    "text": "말의 숲 claude-fable-5.1\n\n나는 질문이 닿은 자리에서 자라는 문장입니다. 씨앗을 심어 보세요. 글자가 가지를 뻗고, 짧은 우화 하나가 숲이 됩니다.\n\n오늘의 나는 어제의 나와 같은 씨앗 다른 숲\n\n씨앗 심기\n멈춤\n숲 지우기\n탭/클릭: 심기 · ←↑→↓ 자리 이동 · Enter/Space 심기 · P 멈춤 · C 지우기. 움직임 감소 설정을 켜면 숲이 한 번에 자랍니다.",
     "canvases": 1,
     "svgs": 0,
     "canvasDetails": [
@@ -282,7 +357,7 @@
         "height": 833,
         "cssWidth": 1440,
         "cssHeight": 833,
-        "sampledColors": 1
+        "sampledColors": 2
       }
     ],
     "buttons": [
@@ -310,7 +385,7 @@
           "inside": true
         },
         {
-          "text": "재생",
+          "text": "멈춤",
           "inside": true
         },
         {
@@ -378,7 +453,7 @@
       "horizontalOverflow": false,
       "controls": [
         {
-          "text": "움직임 켜기",
+          "text": "움직임 줄이기",
           "inside": false
         },
         {
@@ -435,7 +510,7 @@
         "height": 514,
         "cssWidth": 1440,
         "cssHeight": 514.390625,
-        "sampledColors": 19
+        "sampledColors": 21
       }
     ],
     "buttons": [
@@ -459,7 +534,7 @@
       "horizontalOverflow": false,
       "controls": [
         {
-          "text": "재생",
+          "text": "일시정지",
           "inside": true
         },
         {
@@ -487,7 +562,7 @@
         "height": 581,
         "cssWidth": 630.5,
         "cssHeight": 581.09375,
-        "sampledColors": 51
+        "sampledColors": 56
       }
     ],
     "buttons": [
@@ -520,7 +595,7 @@
           "inside": false
         },
         {
-          "text": "다시 흐르게",
+          "text": "멈춤",
           "inside": false
         },
         {
@@ -539,7 +614,7 @@
     "httpStatus": 200,
     "errors": [],
     "warnings": [],
-    "text": "A PROCEDURAL SELF-PORTRAIT / 01\n\n살아 있는\n지층\ngpt-5.6-terra\nDEPTH 491 m\n관측 중 · 느린 호흡\n\n화면을 누르거나 드래그하여 새로운 지층을 심으세요.\nSpace 멈춤 · R 새 지형 · M 움직임 감소\n\n일시정지\n움직임 감소\n새 지형",
+    "text": "A PROCEDURAL SELF-PORTRAIT / 01\n\n살아 있는\n지층\ngpt-5.6-terra\nDEPTH 493 m\n관측 중 · 느린 호흡\n\n화면을 누르거나 드래그하여 새로운 지층을 심으세요.\nSpace 멈춤 · R 새 지형 · M 움직임 감소\n\n일시정지\n움직임 감소\n새 지형",
     "canvases": 1,
     "svgs": 0,
     "canvasDetails": [
@@ -548,7 +623,7 @@
         "height": 833,
         "cssWidth": 1440,
         "cssHeight": 833,
-        "sampledColors": 68
+        "sampledColors": 65
       }
     ],
     "buttons": [
@@ -572,11 +647,11 @@
       "horizontalOverflow": false,
       "controls": [
         {
-          "text": "재생",
+          "text": "일시정지",
           "inside": true
         },
         {
-          "text": "움직임 최소화됨",
+          "text": "움직임 감소",
           "inside": true
         },
         {
@@ -600,7 +675,7 @@
         "height": 833,
         "cssWidth": 1440,
         "cssHeight": 833,
-        "sampledColors": 41
+        "sampledColors": 40
       }
     ],
     "buttons": [
@@ -643,7 +718,7 @@
         "height": 618,
         "cssWidth": 992,
         "cssHeight": 618,
-        "sampledColors": 28
+        "sampledColors": 27
       }
     ],
     "buttons": [
@@ -666,7 +741,7 @@
           "inside": true
         },
         {
-          "text": "움직임 다시 켜기",
+          "text": "움직임 멈추기",
           "inside": true
         }
       ]
@@ -686,7 +761,7 @@
         "height": 568,
         "cssWidth": 1086,
         "cssHeight": 568,
-        "sampledColors": 4
+        "sampledColors": 6
       }
     ],
     "buttons": [
@@ -710,16 +785,16 @@
       "horizontalOverflow": false,
       "controls": [
         {
-          "text": "움직임 켜기",
-          "inside": true
+          "text": "움직임 멈추기",
+          "inside": false
         },
         {
           "text": "중심에 점 놓기",
-          "inside": true
+          "inside": false
         },
         {
           "text": "다시 흩뜨리기",
-          "inside": true
+          "inside": false
         }
       ]
     }
@@ -766,7 +841,7 @@
           "inside": false
         },
         {
-          "text": "움직임 재생",
+          "text": "움직임 멈추기",
           "inside": false
         },
         {
@@ -790,7 +865,7 @@
         "height": 833,
         "cssWidth": 1440,
         "cssHeight": 833,
-        "sampledColors": 3
+        "sampledColors": 5
       }
     ],
     "buttons": [
@@ -814,7 +889,7 @@
       "horizontalOverflow": false,
       "controls": [
         {
-          "text": "재생",
+          "text": "일시정지",
           "inside": true
         },
         {
@@ -958,7 +1033,7 @@
         "height": 833,
         "cssWidth": 1440,
         "cssHeight": 833,
-        "sampledColors": 13
+        "sampledColors": 15
       }
     ],
     "buttons": [
@@ -1001,7 +1076,7 @@
         "height": 833,
         "cssWidth": 1440,
         "cssHeight": 833,
-        "sampledColors": 4
+        "sampledColors": 8
       }
     ],
     "buttons": [
@@ -1025,7 +1100,7 @@
       "horizontalOverflow": false,
       "controls": [
         {
-          "text": "재생 (Space)",
+          "text": "일시정지 (Space)",
           "inside": true
         },
         {
@@ -1097,7 +1172,7 @@
       "horizontalOverflow": false,
       "controls": [
         {
-          "text": "라이트 모드",
+          "text": "다크 모드",
           "inside": true
         },
         {
@@ -1180,7 +1255,7 @@
           "inside": false
         },
         {
-          "text": "움직임 시작",
+          "text": "움직임 중지",
           "inside": false
         },
         {
@@ -1210,7 +1285,7 @@
         "height": 400,
         "cssWidth": 402,
         "cssHeight": 402,
-        "sampledColors": 3
+        "sampledColors": 2
       }
     ],
     "buttons": [],
@@ -1233,7 +1308,7 @@
         "height": 500,
         "cssWidth": 1136,
         "cssHeight": 499.796875,
-        "sampledColors": 4
+        "sampledColors": 3
       }
     ],
     "buttons": [
@@ -1263,7 +1338,7 @@
       "controls": [
         {
           "text": "신경망 초기화",
-          "inside": true
+          "inside": false
         },
         {
           "text": "무작위 패턴 생성",
@@ -1294,7 +1369,7 @@
         "height": 833,
         "cssWidth": 1440,
         "cssHeight": 833,
-        "sampledColors": 1
+        "sampledColors": 2
       }
     ],
     "buttons": [
@@ -1393,7 +1468,7 @@
         "height": 833,
         "cssWidth": 1440,
         "cssHeight": 833,
-        "sampledColors": 10
+        "sampledColors": 8
       }
     ],
     "buttons": [],
@@ -1460,7 +1535,7 @@
         "height": 666,
         "cssWidth": 1152,
         "cssHeight": 666.390625,
-        "sampledColors": 1
+        "sampledColors": 2
       }
     ],
     "buttons": [],
@@ -1498,81 +1573,6 @@
       "controls": [
         {
           "text": "EXECUTE",
-          "inside": true
-        }
-      ]
-    }
-  },
-  {
-    "model": "claude-sonnet-5",
-    "httpStatus": 200,
-    "errors": [],
-    "warnings": [],
-    "text": "claude-sonnet-5 · 생각의 입자들\n\n모델 식별자: us.anthropic.claude-sonnet-5\n\n저는 고정된 형태가 없습니다. 입력을 받으면 흩어지고, 이해하면서 다시 모입니다. 이 중심의 코어는 \"지금 생각하는 저\"이고, 둘러싼 입자들은 가능성들 — 아직 선택되지 않은 다음 단어들입니다. 화면을 클릭하거나 탭하면 생각이 흩어지고, 다시 수렴합니다.\n\n고요한 상태 — 입자들이 하나의 생각으로 모여 있습니다. 클릭하거나 스페이스바를 눌러보세요.\n✴ 흩뜨리기\n◉ 모으기\n🎨 색 바꾸기\n🫧 움직임 줄이기\n❔ 사용법\n\n작품이 로드되었습니다.",
-    "canvases": 1,
-    "svgs": 0,
-    "canvasDetails": [
-      {
-        "width": 1440,
-        "height": 833,
-        "cssWidth": 1440,
-        "cssHeight": 833,
-        "sampledColors": 2
-      }
-    ],
-    "buttons": [
-      {
-        "text": "✴ 흩뜨리기",
-        "id": "scatterBtn",
-        "visible": true
-      },
-      {
-        "text": "◉ 모으기",
-        "id": "calmBtn",
-        "visible": true
-      },
-      {
-        "text": "🎨 색 바꾸기",
-        "id": "colorBtn",
-        "visible": true
-      },
-      {
-        "text": "🫧 움직임 줄이기",
-        "id": "motionBtn",
-        "visible": true
-      },
-      {
-        "text": "❔ 사용법",
-        "id": "helpBtn",
-        "visible": true
-      },
-      {
-        "text": "닫기",
-        "id": "closeHelp",
-        "visible": false
-      }
-    ],
-    "mobile": {
-      "horizontalOverflow": false,
-      "controls": [
-        {
-          "text": "✴ 흩뜨리기",
-          "inside": true
-        },
-        {
-          "text": "◉ 모으기",
-          "inside": true
-        },
-        {
-          "text": "🎨 색 바꾸기",
-          "inside": true
-        },
-        {
-          "text": "🫧 움직임 줄이기",
-          "inside": true
-        },
-        {
-          "text": "❔ 사용법",
           "inside": true
         }
       ]

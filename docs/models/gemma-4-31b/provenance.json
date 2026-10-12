@@ -6,5 +6,11 @@
   "status": "unavailable",
   "generation_status": "unavailable",
   "generation": "free-expression-20261012",
-  "prompt_available": false
+  "prompt_available": false,
+  "implementation_cost": {
+    "kind": "not_measured",
+    "generation": "free-expression-20261012",
+    "estimated_total_usd": null,
+    "recorded_attempts": 0
+  }
 }

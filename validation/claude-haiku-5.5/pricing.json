@@ -1,0 +1,22 @@
+{
+  "verified_at": "2026-10-12",
+  "model": "claude-haiku-5.5",
+  "model_id": "us.anthropic.claude-haiku-5-5",
+  "rates": {
+    "price_in": 0.11,
+    "price_out": 0.55,
+    "price_cache_read": 0.011,
+    "price_cache_write": 0.1375
+  },
+  "sources": [
+    {
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-haiku-5-5.html",
+      "sha256": "75a96bc78f050193c0b823e6dfffffeca36bafd38b767ede00ab9a5e758f5fae"
+    },
+    {
+      "url": "https://docs.anthropic.com/en/docs/about-claude/pricing.md",
+      "sha256": "67904e280b595d31f373c857844ed380072ae79d280d8f385640b5992d337ca9"
+    }
+  ],
+  "basis": "Official Claude short-context standard rate, with documented 10% US Geo regional premium. Config.toml is the rate source; estimates are not invoice reconciliation."
+}

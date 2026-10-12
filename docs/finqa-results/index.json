@@ -1,6 +1,10 @@
 {
-  "latest": "finqa-gpt-6-luna-20260925",
+  "latest": "finqa-claude-haiku-5.5-20261012",
   "runs": [
+    {
+      "id": "finqa-claude-haiku-5.5-20261012",
+      "label": "Claude Haiku 5.5 추가 · 감사된 금융 QA · 31개 모델"
+    },
     {
       "id": "finqa-gpt-6-luna-20260925",
       "label": "GPT-6 Luna 추가 · 감사된 금융 QA · 30개 모델"

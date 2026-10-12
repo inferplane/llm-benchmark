@@ -17,6 +17,52 @@
   "generation_status": "generated",
   "generation": "free-expression-20261012",
   "prompt_available": true,
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 3.3,
+      "price_out": 16.5,
+      "price_cache_read": 0.33,
+      "price_cache_write": 4.125
+    },
+    "estimated_total_usd": 0.0656139,
+    "estimated_final_response_usd": 0.0656139,
+    "recorded_attempts": 1,
+    "successful_code_responses": 1,
+    "additional_attempts": 0,
+    "known_cost_attempts": 1,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 388,
+      "tokens_out": 3899,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:06:53.857335+00:00",
+        "status": "generated",
+        "request_id": "34a1efdc-a53c-407a-b373-92b11197bb18",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0656139,
+        "request_seconds": null,
+        "record_sha256": "171e58b04fc6c92daffbd4a44bb905579c41f5f48477b474b27d727bdaf0c74d",
+        "response_sha256": "c326d3476f7e2e31aa806c462423b65b3f99b40caf3094a8518b059004eb58f7"
+      }
+    ]
+  },
   "prompt_url": "prompt.txt",
   "published_prompt_sha256": "aed9657e54ff5a32851ea29336b604faa398d1a5f66ec402008c22ab1ffa5dbb",
   "content_review": {

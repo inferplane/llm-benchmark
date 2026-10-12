@@ -8,9 +8,14 @@
       frame.src = frame.dataset.artwork;
     });
   }
-  const dialog = document.querySelector("#prompt-dialog");
-  const openButton = document.querySelector("[data-open-prompts]");
-  if (!dialog || !openButton) return;
-  openButton.addEventListener("click", () => dialog.showModal());
-  dialog.querySelector("[data-close-prompts]").addEventListener("click", () => dialog.close());
+  for (const [id, open, close] of [
+    ["prompt-dialog", "data-open-prompts", "data-close-prompts"],
+    ["cost-dialog", "data-open-cost", "data-close-cost"],
+  ]) {
+    const dialog = document.getElementById(id);
+    const openButton = document.querySelector(`[${open}]`);
+    if (!dialog || !openButton) continue;
+    openButton.addEventListener("click", () => dialog.showModal());
+    dialog.querySelector(`[${close}]`).addEventListener("click", () => dialog.close());
+  }
 })();

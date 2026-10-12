@@ -1,0 +1,128 @@
+{
+  "run_id": "bedrock-claude-haiku-5.5-20261012",
+  "git_commit": "e5cd987f0b26202a5d9901bbd3f175f445b3a96b",
+  "prompt_sha256": "002886c783e9",
+  "rubric_sha256": "d06c98b162ad",
+  "dataset_segments": 3300,
+  "dataset_sha256": "9f1b6a8db80dab47be8d180007e13cbafec3dbeaf2137baadd0c6560e3fda8c9",
+  "aws_region": "us-west-2",
+  "judge_models": [
+    "openai.gpt-5.6-sol",
+    "us.anthropic.claude-fable-5"
+  ],
+  "generation_parameters": {
+    "temperature": 0,
+    "max_tokens": 4096
+  },
+  "models": [
+    {
+      "name": "claude-haiku-5.5",
+      "api": "bedrock",
+      "model_id": "us.anthropic.claude-haiku-5-5",
+      "concurrency": 8,
+      "gpu_hourly_usd": null,
+      "gpu_instance_type": null,
+      "tensor_parallel_size": null,
+      "extra_vllm_args": null,
+      "mantle_region": null,
+      "mantle_reasoning_effort": null,
+      "request_timeout_s": null,
+      "mantle_background": false,
+      "request_max_attempts": 1,
+      "bedrock_reasoning_effort": null,
+      "translate_region": null,
+      "price_per_char": null,
+      "price_in": 0.11,
+      "price_out": 0.55,
+      "price_cache_read": 0.011,
+      "price_cache_write": 0.1375,
+      "temperature_omitted": true,
+      "thinking_disabled": false,
+      "warmup_excluded": false
+    }
+  ],
+  "started_at": "2026-10-12T13:03:29.402457+00:00",
+  "finished_at": "2026-10-12T13:16:31.248082+00:00",
+  "completion_summary": {
+    "requested": 3300,
+    "successful": 3300,
+    "failed": 0,
+    "cached": 0,
+    "request_attempts": 3300,
+    "models": [
+      {
+        "model": "claude-haiku-5.5",
+        "requested": 3300,
+        "cached": 0,
+        "successful": 3300,
+        "failed": 0,
+        "request_attempts": 3300
+      }
+    ]
+  },
+  "executions": [
+    {
+      "run_id": "bedrock-claude-haiku-5.5-20261012",
+      "git_commit": "e5cd987f0b26202a5d9901bbd3f175f445b3a96b",
+      "prompt_sha256": "002886c783e9",
+      "rubric_sha256": "d06c98b162ad",
+      "dataset_segments": 3300,
+      "dataset_sha256": "9f1b6a8db80dab47be8d180007e13cbafec3dbeaf2137baadd0c6560e3fda8c9",
+      "aws_region": "us-west-2",
+      "judge_models": [
+        "openai.gpt-5.6-sol",
+        "us.anthropic.claude-fable-5"
+      ],
+      "generation_parameters": {
+        "temperature": 0,
+        "max_tokens": 4096
+      },
+      "models": [
+        {
+          "name": "claude-haiku-5.5",
+          "api": "bedrock",
+          "model_id": "us.anthropic.claude-haiku-5-5",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": null,
+          "mantle_reasoning_effort": null,
+          "request_timeout_s": null,
+          "mantle_background": false,
+          "request_max_attempts": 1,
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "price_in": 0.11,
+          "price_out": 0.55,
+          "price_cache_read": 0.011,
+          "price_cache_write": 0.1375,
+          "temperature_omitted": true,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        }
+      ],
+      "started_at": "2026-10-12T13:03:29.402457+00:00",
+      "finished_at": "2026-10-12T13:16:31.248082+00:00",
+      "completion_summary": {
+        "requested": 3300,
+        "successful": 3300,
+        "failed": 0,
+        "cached": 0,
+        "request_attempts": 3300,
+        "models": [
+          {
+            "model": "claude-haiku-5.5",
+            "requested": 3300,
+            "cached": 0,
+            "successful": 3300,
+            "failed": 0,
+            "request_attempts": 3300
+          }
+        ]
+      }
+    }
+  ]
+}

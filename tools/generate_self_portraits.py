@@ -21,6 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from bench import run
+from tools.self_portrait_costs import implementation_cost
 
 OUTPUT = ROOT / "docs/models"
 RECORDS = ROOT / "results/model-self-portraits"
@@ -134,6 +135,63 @@ def prompt_dialog(prompts: list[dict], name: str) -> str:
     )
 
 
+def usd(value: float | None) -> str:
+    return f"${value:.6f}".rstrip("0").rstrip(".") if value is not None else "미측정"
+
+
+def cost_summary(cost: dict) -> str:
+    if cost["kind"] == "not_measured":
+        return "생성 비용 미측정"
+    label = "GPU 처리분 · 로딩 제외" if cost["kind"] == "gpu_request_time" else "생성·수정"
+    caveat = (
+        f' · {cost["unknown_usage_attempts"]}회 미확인'
+        if cost["kind"] == "api_tokens" and cost["unknown_usage_attempts"] else ""
+    )
+    return f'{label} ≈ {usd(cost["estimated_total_usd"])}{caveat}'
+
+
+def cost_dialog(cost: dict, name: str) -> str:
+    if cost["kind"] == "not_measured":
+        return ""
+    native = cost["kind"] == "gpu_request_time"
+    note = (
+        "요청 시작부터 응답 또는 실패가 기록될 때까지의 시간을 설정된 GPU 시간당 단가로 계산했습니다. "
+        "모델 다운로드·로딩·대기·기타 인프라 비용은 포함하지 않으므로 전체 GPU 청구액보다 작습니다."
+        if native else
+        "반환된 입력·출력·캐시 읽기·쓰기 토큰을 설정 단가로 계산했습니다. "
+        "완성 전 잘린 응답과 수정 요청도 사용량이 기록돼 있으면 합산합니다. 출력 토큰에 포함된 추론 토큰은 중복 계산하지 않습니다."
+    )
+    unknown = (
+        f'<p class="cost-caveat">사용량을 받지 못한 요청 {cost["unknown_usage_attempts"]}건의 청구액은 미확인입니다. '
+        '표시 합계에 포함하지 않았습니다.</p>'
+        if not native and cost["unknown_usage_attempts"] else ""
+    )
+    attempts = "".join(
+        f'<tr><td>{index + 1}</td><td>{"코드 반환" if row["status"] == "generated" else "미완성·실패"}</td>'
+        f'<td>{usd(row["estimated_cost_usd"])}</td></tr>'
+        for index, row in enumerate(cost["attempts"])
+    )
+    tokens = " · ".join(f'{label} {cost["tokens"][key]:,}' for key, label in (
+        ("tokens_in", "입력"), ("tokens_out", "출력"),
+        ("cache_read_tokens", "캐시 읽기"), ("cache_write_tokens", "캐시 쓰기")))
+    return (
+        '<dialog id="cost-dialog" class="prompt-dialog" aria-labelledby="cost-title">'
+        f'<div class="prompt-heading"><h2 id="cost-title">{escape(name)} · 구현 비용</h2>'
+        '<button type="button" data-close-cost autofocus>닫기</button></div>'
+        f'<div class="prompt-content"><p class="cost-total">{escape(cost_summary(cost))}</p>'
+        f'<p>이번 작품의 작성·재요청·수정 {cost["recorded_attempts"]}회 합계입니다. '
+        f'최종 응답 요청: {usd(cost["estimated_final_response_usd"])}.</p><p>{note}</p>{unknown}'
+        f'<p>{tokens}</p><div class="cost-table"><table><thead><tr><th>요청</th><th>결과</th><th>추정 USD</th></tr></thead>'
+        f'<tbody>{attempts}</tbody></table></div>'
+        '<p>현재 config.toml의 단가 기준 추정치이며 실제 청구서가 아닙니다. '
+        '이전 세대의 작품, 운영 도구·검수 모델 호출, 세금·할인은 포함하지 않습니다.</p>'
+        '<details><summary>적용 단가 · USD / 백만 토큰 또는 GPU 시간</summary>'
+        f'<pre>{escape(json.dumps(cost["price_snapshot"], ensure_ascii=False, indent=2))}</pre></details>'
+        '<a href="implementation-cost.json" target="_blank" rel="noopener">비용 계산·요청 기록 원문 ↗</a>'
+        '</div></dialog>'
+    )
+
+
 def build_catalog(models: list[dict], reviews: dict | None = None) -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     entries = []
@@ -142,6 +200,8 @@ def build_catalog(models: list[dict], reviews: dict | None = None) -> None:
         directory = OUTPUT / name
         directory.mkdir(parents=True, exist_ok=True)
         record = record_of(name)
+        cost = implementation_cost(model, RECORDS / name, GENERATION)
+        write_json(directory / "implementation-cost.json", cost)
         prompts = recorded_prompts(name, record)
         active_prompt_files = {item["file"] for item in prompts}
         for filename in ("prompt.txt", "initial-prompt.txt"):
@@ -187,6 +247,7 @@ def build_catalog(models: list[dict], reviews: dict | None = None) -> None:
             "generation_status": record["status"],
             "generation": GENERATION,
             "prompt_available": bool(prompts),
+            "implementation_cost": cost,
         }
         if prompts:
             attribution["prompt_url"] = "prompt.txt"
@@ -219,10 +280,11 @@ def build_catalog(models: list[dict], reviews: dict | None = None) -> None:
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{escape(name)} · 모델이 만든 자기표현</title>
 <link rel="icon" href="../../favicon.svg"><link rel="stylesheet" href="../portraits.css"><link rel="stylesheet" href="../readability.css"><script src="../viewer.js" defer></script></head>
-<body class="viewer"><header class="viewer-bar"><a href="../">← 모델 목록</a><span><strong>{escape(name)}</strong><small>{escape(labels.get(status, status))}</small></span>
+<body class="viewer"><header class="viewer-bar"><a href="../">← 모델 목록</a><span><strong>{escape(name)}</strong><small>{escape(labels.get(status, status))}</small><small class="implementation-cost">{escape(cost_summary(cost))}</small></span>
 <div class="viewer-actions">{'<button type="button" data-open-prompts>프롬프트</button>' if prompts else ''}<details><summary>작성 기록</summary><section><p>모델 식별자: {escape(model["model_id"])}</p><p>상태: {escape(labels.get(status, status))}</p>
 <p>{escape(record.get('generated_at', ''))}</p><p>{authorship_note} 목록과 이 표시줄은 실행 도구가 제공합니다.</p>
-<a href="provenance.json" target="_blank" rel="noopener">작성자·응답 기록</a>{'<a href="artwork.html" target="_blank" rel="noopener">원본 작품만 열기 ↗</a>' if status == 'generated' else ''}</section></details></div></header>{panel}{prompt_dialog(prompts, name)}</body></html>""")
+{'<button type="button" data-open-cost>구현 비용 내역</button>' if cost["kind"] != "not_measured" else ''}
+<a href="provenance.json" target="_blank" rel="noopener">작성자·응답 기록</a>{'<a href="artwork.html" target="_blank" rel="noopener">원본 작품만 열기 ↗</a>' if status == 'generated' else ''}</section></details></div></header>{panel}{prompt_dialog(prompts, name)}{cost_dialog(cost, name)}</body></html>""")
     generated = sum(item["status"] == "generated" for item in entries)
     cards = []
     for entry in entries:
@@ -233,7 +295,7 @@ def build_catalog(models: list[dict], reviews: dict | None = None) -> None:
             if status == "generated" and (OUTPUT / name / "preview.jpg").exists() else
             f'<div class="placeholder"><span>{escape(family(next(m for m in models if m["name"] == name)))}</span><strong>{escape(name)}</strong></div>'
         )
-        cards.append(f'<a class="portrait-card" href="{escape(name)}/" data-family="{escape(entry["family"])}" data-name="{escape(name)}"><div class="preview">{preview}</div><div class="caption"><small>{escape(entry["family"])}</small><h2>{escape(name)}</h2><span class="status {status}">{escape(labels.get(status, status))} ↗</span></div></a>')
+        cards.append(f'<a class="portrait-card" href="{escape(name)}/" data-family="{escape(entry["family"])}" data-name="{escape(name)}"><div class="preview">{preview}</div><div class="caption"><small>{escape(entry["family"])}</small><h2>{escape(name)}</h2><span class="status {status}">{escape(labels.get(status, status))} ↗</span><p class="implementation-cost">{escape(cost_summary(entry["implementation_cost"]))}</p></div></a>')
     families = list(dict.fromkeys(entry["family"] for entry in entries))
     filters = '<button data-family="all" class="active" aria-pressed="true">전체</button>' + "".join(f'<button data-family="{escape(value)}" aria-pressed="false">{escape(value)}</button>' for value in families)
     OUTPUT.joinpath("index.html").write_text(f"""<!doctype html>

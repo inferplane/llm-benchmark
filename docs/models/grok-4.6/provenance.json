@@ -27,6 +27,70 @@
   "generation_status": "generated",
   "generation": "free-expression-20261012",
   "prompt_available": true,
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 2.2,
+      "price_out": 6.6
+    },
+    "estimated_total_usd": 0.0271414,
+    "estimated_final_response_usd": 0.0271414,
+    "recorded_attempts": 3,
+    "successful_code_responses": 1,
+    "additional_attempts": 2,
+    "known_cost_attempts": 1,
+    "unknown_usage_attempts": 2,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 247,
+      "tokens_out": 4030,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": false,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:10:01.068877+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": false,
+        "estimated_cost_usd": null,
+        "request_seconds": null,
+        "record_sha256": "8be81dffc6792cc317ca8f8532edb3d89a8be1a5df4ac90e243bc7c6c9ae2a57",
+        "response_sha256": null
+      },
+      {
+        "requested_at": "2026-10-12T08:54:31.763489+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": false,
+        "estimated_cost_usd": null,
+        "request_seconds": null,
+        "record_sha256": "0ef6132989675b48caf8fff3e792f75da6e9f48da33a4bcac3db4e3fb581c35c",
+        "response_sha256": null
+      },
+      {
+        "requested_at": "2026-10-12T09:08:24.706570+00:00",
+        "status": "generated",
+        "request_id": "req_pjhgmu3eb34oltnanqulzgn4zzaq4dbvnze4n65tpdc4sdtowa4q",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0271414,
+        "request_seconds": null,
+        "record_sha256": "bfadee172049bbe4dbff5adac0f59b5776f7db7778d8067de3783ee790e50753",
+        "response_sha256": "f126020ef1bc970381422d359a695d776a4c762f08cb068905011dcacd92200f"
+      }
+    ]
+  },
   "prompt_url": "prompt.txt",
   "published_prompt_sha256": "24173eac09d577a4b3fe67bb084d89d5a3a0ec4ca5b6ff6ce447905dc7e25d6a",
   "content_review": {

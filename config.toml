@@ -110,15 +110,21 @@ tr = "tur_Latn"
 name = "claude-haiku-4.5"
 api = "bedrock"
 model_id = "us.anthropic.claude-haiku-4-5-20251001-v1:0"
-price_in = 1.00
-price_out = 5.00
+# Verified 2026-10-12: US Geo adds 10% to Claude's global Standard rate.
+# Previously published benchmark snapshots retain their recorded prices.
+price_in = 1.10
+price_out = 5.50
+price_cache_read = 0.11
+price_cache_write = 1.375
 
 [[models]]
 name = "claude-sonnet-4.5"
 api = "bedrock"
 model_id = "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
-price_in = 3.00
-price_out = 15.00
+price_in = 3.30
+price_out = 16.50
+price_cache_read = 0.33
+price_cache_write = 4.125
 
 [[models]]
 name = "claude-sonnet-5"
@@ -127,8 +133,10 @@ model_id = "us.anthropic.claude-sonnet-5"
 # Rechecked 2026-10-11: Anthropic's official pricing.md now confirms that
 # $2/$10 became standard; the previously planned September increase was
 # cancelled. Historical observations retain their recorded run_config.
-price_in = 2.00
-price_out = 10.00
+price_in = 2.20
+price_out = 11.00
+price_cache_read = 0.22
+price_cache_write = 2.75
 
 # Latest public Claude family, checked 2026-10-11 against AWS model cards
 # and https://platform.claude.com/docs/en/about-claude/pricing.md .

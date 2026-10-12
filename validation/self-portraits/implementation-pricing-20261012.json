@@ -1,0 +1,35 @@
+{
+  "verified_at": "2026-10-12",
+  "source_url": "https://docs.anthropic.com/en/docs/about-claude/pricing.md",
+  "source_sha256": "67904e280b595d31f373c857844ed380072ae79d280d8f385640b5992d337ca9",
+  "basis": "Standard short-context global rates with documented 10% US Geo premium; no changes to retained historical benchmarks.",
+  "models": {
+    "claude-haiku-4.5": {
+      "name": "claude-haiku-4.5",
+      "api": "bedrock",
+      "model_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+      "price_in": 1.1,
+      "price_out": 5.5,
+      "price_cache_read": 0.11,
+      "price_cache_write": 1.375
+    },
+    "claude-sonnet-4.5": {
+      "name": "claude-sonnet-4.5",
+      "api": "bedrock",
+      "model_id": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+      "price_in": 3.3,
+      "price_out": 16.5,
+      "price_cache_read": 0.33,
+      "price_cache_write": 4.125
+    },
+    "claude-sonnet-5": {
+      "name": "claude-sonnet-5",
+      "api": "bedrock",
+      "model_id": "us.anthropic.claude-sonnet-5",
+      "price_in": 2.2,
+      "price_out": 11.0,
+      "price_cache_read": 0.22,
+      "price_cache_write": 2.75
+    }
+  }
+}

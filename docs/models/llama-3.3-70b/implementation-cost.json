@@ -1,0 +1,44 @@
+{
+  "kind": "gpu_request_time",
+  "generation": "free-expression-20261012",
+  "currency": "USD",
+  "price_source": "config.toml",
+  "price_snapshot": {
+    "gpu_hourly_usd": 16.416
+  },
+  "estimated_total_usd": 0.34316246712,
+  "estimated_final_response_usd": 0.34316246712,
+  "recorded_attempts": 1,
+  "successful_code_responses": 1,
+  "additional_attempts": 0,
+  "known_cost_attempts": 1,
+  "unknown_usage_attempts": 0,
+  "missing_duration_attempts": 0,
+  "total_request_seconds": 75.254927,
+  "tokens": {
+    "tokens_in": 254,
+    "tokens_out": 978,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "complete_request_estimate": true,
+  "excludes": [
+    "reviewer_and_coordinator_calls",
+    "historical_generations",
+    "taxes_and_discounts",
+    "GPU_model_loading_and_idle_time",
+    "other_infrastructure"
+  ],
+  "attempts": [
+    {
+      "requested_at": "2026-10-12T08:15:20.185336+00:00",
+      "status": "generated",
+      "request_id": null,
+      "usage_available": true,
+      "estimated_cost_usd": 0.34316246712,
+      "request_seconds": 75.254927,
+      "record_sha256": "653903b458a64139cf49686c84c054577087dcce9cfa2ffe217451e02dac2e7e",
+      "response_sha256": "37b8ee656018f220a4808c2686e18061ee1b0233892be9f7b354baa03569fa4e"
+    }
+  ]
+}

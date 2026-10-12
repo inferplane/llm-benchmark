@@ -1,0 +1,12 @@
+{
+  "changes": [
+    "Post-call report validation corrected to use the unchanged configured default of one logical attempt.",
+    "Only offline artwork money assertions added to report._selfcheck; all runtime report/cost AST nodes remain equal.",
+    "Delivery-only annotations disclose 3 retried judge timeouts and unknown evaluator charges; no scoring changes."
+  ],
+  "generation_or_decoding_changed": false,
+  "frozen_collector_sha256": "41e40930ebb387ed740f6b7ec49f5e61b4061f7207c3ccf5003e88bb3324a081",
+  "current_reporting_module_sha256": "ffb852f3676583c92773945a084d60db1289a25ba73d929c6fa98dc6ca512729",
+  "frozen_cost_code_sha256": "3bc7712cbcf1775a0fb6fc8adc491b56ee4b5b8ea7e79a746b463b5d6e78bf51",
+  "current_cost_code_sha256": "948d3953a42f75a129fb0775ccbc2b88a0091fbe4e8874453f53fe915a557a0c"
+}

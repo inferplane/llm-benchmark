@@ -1,5 +1,5 @@
 {
-  "state": "authorized_ready_to_publish",
+  "state": "deployed_verified",
   "configured_paths": 38,
   "actual_model_responses_verified": 36,
   "passing_artworks": 32,
@@ -26,5 +26,9 @@
   "scope_choice_confirmed": true,
   "user_scope_decision": "해당 모델은 검수보류로 진행하자",
   "scope_confirmed_at": "2026-10-12T04:32:59.276323+00:00",
-  "quality_gate": "PASS: all39 public pages, original32 artworks plus4 held-status and2 unavailable-status pages plus gallery"
+  "quality_gate": "PASS: all39 public pages, original32 artworks plus4 held-status and2 unavailable-status pages plus gallery",
+  "deployed_commit": "a3c936fe81c88e9671e3266651c9c101832f16e8",
+  "deployment_url": "https://inferplane.github.io/llm-benchmark/models/",
+  "verified_at": "2026-10-12T04:37:13.398496+00:00",
+  "live_http_files_checked": 158
 }

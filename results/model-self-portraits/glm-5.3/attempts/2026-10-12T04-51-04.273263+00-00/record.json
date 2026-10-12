@@ -1,0 +1,19 @@
+{
+  "model": "glm-5.3",
+  "model_id": "us.zai.glm-5.3",
+  "api": "bedrock",
+  "requested_at": "2026-10-12T04:51:04.273263+00:00",
+  "prompt_sha256": "6b6ac9ace127a2a26beb1fd4502741284fd7b7e1630bdb7639601a6cb6b24d0e",
+  "max_output_tokens": 6144,
+  "temperature": 0,
+  "temperature_sent": true,
+  "status": "generated",
+  "generated_at": "2026-10-12T04:51:10.607882+00:00",
+  "artwork_sha256": "bff88dd7ced3b5761881f0a764a69e77e43c075421c024e301a2578ed5088c69",
+  "tokens_in": 2,
+  "tokens_out": 2140,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 1090,
+  "finish_reason": "end_turn",
+  "request_id": "7a11838f-a3da-4365-8dc2-38ba1de97449"
+}

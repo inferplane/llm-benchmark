@@ -1,0 +1,18 @@
+{
+  "model": "grok-4.7",
+  "model_id": "us.xai.grok-4.7",
+  "api": "bedrock",
+  "requested_at": "2026-10-12T04:51:04.268557+00:00",
+  "prompt_sha256": "d8ea064cb9106319e7a87dce1808e8357548a8d41325f57d739c796dae78c68e",
+  "max_output_tokens": 6144,
+  "temperature": null,
+  "temperature_sent": false,
+  "status": "failed",
+  "failed_at": "2026-10-12T04:53:42.199888+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

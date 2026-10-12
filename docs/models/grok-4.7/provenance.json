@@ -1,0 +1,27 @@
+{
+  "model": "grok-4.7",
+  "requested_model_id": "us.xai.grok-4.7",
+  "provider": "bedrock",
+  "family": "xAI",
+  "generated_at": "2026-10-12T05:04:08.713944+00:00",
+  "request_id": "7b95d0cd-be87-4030-890e-60c277759355",
+  "artwork_sha256": "1738dc44bf73d5605dfec2136c1194bb24cc129523277269f85f2213a62a829c",
+  "prompt_sha256": "d8ea064cb9106319e7a87dce1808e8357548a8d41325f57d739c796dae78c68e",
+  "tokens_in": 955,
+  "tokens_out": 1825,
+  "finish_reason": "end_turn",
+  "max_output_tokens": 6144,
+  "temperature": null,
+  "temperature_sent": false,
+  "status": "generated",
+  "generation_status": "generated",
+  "prompt_available": true,
+  "prompt_url": "prompt.txt",
+  "published_prompt_sha256": "d8ea064cb9106319e7a87dce1808e8357548a8d41325f57d739c796dae78c68e",
+  "content_review": {
+    "score": 96.5,
+    "critical": 0,
+    "warnings": 3,
+    "verdict": "PASS"
+  }
+}

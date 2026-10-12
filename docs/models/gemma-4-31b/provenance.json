@@ -5,6 +5,7 @@
   "family": "Google",
   "status": "unavailable",
   "generation_status": "unavailable",
+  "prompt_available": false,
   "content_review": {
     "score": 100,
     "critical": 0,

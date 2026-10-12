@@ -1,0 +1,817 @@
+{
+  "state": "deployed_verified",
+  "verified_at": "2026-10-12T04:37:13.398496+00:00",
+  "source_commit": "a3c936fe81c88e9671e3266651c9c101832f16e8",
+  "url": "https://inferplane.github.io/llm-benchmark/models/",
+  "pages_build_status": "built",
+  "pages_workflow_run": 38204311309,
+  "pages_workflow_conclusion": "success",
+  "public_artworks": 32,
+  "configured_model_paths": 38,
+  "review_held_models": [
+    "nova-micro",
+    "nemotron-nano-3-30b",
+    "llama-3.1-8b",
+    "exaone-3.5-32b"
+  ],
+  "unavailable_models": [
+    "amazon-translate",
+    "gemma-4-31b"
+  ],
+  "checked_http_files": 158,
+  "byte_identical_live_files": 146,
+  "absent_unpublished_files": 12,
+  "quality_gate": "PASS for all39 public pages",
+  "results": [
+    {
+      "path": "amazon-translate/artwork.html",
+      "http_status": 404,
+      "byte_hash_matches": null
+    },
+    {
+      "path": "amazon-translate/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "amazon-translate/preview.jpg",
+      "http_status": 404,
+      "byte_hash_matches": null
+    },
+    {
+      "path": "amazon-translate/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "catalog.js",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "catalog.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-fable-5.1/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-fable-5.1/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-fable-5.1/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-fable-5.1/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-haiku-4.5/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-haiku-4.5/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-haiku-4.5/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-haiku-4.5/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-haiku-5.5/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-haiku-5.5/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-haiku-5.5/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-haiku-5.5/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-opus-5.5/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-opus-5.5/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-opus-5.5/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-opus-5.5/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-sonnet-4.5/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-sonnet-4.5/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-sonnet-4.5/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-sonnet-4.5/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-sonnet-5.5/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-sonnet-5.5/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-sonnet-5.5/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-sonnet-5.5/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-sonnet-5/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-sonnet-5/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-sonnet-5/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "claude-sonnet-5/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "exaone-3.5-32b/artwork.html",
+      "http_status": 404,
+      "byte_hash_matches": null
+    },
+    {
+      "path": "exaone-3.5-32b/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "exaone-3.5-32b/preview.jpg",
+      "http_status": 404,
+      "byte_hash_matches": null
+    },
+    {
+      "path": "exaone-3.5-32b/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gemma-4-31b-bedrock/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gemma-4-31b-bedrock/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gemma-4-31b-bedrock/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gemma-4-31b-bedrock/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gemma-4-31b/artwork.html",
+      "http_status": 404,
+      "byte_hash_matches": null
+    },
+    {
+      "path": "gemma-4-31b/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gemma-4-31b/preview.jpg",
+      "http_status": 404,
+      "byte_hash_matches": null
+    },
+    {
+      "path": "gemma-4-31b/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "glm-4.7-flash/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "glm-4.7-flash/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "glm-4.7-flash/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "glm-4.7-flash/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.4/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.4/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.4/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.4/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.5/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.5/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.5/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.5/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.6-luna/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.6-luna/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.6-luna/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.6-luna/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.6-terra/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.6-terra/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.6-terra/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-5.6-terra/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-6-astra/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-6-astra/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-6-astra/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-6-astra/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-6-luna/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-6-luna/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-6-luna/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-6-luna/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-6.1-sol/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-6.1-sol/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-6.1-sol/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-6.1-sol/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-oss-120b/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-oss-120b/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-oss-120b/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-oss-120b/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-oss-20b/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-oss-20b/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-oss-20b/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "gpt-oss-20b/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "grok-4.3/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "grok-4.3/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "grok-4.3/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "grok-4.3/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "grok-4.6/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "grok-4.6/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "grok-4.6/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "grok-4.6/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "kimi-k3/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "kimi-k3/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "kimi-k3/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "kimi-k3/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama-3.1-8b/artwork.html",
+      "http_status": 404,
+      "byte_hash_matches": null
+    },
+    {
+      "path": "llama-3.1-8b/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama-3.1-8b/preview.jpg",
+      "http_status": 404,
+      "byte_hash_matches": null
+    },
+    {
+      "path": "llama-3.1-8b/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama-3.3-70b-bedrock/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama-3.3-70b-bedrock/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama-3.3-70b-bedrock/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama-3.3-70b-bedrock/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama-3.3-70b/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama-3.3-70b/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama-3.3-70b/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama-3.3-70b/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama4-maverick/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama4-maverick/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama4-maverick/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama4-maverick/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama4-scout/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama4-scout/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama4-scout/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "llama4-scout/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "ministral-14b/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "ministral-14b/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "ministral-14b/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "ministral-14b/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nemotron-nano-3-30b/artwork.html",
+      "http_status": 404,
+      "byte_hash_matches": null
+    },
+    {
+      "path": "nemotron-nano-3-30b/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nemotron-nano-3-30b/preview.jpg",
+      "http_status": 404,
+      "byte_hash_matches": null
+    },
+    {
+      "path": "nemotron-nano-3-30b/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nemotron-super-3-120b/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nemotron-super-3-120b/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nemotron-super-3-120b/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nemotron-super-3-120b/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nova-lite/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nova-lite/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nova-lite/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nova-lite/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nova-micro/artwork.html",
+      "http_status": 404,
+      "byte_hash_matches": null
+    },
+    {
+      "path": "nova-micro/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nova-micro/preview.jpg",
+      "http_status": 404,
+      "byte_hash_matches": null
+    },
+    {
+      "path": "nova-micro/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nova-pro/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nova-pro/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nova-pro/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "nova-pro/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "portraits.css",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "qwen3-235b-a22b/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "qwen3-235b-a22b/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "qwen3-235b-a22b/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "qwen3-235b-a22b/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "qwen3-32b/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "qwen3-32b/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "qwen3-32b/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "qwen3-32b/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "qwen3.6-27b/artwork.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "qwen3.6-27b/index.html",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "qwen3.6-27b/preview.jpg",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "qwen3.6-27b/provenance.json",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "readability.css",
+      "http_status": 200,
+      "byte_hash_matches": true
+    },
+    {
+      "path": "viewer.js",
+      "http_status": 200,
+      "byte_hash_matches": true
+    }
+  ]
+}

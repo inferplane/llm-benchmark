@@ -351,6 +351,21 @@ mantle_reasoning_effort = "low"
 request_max_attempts = 4  # initial request + up to 3 transient retries; timeout remains 120s
 enabled = true
 
+# Verified 2026-10-12 against AWS's Grok 4.7 model card and live Converse.
+# New generation uses bedrock-runtime, US Geo inference, not Mantle.
+# Standard US CRIS rates per 1M tokens; temperature is rejected outright.
+# https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-xai-grok-4-7.html
+[[models]]
+name = "grok-4.7"
+api = "bedrock"
+model_id = "us.xai.grok-4.7"
+bedrock_reasoning_effort = "low"
+price_in = 3.30
+price_out = 12.65
+price_cache_read = 0.825
+price_cache_write = 4.125
+enabled = true
+
 # ── Bedrock third-party low-cost models: every model on Bedrock with output
 # pricing ≤ $1/1M tok, latest generation only (older/tiny variants — llama-3.2,
 # mistral-7b/mixtral, ministral-3b/8b, gemma-3, nova-2-lite — deliberately
@@ -382,6 +397,22 @@ api = "bedrock"
 model_id = "zai.glm-4.7-flash"
 price_in = 0.07
 price_out = 0.40
+
+# Verified 2026-10-12: US inference ID on the official model card;
+# Standard US CRIS input/output/cache rates on AWS's GLM 5.3 pricing table.
+# Live Converse accepted temperature=0 and reasoning_effort="low".
+# https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-zai-glm-5-3.html
+# https://aws.amazon.com/bedrock/pricing/
+[[models]]
+name = "glm-5.3"
+api = "bedrock"
+model_id = "us.zai.glm-5.3"
+bedrock_reasoning_effort = "low"
+price_in = 1.848
+price_out = 5.808
+price_cache_read = 0.3432
+price_cache_write = 2.31
+enabled = true
 
 # gpt-oss reasons by default; bedrock_reasoning_effort dials it to the minimum
 # so a translation isn't billed/timed for chain-of-thought it doesn't need

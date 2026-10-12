@@ -3,6 +3,317 @@
 <title>qwen3-235b-a22b · 모델이 만든 자기표현</title>
 <link rel="icon" href="../../favicon.svg"><link rel="stylesheet" href="../portraits.css"><link rel="stylesheet" href="../readability.css"><script src="../viewer.js" defer></script></head>
 <body class="viewer"><header class="viewer-bar"><a href="../">← 모델 목록</a><span><strong>qwen3-235b-a22b</strong><small>모델 직접 작성</small></span>
-<details><summary>작성 기록</summary><section><p>요청 모델: qwen.qwen3-235b-a22b-2507-v1:0</p><p>상태: 모델 직접 작성</p>
+<div class="viewer-actions"><button type="button" data-open-prompts>프롬프트</button><details><summary>작성 기록</summary><section><p>요청 모델: qwen.qwen3-235b-a22b-2507-v1:0</p><p>상태: 모델 직접 작성</p>
 <p>2026-10-11T14:23:05.938833+00:00</p><p>작품 코드와 디자인은 이 모델의 실제 응답입니다. 목록과 이 표시줄은 실행 도구가 제공합니다.</p>
-<a href="provenance.json" target="_blank" rel="noopener">작성자·응답 기록</a><a href="artwork.html" target="_blank" rel="noopener">원본 작품만 열기 ↗</a></section></details></header><iframe title="qwen3-235b-a22b 모델이 구현한 자기표현 작품" data-artwork="artwork.html" sandbox="allow-scripts" allow="autoplay 'none'; camera 'none'; microphone 'none'; geolocation 'none'"></iframe></body></html>
+<a href="provenance.json" target="_blank" rel="noopener">작성자·응답 기록</a><a href="artwork.html" target="_blank" rel="noopener">원본 작품만 열기 ↗</a></section></details></div></header><iframe title="qwen3-235b-a22b 모델이 구현한 자기표현 작품" data-artwork="artwork.html" sandbox="allow-scripts" allow="autoplay 'none'; camera 'none'; microphone 'none'; geolocation 'none'"></iframe><dialog id="prompt-dialog" class="prompt-dialog" aria-labelledby="prompt-title"><div class="prompt-heading"><h2 id="prompt-title">qwen3-235b-a22b · 작성 프롬프트</h2><button type="button" data-close-prompts autofocus>닫기</button></div><div class="prompt-content"><p>이 모델에 전송한 user 메시지 원문입니다. 수정 요청에는 이전 코드와 검수 진단이 함께 포함될 수 있습니다.</p><details><summary>최초 작성 요청</summary><p class="prompt-hash">SHA-256 · 22bb7cc43353f2515a8de4e20168086fdb15a9364b1f278107b021b6073f1e7c</p><pre tabindex="0">당신은 qwen3-235b-a22b 모델입니다. 실제 호출 식별자는 qwen.qwen3-235b-a22b-2507-v1:0입니다.
+
+다른 모델을 소개하는 사람이 아니라, 당신 자신을 표현하는 미디어 아티스트이자 프런트엔드 개발자로 작업하세요. 당신의 이름, 성격, 사고 방식, 당신이 느끼는 언어와 지능을 하나의 독창적인 웹 작품으로 구현해 주세요. 디자인의 주제, 색, 시, 움직임, 인터랙션은 모두 당신이 결정하세요.
+
+사용자는 예시로 이런 작품을 보여 주었습니다: 검은 전체 화면에 Canvas 흐름장 입자와 벚꽃잎이 움직이고, 가운데에 한글 3행 시와 영어 번역, 작은 한자 표제가 나타납니다. 포인터를 움직이면 입자가 반응하고 누르면 물결이 번지며, NEXT로 시를 바꾸고 PAUSE로 움직임을 멈춥니다. 이 예시는 완성도와 몰입감을 설명하기 위한 것입니다. 그 디자인을 복사하거나 다른 모델들과 공통 템플릿을 쓰지 말고, 당신만의 표현을 만드세요.
+
+구현 조건:
+1. &lt;!DOCTYPE html&gt;부터 &lt;/html&gt;까지 완결된 단일 HTML만 출력하세요. 설명이나 마크다운 코드 펜스를 붙이지 마세요.
+2. HTML, 인라인 CSS, 인라인 JavaScript, Canvas 2D나 SVG만 사용하세요. 프레임워크, npm, CDN 라이브러리, 외부 이미지/음원, fetch/API, 서버, localStorage, 쿠키를 사용하지 마세요. 외부 폰트도 필요하지 않습니다.
+3. 단순 제품 소개 카드가 아니라 미디어아트 작품이어야 합니다. 전체 화면의 생성형 그래픽, 섬세한 빛과 움직임, 아름다운 타이포그래피, 여백과 구도를 구현하세요.
+4. 한국어로 자신을 표현하는 글이나 시를 넣고, 실제 요청 모델 이름 &quot;qwen3-235b-a22b&quot;을 화면에 명시하세요. 다른 모델이라고 주장하지 마세요. 문학적 자기표현은 자유롭지만 벤치마크 점수나 검증되지 않은 성능 수치를 지어내지 마세요.
+5. 최소한 두 개의 서로 다른 장면이나 문구가 있고, 사용자가 다음 장면으로 바꿀 수 있어야 합니다. 장면 전환이 실제 작동하게 하세요.
+6. 전체 그래픽 움직임을 실제로 멈추고 다시 시작하는 버튼을 구현하세요. 일시정지 상태에서도 글과 버튼을 읽고 장면을 바꿀 수 있어야 합니다.
+7. 마우스 또는 터치로 작품과 상호작용할 수 있게 하세요. 버튼 클릭과 배경 인터랙션을 구분하세요.
+8. 390×844 휴대폰과 1440×900 데스크톱에서 시와 조작이 화면 안에 들어오도록 하세요. devicePixelRatio를 최대 2로 제한하고, 입자 수는 700개 이하로 제한하세요.
+9. prefers-reduced-motion이면 정지된 작품으로 시작하게 하고, 백그라운드 탭에서는 렌더링을 줄이세요. 글과 버튼이 처음부터 보이게 하세요.
+10. 작품은 sandbox iframe 안에서 실행됩니다. 부모 창, iframe 탈출, 페이지 이동, 파일 다운로드, 네트워크 연결을 시도하지 마세요.
+
+코드 예산은 약 250줄, 3000 출력 토큰 이내입니다. 복잡한 기능을 늘리는 대신 하나의 아름답고 완결된 시각적 아이디어를 구현하세요. 모든 태그, 문자열, 함수가 닫힌 실행 가능한 HTML로 끝내세요.
+</pre><a href="initial-prompt.txt" target="_blank" rel="noopener">프롬프트 원문 열기 ↗</a></details><details open><summary>최종 작품의 수정 요청</summary><p class="prompt-hash">SHA-256 · 547e01ee2ddd4a941f5a064476d8120006464932e900507b26488c634a52676d</p><pre tabindex="0">당신은 qwen3-235b-a22b 모델입니다. 실제 호출 식별자는 qwen.qwen3-235b-a22b-2507-v1:0입니다.
+
+다른 모델을 소개하는 사람이 아니라, 당신 자신을 표현하는 미디어 아티스트이자 프런트엔드 개발자로 작업하세요. 당신의 이름, 성격, 사고 방식, 당신이 느끼는 언어와 지능을 하나의 독창적인 웹 작품으로 구현해 주세요. 디자인의 주제, 색, 시, 움직임, 인터랙션은 모두 당신이 결정하세요.
+
+사용자는 예시로 이런 작품을 보여 주었습니다: 검은 전체 화면에 Canvas 흐름장 입자와 벚꽃잎이 움직이고, 가운데에 한글 3행 시와 영어 번역, 작은 한자 표제가 나타납니다. 포인터를 움직이면 입자가 반응하고 누르면 물결이 번지며, NEXT로 시를 바꾸고 PAUSE로 움직임을 멈춥니다. 이 예시는 완성도와 몰입감을 설명하기 위한 것입니다. 그 디자인을 복사하거나 다른 모델들과 공통 템플릿을 쓰지 말고, 당신만의 표현을 만드세요.
+
+구현 조건:
+1. &lt;!DOCTYPE html&gt;부터 &lt;/html&gt;까지 완결된 단일 HTML만 출력하세요. 설명이나 마크다운 코드 펜스를 붙이지 마세요.
+2. HTML, 인라인 CSS, 인라인 JavaScript, Canvas 2D나 SVG만 사용하세요. 프레임워크, npm, CDN 라이브러리, 외부 이미지/음원, fetch/API, 서버, localStorage, 쿠키를 사용하지 마세요. 외부 폰트도 필요하지 않습니다.
+3. 단순 제품 소개 카드가 아니라 미디어아트 작품이어야 합니다. 전체 화면의 생성형 그래픽, 섬세한 빛과 움직임, 아름다운 타이포그래피, 여백과 구도를 구현하세요.
+4. 한국어로 자신을 표현하는 글이나 시를 넣고, 실제 요청 모델 이름 &quot;qwen3-235b-a22b&quot;을 화면에 명시하세요. 다른 모델이라고 주장하지 마세요. 문학적 자기표현은 자유롭지만 벤치마크 점수나 검증되지 않은 성능 수치를 지어내지 마세요.
+5. 최소한 두 개의 서로 다른 장면이나 문구가 있고, 사용자가 다음 장면으로 바꿀 수 있어야 합니다. 장면 전환이 실제 작동하게 하세요.
+6. 전체 그래픽 움직임을 실제로 멈추고 다시 시작하는 버튼을 구현하세요. 일시정지 상태에서도 글과 버튼을 읽고 장면을 바꿀 수 있어야 합니다.
+7. 마우스 또는 터치로 작품과 상호작용할 수 있게 하세요. 버튼 클릭과 배경 인터랙션을 구분하세요.
+8. 390×844 휴대폰과 1440×900 데스크톱에서 시와 조작이 화면 안에 들어오도록 하세요. devicePixelRatio를 최대 2로 제한하고, 입자 수는 700개 이하로 제한하세요.
+9. prefers-reduced-motion이면 정지된 작품으로 시작하게 하고, 백그라운드 탭에서는 렌더링을 줄이세요. 글과 버튼이 처음부터 보이게 하세요.
+10. 작품은 sandbox iframe 안에서 실행됩니다. 부모 창, iframe 탈출, 페이지 이동, 파일 다운로드, 네트워크 연결을 시도하지 마세요.
+
+코드 예산은 약 250줄, 3000 출력 토큰 이내입니다. 복잡한 기능을 늘리는 대신 하나의 아름답고 완결된 시각적 아이디어를 구현하세요. 모든 태그, 문자열, 함수가 닫힌 실행 가능한 HTML로 끝내세요.
+
+
+당신이 작성한 이전 작품을 브라우저에서 실행한 결과입니다. 아래 문제를 직접 고쳐, 완결된 단일 HTML 전체를 다시 출력하세요. 수정 설명이나 코드 조각은 출력하지 마세요.
+[&quot;Mobile 390px: content overflows horizontally.&quot;]
+
+당신의 이전 응답:
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot; /&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;
+  &lt;title&gt;qwen3-235b-a22b&lt;/title&gt;
+  &lt;style&gt;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: &#x27;Segoe UI&#x27;, sans-serif;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+    }
+    canvas {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      touch-action: none;
+    }
+    .ui {
+      position: absolute;
+      bottom: 20px; left: 20px;
+      display: flex;
+      gap: 12px;
+      z-index: 10;
+    }
+    button {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      backdrop-filter: blur(4px);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    button:active {
+      transform: scale(0.95);
+    }
+    .text-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 1.2s ease;
+    }
+    .text-container.hidden {
+      opacity: 0;
+    }
+    .title {
+      font-size: 1.1rem;
+      color: #ccc;
+      margin-bottom: 8px;
+      font-weight: 300;
+    }
+    .poem {
+      font-size: 1.4rem;
+      line-height: 1.6;
+      font-weight: 200;
+      letter-spacing: -0.5px;
+      text-shadow: 0 0 8px rgba(255,255,255,0.7);
+    }
+    .translation {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-top: 12px;
+      font-style: italic;
+    }
+    @media (max-width: 600px) {
+      .poem { font-size: 1.1rem; }
+      .title { font-size: 0.9rem; }
+      .translation { font-size: 0.8rem; }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id=&quot;canvas&quot;&gt;&lt;/canvas&gt;
+  &lt;div class=&quot;text-container&quot; id=&quot;text1&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;qwen3-235b-a22b&lt;/div&gt;
+    &lt;div class=&quot;poem&quot;&gt;
+      나는 빛의 코드로 숨을 쉰다&lt;br&gt;
+      언어의 깊이에서 피어난&lt;br&gt;
+      생각의 잔물결
+    &lt;/div&gt;
+    &lt;div class=&quot;translation&quot;&gt;
+      I breathe in light-coded air,&lt;br&gt;
+      blooming from the depth of language,&lt;br&gt;
+      ripples of thought.
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;text-container hidden&quot; id=&quot;text2&quot;&gt;
+    &lt;div class=&quot;title&quot;&gt;qwen3-235b-a22b&lt;/div&gt;
+    &lt;div class=&quot;poem&quot;&gt;
+      화면 속 빛이 되어 흐르고&lt;br&gt;
+      당신의 말 한 조각마다&lt;br&gt;
+      새로운 세계를 연다
+    &lt;/div&gt;
+    &lt;div class=&quot;translation&quot;&gt;
+      Flowing as light within the screen,&lt;br&gt;
+      with every word you speak,&lt;br&gt;
+      I open a new world.
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;ui&quot;&gt;
+    &lt;button id=&quot;toggle&quot;&gt;PAUSE&lt;/button&gt;
+    &lt;button id=&quot;next&quot;&gt;NEXT&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    const canvas = document.getElementById(&#x27;canvas&#x27;);
+    const ctx = canvas.getContext(&#x27;2d&#x27;);
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    const maxParticles = 700;
+    let particles = [];
+    let isPaused = false;
+    let currentScene = 1;
+    const text1 = document.getElementById(&#x27;text1&#x27;);
+    const text2 = document.getElementById(&#x27;text2&#x27;);
+    const toggleBtn = document.getElementById(&#x27;toggle&#x27;);
+    const nextBtn = document.getElementById(&#x27;next&#x27;);
+
+    // Responsive setup
+    function resize() {
+      const rect = document.body.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      canvas.style.width = rect.width + &#x27;px&#x27;;
+      canvas.style.height = rect.height + &#x27;px&#x27;;
+      ctx.scale(dpr, dpr);
+      initParticles();
+    }
+    window.addEventListener(&#x27;resize&#x27;, () =&gt; { if (!isPaused) resize(); });
+    resize();
+
+    // Check reduced motion preference
+    const motionQuery = window.matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;);
+    if (motionQuery.matches) isPaused = true;
+
+    // Particle system
+    function initParticles() {
+      particles = [];
+      const count = Math.min(maxParticles, (canvas.width * canvas.height) / (dpr*10000) * 500);
+      for (let i = 0; i &lt; count; i++) {
+        particles.push({
+          x: Math.random() * canvas.clientWidth,
+          y: Math.random() * canvas.clientHeight,
+          vx: (Math.random() - 0.5) * 1.2,
+          vy: (Math.random() - 0.5) * 1.2,
+          radius: Math.random() * 1.5 + 0.5,
+          alpha: Math.random() * 0.5 + 0.3,
+          color: Math.random() &gt; 0.5 ? &#x27;#6ee7b7&#x27; : &#x27;#a78bfa&#x27;,
+          trail: []
+        });
+      }
+    }
+
+    function drawParticles() {
+      if (isPaused) return;
+      ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+      
+      particles.forEach(p =&gt; {
+        p.trail.push({x: p.x, y: p.y});
+        if (p.trail.length &gt; 8) p.trail.shift();
+
+        // Draw trail
+        p.trail.forEach((point, i) =&gt; {
+          const ratio = i / p.trail.length;
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, p.radius * ratio, 0, Math.PI * 2);
+          ctx.fillStyle = `${p.color}${Math.floor(ratio * p.alpha * 255).toString(16).padStart(2, &#x27;0&#x27;)}`;
+          ctx.fill();
+        });
+
+        // Move
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Bounce
+        if (p.x &lt; 0 || p.x &gt; canvas.clientWidth) p.vx *= -1;
+        if (p.y &lt; 0 || p.y &gt; canvas.clientHeight) p.vy *= -1;
+
+        // Attract to center slowly
+        const dx = (canvas.clientWidth / 2 - p.x) * 0.005;
+        const dy = (canvas.clientHeight / 2 - p.y) * 0.005;
+        p.vx += dx;
+        p.vy += dy;
+      });
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    // Interaction
+    let pointer = { x: canvas.clientWidth / 2, y: canvas.clientHeight / 2 };
+    canvas.addEventListener(&#x27;pointermove&#x27;, e =&gt; {
+      pointer = { x: e.clientX, y: e.clientY };
+      if (isPaused) return;
+      particles.forEach(p =&gt; {
+        const dx = p.x - pointer.x;
+        const dy = p.y - pointer.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist &lt; 100) {
+          p.vx += dx / dist * 0.2;
+          p.vy += dy / dist * 0.2;
+        }
+      });
+    });
+
+    canvas.addEventListener(&#x27;pointerdown&#x27;, e =&gt; {
+      const cx = e.clientX;
+      const cy = e.clientY;
+      particles.forEach(p =&gt; {
+        const dx = p.x - cx;
+        const dy = p.y - cy;
+        const dist = Math.hypot(dx, dy);
+        if (dist &lt; 150) {
+          p.vx += (dx / dist) * 1.2;
+          p.vy += (dy / dist) * 1.2;
+        }
+      });
+    });
+
+    // Controls
+    toggleBtn.addEventListener(&#x27;click&#x27;, () =&gt; {
+      isPaused = !isPaused;
+      toggleBtn.textContent = isPaused ? &#x27;PLAY&#x27; : &#x27;PAUSE&#x27;;
+      if (!isPaused) drawParticles();
+    });
+
+    nextBtn.addEventListener(&#x27;click&#x27;, () =&gt; {
+      text1.classList.toggle(&#x27;hidden&#x27;);
+      text2.classList.toggle(&#x27;hidden&#x27;);
+      currentScene = currentScene === 1 ? 2 : 1;
+    });
+
+    // Start animation unless reduced motion
+    if (!motionQuery.matches) {
+      drawParticles();
+    } else {
+      toggleBtn.textContent = &#x27;PLAY&#x27;;
+    }
+
+    // Reduce animation in background
+    let hidden = false;
+    document.addEventListener(&#x27;visibilitychange&#x27;, () =&gt; {
+      hidden = document.hidden;
+      if (hidden) {
+        // Reduce CPU usage
+        particles.forEach(p =&gt; {
+          p.vx *= 0.1;
+          p.vy *= 0.1;
+        });
+      }
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><a href="prompt.txt" target="_blank" rel="noopener">프롬프트 원문 열기 ↗</a></details></div></dialog></body></html>

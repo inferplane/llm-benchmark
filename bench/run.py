@@ -60,6 +60,7 @@ BEDROCK_NO_TEMPERATURE = {
     "us.anthropic.claude-opus-4-8", "us.moonshotai.kimi-k3",
     "us.anthropic.claude-haiku-5-5", "us.anthropic.claude-sonnet-5-5",
     "us.anthropic.claude-opus-5-5", "us.anthropic.claude-fable-5-1",
+    "us.xai.grok-4.7",  # live Converse rejects temperature (2026-10-12)
 }
 
 # claude-sonnet-5 defaults to extended thinking; on long synthetic financial
@@ -344,7 +345,13 @@ async def call_bedrock(client, model_id: str, prompt: str, reasoning_effort: str
         # mantle_reasoning_effort / Qwen3.6's enable_thinking: translation
         # doesn't need CoT, and leaving it on biases cost/latency vs the
         # non-reasoning roster. Field name verified live per model.
-        additional_fields["reasoning_effort"] = reasoning_effort
+        if model_id == "us.xai.grok-4.7":
+            # Grok 4.7 uses the native reasoning object on Converse too.
+            # A flat reasoning_effort is ignored and leaves the high default
+            # active (live-verified 2026-10-12).
+            additional_fields["reasoning"] = {"effort": reasoning_effort}
+        else:
+            additional_fields["reasoning_effort"] = reasoning_effort
     if model_id in BEDROCK_DISABLE_THINKING:
         additional_fields["thinking"] = {"type": "disabled"}
     kwargs = {"additionalModelRequestFields": additional_fields} if additional_fields else {}
@@ -1215,18 +1222,20 @@ def _selfcheck_cli():
 def _selfcheck_kimi():
     from types import SimpleNamespace
     async def check():
-        for model_id, omitted in (("us.moonshotai.kimi-k3", True), ("us.amazon.nova-lite-v1:0", False)):
+        for model_id, omitted in (("us.moonshotai.kimi-k3", True), ("us.amazon.nova-lite-v1:0", False), ("us.xai.grok-4.7", True)):
             def converse(**kwargs):
                 assert kwargs["modelId"] == model_id
                 assert kwargs["inferenceConfig"]["maxTokens"] == MAX_OUTPUT_TOKENS
                 assert ("temperature" not in kwargs["inferenceConfig"]) is omitted
-                assert kwargs.get("additionalModelRequestFields", {}) == {}
+                expected_fields = {"reasoning": {"effort": "low"}} if model_id == "us.xai.grok-4.7" else {}
+                assert kwargs.get("additionalModelRequestFields", {}) == expected_fields
                 return {"output": {"message": {"content": [
                     {"reasoningContent": {"reasoningText": {"text": "not output"}}}, {"text": "OK"},
                 ]}}, "usage": {"inputTokens": 50, "outputTokens": 4,
                                "cacheReadInputTokens": 101, "cacheWriteInputTokens": 202},
                         "stopReason": "end_turn"}
-            result = await call_bedrock(SimpleNamespace(converse=converse), model_id, "check")
+            effort = "low" if model_id == "us.xai.grok-4.7" else None
+            result = await call_bedrock(SimpleNamespace(converse=converse), model_id, "check", effort)
             _validate_result(result)
             assert result["text"] == "OK" and result["tokens_in"] == 50
             assert result["cache_read_tokens"] == 101 and result["cache_write_tokens"] == 202

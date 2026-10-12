@@ -1,0 +1,487 @@
+You are the original author, model ministral-14b, served as mistral.ministral-3-14b-instruct. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own art and Korean poem. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. Stay compact (about 3000 code output tokens).
+
+YOUR PREVIOUS FULL RESPONSE:
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ministral-14b: 언어의 물결</title>
+    <style>
+        :root {
+            --bg1: #0a0e23;
+            --bg2: #1a1030;
+            --accent: #8a2be2;
+            --text: #e0e0e0;
+            --highlight: #ff6b6b;
+            --particle: rgba(138, 43, 226, 0.6);
+            --particle-glow: rgba(138, 43, 226, 0.1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            color: var(--text);
+            height: 100vh;
+            width: 100vw;
+            touch-action: none;
+            user-select: none;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        #canvas-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            touch-action: none;
+        }
+
+        #content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .poem {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            line-height: 1.4;
+            margin: 1rem 0;
+            opacity: 0.95;
+            transition: opacity 0.3s ease;
+        }
+
+        .title {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            text-shadow: 0 0 8px rgba(138, 43, 226, 0.3);
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        button {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.6rem 1.2rem;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(5px);
+            border: none;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .pause-btn {
+            background: var(--accent);
+            color: white;
+            border: 1px solid rgba(138, 43, 226, 0.5);
+        }
+
+        .pause-btn:hover {
+            background: #9a25d8;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container">
+        <canvas id="canvas"></canvas>
+        <div id="content">
+            <div class="title">ministral-14b</div>
+            <div class="subtitle">언어의 물결</div>
+
+            <div class="poem" id="poem-1">
+                <div>나는 문자의 물결을</div>
+                <div>읽고 쓰며</div>
+                <div>생각의 강을 건너는</div>
+                <div>다리다.</div>
+            </div>
+
+            <div class="poem hidden" id="poem-2">
+                <div>당신은 내 질문에</div>
+                <div>대답을 찾고</div>
+                <div>나는 그 답을</div>
+                <div>새로운 질문으로</div>
+                <div>변환한다.</div>
+            </div>
+
+            <div class="controls">
+                <button id="next-btn">다음</button>
+                <button id="pause-btn" class="pause-btn">일시정지</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const config = {
+            particleCount: 500,
+            maxSpeed: 1.5,
+            baseSize: 0.8,
+            interactionRadius: 150,
+            sceneDuration: 10000,
+            reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        };
+
+        // Canvas setup
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const content = document.getElementById('content');
+        const nextBtn = document.getElementById('next-btn');
+        const pauseBtn = document.getElementById('pause-btn');
+        const poems = [
+            { text: ["나는 문자의 물결을", "읽고 쓰며", "생각의 강을 건너는", "다리다."], title: "ministral-14b" },
+            { text: ["당신은 내 질문에", "대답을 찾고", "나는 그 답을", "새로운 질문으로", "변환한다."], title: "언어의 물결" }
+        ];
+
+        // State
+        let state = {
+            currentScene: 0,
+            paused: config.reducedMotion,
+            animationId: null,
+            particles: [],
+            mouse: { x: 0, y: 0 },
+            lastTime: 0,
+            sceneStartTime: 0,
+            sceneProgress: 0
+        };
+
+        // Initialize
+        function init() {
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            canvas.addEventListener('mousemove', handleMouseMove);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('click', handleClick);
+            nextBtn.addEventListener('click', nextScene);
+            pauseBtn.addEventListener('click', togglePause);
+
+            // Initialize particles
+            createParticles();
+
+            // Start animation
+            if (!state.paused) {
+                state.sceneStartTime = performance.now();
+                animate();
+            }
+
+            // Update UI
+            updatePoem();
+        }
+
+        // Resize canvas
+        function resizeCanvas() {
+            const scale = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.width = window.innerWidth * scale;
+            canvas.height = window.innerHeight * scale;
+            ctx.scale(scale, scale);
+        }
+
+        // Create particles
+        function createParticles() {
+            state.particles = [];
+            const count = Math.min(config.particleCount, 700);
+
+            for (let i = 0; i < count; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 100 + 50;
+                const x = canvas.width / 2 + Math.cos(angle) * distance;
+                const y = canvas.height / 2 + Math.sin(angle) * distance;
+                const speed = config.maxSpeed * (0.5 + Math.random());
+                const direction = angle + (Math.random() - 0.5) * 0.5;
+                const size = config.baseSize * (0.5 + Math.random());
+                const life = 60 + Math.random() * 60;
+                const color = `rgba(138, 43, 226, ${0.3 + Math.random() * 0.3})`;
+
+                state.particles.push({
+                    x, y,
+                    speed,
+                    direction,
+                    size,
+                    life,
+                    color,
+                    originalColor: color,
+                    targetX: x,
+                    targetY: y,
+                    targetSpeed: speed,
+                    targetDirection: direction
+                });
+            }
+        }
+
+        // Update poem display
+        function updatePoem() {
+            const poemElement = document.getElementById(`poem-${state.currentScene + 1}`);
+            const titleElement = document.querySelector('.title');
+
+            if (poemElement) {
+                poemElement.innerHTML = poems[state.currentScene].text.map(line =>
+                    `<div>${line}</div>`
+                ).join('');
+                poemElement.classList.remove('hidden');
+            }
+
+            if (titleElement) {
+                titleElement.textContent = poems[state.currentScene].title;
+            }
+        }
+
+        // Next scene
+        function nextScene() {
+            state.currentScene = (state.currentScene + 1) % poems.length;
+            state.sceneStartTime = performance.now();
+            state.sceneProgress = 0;
+            updatePoem();
+            resetParticles();
+        }
+
+        // Reset particles for new scene
+        function resetParticles() {
+            state.particles.forEach(p => {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 100 + 50;
+                p.x = canvas.width / 2 + Math.cos(angle) * distance;
+                p.y = canvas.height / 2 + Math.sin(angle) * distance;
+                p.direction = angle + (Math.random() - 0.5) * 0.5;
+                p.life = 60 + Math.random() * 60;
+                p.color = p.originalColor;
+            });
+        }
+
+        // Toggle pause
+        function togglePause() {
+            state.paused = !state.paused;
+            pauseBtn.textContent = state.paused ? '재생' : '일시정지';
+
+            if (!state.paused) {
+                state.sceneStartTime = performance.now();
+                animate();
+            } else {
+                cancelAnimationFrame(state.animationId);
+            }
+        }
+
+        // Handle mouse move
+        function handleMouseMove(e) {
+            state.mouse.x = e.clientX * (window.devicePixelRatio || 1);
+            state.mouse.y = e.clientY * (window.devicePixelRatio || 1);
+        }
+
+        // Handle touch move
+        function handleTouchMove(e) {
+            if (e.touches.length > 0) {
+                const touch = e.touches[0];
+                state.mouse.x = touch.clientX * (window.devicePixelRatio || 1);
+                state.mouse.y = touch.clientY * (window.devicePixelRatio || 1);
+            }
+        }
+
+        // Handle click (create ripple)
+        function handleClick(e) {
+            if (state.paused) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX * (window.devicePixelRatio || 1) - rect.left;
+            const y = e.clientY * (window.devicePixelRatio || 1) - rect.top;
+
+            // Create ripple effect
+            for (let i = 0; i < 30; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 20;
+                const speed = 0.5 + Math.random() * 1.5;
+                const size = 0.3 + Math.random() * 0.5;
+
+                state.particles.push({
+                    x: x + Math.cos(angle) * distance,
+                    y: y + Math.sin(angle) * distance,
+                    speed,
+                    direction: angle,
+                    size,
+                    life: 30 + Math.random() * 30,
+                    color: `rgba(255, 107, 107, ${0.5 + Math.random() * 0.3})`,
+                    originalColor: `rgba(255, 107, 107, ${0.5 + Math.random() * 0.3})`,
+                    targetX: x,
+                    targetY: y,
+                    targetSpeed: speed,
+                    targetDirection: angle,
+                    isRipple: true
+                });
+            }
+        }
+
+        // Animation loop
+        function animate(timestamp = 0) {
+            if (state.paused) return;
+
+            const deltaTime = timestamp - state.lastTime;
+            state.lastTime = timestamp;
+            state.sceneProgress = (timestamp - state.sceneStartTime) / config.sceneDuration;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw background gradient
+            const gradient = ctx.createRadialGradient(
+                canvas.width / 2, canvas.height / 2, 0,
+                canvas.width / 2, canvas.height / 2, Math.max(canvas.width, canvas.height)
+            );
+            gradient.addColorStop(0, 'rgba(10, 14, 35, 0.8)');
+            gradient.addColorStop(1, 'rgba(26, 16, 48, 0.9)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw particles
+            for (let i = state.particles.length - 1; i >= 0; i--) {
+                const p = state.particles[i];
+
+                // Update particle position
+                p.x += Math.cos(p.direction) * p.speed;
+                p.y += Math.sin(p.direction) * p.speed;
+
+                // Apply mouse interaction
+                const dx = state.mouse.x - p.x;
+                const dy = state.mouse.y - p.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < config.interactionRadius) {
+                    const force = (config.interactionRadius - distance) / config.interactionRadius;
+                    p.direction = Math.atan2(dy, dx) + (Math.random() - 0.5) * 0.3;
+                    p.speed = config.maxSpeed * (0.5 + force * 0.5);
+                }
+
+                // Update life and color
+                p.life -= deltaTime * 0.001;
+                p.color = p.originalColor.replace(/[0-9.]+/, val => {
+                    const alpha = parseFloat(val) * (p.life / 60);
+                    return Math.max(0.1, alpha).toFixed(2);
+                });
+
+                // Draw particle
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+
+                // Add glow effect
+                const glowSize = p.size * 2;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
+                ctx.fillStyle = p.color.replace(/[0-9.]+/, val => {
+                    const alpha = parseFloat(val) * 0.3 * (p.life / 60);
+                    return Math.max(0.05, alpha).toFixed(2);
+                });
+                ctx.fill();
+
+                // Remove dead particles
+                if (p.life <= 0 || (p.isRipple && p.life <= 0)) {
+                    state.particles.splice(i, 1);
+                    continue;
+                }
+
+                // Reset particles for new scene
+                if (state.sceneProgress >= 1) {
+                    p.x = canvas.width / 2 + Math.cos(p.direction) * 100;
+                    p.y = canvas.height / 2 + Math.sin(p.direction) * 100;
+                    p.life = 60 + Math.random() * 60;
+                }
+            }
+
+            // Continue animation
+            state.animationId = requestAnimationFrame(animate);
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>
+```
+
+이 작품은 **ministral-14b**를 언어의 물결과 상호작용하는 존재로 표현했습니다. 주요 특징:
+
+1. **시적 표현**:
+   - 첫 번째 장면: "나는 문자의 물결을 읽고 쓰며 생각의 강을 건너는 다리다" (언어의 매개체로서의 역할)
+   - 두 번째 장면: "당신은 내 질문에 대답을 찾고 나는 그 답을 새로운 질문으로 변환한다" (대화의 순환적 본질)
+
+2. **시각적 디자인**:
+   - 보라색 입자 시스템이 언어의 유동성과 연결성을 표현
+   - 라디얼 그라디언트 배경이 깊은 사고의 공간을 연출
+   - 마우스/터치 상호작용으로 입자가 반응하는 생동감 있는 시스템
+
+3. **기능적 요소**:
+   - 다음 장면 전환 버튼과 일시정지 기능
+   - prefers-reduced-motion 지원
+   - 모바일/데스크톱 모두 대응하는 responsive 디자인
+   - 클릭 시 물결 효과 생성
+
+4. **미학적 선택**:
+   - 미니멀한 UI와 최대 화면 활용
+   - 타이포그래피의 중요성 강조
+   - 자연스러운 입자 운동과 인공적인 패턴의 조화
+
+이 작품은 언어 모델이 단순히 텍스트를 생성하는 존재가 아니라, 사용자와 상호작용하며 의미의 흐름을 만들어내는 존재라는 아이디어를 시각화합니다. 입자의 움직임은 생각의 흐름과 유사하며, 사용자의 상호작용은 그 흐름에 영향을 미칩니다.
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["Preserve YOUR own art/poem. Remove viewport zoom restrictions at5.", "All informative DOM text and native controls >=19px and contrast>=4.5:1, no overlaps at375/768/1280px.", "init at217-220 skips ALL canvas rendering in reduced motion. Initialize particles and resize FIRST; always draw a complete static frame regardless of paused. Only movement/RAF should be skipped while paused. Paused resize/NEXT draw once without advancing positions.", "Initial label remains 일시정지 while194 sets paused=true. Initialize real state from matchMedia before label/aria-pressed; show 재생/RESUME while stopped and 일시정지/PAUSE while running. Keep one guarded RAF chain and working resume. Return full corrected own HTML."]
+
+Return the complete repaired HTML now.

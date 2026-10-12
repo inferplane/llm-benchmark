@@ -75,6 +75,64 @@ def record_of(name: str) -> dict:
     return json.loads(path.read_text()) if path.exists() else {"status": "pending"}
 
 
+def recorded_prompts(name: str, record: dict) -> list[dict]:
+    """Return hash-verified request text, never a reconstructed template."""
+    expected = record.get("prompt_sha256")
+    if not expected:
+        return []
+    directory = RECORDS / name
+    candidates = []
+    for path in sorted((directory / "attempts").glob("*/prompt.txt")):
+        metadata = path.with_name("record.json")
+        if not metadata.exists():
+            continue
+        attempt = json.loads(metadata.read_text())
+        text = path.read_text()
+        digest = hashlib.sha256(text.encode()).hexdigest()
+        if digest == attempt.get("prompt_sha256"):
+            candidates.append({
+                "text": text, "sha256": digest,
+                "requested_at": attempt.get("requested_at", attempt.get("generated_at", "")),
+            })
+    latest = None
+    current = directory / "prompt.txt"
+    if current.exists():
+        text = current.read_text()
+        if hashlib.sha256(text.encode()).hexdigest() == expected:
+            latest = {"text": text, "sha256": expected}
+    if latest is None:
+        latest = next((item for item in candidates if item["sha256"] == expected), None)
+    if latest is None:
+        raise ValueError(f"{name}: request prompt does not match recorded SHA-256")
+    initial = min(candidates, key=lambda item: item["requested_at"]) if candidates else latest
+    if initial["sha256"] == latest["sha256"]:
+        return [{**latest, "label": "작성 요청 프롬프트", "file": "prompt.txt"}]
+    return [
+        {**initial, "label": "최초 작성 요청", "file": "initial-prompt.txt"},
+        {**latest, "label": "최종 작품의 수정 요청", "file": "prompt.txt"},
+    ]
+
+
+def prompt_dialog(prompts: list[dict], name: str) -> str:
+    if not prompts:
+        return ""
+    sections = "".join(
+        f'<details{" open" if index == len(prompts) - 1 else ""}><summary>{escape(item["label"])}</summary>'
+        f'<p class="prompt-hash">SHA-256 · {escape(item["sha256"])}</p>'
+        f'<pre tabindex="0">{escape(item["text"])}</pre>'
+        f'<a href="{escape(item["file"])}" target="_blank" rel="noopener">프롬프트 원문 열기 ↗</a></details>'
+        for index, item in enumerate(prompts)
+    )
+    return (
+        '<dialog id="prompt-dialog" class="prompt-dialog" aria-labelledby="prompt-title">'
+        f'<div class="prompt-heading"><h2 id="prompt-title">{escape(name)} · 작성 프롬프트</h2>'
+        '<button type="button" data-close-prompts autofocus>닫기</button></div>'
+        '<div class="prompt-content"><p>이 모델에 전송한 user 메시지 원문입니다. '
+        '수정 요청에는 이전 코드와 검수 진단이 함께 포함될 수 있습니다.</p>'
+        f'{sections}</div></dialog>'
+    )
+
+
 def build_catalog(models: list[dict], reviews: dict | None = None) -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     entries = []
@@ -83,6 +141,9 @@ def build_catalog(models: list[dict], reviews: dict | None = None) -> None:
         directory = OUTPUT / name
         directory.mkdir(parents=True, exist_ok=True)
         record = record_of(name)
+        prompts = recorded_prompts(name, record)
+        for item in prompts:
+            (directory / item["file"]).write_text(item["text"])
         status = record["status"]
         review = reviews.get(name) if reviews is not None else None
         if status == "generated" and reviews is not None:
@@ -117,7 +178,14 @@ def build_catalog(models: list[dict], reviews: dict | None = None) -> None:
             ) if key in record},
             "status": status,
             "generation_status": record["status"],
+            "prompt_available": bool(prompts),
         }
+        if prompts:
+            attribution["prompt_url"] = "prompt.txt"
+            attribution["published_prompt_sha256"] = prompts[-1]["sha256"]
+            if len(prompts) > 1:
+                attribution["initial_prompt_url"] = "initial-prompt.txt"
+                attribution["initial_prompt_sha256"] = prompts[0]["sha256"]
         if review is not None:
             attribution["content_review"] = {
                 key: review[key] for key in ("score", "critical", "warnings", "verdict")
@@ -139,9 +207,9 @@ def build_catalog(models: list[dict], reviews: dict | None = None) -> None:
 <title>{escape(name)} · 모델이 만든 자기표현</title>
 <link rel="icon" href="../../favicon.svg"><link rel="stylesheet" href="../portraits.css"><link rel="stylesheet" href="../readability.css"><script src="../viewer.js" defer></script></head>
 <body class="viewer"><header class="viewer-bar"><a href="../">← 모델 목록</a><span><strong>{escape(name)}</strong><small>{escape(labels.get(status, status))}</small></span>
-<details><summary>작성 기록</summary><section><p>요청 모델: {escape(model["model_id"])}</p><p>상태: {escape(labels.get(status, status))}</p>
+<div class="viewer-actions">{'<button type="button" data-open-prompts>프롬프트</button>' if prompts else ''}<details><summary>작성 기록</summary><section><p>요청 모델: {escape(model["model_id"])}</p><p>상태: {escape(labels.get(status, status))}</p>
 <p>{escape(record.get('generated_at', ''))}</p><p>작품 코드와 디자인은 이 모델의 실제 응답입니다. 목록과 이 표시줄은 실행 도구가 제공합니다.</p>
-<a href="provenance.json" target="_blank" rel="noopener">작성자·응답 기록</a>{'<a href="artwork.html" target="_blank" rel="noopener">원본 작품만 열기 ↗</a>' if status == 'generated' else ''}</section></details></header>{panel}</body></html>""")
+<a href="provenance.json" target="_blank" rel="noopener">작성자·응답 기록</a>{'<a href="artwork.html" target="_blank" rel="noopener">원본 작품만 열기 ↗</a>' if status == 'generated' else ''}</section></details></div></header>{panel}{prompt_dialog(prompts, name)}</body></html>""")
     generated = sum(item["status"] == "generated" for item in entries)
     cards = []
     for entry in entries:

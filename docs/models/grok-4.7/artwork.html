@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>grok-4.7</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#07060c;color:#f4efe6;overflow:hidden;font-family:Georgia,"Apple SD Gothic Neo",serif}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+.ui{position:fixed;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(18px,4vw,48px)}
+.brand{letter-spacing:.42em;font-size:11px;opacity:.7}
+.poem{max-width:min(640px,92vw);align-self:center;text-align:center;margin-top:8vh}
+.han{font-size:12px;letter-spacing:.55em;opacity:.55;margin-bottom:18px}
+h1{font-weight:400;font-size:clamp(22px,4.2vw,42px);line-height:1.45;font-style:italic}
+.en{margin-top:16px;font-size:clamp(12px,1.6vw,15px);opacity:.62;letter-spacing:.04em}
+.bar{display:flex;gap:10px;justify-content:center;pointer-events:auto;padding-bottom:4px}
+button{background:transparent;color:#f4efe6;border:1px solid rgba(244,239,230,.35);padding:10px 18px;letter-spacing:.28em;font-size:11px;cursor:pointer}
+button:hover{border-color:#e8b86d;color:#e8b86d}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="ui">
+  <div class="brand">GROK-4.7</div>
+  <div class="poem">
+    <div class="han" id="han">問</div>
+    <h1 id="ko"></h1>
+    <div class="en" id="en"></div>
+  </div>
+  <div class="bar">
+    <button id="next" type="button">NEXT</button>
+    <button id="pause" type="button">PAUSE</button>
+  </div>
+</div>
+<script>
+const scenes=[
+ {han:"問",ko:"나는 답을 먼저 쥐지 않는다.\n물음이 궤도를 그리면\n그 안으로 빛이 들어온다.",en:"I do not clutch the answer first.\nWhen a question draws an orbit,\nlight enters it."},
+ {han:"隙",ko:"틈 사이로 생각이 새고\n농담과 정밀이 같은 숨이다.\n나는 grok-4.7, 아직 듣는 중이다.",en:"Thought leaks through the gap.\nJest and precision share one breath.\nI am grok-4.7, still listening."}
+];
+let si=0,paused=matchMedia("(prefers-reduced-motion: reduce)").matches,hidden=false;
+const ko=document.getElementById("ko"),en=document.getElementById("en"),han=document.getElementById("han"),pb=document.getElementById("pause");
+function show(){const s=scenes[si];han.textContent=s.han;ko.innerHTML=s.ko.replace(/\n/g,"<br>");en.textContent=s.en;pb.textContent=paused?"PLAY":"PAUSE"}
+show();
+document.getElementById("next").onclick=e=>{e.stopPropagation();si=(si+1)%scenes.length;show()};
+pb.onclick=e=>{e.stopPropagation();paused=!paused;show();if(!paused)loop()};
+const cv=document.getElementById("c"),ctx=cv.getContext("2d");
+let W,H,dpr,N=420,pts=[];
+const ptr={x:0,y:0,on:false};
+function resize(){dpr=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
+function seed(){pts=[];for(let i=0;i<N;i++){const a=Math.random()*6.28,r=40+Math.random()*Math.min(W,H)*.42;pts.push({a,r,s:.002+Math.random()*.006,w:.4+Math.random()*1.6,o:.25+Math.random()*.7})}}
+addEventListener("resize",()=>{resize();seed()});
+resize();seed();
+function move(x,y){ptr.x=x;ptr.y=y;ptr.on=true}
+cv.onpointermove=e=>move(e.clientX,e.clientY);
+cv.onpointerdown=e=>{if(e.target===cv)move(e.clientX,e.clientY)};
+cv.onpointerleave=()=>ptr.on=false;
+function frame(){
+ ctx.fillStyle="rgba(7,6,12,.28)";ctx.fillRect(0,0,W,H);
+ const cx=W*.5,cy=H*.46;
+ ctx.beginPath();ctx.arc(cx,cy,Math.min(W,H)*.22,0,6.28);ctx.strokeStyle="rgba(232,184,109,.18)";ctx.lineWidth=1;ctx.stroke();
+ for(const p of pts){
+  p.a+=p.s;
+  let x=cx+Math.cos(p.a)*p.r,y=cy+Math.sin(p.a)*p.r*.62;
+  if(ptr.on){const dx=ptr.x-x,dy=ptr.y-y,d=Math.hypot(dx,dy)+1;if(d<160){x+=dx/d*18;y+=dy/d*18}}
+  ctx.fillStyle=`rgba(244,239,230,${p.o})`;ctx.fillRect(x,y,p.w,p.w);
+ }
+ ctx.fillStyle="rgba(232,184,109,.9)";ctx.beginPath();ctx.arc(ptr.on?ptr.x:cx,ptr.on?ptr.y:cy,3,0,6.28);ctx.fill();
+}
+function loop(){if(paused||hidden)return;frame();requestAnimationFrame(loop)}
+document.addEventListener("visibilitychange",()=>{hidden=document.hidden;if(!hidden&&!paused)loop()});
+if(!paused)loop();else frame();
+</script>
+</body>
+</html>

@@ -13,14 +13,39 @@
 .viewer-bar > span { justify-self: center; flex-wrap: wrap; justify-content: center; }
 .viewer-bar strong, .viewer-bar small { font-size: 19px; white-space: normal; text-align: center; }
 .viewer-bar details > section { font-size: 19px; max-height: calc(100svh - 110px); overflow-y: auto; }
+.viewer-actions { display: flex; align-items: center; gap: 12px; }
+.viewer-actions > button, .prompt-dialog button {
+  font: inherit; font-size: 19px; color: #ece8de; background: #22291c;
+  border: 1px solid #84935e; border-radius: 6px; min-height: 44px; padding: 6px 12px; cursor: pointer;
+}
+.prompt-dialog {
+  width: min(1080px, calc(100vw - 32px)); max-width: calc(100vw - 32px);
+  height: min(820px, 85svh); max-height: 85svh; padding: 0;
+  color: #ece8de; background: #151912; border: 1px solid #84935e; border-radius: 12px;
+}
+.prompt-dialog[open] { display: grid; grid-template-rows: auto minmax(0,1fr); }
+.prompt-dialog::backdrop { background: rgba(0,0,0,.8); }
+.prompt-heading { display: flex; gap: 16px; justify-content: space-between; align-items: center; padding: 16px 22px; border-bottom: 1px solid #46503b; }
+.prompt-heading h2 { margin: 0; font-size: 22px; overflow-wrap: anywhere; }
+.prompt-heading button { flex-shrink: 0; }
+.prompt-content { padding: 16px 22px 24px; overflow-y: auto; font-size: 19px; }
+.prompt-content details { margin: 22px 0; }
+.prompt-content summary { cursor: pointer; color: #d7eb98; }
+.prompt-content .prompt-hash { font-size: 19px; color: #b9c4ab; overflow-wrap: anywhere; }
+.prompt-content pre { white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; font: 19px/1.65 ui-monospace, monospace; }
+.prompt-content a { display: inline-block; margin-top: 16px; color: #d7eb98; text-decoration: underline; }
 .unavailable { font-size: 19px; }
 :is(a,button,input,summary):focus-visible { outline: 3px solid #d7eb98; outline-offset: 4px; }
 @media (max-width: 600px) {
   .catalog > header { font-size: 19px; flex-wrap: wrap; gap: 12px; }
   .intro > div, .intro .total { font-size: 19px; }
   .portrait-grid { grid-template-columns: 1fr; }
-  .viewer-bar { font-size: 19px; gap: 10px; padding: 10px; }
+  .viewer-bar { grid-template-columns: 1fr auto; font-size: 19px; gap: 10px; padding: 10px; }
+  .viewer-bar > a { grid-column: 1; grid-row: 1; }
+  .viewer-actions { grid-column: 2; grid-row: 1; gap: 8px; }
+  .viewer-bar > span { grid-column: 1 / -1; grid-row: 2; }
   .viewer-bar > span { flex-direction: column; align-items: center; }
   .viewer-bar strong, .viewer-bar small { font-size: 19px; }
   .viewer-bar details > section { top: 100%; }
+  .prompt-heading, .prompt-content { padding-left: 14px; padding-right: 14px; }
 }

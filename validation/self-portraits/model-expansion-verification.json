@@ -1,0 +1,50 @@
+{
+  "models": [
+    {
+      "name": "grok-4.7",
+      "api": "bedrock",
+      "model_id": "us.xai.grok-4.7",
+      "price_in": 3.3,
+      "price_out": 12.65,
+      "price_cache_read": 0.825,
+      "price_cache_write": 4.125,
+      "bedrock_reasoning_effort": "low",
+      "verified_at": "2026-10-12",
+      "region": "us-west-2",
+      "model_card": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-xai-grok-4-7.html",
+      "model_card_sha256": "786d6cccadb24f5b31c065eacb59ee5b879c67f4f3144ba76d27d5b430b1a6a3",
+      "pricing_source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-xai-grok-4-7.html",
+      "pricing_tier": "Standard US CRIS, USD per1M tokens",
+      "live_request_id": "0b832f16-0693-4405-9909-0d74c06adc52",
+      "temperature_sent": false,
+      "converse_reasoning_field": {
+        "reasoning": {
+          "effort": "low"
+        }
+      },
+      "reasoning_shape_live_request_id": "730d24cf-2838-452d-9bea-724dab281c45"
+    },
+    {
+      "name": "glm-5.3",
+      "api": "bedrock",
+      "model_id": "us.zai.glm-5.3",
+      "price_in": 1.848,
+      "price_out": 5.808,
+      "price_cache_read": 0.3432,
+      "price_cache_write": 2.31,
+      "bedrock_reasoning_effort": "low",
+      "verified_at": "2026-10-12",
+      "region": "us-west-2",
+      "model_card": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-zai-glm-5-3.html",
+      "model_card_sha256": "41d2f43a82c1a7ec4448df822f71fe97f8b2bd3ed3d08ccefd687fdc8959df26",
+      "pricing_source": "https://aws.amazon.com/bedrock/pricing/",
+      "pricing_tier": "Standard US CRIS, USD per1M tokens",
+      "live_request_id": "0dc26a49-e29a-46df-be9e-591909c35353",
+      "temperature_sent": true
+    }
+  ],
+  "notes": [
+    "AWS Price List API model attribute did not expose GLM5.3 yet; rates were read from the official static GLM5.3 Standard US CRIS table.",
+    "Grok4.7 requires additionalModelRequestFields.reasoning.effort; a flat reasoning_effort is ignored and leaves the high default enabled. Validated with actual nonempty completed HTML output."
+  ]
+}

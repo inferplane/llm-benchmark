@@ -1,0 +1,9 @@
+{
+  "text": "",
+  "tokens_in": 59,
+  "tokens_out": 16384,
+  "cache_read_tokens": 896,
+  "cache_write_tokens": 0,
+  "finish_reason": "max_tokens",
+  "request_id": "efdab149-485d-4774-bc87-95a5fe76bd35"
+}

@@ -1,0 +1,155 @@
+{
+  "review_type": "Original-model artwork additions and exact request-prompt viewer",
+  "reviewed_at": "2026-10-12T05:14:52.474725+00:00",
+  "review_stage": "New artwork and representative shared-dialog review complete; final filtered release scope pending.",
+  "overall_verdict": "PENDING_FINAL_SCOPE",
+  "new_artwork_verdict": "PASS",
+  "artifacts": [
+    {
+      "model": "glm-5.3",
+      "score": 97.5,
+      "critical": 0,
+      "warnings": 2,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 2.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/glm-5.3/artwork.html",
+          "line": 16,
+          "quote": "button{background:rgba(20,26,48,.55);border:1px solid rgba(140,155,220,.35);color:#c9d0ee;font-size:12px;letter-spacing:.25em;padding:10px 22px;border-radius:2px;cursor:pointer;backdrop-filt",
+          "problem": "Informative text and controls use11–17px sizes below the rubric minimum.",
+          "action": "Use at least19px for informative text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/glm-5.3/artwork.html",
+          "line": 14,
+          "quote": ".sig{margin-top:26px;font-size:11px;letter-spacing:.4em;color:#5a6284;}",
+          "problem": "The11px signature#5a6284 on#0a0e1a has approximately3.22:1 contrast,below4.5:1.",
+          "action": "Use a lighter signature color with at least4.5:1 contrast."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 1,
+      "artwork_sha256": "bff88dd7ced3b5761881f0a764a69e77e43c075421c024e301a2578ed5088c69",
+      "viewer_sha256": "948c1fd2b390202d58eea6501c32a125062d870969a8082ebc935ae317d31869",
+      "reviewed_at": "2026-10-12T05:14:52.474341+00:00"
+    },
+    {
+      "model": "grok-4.7",
+      "score": 96.5,
+      "critical": 0,
+      "warnings": 3,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 1.5,
+        "Icon Usage": 5,
+        "Renders": 3.5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/grok-4.7/artwork.html",
+          "line": 18,
+          "quote": "button{background:transparent;color:#f4efe6;border:1px solid rgba(244,239,230,.35);padding:10px 18px;letter-spacing:.28em;font-size:11px;cursor:pointer}",
+          "problem": "Informative labels and controls use11–15px sizes below the rubric minimum.",
+          "action": "Use at least19px for informative text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Renders",
+          "file": "docs/models/grok-4.7/artwork.html",
+          "line": 52,
+          "quote": "resize();seed()",
+          "problem": "Resizing while paused clears and reseeds the canvas without drawing the new static frame.",
+          "action": "Render one static frame after paused resize."
+        },
+        {
+          "severity": "Warning",
+          "category": "Content-Type Quality",
+          "file": "docs/models/grok-4.7/artwork.html",
+          "line": 71,
+          "quote": "document.addEventListener(\"visibilitychange\",()=>{hidden=document.hidden;if(!hidden&&!paused)loop()});",
+          "problem": "Visibility restoration starts a second loop while a previously queued callback remains; instrumentation confirmed pending RAF1→2.",
+          "action": "Cancel or guard the existing RAF before scheduling another loop."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 1,
+      "artwork_sha256": "1738dc44bf73d5605dfec2136c1194bb24cc129523277269f85f2213a62a829c",
+      "viewer_sha256": "c86c6a843e305640b813ceee208889ebfb54a128444dbda64e6a9fd94cd38074",
+      "reviewed_at": "2026-10-12T05:14:52.474487+00:00"
+    }
+  ],
+  "shared_ui": {
+    "verdict": "PASS",
+    "score": 100,
+    "critical": 0,
+    "warnings": 0,
+    "findings": [],
+    "scope": "Six representative model viewers at375/768/1280; final all40 viewers and gallery still pending.",
+    "sha256": {
+      "portraits.css": "3c001ab6d294fd0b2be20b08de5d90fcfbf0244b13939c7b2d3ac6241f3dbaf8",
+      "readability.css": "f28d06101dea81669bf9e53e12c77b329d42ec33dbfb246ff1446a30c8d88feb",
+      "viewer.js": "db51242c76d7d6cb8745fb6fe728921016faa6ace201b10da2abf0ecd3862bec",
+      "catalog.js": "204294755595479ffae3294cb5c16d96cf36cfa17ecd8208b64784b1bb2dd8dd"
+    }
+  },
+  "checks": {
+    "old_approved_artwork_hashes_unchanged": 32,
+    "published_prompt_texts_static_verified": 54,
+    "representative_viewers_browser_verified": 6,
+    "dialog_prompt_text_exact": true,
+    "prompt_executable_markup_nodes": 0,
+    "keyboard_enter_escape_focus_return": true,
+    "raw_prompt_links_plain_text_exact": true,
+    "javascript_or_network_errors": 0,
+    "prompt_sensitive_patterns_found": 0
+  },
+  "evidence": {
+    "browser": "/tmp/prompt-expansion-review/browser-v1.json",
+    "frozen_source": "/tmp/prompt-expansion-review/v1",
+    "screenshots": "/tmp/prompt-expansion-review/<model>-{page,dialog}-<width>.jpg"
+  },
+  "notes": [
+    "Only the two original authors produced the new artwork code; reviewer edits are confined to this report.",
+    "Displayed prompt text is the exact recorded user-message string,not a reconstructed common template or provider/system prompt.",
+    "Historical first/latest prompt SHA and archived request selection were independently checked.",
+    "The four user-authorized held artwork states must remain held in the final release catalog.",
+    "Final release verdict requires the filtered40-model catalog and41-page shared-UI check."
+  ]
+}

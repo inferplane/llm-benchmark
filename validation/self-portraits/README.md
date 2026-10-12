@@ -38,4 +38,4 @@ PLAYWRIGHT_MODULE=/path/to/playwright CHROMIUM_PATH=/path/to/chromium \
 
 실제 자체 배포 후보는 `mall-apne2-mgmt`의 `llm-bench` 네임스페이스에서 `vllm-self-portrait` 임시 서버를 사용합니다. 기존 `gpu-bench` NodePool·taint·인스턴스 크기·8192 문맥 상한을 유지하고, 모델별 GPU/TP/eager/trust 설정은 `config.toml`에서 읽습니다. 각 설정은 `serving-config.json`으로 보관합니다. 다른 테넌트나 기존 NodePool 설정은 수정하지 않습니다.
 
-GitHub Pages 게시 설정은 `main` 브랜치의 `/docs`입니다. 배포 요청에 따라 준비하고 있으며, AWS Content Plugin의 콘텐츠 리뷰 게이트를 통과한 게시 대상만 배포합니다. 실제 게시 여부와 최종 검수 결과는 배포 완료 기록으로 확인해야 합니다.
+GitHub Pages 게시 설정은 `main` 브랜치의 `/docs`입니다. 승인된32개 작품과4개 보류 안내를 포함한39개 페이지를 배포했습니다. `deployment.json`에 빌드 성공, 공개158개 파일 요청 검사,146개 게시 파일의 바이트 해시 일치와12개 비공개 파일의404 확인 결과를 기록했습니다. 배포 커밋은 `a3c936fe81c88e9671e3266651c9c101832f16e8`입니다.

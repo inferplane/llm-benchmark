@@ -15,6 +15,11 @@
   "temperature_sent": true,
   "status": "generated",
   "generation_status": "generated",
+  "prompt_available": true,
+  "prompt_url": "prompt.txt",
+  "published_prompt_sha256": "80ca6db7371cba21cd70b9640a9a3611c4f04c427ff415a2b42636ad54512597",
+  "initial_prompt_url": "initial-prompt.txt",
+  "initial_prompt_sha256": "cdeb4fc6252266a9ee9df8ff0294166d94a16f6c92cd65486c59fb84928b1034",
   "content_review": {
     "score": 97.0,
     "critical": 0,

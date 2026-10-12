@@ -17,6 +17,7 @@ const B = window.BenchmarkView;
 const SCENARIOS = [
   { id: "translation", name: "번역: KO ↔ 15언어", href: "index.html" },
   { id: "finqa", name: "금융 수치 추론", href: "finqa.html" },
+  { id: "models", name: "모델이 만든 미디어아트 ↗", href: "models/" },
 ];
 
 function renderScenarioNav() {

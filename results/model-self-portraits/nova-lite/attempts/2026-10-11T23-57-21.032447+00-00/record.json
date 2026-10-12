@@ -1,0 +1,17 @@
+{
+  "model": "nova-lite",
+  "model_id": "us.amazon.nova-lite-v1:0",
+  "api": "bedrock",
+  "requested_at": "2026-10-11T23:57:21.032447+00:00",
+  "prompt_sha256": "2fe7eab1cc4c2fe97db92a77ea2098ee2d052273e864d6bd53b40f4675cd155b",
+  "max_output_tokens": 8192,
+  "status": "generated",
+  "generated_at": "2026-10-11T23:57:26.837913+00:00",
+  "artwork_sha256": "6f0fb1053741f0feaafa8706568c5ffbc5e546bea833dc6704f74c39c5d031d1",
+  "tokens_in": 3546,
+  "tokens_out": 1643,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "24ea4ffd-4d12-47d3-859b-a931f2e2a3b7"
+}

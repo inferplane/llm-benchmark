@@ -1,0 +1,16 @@
+{
+  "model": "llama-3.1-8b",
+  "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+  "api": "openai",
+  "requested_at": "2026-10-12T00:37:23.969096+00:00",
+  "prompt_sha256": "5c998a56d7d0c3a81488fe7660852e48d423b3ed2bbdacf101d1c2ffd21fdec7",
+  "max_output_tokens": 4096,
+  "status": "failed",
+  "failed_at": "2026-10-12T00:41:31.806944+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

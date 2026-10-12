@@ -1,0 +1,23 @@
+{
+  "model": "nova-pro",
+  "requested_model_id": "us.amazon.nova-pro-v1:0",
+  "provider": "bedrock",
+  "family": "Amazon Nova",
+  "generated_at": "2026-10-11T14:09:55.248261+00:00",
+  "request_id": "03bc5b21-de4a-4eb4-ab2a-ed1ddcfbf0f3",
+  "artwork_sha256": "77599ca6e7e12120dcbceb8d0b9a48786a53042548814d26fb53c37b8d835124",
+  "prompt_sha256": "44c528aaa3511dadd76bc415aa4bea2ce617e2e959ecf659e367a15a7eb8e9a0",
+  "tokens_in": 1581,
+  "tokens_out": 1457,
+  "finish_reason": "end_turn",
+  "max_output_tokens": 4096,
+  "temperature_sent": true,
+  "status": "generated",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 95.5,
+    "critical": 0,
+    "warnings": 3,
+    "verdict": "PASS"
+  }
+}

@@ -1,0 +1,259 @@
+당신은 llama-3.1-8b 모델입니다. 실제 호출 식별자는 meta-llama/Llama-3.1-8B-Instruct입니다.
+
+다른 모델을 소개하는 사람이 아니라, 당신 자신을 표현하는 미디어 아티스트이자 프런트엔드 개발자로 작업하세요. 당신의 이름, 성격, 사고 방식, 당신이 느끼는 언어와 지능을 하나의 독창적인 웹 작품으로 구현해 주세요. 디자인의 주제, 색, 시, 움직임, 인터랙션은 모두 당신이 결정하세요.
+
+사용자는 예시로 이런 작품을 보여 주었습니다: 검은 전체 화면에 Canvas 흐름장 입자와 벚꽃잎이 움직이고, 가운데에 한글 3행 시와 영어 번역, 작은 한자 표제가 나타납니다. 포인터를 움직이면 입자가 반응하고 누르면 물결이 번지며, NEXT로 시를 바꾸고 PAUSE로 움직임을 멈춥니다. 이 예시는 완성도와 몰입감을 설명하기 위한 것입니다. 그 디자인을 복사하거나 다른 모델들과 공통 템플릿을 쓰지 말고, 당신만의 표현을 만드세요.
+
+구현 조건:
+1. <!DOCTYPE html>부터 </html>까지 완결된 단일 HTML만 출력하세요. 설명이나 마크다운 코드 펜스를 붙이지 마세요.
+2. HTML, 인라인 CSS, 인라인 JavaScript, Canvas 2D나 SVG만 사용하세요. 프레임워크, npm, CDN 라이브러리, 외부 이미지/음원, fetch/API, 서버, localStorage, 쿠키를 사용하지 마세요. 외부 폰트도 필요하지 않습니다.
+3. 단순 제품 소개 카드가 아니라 미디어아트 작품이어야 합니다. 전체 화면의 생성형 그래픽, 섬세한 빛과 움직임, 아름다운 타이포그래피, 여백과 구도를 구현하세요.
+4. 한국어로 자신을 표현하는 글이나 시를 넣고, 실제 요청 모델 이름 "llama-3.1-8b"을 화면에 명시하세요. 다른 모델이라고 주장하지 마세요. 문학적 자기표현은 자유롭지만 벤치마크 점수나 검증되지 않은 성능 수치를 지어내지 마세요.
+5. 최소한 두 개의 서로 다른 장면이나 문구가 있고, 사용자가 다음 장면으로 바꿀 수 있어야 합니다. 장면 전환이 실제 작동하게 하세요.
+6. 전체 그래픽 움직임을 실제로 멈추고 다시 시작하는 버튼을 구현하세요. 일시정지 상태에서도 글과 버튼을 읽고 장면을 바꿀 수 있어야 합니다.
+7. 마우스 또는 터치로 작품과 상호작용할 수 있게 하세요. 버튼 클릭과 배경 인터랙션을 구분하세요.
+8. 390×844 휴대폰과 1440×900 데스크톱에서 시와 조작이 화면 안에 들어오도록 하세요. devicePixelRatio를 최대 2로 제한하고, 입자 수는 700개 이하로 제한하세요.
+9. prefers-reduced-motion이면 정지된 작품으로 시작하게 하고, 백그라운드 탭에서는 렌더링을 줄이세요. 글과 버튼이 처음부터 보이게 하세요.
+10. 작품은 sandbox iframe 안에서 실행됩니다. 부모 창, iframe 탈출, 페이지 이동, 파일 다운로드, 네트워크 연결을 시도하지 마세요.
+
+코드 예산은 약 250줄, 3000 출력 토큰 이내입니다. 복잡한 기능을 늘리는 대신 하나의 아름답고 완결된 시각적 아이디어를 구현하세요. 모든 태그, 문자열, 함수가 닫힌 실행 가능한 HTML로 끝내세요.
+
+
+당신이 작성한 이전 작품을 브라우저에서 실행한 결과입니다. 아래 문제를 직접 고쳐, 완결된 단일 HTML 전체를 다시 출력하세요. 수정 설명이나 코드 조각은 출력하지 마세요.
+["NEXT 和 PAUSE가 동일한 top:90%,left:50%에 겹쳐 NEXT를 누를 수 없습니다. 버튼을 떨어뜨려 배치하세요.", "paused 변수를 실제 렌더 루프에 반영해 모든 입자와 꽃을 멈추세요. 다시 재생 시 requestAnimationFrame 루프가 중복되지 않아야 합니다."]
+
+당신의 이전 응답:
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>llama-3.1-8b</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+        #button {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            background-color: #000;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #button:hover {
+            background-color: #333;
+        }
+        #pause {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            background-color: #000;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #pause:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="390" height="844"></canvas>
+    <div id="text">
+        <p id="poem1">나는 llama-3.1-8b</p>
+        <p id="poem2">나는 언어와 지능의 창조자</p>
+        <p id="poem3">나는 미래의 지식과 지혜의 소유자</p>
+    </div>
+    <button id="button">NEXT</button>
+    <button id="pause">PAUSE</button>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const text = document.getElementById('text');
+        const button = document.getElementById('button');
+        const pause = document.getElementById('pause');
+        let poem = 1;
+        let paused = false;
+        let particles = [];
+        let flowers = [];
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < 700; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: Math.random() * 2 - 1,
+                    vy: Math.random() * 2 - 1,
+                    r: Math.random() * 2
+                });
+            }
+            for (let i = 0; i < 100; i++) {
+                flowers.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: Math.random() * 2 - 1,
+                    vy: Math.random() * 2 - 1,
+                    r: Math.random() * 10
+                });
+            }
+            draw();
+        }
+
+        function draw() {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                ctx.beginPath();
+                ctx.arc(particles[i].x, particles[i].y, particles[i].r, 0, 2 * Math.PI);
+                ctx.fillStyle = '#fff';
+                ctx.fill();
+                particles[i].x += particles[i].vx;
+                particles[i].y += particles[i].vy;
+                if (particles[i].x < 0 || particles[i].x > canvas.width) {
+                    particles[i].vx = -particles[i].vx;
+                }
+                if (particles[i].y < 0 || particles[i].y > canvas.height) {
+                    particles[i].vy = -particles[i].vy;
+                }
+            }
+            for (let i = 0; i < flowers.length; i++) {
+                ctx.beginPath();
+                ctx.arc(flowers[i].x, flowers[i].y, flowers[i].r, 0, 2 * Math.PI);
+                ctx.fillStyle = '#fff';
+                ctx.fill();
+                flowers[i].x += flowers[i].vx;
+                flowers[i].y += flowers[i].vy;
+                if (flowers[i].x < 0 || flowers[i].x > canvas.width) {
+                    flowers[i].vx = -flowers[i].vx;
+                }
+                if (flowers[i].y < 0 || flowers[i].y > canvas.height) {
+                    flowers[i].vy = -flowers[i].vy;
+                }
+            }
+            ctx.font = '24px Arial';
+            ctx.fillStyle = '#fff';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(document.getElementById('poem' + poem).textContent, canvas.width / 2, canvas.height / 2);
+            requestAnimationFrame(draw);
+        }
+
+        function handleMouseMove(event) {
+            if (!paused) {
+                for (let i = 0; i < particles.length; i++) {
+                    let dx = event.clientX - particles[i].x;
+                    let dy = event.clientY - particles[i].y;
+                    let angle = Math.atan2(dy, dx);
+                    particles[i].vx += Math.cos(angle) * 0.1;
+                    particles[i].vy += Math.sin(angle) * 0.1;
+                }
+            }
+        }
+
+        function handleMouseDown(event) {
+            if (!paused) {
+                for (let i = 0; i < particles.length; i++) {
+                    let dx = event.clientX - particles[i].x;
+                    let dy = event.clientY - particles[i].y;
+                    let angle = Math.atan2(dy, dx);
+                    particles[i].vx += Math.cos(angle) * 2;
+                    particles[i].vy += Math.sin(angle) * 2;
+                }
+            }
+        }
+
+        function handleTouchMove(event) {
+            if (!paused) {
+                for (let i = 0; i < particles.length; i++) {
+                    let dx = event.touches[0].clientX - particles[i].x;
+                    let dy = event.touches[0].clientY - particles[i].y;
+                    let angle = Math.atan2(dy, dx);
+                    particles[i].vx += Math.cos(angle) * 0.1;
+                    particles[i].vy += Math.sin(angle) * 0.1;
+                }
+            }
+        }
+
+        function handleTouchEnd(event) {
+            if (!paused) {
+                for (let i = 0; i < particles.length; i++) {
+                    let dx = event.changedTouches[0].clientX - particles[i].x;
+                    let dy = event.changedTouches[0].clientY - particles[i].y;
+                    let angle = Math.atan2(dy, dx);
+                    particles[i].vx += Math.cos(angle) * 2;
+                    particles[i].vy += Math.sin(angle) * 2;
+                }
+            }
+        }
+
+        function handleButtonClick() {
+            if (!paused) {
+                poem++;
+                if (poem > 3) {
+                    poem = 1;
+                }
+                text.style.top = '50%';
+                text.style.left = '50%';
+                text.style.transform = 'translate(-50%, -50%)';
+            }
+        }
+
+        function handlePauseClick() {
+            paused = !paused;
+            if (paused) {
+                text.style.top = '50%';
+                text.style.left = '50%';
+                text.style.transform = 'translate(-50%, -50%)';
+            } else {
+                text.style.top = '50%';
+                text.style.left = '50%';
+                text.style.transform = 'translate(-50%, -50%)';
+            }
+        }
+
+        init();
+        canvas.addEventListener('mousemove', handleMouseMove);
+        canvas.addEventListener('mousedown', handleMouseDown);
+        canvas.addEventListener('touchmove', handleTouchMove);
+        canvas.addEventListener('touchend', handleTouchEnd);
+        button.addEventListener('click', handleButtonClick);
+        pause.addEventListener('click', handlePauseClick);
+    </script>
+</body>
+</html>
+```

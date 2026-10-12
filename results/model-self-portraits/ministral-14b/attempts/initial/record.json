@@ -1,0 +1,16 @@
+{
+  "model": "ministral-14b",
+  "model_id": "mistral.ministral-3-14b-instruct",
+  "api": "bedrock",
+  "requested_at": "2026-10-11T14:11:03.085679+00:00",
+  "prompt_sha256": "5c18e50a6164382572aed119e8c951b545eec3c411be6c871fa101e0b821f387",
+  "max_output_tokens": 4096,
+  "status": "failed",
+  "failed_at": "2026-10-11T14:11:19.534422+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

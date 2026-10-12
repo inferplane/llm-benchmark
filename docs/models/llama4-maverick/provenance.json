@@ -1,0 +1,23 @@
+{
+  "model": "llama4-maverick",
+  "requested_model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+  "provider": "bedrock",
+  "family": "Meta",
+  "generated_at": "2026-10-12T00:29:19.991833+00:00",
+  "request_id": "ea64cc59-6e79-41b8-85cf-f8c098d6a978",
+  "artwork_sha256": "a078c787e2783421fdde9311003b96d19ecc6ef81f265bcd7c8d97187ecc0ac2",
+  "prompt_sha256": "1121853ab8685a6b4373903f25b427d28b2c4d63b81f0fe30e3cd0e9557c99a8",
+  "tokens_in": 1624,
+  "tokens_out": 1309,
+  "finish_reason": "end_turn",
+  "max_output_tokens": 8192,
+  "temperature_sent": true,
+  "status": "generated",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 97.0,
+    "critical": 0,
+    "warnings": 2,
+    "verdict": "PASS"
+  }
+}

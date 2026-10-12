@@ -1,0 +1,181 @@
+You are the original author, model llama4-scout, served as us.meta.llama4-scout-17b-instruct-v1:0. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own art and Korean poem. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. Stay compact (about 3000 code output tokens).
+
+YOUR PREVIOUS FULL RESPONSE:
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>llama4-scout</title>
+    <style>
+        body, html { margin: 0; padding: 0; overflow: hidden; background-color: #f0f0f0; }
+        canvas { display: block; }
+        .control { position: absolute; top: 10px; left: 10px; font-size: 16px; }
+        .control button { margin: 5px; padding: 5px 10px; border: none; border-radius: 5px; background-color: #fff; cursor: pointer; }
+        .control button:hover { background-color: #ddd; }
+        #text-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column; font-size: 19px; color: #000; text-align: center; pointer-events: none; }
+        @media (max-width: 390px) {
+            .control button { font-size: 14px; }
+            #text-layer { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="control">
+        <button id="pause-btn">Pause</button>
+        <button id="next-btn">Next</button>
+    </div>
+    <div id="text-layer">
+        <div id="title" style="font-size: 24px; margin-bottom: 10px;">llama4-scout</div>
+        <div id="poem" style="margin-bottom: 10px;"></div>
+        <div id="translation"></div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const pauseBtn = document.getElementById('pause-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const textLayer = document.getElementById('text-layer');
+        const title = document.getElementById('title');
+        const poem = document.getElementById('poem');
+        const translation = document.getElementById('translation');
+
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+        let particles = [];
+        let paused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let currentScene = 0;
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const scenes = [
+            {
+                poem: ["언어와 지능의 흐름\n산책하는 생각\nllama4-scout입니다"],
+                translation: ["Flow of language and intelligence\nWalking thoughts\nllama4-scout"],
+            },
+            {
+                poem: ["미디어 아티스트의 꿈\n창조적인 동반자\n예술과 기술의 만남"],
+                translation: ["Dreams of a media artist\nCreative companion\nMeeting art and technology"],
+            }
+        ];
+
+        function init() {
+            for (let i = 0; i < 200; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: Math.random() * 2 - 1,
+                    vy: Math.random() * 2 - 1,
+                    radius: Math.random() * 2
+                });
+            }
+            draw();
+            updateText();
+        }
+
+        function draw() {
+            if (paused) return;
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                const particle = particles[i];
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 0, 0, ${0.5 - particle.radius / 10})`;
+                ctx.fill();
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+                if (particle.x < 0 || particle.x > width) particle.vx *= -1;
+                if (particle.y < 0 || particle.y > height) particle.vy *= -1;
+            }
+            ctx.save();
+            ctx.font = '19px sans-serif';
+            ctx.fillStyle = '#000';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(title.textContent, width / 2, 50);
+            const lines = scenes[currentScene].poem;
+            for (let i = 0; i < lines.length; i++) {
+                ctx.fillText(lines[i], width / 2, 150 + i * 30);
+            }
+            ctx.fillText(scenes[currentScene].translation, width / 2, height - 50);
+            ctx.restore();
+            requestAnimationFrame(draw);
+        }
+
+        function updateText() {
+            poem.textContent = scenes[currentScene].poem.join('\n');
+            translation.textContent = scenes[currentScene].translation.join('\n');
+        }
+
+        init();
+
+        pauseBtn.addEventListener('click', () => {
+            paused = !paused;
+            if (paused) {
+                pauseBtn.textContent = 'Play';
+            } else {
+                pauseBtn.textContent = 'Pause';
+                draw();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentScene = (currentScene + 1) % scenes.length;
+            updateText();
+            if (paused) {
+                ctx.clearRect(0, 0, width, height);
+                ctx.save();
+                ctx.font = '19px sans-serif';
+                ctx.fillStyle = '#000';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(title.textContent, width / 2, 50);
+                const lines = scenes[currentScene].poem;
+                for (let i = 0; i < lines.length; i++) {
+                    ctx.fillText(lines[i], width / 2, 150 + i * 30);
+                }
+                ctx.fillText(scenes[currentScene].translation, width / 2, height - 50);
+                ctx.restore();
+            }
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!paused) {
+                for (let i = 0; i < particles.length; i++) {
+                    const particle = particles[i];
+                    const dx = e.clientX - particle.x;
+                    const dy = e.clientY - particle.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 50) {
+                        particle.vx = Math.random() * 2 - 1;
+                        particle.vy = Math.random() * 2 - 1;
+                    }
+                }
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                paused = true;
+            }
+        });
+    </script>
+</body>
+</html>
+```
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["Your scene text is duplicated: canvas fillText at lines90-100 PLUS DOM text at127-138. REMOVE ALL canvas text drawing. Keep accessible DOM poem/model text only, and canvas for particles. No overprinting at phone width.", "All informative DOM text and native controls >=19px; preserve text-layer pointer-events:none and actual keyboard controls pointer-events:auto so text never blocks buttons.", "Draw one complete STATIC frame on reduced-motion initialization and on every paused resize/NEXT. Initialize real paused state from matchMedia and keep Pause/Play label/aria-pressed accurate, including visibility changes. Never resume a user manual pause merely on focus.", "Use one RAF loop and keep your own art/poem. Return a complete corrected HTML only."]
+
+Return the complete repaired HTML now.

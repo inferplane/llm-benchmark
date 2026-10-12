@@ -1,0 +1,17 @@
+{
+  "model": "nova-micro",
+  "model_id": "us.amazon.nova-micro-v1:0",
+  "api": "bedrock",
+  "requested_at": "2026-10-11T14:10:37.931141+00:00",
+  "prompt_sha256": "781dfbbea377b2a233405e09774731035834a36c847f9fda278c33ce4de2eed5",
+  "max_output_tokens": 4096,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:10:42.878581+00:00",
+  "artwork_sha256": "765d7d3e34449df800601dd6f5a311d6f15a3ed1faf4b01484e3de3f5877b219",
+  "tokens_in": 1581,
+  "tokens_out": 1599,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "7410bc07-cf44-4417-b27f-43304724c200"
+}

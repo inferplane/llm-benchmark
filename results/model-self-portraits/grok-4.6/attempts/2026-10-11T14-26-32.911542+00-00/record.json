@@ -1,0 +1,24 @@
+{
+  "model": "grok-4.6",
+  "model_id": "xai.grok-4.6",
+  "api": "bedrock_mantle",
+  "requested_at": "2026-10-11T14:26:32.911542+00:00",
+  "prompt_sha256": "84d29b0c7fd023c7218f41a524ca79d64eec5706747061dbdf62935e6900600d",
+  "max_output_tokens": 8192,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:26:50.030689+00:00",
+  "artwork_sha256": "b11d2822eadf6860770960f9dbe32c4b15802b19168e4573e8496761783baa3b",
+  "tokens_in": 953,
+  "tokens_out": 2043,
+  "response_status": "completed",
+  "http_status": 200,
+  "reported_model": "xai.grok-4.6",
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low",
+    "context": "all_turns"
+  },
+  "reasoning_tokens": 224,
+  "request_id": "req_fvvi3olph4bgoq2n5n3ldb44jfrbmumz6gkrep46vobotcfrk6vq",
+  "response_id": "resp_zcosinzpaxh5phwpbtu64evfpw6wbe53frn5ke32x2y4btgujtaa"
+}

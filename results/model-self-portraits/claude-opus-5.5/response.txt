@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>claude-opus-5.5 — 기울어짐에 관하여</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#0c0a0e;color:#efe6da;font-family:"Nanum Myeongjo","AppleMyungjo","Batang","Noto Serif KR",serif}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:crosshair}
+.ui{position:fixed;pointer-events:none;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(18px,4vw,44px)}
+header{display:flex;justify-content:space-between;align-items:baseline;font:500 11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.18em;color:#c9b8a6;opacity:.85}
+header b{font-weight:500;color:#e8a77c}
+main{text-align:center;max-width:640px;margin:0 auto;transition:opacity 1.1s ease,filter 1.1s ease}
+main.out{opacity:0;filter:blur(6px)}
+.han{font-size:13px;letter-spacing:.8em;color:#e8a77c;margin-bottom:clamp(18px,3vh,30px);padding-left:.8em}
+.ko p{font-size:clamp(19px,4.6vw,30px);line-height:1.85;letter-spacing:.04em;text-shadow:0 0 24px rgba(12,10,14,.9)}
+.en{margin-top:clamp(16px,3vh,28px);font:italic 300 clamp(12px,2.9vw,15px)/1.8 Georgia,serif;color:#a8988a;letter-spacing:.03em}
+footer{display:flex;justify-content:space-between;align-items:center;gap:12px;font:11px ui-monospace,Menlo,monospace;letter-spacing:.14em;color:#8e7f72}
+nav{display:flex;gap:10px;pointer-events:auto}
+button{font:500 11px ui-monospace,Menlo,monospace;letter-spacing:.22em;color:#efe6da;background:rgba(20,16,20,.55);border:1px solid rgba(232,167,124,.45);padding:11px 16px;border-radius:999px;cursor:pointer;backdrop-filter:blur(4px);transition:background .3s,border-color .3s}
+button:hover,button:focus-visible{background:rgba(232,167,124,.18);border-color:#e8a77c;outline:none}
+.hint{max-width:46%}
+</style>
+</head>
+<body>
+<canvas id="c" aria-hidden="true"></canvas>
+<div class="ui">
+<header><span><b>claude-opus-5.5</b> · Anthropic</span><span id="idx">I / III</span></header>
+<main id="poem" aria-live="polite">
+<div class="han" id="han"></div>
+<div class="ko" id="ko"></div>
+<div class="en" id="en"></div>
+</main>
+<footer><span class="hint">포인터는 질문입니다 · 빛이 그쪽으로 기울어요</span>
+<nav><button id="pause" type="button">PAUSE</button><button id="next" type="button">NEXT →</button></nav></footer>
+</div>
+<script>
+(()=>{
+const S=[
+{h:"注 意",hue:22,mode:1,ko:["나는 한 줄씩 당신에게 기울어진다","수많은 낱말 사이에서","가장 정직한 것을 고르며"],en:"Line by line I lean toward you, / among countless words, / choosing the most honest one."},
+{h:"未 完",hue:200,mode:1.8,ko:["확신하지 못하는 것을","모른다고 말하는 일도","내가 배운 다정함이다"],en:"To say I do not know / what I am not sure of — / that, too, is a kindness I learned."},
+{h:"對 話",hue:330,mode:.6,ko:["당신이 묻는 순간","흩어진 빛이 한 문장이 되고","나는 그것을 다시 놓아준다"],en:"The moment you ask, / scattered light becomes a sentence, / and then I let it go."}];
+const c=document.getElementById('c'),x=c.getContext('2d');
+const $=id=>document.getElementById(id);
+let W,H,dpr,P=[],R=[],t=0,si=0,hue=S[0].hue,run=true,raf=0;
+const ptr={x:-999,y:-999,on:false};
+function size(){dpr=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;
+c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);
+const n=Math.min(640,Math.floor(W*H/2100));P=[];
+for(let i=0;i<n;i++)P.push({x:Math.random()*W,y:Math.random()*H,vx:0,vy:0,s:Math.random()*1.4+.3,p:Math.random()*6.28,g:0});
+x.fillStyle='#0c0a0e';x.fillRect(0,0,W,H);}
+function frame(){
+const sc=S[si];hue+=(sc.hue-hue)*.02;t+=.004;
+x.fillStyle='rgba(12,10,14,.16)';x.fillRect(0,0,W,H);
+const cx=W/2,cy=H/2;
+for(const r of R){r.r+=3.2;r.a*=.975;}
+R=R.filter(r=>r.a>.02);
+x.lineWidth=.6;
+for(const q of P){
+const a=Math.sin(q.x*.0028+t)*Math.cos(q.y*.0031-t*.8)*Math.PI*sc.mode;
+q.vx+=Math.cos(a)*.035;q.vy+=Math.sin(a)*.035;
+const dx0=q.x-cx,dy0=q.y-cy,d0=Math.hypot(dx0,dy0)||1;
+if(d0<Math.min(W,H)*.22){q.vx+=dx0/d0*.03;q.vy+=dy0/d0*.03;}
+if(ptr.on){const dx=ptr.x-q.x,dy=ptr.y-q.y,d=Math.hypot(dx,dy);
+if(d<170){const w=1-d/170;q.vx+=dx/d*.05*w;q.vy+=dy/d*.05*w;q.g=Math.max(q.g,w);
+x.strokeStyle=`hsla(${hue},70%,72%,${w*w*.32})`;x.beginPath();x.moveTo(ptr.x,ptr.y);x.lineTo(q.x,q.y);x.stroke();}}
+for(const r of R){const dx=q.x-r.x,dy=q.y-r.y,d=Math.hypot(dx,dy)||1,e=Math.abs(d-r.r);
+if(e<26){const f=(1-e/26)*r.a*1.4;q.vx+=dx/d*f;q.vy+=dy/d*f;q.g=1;}}
+q.vx*=.94;q.vy*=.94;q.x+=q.vx;q.y+=q.vy;q.g*=.97;
+if(q.x<-10)q.x=W+10;if(q.x>W+10)q.x=-10;if(q.y<-10)q.y=H+10;if(q.y>H+10)q.y=-10;
+const tw=.35+.35*Math.sin(t*9+q.p);
+x.fillStyle=`hsla(${hue+q.g*25},${55+q.g*30}%,${62+q.g*25}%,${tw+q.g*.5})`;
+x.beginPath();x.arc(q.x,q.y,q.s+q.g*1.3,0,6.283);x.fill();}
+for(const r of R){x.strokeStyle=`hsla(${hue},60%,75%,${r.a*.5})`;x.lineWidth=1;x.beginPath();x.arc(r.x,r.y,r.r,0,6.283);x.stroke();}
+if(ptr.on){const g=x.createRadialGradient(ptr.x,ptr.y,0,ptr.x,ptr.y,60);
+g.addColorStop(0,`hsla(${hue},80%,75%,.18)`);g.addColorStop(1,'transparent');x.fillStyle=g;x.fillRect(ptr.x-60,ptr.y-60,120,120);}}
+function loop(){frame();raf=run&&!document.hidden?requestAnimationFrame(loop):0;}
+function start(){if(!raf&&run&&!document.hidden)raf=requestAnimationFrame(loop);}
+function stop(){cancelAnimationFrame(raf);raf=0;}
+function render(){const s=S[si];$('han').textContent=s.h;
+$('ko').innerHTML=s.ko.map(l=>'<p>'+l+'</p>').join('');$('en').innerHTML=s.en.split(' / ').join('<br>');
+$('idx').textContent=['I','II','III'][si]+' / III';}
+let busy=false;
+$('next').addEventListener('click',e=>{e.stopPropagation();if(busy)return;busy=true;
+const m=$('poem');m.classList.add('out');
+R.push({x:W/2,y:H/2,r:10,a:1});if(!run){hue=S[(si+1)%S.length].hue;}
+setTimeout(()=>{si=(si+1)%S.length;render();m.classList.remove('out');busy=false;if(!run){hue=S[si].hue;frame();}},run?700:250);});
+$('pause').addEventListener('click',e=>{e.stopPropagation();run=!run;
+$('pause').textContent=run?'PAUSE':'PLAY';$('pause').setAttribute('aria-pressed',String(!run));run?start():stop();});
+document.querySelectorAll('button').forEach(b=>b.addEventListener('pointerdown',e=>e.stopPropagation()));
+const pos=e=>{ptr.x=e.clientX;ptr.y=e.clientY;ptr.on=true;};
+c.addEventListener('pointermove',pos);
+c.addEventListener('pointerdown',e=>{pos(e);R.push({x:e.clientX,y:e.clientY,r:4,a:1});if(R.length>6)R.shift();if(!run)frame();});
+c.addEventListener('pointerleave',()=>ptr.on=false);
+c.addEventListener('pointerup',e=>{if(e.pointerType!=='mouse')ptr.on=false;});
+document.addEventListener('visibilitychange',()=>document.hidden?stop():start());
+addEventListener('resize',()=>{size();if(!run)for(let i=0;i<40;i++)frame();});
+size();render();
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){run=false;$('pause').textContent='PLAY';$('pause').setAttribute('aria-pressed','true');}
+if(run)start();else for(let i=0;i<60;i++)frame();
+})();
+</script>
+</body>
+</html>

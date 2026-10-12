@@ -853,6 +853,19 @@ def _selfcheck():
                           cache_read_tokens=usage["cache_read_tokens"],
                           cache_write_tokens=usage["cache_write_tokens"])
     assert cost == .1562  # .044 + .055 + .0022 + .055
+    # The newly added OpenAI 6 candidates share inclusive Responses input.
+    # Same hand-counted population: 400K fresh, 200K read, 400K written,
+    # plus 100K output. Each input token must be billed exactly once.
+    astra = {"price_in": 11, "price_out": 55,
+             "price_cache_read": 1.1, "price_cache_write": 13.75}
+    sol = {"price_in": 2.2, "price_out": 11,
+           "price_cache_read": .11, "price_cache_write": 2.75}
+    assert compute_cost(astra, usage["tokens_in"], 100_000, None,
+                        cache_read_tokens=usage["cache_read_tokens"],
+                        cache_write_tokens=usage["cache_write_tokens"])[0] == 15.62  # 4.4 + 5.5 + .22 + 5.5
+    assert compute_cost(sol, usage["tokens_in"], 100_000, None,
+                        cache_read_tokens=usage["cache_read_tokens"],
+                        cache_write_tokens=usage["cache_write_tokens"])[0] == 3.102  # .88 + 1.1 + .022 + 1.1
     for bad in ({"input_tokens": 2, "input_tokens_details": {"cached_tokens": 3}},
                 {"input_tokens": True}, {"input_tokens": 2, "input_tokens_details": {"cache_write_tokens": -1}}):
         try:

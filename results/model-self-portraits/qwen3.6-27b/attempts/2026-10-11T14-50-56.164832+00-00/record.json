@@ -1,0 +1,16 @@
+{
+  "model": "qwen3.6-27b",
+  "model_id": "Qwen/Qwen3.6-27B",
+  "api": "openai",
+  "requested_at": "2026-10-11T14:50:56.164832+00:00",
+  "prompt_sha256": "f5ba2fc1dc2094839d633ddedf12f1ecf328f1dfbf6a3bb2e0ae37927d542821",
+  "max_output_tokens": 4096,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:53:59.986570+00:00",
+  "artwork_sha256": "54b7fa41530a24a5f7b6f4f0b84f74cac06a50078be1f87f25f4cca38ac95738",
+  "tokens_in": 747,
+  "tokens_out": 3282,
+  "finish_reason": "stop",
+  "reported_model": "Qwen/Qwen3.6-27B",
+  "reasoning_tokens": null
+}

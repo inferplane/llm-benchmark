@@ -1,0 +1,18 @@
+{
+  "model": "nova-pro",
+  "model_id": "us.amazon.nova-pro-v1:0",
+  "api": "bedrock",
+  "requested_at": "2026-10-11T14:09:47.506932+00:00",
+  "prompt_sha256": "44c528aaa3511dadd76bc415aa4bea2ce617e2e959ecf659e367a15a7eb8e9a0",
+  "max_output_tokens": 4096,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:09:55.248261+00:00",
+  "artwork_sha256": "77599ca6e7e12120dcbceb8d0b9a48786a53042548814d26fb53c37b8d835124",
+  "tokens_in": 1581,
+  "tokens_out": 1457,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "03bc5b21-de4a-4eb4-ab2a-ed1ddcfbf0f3",
+  "temperature_sent": true
+}

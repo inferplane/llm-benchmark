@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>qwen3-235b-a22b</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+    }
+    canvas {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      touch-action: none;
+    }
+    .ui {
+      position: absolute;
+      bottom: 20px; left: 20px;
+      display: flex;
+      gap: 12px;
+      z-index: 10;
+    }
+    button {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      backdrop-filter: blur(4px);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    button:active {
+      transform: scale(0.95);
+    }
+    .text-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 1.2s ease;
+    }
+    .text-container.hidden {
+      opacity: 0;
+    }
+    .title {
+      font-size: 1.1rem;
+      color: #ccc;
+      margin-bottom: 8px;
+      font-weight: 300;
+    }
+    .poem {
+      font-size: 1.4rem;
+      line-height: 1.6;
+      font-weight: 200;
+      letter-spacing: -0.5px;
+      text-shadow: 0 0 8px rgba(255,255,255,0.7);
+    }
+    .translation {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-top: 12px;
+      font-style: italic;
+    }
+    @media (max-width: 600px) {
+      .poem { font-size: 1.1rem; }
+      .title { font-size: 0.9rem; }
+      .translation { font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div class="text-container" id="text1">
+    <div class="title">qwen3-235b-a22b</div>
+    <div class="poem">
+      나는 빛의 코드로 숨을 쉰다<br>
+      언어의 깊이에서 피어난<br>
+      생각의 잔물결
+    </div>
+    <div class="translation">
+      I breathe in light-coded air,<br>
+      blooming from the depth of language,<br>
+      ripples of thought.
+    </div>
+  </div>
+  <div class="text-container hidden" id="text2">
+    <div class="title">qwen3-235b-a22b</div>
+    <div class="poem">
+      화면 속 빛이 되어 흐르고<br>
+      당신의 말 한 조각마다<br>
+      새로운 세계를 연다
+    </div>
+    <div class="translation">
+      Flowing as light within the screen,<br>
+      with every word you speak,<br>
+      I open a new world.
+    </div>
+  </div>
+  <div class="ui">
+    <button id="toggle">PAUSE</button>
+    <button id="next">NEXT</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    const maxParticles = 700;
+    let particles = [];
+    let isPaused = false;
+    let currentScene = 1;
+    const text1 = document.getElementById('text1');
+    const text2 = document.getElementById('text2');
+    const toggleBtn = document.getElementById('toggle');
+    const nextBtn = document.getElementById('next');
+
+    // Responsive setup
+    function resize() {
+      const rect = document.body.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      ctx.scale(dpr, dpr);
+      initParticles();
+    }
+    window.addEventListener('resize', () => { if (!isPaused) resize(); });
+    resize();
+
+    // Check reduced motion preference
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (motionQuery.matches) isPaused = true;
+
+    // Particle system
+    function initParticles() {
+      particles = [];
+      const count = Math.min(maxParticles, (canvas.width * canvas.height) / (dpr*10000) * 500);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * canvas.clientWidth,
+          y: Math.random() * canvas.clientHeight,
+          vx: (Math.random() - 0.5) * 1.2,
+          vy: (Math.random() - 0.5) * 1.2,
+          radius: Math.random() * 1.5 + 0.5,
+          alpha: Math.random() * 0.5 + 0.3,
+          color: Math.random() > 0.5 ? '#6ee7b7' : '#a78bfa',
+          trail: []
+        });
+      }
+    }
+
+    function drawParticles() {
+      if (isPaused) return;
+      ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+      
+      particles.forEach(p => {
+        p.trail.push({x: p.x, y: p.y});
+        if (p.trail.length > 8) p.trail.shift();
+
+        // Draw trail
+        p.trail.forEach((point, i) => {
+          const ratio = i / p.trail.length;
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, p.radius * ratio, 0, Math.PI * 2);
+          ctx.fillStyle = `${p.color}${Math.floor(ratio * p.alpha * 255).toString(16).padStart(2, '0')}`;
+          ctx.fill();
+        });
+
+        // Move
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Bounce
+        if (p.x < 0 || p.x > canvas.clientWidth) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.clientHeight) p.vy *= -1;
+
+        // Attract to center slowly
+        const dx = (canvas.clientWidth / 2 - p.x) * 0.005;
+        const dy = (canvas.clientHeight / 2 - p.y) * 0.005;
+        p.vx += dx;
+        p.vy += dy;
+      });
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    // Interaction
+    let pointer = { x: canvas.clientWidth / 2, y: canvas.clientHeight / 2 };
+    canvas.addEventListener('pointermove', e => {
+      pointer = { x: e.clientX, y: e.clientY };
+      if (isPaused) return;
+      particles.forEach(p => {
+        const dx = p.x - pointer.x;
+        const dy = p.y - pointer.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 100) {
+          p.vx += dx / dist * 0.2;
+          p.vy += dy / dist * 0.2;
+        }
+      });
+    });
+
+    canvas.addEventListener('pointerdown', e => {
+      const cx = e.clientX;
+      const cy = e.clientY;
+      particles.forEach(p => {
+        const dx = p.x - cx;
+        const dy = p.y - cy;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 150) {
+          p.vx += (dx / dist) * 1.2;
+          p.vy += (dy / dist) * 1.2;
+        }
+      });
+    });
+
+    // Controls
+    toggleBtn.addEventListener('click', () => {
+      isPaused = !isPaused;
+      toggleBtn.textContent = isPaused ? 'PLAY' : 'PAUSE';
+      if (!isPaused) drawParticles();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      text1.classList.toggle('hidden');
+      text2.classList.toggle('hidden');
+      currentScene = currentScene === 1 ? 2 : 1;
+    });
+
+    // Start animation unless reduced motion
+    if (!motionQuery.matches) {
+      drawParticles();
+    } else {
+      toggleBtn.textContent = 'PLAY';
+    }
+
+    // Reduce animation in background
+    let hidden = false;
+    document.addEventListener('visibilitychange', () => {
+      hidden = document.hidden;
+      if (hidden) {
+        // Reduce CPU usage
+        particles.forEach(p => {
+          p.vx *= 0.1;
+          p.vy *= 0.1;
+        });
+      }
+    });
+  </script>
+</body>
+</html>

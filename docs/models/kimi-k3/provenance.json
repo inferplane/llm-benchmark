@@ -1,0 +1,24 @@
+{
+  "model": "kimi-k3",
+  "requested_model_id": "us.moonshotai.kimi-k3",
+  "provider": "bedrock",
+  "family": "Moonshot AI",
+  "generated_at": "2026-10-11T14:16:50.077378+00:00",
+  "request_id": "48ded66e-2444-4842-bed7-505f24b1c7c2",
+  "artwork_sha256": "d804409a10a7eb553e1c9e9ed7eef005ad6effd446cc206bedb26d9c59acfbec",
+  "prompt_sha256": "e0893468012873afd072cd09caf870bdd20284444e55e04d1d5af1876c8b96e3",
+  "tokens_in": 7,
+  "tokens_out": 6189,
+  "finish_reason": "end_turn",
+  "max_output_tokens": 8192,
+  "temperature": null,
+  "temperature_sent": false,
+  "status": "generated",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 98.5,
+    "critical": 0,
+    "warnings": 1,
+    "verdict": "PASS"
+  }
+}

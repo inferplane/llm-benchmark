@@ -1,0 +1,24 @@
+{
+  "model": "gpt-6-astra",
+  "model_id": "openai.gpt-6-astra",
+  "api": "bedrock_mantle",
+  "requested_at": "2026-10-11T14:12:58.486789+00:00",
+  "prompt_sha256": "f9981c51cf1deed37687147a63a8b43d665b28abcf35afdd6d6433f9e52343ab",
+  "max_output_tokens": 8192,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:13:49.966395+00:00",
+  "artwork_sha256": "e794f1344392f813d6c1cab92c83222e82245d43babab059cf039567c02a5fea",
+  "tokens_in": 816,
+  "tokens_out": 2873,
+  "response_status": "completed",
+  "http_status": 200,
+  "reported_model": "openai.gpt-6-astra",
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low",
+    "context": "all_turns"
+  },
+  "reasoning_tokens": 127,
+  "request_id": "req_gjwmgu3yyavtoq7prriz3b6k6mm7zm7n5r2x2ld3i2fd2i3vctsq",
+  "response_id": "resp_xqv4z7fraqy6bpi26wpckjepshsvnrm7xm233cgmzi7ab6cnivra"
+}

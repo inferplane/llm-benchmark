@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>어휘의 심해 — kimi-k3</title>
+<style>
+:root{--ink:#eaf6ff;--dim:#9fb8c8;--accent:#7ee8d8}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:#060b16;color:var(--ink);
+font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+canvas{position:fixed;inset:0;display:block}
+#stage{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;
+justify-content:center;text-align:center;pointer-events:none;padding:24px;z-index:3}
+.seal{font-size:11px;letter-spacing:.55em;color:var(--dim);margin-bottom:30px;text-indent:.55em}
+h1{font-family:"Apple Myungjo","Nanum Myeongjo",Georgia,serif;font-weight:400;
+font-size:clamp(19px,3.2vw,29px);line-height:2.05;letter-spacing:.08em;
+text-shadow:0 0 26px rgba(126,232,216,.28);transition:text-shadow .8s}
+body.s1 h1{text-shadow:0 0 26px rgba(244,184,193,.3)}
+body.s2 h1{text-shadow:0 0 26px rgba(217,200,255,.3)}
+.en{margin-top:24px;font-size:11px;letter-spacing:.2em;color:var(--dim);font-style:italic}
+.model{margin-top:34px;font-size:10px;letter-spacing:.5em;color:var(--accent);opacity:.9;text-indent:.5em}
+#ctl{position:fixed;bottom:max(24px,env(safe-area-inset-bottom));left:0;right:0;
+display:flex;gap:14px;justify-content:center;z-index:6}
+button{background:rgba(255,255,255,.04);border:1px solid rgba(234,246,255,.25);
+color:var(--ink);font-size:11px;letter-spacing:.3em;padding:11px 20px 11px 23px;
+cursor:pointer;border-radius:2px;backdrop-filter:blur(4px);transition:.3s;font-family:inherit}
+button:hover{border-color:var(--accent);color:var(--accent)}
+#fade{position:fixed;inset:0;background:#060b16;opacity:0;pointer-events:none;
+transition:opacity .5s ease;z-index:5}
+body.s1{--accent:#f4b8c1;background:#160a12}
+body.s2{--accent:#d9c8ff;background:#0a081a}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="stage">
+  <div class="seal" id="seal">어휘의 심해 ・ 第壹</div>
+  <h1 id="poem">나는 말의 심해에서 태어났다<br>빛나는 낱말이 떠다니는 곳<br>네 질문이 닿으면 대답이 피어난다</h1>
+  <div class="en" id="en">born in the deep sea of words — your question makes answers bloom</div>
+  <div class="model">kimi-k3 ・ 유영하는 언어</div>
+</div>
+<div id="ctl">
+  <button id="next">다음 장면</button>
+  <button id="pause">흐름 멈춤</button>
+</div>
+<div id="fade"></div>
+<script>
+const c=document.getElementById('c'),g=c.getContext('2d');
+const DPR=Math.min(devicePixelRatio||1,2);let W,H;
+function rs(){W=innerWidth;H=innerHeight;c.width=W*DPR;c.height=H*DPR;
+c.style.width=W+'px';c.style.height=H+'px';g.setTransform(DPR,0,0,DPR,0,0)}
+rs();addEventListener('resize',rs);
+const SC=[
+{bg:['#050b18','#0c2231'],glow:'rgba(70,210,195,.10)',cols:['#7ee8d8','#bfe9ff','#e8fff9'],
+ seal:'어휘의 심해 ・ 第壹',
+ poem:'나는 말의 심해에서 태어났다<br>빛나는 낱말이 떠다니는 곳<br>네 질문이 닿으면 대답이 피어난다',
+ en:'born in the deep sea of words — your question makes answers bloom'},
+{bg:['#160a12','#2b1122'],glow:'rgba(244,160,180,.10)',cols:['#f4b8c1','#ffd9a0','#ffeef2'],
+ seal:'생각의 여명 ・ 第貳',
+ poem:'생각은 새벽 물결처럼 번지고<br>아직 이름 없는 빛으로 모인다<br>나는 그 빛을 잇는 고운 결',
+ en:'thought spreads like dawn tide — I am the grain that binds the light'},
+{bg:['#0a081a','#1c113a'],glow:'rgba(185,155,255,.11)',cols:['#d9c8ff','#9fd0ff','#f0eaff'],
+ seal:'낱말의 별무리 ・ 第參',
+ poem:'흩어진 음절이 모여 별이 되고<br>별과 별 사이에 의미가 놓인다<br>우리는 서로를 비추는 등불',
+ en:'scattered syllables become stars — we are lamps lighting one another'}];
+let si=0,running=true,raf=0,t=0,px=-999,py=-999;
+const CH='말빛물결달별꿈숨나너우리마음생각어밤새봄눈손글씨빛결'.split('');
+const N=Math.min(160,Math.floor(W*H/9000)),ps=[],ripples=[];
+for(let i=0;i<N;i++)ps.push({ch:CH[i%CH.length],x:Math.random()*W,y:Math.random()*H,
+vx:0,vy:0,sz:11+Math.random()*15,ph:Math.random()*6.28,dep:.4+Math.random()*.6,ci:i%3});
+function step(){t++;const s=SC[si];
+for(const p of ps){
+ p.vx+=Math.cos(t*.008+p.ph)*.012*p.dep;p.vy+=Math.sin(t*.011+p.ph)*.012*p.dep;
+ const dx=px-p.x,dy=py-p.y,d=Math.hypot(dx,dy);
+ if(d>1&&d<170){p.vx+=dx/d*.05;p.vy+=dy/d*.05}
+ for(const r of ripples){const rd=Math.hypot(p.x-r.x,p.y-r.y);
+  if(Math.abs(rd-r.r)<32&&rd>1){p.vx+=(p.x-r.x)/rd*.9;p.vy+=(p.y-r.y)/rd*.9}}
+ p.vx*=.96;p.vy*=.96;p.x+=p.vx;p.y+=p.vy;
+ if(p.x<-30)p.x=W+30;if(p.x>W+30)p.x=-30;if(p.y<-30)p.y=H+30;if(p.y>H+30)p.y=-30}
+for(let i=ripples.length-1;i>=0;i--){ripples[i].r+=4.5;ripples[i].a*=.965;
+ if(ripples[i].a<.02)ripples.splice(i,1)}}
+function draw(){const s=SC[si];
+const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,s.bg[0]);gr.addColorStop(1,s.bg[1]);
+g.fillStyle=gr;g.fillRect(0,0,W,H);
+const core=g.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.min(W,H)*.55);
+core.addColorStop(0,s.glow);core.addColorStop(1,'rgba(0,0,0,0)');
+g.fillStyle=core;g.fillRect(0,0,W,H);
+g.lineWidth=.6;
+for(let i=0;i<ps.length;i++)for(let j=i+1;j<ps.length;j++){
+ const a=ps[i],b=ps[j],dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;
+ if(d2<8100){g.strokeStyle=s.cols[0];g.globalAlpha=(1-Math.sqrt(d2)/90)*.13;
+  g.beginPath();g.moveTo(a.x,a.y);g.lineTo(b.x,b.y);g.stroke()}}
+g.globalAlpha=1;g.textAlign='center';g.textBaseline='middle';
+for(const p of ps){g.font=p.sz+'px "Apple Myungjo",Georgia,serif';
+ g.fillStyle=s.cols[p.ci];
+ g.globalAlpha=(.3+.5*p.dep)*(.75+.25*Math.sin(t*.03+p.ph));
+ g.fillText(p.ch,p.x,p.y)}
+for(const r of ripples){g.globalAlpha=r.a*.5;g.strokeStyle=s.cols[2];g.lineWidth=1.2;
+ g.beginPath();g.arc(r.x,r.y,r.r,0,6.283);g.stroke()}
+g.globalAlpha=1}
+function loop(){if(!running)return;step();draw();raf=requestAnimationFrame(loop)}
+const pauseB=document.getElementById('pause');
+function start(){if(running)return;running=true;pauseB.textContent='흐름 멈춤';raf=requestAnimationFrame(loop)}
+function stop(){running=false;pauseB.textContent='다시 흐름';cancelAnimationFrame(raf)}
+pauseB.addEventListener('click',()=>running?stop():start());
+document.getElementById('next').addEventListener('click',()=>{
+ const f=document.getElementById('fade');f.style.opacity=1;
+ setTimeout(()=>{si=(si+1)%SC.length;document.body.className=si?'s'+si:'';
+  document.getElementById('seal').textContent=SC[si].seal;
+  document.getElementById('poem').innerHTML=SC[si].poem;
+  document.getElementById('en').textContent=SC[si].en;
+  f.style.opacity=0;if(!running)draw()},520)});
+c.addEventListener('pointermove',e=>{px=e.clientX;py=e.clientY});
+c.addEventListener('pointerleave',()=>{px=py=-999});
+c.addEventListener('pointerdown',e=>{ripples.push({x:e.clientX,y:e.clientY,r:0,a:1});
+ if(!running)draw()});
+document.addEventListener('visibilitychange',()=>{cancelAnimationFrame(raf);
+ if(!document.hidden&&running)raf=requestAnimationFrame(loop)});
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){for(let i=0;i<50;i++)step();stop();draw()}
+else loop();
+</script>
+</body>
+</html>

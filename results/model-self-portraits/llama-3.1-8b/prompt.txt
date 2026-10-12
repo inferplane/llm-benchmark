@@ -1,0 +1,135 @@
+You are the original author, model llama-3.1-8b, served as meta-llama/Llama-3.1-8B-Instruct. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own art and Korean poem. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. Stay compact (about 3000 code output tokens).
+
+YOUR PREVIOUS FULL RESPONSE:
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>llama-3.1-8b</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #poem {
+      font-size: 24px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    #buttons {
+      font-size: 19px;
+      margin-bottom: 20px;
+    }
+    #canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="poem">Scene 1</h1>
+  <button id="next" aria-pressed="false">NEXT</button>
+  <button id="pause">PLAY</button>
+  <canvas id="canvas" width="375" height="812"></canvas>
+  <script>
+    let paused = matchMedia('(prefers-reduced-motion)').matches;
+    let scene = 1;
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let particles = [];
+    let rafId = null;
+
+    function start() {
+      if (!rafId) {
+        rafId = requestAnimationFrame(draw);
+      }
+    }
+
+    function stop() {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // render particles
+      for (let i = 0; i < particles.length; i++) {
+        ctx.beginPath();
+        ctx.arc(particles[i].x, particles[i].y, 5, 0, 2 * Math.PI);
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+        ctx.fill();
+        particles[i].x += particles[i].vx;
+        particles[i].y += particles[i].vy;
+        if (particles[i].x > canvas.width || particles[i].x < 0 || particles[i].y > canvas.height || particles[i].y < 0) {
+          particles.splice(i, 1);
+        }
+      }
+      // render scene poem
+      ctx.font = '24px Arial';
+      ctx.fillStyle = 'black';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText(document.getElementById('poem').textContent, canvas.width / 2, 20);
+      // update DOM
+      document.getElementById('poem').textContent = scene === 1 ? 'Scene 1' : 'Scene 2';
+      document.getElementById('next').ariaPressed = paused;
+      document.getElementById('pause').textContent = paused ? 'PLAY' : 'PAUSE';
+    }
+
+    function init() {
+      // render initial static frame
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < 700; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: Math.random() * 2 - 1,
+          vy: Math.random() * 2 - 1
+        });
+      }
+      draw();
+      // start RAF
+      start();
+    }
+
+    function handleResize() {
+      canvas.width = Math.min(375, window.innerWidth);
+      canvas.height = Math.min(812, window.innerHeight);
+      canvas.style.width = `${canvas.width}px`;
+      canvas.style.height = `${canvas.height}px`;
+      canvas.style.transform = `scale(${Math.min(1, window.devicePixelRatio / Math.min(2, window.devicePixelRatio))})`;
+      ctx.canvas.width = canvas.width * Math.min(2, window.devicePixelRatio);
+      ctx.canvas.height = canvas.height * Math.min(2, window.devicePixelRatio);
+      init();
+    }
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    init();
+
+    document.getElementById('next').addEventListener('click', () => {
+      scene = scene === 1 ? 2 : 1;
+      stop();
+      init();
+    });
+
+    document.getElementById('pause').addEventListener('click', () => {
+      paused = !paused;
+      document.getElementById('pause').textContent = paused ? 'PLAY' : 'PAUSE';
+      document.getElementById('next').ariaPressed = paused;
+      if (paused) {
+        stop();
+      } else {
+        start();
+      }
+    });
+  </script>
+</body>
+</html>
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["Fix your compact CURRENT HTML, preserving its structure; all SIX items below are mandatory. Return full HTML only.", "Restore the visible identity llama-3.1-8b and TWO meaningful Korean self-expression passages that YOU write. Scene1/Scene2 alone are placeholders. Keep the poem in DOM only.", "start() currently requests one draw only, and draw() never schedules a following frame. Implement one continuous RAF controller: each running frame advances bounded particles, renders, schedules next frame and stores rafId. stop() cancels/clears it. No duplicate chains. Resume actually moves pixels.", "Set button CSS directly, NOT nonexistent #buttons: font-size>=19px, high contrast. aria-pressed pause state belongs to PAUSE/PLAY control, NEVER NEXT.", "Responsive full-screen canvas CSS width/height match viewport with backing pixels DPR<=2. DOM poem centered and controls in a separate visible flex row/overlay; 375x812,768x900,1280x900 must not overflow or place controls below viewport.", "Do NOT append 700 particles again on init/resize/NEXT. Initialize once or clear particles=[] before reset; always<=700. NEXT changes DOM scene immediately while preserving paused/running state.", "Keep lang=ko/UTF8/viewport with zoom allowed. Initialize paused from reduced-motion preference before rendering; draw one static particle frame without scheduling RAF when paused. Paused resize/NEXT redraws static complete frame. Return compact complete HTML, not nested placeholder spans."]
+
+Return the complete repaired HTML now.

@@ -1,0 +1,1901 @@
+{
+  "review_type": "Independent model-authored HTML exhibition content review",
+  "reviewed_at": "2026-10-12T02:14:00.376789+00:00",
+  "scale": 100,
+  "rubric": "AWS Content Plugin content-review-agent, fixed quarter-category deductions with nearest 0.5 midpoint-up rounding; final verdict is worst of score/Critical/Warning bands.",
+  "rubric_procedure": "/home/atomoh/.codex/plugins/cache/oh-my-cloud-skills/aws-content-plugin/3.0.0/agents/content-review-agent.md",
+  "overall_verdict": "REVIEW",
+  "ready_for_deployment": false,
+  "publication_scope_choice": "pending_user_decision",
+  "shared_sha256": {
+    "index.html": "658f979ef9056ee95e15eee51292103c1cdb0a7dbae7afdadadcb7dfb8c0595b",
+    "portraits.css": "3c001ab6d294fd0b2be20b08de5d90fcfbf0244b13939c7b2d3ac6241f3dbaf8",
+    "readability.css": "2860d72ea53543e71c66af29613afc037c2c5a498db5d6a38b062521b22bd7a3",
+    "catalog.js": "204294755595479ffae3294cb5c16d96cf36cfa17ecd8208b64784b1bb2dd8dd",
+    "viewer.js": "41e168bcd3d9a6bf456210d27ab76579ca3bac913991a9d65c328e1c9a42eb95"
+  },
+  "artifacts": [
+    {
+      "model": "gallery",
+      "score": 100,
+      "critical": 0,
+      "warnings": 0,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [],
+      "source_status": "gallery",
+      "review_iteration": 2,
+      "viewer_sha256": "658f979ef9056ee95e15eee51292103c1cdb0a7dbae7afdadadcb7dfb8c0595b"
+    },
+    {
+      "model": "claude-haiku-4.5",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/claude-haiku-4.5/artwork.html",
+          "line": 79,
+          "quote": "font-size: clamp(12px, 2vw, 14px)",
+          "problem": "Informative controls use 12–14px text.",
+          "action": "Use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "1ccdc318283157157b2444f35b1680c47c98ab301cb57a7428f97f0c81b24bf9",
+      "viewer_sha256": "0201e4fc3ca0f5c3d50f8afc174dc57d9090e5d15187239ef7e4f34c5556c01e"
+    },
+    {
+      "model": "claude-sonnet-4.5",
+      "score": 95.5,
+      "critical": 0,
+      "warnings": 3,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 3.5,
+        "Interactions": 3.5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/claude-sonnet-4.5/artwork.html",
+          "line": 71,
+          "quote": "font-size: clamp(11px, 2vw, 13px)",
+          "problem": "Informative controls use 11–13px text.",
+          "action": "Use at least 19px for informative text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Renders",
+          "file": "docs/models/claude-sonnet-4.5/artwork.html",
+          "line": 113,
+          "quote": "if (prefersReducedMotion) isPaused = true;",
+          "problem": "Reduced-motion initialization produces an empty canvas instead of a static graphics frame; DOM text remains visible.",
+          "action": "Render one static graphics frame after sizing and particle initialization, without starting motion."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/claude-sonnet-4.5/artwork.html",
+          "line": 101,
+          "quote": "<button id=\"pauseBtn\">PAUSE</button>",
+          "problem": "The initial reduced-motion control still names the pause action while the artwork is stopped (Nova Pro never updates that label).",
+          "action": "Initialize and synchronize PLAY/RESUME versus PAUSE and the accessible state."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "73645fb4249b099d1f97eff581d1cbe6b0e5b8b7d327f8b6e5103eb38ac89729",
+      "viewer_sha256": "52b1024ed5e24a9ee7b932e9a57e76458d96afde9a32115d02c717ed1b3ba64d"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/claude-sonnet-5/artwork.html",
+          "line": 14,
+          "quote": "font-size:11px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "a626010996542128d36ef2f06f3eff8c963cc1521fdde46ae20cbe6868ff5d99",
+      "viewer_sha256": "62c3a3ec381337ebc9e5abe0a9850c260d79ff108d97f0e92e38c09d5f9802ba"
+    },
+    {
+      "model": "claude-haiku-5.5",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/claude-haiku-5.5/artwork.html",
+          "line": 12,
+          "quote": "font-size:11px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "29a5cb128713a614362bda4ec22536024ada843ab6a1e7a403284dd57889786f",
+      "viewer_sha256": "d54cf5778e4b66e03644eac77f9612b3c8ec1507dde3a8d29bfe0ab3ef6b30d8"
+    },
+    {
+      "model": "claude-sonnet-5.5",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/claude-sonnet-5.5/artwork.html",
+          "line": 11,
+          "quote": "font:500 12px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "36b62f2e8a09d18ba7cced32b1e751438f24dbfd407838cd832f73edac8eaf36",
+      "viewer_sha256": "c03a4d3458fcba754facf1f8b8d9cef2813a679b8ab246c7bb1d189de173ea4a"
+    },
+    {
+      "model": "claude-opus-5.5",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/claude-opus-5.5/artwork.html",
+          "line": 12,
+          "quote": "font:500 11px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "a8c11e98042efcdc5148c040a021f11b4cee6c82936fe9ae57ddac3290d125a7",
+      "viewer_sha256": "f7fa6023c3c85dfc4be004dca364cb080274c39f939f1728c8d442855bcad067"
+    },
+    {
+      "model": "claude-fable-5.1",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/claude-fable-5.1/artwork.html",
+          "line": 13,
+          "quote": "font-size:11px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "ee9af69beccc4ad6e5b69cd34fd6a55617d97d54602db54b3653e6d668f68008",
+      "viewer_sha256": "8e1b1d02af8a7a14da28f7aedeee8eafaf8469facc1afc9496a47905fc6d1e7b"
+    },
+    {
+      "model": "nova-pro",
+      "score": 95.5,
+      "critical": 0,
+      "warnings": 3,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 3.5,
+        "Interactions": 3.5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/nova-pro/artwork.html",
+          "line": 30,
+          "quote": "font-size: 1em",
+          "problem": "Informative poem text is 16px and smaller on mobile; native controls are also below the rubric minimum.",
+          "action": "Use at least 19px for informative text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Renders",
+          "file": "docs/models/nova-pro/artwork.html",
+          "line": 174,
+          "quote": "if (document.hidden || prefersReducedMotion) {",
+          "problem": "Reduced-motion initialization produces an empty canvas instead of a static graphics frame; DOM text remains visible.",
+          "action": "Render one static graphics frame after sizing and particle initialization, without starting motion."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/nova-pro/artwork.html",
+          "line": 66,
+          "quote": "<button onclick=\"togglePause()\">PAUSE</button>",
+          "problem": "The initial reduced-motion control still names the pause action while the artwork is stopped (Nova Pro never updates that label).",
+          "action": "Initialize and synchronize PLAY/RESUME versus PAUSE and the accessible state."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "77599ca6e7e12120dcbceb8d0b9a48786a53042548814d26fb53c37b8d835124",
+      "viewer_sha256": "c8e82482fe1b463d2d05350c335e36ccb2180fb6938a1114f95f6bf6d80e779f"
+    },
+    {
+      "model": "kimi-k3",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/kimi-k3/artwork.html",
+          "line": 15,
+          "quote": "font-size:11px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "d804409a10a7eb553e1c9e9ed7eef005ad6effd446cc206bedb26d9c59acfbec",
+      "viewer_sha256": "3ceacd5701d1ab9e3da616a9532f758e7e872f071d1c31213460ba886185158a"
+    },
+    {
+      "model": "nova-lite",
+      "score": 97.0,
+      "critical": 0,
+      "warnings": 2,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 3.5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/nova-lite/artwork.html",
+          "line": 40,
+          "quote": "font-size: 18px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/nova-lite/artwork.html",
+          "line": 79,
+          "quote": "<button class=\"control-button\" id=\"pause\" aria-pressed=\"false\">PAUSE</button>",
+          "problem": "The initial reduced-motion control still names the pause action while the artwork is stopped (Nova Pro never updates that label).",
+          "action": "Initialize and synchronize PLAY/RESUME versus PAUSE and the accessible state."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 3,
+      "artwork_sha256": "dad6d2a349d96390380ad70a9f957da80493216afd4226b7ab7033398f05d6f7",
+      "viewer_sha256": "8fc3c3660400d6dabccf54278583eccd3ba8fe88cf0a040687a46cc2b1b2b406"
+    },
+    {
+      "model": "amazon-translate",
+      "score": 100,
+      "critical": 0,
+      "warnings": 0,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [],
+      "source_status": "not_generative",
+      "review_iteration": 2,
+      "viewer_sha256": "04942b730f317503d1329050a2793d4344e6ef2365e859a3ba928c1196a64843"
+    },
+    {
+      "model": "gpt-5.4",
+      "score": 97.0,
+      "critical": 0,
+      "warnings": 2,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 3.5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/gpt-5.4/artwork.html",
+          "line": 27,
+          "quote": "font-size:12px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/gpt-5.4/artwork.html",
+          "line": 388,
+          "quote": "drawBackground(ts)",
+          "problem": "Background waves keep advancing while paused and under reduced motion; this is sustained motion, not settling.",
+          "action": "Freeze the artwork clock while paused/reduced, allowing one static redraw for scene changes."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "e07c4be93db23ca621a03114817a8136a32720f793bd5aa6d02714dff21e6a24",
+      "viewer_sha256": "5a23837f01dec02ed0f5a660116dccd61093dd375a9642d0ab172a51c183a9d7"
+    },
+    {
+      "model": "gpt-5.5",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/gpt-5.5/artwork.html",
+          "line": 18,
+          "quote": "font-size:12px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "7bc8e37e52a6a031690a592021e8e2e27831c08894de54ab7c364ad44f3c83fd",
+      "viewer_sha256": "85a6c52f65751d415a92fb7a338f0f56d9fb390fb1c61e808700e088c2c4e0d7"
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "score": 97.0,
+      "critical": 0,
+      "warnings": 2,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 3.5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/gpt-5.6-terra/artwork.html",
+          "line": 14,
+          "quote": "font-size:11px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/gpt-5.6-terra/artwork.html",
+          "line": 90,
+          "quote": "start()",
+          "problem": "NEXT calls start(), resuming motion even when the user paused it.",
+          "action": "Advance the poem and redraw statically while preserving the user pause state."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "5a716cf9c69c03796ee09ddf6cbc010456b21b5f8b16ca4fe2851d560c1f4973",
+      "viewer_sha256": "339c0ac81df03f0b8e9db1368a4659ca2e6fdc2ab049fe381839b397ce612043"
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/gpt-5.6-luna/artwork.html",
+          "line": 14,
+          "quote": "font-size:11px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "914863d8b18e714ea1af5458c9a05ea433b169993ebeb74d3e860290df1f8e3c",
+      "viewer_sha256": "aa654a1cca1f2a2737806b2644ddd78efe0fdc9ff91177d32638c310433a3e86"
+    },
+    {
+      "model": "gpt-6-luna",
+      "score": 100,
+      "critical": 0,
+      "warnings": 0,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [],
+      "source_status": "generated",
+      "review_iteration": 3,
+      "artwork_sha256": "b2215a1f62e3256f56834e89c45997a7b9092ef92f8af16420df4aae2acf77ec",
+      "viewer_sha256": "f07f8ee78eb007cbc0d9929f5a3cb99ed69fa9495ff540ad20f81c5617d9e877",
+      "reviewed_at": "2026-10-12T01:45:39.412232+00:00"
+    },
+    {
+      "model": "gpt-6-astra",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/gpt-6-astra/artwork.html",
+          "line": 15,
+          "quote": "font-size:17px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "e794f1344392f813d6c1cab92c83222e82245d43babab059cf039567c02a5fea",
+      "viewer_sha256": "fd06620fe433874987e066d5d5472295a14081314b5c10c21f6658c79c615d36"
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/gpt-6.1-sol/artwork.html",
+          "line": 15,
+          "quote": "font-size:14px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "f4f9a830752d1a61b9b70990d27670731dfc06c15206065438f705a678dc75bd",
+      "viewer_sha256": "3ade5918b309f6a7f0dc9a627dcab62e135871bbf82a0d9e20e091877284379b"
+    },
+    {
+      "model": "grok-4.3",
+      "score": 96.5,
+      "critical": 0,
+      "warnings": 2,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/grok-4.3/artwork.html",
+          "line": 25,
+          "quote": "font-size:13px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/grok-4.3/artwork.html",
+          "line": 27,
+          "quote": "bottom:42px",
+          "problem": "The model label and controls occupy the same bottom42px area and overlap.",
+          "action": "Separate the label and controls in the original layout."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "57927e27e5e9a0846964f87adaafe1e5c36ab28f1d8848a781f1e95f60734770",
+      "viewer_sha256": "9553b4083f6a99a6a71f2d1ade487857f13e42009df30834e2bf3b4066def331"
+    },
+    {
+      "model": "grok-4.6",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/grok-4.6/artwork.html",
+          "line": 12,
+          "quote": "font-size:10px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "b11d2822eadf6860770960f9dbe32c4b15802b19168e4573e8496761783baa3b",
+      "viewer_sha256": "bc8a4a2a87b39bd950a01bb64151184e358ce1249bf8e983d85ecc025b34c437"
+    },
+    {
+      "model": "nova-micro",
+      "score": 95.5,
+      "critical": 0,
+      "warnings": 4,
+      "verdict": "REVIEW",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 1.5,
+        "Icon Usage": 5,
+        "Renders": 3.5,
+        "Interactions": 2.5,
+        "Readability": 5,
+        "Accessibility": 5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/nova-micro/artwork.html",
+          "line": 172,
+          "quote": "textElement.textContent = \"나는 nova-micro, 미디어 아티스트\";",
+          "problem": "NEXT always restores the same text; it never selects a different scene.",
+          "action": "Restore an explicit scene index and advance it on every NEXT click."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/nova-micro/artwork.html",
+          "line": 73,
+          "quote": "let isPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;",
+          "problem": "Reduced-motion startup leaves the control labeled 일시정지 although the artwork is stopped.",
+          "action": "Initialize the control label and accessible state from isPaused."
+        },
+        {
+          "severity": "Warning",
+          "category": "Renders",
+          "file": "docs/models/nova-micro/artwork.html",
+          "line": 129,
+          "quote": "if (!isPaused)",
+          "problem": "The static renderer clears the canvas and skips painting while paused; reduced initialization and paused resize are blank.",
+          "action": "Render the particle positions without advancing them when stopped."
+        },
+        {
+          "severity": "Warning",
+          "category": "Content-Type Quality",
+          "file": "docs/models/nova-micro/artwork.html",
+          "line": 195,
+          "quote": "requestAnimationFrame(update)",
+          "problem": "RAF IDs are not tracked after rescheduling; resume adds another chain. Browser instrumentation observed2 pending callbacks.",
+          "action": "Assign/cancel the current RAF ID and prevent duplicate chains."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "artwork_sha256": "0b9c78710c01686968d999788df9d309976481d1452ef862a7327365901fa08d",
+      "viewer_sha256": "a18b118ab2ff30973f9d492057af5a74bb7823c3e754defa6ab8e5d4a4242d11"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "score": 94.5,
+      "critical": 0,
+      "warnings": 4,
+      "verdict": "REVIEW",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 3.5,
+        "Interactions": 2.5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/nemotron-nano-3-30b/artwork.html",
+          "line": 11,
+          "quote": "font-size:16px",
+          "problem": "Controls and informative poem text use16px/default text below the rubric minimum.",
+          "action": "Use at least 19px for controls and informative text."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/nemotron-nano-3-30b/artwork.html",
+          "line": 75,
+          "quote": "if(!paused) return",
+          "problem": "Initial motion never starts; once started, draw() schedules itself without checking pause, so Pause does not freeze it.",
+          "action": "Implement one animation lifecycle that starts when appropriate and stops while paused."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/nemotron-nano-3-30b/artwork.html",
+          "line": 90,
+          "quote": "nextBtn.addEventListener('click',()=>{ if(paused) start(); else stop(); });",
+          "problem": "NEXT toggles motion instead of changing the poem; PAUSE cannot resume, and control labels/states become misleading.",
+          "action": "Wire NEXT to scene selection and make PLAY/PAUSE a consistent independent toggle."
+        },
+        {
+          "severity": "Warning",
+          "category": "Renders",
+          "file": "docs/models/nemotron-nano-3-30b/artwork.html",
+          "line": 93,
+          "quote": "if(!paused) start();",
+          "problem": "Reduced-motion startup has no graphics frame; the canvas is empty.",
+          "action": "Draw a complete static frame without starting motion."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "artwork_sha256": "0c1a2cb05871174fc6cbb833929b161a4b7d9ffa92d1b60b6630766a605793fa",
+      "viewer_sha256": "6e8e070c7d2598011ca0e8c92b9bff0bfd73903f9f6b323c56ad41acbd68ce93"
+    },
+    {
+      "model": "glm-4.7-flash",
+      "score": 95.5,
+      "critical": 0,
+      "warnings": 3,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 3.5,
+        "Interactions": 3.5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/glm-4.7-flash/artwork.html",
+          "line": 76,
+          "quote": "font-size: 0.8rem",
+          "problem": "Informative labels and controls remain12–13px.",
+          "action": "Use at least19px for informative text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Renders",
+          "file": "docs/models/glm-4.7-flash/artwork.html",
+          "line": 506,
+          "quote": "init();",
+          "problem": "The final init() resizes and clears the previously drawn reduced-motion static frame; browser evidence confirms an empty canvas.",
+          "action": "Render the static frame after the final initialization/resize."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/glm-4.7-flash/artwork.html",
+          "line": 218,
+          "quote": "<button id=\"btn-pause\">PAUSE</button>",
+          "problem": "Initial reduced-motion mode still labels its stopped control PAUSE.",
+          "action": "Initialize RESUME and accessible state when stopped."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 3,
+      "artwork_sha256": "b928778c0a9e03ac0a5d12f9e6426833aed289f2504474e5d686d02e6613f97b",
+      "viewer_sha256": "fac79c6c06bca1de807aa56fbdc6c4e32058e2c65e65844152723a8dfccc01f3",
+      "reviewed_at": "2026-10-12T01:45:39.412614+00:00"
+    },
+    {
+      "model": "gpt-oss-20b",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/gpt-oss-20b/artwork.html",
+          "line": 15,
+          "quote": "font-size:1rem",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "5a7606bea3156e9f0c5ecf6876c1f3c56d10a8d64ab2696079fc8c72c9dd686e",
+      "viewer_sha256": "8700544bf40329d57b41935601ab41be86942b86899e67feb5010e1d0629f9fa"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "score": 95.5,
+      "critical": 0,
+      "warnings": 3,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 3.5,
+        "Interactions": 3.5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/gpt-oss-120b/artwork.html",
+          "line": 12,
+          "quote": "font-size:1rem",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Renders",
+          "file": "docs/models/gpt-oss-120b/artwork.html",
+          "line": 103,
+          "quote": "if(!prefersReduced) loop();",
+          "problem": "Reduced-motion initialization produces an empty canvas instead of a static graphics frame; DOM text remains visible.",
+          "action": "Render one static graphics frame after sizing and particle initialization, without starting motion."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/gpt-oss-120b/artwork.html",
+          "line": 145,
+          "quote": "document.getElementById('pauseBtn').onclick=()=>{",
+          "problem": "In reduced-motion mode no animation loop was created, and clicking the pause control cannot start one.",
+          "action": "Initialize the paused state correctly and start exactly one loop when the user explicitly chooses play."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "8198924b6e6843fb34a1658d6524bf5e7a5756d9491a6cb9157fe01ad2244041",
+      "viewer_sha256": "0891451a7b3adc3b6cae39cb488b0c0552822e8a10f2f5bbe6a2570d2cb0e0d2"
+    },
+    {
+      "model": "qwen3-32b",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/qwen3-32b/artwork.html",
+          "line": 70,
+          "quote": "font-size: 1em",
+          "problem": "Control text computes to 16px.",
+          "action": "Use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "f5f68874ff8f18401579acfee34410722de191a3e51fa8761eb5f0758a76dcc7",
+      "viewer_sha256": "77274308e39dfe9b1020e76ed0c0eba9d018cf5eb6ac5dec770635641b6835c1"
+    },
+    {
+      "model": "nemotron-super-3-120b",
+      "score": 98.0,
+      "critical": 0,
+      "warnings": 2,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 1.5,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/nemotron-super-3-120b/artwork.html",
+          "line": 12,
+          "quote": "font-size:0.9rem",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Content-Type Quality",
+          "file": "docs/models/nemotron-super-3-120b/artwork.html",
+          "line": 146,
+          "quote": "requestAnimationFrame(draw)",
+          "problem": "Resume schedules another draw chain while the existing perpetual chain remains active.",
+          "action": "Keep exactly one animation chain."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "2b2daff9daa4a889ba6b02fcc779a3ac84f010f05da62c12bc5fed93b236cba4",
+      "viewer_sha256": "4bcba07cbffba3c0c5f568718ac4156b14b348d48097999eaa7862dcb9c634d2"
+    },
+    {
+      "model": "llama4-scout",
+      "score": 96.0,
+      "critical": 0,
+      "warnings": 3,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 2.5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/llama4-scout/artwork.html",
+          "line": 16,
+          "quote": "font-size: 16px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/llama4-scout/artwork.html",
+          "line": 23,
+          "quote": "<button id=\"pause-btn\" aria-pressed=\"false\">Pause</button>",
+          "problem": "The initial reduced-motion control still names the pause action while the artwork is stopped (Nova Pro never updates that label).",
+          "action": "Initialize and synchronize PLAY/RESUME versus PAUSE and the accessible state."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/llama4-scout/artwork.html",
+          "line": 74,
+          "quote": "if (paused)",
+          "problem": "Normal initial animation never starts because init() calls draw() only when paused. Pause then Play can start it.",
+          "action": "Start the animation only when initially unpaused; keep the static initial render."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 3,
+      "artwork_sha256": "f454b15c13a6a6c9785f2b6af972e18266f5cce16f01970fe46f69bf9be70cdd",
+      "viewer_sha256": "1e67d99a3663360d7274efe48a4143af4a44bded5ef5ef90d2d8befe887a30a5"
+    },
+    {
+      "model": "ministral-14b",
+      "score": 96.0,
+      "critical": 0,
+      "warnings": 3,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 3.5,
+        "Readability": 5,
+        "Accessibility": 2.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/ministral-14b/artwork.html",
+          "line": 100,
+          "quote": "font-size: clamp(1rem, 2.5vw, 1.2rem)",
+          "problem": "Mobile controls remain16px and subtitle17.6px despite larger targets.",
+          "action": "Use at least19px for informative text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/ministral-14b/artwork.html",
+          "line": 5,
+          "quote": "maximum-scale=1.0",
+          "problem": "maximum-scale=1.0 still restricts zoom even though user-scalable=yes was added.",
+          "action": "Remove the maximum-scale restriction."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/ministral-14b/artwork.html",
+          "line": 232,
+          "quote": "state.initialized = true",
+          "problem": "Normal startup draws only the static frame and never starts animate(); motion starts only after Pause then Play.",
+          "action": "After initialization start exactly one loop when not initially paused."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 3,
+      "artwork_sha256": "5da58ec1c4fc9f0df6ba247aa3f8f8665a3cc5db274d462d55c85b254a489a87",
+      "viewer_sha256": "130f355dee07de5cfff79b9d369d775aa39172a892a2f8f1517390670d3d68a9",
+      "reviewed_at": "2026-10-12T01:45:39.412855+00:00"
+    },
+    {
+      "model": "qwen3-235b-a22b",
+      "score": 96.0,
+      "critical": 0,
+      "warnings": 3,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 3.5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 2.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/qwen3-235b-a22b/artwork.html",
+          "line": 39,
+          "quote": "font-size: 14px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/qwen3-235b-a22b/artwork.html",
+          "line": 5,
+          "quote": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"/>",
+          "problem": "The original document explicitly restricts browser zoom.",
+          "action": "Remove maximum-scale=1 and user-scalable=no."
+        },
+        {
+          "severity": "Warning",
+          "category": "Renders",
+          "file": "docs/models/qwen3-235b-a22b/artwork.html",
+          "line": 249,
+          "quote": "if (!motionQuery.matches) {",
+          "problem": "Reduced-motion initialization produces an empty canvas instead of a static graphics frame; DOM text remains visible.",
+          "action": "Render one static graphics frame after sizing and particle initialization, without starting motion."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "90ad5d0a88cdfcbb3123548a76e7d1c93051a2a3558c335d44ff4bafebb141d9",
+      "viewer_sha256": "53b3397ec9aab0f858cfcd1daf821ee6220ad23e35e9e1da920d50f50a147af8"
+    },
+    {
+      "model": "llama4-maverick",
+      "score": 97.0,
+      "critical": 0,
+      "warnings": 2,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 3.5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/llama4-maverick/artwork.html",
+          "line": 12,
+          "quote": "font-size: 0.8em",
+          "problem": "Subtitle computes to15.2px.",
+          "action": "Use at least 19px."
+        },
+        {
+          "severity": "Warning",
+          "category": "Renders",
+          "file": "docs/models/llama4-maverick/artwork.html",
+          "line": 40,
+          "quote": "resizeCanvas();",
+          "problem": "Reduced-motion initialization produces an empty canvas instead of a static graphics frame; DOM text remains visible.",
+          "action": "Render one static graphics frame after sizing and particle initialization, without starting motion."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 3,
+      "artwork_sha256": "a078c787e2783421fdde9311003b96d19ecc6ef81f265bcd7c8d97187ecc0ac2",
+      "viewer_sha256": "d46e7b5ce54318dc8a6031324d809ab1524de487caf6f709c7526918cafe2782"
+    },
+    {
+      "model": "llama-3.3-70b-bedrock",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 5,
+        "Structural Completeness": 3.5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/llama-3.3-70b-bedrock/artwork.html",
+          "line": 15,
+          "quote": "<button id=\"play-pause\" style=\"background-color: #444; color: #fff; border: none; padding: 10px;\">PLAY</button>",
+          "problem": "The repair removed NEXT and the second scene entirely.",
+          "action": "Restore scene selection through accessible DOM content, preserving motion state."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 3,
+      "artwork_sha256": "be4146077d21628bb5699dfd9d26b13633034fb1312d3eb4385aaaf507918d25",
+      "viewer_sha256": "b1f4c859e851027b136088298d86bfbe707a4dc4afdc7f1ebb3235806864fa63"
+    },
+    {
+      "model": "gemma-4-31b-bedrock",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/gemma-4-31b-bedrock/artwork.html",
+          "line": 13,
+          "quote": "font-size: 12px",
+          "problem": "Informative text or controls are below the rubric minimum of14pt.",
+          "action": "Have the original author use at least 19px for informative text and controls."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 2,
+      "artwork_sha256": "732c788c2e6a8f397316489ffc5de3164876edef1c9f5dd94220c89d39da648c",
+      "viewer_sha256": "8e21fc88b1fcce595409dc75fcf78fecfff8bbd7ab8a361f8da38671ff801000"
+    },
+    {
+      "model": "llama-3.1-8b",
+      "score": 92.5,
+      "critical": 0,
+      "warnings": 6,
+      "verdict": "REVIEW",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 1.5,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 2.5,
+        "Readability": 5,
+        "Accessibility": 2.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/llama-3.1-8b/artwork.html",
+          "line": 17,
+          "quote": "#controls {",
+          "problem": "19px is set on the controls container, but native buttons retain their smaller user-agent font; footer prose is also below 19px.",
+          "action": "Apply at least 19px directly to buttons and informative prose."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/llama-3.1-8b/artwork.html",
+          "line": 90,
+          "quote": "ariaPressed = paused",
+          "problem": "NEXT incorrectly exposes the pause state as aria-pressed.",
+          "action": "Remove toggle semantics from NEXT and keep pause state on the pause control."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/llama-3.1-8b/artwork.html",
+          "line": 55,
+          "quote": "if (!rafId)",
+          "problem": "The completed rafId remains set, so start() refuses to schedule the next frame; initial motion and resume are one-shot.",
+          "action": "Maintain one functioning RAF lifecycle and reset/update the current callback ID."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/llama-3.1-8b/artwork.html",
+          "line": 131,
+          "quote": "document.getElementById('pause').addEventListener('click', () => {",
+          "problem": "The pause button remains labeled PLAY through all state changes.",
+          "action": "Synchronize PLAY/PAUSE text with the actual state."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/llama-3.1-8b/artwork.html",
+          "line": 112,
+          "quote": "canvas.width = Math.min(375, window.innerWidth);",
+          "problem": "The375px canvas plus default body margins/border creates horizontal overflow at375px.",
+          "action": "Fit canvas and content within the available width and viewport."
+        },
+        {
+          "severity": "Warning",
+          "category": "Content-Type Quality",
+          "file": "docs/models/llama-3.1-8b/artwork.html",
+          "line": 98,
+          "quote": "700",
+          "problem": "Each init appends700 particles; initialization, NEXT and resize repeatedly grow the array.",
+          "action": "Initialize once or clear/reset the bounded particle collection."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "artwork_sha256": "5b48cacbc4d33ea6750c4f42f1b7f340e19186956dcdab60a893f6790f15ebdb",
+      "viewer_sha256": "9c66a3789febd1a9ae4ee70655ef1f53700dfc99fc546805ff0892bbb0fb795f"
+    },
+    {
+      "model": "llama-3.3-70b",
+      "score": 97.0,
+      "critical": 0,
+      "warnings": 2,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 3.5,
+        "Interactions": 3.5,
+        "Readability": 5,
+        "Accessibility": 5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Renders",
+          "file": "docs/models/llama-3.3-70b/artwork.html",
+          "line": 52,
+          "quote": "if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {",
+          "problem": "Reduced-motion initialization produces an empty canvas instead of a static graphics frame; DOM text remains visible.",
+          "action": "Render one static graphics frame after sizing and particle initialization, without starting motion."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/llama-3.3-70b/artwork.html",
+          "line": 52,
+          "quote": "if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {",
+          "problem": "The initial reduced-motion control still names the pause action while the artwork is stopped (Nova Pro never updates that label).",
+          "action": "Initialize and synchronize PLAY/RESUME versus PAUSE and the accessible state."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 3,
+      "artwork_sha256": "9609e81968563e3d4f5eb908d661c9f1da7d16c5f4945cbc31c0033f08414c83",
+      "viewer_sha256": "90b7336b0204f357d2720f1520bb74b242a1b0205c731838fa0cecfe0bc22b5b"
+    },
+    {
+      "model": "gemma-4-31b",
+      "score": 100,
+      "critical": 0,
+      "warnings": 0,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [],
+      "source_status": "unavailable",
+      "review_iteration": 2,
+      "viewer_sha256": "fbd6e440190862284e4ae98f87610caeb31c3a90fafb89502bbff5f6144f1b5a"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "score": 100,
+      "critical": 0,
+      "warnings": 0,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [],
+      "source_status": "generated",
+      "review_iteration": 3,
+      "artwork_sha256": "2a2e16705a5695a69a1fd35cbc35f5d057233bd68efa2295d33d72c16d5095a7",
+      "viewer_sha256": "203a71a285148ba99b8a6ec44d674f84bb20bf1f33213c0ac3048f8950a76595",
+      "reviewed_at": "2026-10-12T02:14:00.376231+00:00"
+    },
+    {
+      "model": "exaone-3.5-32b",
+      "score": 92.5,
+      "critical": 0,
+      "warnings": 6,
+      "verdict": "REVIEW",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 1,
+        "Structural Completeness": 3.5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/exaone-3.5-32b/artwork.html",
+          "line": 11,
+          "quote": "@media (max-width: 768px) { .poem, button { font-size: 16px; } }",
+          "problem": "Mobile poem and controls drop to16px and14px,below the rubric minimum.",
+          "action": "Keep informative text and controls at least19px on every viewport."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/exaone-3.5-32b/artwork.html",
+          "line": 10,
+          "quote": ".poem, button { font-size: 19px; padding: 10px; margin: 10px 0; background-color: #1a1a1a; border: none; cursor: pointer; }",
+          "problem": "Buttons retain default black foreground on#1a1a1a; screenshot confirms unreadable low-contrast labels.",
+          "action": "Set an explicit high-contrast button foreground."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/exaone-3.5-32b/artwork.html",
+          "line": 83,
+          "quote": "document.addEventListener('DOMContentLoaded', () => {",
+          "problem": "Initial reduced-motion preference is ignored and animation runs; the change handler then toggles the requested state into its opposite.",
+          "action": "Initialize isPaused from matchMedia and apply preference changes without inverting them."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/exaone-3.5-32b/artwork.html",
+          "line": 29,
+          "quote": "aria-label=\"일시정지\"",
+          "problem": "Fixed aria-label 일시정지 overrides the visible 재생 label after pausing,so visible and accessible control names disagree.",
+          "action": "Synchronize the accessible name with the visible action,or remove the overriding aria-label."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/exaone-3.5-32b/artwork.html",
+          "line": 31,
+          "quote": "width=\"700\"",
+          "problem": "The fixed700px canvas creates horizontal overflow at375px.",
+          "action": "Fit the rendered canvas width within the viewport and resize the backing store consistently."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/exaone-3.5-32b/artwork.html",
+          "line": 83,
+          "quote": "document.addEventListener('DOMContentLoaded', () => {",
+          "problem": "The original brief’s background pointer/touch interaction is omitted; the rewrite registers only scene and pause controls.",
+          "action": "Restore bounded background interaction without altering pause state."
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 4,
+      "artwork_sha256": "e6ccf3000773c90c9e6c0e95e4b0872b049626a7fd1d1e7b75a238a23a011b2a",
+      "viewer_sha256": "81cdf2aa7b41792204f9554351d5b9819ca9e279898ffb0f46ef1f9697a2e3c7",
+      "reviewed_at": "2026-10-12T01:55:26.494448+00:00",
+      "retry_limit_reached": true
+    }
+  ],
+  "evidence": {
+    "remaining_scope_browser": "/tmp/portrait-review/final-browser.json",
+    "held_scope_browser": "/tmp/portrait-review/review-r4.json",
+    "loop_edges": "/tmp/portrait-review/final-loop-edges.json",
+    "remaining_scope_frozen_source": "/tmp/portrait-review/final-source/models",
+    "held_scope_frozen_source": "/tmp/portrait-review/review-r4-source/models",
+    "screenshots": "/tmp/portrait-review/final-<model>-<width>.jpg and review-r4-<model>-<width>.jpg",
+    "viewports": "375/768/1280, additional native-target390px checks",
+    "provenance": "All 32 generated artworks in remaining scope match provenance SHA, are contained in their actual response.txt, and requested IDs match config.toml.",
+    "privacy": "No AWS keys, ARNs or internal IPs found in reviewed public artwork.",
+    "exaone_first_repair": "/tmp/portrait-review/exaone-r2.json; frozen exaone-r2-source; screenshots exaone-r2-exaone-3.5-32b-<width>.jpg",
+    "managed_final_fixes": "/tmp/portrait-review/managed-final-fixes.json; frozen managed-final-fixes-source;375/768/1280 screenshots",
+    "exaone_second_repair": "/tmp/portrait-review/exaone-r3.json; frozen exaone-r3-source; real background pointer event",
+    "exaone_third_repair": "/tmp/portrait-review/exaone-r4.json; frozen exaone-r4-source;375/768/1280; source-defined3-second scene delay honored; background pointer tested",
+    "qwen_final_fix": "/tmp/portrait-review/qwen-final.json; frozen qwen-final-source;375/768/1280; actual pointer,paused NEXT,static reduced motion; maximum one RAF callback"
+  },
+  "notes": [
+    "No artwork or application source was edited by the reviewer.",
+    "Gallery and unavailable status views pass with the shared readability stylesheet.",
+    "Gallery still links the configured roster; this report is not approval to publish the held/pending works. A changed publication gallery/status treatment needs a scoped review and new shared hashes.",
+    "Earlier pixel-difference pause warnings for grok-4.6, gpt-oss-20b and qwen3-32b were withdrawn after 1.5s settling checks proved static output; the observed changes were transient trail settling, not sustained motion.",
+    "Model self-expression is treated as art; model-authored style differences are not penalized as marketing-template deviations.",
+    "Presentation-framework, AWS-icon and AWS-owned copyright requirements do not apply to this personal artwork exhibition.",
+    "The four retry-exhausted models require the procedural user-decision handoff before further attempts or a different publication scope.",
+    "The native Qwen correction closes the final raw-artwork review:32 generated artworks PASS;4 generated artworks remain REVIEW at the retry limit;2 unavailable status pages and the gallery PASS. A changed publication gallery/status treatment still needs its scoped review."
+  ],
+  "summary": {
+    "PASS": 35,
+    "REVIEW": 4,
+    "FAIL": 0,
+    "PENDING": 0
+  },
+  "rubric_skill": "/home/atomoh/.codex/plugins/cache/oh-my-cloud-skills/aws-content-plugin/3.0.0/.codex-plugin/skills/content-review-agent/SKILL.md"
+}

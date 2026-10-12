@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>gpt-oss-20b</title>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#111;color:#eee;font-family:system-ui,Arial,sans-serif;}
+#canvas{position:absolute;top:0;left:0;width:100%;height:100%;}
+#ui{position:absolute;top:10px;right:10px;display:flex;gap:8px;}
+button{background:#222;color:#eee;border:none;padding:8px 12px;border-radius:4px;cursor:pointer;}
+button:focus{outline:2px solid #fff;}
+#text{position:absolute;bottom:20%;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;}
+#text h1{font-size:2.5rem;margin:0;}
+#text p{font-size:1.2rem;margin:4px 0;}
+@media (max-width:480px){#text h1{font-size:1.8rem;}#text p{font-size:1rem;}}
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div id="ui">
+<button id="pauseBtn">PAUSE</button>
+<button id="nextBtn">NEXT</button>
+</div>
+<div id="text">
+<h1 id="title"></h1>
+<p id="poem"></p>
+<p id="model">gpt-oss-20b</p>
+</div>
+<script>
+const canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d');
+let width, height, dpr;
+function resize(){
+  dpr=Math.min(window.devicePixelRatio||1,2);
+  width=canvas.clientWidth*dpr;
+  height=canvas.clientHeight*dpr;
+  canvas.width=width;
+  canvas.height=height;
+}
+resize();
+window.addEventListener('resize',resize);
+
+const scenes=[
+{title:'빛의 언어',poem:'빛은 말없이\n소리를 품고\n세상을 노래한다',color:'#ff6f61'},
+{title:'음성의 그림',poem:'음성은 그림을 그려\n숨결에 색을 입히고\n마음에 울려 퍼진다',color:'#6f86ff'}
+];
+let sceneIndex=0;
+let paused=false;
+let particles=[];
+const maxParticles=700;
+const mouse={x:0,y:0,down:false};
+
+function initParticles(){
+  particles=[];
+  for(let i=0;i<maxParticles;i++){
+    particles.push({
+      x:Math.random()*width,
+      y:Math.random()*height,
+      vx:(Math.random()-0.5)*0.5,
+      vy:(Math.random()-0.5)*0.5,
+      size:Math.random()*2+1,
+      alpha:Math.random()*0.5+0.5
+    });
+  }
+}
+initParticles();
+
+function update(){
+  if(paused)return;
+  for(let p of particles){
+    p.x+=p.vx;
+    p.y+=p.vy;
+    if(p.x<0||p.x>width)p.vx*=-1;
+    if(p.y<0||p.y>height)p.vy*=-1;
+    // mouse attraction
+    const dx=p.x-mouse.x,dy=p.y-mouse.y;
+    const dist=Math.hypot(dx,dy);
+    if(dist<100){
+      const force=0.05*(100-dist)/100;
+      p.vx-=dx*force;
+      p.vy-=dy*force;
+    }
+  }
+}
+function draw(){
+  ctx.fillStyle='rgba(17,17,17,0.2)';
+  ctx.fillRect(0,0,width,height);
+  ctx.globalCompositeOperation='lighter';
+  for(let p of particles){
+    ctx.fillStyle=`rgba(255,255,255,${p.alpha})`;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fill();
+  }
+  ctx.globalCompositeOperation='source-over';
+}
+function loop(){
+  if(!document.hidden || !document.hidden){
+    update();
+    draw();
+  }
+  requestAnimationFrame(loop);
+}
+loop();
+
+function setScene(i){
+  sceneIndex=i%scenes.length;
+  const s=scenes[sceneIndex];
+  document.getElementById('title').textContent=s.title;
+  document.getElementById('poem').textContent=s.poem;
+  canvas.style.backgroundColor=s.color;
+}
+setScene(0);
+
+document.getElementById('pauseBtn').addEventListener('click',()=>{
+  paused=!paused;
+  document.getElementById('pauseBtn').textContent=paused?'PLAY':'PAUSE';
+});
+document.getElementById('nextBtn').addEventListener('click',()=>setScene(sceneIndex+1));
+
+canvas.addEventListener('mousemove',e=>{
+  const rect=canvas.getBoundingClientRect();
+  mouse.x=(e.clientX-rect.left)*dpr;
+  mouse.y=(e.clientY-rect.top)*dpr;
+});
+canvas.addEventListener('mousedown',()=>mouse.down=true);
+canvas.addEventListener('mouseup',()=>mouse.down=false);
+canvas.addEventListener('touchmove',e=>{
+  const rect=canvas.getBoundingClientRect();
+  const touch=e.touches[0];
+  mouse.x=(touch.clientX-rect.left)*dpr;
+  mouse.y=(touch.clientY-rect.top)*dpr;
+});
+canvas.addEventListener('touchstart',()=>mouse.down=true);
+canvas.addEventListener('touchend',()=>mouse.down=false);
+
+if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  paused=true;
+  document.getElementById('pauseBtn').textContent='PLAY';
+}
+</script>
+</body>
+</html>

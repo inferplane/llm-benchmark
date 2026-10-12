@@ -1,0 +1,17 @@
+{
+  "model": "exaone-3.5-32b",
+  "model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
+  "api": "openai",
+  "requested_at": "2026-10-12T01:49:06.931680+00:00",
+  "prompt_sha256": "32b764db8518f0d00a149a8436518c8d2aca9025367890a3728b17c91d48b47b",
+  "max_output_tokens": 4096,
+  "temperature": 0.3,
+  "temperature_sent": true,
+  "status": "generated",
+  "generated_at": "2026-10-12T01:50:29.902890+00:00",
+  "artwork_sha256": "e6ccf3000773c90c9e6c0e95e4b0872b049626a7fd1d1e7b75a238a23a011b2a",
+  "tokens_in": 712,
+  "tokens_out": 1219,
+  "finish_reason": "stop",
+  "reported_model": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct"
+}

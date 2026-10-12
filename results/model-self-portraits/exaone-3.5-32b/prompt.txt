@@ -1,0 +1,11 @@
+You are the original author, model exaone-3.5-32b, served as LGAI-EXAONE/EXAONE-3.5-32B-Instruct. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own art and Korean poem. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. Stay compact (about 3000 code output tokens).
+
+YOUR PREVIOUS FULL RESPONSE:
+
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["당신은 실제 EXAONE3.5-32B 작성 모델입니다. 이전 코드가 불안정하므로 본인이 새로 간결한 미디어아트 HTML을 구현하세요. 자신의 정체성을 표현하는 한국어 시2개를 직접 쓰고 EXAONE3.5-32B 모델명을 DOM에 표시하세요. 완전한 HTML 하나만 반환하세요.", "모든 시, 번역, 모델명, native 버튼은 모든 화면에서19px 이상, 밝은 글자와 어두운 배경의4.5:1 이상 대비를 보장하세요. 모바일에서16px/12px로 덮어쓰지 마세요.375/768/1280px 화면에 시와 버튼이 겹치거나 잘리지 않도록 영역을 나누세요. zoom허용 viewport, lang=ko.", "공통 초기화 순서: 상태와 DOM 참조 선언, viewport/DPR<=2에 맞는 Canvas 크기,700개 이하 입자 초기화, DOM 모델명과 첫 번째 시 표시. 그 다음 matchMedia(reduced-motion)로 정지 여부를 정하세요. 정상 모드에서는 실제 움직임을 시작하고, 모션 감소 모드에서도 시와 완전한 정지 입자 그림을 반드시 표시하세요.", "하나의 RAF ID만 사용하세요. 실행 중에만 좌표를 갱신하고 다음 프레임 하나를 예약하세요. 정지 시 예약 취소와 ID 초기화, 재생 시 하나의 루프만 재시작하세요. static render는 좌표를 갱신하거나 RAF를 예약하지 않아야 합니다. 정지 상태 resize/NEXT는 그림을 한 번 redraw하고 정지를 유지하세요.", "PAUSE 버튼만 정지 상태 aria-pressed와 label을 갖고, 멈췄을 때 PLAY/재생, 움직일 때 PAUSE/일시정지를 정확히 표시하세요. NEXT는 toggle이 아니므로 aria-pressed를 넣지 말고 두 시를 번갈아 즉시 보여주세요.", "포인터 이벤트에서 사용하는 rect는 이벤트 함수 내부에서 분기 전에 선언하여 항상 유효해야 합니다. 초기화된 기존 입자를 재사용해 반응시키고700개 이하를 유지하세요. ReferenceError, 빈 시작 화면, 중복 RAF가 없어야 합니다. 전체 자체 작성 HTML만 반환하세요."]
+
+The previous implementation was unreliable; implement a fresh minimal version yourself. Use DOM text and native buttons, one RAF controller, and keep all requirements.
+
+Return the complete repaired HTML now.

@@ -1,0 +1,17 @@
+{
+  "model": "nemotron-super-3-120b",
+  "model_id": "nvidia.nemotron-super-3-120b",
+  "api": "bedrock",
+  "requested_at": "2026-10-11T14:33:18.738951+00:00",
+  "prompt_sha256": "f680eb7d7a7f178ce0020f0f59be1e5b4f520872c39b1ebda74bb816d0eeefda",
+  "max_output_tokens": 8192,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:33:29.749001+00:00",
+  "artwork_sha256": "eb6117b7e34a71fdddd5e1922cb25fa3f7237dcba19e025fc7a51d663665ed6e",
+  "tokens_in": 2734,
+  "tokens_out": 1782,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "dccbc1c5-d3c2-49ae-993a-1259fe139576"
+}

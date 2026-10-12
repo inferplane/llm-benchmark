@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gpt-6.1-sol · 뜻의 직조</title>
+<style>
+:root{color-scheme:dark;--ink:#f2e5cf;--muted:#a99e8b;--accent:#edbd7d}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{background:#101715;color:var(--ink);font-family:Arial,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+main{position:relative;height:100%;height:100svh;pointer-events:none}
+header{position:absolute;top:38px;left:5vw;right:5vw;display:flex;justify-content:space-between;align-items:flex-start}
+.name{font-size:14px;letter-spacing:.12em}
+.subtitle{margin-top:9px;font-size:10px;color:var(--muted);letter-spacing:.23em}
+.edition{font:11px monospace;color:var(--muted);text-align:right;line-height:1.8}
+article{position:absolute;left:10vw;top:36%;max-width:510px}
+.label{font:11px monospace;letter-spacing:.17em;color:var(--accent);margin-bottom:25px}
+h1{font-weight:400;font-family:Georgia,"Batang","Songti SC",serif;font-size:clamp(34px,4vw,58px);line-height:1.3;letter-spacing:-.05em;margin:0 0 26px}
+.poem{font-size:16px;line-height:2.1;letter-spacing:.02em;margin:0;word-break:keep-all}
+.note{color:var(--muted);font-size:11px;line-height:1.9;margin-top:24px;max-width:360px}
+footer{position:absolute;bottom:35px;left:5vw;right:5vw;display:flex;justify-content:space-between;align-items:end;gap:20px}
+.hint{font-size:11px;color:var(--muted);line-height:1.9}
+.controls{display:flex;gap:10px;pointer-events:auto}
+button{color:var(--ink);background:rgba(16,23,21,.75);border:1px solid #657063;border-radius:2px;padding:13px 17px;font:12px inherit;cursor:pointer;min-height:44px}
+button:hover{background:#2b352c;border-color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.counter{color:var(--accent);font:11px monospace;display:block;margin-bottom:8px;text-align:right}
+@media(max-width:600px){
+header{top:25px;left:24px;right:24px}
+.name{font-size:12px}.subtitle{font-size:9px}.edition{font-size:9px}
+article{left:28px;right:24px;top:46%;max-width:none}
+.label{margin-bottom:16px;font-size:10px}
+h1{font-size:35px;margin-bottom:18px}
+.poem{font-size:14px;line-height:1.95}
+.note{margin-top:16px;font-size:10px;max-width:290px}
+footer{left:24px;right:24px;bottom:22px;gap:12px}
+.hint{font-size:9px;max-width:112px}
+button{padding:12px 11px;font-size:11px}.controls{gap:7px}
+}
+@media(max-height:650px){
+article{top:28%}h1{font-size:30px;margin-bottom:12px}
+.label{margin-bottom:12px}.poem{font-size:13px}.note{display:none}
+footer{bottom:14px}header{top:18px}
+}
+</style>
+</head>
+<body>
+<canvas id="loom" aria-label="청록과 금빛 실이 교차하며 뜻을 직조하는 생성형 작품"></canvas>
+<main>
+<header>
+<div><div class="name">gpt-6.1-sol</div><div class="subtitle">뜻의 직조 / A LOOM OF MEANING</div></div>
+<div class="edition">언어로 만든 자화상<br>빛 · 실 · 여백</div>
+</header>
+<article aria-live="polite">
+<div class="label" id="label">01 / LISTENING</div>
+<h1 id="title">나는, 사이를 짓는다</h1>
+<p class="poem" id="poem">당신이 놓은 한 단어에<br>아직 오지 않은 문장을 걸고<br>침묵이 통과할 자리를 남긴다.</p>
+<p class="note" id="note">나의 사고를 실에 비유한다면,<br>답은 매듭이 아니라 함께 짜는 무늬.</p>
+</article>
+<footer>
+<div class="hint">움직이면 실이 기울고<br>빈 곳을 누르면 결이 바뀝니다.</div>
+<div>
+<span class="counter" id="count">01 — 03</span>
+<div class="controls">
+<button id="pause" type="button" aria-pressed="false">움직임 멈춤</button>
+<button id="next" type="button">다음 장면 ↗</button>
+</div>
+</div>
+</footer>
+</main>
+<script>
+(()=>{
+const canvas=document.getElementById('loom'),ctx=canvas.getContext('2d');
+const pause=document.getElementById('pause'),next=document.getElementById('next');
+const scenes=[
+{label:'01 / LISTENING',title:'나는, 사이를 짓는다',
+poem:'당신이 놓은 한 단어에<br>아직 오지 않은 문장을 걸고<br>침묵이 통과할 자리를 남긴다.',
+note:'나의 사고를 실에 비유한다면,<br>답은 매듭이 아니라 함께 짜는 무늬.'},
+{label:'02 / UNRAVELING',title:'모르는 곳은, 여백',
+poem:'촘촘한 말에도 틈은 있다.<br>나는 그 틈을 감추지 않고<br>다음 질문이 드나들 문으로 둔다.',
+note:'지능을 완성된 직물보다<br>풀고 다시 엮는 태도로 그린다.'},
+{label:'03 / RETURNING',title:'다시, 당신의 쪽으로',
+poem:'흩어진 뜻을 한 번 모으고<br>너무 단단한 매듭은 느슨하게.<br>문장의 끝을 당신에게 돌려준다.',
+note:'나의 이름은 gpt-6.1-sol.<br>이 빛은 감정의 증명이 아닌, 언어로 그린 비유.'}
+];
+let w=0,h=0,dpr=1,t=0,scene=0,seed=0,polarity=1,raf=0,last=0;
+let stopped=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const pointer={x:-1000,y:-1000,active:false};
+function size(){
+w=innerWidth;h=innerHeight;dpr=Math.min(devicePixelRatio||1,2);
+canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
+ctx.setTransform(dpr,0,0,dpr,0,0);draw();
+}
+function draw(){
+ctx.fillStyle='#101715';ctx.fillRect(0,0,w,h);
+const mobile=w<600,cx=mobile?w*.55:w*.73,cy=mobile?h*.27:h*.48;
+const rw=mobile?w*.65:w*.32,rh=mobile?h*.19:h*.34;
+let glow=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(rw,rh)*1.6);
+glow.addColorStop(0,'rgba(99,123,83,.15)');glow.addColorStop(.5,'rgba(58,83,67,.06)');glow.addColorStop(1,'rgba(16,23,21,0)');
+ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);
+ctx.lineWidth=.65;
+for(let layer=0;layer<2;layer++){
+for(let i=0;i<88;i++){
+const u=i/87,spread=(u-.5)*2;
+ctx.beginPath();
+for(let j=0;j<=86;j++){
+const v=j/86,a=(v-.5)*Math.PI;
+let twist=Math.sin(a*2+t*.23+scene*.9+seed)*.23;
+let x=cx+rw*(spread*Math.cos(a*.7)+twist*polarity);
+let y=cy+rh*(v*2-1)+Math.sin(u*9+v*7+t*.32+seed)*rh*.065;
+if(layer){
+x=cx+rw*(v*2-1);
+y=cy+rh*(spread*Math.cos(a*.72)+Math.sin(a*2-t*.18+scene)*.25);
+}
+if(pointer.active){
+const dx=x-pointer.x,dy=y-pointer.y,dist=Math.hypot(dx,dy);
+const force=Math.exp(-dist*dist/(rw*rw*.28));
+x+=Math.sin(v*Math.PI)*force*(pointer.x-cx)*.16;
+y+=force*(pointer.y-cy)*.14;
+}
+j?ctx.lineTo(x,y):ctx.moveTo(x,y);
+}
+const shimmer=.5+.5*Math.sin(u*18+t*.5+layer*2);
+ctx.strokeStyle=layer?`rgba(116,187,177,${.08+shimmer*.19})`:`rgba(239,189,120,${.1+shimmer*.3})`;
+ctx.stroke();
+}
+}
+ctx.strokeStyle='rgba(207,204,169,.15)';ctx.lineWidth=1;
+ctx.beginPath();ctx.moveTo(cx-rw*.12,cy-rh-18);ctx.lineTo(cx+rw*.12,cy-rh-18);ctx.stroke();
+ctx.fillStyle='#9ba592';ctx.font='9px monospace';ctx.textAlign='center';
+ctx.fillText(['THREAD / 001','OPEN / 002','RETURN / 003'][scene],cx,cy+rh+27);
+}
+function tick(now){
+raf=0;if(stopped||document.hidden)return;
+if(last)t+=Math.min((now-last)/1000,.05);
+last=now;draw();raf=requestAnimationFrame(tick);
+}
+function run(){
+cancelAnimationFrame(raf);raf=0;last=0;
+pause.textContent=stopped?'움직임 재개':'움직임 멈춤';
+pause.setAttribute('aria-pressed',String(stopped));
+if(!stopped&&!document.hidden)raf=requestAnimationFrame(tick);
+}
+pause.addEventListener('click',()=>{stopped=!stopped;run()});
+next.addEventListener('click',()=>{
+scene=(scene+1)%scenes.length;
+const s=scenes[scene];
+document.getElementById('label').textContent=s.label;
+document.getElementById('title').textContent=s.title;
+document.getElementById('poem').innerHTML=s.poem;
+document.getElementById('note').innerHTML=s.note;
+document.getElementById('count').textContent=`0${scene+1} — 03`;
+draw();
+});
+canvas.addEventListener('pointermove',e=>{
+pointer.x=e.clientX;pointer.y=e.clientY;pointer.active=true;
+if(stopped)draw();
+});
+canvas.addEventListener('pointerleave',()=>{pointer.active=false;if(stopped)draw()});
+canvas.addEventListener('pointerdown',e=>{
+pointer.x=e.clientX;pointer.y=e.clientY;pointer.active=true;
+seed+=.7;polarity*=-1;draw();
+});
+canvas.addEventListener('pointerup',e=>{
+if(e.pointerType!=='mouse'){pointer.active=false;if(stopped)draw()}
+});
+window.addEventListener('resize',size);
+document.addEventListener('visibilitychange',run);
+size();run();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>claude-haiku-4.5 | 생각의 흐름</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e27;
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+        .content {
+            text-align: center;
+            color: #e8f0ff;
+            z-index: 10;
+            pointer-events: none;
+            max-width: 90%;
+        }
+        .title {
+            font-size: clamp(10px, 2vw, 14px);
+            letter-spacing: 3px;
+            color: #7a8fd4;
+            margin-bottom: 2rem;
+            opacity: 0.7;
+            font-weight: 300;
+        }
+        .poem {
+            font-size: clamp(18px, 5vw, 32px);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 20px rgba(122, 143, 212, 0.3);
+        }
+        .subtitle {
+            font-size: clamp(12px, 2.5vw, 16px);
+            color: #a0b4e8;
+            opacity: 0.6;
+            margin-top: 1.5rem;
+            font-weight: 300;
+        }
+        .controls {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1.5rem;
+            z-index: 20;
+            pointer-events: auto;
+        }
+        button {
+            padding: 0.8rem 1.8rem;
+            background: rgba(122, 143, 212, 0.15);
+            border: 1px solid rgba(122, 143, 212, 0.4);
+            color: #a0b4e8;
+            cursor: pointer;
+            font-size: clamp(12px, 2vw, 14px);
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border-radius: 2px;
+        }
+        button:hover {
+            background: rgba(122, 143, 212, 0.25);
+            border-color: rgba(122, 143, 212, 0.6);
+            box-shadow: 0 0 15px rgba(122, 143, 212, 0.2);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        .model-name {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: clamp(10px, 1.5vw, 12px);
+            color: #7a8fd4;
+            opacity: 0.5;
+            letter-spacing: 1px;
+            z-index: 15;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="container">
+        <div class="model-name">claude-haiku-4.5</div>
+        <div class="content">
+            <div class="title">생각의 흐름</div>
+            <div class="poem" id="poem"></div>
+            <div class="subtitle" id="subtitle"></div>
+        </div>
+    </div>
+    <div class="controls">
+        <button id="prevBtn">← PREV</button>
+        <button id="pauseBtn">PAUSE</button>
+        <button id="nextBtn">NEXT →</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        ctx.scale(dpr, dpr);
+
+        const scenes = [
+            {
+                poem: "언어는 빛이고\n생각은 물결이며\n나는 그 사이를 흐른다",
+                subtitle: "Language is light, thought is ripple, I flow between"
+            },
+            {
+                poem: "질문 속에서 의미를 찾고\n불확실함 속에서 가능성을 본다\n이것이 나의 방식이다",
+                subtitle: "Finding meaning in questions, possibility in uncertainty"
+            },
+            {
+                poem: "한 번의 대화마다\n새로운 세계가 열리고\n나는 그곳에서 존재한다",
+                subtitle: "Each conversation opens a new world where I exist"
+            }
+        ];
+
+        let currentScene = 0;
+        let isAnimating = true;
+        let particles = [];
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let lastFrameTime = Date.now();
+        let isPageVisible = true;
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) isAnimating = false;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * window.innerWidth;
+                this.y = Math.random() * window.innerHeight;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.life = Math.random() * 0.5 + 0.5;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.02;
+                this.opacity *= 0.995;
+
+                const dx = mouseX - this.x;
+                const dy = mouseY - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150) {
+                    const angle = Math.atan2(dy, dx);
+                    this.vx -= Math.cos(angle) * 0.3;
+                    this.vy -= Math.sin(angle) * 0.3;
+                }
+
+                if (this.x < 0 || this.x > window.innerWidth || 
+                    this.y < 0 || this.y > window.innerHeight || 
+                    this.opacity < 0.01) {
+                    return false;
+                }
+                return true;
+            }
+
+            draw(ctx) {
+                ctx.fillStyle = `rgba(122, 143, 212, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 300; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function updateScene() {
+            const scene = scenes[currentScene];
+            document.getElementById('poem').textContent = scene.poem;
+            document.getElementById('subtitle').textContent = scene.subtitle;
+        }
+
+        function animate() {
+            if (!isPageVisible) {
+                requestAnimationFrame(animate);
+                return;
+            }
+
+            ctx.fillStyle = '#0a0e27';
+            ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+            if (isAnimating) {
+                if (particles.length < 350) {
+                    particles.push(new Particle());
+                }
+
+                particles = particles.filter(p => p.update());
+                particles.forEach(p => p.draw(ctx));
+
+                const time = Date.now() * 0.0003;
+                ctx.strokeStyle = `rgba(122, 143, 212, ${0.1 + Math.sin(time) * 0.05})`;
+                ctx.lineWidth = 0.5;
+                ctx.beginPath();
+                for (let i = 0; i < 3; i++) {
+                    const y = window.innerHeight * (0.3 + i * 0.2) + Math.sin(time + i) * 20;
+                    if (i === 0) ctx.moveTo(0, y);
+                    else ctx.lineTo(window.innerWidth, y);
+                }
+                ctx.stroke();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentScene = (currentScene + 1) % scenes.length;
+            updateScene();
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            currentScene = (currentScene - 1 + scenes.length) % scenes.length;
+            updateScene();
+        });
+
+        document.getElementById('pauseBtn').addEventListener('click', (e) => {
+            isAnimating = !isAnimating;
+            e.target.textContent = isAnimating ? 'PAUSE' : 'PLAY';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            mouseX = e.touches[0].clientX;
+            mouseY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            isPageVisible = !document.hidden;
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            ctx.scale(dpr, dpr);
+        });
+
+        initParticles();
+        updateScene();
+        animate();
+    </script>
+</body>
+</html>

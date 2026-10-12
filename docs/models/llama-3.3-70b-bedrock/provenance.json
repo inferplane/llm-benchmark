@@ -1,0 +1,23 @@
+{
+  "model": "llama-3.3-70b-bedrock",
+  "requested_model_id": "us.meta.llama3-3-70b-instruct-v1:0",
+  "provider": "bedrock",
+  "family": "Meta",
+  "generated_at": "2026-10-12T00:29:21.152192+00:00",
+  "request_id": "dd7370d1-ca4b-4e19-b1a9-3b4f55b914d5",
+  "artwork_sha256": "be4146077d21628bb5699dfd9d26b13633034fb1312d3eb4385aaaf507918d25",
+  "prompt_sha256": "e5f7c04362b945b9cf437f98fad8915cd592d813f543b2165f73f1793814f3d7",
+  "tokens_in": 1566,
+  "tokens_out": 1092,
+  "finish_reason": "end_turn",
+  "max_output_tokens": 8192,
+  "temperature_sent": true,
+  "status": "generated",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 98.5,
+    "critical": 0,
+    "warnings": 1,
+    "verdict": "PASS"
+  }
+}

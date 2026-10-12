@@ -1,0 +1,11 @@
+You are the original author, model nemotron-nano-3-30b, served as nvidia.nemotron-nano-3-30b. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own art and Korean poem. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. Stay compact (about 3000 code output tokens).
+
+YOUR PREVIOUS FULL RESPONSE:
+
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["Implement a NEW minimal self-portrait for YOURSELF nemotron-nano-3-30b, with your own Korean poem in at least2 scenes and bounded particle Canvas. Do not copy the unreliable old implementation. Complete standalone HTML only.", "Use <html lang=\"ko\">, UTF-8 and viewport. Informative DOM poem/model name and native named NEXT/PAUSE buttons >=19px, >=4.5 contrast, phone375px/desktop1280px no overlap.", "Poem/model text only in DOM, NOT canvas. Place controls in a normal flex row, do NOT put BOTH top and bottom constraints on a button. Native buttons work by keyboard.", "One guarded RAF controller, not a one-shot callback. Running frame advances particles then draws then schedules exactly one next callback. Static render NEVER changes positions or schedules another callback.", "Initialize paused from reduced-motion preference. Render static particles+visible DOM scene immediately. Pause stops actual movement; resume starts exactly one RAF; label/aria state accurate. NEXT preserves motion state, updates DOM and renders static once if paused. Resize redraws static while paused.", "Close EVERY event-listener call with its closing parenthesis. Your previous keydown line ended with }}; causing SyntaxError. Avoid unnecessary keyboard listeners and use native buttons. Return ONE full valid HTML only."]
+
+The previous implementation was unreliable; implement a fresh minimal version yourself. Use DOM text and native buttons, one RAF controller, and keep all requirements.
+
+Return the complete repaired HTML now.

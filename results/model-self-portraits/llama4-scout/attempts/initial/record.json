@@ -1,0 +1,17 @@
+{
+  "model": "llama4-scout",
+  "model_id": "us.meta.llama4-scout-17b-instruct-v1:0",
+  "api": "bedrock",
+  "requested_at": "2026-10-11T14:11:00.035372+00:00",
+  "prompt_sha256": "9ea3a10fa54aded9d151affb9ff77078bfd1e2b95502c06dcc53106699dbd265",
+  "max_output_tokens": 4096,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:11:05.376404+00:00",
+  "artwork_sha256": "98e2b73300362274530f7c724de5bf3c1688ec451d9953dd6c5ec287c4848e47",
+  "tokens_in": 762,
+  "tokens_out": 1230,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "c118ca7e-6c03-4ecc-8020-64d26f79653c"
+}

@@ -1,0 +1,27 @@
+{
+  "model": "gpt-6-luna",
+  "model_id": "openai.gpt-6-luna",
+  "api": "bedrock_mantle",
+  "requested_at": "2026-10-11T14:10:28.681469+00:00",
+  "prompt_sha256": "ddbbd4e1041c2906971a8f694143836addd471108b3c88ed7d9597b4e945a901",
+  "max_output_tokens": 4096,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:10:43.266921+00:00",
+  "artwork_sha256": "3fb87e9e1c67ffa08e8d7a79dab77a5f76d37f108eee7ff1ec45215787847f4e",
+  "tokens_in": 816,
+  "tokens_out": 2386,
+  "response_status": "completed",
+  "http_status": 200,
+  "reported_model": "openai.gpt-6-luna",
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low",
+    "context": "all_turns"
+  },
+  "reasoning_tokens": 127,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "reported_input_tokens": 816,
+  "request_id": "req_46doxxro5i73f5j4skug44ms4h4q7ly6mueatiraznvyhk5sx3xa",
+  "response_id": "resp_6lhu4bdontwu3w2wfbkc36xybbayi3tbke73wdzd6snqrieyx42q"
+}

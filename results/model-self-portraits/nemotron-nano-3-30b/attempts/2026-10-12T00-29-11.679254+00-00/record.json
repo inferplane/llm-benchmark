@@ -1,0 +1,17 @@
+{
+  "model": "nemotron-nano-3-30b",
+  "model_id": "nvidia.nemotron-nano-3-30b",
+  "api": "bedrock",
+  "requested_at": "2026-10-12T00:29:11.679254+00:00",
+  "prompt_sha256": "99f1c72f6b2d5dca2a2adde77398a6580120f827d1ce667a5b135bb30dfe2fd0",
+  "max_output_tokens": 8192,
+  "status": "generated",
+  "generated_at": "2026-10-12T00:29:16.261001+00:00",
+  "artwork_sha256": "0b296a05f5c8a10f6c8ad932ef34c0484a121b869052afd28126138ae3d150b5",
+  "tokens_in": 1493,
+  "tokens_out": 1490,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "dc7cf826-3c8d-43ce-9a7b-1b3716a9a07a"
+}

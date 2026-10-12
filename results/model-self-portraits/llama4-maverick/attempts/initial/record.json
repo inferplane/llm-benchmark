@@ -1,0 +1,17 @@
+{
+  "model": "llama4-maverick",
+  "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+  "api": "bedrock",
+  "requested_at": "2026-10-11T14:11:07.594947+00:00",
+  "prompt_sha256": "9026e8a159695340d9689808e570ef678df94f69e2919b2b5f43cc78ce94fa2a",
+  "max_output_tokens": 4096,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:11:11.959624+00:00",
+  "artwork_sha256": "d4a11d548ca8a85b1dae69aeccc46365fbb1c5ec235620806e3f34aa92b39618",
+  "tokens_in": 765,
+  "tokens_out": 1140,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "c793f6c3-ef78-4e49-9ac2-7188a2f75c4b"
+}

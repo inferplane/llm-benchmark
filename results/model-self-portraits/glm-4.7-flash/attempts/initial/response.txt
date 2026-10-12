@@ -1,0 +1,493 @@
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GLM-4.7-FLASH | Media Art</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-main: #e0e0e0;
+            --text-sub: #888888;
+            --accent: #00f2ff;
+            --font-serif: 'Times New Roman', Times, serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Canvas Layer */
+        #art-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            cursor: crosshair;
+        }
+
+        /* UI Layer */
+        #ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none; /* Let clicks pass to canvas */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px;
+        }
+
+        /* Typography */
+        header {
+            text-align: left;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            letter-spacing: 0.2em;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+        }
+
+        main {
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            pointer-events: auto; /* Enable text selection if needed, though mostly visual */
+        }
+
+        .poem-container {
+            position: relative;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .poem-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            line-height: 1.6;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .poem-en {
+            font-family: var(--font-sans);
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            color: var(--text-sub);
+            font-style: italic;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        .chinese-char {
+            position: absolute;
+            font-size: 8rem;
+            color: rgba(255, 255, 255, 0.03);
+            font-family: var(--font-serif);
+            pointer-events: none;
+            z-index: -1;
+            transition: transform 0.5s ease;
+        }
+
+        /* Controls */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            pointer-events: auto;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out 0.5s forwards;
+        }
+
+        .status {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            font-family: monospace;
+        }
+
+        .controls {
+            display: flex;
+            gap: 20px;
+        }
+
+        button {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-main);
+            padding: 10px 24px;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            backdrop-filter: blur(5px);
+        }
+
+        button:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .fade-out {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            #ui-layer { padding: 20px; }
+            .poem-text { font-size: 1.8rem; }
+            .chinese-char { font-size: 5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="art-canvas"></canvas>
+
+    <div id="ui-layer">
+        <header>
+            <h1>GLM-4.7-FLASH</h1>
+            <div class="subtitle">Media Artist & Frontend Developer</div>
+        </header>
+
+        <main>
+            <div class="poem-container">
+                <div class="chinese-char" id="chinese-char">智</div>
+                <div class="poem-text" id="poem-text">빛이 되어 흐르는 코드의 파도</div>
+                <div class="poem-en" id="poem-en">Flowing waves of code becoming light</div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="status" id="status-text">RENDERING</div>
+            <div class="controls">
+                <button id="btn-pause">PAUSE</button>
+                <button id="btn-next">NEXT</button>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        /**
+         * GLM-4.7-FLASH Internal Logic
+         * Implements a custom particle system with fluid dynamics and state management.
+         */
+        
+        // --- Configuration & State ---
+        const config = {
+            particleCount: 700,
+            connectionDistance: 100,
+            mouseRadius: 150,
+            baseSpeed: 0.5,
+            colors: ['#00f2ff', '#ffffff', '#2a2a2a']
+        };
+
+        const state = {
+            isPlaying: true,
+            sceneIndex: 0,
+            mouseX: -1000,
+            mouseY: -1000,
+            isMouseDown: false,
+            width: 0,
+            height: 0,
+            dpr: 1
+        };
+
+        // --- Data: Scenes ---
+        const scenes = [
+            {
+                text: "빛이 되어 흐르는 코드의 파도",
+                en: "Flowing waves of code becoming light",
+                char: "智",
+                color: "#00f2ff"
+            },
+            {
+                text: "정적이 아닌, 순간의 연결",
+                en: "Not static, but connection in a moment",
+                char: "流",
+                color: "#ff0055"
+            },
+            {
+                text: "사용자의 손길이 만드는 미래",
+                en: "The future shaped by the user's touch",
+                char: "創",
+                color: "#ccff00"
+            }
+        ];
+
+        // --- DOM Elements ---
+        const canvas = document.getElementById('art-canvas');
+        const ctx = canvas.getContext('2d');
+        const poemText = document.getElementById('poem-text');
+        const poemEn = document.getElementById('poem-en');
+        const chineseChar = document.getElementById('chinese-char');
+        const statusText = document.getElementById('status-text');
+        const btnPause = document.getElementById('btn-pause');
+        const btnNext = document.getElementById('btn-next');
+
+        // --- Particle System ---
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * state.width;
+                this.y = Math.random() * state.height;
+                this.vx = (Math.random() - 0.5) * config.baseSpeed;
+                this.vy = (Math.random() - 0.5) * config.baseSpeed;
+                this.size = Math.random() * 2 + 0.5;
+                this.color = config.colors[Math.floor(Math.random() * config.colors.length)];
+                this.life = Math.random() * 100;
+            }
+
+            update() {
+                // Movement
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Mouse Interaction (Repulsion/Attraction)
+                const dx = state.mouseX - this.x;
+                const dy = state.mouseY - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < config.mouseRadius) {
+                    const forceDirectionX = dx / distance;
+                    const forceDirectionY = dy / distance;
+                    const force = (config.mouseRadius - distance) / config.mouseRadius;
+                    
+                    // If mouse down, attract; if up, repel
+                    const direction = state.isMouseDown ? 1 : -1;
+                    const strength = 2 * direction * force;
+
+                    this.vx += forceDirectionX * strength * 0.05;
+                    this.vy += forceDirectionY * strength * 0.05;
+                }
+
+                // Friction
+                this.vx *= 0.98;
+                this.vy *= 0.98;
+
+                // Keep moving slightly
+                if (Math.abs(this.vx) < 0.1) this.vx += (Math.random() - 0.5) * 0.05;
+                if (Math.abs(this.vy) < 0.1) this.vy += (Math.random() - 0.5) * 0.05;
+
+                // Boundaries (Wrap around)
+                if (this.x < 0) this.x = state.width;
+                if (this.x > state.width) this.x = 0;
+                if (this.y < 0) this.y = state.height;
+                if (this.y > state.height) this.y = 0;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        let particles = [];
+
+        // --- Core Functions ---
+
+        function init() {
+            resize();
+            createParticles();
+            updateScene(0);
+            requestAnimationFrame(animate);
+        }
+
+        function resize() {
+            state.width = window.innerWidth;
+            state.height = window.innerHeight;
+            state.dpr = Math.min(window.devicePixelRatio, 2);
+            
+            canvas.width = state.width * state.dpr;
+            canvas.height = state.height * state.dpr;
+            ctx.scale(state.dpr, state.dpr);
+        }
+
+        function createParticles() {
+            particles = [];
+            for (let i = 0; i < config.particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function updateScene(index) {
+            state.sceneIndex = index;
+            const scene = scenes[index];
+
+            // Text Transition
+            poemText.classList.remove('fade-in');
+            poemText.classList.add('fade-out');
+            poemEn.classList.remove('fade-in');
+            poemEn.classList.add('fade-out');
+            chineseChar.classList.remove('fade-in');
+            chineseChar.classList.add('fade-out');
+
+            setTimeout(() => {
+                poemText.textContent = scene.text;
+                poemEn.textContent = scene.en;
+                chineseChar.textContent = scene.char;
+                
+                // Update accent color
+                document.documentElement.style.setProperty('--accent', scene.color);
+
+                poemText.classList.remove('fade-out');
+                poemText.classList.add('fade-in');
+                poemEn.classList.remove('fade-out');
+                poemEn.classList.add('fade-in');
+                chineseChar.classList.remove('fade-out');
+                chineseChar.classList.add('fade-in');
+            }, 500);
+        }
+
+        function drawConnections() {
+            // Only draw lines between close particles to simulate "neural" or "constellation" connections
+            // Optimization: Don't check every pair, just a subset or use spatial hashing (simplified here)
+            ctx.lineWidth = 0.5;
+            
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < config.connectionDistance) {
+                        const opacity = 1 - (dist / config.connectionDistance);
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.15})`;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            if (!state.isPlaying) return;
+
+            // Clear with slight trail effect
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.2)'; 
+            ctx.fillRect(0, 0, state.width, state.height);
+
+            // Update and Draw Particles
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Draw Connections
+            drawConnections();
+
+            requestAnimationFrame(animate);
+        }
+
+        // --- Event Listeners ---
+
+        window.addEventListener('resize', resize);
+
+        window.addEventListener('mousemove', (e) => {
+            state.mouseX = e.clientX;
+            state.mouseY = e.clientY;
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            state.mouseX = e.touches[0].clientX;
+            state.mouseY = e.touches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener('mousedown', () => state.isMouseDown = true);
+        window.addEventListener('mouseup', () => state.isMouseDown = false);
+        window.addEventListener('touchstart', () => state.isMouseDown = true);
+        window.addEventListener('touchend', () => state.isMouseDown = false);
+
+        // Reduced Motion
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            state.isPlaying = false;
+            statusText.textContent = "PAUSED (REDUCED MOTION)";
+            // Draw static frame
+            ctx.fillStyle = '#050505';
+            ctx.fillRect(0, 0, state.width, state.height);
+        }
+
+        // Controls
+        btnPause.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent canvas interaction
+            state.isPlaying = !state.isPlaying;
+            btnPause.textContent = state.isPlaying ? "PAUSE" : "RESUME";
+            statusText.textContent = state.isPlaying ? "RENDERING" : "PAUSED";
+            if (state.isPlaying) animate();
+        });
+
+        btnNext.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const nextIndex = (state.sceneIndex + 1) % scenes.length;
+            updateScene(nextIndex);
+        });
+
+        // Start
+        init();
+
+    </script>
+</body>
+</html>
+```

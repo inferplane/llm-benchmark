@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>nemotron-nano-3-30b</title>
+<style>
+html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#0a0a1a;color:#e0e0ff;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+canvas{display:block;width:100%;height:100%;}
+h1{position:absolute;top:20px;left:50%;transform:translateX(-50%);font-size:1.2rem;pointer-events:none;}
+button{position:absolute;bottom:20px;background:transparent;border:none;color:#888;font-size:0.9rem;padding:8px 16px;cursor:pointer;pointer-events:auto;}
+button:hover{color:#fff;}
+@media (prefers-reduced-motion: reduce){
+canvas{animation:none;}
+}
+</style>
+</head>
+<body>
+<canvas></canvas>
+<h1>nemotron-nano-3-30b</h1>
+<button id="toggle">PAUSE</button>
+<script>
+const canvas=document.querySelector('canvas');
+const ctx=canvas.getContext('2d');
+const w=canvas.width=window.innerWidth;
+const h=canvas.height=window.innerHeight;
+const N=700;
+const particles=[];
+const scenes=[{
+title:'별빛 흐름',
+lines:['별이 흘러가네','밤하늘에 물결','그림자는 사라진다'],
+color:'#4a00ff'
+},{
+title:'은하빛 조각',
+lines:['빛이 조각된다','색은 기억을 남긴다','우주는 고요히'],
+color:'#00ff8a'
+}];
+let cur=0;
+let paused=false;
+let raf;
+function resize(){w=canvas.width=window.innerWidth;h=canvas.height=canvas.height=window.innerHeight;}
+window.addEventListener('resize',resize);
+function Particle(){this.x=Math.random()*w;this.y=Math.random()*h;this.vx=(Math.random()-0.5)*0.2;this.vy=(Math.random()-0.5)*0.2;this.r=Math.random()*2+1;this.c=scenes[cur].color;}
+function init(){for(let i=0;i<N;i++)particles.push(new Particle());}
+init();
+function draw(){ctx.clearRect(0,0,w,h);
+ctx.fillStyle='rgba(10,10,26,0.1)';
+ctx.fillRect(0,0,w,h);
+for(let p of particles){
+p.x+=p.vx;p.y+=p.vy;
+if(p.x<0||p.x>w||p.y<0||p.y>h){p.vx*=-0.8;p.vy*=-0.8;}
+ctx.fillStyle=p.c;
+ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+}
+ctx.fillStyle='rgba(224,224,255,0.6)';
+ctx.font='24px system-ui';
+ctx.textAlign='center';
+ctx.textBaseline='middle';
+ctx.fillText(scenes[cur].lines[0],w/2,h/3);
+ctx.fillText(scenes[cur].lines[1],w/2,h/2);
+ctx.fillText(scenes[cur].lines[2],w/2,2*h/3);
+}
+function step(){if(!paused)draw();}
+function loop(){raf=requestAnimationFrame(step);}
+loop();
+document.addEventListener('mousemove',e=>{if(paused)return;const mx=e.clientX/w*2-1,my=e.clientY/h*2-1;for(let p of particles){const dx=mx-p.x/w*2;const dy=my-p.y/h*2;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<0.5){p.vx+=dx*0.05;p.vy+=dy*0.05;}}
+});
+document.getElementById('toggle').addEventListener('click',()=>{paused=!paused;document.getElementById('toggle').textContent=paused?'PLAY':'PAUSE';});
+window.addEventListener('click',e=>{if(e.target===canvas&&!paused){cur=(cur+1)%scenes.length;init();document.getElementById('toggle').textContent='PAUSE';}});
+window.addEventListener('keydown',e=>{if(e.key===' '){paused=!paused;document.getElementById('toggle').textContent=paused?'PLAY':'PAUSE';}};
+window.addEventListener('load',()=>{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){paused=true;document.getElementById('toggle').textContent='PAUSE';}else{init();}});
+</script>
+</body>
+</html>

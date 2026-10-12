@@ -1,0 +1,14 @@
+{
+  "model": "gemma-4-31b",
+  "requested_model_id": "google/gemma-4-31B-it",
+  "provider": "vllm",
+  "family": "Google",
+  "status": "unavailable",
+  "generation_status": "unavailable",
+  "content_review": {
+    "score": 100,
+    "critical": 0,
+    "warnings": 0,
+    "verdict": "PASS"
+  }
+}

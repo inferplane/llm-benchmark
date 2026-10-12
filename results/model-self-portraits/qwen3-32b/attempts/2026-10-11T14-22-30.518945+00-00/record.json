@@ -1,0 +1,17 @@
+{
+  "model": "qwen3-32b",
+  "model_id": "qwen.qwen3-32b-v1:0",
+  "api": "bedrock",
+  "requested_at": "2026-10-11T14:22:30.518945+00:00",
+  "prompt_sha256": "26f854035b61c5cf81f41c39ffadf8b47e92f3a78210b8a40e4030533381c950",
+  "max_output_tokens": 8192,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:22:48.159385+00:00",
+  "artwork_sha256": "bef51d15d60277a8294690585f2e8f35976e0fad6f0885fe6e702476124ee5ad",
+  "tokens_in": 2705,
+  "tokens_out": 1557,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "3fa6ba66-8900-454c-924e-e3d02b9bbd11"
+}

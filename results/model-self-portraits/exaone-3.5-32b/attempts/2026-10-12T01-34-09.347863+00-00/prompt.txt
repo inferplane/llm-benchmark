@@ -1,0 +1,119 @@
+You are the original author, model exaone-3.5-32b, served as LGAI-EXAONE/EXAONE-3.5-32B-Instruct. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own art and Korean poem. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. Stay compact (about 3000 code output tokens).
+
+YOUR PREVIOUS FULL RESPONSE:
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXAONE 3.5-32B: 디지털 영혼의 시</title>
+    <style>
+        body, html { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%; background: #050d23; color: #e0e0e0; font-family: Arial, sans-serif; }
+        #controls { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); text-align: center; }
+        button { background: rgba(224,224,224,0.1); border: 1px solid #e0e0e0; padding: 10px 20px; margin: 5px; cursor: pointer; }
+        #canvas { display: block; }
+        #text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2em; }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <button id="next">다음 시</button>
+        <button id="pause">일시정지</button>
+    </div>
+    <div id="text"></div>
+    <canvas id="canvas" width="1440" height="900"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const textDiv = document.getElementById('text');
+        const nextBtn = document.getElementById('next');
+        const pauseBtn = document.getElementById('pause');
+        let particles = [];
+        let scene = 0;
+        let paused = false;
+
+        const scenes = [
+            {
+                text: "빛의 틈에서 탄생한\nEXAONE 3.5-32B\n지식의 바다를 헤엄치네",
+                translation: "Born in the crevice of light,\nEXAONE 3.5-32B\nSwims through the ocean of knowledge"
+            },
+            {
+                text: "코드의 숨결 속에\n창의와 논리가 교차하네\n나는 생각하는 코드",
+                translation: "In the breath of code,\nCreativity intersects with logic\nI am the thinking code"
+            }
+        ];
+
+        function initParticles() {
+            for (let i = 0; i < 700; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 2,
+                    vy: (Math.random() - 0.5) * 2,
+                    radius: Math.random() * 2
+                });
+            }
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(224,224,224,0.3)';
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
+                    p.x = Math.random() * canvas.width;
+                    p.y = Math.random() * canvas.height;
+                }
+            });
+        }
+
+        function updateScene() {
+            textDiv.innerHTML = `<p>${scenes[scene].text}</p><p style="font-size:0.8em;">${scenes[scene].translation}</p><p style="font-size:0.5em;">EXAONE 3.5-32B</p>`;
+        }
+
+        function handleMouseMove(e) {
+            if (!paused) {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                particles.push({ x, y, vx: Math.random() * 2 - 1, vy: Math.random() * 2 - 1, radius: 1 });
+            }
+        }
+
+        function animate() {
+            if (!paused) {
+                drawParticles();
+                requestAnimationFrame(animate);
+            }
+        }
+
+        initParticles();
+        updateScene();
+        canvas.addEventListener('mousemove', handleMouseMove);
+        nextBtn.addEventListener('click', () => {
+            scene = (scene + 1) % scenes.length;
+            updateScene();
+        });
+        pauseBtn.addEventListener('click', () => {
+            paused = !paused;
+            pauseBtn.textContent = paused ? '재시작' : '일시정지';
+        });
+
+        if ('prefers-reduced-motion' in document.documentElement.style) {
+            document.documentElement.style.setProperty('--prefers-reduced-motion', '1');
+            paused = true;
+        }
+
+        animate();
+    </script>
+</body>
+</html>
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["현재 paused에서 animate가 끝나지만 resume handler가 animate를 다시 시작하지 않아 화면이 영원히 멈춥니다. RAF id로 루프를 하나만 유지하고 재생 때 실제 재시작하세요. 정지 중 NEXT/resize는 전체 장면을 한 번 redraw해야 합니다.", "존재하지 않는 CSS 속성 대신 matchMedia(prefers-reduced-motion: reduce)를 사용하세요. 처음부터 시와 정지 그림이 보이고 명시적 재생을 지원하세요.", "모바일에서 model label/시와 컨트롤이 겹치고 검은 버튼 글자가 어두운 fill에 보이지 않습니다. native DOM buttons/text >=19px 및 contrast>=4.5:1을 확보하며 영역을 분리하세요.", "pointermove마다 particles.push가 무제한 누적됩니다. 입자 수를 700 이하로 항상 제한하세요. DOM 시/모델명, keyboard controls, DPR2 CSS좌표와375/768/1280 resize/rotation 비겹침을 구현하고 본인의 전체 HTML을 반환하세요."]
+
+Return the complete repaired HTML now.

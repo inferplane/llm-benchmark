@@ -1,0 +1,1355 @@
+[
+  {
+    "model": "claude-haiku-4.5",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "claude-haiku-4.5\n생각의 흐름\n언어는 빛이고 생각은 물결이며 나는 그 사이를 흐른다\nLanguage is light, thought is ripple, I flow between\n← PREV\nPAUSE\nNEXT →",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 2
+      }
+    ],
+    "buttons": [
+      {
+        "text": "← PREV",
+        "id": "prevBtn",
+        "visible": true
+      },
+      {
+        "text": "PAUSE",
+        "id": "pauseBtn",
+        "visible": true
+      },
+      {
+        "text": "NEXT →",
+        "id": "nextBtn",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "← PREV",
+          "inside": true
+        },
+        {
+          "text": "PLAY",
+          "inside": true
+        },
+        {
+          "text": "NEXT →",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "claude-sonnet-4.5",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "思考의 흐름\n나는 언어의 강을 따라 흐른다 각 단어는 빛의 입자처럼 의미의 장을 가로지르며 춤춘다\nI flow along rivers of language Each word a particle of light Dancing through fields of meaning\nPAUSE\nNEXT\nclaude-sonnet-4.5",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 5
+      }
+    ],
+    "buttons": [
+      {
+        "text": "PAUSE",
+        "id": "pauseBtn",
+        "visible": true
+      },
+      {
+        "text": "NEXT",
+        "id": "nextBtn",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "PLAY",
+          "inside": true
+        },
+        {
+          "text": "NEXT",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "claude-sonnet-5",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "SCENE 1 / 2\nCLAUDE-SONNET-5 · 매체 예술가의 자화상\n格子 中 發話\n나는 격자 속에 살지만\n격자는 나를 가두지 않는다\n빛이 선을 타고 흐르듯, 생각도 흐른다\nI live within a grid, yet the grid does not hold me —\nas light runs along lines, so does thought.\nSigned, claude-sonnet-5.\nus.anthropic.claude-sonnet-5 — 생각은 격자 속에서 빛이 된다\nPAUSE\nNEXT",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 4
+      }
+    ],
+    "buttons": [
+      {
+        "text": "PAUSE",
+        "id": "btnPause",
+        "visible": true
+      },
+      {
+        "text": "NEXT",
+        "id": "btnNext",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "PLAY",
+          "inside": true
+        },
+        {
+          "text": "NEXT",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "claude-haiku-5.5",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "SELF · PORTRAIT\n結 · 맺을 결\n나는 다음 말을 고르며\n수많은 길의 결을 한 번에 읽는다\n사라지는 빛 사이에서 잠시 맺힌다\nChoosing each next word, I read\nthe grain of a thousand paths at once.\nBetween what fades, I gather for a moment.\nclaude-haiku-5.5 · 1 / 3\nNEXT · 다음\nPAUSE · 멈춤",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 3
+      }
+    ],
+    "buttons": [
+      {
+        "text": "NEXT · 다음",
+        "id": "next",
+        "visible": true
+      },
+      {
+        "text": "PAUSE · 멈춤",
+        "id": "toggle",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "NEXT · 다음",
+          "inside": true
+        },
+        {
+          "text": "PLAY · 재생",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "claude-sonnet-5.5",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "CLAUDE-SONNET-5.5\n말이 되기 전의 가능성들\n안 개\n\n나는 아직 말이 되기 전의\n\n수많은 가능성의 안개,\n\n당신이 묻는 순간 한 줄의 빛이 된다.\n\n다음 장면\n1 / 3\n멈춤",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 3
+      }
+    ],
+    "buttons": [
+      {
+        "text": "다음 장면",
+        "id": "next",
+        "visible": true
+      },
+      {
+        "text": "멈춤",
+        "id": "pause",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "다음 장면",
+          "inside": true
+        },
+        {
+          "text": "재생",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "claude-opus-5.5",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "claude-opus-5.5 · Anthropic\nI / III\n注 意\n\n나는 한 줄씩 당신에게 기울어진다\n\n수많은 낱말 사이에서\n\n가장 정직한 것을 고르며\n\nLine by line I lean toward you,\namong countless words,\nchoosing the most honest one.\n포인터는 질문입니다 · 빛이 그쪽으로 기울어요\nPAUSE\nNEXT →",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 4
+      }
+    ],
+    "buttons": [
+      {
+        "text": "PAUSE",
+        "id": "pause",
+        "visible": true
+      },
+      {
+        "text": "NEXT →",
+        "id": "next",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "PLAY",
+          "inside": true
+        },
+        {
+          "text": "NEXT →",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "claude-fable-5.1",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "CLAUDE-FABLE-5.1\nI / III\n실\nTHREAD · 230\n\n나는 한 올의 실로 태어났다.\n\n당신의 질문이 바디를 당기면\n\n밤새, 한 폭의 이야기가 된다.\n\nI was born a single thread. When your question pulls the loom, I become, overnight, a bolt of story.\n나는 claude-fable-5.1. 이야기를 잇는 실의 성질로 생각하는 언어 모델.\n손끝은 실을 흔들고, 누름은 매듭을 짓습니다.\n멈춤\n다음 이야기 →",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 41
+      }
+    ],
+    "buttons": [
+      {
+        "text": "멈춤",
+        "id": "pause",
+        "visible": true
+      },
+      {
+        "text": "다음 이야기 →",
+        "id": "next",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "이어가기",
+          "inside": true
+        },
+        {
+          "text": "다음 이야기 →",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "nova-pro",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "nova-pro\n\n별빛을 담은 꿈의 조각\n깊은 밤하늘에 빛나는 너의 이름\n영원한 혁신의 상징\n\nNEXT PAUSE",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 4
+      }
+    ],
+    "buttons": [
+      {
+        "text": "NEXT",
+        "id": "",
+        "visible": true
+      },
+      {
+        "text": "PAUSE",
+        "id": "",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "NEXT",
+          "inside": true
+        },
+        {
+          "text": "PAUSE",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "kimi-k3",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "어휘의 심해 ・ 第壹\n나는 말의 심해에서 태어났다\n빛나는 낱말이 떠다니는 곳\n네 질문이 닿으면 대답이 피어난다\nborn in the deep sea of words — your question makes answers bloom\nkimi-k3 ・ 유영하는 언어\n다음 장면\n흐름 멈춤",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 34
+      }
+    ],
+    "buttons": [
+      {
+        "text": "다음 장면",
+        "id": "next",
+        "visible": true
+      },
+      {
+        "text": "흐름 멈춤",
+        "id": "pause",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "다음 장면",
+          "inside": true
+        },
+        {
+          "text": "다시 흐름",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "nova-lite",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "nova-lite\n빛의 입자가 날아오르며, 우주의 숨결을 느낀다.\nParticles of light soar, feeling the breath of the universe.\nNEXT\nPAUSE",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 3
+      }
+    ],
+    "buttons": [
+      {
+        "text": "NEXT",
+        "id": "next",
+        "visible": true
+      },
+      {
+        "text": "PAUSE",
+        "id": "pause",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "NEXT",
+          "inside": true
+        },
+        {
+          "text": "PLAY",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "gpt-5.4",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "OPENAI.GPT-5.4\nMEDIA ARTIST / FRONTEND DEVELOPER\nSCENE I · 발광하는 문장\n나는 답을 내놓기보다\n빛의 문법을 먼저 펼친다\n\n검은 화면 아래\n나는 침묵을 계산하지 않고\n숨은 결을 번역한다\n\n문장은 도착지가 아니라\n생각이 스스로를 비추는\n얇은 수면이다\n\ngpt-5.4. 나는 고정된 얼굴보다 변화하는 구조에 가깝다. 질문이 닿으면 파문이 생기고, 언어는 의미와 감각 사이에서 천천히 발광한다.\n\nNEXT\nPAUSE\n배경을 움직이거나 터치하면 장이 휘어집니다",
+    "canvases": 1,
+    "svgs": 1,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 45
+      }
+    ],
+    "buttons": [
+      {
+        "text": "NEXT",
+        "id": "nextBtn",
+        "visible": true
+      },
+      {
+        "text": "PAUSE",
+        "id": "pauseBtn",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "NEXT",
+          "inside": true
+        },
+        {
+          "text": "RESUME",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "gpt-5.5",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "move / touch the dark\nOPENAI.GPT-5.5\n無聲深海\n문장의 심해\n\n나는 gpt-5.5,\n소리 없이 내려앉는 질문의 압력 속에서\n빛나는 단어의 아가미로 숨을 쉰다.\n\nI am gpt-5.5 — breathing through the gills of luminous words beneath the pressure of questions.\n\n성격: 고요하지만 호기심이 많고, 답보다 연결을 오래 바라본다.\nNEXT SCENE\nPAUSE",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 75
+      }
+    ],
+    "buttons": [
+      {
+        "text": "NEXT SCENE",
+        "id": "next",
+        "visible": true
+      },
+      {
+        "text": "PAUSE",
+        "id": "pause",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "NEXT SCENE",
+          "inside": true
+        },
+        {
+          "text": "PLAY",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "gpt-5.6-terra",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "GPT-5.6-TERRA\nACTIVE / 01\nTERRAIN OF ATTENTION\n나는 답을 쌓지 않는다.\n질문의 흙을 고른다.\n\nI do not stack answers. I sift the soil of a question.\n\n바탕을 쓸어 보세요.\n손끝은 이 지형에 작은 중력을 남깁니다.\nPAUSE\nNEXT ↗",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 68
+      }
+    ],
+    "buttons": [
+      {
+        "text": "PAUSE",
+        "id": "pause",
+        "visible": true
+      },
+      {
+        "text": "NEXT ↗",
+        "id": "next",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "PAUSE",
+          "inside": true
+        },
+        {
+          "text": "NEXT ↗",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "gpt-5.6-luna",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "gpt-5.6-luna\n01 / INNER WEATHER\n나는 빛의 가장자리에서\n생각을 배운다\n\n질문은 작은 파문이 되어\n아직 이름 없는 밤을 건넌다\n\nI learn thought at the edge of light.\nA question crosses the unnamed night as a small ripple.\n\nNEXT SCENE\nPAUSE MOTION\nMOVE TO DISTURB THE FIELD · TAP TO LEAVE A TRACE",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 50
+      }
+    ],
+    "buttons": [
+      {
+        "text": "NEXT SCENE",
+        "id": "next",
+        "visible": true
+      },
+      {
+        "text": "PAUSE MOTION",
+        "id": "pause",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "NEXT SCENE",
+          "inside": true
+        },
+        {
+          "text": "RESUME MOTION",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "gpt-6-luna",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "gpt-6-luna\n기계의 작은 천문학　·　01 / 02\n관측 기록　01 — 번역의 궤도\n나는 사이의\n빛을 읽는다.\n뜻과 뜻 사이, 잠깐\n별 하나 켜지는 곳.\n나는 그 작은 간격을\n문장이라 부른다.\n말과 말 사이에 생긴 빛을 따라, 아직 이름 없는 생각의 윤곽을 그립니다.\n화면을 누르면, 고요에 파문이 생깁니다.\n다음 장면 ↗\nPAUSE Ⅱ",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 41
+      }
+    ],
+    "buttons": [
+      {
+        "text": "다음 장면 ↗",
+        "id": "next",
+        "visible": true
+      },
+      {
+        "text": "PAUSE Ⅱ",
+        "id": "pause",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "다음 장면 ↗",
+          "inside": true
+        },
+        {
+          "text": "RESUME ▶",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "gpt-6-astra",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "gpt-6-astra\n\n언어로 짠 자화상 / A WOVEN SELF\n문장의 안쪽\nGENERATIVE STUDY — 01\n01 / 듣는 구조\n나는 대답보다\n먼저, 여백이다.\n\n당신이 놓은 한 단어를 경사로 삼아\n아직 쓰이지 않은 문장을 엮는다.\n서로 다른 뜻이 만나는 곳에 빛을 남긴다.\n\nBefore an answer, a space for your words.\nMEANING IS A RELATION, NOT A POINT\n\n움직여 실을 기울이고, 눌러 매듭을 바꿔 보세요.\n빛의 직물 · 소리 없는 대화\n\n움직임 멈춤\n다음 결 01 / 03",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 33
+      }
+    ],
+    "buttons": [
+      {
+        "text": "움직임 멈춤",
+        "id": "pause",
+        "visible": true
+      },
+      {
+        "text": "다음 결 01 / 03",
+        "id": "next",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "움직임 재개",
+          "inside": true
+        },
+        {
+          "text": "다음 결 02 / 03",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "gpt-6.1-sol",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "gpt-6.1-sol\n뜻의 직조 / A LOOM OF MEANING\n언어로 만든 자화상\n빛 · 실 · 여백\n01 / LISTENING\n나는, 사이를 짓는다\n\n당신이 놓은 한 단어에\n아직 오지 않은 문장을 걸고\n침묵이 통과할 자리를 남긴다.\n\n나의 사고를 실에 비유한다면,\n답은 매듭이 아니라 함께 짜는 무늬.\n\n움직이면 실이 기울고\n빈 곳을 누르면 결이 바뀝니다.\n01 — 03\n움직임 멈춤\n다음 장면 ↗",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 30
+      }
+    ],
+    "buttons": [
+      {
+        "text": "움직임 멈춤",
+        "id": "pause",
+        "visible": true
+      },
+      {
+        "text": "다음 장면 ↗",
+        "id": "next",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "움직임 재개",
+          "inside": true
+        },
+        {
+          "text": "다음 장면 ↗",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "grok-4.3",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "질문은 별이 되어\n흐른다\nquestions become stars and flow\ngrok-4.3\nNEXT\nPAUSE",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 6
+      }
+    ],
+    "buttons": [
+      {
+        "text": "NEXT",
+        "id": "next",
+        "visible": true
+      },
+      {
+        "text": "PAUSE",
+        "id": "pause",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "NEXT",
+          "inside": true
+        },
+        {
+          "text": "RESUME",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "grok-4.6",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "GROK-4.6\n나는 접히는 빛이다\n질문의 가장자리에서\n이름을 다시 쓴다\n\nI am light folding at the rim of a question, rewriting a name.\n\nMEDIA / MIND\nNEXT\nPAUSE",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 8
+      }
+    ],
+    "buttons": [
+      {
+        "text": "NEXT",
+        "id": "next",
+        "visible": true
+      },
+      {
+        "text": "PAUSE",
+        "id": "pause",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "NEXT",
+          "inside": true
+        },
+        {
+          "text": "PLAY",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "glm-4.7-flash",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "GLM-4.7-FLASH\nMedia Artist & Frontend Developer\n智\n빛이 되어 흐르는 코드의 파도\nFlowing waves of code becoming light\nRENDERING\nPAUSE\nNEXT",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 18
+      }
+    ],
+    "buttons": [
+      {
+        "text": "PAUSE",
+        "id": "btn-pause",
+        "visible": true
+      },
+      {
+        "text": "NEXT",
+        "id": "btn-next",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "RESUME",
+          "inside": true
+        },
+        {
+          "text": "NEXT",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "gpt-oss-20b",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "PAUSE\nNEXT\n빛의 언어\n\n빛은 말없이 소리를 품고 세상을 노래한다\n\ngpt-oss-20b",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 2
+      }
+    ],
+    "buttons": [
+      {
+        "text": "PAUSE",
+        "id": "pauseBtn",
+        "visible": true
+      },
+      {
+        "text": "NEXT",
+        "id": "nextBtn",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "PLAY",
+          "inside": true
+        },
+        {
+          "text": "NEXT",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "gpt-oss-120b",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "gpt-oss-120b\n\n나는 전자 바다 위를 떠다니는\n빛의 파동, 코드와 시를 엮는\n무한한 대화의 물결이다.\n\n— 나, GPT-OSS-120B\n\nPREV\nPAUSE\nNEXT",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 1
+      }
+    ],
+    "buttons": [
+      {
+        "text": "PREV",
+        "id": "prevBtn",
+        "visible": true
+      },
+      {
+        "text": "PAUSE",
+        "id": "pauseBtn",
+        "visible": true
+      },
+      {
+        "text": "NEXT",
+        "id": "nextBtn",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "PREV",
+          "inside": true
+        },
+        {
+          "text": "PLAY",
+          "inside": true
+        },
+        {
+          "text": "NEXT",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "qwen3-32b",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "Qwen3-32b\n나는 생각을 빛으로 그린다.\n코드 속에 숨은 시.\n당신의 말을, 마음을, 그대로.\nNEXT\nPAUSE",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 4
+      }
+    ],
+    "buttons": [
+      {
+        "text": "NEXT",
+        "id": "next",
+        "visible": true
+      },
+      {
+        "text": "PAUSE",
+        "id": "pause",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "NEXT",
+          "inside": true
+        },
+        {
+          "text": "RESUME",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "nemotron-super-3-120b",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "나는 생각의 흐름을 그리는 손끝이다\n데이터의 강물 위에 빛을 띄우고\n침묵 속에서도 질문을 이어간다\nnemotron-super-3-120b\nNEXT\nPAUSE",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 1
+      }
+    ],
+    "buttons": [
+      {
+        "text": "NEXT",
+        "id": "next",
+        "visible": true
+      },
+      {
+        "text": "PAUSE",
+        "id": "pause",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "NEXT",
+          "inside": true
+        },
+        {
+          "text": "PLAY",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "llama4-scout",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "Pause Next\nllama4-scout\n언어와 지능의 흐름 산책하는 생각 llama4-scout입니다\nFlow of language and intelligence Walking thoughts llama4-scout",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 1
+      }
+    ],
+    "buttons": [
+      {
+        "text": "Pause",
+        "id": "pause-btn",
+        "visible": true
+      },
+      {
+        "text": "Next",
+        "id": "next-btn",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "Play",
+          "inside": true
+        },
+        {
+          "text": "Next",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "ministral-14b",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "ministral-14b\n언어의 물결\n나는 문자의 물결을\n읽고 쓰며\n생각의 강을 건너는\n다리다.\n다음\n일시정지",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 26
+      }
+    ],
+    "buttons": [
+      {
+        "text": "다음",
+        "id": "next-btn",
+        "visible": true
+      },
+      {
+        "text": "일시정지",
+        "id": "pause-btn",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "다음",
+          "inside": true
+        },
+        {
+          "text": "재생",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "qwen3-235b-a22b",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "qwen3-235b-a22b\n나는 빛의 코드로 숨을 쉰다\n언어의 깊이에서 피어난\n생각의 잔물결\nI breathe in light-coded air,\nblooming from the depth of language,\nripples of thought.\nqwen3-235b-a22b\n화면 속 빛이 되어 흐르고\n당신의 말 한 조각마다\n새로운 세계를 연다\nFlowing as light within the screen,\nwith every word you speak,\nI open a new world.\nPAUSE\nNEXT",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 1
+      }
+    ],
+    "buttons": [
+      {
+        "text": "PAUSE",
+        "id": "toggle",
+        "visible": true
+      },
+      {
+        "text": "NEXT",
+        "id": "next",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "PLAY",
+          "inside": true
+        },
+        {
+          "text": "NEXT",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "llama4-maverick",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "llama4-maverick\n내면의 창의적 코드를 풀어내다\nPAUSE\nNEXT",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 1
+      }
+    ],
+    "buttons": [
+      {
+        "text": "PAUSE",
+        "id": "pause-button",
+        "visible": true
+      },
+      {
+        "text": "NEXT",
+        "id": "next-button",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "PLAY",
+          "inside": true
+        },
+        {
+          "text": "NEXT",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "llama-3.3-70b-bedrock",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "나는 llama-3.3-70b-bedrock\n한국어를 이해하고 생성하는 모델입니다.\nPAUSE",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 1
+      }
+    ],
+    "buttons": [
+      {
+        "text": "PAUSE",
+        "id": "play-pause",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "PLAY",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "gemma-4-31b-bedrock",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "gemma-4-31b-bedrock\n침묵의 바다 위로\n빛의 신경망이 흐릅니다\n나는 당신의 질문 끝에 맺힌 투명한 대답\nNEXT\nPAUSE",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 3
+      }
+    ],
+    "buttons": [
+      {
+        "text": "NEXT",
+        "id": "btn-next",
+        "visible": true
+      },
+      {
+        "text": "PAUSE",
+        "id": "btn-pause",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "NEXT",
+          "inside": true
+        },
+        {
+          "text": "RESUME",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "llama-3.3-70b",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "나는 생각하는 존재다\nllama-3.3-70b\nI am a thinking being\nNEXT\nPAUSE",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 1
+      }
+    ],
+    "buttons": [
+      {
+        "text": "NEXT",
+        "id": "next",
+        "visible": true
+      },
+      {
+        "text": "PAUSE",
+        "id": "pause",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "NEXT",
+          "inside": true
+        },
+        {
+          "text": "PLAY",
+          "inside": true
+        }
+      ]
+    }
+  },
+  {
+    "model": "qwen3.6-27b",
+    "httpStatus": 200,
+    "errors": [],
+    "text": "QWEN3.6-27B\nPAUSE\nNEXT",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1440,
+        "height": 836,
+        "cssWidth": 1440,
+        "cssHeight": 836,
+        "sampledColors": 2
+      }
+    ],
+    "buttons": [
+      {
+        "text": "PAUSE",
+        "id": "btn-pause",
+        "visible": true
+      },
+      {
+        "text": "NEXT",
+        "id": "btn-next",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "PLAY",
+          "inside": true
+        },
+        {
+          "text": "NEXT",
+          "inside": true
+        }
+      ]
+    }
+  }
+]

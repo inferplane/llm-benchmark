@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>gpt-5.6-terra — 지층의 언어</title>
+<style>
+:root{--ink:#101b22;--paper:#e9e3d3;--lime:#d5ff87;--coral:#ff8a70;--blue:#83d7ee}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--ink);color:var(--paper)}
+body{font-family:ui-serif,Georgia,"Noto Serif KR",serif}
+canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
+main{position:relative;z-index:2;min-height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(24px,5vw,68px);pointer-events:none}
+header,section,footer{pointer-events:auto}
+header{display:flex;justify-content:space-between;align-items:center;font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#b9c5bd}
+.mark{display:flex;gap:9px;align-items:center}.seed{width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 18px var(--lime)}
+.status{opacity:.7}
+section{max-width:760px;margin:auto 0;transform:translateY(3vh)}
+.kicker{font-family:ui-monospace,monospace;color:var(--lime);font-size:11px;letter-spacing:.2em;margin-bottom:19px}
+h1{font-size:clamp(31px,5.1vw,74px);line-height:1.2;letter-spacing:-.055em;font-weight:500;margin:0;word-break:keep-all;white-space:pre-line;text-shadow:0 2px 20px #0005}
+.translation{margin:21px 0 0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:clamp(12px,1.1vw,15px);line-height:1.65;letter-spacing:.08em;color:#cad3ca;max-width:480px}
+footer{display:flex;justify-content:space-between;align-items:end;gap:15px}
+.note{font-size:11px;line-height:1.5;color:#aeb9b0;max-width:250px}
+.controls{display:flex;gap:8px}
+button{border:1px solid #cbd7c344;background:#13242ab8;color:var(--paper);padding:10px 13px;border-radius:999px;font:10px ui-monospace,monospace;letter-spacing:.11em;cursor:pointer;transition:.25s}
+button:hover,button:focus-visible{outline:none;background:var(--lime);color:#142126;border-color:var(--lime);transform:translateY(-2px)}
+#flash{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at var(--x,50%) var(--y,50%),#d5ff8733,transparent 20%);opacity:0;transition:opacity .4s}
+@media(max-width:520px){main{padding:21px 20px 18px}section{transform:translateY(0)}h1{font-size:34px}.translation{font-size:12px;margin-top:16px}.note{max-width:145px;font-size:10px}button{padding:9px 10px;font-size:9px}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas><div id="flash"></div>
+<main>
+<header><div class="mark"><i class="seed"></i><span>gpt-5.6-terra</span></div><span class="status" id="status">ACTIVE / 01</span></header>
+<section>
+<div class="kicker" id="kicker">TERRAIN OF ATTENTION</div>
+<h1 id="poem">나는 답을 쌓지 않는다.
+질문의 흙을 고른다.</h1>
+<p class="translation" id="sub">I do not stack answers. I sift the soil of a question.</p>
+</section>
+<footer>
+<div class="note">바탕을 쓸어 보세요.<br>손끝은 이 지형에 작은 중력을 남깁니다.</div>
+<div class="controls"><button id="pause">PAUSE</button><button id="next">NEXT ↗</button></div>
+</footer>
+</main>
+<script>
+const c=document.getElementById('c'),x=c.getContext('2d'),flash=document.getElementById('flash');
+const poem=document.getElementById('poem'),sub=document.getElementById('sub'),kick=document.getElementById('kicker'),status=document.getElementById('status'),pause=document.getElementById('pause');
+let W,H,dpr,run=!matchMedia('(prefers-reduced-motion: reduce)').matches,hidden=false,scene=0,t=0,mouse={x:-999,y:-999},ripples=[];
+const scenes=[
+["TERRAIN OF ATTENTION","나는 답을 쌓지 않는다.\n질문의 흙을 고른다.","I do not stack answers. I sift the soil of a question."],
+["MINERAL OF LANGUAGE","언어는 돌보다 느리게\n그러나 빛보다 멀리 간다.","Language moves slower than stone, yet travels farther than light."],
+["POROUS INTELLIGENCE","나는 빈틈으로 생각한다.\n당신의 망설임도 길이 된다.","I think through pores. Even your hesitation becomes a path."]
+];
+function resize(){dpr=Math.min(devicePixelRatio,2);W=innerWidth;H=innerHeight;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
+addEventListener('resize',resize);resize();
+function noise(a,b){return Math.sin(a*1.71+b*2.37)*.5+Math.sin(a*.61-b*1.13)*.3+Math.sin(a*3.9+b*.27)*.2}
+function line(y,layer,color){
+ x.beginPath();
+ for(let i=0;i<=W;i+=8){
+  let yy=y+noise(i*.011+t*.00035,layer*1.3)*27+Math.sin(i*.004+t*.0005+layer)*20;
+  for(const r of ripples){let q=(i-r.x)*(i-r.x)+(yy-r.y)*(yy-r.y);yy+=Math.sin(Math.sqrt(q)*.09-r.age*.12)*18*Math.exp(-q/52000)*r.life}
+  if(mouse.x>-1){let q=(i-mouse.x)**2+(yy-mouse.y)**2;yy+=Math.sin(t*.005+Math.sqrt(q)*.08)*13*Math.exp(-q/24000)}
+  i?x.lineTo(i,yy):x.moveTo(i,yy);
+ }
+ x.strokeStyle=color;x.lineWidth=1;x.stroke();
+}
+function draw(){
+ x.clearRect(0,0,W,H);
+ let bg=x.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#0c1923');bg.addColorStop(.55,'#162a2b');bg.addColorStop(1,'#352b27');x.fillStyle=bg;x.fillRect(0,0,W,H);
+ x.globalCompositeOperation='screen';
+ for(let i=0;i<26;i++){let y=H*.12+i*H*.035;line(y,i,`hsla(${155+i*2},${60+i}%,${65-i}%,${.10+i*.003})`)}
+ x.globalCompositeOperation='source-over';
+ for(let i=0;i<140;i++){
+  let px=(i*79.3+Math.sin(i*9)*W)%W,py=(i*137.1+Math.cos(i*3)*H)%H;
+  let a=.13+.12*Math.sin(t*.002+i);x.fillStyle=`rgba(221,255,178,${a})`;x.fillRect(px,py,1,1);
+ }
+ let g=x.createRadialGradient(W*.7,H*.25,0,W*.7,H*.25,W*.5);g.addColorStop(0,'rgba(213,255,135,.10)');g.addColorStop(1,'transparent');x.fillStyle=g;x.fillRect(0,0,W,H);
+}
+function frame(n){if(!run||hidden)return;t=n;draw();ripples.forEach(r=>{r.age+=1;r.life*=.985});ripples=ripples.filter(r=>r.life>.03);requestAnimationFrame(frame)}
+function start(){if(!run){run=true;pause.textContent='PAUSE';status.textContent=`ACTIVE / 0${scene+1}`;requestAnimationFrame(frame)}}
+function point(e){
+ if(e.target.closest('button'))return;
+ let p=e.touches?e.touches[0]:e;mouse.x=p.clientX;mouse.y=p.clientY;
+ ripples.push({x:mouse.x,y:mouse.y,age:0,life:1});flash.style.setProperty('--x',mouse.x+'px');flash.style.setProperty('--y',mouse.y+'px');flash.style.opacity=.85;setTimeout(()=>flash.style.opacity=0,220);start();
+}
+c.addEventListener('pointermove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});c.addEventListener('pointerdown',point);
+document.getElementById('next').onclick=()=>{
+ scene=(scene+1)%scenes.length;let s=scenes[scene];kick.textContent=s[0];poem.style.opacity=0;sub.style.opacity=0;
+ setTimeout(()=>{poem.textContent=s[1];sub.textContent=s[2];poem.style.opacity=1;sub.style.opacity=1},150);
+ status.textContent=(run?'ACTIVE':'PAUSED')+' / 0'+(scene+1);ripples.push({x:W*.5,y:H*.5,age:0,life:1});start();
+};
+pause.onclick=()=>{run=!run;pause.textContent=run?'PAUSE':'RESUME';status.textContent=(run?'ACTIVE':'PAUSED')+' / 0'+(scene+1);if(run)requestAnimationFrame(frame)};
+document.addEventListener('visibilitychange',()=>{hidden=document.hidden;if(!hidden&&run)requestAnimationFrame(frame)});
+poem.style.transition=sub.style.transition='opacity .25s';draw();if(run)requestAnimationFrame(frame);else{pause.textContent='RESUME';status.textContent='PAUSED / 01'}
+</script>
+</body>
+</html>

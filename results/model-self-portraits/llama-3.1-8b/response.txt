@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>llama-3.1-8b</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #poem {
+      font-size: 24px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    #controls {
+      font-size: 19px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    #controls button {
+      margin: 0 10px;
+    }
+    #controls button:disabled {
+      opacity: 0.5;
+    }
+    #canvas {
+      border: 1px solid black;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="poem">Scene 1</h1>
+  <div id="controls">
+    <button id="pause" aria-pressed="false">PLAY</button>
+    <button id="next" aria-pressed="false">NEXT</button>
+  </div>
+  <canvas id="canvas" width="375" height="812"></canvas>
+  <script>
+    let paused = matchMedia('(prefers-reduced-motion)').matches;
+    let scene = 1;
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let particles = [];
+    let rafId = null;
+
+    function start() {
+      if (!rafId) {
+        rafId = requestAnimationFrame(draw);
+      }
+    }
+
+    function stop() {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // render particles
+      for (let i = 0; i < particles.length; i++) {
+        ctx.beginPath();
+        ctx.arc(particles[i].x, particles[i].y, 5, 0, 2 * Math.PI);
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+        ctx.fill();
+        particles[i].x += particles[i].vx;
+        particles[i].y += particles[i].vy;
+        if (particles[i].x > canvas.width || particles[i].x < 0 || particles[i].y > canvas.height || particles[i].y < 0) {
+          particles.splice(i, 1);
+        }
+      }
+      // render scene poem
+      ctx.font = '24px Arial';
+      ctx.fillStyle = 'black';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText(document.getElementById('poem').textContent, canvas.width / 2, 20);
+      // update DOM
+      document.getElementById('poem').textContent = scene === 1 ? 'Scene 1' : 'Scene 2';
+      document.getElementById('pause').ariaPressed = paused;
+      document.getElementById('next').ariaPressed = paused;
+      // schedule next frame
+      start();
+    }
+
+    function init() {
+      // render initial static frame
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < 700; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: Math.random() * 2 - 1,
+          vy: Math.random() * 2 - 1
+        });
+      }
+      draw();
+      // start RAF
+      start();
+    }
+
+    function handleResize() {
+      canvas.width = Math.min(375, window.innerWidth);
+      canvas.height = Math.min(812, window.innerHeight);
+      canvas.style.width = `${canvas.width}px`;
+      canvas.style.height = `${canvas.height}px`;
+      canvas.style.transform = `scale(${Math.min(1, window.devicePixelRatio / Math.min(2, window.devicePixelRatio))})`;
+      ctx.canvas.width = canvas.width * Math.min(2, window.devicePixelRatio);
+      ctx.canvas.height = canvas.height * Math.min(2, window.devicePixelRatio);
+      if (paused) {
+        init();
+      } else {
+        stop();
+        init();
+      }
+    }
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    init();
+
+    document.getElementById('pause').addEventListener('click', () => {
+      paused = !paused;
+      document.getElementById('pause').ariaPressed = paused;
+      document.getElementById('next').ariaPressed = paused;
+      if (paused) {
+        stop();
+      } else {
+        start();
+      }
+    });
+
+    document.getElementById('next').addEventListener('click', () => {
+      scene = scene === 1 ? 2 : 1;
+      stop();
+      init();
+    });
+  </script>
+  <p>나의 이름은 llama-3.1-8b입니다.</p>
+  <p>나는 AI로 만들어진 모델입니다.</p>
+  <p>나는 사람과 대화를 할 수 있습니다.</p>
+</body>
+</html>

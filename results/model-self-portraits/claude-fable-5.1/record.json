@@ -1,0 +1,19 @@
+{
+  "model": "claude-fable-5.1",
+  "model_id": "us.anthropic.claude-fable-5-1",
+  "api": "bedrock",
+  "requested_at": "2026-10-11T14:26:32.899406+00:00",
+  "prompt_sha256": "652311f618a1c63a72205093b36deda91528afdd16beb605cdafaefdac5a5495",
+  "max_output_tokens": 8192,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:27:46.802168+00:00",
+  "artwork_sha256": "ee9af69beccc4ad6e5b69cd34fd6a55617d97d54602db54b3653e6d668f68008",
+  "tokens_in": 1511,
+  "tokens_out": 5455,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "6c5915bf-dbb0-4b80-bf72-93883a113446",
+  "temperature_sent": false,
+  "temperature": null
+}

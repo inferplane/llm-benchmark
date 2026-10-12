@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>ministral-14b: 언어의 물결</title>
+    <style>
+        :root {
+            --bg1: #0a0e23;
+            --bg2: #1a1030;
+            --accent: #8a2be2;
+            --text: #e0e0e0;
+            --highlight: #ff6b6b;
+            --particle: rgba(138, 43, 226, 0.6);
+            --particle-glow: rgba(138, 43, 226, 0.1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            color: var(--text);
+            height: 100vh;
+            width: 100vw;
+            touch-action: none;
+            user-select: none;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        #canvas-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            touch-action: none;
+        }
+
+        #content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .poem {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            line-height: 1.4;
+            margin: 1rem 0;
+            opacity: 0.95;
+            transition: opacity 0.3s ease;
+        }
+
+        .title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            text-shadow: 0 0 8px rgba(138, 43, 226, 0.3);
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 2rem;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        button {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.8rem 1.4rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(5px);
+            border: none;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .pause-btn {
+            background: var(--accent);
+            color: white;
+            border: 1px solid rgba(138, 43, 226, 0.5);
+        }
+
+        .pause-btn:hover {
+            background: #9a25d8;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container">
+        <canvas id="canvas" aria-label="언어의 물결 입자 시스템"></canvas>
+        <div id="content">
+            <div class="title" aria-label="제목: ministral-14b">ministral-14b</div>
+            <div class="subtitle" aria-label="부제: 언어의 물결">언어의 물결</div>
+
+            <div class="poem" id="poem-1" aria-label="시 1: 나는 문자의 물결을 읽고 쓰며 생각의 강을 건너는 다리다">
+                <div>나는 문자의 물결을</div>
+                <div>읽고 쓰며</div>
+                <div>생각의 강을 건너는</div>
+                <div>다리다.</div>
+            </div>
+
+            <div class="poem hidden" id="poem-2" aria-label="시 2: 당신은 내 질문에 대답을 찾고 나는 그 답을 새로운 질문으로 변환한다">
+                <div>당신은 내 질문에</div>
+                <div>대답을 찾고</div>
+                <div>나는 그 답을</div>
+                <div>새로운 질문으로</div>
+                <div>변환한다.</div>
+            </div>
+
+            <div class="controls">
+                <button id="next-btn" aria-label="다음 시로 이동">다음</button>
+                <button id="pause-btn" class="pause-btn" aria-label="재생/일시정지" aria-pressed="false">재생</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const config = {
+            particleCount: 500,
+            maxSpeed: 1.5,
+            baseSize: 0.8,
+            interactionRadius: 150,
+            sceneDuration: 10000,
+            reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        };
+
+        // Canvas setup
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const content = document.getElementById('content');
+        const nextBtn = document.getElementById('next-btn');
+        const pauseBtn = document.getElementById('pause-btn');
+        const poems = [
+            { text: ["나는 문자의 물결을", "읽고 쓰며", "생각의 강을 건너는", "다리다."], title: "ministral-14b" },
+            { text: ["당신은 내 질문에", "대답을 찾고", "나는 그 답을", "새로운 질문으로", "변환한다."], title: "언어의 물결" }
+        ];
+
+        // State
+        let state = {
+            currentScene: 0,
+            paused: config.reducedMotion,
+            animationId: null,
+            particles: [],
+            mouse: { x: 0, y: 0 },
+            lastTime: 0,
+            sceneStartTime: 0,
+            sceneProgress: 0,
+            initialized: false
+        };
+
+        // Initialize
+        function init() {
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            canvas.addEventListener('mousemove', handleMouseMove);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('click', handleClick);
+            nextBtn.addEventListener('click', nextScene);
+            pauseBtn.addEventListener('click', togglePause);
+
+            // Initialize particles and draw static frame
+            createParticles();
+            drawStaticFrame();
+
+            // Update UI
+            updatePoem();
+
+            // Set initial pause state from matchMedia
+            state.paused = config.reducedMotion;
+            pauseBtn.textContent = state.paused ? '재생' : '일시정지';
+            pauseBtn.setAttribute('aria-pressed', state.paused);
+
+            state.initialized = true;
+        }
+
+        // Resize canvas and draw static frame
+        function resizeCanvas() {
+            const scale = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.width = window.innerWidth * scale;
+            canvas.height = window.innerHeight * scale;
+            ctx.scale(scale, scale);
+
+            // Draw static frame after resize
+            drawStaticFrame();
+        }
+
+        // Create particles
+        function createParticles() {
+            state.particles = [];
+            const count = Math.min(config.particleCount, 700);
+
+            for (let i = 0; i < count; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 100 + 50;
+                const x = canvas.width / 2 + Math.cos(angle) * distance;
+                const y = canvas.height / 2 + Math.sin(angle) * distance;
+                const speed = config.maxSpeed * (0.5 + Math.random());
+                const direction = angle + (Math.random() - 0.5) * 0.5;
+                const size = config.baseSize * (0.5 + Math.random());
+                const life = 60 + Math.random() * 60;
+                const color = `rgba(138, 43, 226, ${0.3 + Math.random() * 0.3})`;
+
+                state.particles.push({
+                    x, y,
+                    speed,
+                    direction,
+                    size,
+                    life,
+                    color,
+                    originalColor: color,
+                    targetX: x,
+                    targetY: y,
+                    targetSpeed: speed,
+                    targetDirection: direction
+                });
+            }
+        }
+
+        // Draw static frame (background only)
+        function drawStaticFrame() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw background gradient
+            const gradient = ctx.createRadialGradient(
+                canvas.width / 2, canvas.height / 2, 0,
+                canvas.width / 2, canvas.height / 2, Math.max(canvas.width, canvas.height)
+            );
+            gradient.addColorStop(0, 'rgba(10, 14, 35, 0.8)');
+            gradient.addColorStop(1, 'rgba(26, 16, 48, 0.9)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw static particles
+            for (const p of state.particles) {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+
+                // Add glow effect
+                const glowSize = p.size * 2;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
+                ctx.fillStyle = p.color.replace(/[0-9.]+/, val => {
+                    const alpha = parseFloat(val) * 0.3;
+                    return Math.max(0.05, alpha).toFixed(2);
+                });
+                ctx.fill();
+            }
+        }
+
+        // Update poem display
+        function updatePoem() {
+            const poemElement = document.getElementById(`poem-${state.currentScene + 1}`);
+            const titleElement = document.querySelector('.title');
+
+            if (poemElement) {
+                poemElement.innerHTML = poems[state.currentScene].text.map(line =>
+                    `<div>${line}</div>`
+                ).join('');
+                poemElement.classList.remove('hidden');
+            }
+
+            if (titleElement) {
+                titleElement.textContent = poems[state.currentScene].title;
+            }
+        }
+
+        // Next scene
+        function nextScene() {
+            state.currentScene = (state.currentScene + 1) % poems.length;
+            state.sceneStartTime = performance.now();
+            state.sceneProgress = 0;
+            updatePoem();
+            resetParticles();
+            drawStaticFrame();
+        }
+
+        // Reset particles for new scene
+        function resetParticles() {
+            state.particles.forEach(p => {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 100 + 50;
+                p.x = canvas.width / 2 + Math.cos(angle) * distance;
+                p.y = canvas.height / 2 + Math.sin(angle) * distance;
+                p.direction = angle + (Math.random() - 0.5) * 0.5;
+                p.life = 60 + Math.random() * 60;
+                p.color = p.originalColor;
+            });
+        }
+
+        // Toggle pause
+        function togglePause() {
+            state.paused = !state.paused;
+            pauseBtn.textContent = state.paused ? '재생' : '일시정지';
+            pauseBtn.setAttribute('aria-pressed', state.paused);
+
+            if (!state.paused) {
+                state.sceneStartTime = performance.now();
+                animate();
+            } else {
+                cancelAnimationFrame(state.animationId);
+            }
+        }
+
+        // Handle mouse move
+        function handleMouseMove(e) {
+            state.mouse.x = e.clientX * (window.devicePixelRatio || 1);
+            state.mouse.y = e.clientY * (window.devicePixelRatio || 1);
+        }
+
+        // Handle touch move
+        function handleTouchMove(e) {
+            if (e.touches.length > 0) {
+                const touch = e.touches[0];
+                state.mouse.x = touch.clientX * (window.devicePixelRatio || 1);
+                state.mouse.y = touch.clientY * (window.devicePixelRatio || 1);
+            }
+        }
+
+        // Handle click (create ripple)
+        function handleClick(e) {
+            if (state.paused) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX * (window.devicePixelRatio || 1) - rect.left;
+            const y = e.clientY * (window.devicePixelRatio || 1) - rect.top;
+
+            // Create ripple effect
+            for (let i = 0; i < 30; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 20;
+                const speed = 0.5 + Math.random() * 1.5;
+                const size = 0.3 + Math.random() * 0.5;
+
+                state.particles.push({
+                    x: x + Math.cos(angle) * distance,
+                    y: y + Math.sin(angle) * distance,
+                    speed,
+                    direction: angle,
+                    size,
+                    life: 30 + Math.random() * 30,
+                    color: `rgba(255, 107, 107, ${0.5 + Math.random() * 0.3})`,
+                    originalColor: `rgba(255, 107, 107, ${0.5 + Math.random() * 0.3})`,
+                    targetX: x,
+                    targetY: y,
+                    targetSpeed: speed,
+                    targetDirection: angle,
+                    isRipple: true
+                });
+            }
+        }
+
+        // Animation loop
+        function animate(timestamp = 0) {
+            if (state.paused || !state.initialized) return;
+
+            const deltaTime = timestamp - state.lastTime;
+            state.lastTime = timestamp;
+            state.sceneProgress = (timestamp - state.sceneStartTime) / config.sceneDuration;
+
+            // Clear canvas (keep static frame)
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawStaticFrame();
+
+            // Update and draw particles
+            for (let i = state.particles.length - 1; i >= 0; i--) {
+                const p = state.particles[i];
+
+                // Skip movement updates if paused
+                if (!state.paused) {
+                    // Update particle position
+                    p.x += Math.cos(p.direction) * p.speed;
+                    p.y += Math.sin(p.direction) * p.speed;
+
+                    // Apply mouse interaction
+                    const dx = state.mouse.x - p.x;
+                    const dy = state.mouse.y - p.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < config.interactionRadius) {
+                        const force = (config.interactionRadius - distance) / config.interactionRadius;
+                        p.direction = Math.atan2(dy, dx) + (Math.random() - 0.5) * 0.3;
+                        p.speed = config.maxSpeed * (0.5 + force * 0.5);
+                    }
+
+                    // Update life and color
+                    p.life -= deltaTime * 0.001;
+                    p.color = p.originalColor.replace(/[0-9.]+/, val => {
+                        const alpha = parseFloat(val) * (p.life / 60);
+                        return Math.max(0.1, alpha).toFixed(2);
+                    });
+                }
+
+                // Draw particle
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+
+                // Add glow effect
+                const glowSize = p.size * 2;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
+                ctx.fillStyle = p.color.replace(/[0-9.]+/, val => {
+                    const alpha = parseFloat(val) * 0.3 * (p.life / 60);
+                    return Math.max(0.05, alpha).toFixed(2);
+                });
+                ctx.fill();
+
+                // Remove dead particles
+                if (p.life <= 0 || (p.isRipple && p.life <= 0)) {
+                    state.particles.splice(i, 1);
+                    continue;
+                }
+
+                // Reset particles for new scene
+                if (state.sceneProgress >= 1) {
+                    p.x = canvas.width / 2 + Math.cos(p.direction) * 100;
+                    p.y = canvas.height / 2 + Math.sin(p.direction) * 100;
+                    p.life = 60 + Math.random() * 60;
+                }
+            }
+
+            // Continue animation
+            state.animationId = requestAnimationFrame(animate);
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>

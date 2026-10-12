@@ -1,0 +1,23 @@
+{
+  "model": "qwen3-235b-a22b",
+  "requested_model_id": "qwen.qwen3-235b-a22b-2507-v1:0",
+  "provider": "bedrock",
+  "family": "Qwen",
+  "generated_at": "2026-10-11T14:23:05.938833+00:00",
+  "request_id": "3a2a8943-1a3f-4051-a951-63c14560f051",
+  "artwork_sha256": "90ad5d0a88cdfcbb3123548a76e7d1c93051a2a3558c335d44ff4bafebb141d9",
+  "prompt_sha256": "547e01ee2ddd4a941f5a064476d8120006464932e900507b26488c634a52676d",
+  "tokens_in": 3252,
+  "tokens_out": 2267,
+  "finish_reason": "end_turn",
+  "max_output_tokens": 8192,
+  "temperature_sent": true,
+  "status": "generated",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 96.0,
+    "critical": 0,
+    "warnings": 3,
+    "verdict": "PASS"
+  }
+}

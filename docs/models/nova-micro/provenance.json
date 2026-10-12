@@ -1,0 +1,23 @@
+{
+  "model": "nova-micro",
+  "requested_model_id": "us.amazon.nova-micro-v1:0",
+  "provider": "bedrock",
+  "family": "Amazon Nova",
+  "generated_at": "2026-10-12T00:54:50.183084+00:00",
+  "request_id": "aa3b28d7-ed07-4eb4-a4a9-135469f97625",
+  "artwork_sha256": "0b9c78710c01686968d999788df9d309976481d1452ef862a7327365901fa08d",
+  "prompt_sha256": "ed55c5e0a2427614229d1a24612c9e3b5fff001cd2e4d0323ae402da07e4677d",
+  "tokens_in": 2143,
+  "tokens_out": 1723,
+  "finish_reason": "end_turn",
+  "max_output_tokens": 8192,
+  "temperature_sent": true,
+  "status": "review_held",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 95.5,
+    "critical": 0,
+    "warnings": 4,
+    "verdict": "REVIEW"
+  }
+}

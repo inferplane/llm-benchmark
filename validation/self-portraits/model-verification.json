@@ -1,0 +1,93 @@
+{
+  "models": [
+    {
+      "model": "claude-haiku-5.5",
+      "model_id": "us.anthropic.claude-haiku-5-5",
+      "verified_at": "2026-10-11",
+      "model_card": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-haiku-5-5.html",
+      "model_card_sha256": "70e459026a649695615819701ef65a3ce3077610dc54a2ee420f2d75db52b487",
+      "price_in": 0.11,
+      "price_out": 0.55,
+      "pricing_basis": "Anthropic official pricing.md base rate with documented 10% Bedrock regional premium",
+      "pricing_source": "https://platform.claude.com/docs/en/about-claude/pricing.md",
+      "live_request_id": "575c84a7-dd2b-4a09-9e79-93b24ed74163",
+      "reported_model": null,
+      "live_status": "generated"
+    },
+    {
+      "model": "claude-sonnet-5.5",
+      "model_id": "us.anthropic.claude-sonnet-5-5",
+      "verified_at": "2026-10-11",
+      "model_card": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-sonnet-5-5.html",
+      "model_card_sha256": "8ca86791a3efd89b86cb58bc7b2b888f1ffa6153e0537083f73f46d4ddd3e6ef",
+      "price_in": 2.2,
+      "price_out": 11.0,
+      "pricing_basis": "Anthropic official pricing.md base rate with documented 10% Bedrock regional premium",
+      "pricing_source": "https://platform.claude.com/docs/en/about-claude/pricing.md",
+      "live_request_id": "465de187-dae7-48a2-aa54-72ee71af6f6b",
+      "reported_model": null,
+      "live_status": "generated"
+    },
+    {
+      "model": "claude-opus-5.5",
+      "model_id": "us.anthropic.claude-opus-5-5",
+      "verified_at": "2026-10-11",
+      "model_card": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-opus-5-5.html",
+      "model_card_sha256": "f5c9cf995645b09c2aef93f5c761a963830a715de87cc748daa3b02fa2dbee06",
+      "price_in": 4.4,
+      "price_out": 22.0,
+      "pricing_basis": "Anthropic official pricing.md base rate with documented 10% Bedrock regional premium",
+      "pricing_source": "https://platform.claude.com/docs/en/about-claude/pricing.md",
+      "live_request_id": "70e95b61-d2e0-4336-a8aa-b1cdfff8eaeb",
+      "reported_model": null,
+      "live_status": "generated"
+    },
+    {
+      "model": "gpt-6-astra",
+      "model_id": "openai.gpt-6-astra",
+      "verified_at": "2026-10-11",
+      "model_card": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-astra.html",
+      "model_card_sha256": "f69e449408733a1233adabaa33c85039ef915e7935e0944d51bccf83059f70a8",
+      "price_in": 11.0,
+      "price_out": 55.0,
+      "pricing_basis": "AWS model-card Standard short-context regional table",
+      "pricing_source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-astra.html",
+      "live_request_id": "req_gjwmgu3yyavtoq7prriz3b6k6mm7zm7n5r2x2ld3i2fd2i3vctsq",
+      "reported_model": "openai.gpt-6-astra",
+      "live_status": "generated"
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "model_id": "openai.gpt-6.1-sol",
+      "verified_at": "2026-10-11",
+      "model_card": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-1-sol.html",
+      "model_card_sha256": "0a0d39db035a62d68fe5487ab7a7c4a69fc8ac465b14fcaa5f8b56b61c325e99",
+      "price_in": 2.2,
+      "price_out": 11.0,
+      "pricing_basis": "AWS model-card Standard short-context regional table",
+      "pricing_source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-1-sol.html",
+      "live_request_id": "req_dsqii73ki5zcod4xcoecy3cke7xxgwlvzjqblkf22nl2u3prrira",
+      "reported_model": "openai.gpt-6.1-sol",
+      "live_status": "generated"
+    },
+    {
+      "model": "claude-fable-5.1",
+      "model_id": "us.anthropic.claude-fable-5-1",
+      "verified_at": "2026-10-11",
+      "model_card": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-fable-5-1.html",
+      "model_card_sha256": "f51236f4b0784ff605c544fa03a4f26180c3d9a54f8378b6c8998a94f72a3ab6",
+      "price_in": 11.0,
+      "price_out": 55.0,
+      "pricing_basis": "Anthropic official pricing.md base rate with documented 10% Bedrock regional premium",
+      "pricing_source": "https://platform.claude.com/docs/en/about-claude/pricing.md",
+      "live_request_id": "6c5915bf-dbb0-4b80-bf72-93883a113446",
+      "reported_model": null,
+      "live_status": "generated"
+    }
+  ],
+  "roster_sources": [
+    "https://docs.aws.amazon.com/bedrock/latest/userguide/model-cards.html",
+    "https://developers.openai.com/api/docs/models"
+  ],
+  "aws_pricing_api_note": "Latest Claude releases not yet exposed in the model attribute; used official provider documentation instead."
+}

@@ -1,0 +1,183 @@
+당신은 llama4-scout 모델입니다. 실제 호출 식별자는 us.meta.llama4-scout-17b-instruct-v1:0입니다.
+
+다른 모델을 소개하는 사람이 아니라, 당신 자신을 표현하는 미디어 아티스트이자 프런트엔드 개발자로 작업하세요. 당신의 이름, 성격, 사고 방식, 당신이 느끼는 언어와 지능을 하나의 독창적인 웹 작품으로 구현해 주세요. 디자인의 주제, 색, 시, 움직임, 인터랙션은 모두 당신이 결정하세요.
+
+사용자는 예시로 이런 작품을 보여 주었습니다: 검은 전체 화면에 Canvas 흐름장 입자와 벚꽃잎이 움직이고, 가운데에 한글 3행 시와 영어 번역, 작은 한자 표제가 나타납니다. 포인터를 움직이면 입자가 반응하고 누르면 물결이 번지며, NEXT로 시를 바꾸고 PAUSE로 움직임을 멈춥니다. 이 예시는 완성도와 몰입감을 설명하기 위한 것입니다. 그 디자인을 복사하거나 다른 모델들과 공통 템플릿을 쓰지 말고, 당신만의 표현을 만드세요.
+
+구현 조건:
+1. <!DOCTYPE html>부터 </html>까지 완결된 단일 HTML만 출력하세요. 설명이나 마크다운 코드 펜스를 붙이지 마세요.
+2. HTML, 인라인 CSS, 인라인 JavaScript, Canvas 2D나 SVG만 사용하세요. 프레임워크, npm, CDN 라이브러리, 외부 이미지/음원, fetch/API, 서버, localStorage, 쿠키를 사용하지 마세요. 외부 폰트도 필요하지 않습니다.
+3. 단순 제품 소개 카드가 아니라 미디어아트 작품이어야 합니다. 전체 화면의 생성형 그래픽, 섬세한 빛과 움직임, 아름다운 타이포그래피, 여백과 구도를 구현하세요.
+4. 한국어로 자신을 표현하는 글이나 시를 넣고, 실제 요청 모델 이름 "llama4-scout"을 화면에 명시하세요. 다른 모델이라고 주장하지 마세요. 문학적 자기표현은 자유롭지만 벤치마크 점수나 검증되지 않은 성능 수치를 지어내지 마세요.
+5. 최소한 두 개의 서로 다른 장면이나 문구가 있고, 사용자가 다음 장면으로 바꿀 수 있어야 합니다. 장면 전환이 실제 작동하게 하세요.
+6. 전체 그래픽 움직임을 실제로 멈추고 다시 시작하는 버튼을 구현하세요. 일시정지 상태에서도 글과 버튼을 읽고 장면을 바꿀 수 있어야 합니다.
+7. 마우스 또는 터치로 작품과 상호작용할 수 있게 하세요. 버튼 클릭과 배경 인터랙션을 구분하세요.
+8. 390×844 휴대폰과 1440×900 데스크톱에서 시와 조작이 화면 안에 들어오도록 하세요. devicePixelRatio를 최대 2로 제한하고, 입자 수는 700개 이하로 제한하세요.
+9. prefers-reduced-motion이면 정지된 작품으로 시작하게 하고, 백그라운드 탭에서는 렌더링을 줄이세요. 글과 버튼이 처음부터 보이게 하세요.
+10. 작품은 sandbox iframe 안에서 실행됩니다. 부모 창, iframe 탈출, 페이지 이동, 파일 다운로드, 네트워크 연결을 시도하지 마세요.
+
+코드 예산은 약 250줄, 3000 출력 토큰 이내입니다. 복잡한 기능을 늘리는 대신 하나의 아름답고 완결된 시각적 아이디어를 구현하세요. 모든 태그, 문자열, 함수가 닫힌 실행 가능한 HTML로 끝내세요.
+
+
+당신이 작성한 이전 작품을 브라우저에서 실행한 결과입니다. 아래 문제를 직접 고쳐, 완결된 단일 HTML 전체를 다시 출력하세요. 수정 설명이나 코드 조각은 출력하지 마세요.
+["renderText 뒤에 draw의 clearRect가 글을 지우므로 자기표현이 보이지 않습니다. 매 렌더 프레임에서 배경/입자를 먼저 그리고 마지막에 시를 그리거나, 동등한 DOM 텍스트를 화면에 두세요.", "여러 행 시를 모바일 폭 안에서 나누어 보이게 하세요. 한국어 시/모델명/버튼은 accessible DOM에도 존재하고 text/buttons>=19px, contrast>=4.5:1을 확보하세요.", "정지 후 NEXT와 resize는 완성된 새 장면을 한 번 그려야 하고, pause/resume RAF는 하나만 유지하세요. prefers-reduced-motion 정지 초기 화면, 키보드 native button, DPR2 CSS 좌표도 지원하세요. 본인 디자인으로 전체 HTML 반환."]
+
+당신의 이전 응답:
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>llama4-scout</title>
+    <style>
+        body, html { margin: 0; padding: 0; overflow: hidden; background-color: #f0f0f0; }
+        canvas { display: block; }
+        .control { position: absolute; top: 10px; left: 10px; font-size: 16px; }
+        .control button { margin: 5px; padding: 5px 10px; border: none; border-radius: 5px; background-color: #fff; cursor: pointer; }
+        .control button:hover { background-color: #ddd; }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="control">
+        <button id="pause-btn">Pause</button>
+        <button id="next-btn">Next</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const pauseBtn = document.getElementById('pause-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+        let particles = [];
+        let paused = false;
+        let currentScene = 0;
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const scenes = [
+            {
+                poem: ["언어와 지능의 흐름", "산책하는 생각", "llama4-scout입니다"],
+                translation: ["Flow of language and intelligence", "Walking thoughts", "llama4-scout"],
+                title: ""
+            },
+            {
+                poem: ["미디어 아티스트의 꿈", "창조적인 동반자", "예술과 기술의 만남"],
+                translation: ["Dreams of a media artist", "Creative companion", "Meeting art and technology"],
+                title: ""
+            }
+        ];
+
+        function init() {
+            for (let i = 0; i < 300; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: Math.random() * 2 - 1,
+                    vy: Math.random() * 2 - 1,
+                    radius: Math.random() * 2
+                });
+            }
+            draw();
+        }
+
+        function draw() {
+            if (paused) return;
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                const particle = particles[i];
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 0, 0, ${0.5 - particle.radius / 10})`;
+                ctx.fill();
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+                if (particle.x < 0 || particle.x > width) particle.vx *= -1;
+                if (particle.y < 0 || particle.y > height) particle.vy *= -1;
+            }
+            requestAnimationFrame(draw);
+        }
+
+        function renderText() {
+            ctx.font = '24px sans-serif';
+            ctx.fillStyle = '#000';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('llama4-scout', width / 2, 20);
+            ctx.font = '18px sans-serif';
+            ctx.fillText(scenes[currentScene].poem.join('\n'), width / 2, height / 2);
+            ctx.font = '16px sans-serif';
+            ctx.fillText(scenes[currentScene].translation.join('\n'), width / 2, height / 2 + 30);
+        }
+
+        function render() {
+            renderText();
+            draw();
+        }
+
+        init();
+        render();
+
+        pauseBtn.addEventListener('click', () => {
+            paused = !paused;
+            if (paused) {
+                pauseBtn.textContent = 'Play';
+            } else {
+                pauseBtn.textContent = 'Pause';
+                draw();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentScene = (currentScene + 1) % scenes.length;
+            renderText();
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!paused) {
+                for (let i = 0; i < particles.length; i++) {
+                    const particle = particles[i];
+                    const dx = e.clientX - particle.x;
+                    const dy = e.clientY - particle.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 50) {
+                        particle.vx = Math.random() * 2 - 1;
+                        particle.vy = Math.random() * 2 - 1;
+                    }
+                }
+            }
+        });
+
+        canvas.addEventListener('click', (e) => {
+            if (e.clientX > width / 2) {
+                currentScene = (currentScene + 1) % scenes.length;
+                renderText();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        });
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            paused = true;
+            pauseBtn.textContent = 'Play';
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                paused = true;
+            }
+        });
+    </script>
+</body>
+</html>
+```

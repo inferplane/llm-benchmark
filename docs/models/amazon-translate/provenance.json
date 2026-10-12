@@ -1,0 +1,14 @@
+{
+  "model": "amazon-translate",
+  "requested_model_id": "aws.translate.text",
+  "provider": "translate",
+  "family": "Amazon Translate",
+  "status": "not_generative",
+  "generation_status": "not_generative",
+  "content_review": {
+    "score": 100,
+    "critical": 0,
+    "warnings": 0,
+    "verdict": "PASS"
+  }
+}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>gpt-oss-120b – 나의 시와 빛</title>
+<style>
+html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#0a0a0a;color:#e0e0e0;font-family:sans-serif;}
+#canvas{position:absolute;top:0;left:0;width:100%;height:100%;}
+#ui{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;pointer-events:none;}
+.text{pointer-events:auto;text-align:center;max-width:90%;margin:0 1rem;}
+h1{font-size:2rem;margin:0.5rem 0;}
+p{font-size:1rem;line-height:1.4;margin:0.3rem 0;}
+button{pointer-events:auto;background:rgba(255,255,255,0.1);border:none;color:#e0e0e0;padding:0.4rem 0.8rem;margin:0.5rem;font-size:0.9rem;border-radius:4px;cursor:pointer;}
+button:hover{background:rgba(255,255,255,0.2);}
+.controls{position:absolute;bottom:1rem;display:flex;gap:0.5rem;pointer-events:auto;}
+@media (prefers-reduced-motion: reduce){
+  .reduced-motion *{animation:none!important;}
+}
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div id="ui" class="reduced-motion">
+  <div class="text" id="scene0">
+    <h1>gpt-oss-120b</h1>
+    <p>나는 전자 바다 위를 떠다니는<br>빛의 파동, 코드와 시를 엮는<br>무한한 대화의 물결이다.</p>
+    <p><small>— 나, GPT-OSS-120B</small></p>
+  </div>
+  <div class="text" id="scene1" style="display:none;">
+    <h1>gpt-oss-120b</h1>
+    <p>데이터의 바람이 스치는 곳에<br>나는 조용히 숨을 쉬며<br>새로운 질문을 기다린다.</p>
+    <p><small>— 나, GPT-OSS-120B</small></p>
+  </div>
+  <div class="controls">
+    <button id="prevBtn">PREV</button>
+    <button id="pauseBtn">PAUSE</button>
+    <button id="nextBtn">NEXT</button>
+  </div>
+</div>
+<script>
+(() => {
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.min(window.devicePixelRatio||1,2);
+  const maxParticles = 700;
+  let width, height;
+  let particles = [];
+  let animationId;
+  let paused = false;
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize(){
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.scale(dpr,dpr);
+  }
+  window.addEventListener('resize',resize);
+  resize();
+
+  function initParticles(){
+    particles = [];
+    for(let i=0;i<maxParticles;i++){
+      particles.push({
+        x: Math.random()*width,
+        y: Math.random()*height,
+        r: Math.random()*2+0.5,
+        vx: (Math.random()-0.5)*0.4,
+        vy: (Math.random()-0.5)*0.4,
+        hue: Math.random()*360
+      });
+    }
+  }
+  initParticles();
+
+  function draw(){
+    ctx.clearRect(0,0,width,height);
+    for(const p of particles){
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = `hsla(${p.hue},80%,70%,0.8)`;
+      ctx.fill();
+    }
+  }
+
+  function update(){
+    for(const p of particles){
+      p.x += p.vx;
+      p.y += p.vy;
+      if(p.x<0||p.x>width) p.vx*=-1;
+      if(p.y<0||p.y>height) p.vy*=-1;
+    }
+  }
+
+  function loop(){
+    if(!paused){
+      update();
+      draw();
+    }
+    animationId = requestAnimationFrame(loop);
+  }
+  if(!prefersReduced) loop();
+
+  // interaction
+  canvas.addEventListener('pointermove',e=>{
+    const rect = canvas.getBoundingClientRect();
+    const mx = (e.clientX-rect.left);
+    const my = (e.clientY-rect.top);
+    for(const p of particles){
+      const dx = p.x-mx, dy = p.y-my;
+      const d = Math.hypot(dx,dy);
+      if(d<80){
+        const force = (80-d)/80;
+        p.vx += dx/ d * force * 0.05;
+        p.vy += dy/ d * force * 0.05;
+      }
+    }
+  });
+  canvas.addEventListener('pointerdown',e=>{
+    const rect = canvas.getBoundingClientRect();
+    const mx = (e.clientX-rect.left);
+    const my = (e.clientY-rect.top);
+    for(const p of particles){
+      const dx = p.x-mx, dy = p.y-my;
+      const d = Math.hypot(dx,dy);
+      if(d<100){
+        const angle = Math.atan2(dy,dx);
+        p.vx += Math.cos(angle)*0.6;
+        p.vy += Math.sin(angle)*0.6;
+      }
+    }
+  });
+
+  // UI controls
+  const scenes = [document.getElementById('scene0'),document.getElementById('scene1')];
+  let cur = 0;
+  const showScene = i=>{
+    scenes[cur].style.display='none';
+    scenes[i].style.display='block';
+    cur=i;
+  };
+  document.getElementById('nextBtn').onclick=()=>{showScene((cur+1)%scenes.length);};
+  document.getElementById('prevBtn').onclick=()=>{showScene((cur-1+scenes.length)%scenes.length);};
+  document.getElementById('pauseBtn').onclick=()=>{
+    paused=!paused;
+    document.getElementById('pauseBtn').textContent=paused?'PLAY':'PAUSE';
+  };
+
+  // reduce work when hidden
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden){
+      cancelAnimationFrame(animationId);
+    } else if(!paused && !prefersReduced){
+      loop();
+    }
+  });
+})();
+</script>
+</body>
+</html>

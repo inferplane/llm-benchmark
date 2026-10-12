@@ -1,0 +1,24 @@
+{
+  "model": "glm-4.7-flash",
+  "requested_model_id": "zai.glm-4.7-flash",
+  "provider": "bedrock",
+  "family": "Z.AI",
+  "generated_at": "2026-10-12T01:33:23.063471+00:00",
+  "request_id": "4a3d8830-4938-45d2-90d2-472bec0300c6",
+  "artwork_sha256": "b928778c0a9e03ac0a5d12f9e6426833aed289f2504474e5d686d02e6613f97b",
+  "prompt_sha256": "67efc3dfc4f95fdcd865bbda0758ec8f08d2325ef72af4d236a433f8d3d98590",
+  "tokens_in": 3816,
+  "tokens_out": 3599,
+  "finish_reason": "end_turn",
+  "max_output_tokens": 6144,
+  "temperature": 0,
+  "temperature_sent": true,
+  "status": "generated",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 95.5,
+    "critical": 0,
+    "warnings": 3,
+    "verdict": "PASS"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "model": "claude-sonnet-4.5",
+  "requested_model_id": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "provider": "bedrock",
+  "family": "Claude",
+  "generated_at": "2026-10-11T14:10:19.425489+00:00",
+  "request_id": "4eec638e-7df9-44e2-94dc-200bb3f2cef0",
+  "artwork_sha256": "73645fb4249b099d1f97eff581d1cbe6b0e5b8b7d327f8b6e5103eb38ac89729",
+  "prompt_sha256": "d1a3bf2a56cabe75839f4a5d634dbbde90e9bff5730f9bfbfeffa4910cf40d2b",
+  "tokens_in": 1463,
+  "tokens_out": 2901,
+  "finish_reason": "end_turn",
+  "max_output_tokens": 4096,
+  "temperature_sent": true,
+  "status": "generated",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 95.5,
+    "critical": 0,
+    "warnings": 3,
+    "verdict": "PASS"
+  }
+}

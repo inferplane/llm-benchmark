@@ -1,0 +1,24 @@
+{
+  "model": "llama-3.3-70b",
+  "requested_model_id": "meta-llama/Llama-3.3-70B-Instruct",
+  "provider": "vllm",
+  "family": "Meta",
+  "generated_at": "2026-10-12T00:11:42.194071+00:00",
+  "reported_model": "meta-llama/Llama-3.3-70B-Instruct",
+  "artwork_sha256": "9609e81968563e3d4f5eb908d661c9f1da7d16c5f4945cbc31c0033f08414c83",
+  "prompt_sha256": "80ca6db7371cba21cd70b9640a9a3611c4f04c427ff415a2b42636ad54512597",
+  "tokens_in": 2483,
+  "tokens_out": 1215,
+  "finish_reason": "stop",
+  "max_output_tokens": 4096,
+  "reasoning_tokens": null,
+  "temperature_sent": true,
+  "status": "generated",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 97.0,
+    "critical": 0,
+    "warnings": 2,
+    "verdict": "PASS"
+  }
+}

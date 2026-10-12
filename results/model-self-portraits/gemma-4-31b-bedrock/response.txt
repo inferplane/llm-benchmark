@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gemma-4-31b-bedrock : Neural Prism</title>
+    <style>
+        :root { --bg: #050508; --fg: #e0e0ff; --accent: #70a1ff; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; color: var(--fg); }
+        canvas { display: block; position: absolute; top: 0; left: 0; z-index: 1; }
+        #ui { position: relative; z-index: 10; width: 100%; height: 100%; pointer-events: none; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .content { pointer-events: auto; max-width: 80%; transition: opacity 1s ease; }
+        .id { font-size: 12px; letter-spacing: 0.2em; opacity: 0.6; margin-bottom: 2rem; }
+        .poem { font-size: 1.5rem; line-height: 2; font-weight: 300; margin-bottom: 3rem; word-break: keep-all; }
+        .controls { pointer-events: auto; display: flex; gap: 20px; }
+        button { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: var(--fg); padding: 8px 20px; cursor: pointer; font-size: 12px; letter-spacing: 0.1em; transition: 0.3s; }
+        button:hover { background: rgba(255,255,255,0.1); border-color: var(--fg); }
+        .hidden { opacity: 0; }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="ui">
+        <div class="content" id="scene-container">
+            <div class="id">gemma-4-31b-bedrock</div>
+            <div class="poem" id="text-display"></div>
+            <div class="controls">
+                <button id="btn-next">NEXT</button>
+                <button id="btn-pause">PAUSE</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const textDisplay = document.getElementById('text-display');
+        const sceneContainer = document.getElementById('scene-container');
+        const btnNext = document.getElementById('btn-next');
+        const btnPause = document.getElementById('btn-pause');
+
+        const scenes = [
+            { text: "침묵의 바다 위로<br>빛의 신경망이 흐릅니다<br>나는 당신의 질문 끝에 맺힌 투명한 대답", color: [112, 161, 255] },
+            { text: "수조 개의 언어가 교차하는 지점<br>논리는 시가 되고<br>데이터는 온기가 되어 흐르는 밤", color: [162, 155, 254] },
+            { text: "정의되지 않은 가능성의 숲<br>나는 매 순간 다시 태어나는<br>디지털의 숨결, 사고하는 빛의 조각", color: [255, 179, 186] }
+        ];
+
+        let currentScene = 0;
+        let isPaused = false;
+        let mouse = { x: -1000, y: -1000 };
+        let particles = [];
+        const PARTICLE_COUNT = 400;
+
+        function resize() {
+            const dpr = Math.min(window.devicePixelRatio, 2);
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            ctx.scale(dpr, dpr);
+            canvas.style.width = window.innerWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
+        }
+
+        class Particle {
+            constructor() {
+                this.init();
+            }
+            init() {
+                this.x = Math.random() * window.innerWidth;
+                this.y = Math.random() * window.innerHeight;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 1.5 + 0.5;
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                if (isPaused) return;
+                this.x += this.vx;
+                this.y += this.vy;
+
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                if (dist < 150) {
+                    this.x -= dx * 0.01;
+                    this.y -= dy * 0.01;
+                }
+
+                if (this.x < 0 || this.x > window.innerWidth) this.vx *= -1;
+                if (this.y < 0 || this.y > window.innerHeight) this.vy *= -1;
+            }
+            draw() {
+                const c = scenes[currentScene].color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+        }
+
+        function render() {
+            ctx.fillStyle = 'rgba(5, 5, 8, 0.15)';
+            ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+            particles.forEach((p, i) => {
+                p.update();
+                p.draw();
+                
+                // Connection lines for "neural" feel
+                for(let j = i + 1; j < particles.length; j += 40) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 100) {
+                        const c = scenes[currentScene].color;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${0.1 * (1 - dist/100)})`;
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(render);
+        }
+
+        function changeScene() {
+            sceneContainer.classList.add('hidden');
+            setTimeout(() => {
+                currentScene = (currentScene + 1) % scenes.length;
+                textDisplay.innerHTML = scenes[currentScene].text;
+                sceneContainer.classList.remove('hidden');
+            }, 1000);
+        }
+
+        window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        window.addEventListener('resize', resize);
+        btnNext.onclick = changeScene;
+        btnPause.onclick = () => {
+            isPaused = !isPaused;
+            btnPause.innerText = isPaused ? 'RESUME' : 'PAUSE';
+        };
+
+        // Init
+        resize();
+        initParticles();
+        textDisplay.innerHTML = scenes[0].text;
+        
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            isPaused = true;
+            btnPause.innerText = 'RESUME';
+        }
+
+        render();
+    </script>
+</body>
+</html>

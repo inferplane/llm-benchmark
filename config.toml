@@ -124,12 +124,60 @@ price_out = 15.00
 name = "claude-sonnet-5"
 api = "bedrock"
 model_id = "us.anthropic.claude-sonnet-5"
-pricing_valid_until = "2026-08-31"
-# Promotional launch pricing (aws.amazon.com/bedrock/pricing, checked 2026-07-15),
-# in effect through 2026-08-31; reverts to standard $3.00/$15.00 after that —
-# re-check before publishing any report generated after that date.
+# Rechecked 2026-10-11: Anthropic's official pricing.md now confirms that
+# $2/$10 became standard; the previously planned September increase was
+# cancelled. Historical observations retain their recorded run_config.
 price_in = 2.00
 price_out = 10.00
+
+# Latest public Claude family, checked 2026-10-11 against AWS model cards
+# and https://platform.claude.com/docs/en/about-claude/pricing.md .
+# US Geo IDs are listed explicitly on the cards. Anthropic documents
+# the 10% regional premium over global prices for this and all future
+# Claude generations. Prices below are Standard US Geo, per 1M tokens.
+# Haiku's short-context rate applies up to 100K input tokens; this
+# repository's 8192-token execution context stays below that threshold.
+# AWS Price List did not yet expose these releases under its model
+# attribute; the primary-source evidence is kept in validation/self-portraits.
+[[models]]
+name = "claude-haiku-5.5"
+api = "bedrock"
+model_id = "us.anthropic.claude-haiku-5-5"
+price_in = 0.11
+price_out = 0.55
+price_cache_read = 0.011
+price_cache_write = 0.1375
+enabled = true
+
+[[models]]
+name = "claude-sonnet-5.5"
+api = "bedrock"
+model_id = "us.anthropic.claude-sonnet-5-5"
+price_in = 2.20
+price_out = 11.00
+price_cache_read = 0.11
+price_cache_write = 2.75
+enabled = true
+
+[[models]]
+name = "claude-opus-5.5"
+api = "bedrock"
+model_id = "us.anthropic.claude-opus-5-5"
+price_in = 4.40
+price_out = 22.00
+price_cache_read = 0.22
+price_cache_write = 5.50
+enabled = true
+
+[[models]]
+name = "claude-fable-5.1"
+api = "bedrock"
+model_id = "us.anthropic.claude-fable-5-1"
+price_in = 11.00
+price_out = 55.00
+price_cache_read = 0.275
+price_cache_write = 13.75
+enabled = true
 
 [[models]]
 name = "nova-pro"
@@ -235,6 +283,34 @@ price_in = 0.11
 price_out = 0.55
 price_cache_read = 0.011
 price_cache_write = 0.1375
+enabled = true
+
+# Current OpenAI flagship tiers, verified on 2026-10-11 against
+# developers.openai.com/api/docs/models and AWS's individual model cards.
+# Standard short-context regional Mantle rates include the documented
+# 10% uplift; the AWS card lists the full rates, not guessed multipliers.
+[[models]]
+name = "gpt-6-astra"
+api = "bedrock_mantle"
+model_id = "openai.gpt-6-astra"
+mantle_region = "us-east-1"
+mantle_reasoning_effort = "low"
+price_in = 11.00
+price_out = 55.00
+price_cache_read = 1.10
+price_cache_write = 13.75
+enabled = true
+
+[[models]]
+name = "gpt-6.1-sol"
+api = "bedrock_mantle"
+model_id = "openai.gpt-6.1-sol"
+mantle_region = "us-east-1"
+mantle_reasoning_effort = "low"
+price_in = 2.20
+price_out = 11.00
+price_cache_read = 0.11
+price_cache_write = 2.75
 enabled = true
 
 # xAI's Grok 4.3, launched on Bedrock 2026-06-15 (verified live: not in

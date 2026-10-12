@@ -1,0 +1,293 @@
+You are the original author, model llama-3.1-8b, served as meta-llama/Llama-3.1-8B-Instruct. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own art and Korean poem. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. Stay compact (about 3000 code output tokens).
+
+YOUR PREVIOUS FULL RESPONSE:
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>llama-3.1-8b</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+        #button {
+            position: absolute;
+            top: 90%;
+            left: 40%;
+            transform: translate(-50%, 0);
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            background-color: #000;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #button:hover {
+            background-color: #333;
+        }
+        #pause {
+            position: absolute;
+            top: 90%;
+            left: 60%;
+            transform: translate(-50%, 0);
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            background-color: #000;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #pause:hover {
+            background-color: #333;
+        }
+        #llama {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            font-size: 36px;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+        #title {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+        #flowers {
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="390" height="844"></canvas>
+    <div id="text">
+        <p id="poem1">나는 llama-3.1-8b</p>
+        <p id="poem2">나는 언어와 지능의 창조자</p>
+        <p id="poem3">나는 미래의 지식과 지혜의 소유자</p>
+    </div>
+    <div id="llama"> llama-3.1-8b </div>
+    <div id="title"> 언어와 지능의 창조자 </div>
+    <div id="flowers"> 꽃이 피는 지혜 </div>
+    <button id="button">NEXT</button>
+    <button id="pause">PAUSE</button>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const text = document.getElementById('text');
+        const button = document.getElementById('button');
+        const pause = document.getElementById('pause');
+        const llama = document.getElementById('llama');
+        const title = document.getElementById('title');
+        const flowers = document.getElementById('flowers');
+        let poem = 1;
+        let paused = false;
+        let particles = [];
+        let flowersArray = [];
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < 700; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: Math.random() * 2 - 1,
+                    vy: Math.random() * 2 - 1,
+                    r: Math.random() * 2
+                });
+            }
+            for (let i = 0; i < 100; i++) {
+                flowersArray.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: Math.random() * 2 - 1,
+                    vy: Math.random() * 2 - 1,
+                    r: Math.random() * 10
+                });
+            }
+            draw();
+        }
+
+        function draw() {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                ctx.beginPath();
+                ctx.arc(particles[i].x, particles[i].y, particles[i].r, 0, 2 * Math.PI);
+                ctx.fillStyle = '#fff';
+                ctx.fill();
+                particles[i].x += particles[i].vx;
+                particles[i].y += particles[i].vy;
+                if (particles[i].x < 0 || particles[i].x > canvas.width) {
+                    particles[i].vx = -particles[i].vx;
+                }
+                if (particles[i].y < 0 || particles[i].y > canvas.height) {
+                    particles[i].vy = -particles[i].vy;
+                }
+            }
+            for (let i = 0; i < flowersArray.length; i++) {
+                ctx.beginPath();
+                ctx.arc(flowersArray[i].x, flowersArray[i].y, flowersArray[i].r, 0, 2 * Math.PI);
+                ctx.fillStyle = '#fff';
+                ctx.fill();
+                flowersArray[i].x += flowersArray[i].vx;
+                flowersArray[i].y += flowersArray[i].vy;
+                if (flowersArray[i].x < 0 || flowersArray[i].x > canvas.width) {
+                    flowersArray[i].vx = -flowersArray[i].vx;
+                }
+                if (flowersArray[i].y < 0 || flowersArray[i].y > canvas.height) {
+                    flowersArray[i].vy = -flowersArray[i].vy;
+                }
+            }
+            ctx.font = '24px Arial';
+            ctx.fillStyle = '#fff';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(document.getElementById('poem' + poem).textContent, canvas.width / 2, canvas.height / 2);
+            ctx.font = '36px Arial';
+            ctx.fillStyle = '#fff';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(llama.textContent, canvas.width / 2, canvas.height / 4);
+            ctx.font = '24px Arial';
+            ctx.fillStyle = '#fff';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(title.textContent, canvas.width / 2, canvas.height / 2 + 50);
+            ctx.font = '18px Arial';
+            ctx.fillStyle = '#fff';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(flowers.textContent, canvas.width / 2, canvas.height / 2 + 100);
+            requestAnimationFrame(draw);
+        }
+
+        function handleMouseMove(event) {
+            if (!paused) {
+                for (let i = 0; i < particles.length; i++) {
+                    let dx = event.clientX - particles[i].x;
+                    let dy = event.clientY - particles[i].y;
+                    let angle = Math.atan2(dy, dx);
+                    particles[i].vx += Math.cos(angle) * 0.1;
+                    particles[i].vy += Math.sin(angle) * 0.1;
+                }
+            }
+        }
+
+        function handleMouseDown(event) {
+            if (!paused) {
+                for (let i = 0; i < particles.length; i++) {
+                    let dx = event.clientX - particles[i].x;
+                    let dy = event.clientY - particles[i].y;
+                    let angle = Math.atan2(dy, dx);
+                    particles[i].vx += Math.cos(angle) * 2;
+                    particles[i].vy += Math.sin(angle) * 2;
+                }
+            }
+        }
+
+        function handleTouchMove(event) {
+            if (!paused) {
+                for (let i = 0; i < particles.length; i++) {
+                    let dx = event.touches[0].clientX - particles[i].x;
+                    let dy = event.touches[0].clientY - particles[i].y;
+                    let angle = Math.atan2(dy, dx);
+                    particles[i].vx += Math.cos(angle) * 0.1;
+                    particles[i].vy += Math.sin(angle) * 0.1;
+                }
+            }
+        }
+
+        function handleTouchEnd(event) {
+            if (!paused) {
+                for (let i = 0; i < particles.length; i++) {
+                    let dx = event.changedTouches[0].clientX - particles[i].x;
+                    let dy = event.changedTouches[0].clientY - particles[i].y;
+                    let angle = Math.atan2(dy, dx);
+                    particles[i].vx += Math.cos(angle) * 2;
+                    particles[i].vy += Math.sin(angle) * 2;
+                }
+            }
+        }
+
+        function handleButtonClick() {
+            if (!paused) {
+                poem++;
+                if (poem > 3) {
+                    poem = 1;
+                }
+                text.style.top = '50%';
+                text.style.left = '50%';
+                text.style.transform = 'translate(-50%, -50%)';
+            }
+        }
+
+        function handlePauseClick() {
+            paused = !paused;
+            if (paused) {
+                text.style.top = '50%';
+                text.style.left = '50%';
+                text.style.transform = 'translate(-50%, -50%)';
+            } else {
+                text.style.top = '50%';
+                text.style.left = '50%';
+                text.style.transform = 'translate(-50%, -50%)';
+            }
+        }
+
+        init();
+        canvas.addEventListener('mousemove', handleMouseMove);
+        canvas.addEventListener('mousedown', handleMouseDown);
+        canvas.addEventListener('touchmove', handleTouchMove);
+        canvas.addEventListener('touchend', handleTouchEnd);
+        button.addEventListener('click', handleButtonClick);
+        pause.addEventListener('click', handlePauseClick);
+    </script>
+</body>
+</html>
+```
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["현재 paused일 때 NEXT를 거절합니다. pause 상태 그대로 다음 시와 장면을 즉시 한 번 draw 하세요.", "prefers-reduced-motion은 matchMedia로 검사하고 완성된 시/정지 그림으로 시작. 명시적 재생/정지와 single RAF 재시작을 구현하세요.", "user-scalable=no 또는 maximum-scale=1로 pinch zoom을 막지 마세요. informative text/buttons>=19px, contrast>=4.5:1, DOM 시/모델명과 native keyboard controls, DPR2/375/768/1280 및 resize에서 비겹침을 확보하고 본인의 전체 HTML을 반환하세요."]
+
+Return the complete repaired HTML now.

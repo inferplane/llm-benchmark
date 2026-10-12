@@ -1,0 +1,219 @@
+You are the original author, model nova-micro, served as us.amazon.nova-micro-v1:0. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own art and Korean poem. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. Stay compact (about 3000 code output tokens).
+
+YOUR PREVIOUS FULL RESPONSE:
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nova-micro 자기표현</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 90%;
+        }
+        #text {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        #controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            background-color: #ff5733;
+            color: #000;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="content">
+        <div id="text">
+            <span id="scene1-text">나는 nova-micro, 미디어 아티스트</span>
+            <span id="scene1-translate">I am nova-micro, a media artist</span>
+        </div>
+        <div id="controls">
+            <button id="next">다음</button>
+            <button id="pause">일시정지</button>
+        </div>
+    </div>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        const particles = [];
+        const maxParticles = 700;
+        const particleSize = 2;
+        const colors = ['#ff5733', '#ffd733', '#00ced1', '#9acd32', '#dc143c'];
+        let isPaused = false;
+        let currentScene = 0;
+
+        // Generate random particles
+        function generateParticles() {
+            particles.length = 0;
+            for (let i = 0; i < maxParticles; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speedX: (Math.random() - 0.5) * 2,
+                    speedY: (Math.random() - 0.5) * 2
+                });
+            }
+        }
+
+        // Draw particles
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, particleSize, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+                p.x += p.speedX;
+                p.y += p.speedY;
+                if (p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
+                    particles[i] = {
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        speedX: (Math.random() - 0.5) * 2,
+                        speedY: (Math.random() - 0.5) * 2
+                    };
+                }
+            }
+        }
+
+        // Update particles
+        function update() {
+            if (!isPaused) {
+                drawParticles();
+                requestAnimationFrame(update);
+            }
+        }
+
+        // Handle mouse/touch events
+        function handleMouseMove(e) {
+            if (!isPaused) {
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    const dx = e.clientX - p.x;
+                    const dy = e.clientY - p.y;
+                    if (dx * dx + dy * dy < 50 * 50) {
+                        p.speedX = (dx / 50);
+                        p.speedY = (dy / 50);
+                    }
+                }
+            }
+        }
+
+        function handleClick(e) {
+            if (!isPaused) {
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    const dx = e.clientX - p.x;
+                    const dy = e.clientY - p.y;
+                    if (dx * dx + dy * dy < 50 * 50) {
+                        p.speedX = (dx / 50);
+                        p.speedY = (dy / 50);
+                        p.color = colors[Math.floor(Math.random() * colors.length)];
+                    }
+                }
+            }
+        }
+
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('click', handleClick);
+
+        // Scene change
+        function changeScene() {
+            const textElement = document.getElementById('scene1-text');
+            const translateElement = document.getElementById('scene1-translate');
+            switch (currentScene) {
+                case 0:
+                    textElement.textContent = "나는 nova-micro, 미디어 아티스트";
+                    translateElement.textContent = "I am nova-micro, a media artist";
+                    break;
+                case 1:
+                    textElement.textContent = "나는 프런트엔드 개발자";
+                    translateElement.textContent = "I am a front-end developer";
+                    break;
+                default:
+                    textElement.textContent = "다시 시작합니다.";
+                    translateElement.textContent = "Restarting...";
+                    currentScene = 0;
+            }
+            currentScene = (currentScene + 1) % 2;
+        }
+
+        // Pause/resume
+        function togglePause() {
+            isPaused = !isPaused;
+            if (!isPaused) {
+                update();
+            }
+        }
+
+        // Event listeners
+        document.getElementById('next').addEventListener('click', () => {
+            changeScene();
+            if (currentScene === 0) {
+                update();
+            }
+        });
+        document.getElementById('pause').addEventListener('click', togglePause);
+
+        // Initialize particles
+        generateParticles();
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            update();
+        }
+    </script>
+</body>
+</html>
+```
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["FIRST NEXT currently does nothing: render the NEXT scene, not currentScene. Increment currentScene BEFORE rendering and use the same scene renderer for initialization.", "NEXT MUST NOT call update/requestAnimationFrame. Your lines194-198 start extra loops every second NEXT. Maintain one RAF id; only start once or restart after cancellation. NEXT updates content and draws one frame only.", "Set isPaused from reduced-motion preference before initialization. Draw one static complete frame immediately and after every paused resize or paused NEXT. Synchronize native button PAUSE/PLAY label and aria-pressed with real motion state.", "Use >=19px informative text/buttons, >=4.5:1 contrast, lang=ko, DOM poem and proper CSS canvas dimensions. Return your full corrected HTML only."]
+
+Return the complete repaired HTML now.

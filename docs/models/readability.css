@@ -1,0 +1,26 @@
+/* Shared navigation/provenance only; model-authored documents are untouched. */
+.catalog { font-size: 19px; }
+.catalog > header { font-size: 19px; letter-spacing: .04em; }
+.intro > p:first-child { font-size: 19px; letter-spacing: .04em; }
+.intro > div, .intro .total { font-size: 19px; }
+.filters button { font-size: 19px; min-height: 44px; }
+.toolbar label, .toolbar input { font-size: 19px; }
+.toolbar input { width: min(240px, 60vw); }
+.placeholder span, .placeholder strong { font-size: 19px; }
+.caption small, .caption h2, .status { font-size: 19px; overflow-wrap: anywhere; }
+.catalog > footer { font-size: 19px; }
+.viewer-bar { display: grid; grid-template-columns: auto minmax(0,1fr) auto; font-size: 19px; gap: 16px; min-height: 64px; }
+.viewer-bar > span { justify-self: center; flex-wrap: wrap; justify-content: center; }
+.viewer-bar strong, .viewer-bar small { font-size: 19px; white-space: normal; text-align: center; }
+.viewer-bar details > section { font-size: 19px; max-height: calc(100svh - 110px); overflow-y: auto; }
+.unavailable { font-size: 19px; }
+:is(a,button,input,summary):focus-visible { outline: 3px solid #d7eb98; outline-offset: 4px; }
+@media (max-width: 600px) {
+  .catalog > header { font-size: 19px; flex-wrap: wrap; gap: 12px; }
+  .intro > div, .intro .total { font-size: 19px; }
+  .portrait-grid { grid-template-columns: 1fr; }
+  .viewer-bar { font-size: 19px; gap: 10px; padding: 10px; }
+  .viewer-bar > span { flex-direction: column; align-items: center; }
+  .viewer-bar strong, .viewer-bar small { font-size: 19px; }
+  .viewer-bar details > section { top: 100%; }
+}

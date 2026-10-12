@@ -1,0 +1,19 @@
+{
+  "model": "gpt-5.4",
+  "model_id": "openai.gpt-5.4",
+  "api": "bedrock_mantle",
+  "requested_at": "2026-10-11T14:10:07.305155+00:00",
+  "prompt_sha256": "e354826fac69e7e15e762d05135a998dfa8c0940e15db6207e0d7794be580ff9",
+  "max_output_tokens": 4096,
+  "status": "failed",
+  "failed_at": "2026-10-11T14:10:08.231099+00:00",
+  "error": {
+    "type": "HTTPStatusError",
+    "message": "HTTPStatusError: provider returned HTTP 400",
+    "retryable": false,
+    "http_status": 400,
+    "request_id": "req_tbe3vgkmtbtlyyx5tv4j2ia5fqh6n7nrnmactcy5otnsqh34wwdq",
+    "phase": "response_headers"
+  },
+  "reason": "HTTPStatusError: provider returned HTTP 400"
+}

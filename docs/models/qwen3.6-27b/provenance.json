@@ -1,0 +1,25 @@
+{
+  "model": "qwen3.6-27b",
+  "requested_model_id": "Qwen/Qwen3.6-27B",
+  "provider": "vllm",
+  "family": "Qwen",
+  "generated_at": "2026-10-12T02:06:30.160219+00:00",
+  "reported_model": "Qwen/Qwen3.6-27B",
+  "artwork_sha256": "2a2e16705a5695a69a1fd35cbc35f5d057233bd68efa2295d33d72c16d5095a7",
+  "prompt_sha256": "5a44550018b8c33e9ddff8f550b49c00d9170ca03faac0025eb6f907e472304c",
+  "tokens_in": 3674,
+  "tokens_out": 3485,
+  "finish_reason": "stop",
+  "max_output_tokens": 4096,
+  "reasoning_tokens": null,
+  "temperature": 0,
+  "temperature_sent": true,
+  "status": "generated",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 100,
+    "critical": 0,
+    "warnings": 0,
+    "verdict": "PASS"
+  }
+}

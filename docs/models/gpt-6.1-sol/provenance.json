@@ -1,0 +1,31 @@
+{
+  "model": "gpt-6.1-sol",
+  "requested_model_id": "openai.gpt-6.1-sol",
+  "provider": "bedrock_mantle",
+  "family": "OpenAI",
+  "generated_at": "2026-10-11T14:13:57.632640+00:00",
+  "request_id": "req_dsqii73ki5zcod4xcoecy3cke7xxgwlvzjqblkf22nl2u3prrira",
+  "response_id": "resp_sdrwuqjnckqpjkcpi5xx5atxapuolh3zer5oelwnxxjpxnytdkka",
+  "reported_model": "openai.gpt-6.1-sol",
+  "artwork_sha256": "f4f9a830752d1a61b9b70990d27670731dfc06c15206065438f705a678dc75bd",
+  "prompt_sha256": "b50b51c3b606c157e5a1fa4d24d6131b567717403bdc642dfb816b0c74fa7444",
+  "tokens_in": 819,
+  "tokens_out": 2873,
+  "max_output_tokens": 8192,
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low",
+    "context": "all_turns"
+  },
+  "reasoning_tokens": 179,
+  "temperature": null,
+  "temperature_sent": false,
+  "status": "generated",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 98.5,
+    "critical": 0,
+    "warnings": 1,
+    "verdict": "PASS"
+  }
+}

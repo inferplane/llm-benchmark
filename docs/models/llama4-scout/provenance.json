@@ -1,0 +1,23 @@
+{
+  "model": "llama4-scout",
+  "requested_model_id": "us.meta.llama4-scout-17b-instruct-v1:0",
+  "provider": "bedrock",
+  "family": "Meta",
+  "generated_at": "2026-10-12T00:29:19.385723+00:00",
+  "request_id": "7f758885-2570-48ce-8d76-48e0597cb17b",
+  "artwork_sha256": "f454b15c13a6a6c9785f2b6af972e18266f5cce16f01970fe46f69bf9be70cdd",
+  "prompt_sha256": "f6922e3b6eb8a347cce653681bd5bf54ff3b089c34609226efddd9fbc0bb8414",
+  "tokens_in": 1900,
+  "tokens_out": 1443,
+  "finish_reason": "end_turn",
+  "max_output_tokens": 8192,
+  "temperature_sent": true,
+  "status": "generated",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 96.0,
+    "critical": 0,
+    "warnings": 3,
+    "verdict": "PASS"
+  }
+}

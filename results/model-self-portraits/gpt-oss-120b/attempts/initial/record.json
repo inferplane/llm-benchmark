@@ -1,0 +1,17 @@
+{
+  "model": "gpt-oss-120b",
+  "model_id": "openai.gpt-oss-120b-1:0",
+  "api": "bedrock",
+  "requested_at": "2026-10-11T14:10:45.849838+00:00",
+  "prompt_sha256": "94e9583b91b7537efd50459537d162f48493daacba2f278599f1548a7c535147",
+  "max_output_tokens": 4096,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:11:00.024736+00:00",
+  "artwork_sha256": "8198924b6e6843fb34a1658d6524bf5e7a5756d9491a6cb9157fe01ad2244041",
+  "tokens_in": 884,
+  "tokens_out": 1570,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "db134509-2935-4d07-93c4-ec73bdb790cf"
+}

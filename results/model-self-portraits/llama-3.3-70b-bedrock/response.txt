@@ -1,0 +1,127 @@
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { margin: 0; background-color: #333; font-family: sans-serif; }
+canvas { display: block; width: 100%; height: 100vh; }
+button { position: absolute; top: 10px; left: 10px; z-index: 1; font-size: 19px; }
+.text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: #fff; }
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div class="text" id="text">나는 llama-3.3-70b-bedrock<br>한국어를 이해하고 생성하는 모델입니다.</div>
+<button id="play-pause" style="background-color: #444; color: #fff; border: none; padding: 10px;">PLAY</button>
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const playPauseButton = document.getElementById('play-pause');
+const textElement = document.getElementById('text');
+let paused = false;
+let scene = 0;
+let particles = [];
+let devicePixelRatio = window.devicePixelRatio || 1;
+let rafId = null;
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+ctx.scale(devicePixelRatio, devicePixelRatio);
+
+for (let i = 0; i < 500; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: Math.random() * 2 - 1,
+    vy: Math.random() * 2 - 1,
+    radius: Math.random() * 2 + 1
+  });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < particles.length; i++) {
+    const particle = particles[i];
+    ctx.beginPath();
+    ctx.arc(particle.x, particle.y, particle.radius, 0, 2 * Math.PI);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.fill();
+    particle.x += particle.vx;
+    particle.y += particle.vy;
+    if (particle.x < 0 || particle.x > canvas.width) {
+      particle.vx = -particle.vx;
+    }
+    if (particle.y < 0 || particle.y > canvas.height) {
+      particle.vy = -particle.vy;
+    }
+  }
+}
+
+function drawStaticFrame() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < particles.length; i++) {
+    const particle = particles[i];
+    ctx.beginPath();
+    ctx.arc(particle.x, particle.y, particle.radius, 0, 2 * Math.PI);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.fill();
+  }
+}
+
+function animate() {
+  if (!paused) {
+    draw();
+  } else {
+    drawStaticFrame();
+  }
+  rafId = requestAnimationFrame(animate);
+}
+
+playPauseButton.addEventListener('click', () => {
+  paused = !paused;
+  if (paused) {
+    playPauseButton.textContent = 'PLAY';
+    playPauseButton.setAttribute('aria-pressed', 'false');
+  } else {
+    playPauseButton.textContent = 'PAUSE';
+    playPauseButton.setAttribute('aria-pressed', 'true');
+  }
+  drawStaticFrame();
+});
+
+canvas.addEventListener('mousemove', (e) => {
+  const x = e.clientX;
+  const y = e.clientY;
+  for (let i = 0; i < particles.length; i++) {
+    const particle = particles[i];
+    const distance = Math.sqrt((x - particle.x) ** 2 + (y - particle.y) ** 2);
+    if (distance < 50) {
+      particle.vx = (x - particle.x) / 10;
+      particle.vy = (y - particle.y) / 10;
+    }
+  }
+});
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+  drawStaticFrame();
+});
+
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  paused = true;
+  playPauseButton.textContent = 'PLAY';
+  playPauseButton.setAttribute('aria-pressed', 'false');
+} else {
+  playPauseButton.textContent = 'PAUSE';
+  playPauseButton.setAttribute('aria-pressed', 'true');
+}
+animate();
+</script>
+</body>
+</html>

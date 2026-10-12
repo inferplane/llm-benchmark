@@ -1,0 +1,11 @@
+{
+  "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+  "gpu_instance_type": "g6.4xlarge",
+  "tensor_parallel_size": 1,
+  "context": "mall-apne2-mgmt",
+  "namespace": "llm-bench",
+  "deployment": "vllm-self-portrait",
+  "image": "vllm/vllm-openai@sha256:c2914767605584b6d8f45686b82de173ecc99e781897aa3d0a66dacd72c51ae1",
+  "max_model_len": 8192,
+  "config_source": "config.toml"
+}

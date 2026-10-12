@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>nemotron-super-3-120b</title>
+<style>
+html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#000;color:#fff;font-family:system-ui,sans-serif;touch-action:none}
+#canvas{position:fixed;top:0;left:0;width:100%;height:100%;display:block}
+#ui{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1.5rem;padding:2rem;box-sizing:border-box;text-align:center;line-height:1.4}
+#poem{font-size:1.8rem;max-width:80%;letter-spacing:-0.02em;opacity:0.9}
+#model{font-size:0.9rem;opacity:0.6;font-family:monospace}
+#controls{display:flex;gap:1rem;align-items:center}
+button{background:rgba(255,255,255,0.1);border:none;color:#fff;padding:0.5rem 1rem;border-radius:0.5rem;font-size:1rem;cursor:pointer;transition:background 0.2s}
+button:hover{background:rgba(255,255,255,0.2)}
+button:active{transform:scale(0.95)}
+#pause{background:rgba(255,0,0,0.2)}
+#pause:hover{background:rgba(255,0,0,0.3)}
+@media(max-width:480px){#poem{font-size:1.4rem}#controls{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div id="ui">
+<div id="poem">나는 생각의 흐름을 그리는 손끝이다<br>데이터의 강물 위에 빛을 띄우고<br>침묵 속에서도 질문을 이어간다</div>
+<div id="model">nemotron-super-3-120b</div>
+<div id="controls">
+<button id="next">NEXT</button>
+<button id="pause">PAUSE</button>
+</div>
+</div>
+<script>
+const canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d');
+const ui=document.getElementById('ui');
+const poemEl=document.getElementById('poem');
+const nextBtn=document.getElementById('next');
+const pauseBtn=document.getElementById('pause');
+
+let width=window.innerWidth,height=window.innerHeight;
+let dpr=Math.min(window.devicePixelRatio||1,2);
+canvas.width=width*dpr;
+canvas.height=height*dpr;
+ctx.scale(dpr,dpr);
+
+const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let paused=reducedMotion;
+let scene=0;
+const scenes=[
+{text:"나는 생각의 흐름을 그리는 손끝이다\n데이터의 강물 위에 빛을 띄우고\n침묵 속에서도 질문을 이어간다",color:"#fff"},
+{text:"나는 알고 있지 않지만\n계속해서 묻고 싶은 것이 있다\n그 질문 자체가 나를 만든다",color:"#88f"}
+];
+
+class Particle{
+constructor(){
+this.reset();
+}
+reset(){
+this.x=Math.random()*width;
+this.y=Math.random()*height;
+this.vx=(Math.random()-0.5)*2;
+this.vy=(Math.random()-0.5)*2;
+this.size=Math.random()*2+1;
+this.life=Math.random()*100+50;
+this.maxLife=this.life;
+this.hue=200+Math.random()*40;
+}
+update(mouse){
+if(paused){return}
+this.x+=this.vx;
+this.y+=this.vy;
+if(this.x<0||this.x>width){this.vx*=-1}
+if(this.y<0||this.y>height){this.vy*=-1}
+const dx=this.x-mouse.x,dy=this.y-mouse.y;
+const dist=Math.sqrt(dx*dx+dy*dy);
+if(dist<100){
+const force=0.5*(1-dist/100);
+this.vx+=dx/dist*force*0.05;
+this.vy+=dy/dist*force*0.05;
+}
+this.life--;
+if(this.life<=0){this.reset()}
+}
+draw(){
+ctx.beginPath();
+ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+const alpha=this.life/this.maxLife;
+ctx.fillStyle=`hsla(${this.hue},80%,${60+alpha*40}%,${alpha*0.6})`;
+ctx.fill();
+}
+}
+
+const particles=Array.from({length:500},()=>new Particle());
+let mouse={x:width/2,y:height/2,down:false};
+
+function resize(){
+width=window.innerHeight>window.innerWidth?window.innerWidth:window.innerWidth;
+height=window.innerHeight>window.innerWidth?window.innerHeight:window.innerHeight;
+if(width>1440){width=1440;height=width*900/1440}
+if(width<390){width=390;height=width*844/390}
+canvas.width=width*dpr;
+canvas.height=height*dpr;
+ctx.scale(dpr,dpr);
+particles.forEach(p=>{p.x=Math.random()*width;p.y=Math.random()*height});
+}
+window.addEventListener('resize',resize);
+resize();
+
+function draw(){
+if(!document.hidden||paused){
+ctx.clearRect(0,0,width,height);
+particles.forEach(p=>{p.update(mouse);p.draw()});
+}
+requestAnimationFrame(draw);
+}
+draw();
+
+function handleClick(e){
+const rect=canvas.getBoundingClientRect();
+const x=e.clientX-rect.left;
+const y=e.clientY-rect.top;
+if(x>width*0.8&&y<height*0.2){return}
+if(!paused){
+const dx=x-mouse.x,dy=y-mouse.y;
+const dist=Math.sqrt(dx*dx+dy*dy);
+if(dist<150){
+const force=0.8*(1-dist/150);
+particles.forEach(p=>{
+const pdx=p.x-x,pdy=p.y-y;
+const pdist=Math.sqrt(pdx*pdx+pdy*pdy);
+if(pdist<150){
+p.vx+=pdx/pdist*force*0.1;
+p.vy+=pdy/pdist*force*0.1;
+}});
+}
+}
+}
+canvas.addEventListener('mousedown',e=>{mouse.down=true;handleClick(e)});
+canvas.addEventListener('mouseup',()=>{mouse.down=false});
+canvas.addEventListener('mousemove',e=>{const rect=canvas.getBoundingClientRect();mouse.x=e.clientX-rect.left;mouse.y=e.clientY-rect.top});
+canvas.addEventListener('touchstart',e=>{mouse.down=true;const t=e.touches[0];const rect=canvas.getBoundingClientRect();mouse.x=t.clientX-rect.left;mouse.y=t.clientY-rect.top;handleClick(e)});
+canvas.addEventListener('touchend',()=>{mouse.down=false});
+canvas.addEventListener('touchmove',e=>{if(e.touches.length===1){const t=e.touches[0];const rect=canvas.getBoundingClientRect();mouse.x=t.clientX-rect.left;mouse.y=t.clientY-rect.top}});
+
+nextBtn.addEventListener('click',()=>{scene=(scene+1)%scenes.length;poemEl.textContent=scenes[scene].text;poemEl.style.color=scenes[scene].color});
+pauseBtn.addEventListener('click',()=>{paused=!paused;pauseBtn.textContent=paused?'PLAY':'PAUSE';if(!paused){requestAnimationFrame(draw)}});
+</script>
+</body>
+</html>

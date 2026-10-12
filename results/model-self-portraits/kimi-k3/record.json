@@ -1,0 +1,19 @@
+{
+  "model": "kimi-k3",
+  "model_id": "us.moonshotai.kimi-k3",
+  "api": "bedrock",
+  "requested_at": "2026-10-11T14:13:59.686377+00:00",
+  "prompt_sha256": "e0893468012873afd072cd09caf870bdd20284444e55e04d1d5af1876c8b96e3",
+  "max_output_tokens": 8192,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:16:50.077378+00:00",
+  "artwork_sha256": "d804409a10a7eb553e1c9e9ed7eef005ad6effd446cc206bedb26d9c59acfbec",
+  "tokens_in": 7,
+  "tokens_out": 6189,
+  "cache_read_tokens": 1170,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "48ded66e-2444-4842-bed7-505f24b1c7c2",
+  "temperature_sent": false,
+  "temperature": null
+}

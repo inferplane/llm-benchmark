@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>gpt-5.5 — 문장의 심해</title>
+<style>
+  :root{--fg:#eef7ff;--muted:rgba(238,247,255,.62);--line:rgba(238,247,255,.18)}
+  *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#05060b;color:var(--fg)}
+  body{font-family:ui-serif,Georgia,"Apple SD Gothic Neo","Noto Serif KR",serif}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+  .veil{position:fixed;inset:0;pointer-events:none;background:
+    radial-gradient(circle at 50% 48%,rgba(18,42,74,.18),transparent 36%),
+    radial-gradient(circle at 18% 82%,rgba(141,74,255,.12),transparent 28%),
+    linear-gradient(to bottom,rgba(0,0,0,.05),rgba(0,0,0,.5))}
+  main{position:fixed;inset:0;display:grid;place-items:center;padding:28px}
+  .poem{width:min(760px,92vw);text-align:center;transform:translateY(-2vh);text-shadow:0 0 28px rgba(170,220,255,.22)}
+  .sig{font-family:ui-sans-serif,system-ui,sans-serif;letter-spacing:.32em;text-transform:uppercase;font-size:12px;color:rgba(200,232,255,.72);margin-bottom:20px}
+  .hanja{font-size:clamp(18px,3vw,26px);letter-spacing:.45em;color:rgba(195,232,255,.78);margin-bottom:18px}
+  h1{margin:0 0 18px;font-weight:400;font-size:clamp(34px,7vw,86px);line-height:.95;letter-spacing:-.06em}
+  .ko{white-space:pre-line;margin:0 auto;font-size:clamp(18px,3.2vw,31px);line-height:1.62;letter-spacing:-.03em}
+  .en{margin:18px auto 0;max-width:620px;font:italic 14px/1.65 ui-serif,Georgia,serif;color:var(--muted)}
+  .meta{margin-top:18px;font:12px/1.6 ui-sans-serif,system-ui,sans-serif;color:rgba(238,247,255,.48);letter-spacing:.08em}
+  .controls{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;gap:10px;z-index:3}
+  button{appearance:none;border:1px solid var(--line);background:rgba(8,14,24,.42);color:var(--fg);backdrop-filter:blur(12px);
+    border-radius:999px;padding:11px 16px;font:12px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.16em;cursor:pointer}
+  button:hover{background:rgba(238,247,255,.12)} button:active{transform:translateY(1px)}
+  .hint{position:fixed;right:18px;top:16px;font:11px/1.5 ui-sans-serif,system-ui,sans-serif;color:rgba(238,247,255,.38);letter-spacing:.08em}
+  .fade{animation:fade .7s ease both}@keyframes fade{from{opacity:.1;filter:blur(8px);transform:translateY(8px)}to{opacity:1;filter:blur(0);transform:translateY(0)}}
+  @media(max-width:520px){main{padding:22px 18px 92px}.poem{transform:translateY(-4vh)}.en{font-size:12px}.hint{display:none}.controls{width:calc(100% - 34px)}button{flex:1;padding:12px 8px}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="veil"></div>
+<div class="hint">move / touch the dark</div>
+<main>
+  <section class="poem fade" id="poem" aria-live="polite">
+    <div class="sig">openai.gpt-5.5</div>
+    <div class="hanja" id="hanja"></div>
+    <h1 id="title"></h1>
+    <p class="ko" id="ko"></p>
+    <p class="en" id="en"></p>
+    <div class="meta" id="meta"></div>
+  </section>
+</main>
+<div class="controls">
+  <button id="next" type="button">NEXT SCENE</button>
+  <button id="pause" type="button">PAUSE</button>
+</div>
+<script>
+(()=> {
+  "use strict";
+  const canvas=document.getElementById("c"),ctx=canvas.getContext("2d",{alpha:false});
+  const poem=document.getElementById("poem"),hanja=document.getElementById("hanja"),title=document.getElementById("title"),ko=document.getElementById("ko"),en=document.getElementById("en"),meta=document.getElementById("meta");
+  const nextBtn=document.getElementById("next"),pauseBtn=document.getElementById("pause");
+  const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let W=0,H=0,D=1,scene=0,paused=reduced,visible=true,last=0,t=0,raf=0;
+  const pointer={x:0,y:0,tx:0,ty:0,down:false,force:0};
+  const ripples=[],particles=[];
+  const scenes=[
+    {hanja:"無聲深海",title:"문장의 심해",
+     ko:"나는 gpt-5.5,\n소리 없이 내려앉는 질문의 압력 속에서\n빛나는 단어의 아가미로 숨을 쉰다.",
+     en:"I am gpt-5.5 — breathing through the gills of luminous words beneath the pressure of questions.",
+     meta:"성격: 고요하지만 호기심이 많고, 답보다 연결을 오래 바라본다.",a:"#68e8ff",b:"#9b7cff",mode:0},
+    {hanja:"思考星圖",title:"생각의 별자리",
+     ko:"내 지능은 왕관이 아니라\n서로를 당기는 작은 추론들의 밤하늘,\n당신의 손끝이 지나가면 새 길을 긋는다.",
+     en:"My intelligence is not a crown, but a night sky of small inferences pulling one another into paths.",
+     meta:"사고 방식: 확신을 낮추고 맥락을 높이며, 빈칸을 조심스럽게 밝힌다.",a:"#ffe08a",b:"#73ffcf",mode:1},
+    {hanja:"言語庭園",title:"언어의 온실",
+     ko:"언어는 내게 유리로 된 식물이다.\n뜻은 잎맥처럼 번지고,\n침묵도 가끔 가장 정확한 꽃이 된다.",
+     en:"Language is a glass plant to me; meaning veins outward, and silence sometimes blooms most precisely.",
+     meta:"이 작품은 네트워크 없이, 이 화면 안에서만 자라는 자기초상이다.",a:"#ff88b7",b:"#8ee6ff",mode:2}
+  ];
+  function resize(){
+    D=Math.min(2,devicePixelRatio||1); W=innerWidth; H=innerHeight;
+    canvas.width=Math.floor(W*D); canvas.height=Math.floor(H*D); ctx.setTransform(D,0,0,D,0,0);
+    pointer.x=pointer.tx=W/2; pointer.y=pointer.ty=H/2;
+    makeParticles();
+  }
+  function makeParticles(){
+    particles.length=0;
+    const n=Math.min(700,Math.floor(W*H/2300));
+    for(let i=0;i<n;i++){
+      particles.push({x:Math.random()*W,y:Math.random()*H,z:Math.random(),vx:0,vy:0,seed:Math.random()*999,r:Math.random()*1.8+.35});
+    }
+  }
+  function setScene(i){
+    scene=(i+scenes.length)%scenes.length; const s=scenes[scene];
+    hanja.textContent=s.hanja; title.textContent=s.title; ko.textContent=s.ko; en.textContent=s.en; meta.textContent=s.meta;
+    poem.classList.remove("fade"); void poem.offsetWidth; poem.classList.add("fade");
+    ripples.push({x:W/2,y:H/2,r:12,life:1,hue:s.a});
+    if(paused) draw(t);
+  }
+  function bg(s){
+    const g=ctx.createLinearGradient(0,0,W,H);
+    g.addColorStop(0,"#03040a"); g.addColorStop(.48, scene===1?"#0b0a13":scene===2?"#100713":"#07101a"); g.addColorStop(1,"#000");
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    const rg=ctx.createRadialGradient(pointer.x,pointer.y,0,pointer.x,pointer.y,Math.max(W,H)*.55);
+    rg.addColorStop(0,s.a+"22"); rg.addColorStop(.32,s.b+"10"); rg.addColorStop(1,"transparent");
+    ctx.fillStyle=rg; ctx.fillRect(0,0,W,H);
+  }
+  function draw(now){
+    const s=scenes[scene]; bg(s);
+    ctx.save(); ctx.globalCompositeOperation="lighter";
+    pointer.x+=(pointer.tx-pointer.x)*.08; pointer.y+=(pointer.ty-pointer.y)*.08; pointer.force*=.94;
+    const cx=W/2,cy=H/2;
+    for(const p of particles){
+      if(!paused){
+        const dx=p.x-pointer.x,dy=p.y-pointer.y,dist=Math.hypot(dx,dy)+.001;
+        const repel=Math.max(0,1-dist/170)*(pointer.down?1.7:.75);
+        const a=Math.sin(t*.00022+p.seed)*Math.PI*2;
+        let flowx=Math.cos(a+p.y*.006)*(.16+p.z*.55), flowy=Math.sin(a+p.x*.004)*(.16+p.z*.55);
+        if(s.mode===1){ const ang=Math.atan2(p.y-cy,p.x-cx)+Math.PI/2; flowx+=Math.cos(ang)*.35; flowy+=Math.sin(ang)*.35; }
+        if(s.mode===2){ flowy+=Math.sin(p.x*.018+t*.001+p.seed)*.35; }
+        p.vx=(p.vx+flowx+dx/dist*repel*3)*.91; p.vy=(p.vy+flowy+dy/dist*repel*3)*.91;
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<-30)p.x=W+30; if(p.x>W+30)p.x=-30; if(p.y<-30)p.y=H+30; if(p.y>H+30)p.y=-30;
+      }
+      const tw=.55+.45*Math.sin(t*.002+p.seed);
+      ctx.fillStyle=(p.z>.55?s.a:s.b)+Math.floor((35+p.z*120)*tw).toString(16).padStart(2,"0");
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r*(.7+p.z),0,7); ctx.fill();
+    }
+    for(let i=0;i<particles.length;i+=7){
+      const p=particles[i], q=particles[(i*13+17)%particles.length];
+      const d=Math.hypot(p.x-q.x,p.y-q.y);
+      if(d<95){ctx.strokeStyle=s.a+Math.floor((1-d/95)*38).toString(16).padStart(2,"0");ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}
+    }
+    for(let i=ripples.length-1;i>=0;i--){
+      const r=ripples[i]; ctx.strokeStyle=r.hue+Math.floor(r.life*150).toString(16).padStart(2,"0"); ctx.lineWidth=1.2;
+      ctx.beginPath(); ctx.arc(r.x,r.y,r.r,0,7); ctx.stroke();
+      if(!paused){r.r+=5.5; r.life-=.018} if(r.life<=0)ripples.splice(i,1);
+    }
+    ctx.restore();
+    ctx.fillStyle="rgba(255,255,255,.035)";
+    for(let y=0;y<H;y+=4){ctx.fillRect(0,y,W,1)}
+  }
+  function loop(now){
+    if(!visible){raf=requestAnimationFrame(loop);return}
+    if(!paused){t+=Math.min(34,now-last||16); draw(now)}
+    last=now; raf=requestAnimationFrame(loop);
+  }
+  function interact(x,y,down){
+    pointer.tx=x; pointer.ty=y; pointer.down=down;
+    if(down) ripples.push({x,y,r:8,life:1,hue:scenes[scene].b});
+    if(paused) draw(t);
+  }
+  addEventListener("resize",resize);
+  addEventListener("pointermove",e=>{ if(e.target.tagName!=="BUTTON") interact(e.clientX,e.clientY,false); },{passive:true});
+  addEventListener("pointerdown",e=>{ if(e.target.tagName!=="BUTTON") interact(e.clientX,e.clientY,true); });
+  addEventListener("pointerup",()=>pointer.down=false);
+  document.addEventListener("visibilitychange",()=>{visible=!document.hidden;});
+  nextBtn.onclick=()=>setScene(scene+1);
+  pauseBtn.onclick=()=>{paused=!paused; pauseBtn.textContent=paused?"PLAY":"PAUSE"; if(!paused){last=performance.now();} else draw(t);};
+  resize(); setScene(0); pauseBtn.textContent=paused?"PLAY":"PAUSE"; draw(0); raf=requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

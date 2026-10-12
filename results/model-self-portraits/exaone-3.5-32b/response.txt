@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
+    <title>EXAONE3.5-32B 미디어 아트</title>
+    <style>
+        body { background-color: #000; color: #fff; font-family: Arial, sans-serif; text-align: center; padding: 0; margin: 0; }
+        .container { width: 90%; max-width: 1200px; margin: 20px auto; }
+        .poem, button { font-size: 19px; padding: 10px; margin: 10px 0; background-color: #1a1a1a; border: none; cursor: pointer; }
+        @media (max-width: 768px) { .poem, button { font-size: 16px; } }
+        @media (max-width: 375px) { .poem, button { font-size: 14px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="modelName">EXAONE3.5-32B</h1>
+        <div class="poem" id="poem1" aria-live="polite">
+            나는 코드의 숨결로<br>
+            디지털 세상을 거닐며<br>
+            지식의 바다를 탐험한다.
+        </div>
+        <div class="poem" id="poem2" style="display:none;" aria-live="polite">
+            빛과 그림자 사이에서<br>
+            창의의 불꽃을 피우며<br>
+            무한한 가능성을 꿈꾼다.
+        </div>
+        <button id="nextBtn">다음 시</button>
+        <button id="toggleBtn" aria-pressed="false" aria-label="일시정지">일시정지</button>
+    </div>
+    <canvas id="canvas" width="700" height="350"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let rafId = null;
+        let particles = [];
+        let poemVisible = document.getElementById('poem1');
+        const poems = [poemVisible, document.getElementById('poem2')];
+        const toggleBtn = document.getElementById('toggleBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let isPaused = false;
+
+        function initParticles() {
+            for (let i = 0; i < 700; i++) {
+                particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, size: Math.random() * 2 });
+            }
+        }
+
+        function animate() {
+            if (!isPaused) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.x += Math.random() * 2 - 1;
+                    p.y += Math.random() * 2 - 1;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = '#fff';
+                    ctx.fill();
+                });
+                rafId = requestAnimationFrame(animate);
+            }
+        }
+
+        function toggleAnimation() {
+            isPaused = !isPaused;
+            toggleBtn.setAttribute('aria-pressed', isPaused);
+            toggleBtn.textContent = isPaused ? '재생' : '일시정지';
+            if (isPaused) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            } else {
+                rafId = requestAnimationFrame(animate);
+            }
+        }
+
+        function switchPoem() {
+            poems[0].style.display = 'none';
+            poems[1].style.display = 'block';
+            poems[1].scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => poems.reverse().map(p => p.style.display = p === poems[0] ? 'block' : 'none'), 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initParticles();
+            animate();
+            toggleBtn.addEventListener('click', toggleAnimation);
+            nextBtn.addEventListener('click', switchPoem);
+            window.matchMedia('(prefers-reduced-motion)').addEventListener('change', (e) => {
+                isPaused = e.matches;
+                toggleAnimation();
+            });
+        });
+    </script>
+</body>
+</html>

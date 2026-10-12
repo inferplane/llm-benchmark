@@ -1,0 +1,105 @@
+<html>
+<head>
+<style>
+body { margin: 0; background-color: #f0f0f0; font-family: sans-serif; }
+canvas { display: block; }
+button { position: absolute; top: 10px; left: 10px; }
+</style>
+</head>
+<body>
+<canvas id="canvas" width="100%" height="100%"></canvas>
+<button id="next">NEXT</button>
+<button id="pause">PAUSE</button>
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const nextButton = document.getElementById('next');
+const pauseButton = document.getElementById('pause');
+let paused = false;
+let scene = 0;
+let particles = [];
+let devicePixelRatio = window.devicePixelRatio || 1;
+canvas.width = window.innerWidth * devicePixelRatio;
+canvas.height = window.innerHeight * devicePixelRatio;
+ctx.scale(devicePixelRatio, devicePixelRatio);
+
+for (let i = 0; i < 500; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: Math.random() * 2 - 1,
+    vy: Math.random() * 2 - 1,
+    radius: Math.random() * 2 + 1
+  });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < particles.length; i++) {
+    const particle = particles[i];
+    ctx.beginPath();
+    ctx.arc(particle.x, particle.y, particle.radius, 0, 2 * Math.PI);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.fill();
+    particle.x += particle.vx;
+    particle.y += particle.vy;
+    if (particle.x < 0 || particle.x > canvas.width) {
+      particle.vx = -particle.vx;
+    }
+    if (particle.y < 0 || particle.y > canvas.height) {
+      particle.vy = -particle.vy;
+    }
+  }
+  if (scene === 0) {
+    ctx.font = '24px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+    ctx.fillText('나는 llama-3.3-70b-bedrock', canvas.width / 2, canvas.height / 2);
+    ctx.font = '18px sans-serif';
+    ctx.fillText('한국어를 이해하고 생성하는 모델입니다.', canvas.width / 2, canvas.height / 2 + 30);
+  } else if (scene === 1) {
+    ctx.font = '24px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+    ctx.fillText('나는 언어를 이해하고 생성하는 능력을 가지고 있습니다.', canvas.width / 2, canvas.height / 2);
+    ctx.font = '18px sans-serif';
+    ctx.fillText('문법, 의미, 맥락을 고려하여 텍스트를 생성합니다.', canvas.width / 2, canvas.height / 2 + 30);
+  }
+}
+
+function animate() {
+  if (!paused) {
+    draw();
+  }
+  requestAnimationFrame(animate);
+}
+
+nextButton.addEventListener('click', () => {
+  scene = (scene + 1) % 2;
+});
+
+pauseButton.addEventListener('click', () => {
+  paused = !paused;
+});
+
+canvas.addEventListener('mousemove', (e) => {
+  const x = e.clientX * devicePixelRatio;
+  const y = e.clientY * devicePixelRatio;
+  for (let i = 0; i < particles.length; i++) {
+    const particle = particles[i];
+    const distance = Math.sqrt((x - particle.x) ** 2 + (y - particle.y) ** 2);
+    if (distance < 50) {
+      particle.vx = (x - particle.x) / 10;
+      particle.vy = (y - particle.y) / 10;
+    }
+  }
+});
+
+animate();
+</script>
+</body>
+</html>

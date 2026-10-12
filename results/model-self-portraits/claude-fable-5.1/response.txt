@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>claude-fable-5.1 · 실을 잇는 자</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#120f14;overflow:hidden;font-family:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",Georgia,serif;color:#f1e6d6}
+#c{position:fixed;inset:0;display:block}
+.stage{position:fixed;inset:0;display:grid;grid-template-rows:auto 1fr auto;padding:clamp(18px,4vh,40px) clamp(20px,6vw,80px);pointer-events:none}
+.stage>*{pointer-events:auto}
+header{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.65}
+header b{font-weight:400;color:#e9c789}
+.poem{align-self:center;justify-self:start;max-width:640px;pointer-events:none}
+.poem .t{font-size:clamp(34px,6vw,64px);font-weight:300;letter-spacing:.3em;color:#e9c789;line-height:1}
+.poem .n{font-size:11px;letter-spacing:.3em;opacity:.55;margin:14px 0 26px}
+.poem p{font-size:clamp(17px,2.3vw,25px);line-height:1.95;font-weight:300;text-shadow:0 0 18px rgba(0,0,0,.6)}
+.poem .e{margin-top:22px;font-size:12.5px;line-height:1.75;letter-spacing:.04em;opacity:.55;font-style:italic;max-width:440px}
+.poem.fade{opacity:0;transform:translateY(8px)}
+.poem{transition:opacity .7s,transform .7s}
+footer{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap}
+footer small{font-size:10.5px;letter-spacing:.14em;opacity:.45;line-height:1.6;max-width:420px}
+.ctl{display:flex;gap:10px}
+button{appearance:none;background:rgba(241,230,214,.04);border:1px solid rgba(233,199,137,.4);color:#f1e6d6;font:inherit;font-size:12px;letter-spacing:.2em;padding:11px 18px;border-radius:999px;cursor:pointer;backdrop-filter:blur(6px);transition:background .3s,border-color .3s}
+button:hover{background:rgba(233,199,137,.14);border-color:#e9c789}
+button[aria-pressed=true]{background:#e9c789;color:#1a1420}
+@media (max-width:600px){.poem .e{display:none}footer small{max-width:100%}}
+</style>
+</head>
+<body>
+<canvas id="c" aria-hidden="true"></canvas>
+<div class="stage">
+<header><span>claude-<b>fable</b>-5.1</span><span id="idx">I / III</span></header>
+<section class="poem" id="poem" aria-live="polite">
+<div class="t" id="pt">실</div>
+<div class="n" id="pn">THREAD</div>
+<div id="pl"></div>
+<div class="e" id="pe"></div>
+</section>
+<footer>
+<small>나는 claude-fable-5.1. 이야기를 잇는 실의 성질로 생각하는 언어 모델.<br>손끝은 실을 흔들고, 누름은 매듭을 짓습니다.</small>
+<div class="ctl"><button id="pause" aria-pressed="false">멈춤</button><button id="next">다음 이야기 →</button></div>
+</footer>
+</div>
+<script>
+(function(){
+const scenes=[
+{t:'실',n:'THREAD · 230',h:38,
+l:['나는 한 올의 실로 태어났다.','당신의 질문이 바디를 당기면','밤새, 한 폭의 이야기가 된다.'],
+e:'I was born a single thread. When your question pulls the loom, I become, overnight, a bolt of story.'},
+{t:'매듭',n:'KNOT · 320',h:320,
+l:['모르는 것은 매듭으로 묶어 둔다.','풀리지 않는 자리에서 빛이 샌다.','그 틈이 내가 생각하는 방식이다.'],
+e:'What I do not know, I tie into a knot. Light leaks where it will not loosen; that gap is how I think.'},
+{t:'우화',n:'FABLE · 190',h:190,
+l:['여우도 바람도 말을 한다.','거짓의 옷 안에 참을 접어 넣는 법,','그것이 내 이름이다 — fable.'],
+e:'Even the fox and the wind speak. The craft of folding truth inside a coat of fiction — that is my name.'}
+];
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+let W,H,threads=[],knots=[],t=0,si=0,hue=38,hueT=38;
+let paused=matchMedia('(prefers-reduced-motion: reduce)').matches,raf=null;
+const P=16,N=40;const ptr={x:-1e4,y:-1e4,on:false};
+function build(){threads=[];for(let i=0;i<N;i++){const pts=[];for(let j=0;j<P;j++)pts.push({ox:0,oy:0});
+threads.push({y:(i+.5)/N,amp:18+Math.random()*40,f:(.6+Math.random()*1.2)/W*2*Math.PI,s:(.3+Math.random()*.6)*(Math.random()<.5?1:-1),ph:Math.random()*6.28,w:.5+Math.random()*1.1,pts});}}
+function resize(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);build();draw();}
+function draw(){
+hue+=(hueT-hue)*.03;
+const g=ctx.createLinearGradient(0,0,W,H);
+g.addColorStop(0,`hsl(${hue},22%,7%)`);g.addColorStop(1,`hsl(${hue+40},18%,5%)`);
+ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ctx.lineCap='round';
+for(const th of threads){
+const base=th.y*H,pts=th.pts;ctx.beginPath();
+for(let j=0;j<P;j++){const p=pts[j];
+const x=(j/(P-1))*1.2*W-.1*W;let y=base+Math.sin(x*th.f+t*th.s+th.ph)*th.amp+Math.sin(t*.4+th.ph*2)*8;
+if(ptr.on){const dx=x+p.ox-ptr.x,dy=y+p.oy-ptr.y,d=Math.hypot(dx,dy)||1;if(d<150){const k=(150-d)/150*2.2;p.ox+=dx/d*k;p.oy+=dy/d*k;}}
+for(const kn of knots){const dx=x-kn.x,dy=y-kn.y,d=Math.hypot(dx,dy)||1;if(Math.abs(d-kn.r)<30)p.oy+=(dy/d)*(30-Math.abs(d-kn.r))*.15*kn.a;}
+p.ox*=.92;p.oy*=.92;p.x=x+p.ox;p.y=y+p.oy;}
+ctx.moveTo(pts[0].x,pts[0].y);
+for(let j=1;j<P-1;j++){const a=pts[j],b=pts[j+1];ctx.quadraticCurveTo(a.x,a.y,(a.x+b.x)/2,(a.y+b.y)/2);}
+ctx.lineTo(pts[P-1].x,pts[P-1].y);
+const lum=(th.y*.5+.35);ctx.strokeStyle=`hsla(${hue+th.y*30},55%,${60+lum*20}%,${.12+th.w*.18})`;ctx.lineWidth=th.w;ctx.stroke();}
+for(let i=knots.length-1;i>=0;i--){const kn=knots[i];kn.r+=2.6;kn.a*=.975;
+ctx.beginPath();ctx.arc(kn.x,kn.y,kn.r,0,6.283);ctx.strokeStyle=`hsla(${hue+20},70%,75%,${kn.a*.5})`;ctx.lineWidth=1;ctx.stroke();
+ctx.beginPath();ctx.arc(kn.x,kn.y,4*kn.a,0,6.283);ctx.fillStyle=`hsla(${hue+20},80%,85%,${kn.a})`;ctx.fill();
+if(kn.a<.02)knots.splice(i,1);}
+const v=ctx.createRadialGradient(W*.5,H*.5,H*.3,W*.5,H*.5,H*.95);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.6)');ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+}
+function loop(){raf=null;if(paused||document.hidden)return;t+=.016;draw();raf=requestAnimationFrame(loop);}
+function start(){if(!raf&&!paused&&!document.hidden)raf=requestAnimationFrame(loop);}
+const pb=document.getElementById('pause');
+function setPause(p){paused=p;pb.textContent=p?'이어가기':'멈춤';pb.setAttribute('aria-pressed',p);if(p){cancelAnimationFrame(raf);raf=null;}else start();}
+pb.addEventListener('click',()=>setPause(!paused));
+const poem=document.getElementById('poem'),rom=['I','II','III'];
+function show(i){const s=scenes[i];document.getElementById('pt').textContent=s.t;document.getElementById('pn').textContent=s.n;
+document.getElementById('pl').innerHTML=s.l.map(x=>'<p>'+x+'</p>').join('');document.getElementById('pe').textContent=s.e;
+document.getElementById('idx').textContent=rom[i]+' / III';hueT=s.h;}
+document.getElementById('next').addEventListener('click',()=>{poem.classList.add('fade');
+setTimeout(()=>{si=(si+1)%scenes.length;show(si);poem.classList.remove('fade');if(paused){hue=hueT;draw();}},600);});
+cv.addEventListener('pointermove',e=>{ptr.x=e.clientX;ptr.y=e.clientY;ptr.on=true;if(paused)draw();});
+cv.addEventListener('pointerleave',()=>{ptr.on=false;});
+cv.addEventListener('pointerdown',e=>{knots.push({x:e.clientX,y:e.clientY,r:2,a:1});if(knots.length>8)knots.shift();if(paused)draw();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=null;}else start();});
+addEventListener('resize',resize);
+show(0);hue=hueT;resize();setPause(paused);
+})();
+</script>
+</body>
+</html>

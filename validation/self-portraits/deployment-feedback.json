@@ -1,0 +1,89 @@
+{
+  "llama-3.3-70b": [
+    "Independent review of YOUR latest code found exactly five remaining issues. Keep your own art/poem and fix ALL five in the complete HTML you return. Do not implement a different artwork.",
+    "1. The poem/model text is drawn twice and overlaps: DOM text at lines17-19 plus ctx.fillText at lines59-63. REMOVE ALL canvas text drawing, retain the accessible DOM text only. Canvas is for particles only.",
+    "2. Two requestAnimationFrame chains remain. update schedules itself, but focus at lines138-140 calls update again. Start your single loop exactly once; DO NOT call update on focus. Use one RAF id and preserve user pause state across blur/focus. Resume must not create duplicate loops.",
+    "3. <html> must be <html lang=\"ko\">. CSS lang:ko does not declare document language.",
+    "4. White text on hover #888 fails AA (~3.54:1). Keep hover #666 or another background with >=4.5:1 contrast. All informative DOM text/buttons should stay >=19px.",
+    "5. Pause button label must show PLAY/RESUME while paused and PAUSE while running, including initial reduced-motion state and after blur. Update aria-pressed consistently. Paused NEXT still changes the DOM poem immediately and renders one static scene without resuming.",
+    "Check at375,390,768,1280px: no duplicate text, no overlap, all native keyboard-accessible controls work, DPR2 uses CSS coordinates, initial reduced motion shows a complete scene. Return one full HTML only."
+  ],
+  "llama-3.3-70b-bedrock": [
+    "Use <html lang=\"ko\">; setting language on an inner div is NOT document language.",
+    "REMOVE all canvas fillText poem/model drawing at62-79; retain the readable accessible DOM text only. Canvas is for particles. Mobile screenshots currently show severe DOM/canvas overprinting.",
+    "Draw a complete STATIC frame on initial reduced motion and after every paused resize/NEXT. Initialize paused from matchMedia and show PLAY while stopped, PAUSE while running, with aria-pressed synchronized.",
+    "Keep one RAF loop, >=19px informative text/native controls, >=4.5:1 contrast and responsive non-overlapping layout. Return your complete corrected own HTML only."
+  ],
+  "llama4-scout": [
+    "Your scene text is duplicated: canvas fillText at lines90-100 PLUS DOM text at127-138. REMOVE ALL canvas text drawing. Keep accessible DOM poem/model text only, and canvas for particles. No overprinting at phone width.",
+    "All informative DOM text and native controls >=19px; preserve text-layer pointer-events:none and actual keyboard controls pointer-events:auto so text never blocks buttons.",
+    "Draw one complete STATIC frame on reduced-motion initialization and on every paused resize/NEXT. Initialize real paused state from matchMedia and keep Pause/Play label/aria-pressed accurate, including visibility changes. Never resume a user manual pause merely on focus.",
+    "Use one RAF loop and keep your own art/poem. Return a complete corrected HTML only."
+  ],
+  "llama4-maverick": [
+    "Use <html lang=\"ko\"> at document level; your current <html> still has no language.",
+    "Subtitle/informative text and buttons must be >=19px, with >=4.5:1 contrast. Keep accessible DOM poem and native buttons.",
+    "Paused resize must draw one complete STATIC particle frame rather than leaving canvas blank. Paused NEXT also redraws immediately without restarting motion.",
+    "Your visibility handler at125-131 resumes despite a USER manual pause. Preserve user pause state separately from background suspension. On return to visible, only resume if the user had not paused. Maintain exactly one RAF loop. Return your complete corrected HTML."
+  ],
+  "nemotron-nano-3-30b": [
+    "Implement a NEW minimal self-portrait for YOURSELF nemotron-nano-3-30b, with your own Korean poem in at least2 scenes and bounded particle Canvas. Do not copy the unreliable old implementation. Complete standalone HTML only.",
+    "Use <html lang=\"ko\">, UTF-8 and viewport. Informative DOM poem/model name and native named NEXT/PAUSE buttons >=19px, >=4.5 contrast, phone375px/desktop1280px no overlap.",
+    "Poem/model text only in DOM, NOT canvas. Place controls in a normal flex row, do NOT put BOTH top and bottom constraints on a button. Native buttons work by keyboard.",
+    "One guarded RAF controller, not a one-shot callback. Running frame advances particles then draws then schedules exactly one next callback. Static render NEVER changes positions or schedules another callback.",
+    "Initialize paused from reduced-motion preference. Render static particles+visible DOM scene immediately. Pause stops actual movement; resume starts exactly one RAF; label/aria state accurate. NEXT preserves motion state, updates DOM and renders static once if paused. Resize redraws static while paused.",
+    "Close EVERY event-listener call with its closing parenthesis. Your previous keydown line ended with }}; causing SyntaxError. Avoid unnecessary keyboard listeners and use native buttons. Return ONE full valid HTML only."
+  ],
+  "nova-micro": [
+    "Repair YOUR exact startup error: resizeCanvas() at79 runs before let isPaused is initialized at85. Initialize ALL state and particles BEFORE calling any resize/draw/start function. Browser must have zero ReferenceError.",
+    "drawStaticFrame must actually draw particles without advancing positions. Use it on reduced-motion startup and paused resize/NEXT, even if paused is true. It must not call update/RAF.",
+    "Every requestAnimationFrame result MUST be stored in rafId. A frame callback schedules the next once and stores it; stop cancels that ID and clears it; guarded start never adds a second chain. NEXT only changes index/DOM/draw, never starts another loop.",
+    "Initialize paused from matchMedia before updateDOM(), label PLAY while stopped and PAUSE while running with correct aria-pressed. Native DOM scene text >=19px/4.5 contrast, keyboard buttons, lang=ko. Return your COMPLETE corrected HTML only, all functions and tags closed."
+  ],
+  "nova-lite": [
+    "In YOUR current code, NEXT only appends another model name while keeping the same poem. Create one scene index; increment BEFORE rendering; initialize through the same renderer. Each click must change poem/translation once.",
+    "Initialize isPaused from matchMedia(reduced motion), draw a complete initial STATIC particle frame whether paused or not, and update PAUSE vs PLAY label/aria-pressed on every state change. Maintain exactly one RAF loop.",
+    "Informative text and native buttons must be >=19px, >=4.5:1 contrast. Paused NEXT and paused resize redraw one complete frame while motion remains stopped. Preserve your original art, return full repaired HTML."
+  ],
+  "llama-3.1-8b": [
+    "Fix your compact CURRENT HTML, preserving its structure; all SIX items below are mandatory. Return full HTML only.",
+    "Restore the visible identity llama-3.1-8b and TWO meaningful Korean self-expression passages that YOU write. Scene1/Scene2 alone are placeholders. Keep the poem in DOM only.",
+    "start() currently requests one draw only, and draw() never schedules a following frame. Implement one continuous RAF controller: each running frame advances bounded particles, renders, schedules next frame and stores rafId. stop() cancels/clears it. No duplicate chains. Resume actually moves pixels.",
+    "Set button CSS directly, NOT nonexistent #buttons: font-size>=19px, high contrast. aria-pressed pause state belongs to PAUSE/PLAY control, NEVER NEXT.",
+    "Responsive full-screen canvas CSS width/height match viewport with backing pixels DPR<=2. DOM poem centered and controls in a separate visible flex row/overlay; 375x812,768x900,1280x900 must not overflow or place controls below viewport.",
+    "Do NOT append 700 particles again on init/resize/NEXT. Initialize once or clear particles=[] before reset; always<=700. NEXT changes DOM scene immediately while preserving paused/running state.",
+    "Keep lang=ko/UTF8/viewport with zoom allowed. Initialize paused from reduced-motion preference before rendering; draw one static particle frame without scheduling RAF when paused. Paused resize/NEXT redraws static complete frame. Return compact complete HTML, not nested placeholder spans."
+  ],
+  "exaone-3.5-32b": [
+    "당신은 실제 EXAONE3.5-32B 작성 모델입니다. 이전 코드가 불안정하므로 본인이 새로 간결한 미디어아트 HTML을 구현하세요. 자신의 정체성을 표현하는 한국어 시2개를 직접 쓰고 EXAONE3.5-32B 모델명을 DOM에 표시하세요. 완전한 HTML 하나만 반환하세요.",
+    "모든 시, 번역, 모델명, native 버튼은 모든 화면에서19px 이상, 밝은 글자와 어두운 배경의4.5:1 이상 대비를 보장하세요. 모바일에서16px/12px로 덮어쓰지 마세요.375/768/1280px 화면에 시와 버튼이 겹치거나 잘리지 않도록 영역을 나누세요. zoom허용 viewport, lang=ko.",
+    "공통 초기화 순서: 상태와 DOM 참조 선언, viewport/DPR<=2에 맞는 Canvas 크기,700개 이하 입자 초기화, DOM 모델명과 첫 번째 시 표시. 그 다음 matchMedia(reduced-motion)로 정지 여부를 정하세요. 정상 모드에서는 실제 움직임을 시작하고, 모션 감소 모드에서도 시와 완전한 정지 입자 그림을 반드시 표시하세요.",
+    "하나의 RAF ID만 사용하세요. 실행 중에만 좌표를 갱신하고 다음 프레임 하나를 예약하세요. 정지 시 예약 취소와 ID 초기화, 재생 시 하나의 루프만 재시작하세요. static render는 좌표를 갱신하거나 RAF를 예약하지 않아야 합니다. 정지 상태 resize/NEXT는 그림을 한 번 redraw하고 정지를 유지하세요.",
+    "PAUSE 버튼만 정지 상태 aria-pressed와 label을 갖고, 멈췄을 때 PLAY/재생, 움직일 때 PAUSE/일시정지를 정확히 표시하세요. NEXT는 toggle이 아니므로 aria-pressed를 넣지 말고 두 시를 번갈아 즉시 보여주세요.",
+    "포인터 이벤트에서 사용하는 rect는 이벤트 함수 내부에서 분기 전에 선언하여 항상 유효해야 합니다. 초기화된 기존 입자를 재사용해 반응시키고700개 이하를 유지하세요. ReferenceError, 빈 시작 화면, 중복 RAF가 없어야 합니다. 전체 자체 작성 HTML만 반환하세요."
+  ],
+  "gpt-6-luna": [
+    "Fix YOUR own artwork, preserving your Korean writing and visual design. Informative DOM text/native controls must be >=19px and contrast>=4.5:1.",
+    "Initial reduced-motion canvas is EMPTY because paused skips all drawing at53. Separate static render from updates. Resize/init particles FIRST, then draw a complete static frame whether paused or running. Paused resize/NEXT also draw once without advancing positions.",
+    "Your initial button at42 says 멈춤Ⅱ while paused=true at50. Initialize real pause state from matchMedia before setting the label/aria-pressed. Show PLAY/RESUME while stopped and PAUSE while running.",
+    "visibility handler at68 calls draw() while an existing self-scheduling RAF at61 remains alive: pending RAF1 becomes2. Keep ONE guarded RAF id; cancel and clear on pause/background, resume only if user had not paused. Never directly restart an already-running draw chain. Return full HTML only."
+  ],
+  "glm-4.7-flash": [
+    "Preserve YOUR own media art and Korean poem. Remove user-scalable=no/maximum-scale restrictions from viewport at5 so browser zoom is allowed.",
+    "All informative DOM text and native controls >=19px and contrast>=4.5:1, with375px/768px/1280px non-overlapping layout.",
+    "Reduced-motion static drawing at466-467 happens BEFORE init/resize at486, so resizing clears it. Initialize state/particles and resize FIRST, THEN render a complete static particle frame. Paused resize/NEXT must also render one full frame without advancing motion.",
+    "Button217 incorrectly remains PAUSE while463 sets isPlaying=false. Initialize reduced-motion playing state BEFORE setting label/aria-pressed; show RESUME while stopped, PAUSE while running. Keep one guarded RAF loop and preserve user pause state. Return your complete own HTML."
+  ],
+  "ministral-14b": [
+    "Preserve YOUR own art/poem. Remove viewport zoom restrictions at5.",
+    "All informative DOM text and native controls >=19px and contrast>=4.5:1, no overlaps at375/768/1280px.",
+    "init at217-220 skips ALL canvas rendering in reduced motion. Initialize particles and resize FIRST; always draw a complete static frame regardless of paused. Only movement/RAF should be skipped while paused. Paused resize/NEXT draw once without advancing positions.",
+    "Initial label remains 일시정지 while194 sets paused=true. Initialize real state from matchMedia before label/aria-pressed; show 재생/RESUME while stopped and 일시정지/PAUSE while running. Keep one guarded RAF chain and working resume. Return full corrected own HTML."
+  ],
+  "qwen3.6-27b": [
+    "Preserve YOUR own original art and Korean writing. Remove viewport user-scalable=no/maximum-scale limits at5; allow browser zoom.",
+    "Informative DOM text and native controls at67/85/105 must be >=19px, contrast>=4.5:1, with non-overlapping375/768/1280px layouts.",
+    "Your reduced-motion initialization at220-235 sets paused before first loop, leaving canvas EMPTY. Initialize bounded particles and resize FIRST, then render one complete STATIC frame even when paused. Static render must NOT advance positions or schedule RAF. Paused resize/NEXT redraw static while preserving pause state.",
+    "Resume393-394 starts a new loop while357 keeps the existing chain alive: pending RAF1 becomes2. Use ONE guarded rafId: running frame updates/draws and stores its single next request; pause cancels/clears id; resume starts only if no live scheduled request. Sync pause/play label and aria state including initial reduced motion and visibility transitions. Return complete corrected own HTML only."
+  ]
+}

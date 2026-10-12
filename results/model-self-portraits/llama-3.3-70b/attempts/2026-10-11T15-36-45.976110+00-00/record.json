@@ -1,0 +1,16 @@
+{
+  "model": "llama-3.3-70b",
+  "model_id": "meta-llama/Llama-3.3-70B-Instruct",
+  "api": "openai",
+  "requested_at": "2026-10-11T15:36:45.976110+00:00",
+  "prompt_sha256": "0006be7d2ee70b4384926f6ce8bdf96ffb4cc7410bc7a5be45e29324715a9094",
+  "max_output_tokens": 4096,
+  "status": "generated",
+  "generated_at": "2026-10-11T15:37:55.421534+00:00",
+  "artwork_sha256": "cc4b2a5f71c429a8eeae4a02c716797fa3c2fc208240369ffd678b4e4d1a1100",
+  "tokens_in": 1887,
+  "tokens_out": 882,
+  "finish_reason": "stop",
+  "reported_model": "meta-llama/Llama-3.3-70B-Instruct",
+  "reasoning_tokens": null
+}

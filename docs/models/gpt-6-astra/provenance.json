@@ -1,0 +1,31 @@
+{
+  "model": "gpt-6-astra",
+  "requested_model_id": "openai.gpt-6-astra",
+  "provider": "bedrock_mantle",
+  "family": "OpenAI",
+  "generated_at": "2026-10-11T14:13:49.966395+00:00",
+  "request_id": "req_gjwmgu3yyavtoq7prriz3b6k6mm7zm7n5r2x2ld3i2fd2i3vctsq",
+  "response_id": "resp_xqv4z7fraqy6bpi26wpckjepshsvnrm7xm233cgmzi7ab6cnivra",
+  "reported_model": "openai.gpt-6-astra",
+  "artwork_sha256": "e794f1344392f813d6c1cab92c83222e82245d43babab059cf039567c02a5fea",
+  "prompt_sha256": "f9981c51cf1deed37687147a63a8b43d665b28abcf35afdd6d6433f9e52343ab",
+  "tokens_in": 816,
+  "tokens_out": 2873,
+  "max_output_tokens": 8192,
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low",
+    "context": "all_turns"
+  },
+  "reasoning_tokens": 127,
+  "temperature": null,
+  "temperature_sent": false,
+  "status": "generated",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 98.5,
+    "critical": 0,
+    "warnings": 1,
+    "verdict": "PASS"
+  }
+}

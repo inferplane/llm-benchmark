@@ -1,0 +1,17 @@
+{
+  "model": "ministral-14b",
+  "model_id": "mistral.ministral-3-14b-instruct",
+  "api": "bedrock",
+  "requested_at": "2026-10-11T14:14:28.552650+00:00",
+  "prompt_sha256": "5c18e50a6164382572aed119e8c951b545eec3c411be6c871fa101e0b821f387",
+  "max_output_tokens": 8192,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:14:50.232585+00:00",
+  "artwork_sha256": "3e7703060c6262506664e2041d2e0ba68ec7959dd0680bc77ba79b24b1c6d469",
+  "tokens_in": 807,
+  "tokens_out": 4165,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "ad76b839-fdc9-4aef-86e5-311edc307d34"
+}

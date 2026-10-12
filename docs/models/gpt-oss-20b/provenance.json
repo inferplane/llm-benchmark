@@ -1,0 +1,23 @@
+{
+  "model": "gpt-oss-20b",
+  "requested_model_id": "openai.gpt-oss-20b-1:0",
+  "provider": "bedrock",
+  "family": "OpenAI",
+  "generated_at": "2026-10-11T14:10:45.838962+00:00",
+  "request_id": "9d9099b9-3605-4827-aaa4-7b333acce021",
+  "artwork_sha256": "5a7606bea3156e9f0c5ecf6876c1f3c56d10a8d64ab2696079fc8c72c9dd686e",
+  "prompt_sha256": "5bbd6862b10b8f9c8c4bfe0cf546c1c83d839b0a34c51b4a1566273396fbee4f",
+  "tokens_in": 884,
+  "tokens_out": 1283,
+  "finish_reason": "end_turn",
+  "max_output_tokens": 4096,
+  "temperature_sent": true,
+  "status": "generated",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 98.5,
+    "critical": 0,
+    "warnings": 1,
+    "verdict": "PASS"
+  }
+}

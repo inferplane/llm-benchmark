@@ -1,0 +1,16 @@
+{
+  "model": "kimi-k3",
+  "model_id": "us.moonshotai.kimi-k3",
+  "api": "bedrock",
+  "requested_at": "2026-10-11T14:09:55.257806+00:00",
+  "prompt_sha256": "e0893468012873afd072cd09caf870bdd20284444e55e04d1d5af1876c8b96e3",
+  "max_output_tokens": 4096,
+  "status": "failed",
+  "failed_at": "2026-10-11T14:10:28.666972+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

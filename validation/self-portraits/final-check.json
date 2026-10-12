@@ -1,0 +1,58 @@
+{
+  "generated_model_artworks": 36,
+  "configured_items": 38,
+  "unavailable_items": [
+    "amazon-translate",
+    "gemma-4-31b"
+  ],
+  "actual_response_hash_and_model_id_checks": "passed",
+  "browser_checked_models": 36,
+  "browser_errors": 0,
+  "models": [
+    "claude-haiku-4.5",
+    "claude-sonnet-4.5",
+    "claude-sonnet-5",
+    "claude-haiku-5.5",
+    "claude-sonnet-5.5",
+    "claude-opus-5.5",
+    "claude-fable-5.1",
+    "nova-pro",
+    "kimi-k3",
+    "nova-lite",
+    "gpt-5.4",
+    "gpt-5.5",
+    "gpt-5.6-terra",
+    "gpt-5.6-luna",
+    "gpt-6-luna",
+    "gpt-6-astra",
+    "gpt-6.1-sol",
+    "grok-4.3",
+    "grok-4.6",
+    "nova-micro",
+    "nemotron-nano-3-30b",
+    "glm-4.7-flash",
+    "gpt-oss-20b",
+    "gpt-oss-120b",
+    "qwen3-32b",
+    "nemotron-super-3-120b",
+    "llama4-scout",
+    "ministral-14b",
+    "qwen3-235b-a22b",
+    "llama4-maverick",
+    "llama-3.3-70b-bedrock",
+    "gemma-4-31b-bedrock",
+    "llama-3.1-8b",
+    "llama-3.3-70b",
+    "qwen3.6-27b",
+    "exaone-3.5-32b"
+  ],
+  "temporary_deployment": "vllm-self-portrait deleted after collection",
+  "publication": "local files only",
+  "temporary_gpu_instance_states": [
+    {
+      "state": "shutting-down"
+    }
+  ],
+  "gpu_nodepool_allocated_resources": "zero",
+  "scope": "Initial collection snapshot; subsequent publication review is recorded separately."
+}

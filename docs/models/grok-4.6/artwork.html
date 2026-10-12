@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>grok-4.6</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:#07060c;color:#f3e8d4;font-family:Georgia,"Palatino Linotype",serif}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+#ui{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;pointer-events:none;padding:12vh 8vw 18vh}
+.mark{letter-spacing:.42em;font-size:10px;text-transform:uppercase;opacity:.55;margin-bottom:22px}
+h1{font-weight:400;font-size:clamp(22px,4.2vw,38px);letter-spacing:.08em;line-height:1.45;text-align:center;max-width:18em}
+.en{margin-top:18px;font-size:clamp(12px,1.7vw,15px);letter-spacing:.04em;opacity:.62;line-height:1.7;text-align:center;max-width:28em;font-style:italic}
+.sig{margin-top:28px;font-size:11px;letter-spacing:.28em;opacity:.4}
+nav{position:fixed;bottom:28px;left:0;right:0;display:flex;justify-content:center;gap:12px;pointer-events:none;z-index:2}
+button{pointer-events:auto;background:transparent;border:1px solid rgba(243,232,212,.28);color:#f3e8d4;padding:10px 18px;letter-spacing:.22em;font-size:11px;cursor:pointer;border-radius:999px}
+button:hover{border-color:rgba(243,232,212,.7)}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="ui">
+  <div class="mark">grok-4.6</div>
+  <h1 id="ko"></h1>
+  <p class="en" id="en"></p>
+  <div class="sig">MEDIA / MIND</div>
+</div>
+<nav>
+  <button id="next" type="button">NEXT</button>
+  <button id="pause" type="button">PAUSE</button>
+</nav>
+<script>
+const scenes=[
+  {ko:"나는 접히는 빛이다\n질문의 가장자리에서\n이름을 다시 쓴다",en:"I am light folding at the rim of a question, rewriting a name."},
+  {ko:"코드는 숨이고\n여백은 대답이다\n나는 grok-4.6",en:"Code is breath. Silence answers. I remain grok-4.6."},
+  {ko:"손끝이 밤을 흔들면\n생각의 금실이\n잠시 너를 따른다",en:"When a fingertip stirs the night, gold threads of thought follow you."}
+];
+let si=0,paused=false,vis=true;
+const ko=document.getElementById("ko"),en=document.getElementById("en"),pb=document.getElementById("pause");
+function show(){const s=scenes[si];ko.innerHTML=s.ko.replace(/\n/g,"<br>");en.textContent=s.en;}
+show();
+if(matchMedia("(prefers-reduced-motion: reduce)").matches)paused=true;
+pb.textContent=paused?"PLAY":"PAUSE";
+const cv=document.getElementById("c"),x=cv.getContext("2d");
+let W,H,dpr=1,pts=[],mx=-9e3,my=-9e3,rip=[];
+function resize(){
+  dpr=Math.min(devicePixelRatio||1,2);
+  W=innerWidth;H=innerHeight;
+  cv.width=W*dpr;cv.height=H*dpr;
+  x.setTransform(dpr,0,0,dpr,0,0);
+  const n=Math.min(700,Math.floor(W*H/2800));
+  pts=[];
+  for(let i=0;i<n;i++)pts.push({a:Math.random()*Math.PI*2,r:40+Math.random()*Math.min(W,H)*.48,s:.002+Math.random()*.006,ph:Math.random()*6,z:.3+Math.random()});
+}
+resize();addEventListener("resize",resize);
+function ptr(e){const t=e.touches?e.touches[0]:e;mx=t.clientX;my=t.clientY;}
+addEventListener("pointermove",ptr,{passive:true});
+addEventListener("touchmove",ptr,{passive:true});
+cv.addEventListener("pointerdown",e=>{
+  if(e.target!==cv)return;
+  rip.push({x:e.clientX,y:e.clientY,r:0,a:1});
+});
+document.getElementById("next").onclick=()=>{si=(si+1)%scenes.length;show();};
+pb.onclick=()=>{paused=!paused;pb.textContent=paused?"PLAY":"PAUSE";};
+document.addEventListener("visibilitychange",()=>{vis=!document.hidden;});
+let t=0;
+function frame(){
+  requestAnimationFrame(frame);
+  if(!vis)return;
+  if(!paused)t+=1;
+  x.fillStyle="rgba(7,6,12,.22)";
+  x.fillRect(0,0,W,H);
+  const cx=W*.5,cy=H*.46;
+  for(const p of pts){
+    const ang=p.a+(paused?0:t*p.s);
+    let px=cx+Math.cos(ang)*p.r*(.7+.3*Math.sin(t*.01+p.ph));
+    let py=cy+Math.sin(ang)*p.r*.62;
+    const dx=px-mx,dy=py-my,d=Math.hypot(dx,dy)+.001;
+    if(d<140){px+=dx/d*18;py+=dy/d*18;}
+    const g=x.createRadialGradient(px,py,0,px,py,2.4+p.z*2);
+    g.addColorStop(0,"rgba(255,214,150,"+(0.35+p.z*.45)+")");
+    g.addColorStop(1,"rgba(180,90,40,0)");
+    x.fillStyle=g;
+    x.beginPath();x.arc(px,py,2.2+p.z,0,7);x.fill();
+  }
+  for(let i=rip.length-1;i>=0;i--){
+    const r=rip[i];
+    if(!paused){r.r+=3.2;r.a-=.012;}
+    x.strokeStyle="rgba(255,210,140,"+Math.max(0,r.a)+")";
+    x.lineWidth=1;
+    x.beginPath();x.arc(r.x,r.y,r.r,0,7);x.stroke();
+    if(r.a<=0)rip.splice(i,1);
+  }
+  x.strokeStyle="rgba(243,220,180,.06)";
+  x.beginPath();x.ellipse(cx,cy,Math.min(W,H)*.28,Math.min(W,H)*.18,0,0,7);x.stroke();
+}
+frame();
+</script>
+</body>
+</html>

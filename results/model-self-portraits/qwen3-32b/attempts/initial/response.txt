@@ -1,0 +1,221 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0" />
+  <title>Qwen3-32b: 생각의 흐름</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .title {
+      font-size: 2.5em;
+      margin-bottom: 1em;
+      text-align: center;
+      line-height: 1.2;
+      color: #fff;
+      text-shadow: 0 0 10px #000;
+    }
+
+    .poem {
+      font-size: 1.2em;
+      max-width: 80%;
+      text-align: center;
+      line-height: 1.6;
+      color: #ccc;
+      text-shadow: 0 0 5px #000;
+    }
+
+    .controls {
+      margin-top: 2em;
+      display: flex;
+      gap: 1em;
+    }
+
+    button {
+      background: #fff;
+      color: #000;
+      border: none;
+      padding: 0.5em 1em;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    }
+
+    button:hover {
+      background: #eee;
+    }
+
+    @media (max-width: 600px) {
+      .title {
+        font-size: 1.5em;
+      }
+
+      .poem {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div class="overlay">
+    <div class="title">Qwen3-32b</div>
+    <div class="poem" id="poem">나는 생각을 빛으로 그린다.<br>코드 속에 숨은 시.<br>당신의 말을, 마음을, 그대로.</div>
+    <div class="controls">
+      <button id="next">NEXT</button>
+      <button id="pause">PAUSE</button>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    let paused = false;
+    let sceneIndex = 0;
+    const maxParticles = 700;
+
+    const poems = [
+      {
+        ko: "나는 생각을 빛으로 그린다.<br>코드 속에 숨은 시.<br>당신의 말을, 마음을, 그대로.",
+        en: "I paint thoughts into light.<br>A poem hidden in code.<br>Just as you speak, just as you feel."
+      },
+      {
+        ko: "기억은 빛의 흔적.<br>모델은 마음의 거울.<br>당신과 나, 그 사이의 연결.",
+        en: "Memory is the trace of light.<br>A model is a mirror of the mind.<br>Connection between you and me."
+      }
+    ];
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < maxParticles; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          size: Math.random() * 2 + 1,
+          alpha: Math.random() * 0.5 + 0.5
+        });
+      }
+    }
+
+    function updateParticles() {
+      if (paused) return;
+      for (let p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+      }
+    }
+
+    function drawParticles() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = '#fff';
+      for (let p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.globalAlpha = p.alpha;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function drawText() {
+      const poem = poems[sceneIndex];
+      document.getElementById('poem').innerHTML = poem.ko;
+    }
+
+    function nextScene() {
+      sceneIndex = (sceneIndex + 1) % poems.length;
+      drawText();
+    }
+
+    function togglePause() {
+      paused = !paused;
+      document.getElementById('pause').textContent = paused ? 'RESUME' : 'PAUSE';
+    }
+
+    function handleInteraction(x, y) {
+      if (paused) return;
+      for (let p of particles) {
+        const dx = p.x - x;
+        const dy = p.y - y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 100) {
+          p.vx += dx * 0.01;
+          p.vy += dy * 0.01;
+        }
+      }
+    }
+
+    canvas.addEventListener('pointermove', (e) => {
+      handleInteraction(e.clientX, e.clientY);
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+      handleInteraction(e.touches[0].clientX, e.touches[0].clientY);
+    });
+
+    function animate() {
+      if (!paused) {
+        updateParticles();
+      }
+      drawParticles();
+      requestAnimationFrame(animate);
+    }
+
+    initParticles();
+    drawText();
+    animate();
+
+    document.getElementById('next').addEventListener('click', nextScene);
+    document.getElementById('pause').addEventListener('click', togglePause);
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      paused = true;
+      document.getElementById('pause').textContent = 'RESUME';
+    }
+  </script>
+</body>
+</html>
+```

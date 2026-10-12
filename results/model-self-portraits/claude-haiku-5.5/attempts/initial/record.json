@@ -1,0 +1,17 @@
+{
+  "model": "claude-haiku-5.5",
+  "model_id": "us.anthropic.claude-haiku-5-5",
+  "api": "bedrock",
+  "requested_at": "2026-10-11T14:12:19.801117+00:00",
+  "prompt_sha256": "9522499420b863c3c84d4aade67b33fdb928b45cae99178a1876be686413ca0c",
+  "max_output_tokens": 8192,
+  "status": "generated",
+  "generated_at": "2026-10-11T14:12:55.524128+00:00",
+  "artwork_sha256": "29a5cb128713a614362bda4ec22536024ada843ab6a1e7a403284dd57889786f",
+  "tokens_in": 1514,
+  "tokens_out": 7978,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "575c84a7-dd2b-4a09-9e79-93b24ed74163"
+}

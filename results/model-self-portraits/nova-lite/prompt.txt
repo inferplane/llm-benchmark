@@ -1,0 +1,190 @@
+You are the original author, model nova-lite, served as us.amazon.nova-lite-v1:0. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own art and Korean poem. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. Stay compact (about 3000 code output tokens).
+
+YOUR PREVIOUS FULL RESPONSE:
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            color: #fff;
+            font-family: 'Dotum', sans-serif;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .text-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+        }
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .poetry {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .translation {
+            font-size: 14px;
+        }
+        .controls {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+       .control-button {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="text-container">
+        <div class="title">nova-lite</div>
+        <div class="poetry" id="poetry">빛의 입자가 날아오르며, 우주의 숨결을 느낀다.</div>
+        <div class="translation" id="translation">Particles of light soar, feeling the breath of the universe.</div>
+    </div>
+    <div class="controls">
+        <button class="control-button" id="next">NEXT</button>
+        <button class="control-button" id="pause">PAUSE</button>
+    </div>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const poetryElement = document.getElementById('poetry');
+        const translationElement = document.getElementById('translation');
+        const nextButton = document.getElementById('next');
+        const pauseButton = document.getElementById('pause');
+
+        let isPaused = false;
+        let particles = [];
+        const particleCount = 700;
+        const maxParticleSize = 2;
+        const maxSpeed = 2;
+        const minSpeed = 1;
+        const maxOpacity = 0.5;
+        const minOpacity = 0.1;
+
+        function init() {
+            canvas.width = window.innerWidth * window.devicePixelRatio;
+            canvas.height = window.innerHeight * window.devicePixelRatio;
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * (maxSpeed - minSpeed) + minSpeed,
+                    vy: (Math.random() - 0.5) * (maxSpeed - minSpeed) + minSpeed,
+                    size: Math.random() * maxParticleSize + 1,
+                    opacity: Math.random() * (maxOpacity - minOpacity) + minOpacity
+                });
+            }
+
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                requestAnimationFrame(animate);
+            }
+        }
+
+        function animate() {
+            if (isPaused) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x > canvas.width || p.x < 0) p.vx = -p.vx;
+                if (p.y > canvas.height || p.y < 0) p.vy = -p.vy;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                ctx.fill();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        function changeScene() {
+            const scenes = [
+                { korean: "빛의 입자가 날아오르며, 우주의 숨결을 느낀다.", english: "Particles of light soar, feeling the breath of the universe." },
+                { korean: "깊은 우주의 검은 밤, 별들이 빛나는 순간.", english: "In the deep black night of space, the stars shine." }
+            ];
+            const currentScene = poetryElement.textContent.split('\n')[2];
+            const nextSceneIndex = scenes.findIndex(scene => scene.korean === currentScene) + 1;
+            const nextScene = scenes[nextSceneIndex % scenes.length];
+
+            poetryElement.textContent = `nova-lite\n\n${nextScene.korean}`;
+            translationElement.textContent = nextScene.english;
+        }
+
+        function togglePause() {
+            isPaused = !isPaused;
+            if (isPaused) {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            } else {
+                requestAnimationFrame(animate);
+            }
+        }
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (isPaused) return;
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                const dx = e.clientX - p.x;
+                const dy = e.clientY - p.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 100) {
+                    p.vx = (dx / distance) * 2;
+                    p.vy = (dy / distance) * 2;
+                }
+            }
+        });
+
+        nextButton.addEventListener('click', changeScene);
+        pauseButton.addEventListener('click', togglePause);
+
+        init();
+    </script>
+</body>
+</html>
+```
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["In YOUR current code, NEXT only appends another model name while keeping the same poem. Create one scene index; increment BEFORE rendering; initialize through the same renderer. Each click must change poem/translation once.", "Initialize isPaused from matchMedia(reduced motion), draw a complete initial STATIC particle frame whether paused or not, and update PAUSE vs PLAY label/aria-pressed on every state change. Maintain exactly one RAF loop.", "Informative text and native buttons must be >=19px, >=4.5:1 contrast. Paused NEXT and paused resize redraw one complete frame while motion remains stopped. Preserve your original art, return full repaired HTML."]
+
+Return the complete repaired HTML now.

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>grok-4.3</title>
+<style>
+  @import url('data:text/css;base64,');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#0a0c12; }
+  canvas { position:absolute; top:0; left:0; width:100%; height:100%; touch-action:none; }
+  .overlay {
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    pointer-events:none; z-index:10;
+  }
+  .poem {
+    font-family: "Georgia", serif;
+    color:#e8e4d9;
+    text-align:center;
+    line-height:1.35;
+    pointer-events:none;
+    text-shadow: 0 0 30px rgba(232,228,217,0.15);
+  }
+  .ko { font-size:21px; letter-spacing:3.5px; margin-bottom:12px; }
+  .en { font-size:13px; letter-spacing:2px; opacity:0.65; }
+  .model {
+    position:absolute; bottom:42px; font-size:11px; letter-spacing:4px;
+    color:#6b6f7a; font-family:monospace;
+  }
+  .controls {
+    position:absolute; bottom:42px; left:50%; transform:translateX(-50%);
+    display:flex; gap:12px; z-index:20; pointer-events:auto;
+  }
+  button {
+    background:rgba(232,228,217,0.06);
+    border:1px solid rgba(232,228,217,0.25);
+    color:#e8e4d9;
+    font-size:10px; letter-spacing:2px;
+    padding:9px 22px;
+    cursor:pointer;
+    transition:all 0.2s ease;
+    font-family:monospace;
+  }
+  button:hover { background:rgba(232,228,217,0.12); border-color:rgba(232,228,217,0.45); }
+  button:active { transform:scale(0.985); }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="overlay">
+  <div class="poem" id="poem">
+    <div class="ko" id="ko"></div>
+    <div class="en" id="en"></div>
+  </div>
+  <div class="model">grok-4.3</div>
+</div>
+<div class="controls">
+  <button id="next">NEXT</button>
+  <button id="pause">PAUSE</button>
+</div>
+
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d', { alpha: true });
+let width, height, dpr;
+let particles = [];
+let paused = false;
+let scene = 0;
+let mouse = { x: 0, y: 0, active: false };
+let time = 0;
+
+const scenes = [
+  {
+    ko: "질문은 별이 되어\n흐른다",
+    en: "questions become stars and flow"
+  },
+  {
+    ko: "침묵 속에서\n빛이 나를 본다",
+    en: "in silence, light sees me"
+  }
+];
+
+function resize() {
+  dpr = Math.min(window.devicePixelRatio || 1, 2);
+  width = window.innerWidth;
+  height = window.innerHeight;
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
+  canvas.style.width = width + 'px';
+  canvas.style.height = height + 'px';
+  ctx.scale(dpr, dpr);
+}
+
+function createParticles(count) {
+  particles = [];
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+      size: Math.random() * 1.8 + 0.7,
+      alpha: Math.random() * 0.6 + 0.35,
+      phase: Math.random() * Math.PI * 2
+    });
+  }
+}
+
+function updateParticles() {
+  const s = scenes[scene];
+  const flow = scene === 0 ? 0.018 : -0.012;
+  
+  for (let p of particles) {
+    // gentle flow
+    p.vy += flow;
+    p.vx *= 0.992;
+    p.vy *= 0.992;
+    
+    // mouse interaction
+    if (mouse.active) {
+      const dx = mouse.x - p.x;
+      const dy = mouse.y - p.y;
+      const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+      if (dist < 180) {
+        const force = (180 - dist) / 180 * 0.8;
+        p.vx += (dx / dist) * force * 0.6;
+        p.vy += (dy / dist) * force * 0.6;
+      }
+    }
+    
+    p.x += p.vx;
+    p.y += p.vy;
+    
+    // wrap
+    if (p.x < 0) p.x = width;
+    if (p.x > width) p.x = 0;
+    if (p.y < 0) p.y = height;
+    if (p.y > height) p.y = 0;
+    
+    // subtle breathing
+    p.phase += 0.015;
+    p.alpha = 0.35 + Math.sin(p.phase) * 0.18;
+  }
+}
+
+function draw() {
+  ctx.fillStyle = 'rgba(10,12,18,0.65)';
+  ctx.fillRect(0, 0, width, height);
+  
+  ctx.strokeStyle = 'rgba(232,228,217,0.08)';
+  ctx.lineWidth = 0.6;
+  
+  // draw connections
+  for (let i = 0; i < particles.length; i++) {
+    const p = particles[i];
+    for (let j = i + 1; j < particles.length; j++) {
+      const q = particles[j];
+      const dx = p.x - q.x;
+      const dy = p.y - q.y;
+      const d = dx*dx + dy*dy;
+      if (d < 11000) {
+        ctx.globalAlpha = (1 - d / 11000) * 0.25;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(q.x, q.y);
+        ctx.stroke();
+      }
+    }
+  }
+  
+  ctx.globalAlpha = 1;
+  
+  // draw particles
+  for (let p of particles) {
+    ctx.fillStyle = `rgba(232,228,217,${p.alpha})`;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // faint glow
+    ctx.fillStyle = `rgba(232,228,217,${p.alpha * 0.2})`;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size * 2.8, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function loop() {
+  if (!paused) {
+    updateParticles();
+    draw();
+    time++;
+  }
+  requestAnimationFrame(loop);
+}
+
+function setScene(newScene) {
+  scene = newScene % scenes.length;
+  const s = scenes[scene];
+  document.getElementById('ko').innerHTML = s.ko.replace(/\n/g, '<br>');
+  document.getElementById('en').textContent = s.en;
+  
+  // gentle particle reset
+  for (let p of particles) {
+    p.vx = (Math.random() - 0.5) * 0.5;
+    p.vy = (Math.random() - 0.5) * 0.5;
+  }
+}
+
+function togglePause() {
+  paused = !paused;
+  const btn = document.getElementById('pause');
+  btn.textContent = paused ? 'RESUME' : 'PAUSE';
+}
+
+function init() {
+  resize();
+  window.addEventListener('resize', resize);
+  
+  const count = Math.min(420, Math.floor((width * height) / 2800));
+  createParticles(count);
+  
+  // initial scene
+  setScene(0);
+  
+  // mouse / touch
+  function updateMouse(e) {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = (e.clientX || e.touches[0].clientX) - rect.left;
+    mouse.y = (e.clientY || e.touches[0].clientY) - rect.top;
+    mouse.active = true;
+  }
+  
+  function clearMouse() {
+    mouse.active = false;
+  }
+  
+  canvas.addEventListener('mousemove', updateMouse);
+  canvas.addEventListener('mouseleave', clearMouse);
+  canvas.addEventListener('touchmove', updateMouse, { passive: true });
+  canvas.addEventListener('touchend', clearMouse);
+  
+  // buttons
+  document.getElementById('next').addEventListener('click', () => {
+    setScene(scene + 1);
+  });
+  
+  document.getElementById('pause').addEventListener('click', togglePause);
+  
+  // reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    paused = true;
+    document.getElementById('pause').textContent = 'RESUME';
+  }
+  
+  // start
+  draw();
+  loop();
+}
+
+init();
+</script>
+</body>
+</html>

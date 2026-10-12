@@ -1,0 +1,24 @@
+{
+  "model": "ministral-14b",
+  "requested_model_id": "mistral.ministral-3-14b-instruct",
+  "provider": "bedrock",
+  "family": "Mistral",
+  "generated_at": "2026-10-12T01:33:32.502433+00:00",
+  "request_id": "7ced4da5-5571-4f27-8ac2-d162b717213d",
+  "artwork_sha256": "5da58ec1c4fc9f0df6ba247aa3f8f8665a3cc5db274d462d55c85b254a489a87",
+  "prompt_sha256": "b02677c83019fbd7f6f0566ced73c67bfbd4ba373b2a9a333f95bde7c74be86d",
+  "tokens_in": 4507,
+  "tokens_out": 4285,
+  "finish_reason": "end_turn",
+  "max_output_tokens": 6144,
+  "temperature": 0,
+  "temperature_sent": true,
+  "status": "generated",
+  "generation_status": "generated",
+  "content_review": {
+    "score": 96.0,
+    "critical": 0,
+    "warnings": 3,
+    "verdict": "PASS"
+  }
+}

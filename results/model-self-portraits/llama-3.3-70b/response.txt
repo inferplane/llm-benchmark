@@ -1,0 +1,152 @@
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+body { margin: 0; background-color: #333; font-family: sans-serif; }
+canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+button { position: absolute; bottom: 20px; left: 20px; font-size: 19px; color: #fff; background-color: #666; border: none; padding: 10px; }
+button:hover { background-color: #666; }
+.poem { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: #fff; text-align: center; }
+.llama-text { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 36px; color: #fff; }
+.translation { position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); font-size: 19px; color: #fff; text-align: center; }
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div class="poem" id="poem"></div>
+<div class="llama-text" id="llama-text">llama-3.3-70b</div>
+<div class="translation" id="translation"></div>
+<button id="next" style="bottom: 80px;">NEXT</button>
+<button id="pause" style="bottom: 20px;" aria-pressed="false">PAUSE</button>
+<script>
+let canvas = document.getElementById('canvas');
+let ctx = canvas.getContext('2d');
+let nextButton = document.getElementById('next');
+let pauseButton = document.getElementById('pause');
+let poemElement = document.getElementById('poem');
+let llamaTextElement = document.getElementById('llama-text');
+let translationElement = document.getElementById('translation');
+let paused = false;
+let scene = 0;
+let particles = [];
+let llamaText = 'llama-3.3-70b';
+let poem = ['나는 생각하는 존재다', '내 안에 세계가 있다', '그 세계는 무한하다'];
+let translation = ['I am a thinking being', 'I have a world inside me', 'That world is infinite'];
+let rafId = null;
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+function init() {
+  for (let i = 0; i < 500; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: Math.random() * 2 - 1,
+      vy: Math.random() * 2 - 1,
+      radius: Math.random() * 2
+    });
+  }
+  updateDOM();
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    startAnimation();
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  for (let i = 0; i < particles.length; i++) {
+    ctx.beginPath();
+    ctx.arc(particles[i].x, particles[i].y, particles[i].radius, 0, 2 * Math.PI);
+    ctx.fillStyle = '#cccccc';
+    ctx.fill();
+    particles[i].x += particles[i].vx;
+    particles[i].y += particles[i].vy;
+    
+    if (particles[i].x < 0 || particles[i].x > canvas.width) {
+      particles[i].vx = -particles[i].vx;
+    }
+    if (particles[i].y < 0 || particles[i].y > canvas.height) {
+      particles[i].vy = -particles[i].vy;
+    }
+  }
+}
+
+function update() {
+  if (!paused) {
+    draw();
+  }
+  rafId = requestAnimationFrame(update);
+}
+
+function startAnimation() {
+  update();
+}
+
+function stopAnimation() {
+  if (rafId !== null) {
+    cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+}
+
+function updateDOM() {
+  poemElement.innerText = poem[scene];
+  translationElement.innerText = translation[scene];
+  if (paused) {
+    pauseButton.innerText = 'PLAY';
+    pauseButton.setAttribute('aria-pressed', 'true');
+  } else {
+    pauseButton.innerText = 'PAUSE';
+    pauseButton.setAttribute('aria-pressed', 'false');
+  }
+}
+
+init();
+
+nextButton.addEventListener('click', () => {
+  scene = (scene + 1) % poem.length;
+  updateDOM();
+});
+
+pauseButton.addEventListener('click', () => {
+  paused = !paused;
+  if (paused) {
+    stopAnimation();
+  } else {
+    startAnimation();
+  }
+  updateDOM();
+});
+
+canvas.addEventListener('mousemove', (e) => {
+  for (let i = 0; i < particles.length; i++) {
+    let dx = e.clientX - particles[i].x;
+    let dy = e.clientY - particles[i].y;
+    let distance = Math.sqrt(dx * dx + dy * dy);
+    if (distance < 50) {
+      particles[i].vx = -particles[i].vx;
+      particles[i].vy = -particles[i].vy;
+    }
+  }
+});
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+window.addEventListener('blur', () => {
+  paused = true;
+  stopAnimation();
+  updateDOM();
+});
+
+window.addEventListener('focus', () => {
+  updateDOM();
+});
+</script>
+</body>
+</html>

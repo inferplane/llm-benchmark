@@ -42,7 +42,7 @@ TRANSIENT_HTTP_STATUSES = {408, 429, 500, 502, 503, 504}
 # decoding parity (see call_bedrock/call_openai) cannot be perfectly uniform
 # across every model — it's an intrinsic limitation of these specific model
 # IDs, not a config knob, hence hardcoded here rather than in config.toml.
-MANTLE_NO_TEMPERATURE = {"openai.gpt-5.6-sol", "openai.gpt-5.6-terra", "openai.gpt-5.6-luna", "openai.gpt-5.5", "google.gemma-4-31b", "openai.gpt-6-luna"}
+MANTLE_NO_TEMPERATURE = {"openai.gpt-5.6-sol", "openai.gpt-5.6-terra", "openai.gpt-5.6-luna", "openai.gpt-5.5", "google.gemma-4-31b", "openai.gpt-6-luna", "openai.gpt-6-astra", "openai.gpt-6.1-sol"}
 
 # Same exception, plain Bedrock Converse API this time: claude-sonnet-5 400s
 # with "`temperature` is deprecated for this model" (verified live via a
@@ -55,7 +55,12 @@ MANTLE_NO_TEMPERATURE = {"openai.gpt-5.6-sol", "openai.gpt-5.6-terra", "openai.g
 # section) also rejects it, same error.
 # Kimi K3 US profile: live Converse ValidationException with temperature=0,
 # successful end_turn when omitted (2026-09-20).
-BEDROCK_NO_TEMPERATURE = {"us.anthropic.claude-sonnet-5", "us.anthropic.claude-fable-5", "us.anthropic.claude-opus-4-8", "us.moonshotai.kimi-k3"}
+BEDROCK_NO_TEMPERATURE = {
+    "us.anthropic.claude-sonnet-5", "us.anthropic.claude-fable-5",
+    "us.anthropic.claude-opus-4-8", "us.moonshotai.kimi-k3",
+    "us.anthropic.claude-haiku-5-5", "us.anthropic.claude-sonnet-5-5",
+    "us.anthropic.claude-opus-5-5", "us.anthropic.claude-fable-5-1",
+}
 
 # claude-sonnet-5 defaults to extended thinking; on long synthetic financial
 # documents it can burn the entire MAX_OUTPUT_TOKENS budget on reasoningContent
@@ -420,16 +425,18 @@ def mantle_url(region: str) -> str:
 
 
 def luna_usage(usage: dict) -> dict:
-    """GPT-6 Luna: inclusive Responses input -> disjoint billing counters.
+    """OpenAI 6 Responses: inclusive input -> disjoint billing counters.
 
-    Verified with a live write/read pair on 2026-09-25. Keep historical
-    Mantle/judge accounting unchanged until those models are separately audited.
+    Luna was checked with a live write/read pair on 2026-09-25. The new
+    Astra/Sol entries use the same documented Responses cache-counter
+    contract (OpenAI prompt-caching guide, checked 2026-10-11). Keep older
+    Mantle/judge accounting unchanged until separately audited.
     """
     total = usage.get("input_tokens")
     details = usage.get("input_tokens_details") or {}
     read, write = details.get("cached_tokens", 0), details.get("cache_write_tokens", 0)
     if any(type(n) is not int or n < 0 for n in (total, read, write)) or read + write > total:
-        raise InvalidResponseError("invalid Luna inclusive cache usage")
+        raise InvalidResponseError("invalid Responses inclusive cache usage")
     return {"tokens_in": total - read - write, "cache_read_tokens": read,
             "cache_write_tokens": write, "reported_input_tokens": total}
 
@@ -538,7 +545,7 @@ async def call_mantle(
             "reported_reasoning": data.get("reasoning"),
             "reasoning_tokens": (usage.get("output_tokens_details") or {}).get("reasoning_tokens"),
         }
-        if model_id == "openai.gpt-6-luna":
+        if model_id in {"openai.gpt-6-luna", "openai.gpt-6-astra", "openai.gpt-6.1-sol"}:
             result.update(luna_usage(usage))
         if "request_id" in context:
             result["request_id"] = context["request_id"]
@@ -975,6 +982,21 @@ def _selfcheck_mantle():
         result = await invoke(httpx.Response(200, json=completed, headers={"x-request-id": "req-success"}))
         assert result["text"] == "translated" and result["tokens_out"] == 3
         assert result["request_id"] == "req-success" and result["response_status"] == "completed"
+        for model_id in ("openai.gpt-6-astra", "openai.gpt-6.1-sol"):
+            cached = {**completed, "model": model_id, "usage": {
+                "input_tokens": 1_000_000, "output_tokens": 100_000,
+                "input_tokens_details": {"cached_tokens": 200_000, "cache_write_tokens": 400_000},
+            }}
+            def cached_response(request):
+                payload = json.loads(request.content)
+                assert payload["model"] == model_id and "temperature" not in payload
+                return httpx.Response(200, json=cached)
+            transport = httpx.MockTransport(cached_response)
+            with patch("httpx.AsyncClient", side_effect=lambda **kwargs: client_class(transport=transport, **kwargs)):
+                result = await call_mantle(session, "us-east-1", model_id, "offline", reasoning_effort="low")
+            assert result["tokens_in"] == 400_000
+            assert result["cache_read_tokens"] == 200_000 and result["cache_write_tokens"] == 400_000
+            assert result["reported_input_tokens"] == 1_000_000
         capped = {**completed, "status": "incomplete",
                   "incomplete_details": {"reason": "max_output_tokens"}}
         try:

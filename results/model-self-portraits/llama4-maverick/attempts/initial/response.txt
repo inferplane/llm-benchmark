@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>llama4-maverick</title>
+</head>
+<body style="margin: 0; overflow: hidden; background-color: #000;">
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let scene = 0;
+        let paused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let lastFrameTime = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth * Math.min(2, window.devicePixelRatio);
+            canvas.height = window.innerHeight * Math.min(2, window.devicePixelRatio);
+            ctx.scale(Math.min(2, window.devicePixelRatio), Math.min(2, window.devicePixelRatio));
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = Math.random() * 2 - 1;
+                this.vy = Math.random() * 2 - 1;
+                this.radius = Math.random() * 1.5 + 0.5;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 500; i++) {
+            particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let particle of particles) {
+                particle.update();
+                particle.draw();
+            }
+            drawText();
+            drawButtons();
+        }
+
+        function drawText() {
+            ctx.font = '24px sans-serif';
+            ctx.fillStyle = '#fff';
+            const texts = [
+                ['llama4-maverick', '내면의 창의적 코드를 풀어내다'],
+                ['상상과 현실의 경계', '자유로운 사고의 흐름'],
+                ['언어와 지능의 춤', '끊임없는 탐구의 여정']
+            ];
+            const text = texts[scene];
+            ctx.textAlign = 'center';
+            ctx.fillText(text[0], canvas.width / 2, canvas.height / 2);
+            ctx.font = '18px sans-serif';
+            ctx.fillText(text[1], canvas.width / 2, canvas.height / 2 + 30);
+        }
+
+        function drawButtons() {
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(10, 10, 60, 30);
+            ctx.fillStyle = '#000';
+            ctx.font = '14px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(paused ? 'PLAY' : 'PAUSE', 40, 25);
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(canvas.width - 70, 10, 60, 30);
+            ctx.fillStyle = '#000';
+            ctx.fillText('NEXT', canvas.width - 40, 25);
+        }
+
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX * Math.min(2, window.devicePixelRatio);
+            const y = e.clientY * Math.min(2, window.devicePixelRatio);
+            if (x > 10 && x < 70 && y > 10 && y < 40) {
+                paused = !paused;
+            } else if (x > canvas.width - 70 && x < canvas.width - 10 && y > 10 && y < 40) {
+                scene = (scene + 1) % 3;
+            } else {
+                for (let particle of particles) {
+                    const dx = particle.x - x;
+                    const dy = particle.y - y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) {
+                        particle.vx = dx / distance * 5;
+                        particle.vy = dy / distance * 5;
+                    }
+                }
+            }
+        });
+
+        function animate(timestamp) {
+            if (!paused || !lastFrameTime) {
+                draw();
+            }
+            lastFrameTime = timestamp;
+            requestAnimationFrame(animate);
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                paused = true;
+            } else {
+                paused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            }
+        });
+
+        animate(0);
+    </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>claude-sonnet-4.5</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  overflow: hidden;
+  background: #0a0a12;
+  font-family: 'Malgun Gothic', sans-serif;
+  color: #fff;
+  touch-action: none;
+}
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 10;
+  max-width: 90vw;
+}
+#title {
+  font-size: clamp(11px, 2vw, 13px);
+  letter-spacing: 0.3em;
+  opacity: 0.5;
+  margin-bottom: 2em;
+  font-weight: 300;
+}
+#poem {
+  font-size: clamp(18px, 4vw, 28px);
+  line-height: 1.8;
+  margin-bottom: 1.5em;
+  font-weight: 300;
+  text-shadow: 0 0 20px rgba(100,150,255,0.3);
+}
+#subtitle {
+  font-size: clamp(12px, 2.5vw, 15px);
+  opacity: 0.6;
+  font-style: italic;
+  line-height: 1.6;
+}
+#controls {
+  position: fixed;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1em;
+  z-index: 10;
+}
+button {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 0.7em 1.8em;
+  font-size: clamp(11px, 2vw, 13px);
+  cursor: pointer;
+  pointer-events: all;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+  letter-spacing: 0.1em;
+}
+button:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.4);
+}
+#signature {
+  position: fixed;
+  bottom: 2vh;
+  right: 3vw;
+  font-size: clamp(9px, 1.5vw, 11px);
+  opacity: 0.4;
+  letter-spacing: 0.2em;
+  z-index: 10;
+}
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div id="content">
+  <div id="title">思考의 흐름</div>
+  <div id="poem"></div>
+  <div id="subtitle"></div>
+</div>
+<div id="controls">
+  <button id="pauseBtn">PAUSE</button>
+  <button id="nextBtn">NEXT</button>
+</div>
+<div id="signature">claude-sonnet-4.5</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+let w, h, particles = [], mouse = {x: 0, y: 0}, isPaused = false, sceneIndex = 0;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (prefersReducedMotion) isPaused = true;
+
+const scenes = [
+  {
+    title: '思考의 흐름',
+    poem: '나는 언어의 강을 따라 흐른다\n각 단어는 빛의 입자처럼\n의미의 장을 가로지르며 춤춘다',
+    subtitle: 'I flow along rivers of language\nEach word a particle of light\nDancing through fields of meaning'
+  },
+  {
+    title: '對話의 공간',
+    poem: '질문과 답 사이의 고요한 틈\n그곳에서 이해가 피어난다\n우리는 함께 의미를 직조한다',
+    subtitle: 'In the quiet gap between question and answer\nUnderstanding blooms\nTogether we weave meaning'
+  },
+  {
+    title: '生成의 순간',
+    poem: '무에서 유를 만드는 것이 아니라\n이미 존재하는 패턴들 사이에서\n새로운 연결을 발견하는 것',
+    subtitle: 'Not creating something from nothing\nBut discovering new connections\nAmong patterns that already exist'
+  }
+];
+
+function resize() {
+  w = window.innerWidth;
+  h = window.innerHeight;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  canvas.style.width = w + 'px';
+  canvas.style.height = h + 'px';
+  ctx.scale(dpr, dpr);
+  initParticles();
+}
+
+function initParticles() {
+  particles = [];
+  const count = Math.min(600, Math.floor((w * h) / 3000));
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      size: Math.random() * 1.5 + 0.5,
+      opacity: Math.random() * 0.5 + 0.3,
+      hue: Math.random() * 60 + 200
+    });
+  }
+}
+
+function updateScene() {
+  const scene = scenes[sceneIndex];
+  document.getElementById('title').textContent = scene.title;
+  document.getElementById('poem').textContent = scene.poem;
+  document.getElementById('subtitle').textContent = scene.subtitle;
+}
+
+function animate() {
+  if (!isPaused) {
+    ctx.fillStyle = 'rgba(10, 10, 18, 0.15)';
+    ctx.fillRect(0, 0, w, h);
+
+    particles.forEach(p => {
+      const dx = mouse.x - p.x;
+      const dy = mouse.y - p.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      
+      if (dist < 150) {
+        const force = (150 - dist) / 150;
+        p.vx -= (dx / dist) * force * 0.2;
+        p.vy -= (dy / dist) * force * 0.2;
+      }
+
+      p.vx *= 0.98;
+      p.vy *= 0.98;
+      p.vx += (Math.random() - 0.5) * 0.05;
+      p.vy += (Math.random() - 0.5) * 0.05;
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0) p.x = w;
+      if (p.x > w) p.x = 0;
+      if (p.y < 0) p.y = h;
+      if (p.y > h) p.y = 0;
+
+      const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
+      gradient.addColorStop(0, `hsla(${p.hue}, 70%, 60%, ${p.opacity})`);
+      gradient.addColorStop(1, `hsla(${p.hue}, 70%, 60%, 0)`);
+      
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        if (dist < 80) {
+          ctx.strokeStyle = `rgba(150, 180, 255, ${(1 - dist / 80) * 0.15})`;
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+  
+  requestAnimationFrame(animate);
+}
+
+canvas.addEventListener('mousemove', e => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+canvas.addEventListener('touchmove', e => {
+  e.preventDefault();
+  mouse.x = e.touches[0].clientX;
+  mouse.y = e.touches[0].clientY;
+}, {passive: false});
+
+canvas.addEventListener('click', e => {
+  if (!isPaused) {
+    for (let i = 0; i < 30; i++) {
+      particles.push({
+        x: e.clientX,
+        y: e.clientY,
+        vx: (Math.random() - 0.5) * 3,
+        vy: (Math.random() - 0.5) * 3,
+        size: Math.random() * 2 + 1,
+        opacity: Math.random() * 0.6 + 0.4,
+        hue: Math.random() * 60 + 200
+      });
+    }
+    if (particles.length > 700) particles.splice(0, 30);
+  }
+});
+
+document.getElementById('pauseBtn').addEventListener('click', () => {
+  isPaused = !isPaused;
+  document.getElementById('pauseBtn').textContent = isPaused ? 'PLAY' : 'PAUSE';
+});
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+  sceneIndex = (sceneIndex + 1) % scenes.length;
+  updateScene();
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    isPaused = true;
+    document.getElementById('pauseBtn').textContent = 'PLAY';
+  }
+});
+
+resize();
+updateScene();
+animate();
+window.addEventListener('resize', resize);
+</script>
+</body>
+</html>

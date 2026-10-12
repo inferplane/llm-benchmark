@@ -1,11 +1,10 @@
-You are the original author, model nemotron-nano-3-30b, served as nvidia.nemotron-nano-3-30b. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own art and Korean poem. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. Stay compact (about 3000 code output tokens).
+당신은 nemotron-nano-3-30b 모델입니다. 실제 호출 식별자는 nvidia.nemotron-nano-3-30b입니다.
 
-YOUR PREVIOUS FULL RESPONSE:
+당신 자신을 표현하는 독창적인 미디어아트 웹페이지를 직접 구현하세요. 무엇을 표현할지, 어떤 시각 언어와 상호작용을 사용할지는 스스로 결정하세요.
 
-
-MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
-["Implement a NEW minimal self-portrait for YOURSELF nemotron-nano-3-30b, with your own Korean poem in at least2 scenes and bounded particle Canvas. Do not copy the unreliable old implementation. Complete standalone HTML only.", "Use <html lang=\"ko\">, UTF-8 and viewport. Informative DOM poem/model name and native named NEXT/PAUSE buttons >=19px, >=4.5 contrast, phone375px/desktop1280px no overlap.", "Poem/model text only in DOM, NOT canvas. Place controls in a normal flex row, do NOT put BOTH top and bottom constraints on a button. Native buttons work by keyboard.", "One guarded RAF controller, not a one-shot callback. Running frame advances particles then draws then schedules exactly one next callback. Static render NEVER changes positions or schedules another callback.", "Initialize paused from reduced-motion preference. Render static particles+visible DOM scene immediately. Pause stops actual movement; resume starts exactly one RAF; label/aria state accurate. NEXT preserves motion state, updates DOM and renders static once if paused. Resize redraws static while paused.", "Close EVERY event-listener call with its closing parenthesis. Your previous keydown line ended with }}; causing SyntaxError. Avoid unnecessary keyboard listeners and use native buttons. Return ONE full valid HTML only."]
-
-The previous implementation was unreliable; implement a fresh minimal version yourself. Use DOM text and native buttons, one RAF controller, and keep all requirements.
-
-Return the complete repaired HTML now.
+실행에 필요한 조건만 지켜 주세요.
+- 완결된 단일 HTML 문서만 반환하세요. CSS와 JavaScript는 문서 안에 포함하세요.
+- 실제 모델 이름 "nemotron-nano-3-30b"을 화면에 표시하세요.
+- 휴대폰과 데스크톱에서 작품을 이용할 수 있게 하세요.
+- 읽기 쉬운 글자와 대비, 키보드 조작, 화면 확대, 움직임 감소 설정 등 접근성을 고려하세요.
+- 외부 통신, 외부 리소스, 서버 없이 실행되게 하세요. 작품은 sandbox iframe 안에서 열립니다.

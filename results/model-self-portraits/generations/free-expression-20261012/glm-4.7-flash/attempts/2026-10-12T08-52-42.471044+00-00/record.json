@@ -1,0 +1,22 @@
+{
+  "model": "glm-4.7-flash",
+  "model_id": "zai.glm-4.7-flash",
+  "api": "bedrock",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:52:42.471044+00:00",
+  "prompt_sha256": "66540929f9c77c26d710e53d2a83919d1ca30ca0a332ba5108c65d6b01242a32",
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled": false,
+  "status": "generated",
+  "generated_at": "2026-10-12T08:52:57.385800+00:00",
+  "artwork_sha256": "a97ff65a087146c729d3bbc0f76e05fc85ecb6252f28bd966ec2fd9ca3ae1b3c",
+  "tokens_in": 4062,
+  "tokens_out": 3808,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "598a7f84-ffed-40d6-a3f0-cf57ce2ad7a5"
+}

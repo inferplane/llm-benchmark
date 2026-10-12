@@ -1,0 +1,19 @@
+{
+  "model": "claude-fable-5.1",
+  "model_id": "us.anthropic.claude-fable-5-1",
+  "api": "bedrock",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:07:35.655870+00:00",
+  "prompt_sha256": "9b858d38e5de8dde68630b8f8c96cc2da41a3005ad2bc951db3b7b2fd315440b",
+  "max_output_tokens": 8192,
+  "temperature": null,
+  "temperature_sent": false,
+  "status": "failed",
+  "failed_at": "2026-10-12T08:09:33.152409+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

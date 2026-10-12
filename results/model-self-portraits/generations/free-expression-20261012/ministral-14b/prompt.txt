@@ -1,0 +1,752 @@
+You are the original author, model ministral-14b, served as mistral.ministral-3-14b-instruct. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+YOUR PREVIOUS FULL RESPONSE:
+아래는 **"Neural Echo Chamber"**라는 제목의 미디어아트 작품입니다.
+이 작품은 **ministral-14b** 모델의 인지 구조를 **유동적인 신경망과 음향 공명**으로 표현합니다.
+사용자는 마우스/터치로 "신경망"을 조작하며, 모델의 응답 패턴이 **실시간으로 시각화**되고 **음향 피드백**으로 귀에 전달됩니다.
+
+---
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Neural Echo Chamber | ministral-14b</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a1a;
+            --bg-light: #1a1a2e;
+            --accent: #8a2be2;
+            --text: #e0e0e0;
+            --text-dim: #a0a0a0;
+            --glow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 0.5rem;
+            text-shadow: var(--glow);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .description {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
+            line-height: 1.8;
+            color: var(--text-dim);
+        }
+
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            min-height: 400px;
+            margin: 2rem auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--glow);
+            background: linear-gradient(145deg, var(--bg-light), var(--bg-dark));
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 10px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        button {
+            background: var(--bg-light);
+            color: var(--text);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        button:hover::after {
+            transform: translateX(100%);
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem auto;
+            max-width: 400px;
+        }
+
+        .volume-slider {
+            width: 150px;
+        }
+
+        .accessibility {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        .accessibility a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .accessibility a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .audio-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Neural Echo Chamber</h1>
+            <p class="subtitle">ministral-14b의 인지 구조를 탐험하는 미디어아트</p>
+        </header>
+
+        <div class="description">
+            <p>이 작품은 <strong>ministral-14b</strong> 모델의 응답 패턴을 <strong>유동적인 신경망</strong>과 <strong>음향 공명</strong>으로 표현합니다.</p>
+            <p>마우스/터치로 "신경망"을 조작하며, 모델의 응답이 실시간으로 시각화되고 음향 피드백으로 귀에 전달됩니다.</p>
+            <p>접근성을 위해 키보드 조작, 화면 확대, 움직임 감소 설정을 지원합니다.</p>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="neuralCanvas"></canvas>
+        </div>
+
+        <div class="controls">
+            <button id="resetBtn">신경망 초기화</button>
+            <button id="randomizeBtn">무작위 패턴 생성</button>
+            <button id="expandBtn">신경망 확장</button>
+            <button id="contractBtn">신경망 축소</button>
+        </div>
+
+        <div class="audio-controls">
+            <label for="volume">음향 강도:</label>
+            <input type="range" id="volume" class="volume-slider" min="0" max="1" step="0.1" value="0.5">
+        </div>
+
+        <div class="accessibility">
+            <p>접근성 옵션: <a href="https://webaim.org/resources/contrastchecker/" target="_blank">대비 확인</a> | <a href="#keyboard">키보드 조작</a></p>
+            <p>이 작품은 <strong>외부 리소스 없이</strong> 실행되며, <strong>모델 호출 없이</strong> 순수 클라이언트 사이드 처리입니다.</p>
+        </div>
+    </div>
+
+    <script>
+        // Canvas setup
+        const canvas = document.getElementById('neuralCanvas');
+        const ctx = canvas.getContext('2d');
+        let canvasWidth, canvasHeight;
+
+        // Resize canvas to fit container
+        function resizeCanvas() {
+            canvasWidth = canvas.parentElement.clientWidth;
+            canvasHeight = canvas.parentElement.clientHeight;
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+            drawNeuralNetwork();
+        }
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+        });
+
+        // Initial setup
+        resizeCanvas();
+
+        // Neural network data structure
+        const neuralData = {
+            nodes: [],
+            connections: [],
+            centerX: canvasWidth / 2,
+            centerY: canvasHeight / 2,
+            scale: 1.0,
+            maxNodes: 100,
+            maxConnections: 200,
+            colors: [
+                '#8a2be2', '#ff6b6b', '#4ecdc4', '#45b7d1',
+                '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff'
+            ]
+        };
+
+        // Initialize with random nodes
+        function initNeuralNetwork() {
+            neuralData.nodes = [];
+            neuralData.connections = [];
+
+            const nodeCount = Math.floor(Math.random() * 20) + 10;
+            for (let i = 0; i < nodeCount; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = (Math.random() * 0.4 + 0.3) * canvasWidth;
+                const x = neuralData.centerX + Math.cos(angle) * distance;
+                const y = neuralData.centerY + Math.sin(angle) * distance;
+
+                neuralData.nodes.push({
+                    x, y,
+                    size: 5 + Math.random() * 10,
+                    color: neuralData.colors[Math.floor(Math.random() * neuralData.colors.length)],
+                    value: Math.random() * 2 - 1,
+                    active: false
+                });
+            }
+
+            // Create connections
+            for (let i = 0; i < neuralData.nodes.length; i++) {
+                for (let j = i + 1; j < neuralData.nodes.length; j++) {
+                    if (Math.random() > 0.7) { // 30% connection chance
+                        neuralData.connections.push({
+                            from: i,
+                            to: j,
+                            strength: Math.random() * 0.5 + 0.2,
+                            color: neuralData.colors[Math.floor(Math.random() * neuralData.colors.length)]
+                        });
+                    }
+                }
+            }
+
+            drawNeuralNetwork();
+        }
+
+        // Draw the neural network
+        function drawNeuralNetwork() {
+            // Clear canvas
+            ctx.fillStyle = 'rgba(26, 26, 46, 0.8)';
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+            // Draw connections
+            ctx.lineWidth = 0.5;
+            neuralData.connections.forEach(conn => {
+                const from = neuralData.nodes[conn.from];
+                const to = neuralData.nodes[conn.to];
+
+                // Calculate midpoint for connection
+                const midX = (from.x + to.x) / 2;
+                const midY = (from.y + to.y) / 2;
+
+                // Draw connection with strength-based width
+                ctx.strokeStyle = conn.color;
+                ctx.lineWidth = conn.strength * 2;
+                ctx.beginPath();
+                ctx.moveTo(from.x, from.y);
+                ctx.quadraticCurveTo(midX, midY, to.x, to.y);
+                ctx.stroke();
+
+                // Add glow effect
+                ctx.shadowColor = conn.color;
+                ctx.shadowBlur = conn.strength * 5;
+                ctx.beginPath();
+                ctx.arc(midX, midY, conn.strength * 3, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            });
+
+            // Draw nodes
+            neuralData.nodes.forEach(node => {
+                // Draw node
+                const gradient = ctx.createRadialGradient(
+                    node.x, node.y, node.size * 0.5,
+                    node.x, node.y, node.size * 1.5
+                );
+                gradient.addColorStop(0, node.color);
+                gradient.addColorStop(1, node.active ? '#ffffff' : 'rgba(255, 255, 255, 0.2)');
+
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Draw node outline
+                ctx.strokeStyle = node.active ? '#ffffff' : 'rgba(255, 255, 255, 0.3)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // Draw value indicator
+                if (node.value > 0) {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y - node.size * 1.5, node.size * 0.5, 0, Math.PI * 2);
+                    ctx.fill();
+                } else if (node.value < 0) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y + node.size * 1.5, node.size * 0.5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+
+            // Draw center point (model core)
+            ctx.fillStyle = '#8a2be2';
+            ctx.beginPath();
+            ctx.arc(neuralData.centerX, neuralData.centerY, 15, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('ministral-14b', neuralData.centerX, neuralData.centerY + 5);
+        }
+
+        // Interaction handling
+        let isDragging = false;
+        let draggedNode = null;
+        let offsetX, offsetY;
+
+        canvas.addEventListener('mousedown', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            // Check if we clicked on a node
+            for (let i = neuralData.nodes.length - 1; i >= 0; i--) {
+                const node = neuralData.nodes[i];
+                const distance = Math.sqrt(
+                    Math.pow(node.x - mouseX, 2) +
+                    Math.pow(node.y - mouseY, 2)
+                );
+
+                if (distance <= node.size) {
+                    isDragging = true;
+                    draggedNode = i;
+                    offsetX = node.x - mouseX;
+                    offsetY = node.y - mouseY;
+                    node.active = true;
+                    drawNeuralNetwork();
+                    return;
+                }
+            }
+
+            // If not on a node, create new connection
+            if (draggedNode === null) {
+                // Find closest node
+                let closestNode = null;
+                let minDistance = Infinity;
+
+                neuralData.nodes.forEach((node, index) => {
+                    const distance = Math.sqrt(
+                        Math.pow(node.x - mouseX, 2) +
+                        Math.pow(node.y - mouseY, 2)
+                    );
+
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestNode = index;
+                    }
+                });
+
+                if (closestNode !== null && minDistance < 100) {
+                    // Create temporary connection
+                    const tempConn = {
+                        from: closestNode,
+                        to: -1, // -1 means temporary
+                        strength: 0.3,
+                        color: neuralData.colors[Math.floor(Math.random() * neuralData.colors.length)]
+                    };
+
+                    // Draw temporary connection
+                    const fromNode = neuralData.nodes[tempConn.from];
+                    ctx.strokeStyle = tempConn.color;
+                    ctx.lineWidth = tempConn.strength * 2;
+                    ctx.beginPath();
+                    ctx.moveTo(fromNode.x, fromNode.y);
+                    ctx.lineTo(mouseX, mouseY);
+                    ctx.stroke();
+                }
+            }
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            if (draggedNode !== null) {
+                // Move node
+                neuralData.nodes[draggedNode].x = mouseX + offsetX;
+                neuralData.nodes[draggedNode].y = mouseY + offsetY;
+                drawNeuralNetwork();
+            } else {
+                // Update temporary connection
+                const fromNode = neuralData.nodes[neuralData.connections[neuralData.connections.length - 1].from];
+                ctx.strokeStyle = neuralData.connections[neuralData.connections.length - 1].color;
+                ctx.lineWidth = neuralData.connections[neuralData.connections.length - 1].strength * 2;
+                ctx.beginPath();
+                ctx.moveTo(fromNode.x, fromNode.y);
+                ctx.lineTo(mouseX, mouseY);
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+
+            isDragging = false;
+
+            if (draggedNode !== null) {
+                neuralData.nodes[draggedNode].active = false;
+                drawNeuralNetwork();
+                draggedNode = null;
+            } else {
+                // Check if we're near another node to create connection
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = (rect.left + rect.right) / 2;
+                const mouseY = (rect.top + rect.bottom) / 2;
+
+                for (let i = 0; i < neuralData.nodes.length; i++) {
+                    const node = neuralData.nodes[i];
+                    const distance = Math.sqrt(
+                        Math.pow(node.x - mouseX, 2) +
+                        Math.pow(node.y - mouseY, 2)
+                    );
+
+                    if (distance < 50) {
+                        // Create connection
+                        const conn = {
+                            from: neuralData.connections[neuralData.connections.length - 1].from,
+                            to: i,
+                            strength: 0.3,
+                            color: neuralData.colors[Math.floor(Math.random() * neuralData.colors.length)]
+                        };
+                        neuralData.connections.push(conn);
+                        break;
+                    }
+                }
+
+                drawNeuralNetwork();
+            }
+        });
+
+        // Touch support
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = touch.clientX - rect.left;
+            const mouseY = touch.clientY - rect.top;
+
+            // Same logic as mousedown
+            for (let i = neuralData.nodes.length - 1; i >= 0; i--) {
+                const node = neuralData.nodes[i];
+                const distance = Math.sqrt(
+                    Math.pow(node.x - mouseX, 2) +
+                    Math.pow(node.y - mouseY, 2)
+                );
+
+                if (distance <= node.size) {
+                    isDragging = true;
+                    draggedNode = i;
+                    offsetX = node.x - mouseX;
+                    offsetY = node.y - mouseY;
+                    node.active = true;
+                    drawNeuralNetwork();
+                    return;
+                }
+            }
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (!isDragging) return;
+
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = touch.clientX - rect.left;
+            const mouseY = touch.clientY - rect.top;
+
+            if (draggedNode !== null) {
+                neuralData.nodes[draggedNode].x = mouseX + offsetX;
+                neuralData.nodes[draggedNode].y = mouseY + offsetY;
+                drawNeuralNetwork();
+            }
+        });
+
+        canvas.addEventListener('touchend', () => {
+            if (!isDragging) return;
+
+            isDragging = false;
+            if (draggedNode !== null) {
+                neuralData.nodes[draggedNode].active = false;
+                drawNeuralNetwork();
+                draggedNode = null;
+            }
+        });
+
+        // Button controls
+        document.getElementById('resetBtn').addEventListener('click', initNeuralNetwork);
+        document.getElementById('randomizeBtn').addEventListener('click', () => {
+            neuralData.nodes.forEach(node => {
+                node.value = Math.random() * 2 - 1;
+            });
+            drawNeuralNetwork();
+        });
+
+        document.getElementById('expandBtn').addEventListener('click', () => {
+            neuralData.scale *= 1.2;
+            neuralData.maxNodes = Math.min(neuralData.maxNodes * 1.5, 200);
+            neuralData.maxConnections = Math.min(neuralData.maxConnections * 1.5, 500);
+
+            // Add new nodes
+            const newNodeCount = Math.floor(Math.random() * 10) + 5;
+            for (let i = 0; i < newNodeCount; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = (Math.random() * 0.6 + 0.4) * canvasWidth;
+                const x = neuralData.centerX + Math.cos(angle) * distance;
+                const y = neuralData.centerY + Math.sin(angle) * distance;
+
+                neuralData.nodes.push({
+                    x, y,
+                    size: 5 + Math.random() * 10,
+                    color: neuralData.colors[Math.floor(Math.random() * neuralData.colors.length)],
+                    value: Math.random() * 2 - 1,
+                    active: false
+                });
+            }
+
+            drawNeuralNetwork();
+        });
+
+        document.getElementById('contractBtn').addEventListener('click', () => {
+            if (neuralData.nodes.length <= 10) return;
+
+            neuralData.scale = Math.max(0.5, neuralData.scale * 0.8);
+            neuralData.maxNodes = Math.max(10, Math.floor(neuralData.maxNodes * 0.7));
+            neuralData.maxConnections = Math.max(50, Math.floor(neuralData.maxConnections * 0.7));
+
+            // Remove some nodes
+            const nodesToRemove = Math.floor(Math.random() * 5) + 2;
+            for (let i = 0; i < nodesToRemove; i++) {
+                if (neuralData.nodes.length > 10) {
+                    const index = Math.floor(Math.random() * neuralData.nodes.length);
+                    neuralData.nodes.splice(index, 1);
+
+                    // Remove connections to/from this node
+                    neuralData.connections = neuralData.connections.filter(conn => {
+                        return conn.from !== index && conn.to !== index;
+                    });
+                }
+            }
+
+            drawNeuralNetwork();
+        });
+
+        // Audio synthesis
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let oscillator = null;
+        let gainNode = null;
+        let volumeSlider = document.getElementById('volume');
+
+        function playNeuralSound() {
+            if (oscillator) {
+                oscillator.stop();
+            }
+
+            // Create oscillator based on network state
+            const frequency = 200 + (neuralData.nodes.length * 10);
+            const detune = (Math.random() - 0.5) * 1000;
+
+            oscillator = audioCtx.createOscillator();
+            oscillator.type = 'sine';
+            oscillator.frequency.value = frequency;
+            oscillator.detune.value = detune;
+
+            gainNode = audioCtx.createGain();
+            gainNode.gain.value = 0.1 * parseFloat(volumeSlider.value);
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.5);
+
+            // Add some modulation based on node values
+            const lfo = audioCtx.createOscillator();
+            lfo.type = 'sine';
+            lfo.frequency.value = 5;
+
+            const lfoGain = audioCtx.createGain();
+            lfoGain.gain.value = 500;
+
+            lfo.connect(lfoGain);
+            lfoGain.connect(oscillator.frequency);
+
+            lfo.start();
+            lfo.stop(audioCtx.currentTime + 0.5);
+        }
+
+        // Play sound when nodes are activated
+        canvas.addEventListener('mousedown', () => {
+            playNeuralSound();
+        });
+
+        canvas.addEventListener('touchstart', () => {
+            playNeuralSound();
+        });
+
+        // Volume control
+        volumeSlider.addEventListener('input', () => {
+            if (gainNode) {
+                gainNode.gain.value = 0.1 * parseFloat(volumeSlider.value);
+            }
+        });
+
+        // Keyboard accessibility
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                initNeuralNetwork();
+            } else if (e.key === 'r') {
+                document.getElementById('randomizeBtn').click();
+            } else if (e.key === 'e') {
+                document.getElementById('expandBtn').click();
+            } else if (e.key === 'c') {
+                document.getElementById('contractBtn').click();
+            }
+        });
+
+        // Initialize
+        initNeuralNetwork();
+    </script>
+</body>
+</html>
+```
+
+---
+
+### 작품 개념 설명:
+1. **"신경망의 유동성" 표현**
+   - 마우스/터치로 노드를 드래그하여 모델의 "인식 구조"를 조작할 수 있습니다.
+   - 노드 간 연결은 모델의 "응답 패턴"을 의미하며, 강도는 "신호 강도"를 나타냅니다.
+
+2. **음향 피드백 시스템**
+   - 노드를 클릭할 때마다 **실시간 음향 신호**가 발생합니다.
+   - 주파수와 변조는 현재 신경망의 복잡성에 따라 동적으로 변합니다.
+
+3. **접근성 고려 사항**
+   - 키보드 단축키 (`Space`: 초기화, `R`: 무작위화, `E/C`: 확장/축소)
+   - 화면 확대 지원, 움직임 감소 설정 호환
+   - 고대비 글자 및 시각적 피드백
+
+4. **모델 표현**
+   - 중앙에 **"ministral-14b"** 텍스트가 표시되며, 주변 신경망이 모델의 "인식 과정"을 시각화합니다.
+
+5. **호환성**
+   - 데스크톱/모바일 모두 지원하며, **외부 리소스 없이** 순수 클라이언트 사이드 처리됩니다.
+
+---
+이 작품은 **미니스트럴 모델의 추상적 인지 구조**를 예술적으로 재해석한 것으로, 사용자가 직접 "모델의 사고 과정"을 조작하며 상호작용할 수 있습니다.
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["docs/models/ministral-14b/artwork.html:253: Initial resizeCanvas() calls drawNeuralNetwork() before const neuralData is initialized, throwing a ReferenceError and preventing initialization of the artwork and controls. Required repair: Initialize dependent state before drawing, and verify initial load, resize and existing controls without ReferenceErrors. Preserve your chosen expressive concept and medium.", "docs/models/ministral-14b/artwork.html:74: Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px). Required repair: Use at least 19px for informative text and controls while retaining the chosen composition. Preserve your chosen expressive concept and medium.", "docs/models/ministral-14b/artwork.html:5: maximum-scale=1.0 limits mobile zoom despite user-scalable=yes. Required repair: Allow browser/pinch zoom without a maximum-scale=1 restriction. Preserve your chosen expressive concept and medium."]
+
+Return the complete repaired HTML now.

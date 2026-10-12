@@ -5,11 +5,6 @@
   "family": "Amazon Translate",
   "status": "not_generative",
   "generation_status": "not_generative",
-  "prompt_available": false,
-  "content_review": {
-    "score": 100,
-    "critical": 0,
-    "warnings": 0,
-    "verdict": "PASS"
-  }
+  "generation": "free-expression-20261012",
+  "prompt_available": false
 }

@@ -1,0 +1,84 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>llama-3.3-70b-bedrock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .description {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .model-name {
+            font-size: 36px;
+            font-weight: bold;
+            color: #00698f;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            .title {
+                font-size: 18px;
+            }
+            .description {
+                font-size: 14px;
+            }
+            .model-name {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">인공지능 모델</h1>
+        <p class="description">이 작품은 llama-3.3-70b-bedrock 모델을 표현한 미디어 아트입니다.</p>
+        <h2 class="model-name">llama-3.3-70b-bedrock</h2>
+    </div>
+    <script>
+        // 접근성을 고려하여 키보드 조작과 화면 확대, 움직임 감소 설정을 추가합니다.
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                // Escape 키를 눌렀을 때 화면을 초기화합니다.
+                document.body.style.transform = 'scale(1)';
+            }
+        });
+        document.addEventListener('wheel', (e) => {
+            // 마우스 휠을 사용하여 화면을 확대/축소합니다.
+            if (e.deltaY > 0) {
+                document.body.style.transform = 'scale(0.9)';
+            } else {
+                document.body.style.transform = 'scale(1.1)';
+            }
+        });
+        // 움직임 감소 설정을 추가합니다.
+        document.body.style.transition = 'transform 0.5s ease-in-out';
+    </script>
+</body>
+</html>
+```

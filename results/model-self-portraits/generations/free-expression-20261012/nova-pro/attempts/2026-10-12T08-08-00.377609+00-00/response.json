@@ -1,0 +1,9 @@
+{
+  "text": "```html\n<!DOCTYPE html>\n<html lang=\"ko\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>nova-pro 미디어아트</title>\n    <style>\n        body {\n            margin: 0;\n            padding: 0;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            height: 100vh;\n            background: #000;\n            color: #fff;\n            font-family: Arial, sans-serif;\n        }\n       .container {\n            text-align: center;\n        }\n       .nova-pro {\n            font-size: 3em;\n            margin: 0;\n            padding: 0;\n            animation: glow 2s infinite alternate;\n        }\n        @keyframes glow {\n            from {\n                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff, 0 0 60px #ff00ff, 0 0 70px #ff00ff;\n            }\n            to {\n                text-shadow: 0 0 20px #fff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff, 0 0 60px #ff00ff, 0 0 70px #ff00ff, 0 0 80px #ff00ff;\n            }\n        }\n    </style>\n</head>\n<body>\n    <div class=\"container\">\n        <h1 class=\"nova-pro\">nova-pro</h1>\n        <p>당신의 지식과 상상력을 넘어서는 경험을 제공합니다.</p>\n    </div>\n\n    <script>\n        document.addEventListener('keydown', function(event) {\n            if (event.key === 'Escape') {\n                document.querySelector('.nova-pro').style.animation = 'none';\n            }\n        });\n    </script>\n</body>\n</html>\n```",
+  "tokens_in": 391,
+  "tokens_out": 541,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "a820746b-390c-4631-a009-c89a79c7adbb"
+}

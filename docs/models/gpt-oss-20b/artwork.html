@@ -1,143 +1,137 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<title>gpt-oss-20b</title>
+<meta charset="UTF-8">
+<title>gpt-oss-20b: 미디어 아트</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-html,body{margin:0;height:100%;overflow:hidden;background:#111;color:#eee;font-family:system-ui,Arial,sans-serif;}
-#canvas{position:absolute;top:0;left:0;width:100%;height:100%;}
-#ui{position:absolute;top:10px;right:10px;display:flex;gap:8px;}
-button{background:#222;color:#eee;border:none;padding:8px 12px;border-radius:4px;cursor:pointer;}
-button:focus{outline:2px solid #fff;}
-#text{position:absolute;bottom:20%;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;}
-#text h1{font-size:2.5rem;margin:0;}
-#text p{font-size:1.2rem;margin:4px 0;}
-@media (max-width:480px){#text h1{font-size:1.8rem;}#text p{font-size:1rem;}}
+  :root {
+    --bg: #111;
+    --fg: #eee;
+    --accent: #ff6f61;
+    --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    margin:0;
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--fg);
+    overflow: hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
+    width:100vw;
+  }
+  h1 {
+    font-size:2rem;
+    margin:0.5rem 0;
+    text-align:center;
+  }
+  #canvas {
+    border:2px solid var(--accent);
+    border-radius:8px;
+    background:#222;
+  }
+  #info {
+    margin-top:1rem;
+    font-size:0.9rem;
+    text-align:center;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition:none !important; animation:none !important; }
+  }
+  /* 키보드 포커스 스타일 */
+  button:focus, canvas:focus {
+    outline: 3px solid var(--accent);
+  }
 </style>
 </head>
 <body>
-<canvas id="canvas"></canvas>
-<div id="ui">
-<button id="pauseBtn">PAUSE</button>
-<button id="nextBtn">NEXT</button>
+<h1>gpt-oss-20b</h1>
+<canvas id="canvas" width="600" height="400" tabindex="0" aria-label="인터랙티브 아트 캔버스"></canvas>
+<div id="info">
+  <p>마우스 또는 키보드(↑↓←→)로 움직이세요. <br>접근성: 키보드 조작, 화면 확대, 움직임 감소 지원.</p>
 </div>
-<div id="text">
-<h1 id="title"></h1>
-<p id="poem"></p>
-<p id="model">gpt-oss-20b</p>
-</div>
+
 <script>
-const canvas=document.getElementById('canvas');
-const ctx=canvas.getContext('2d');
-let width, height, dpr;
-function resize(){
-  dpr=Math.min(window.devicePixelRatio||1,2);
-  width=canvas.clientWidth*dpr;
-  height=canvas.clientHeight*dpr;
-  canvas.width=width;
-  canvas.height=height;
-}
-resize();
-window.addEventListener('resize',resize);
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const width = canvas.width;
+  const height = canvas.height;
+  let pos = {x: width/2, y: height/2};
+  let dir = {x:0, y:0};
+  const speed = 3;
+  const radius = 20;
 
-const scenes=[
-{title:'빛의 언어',poem:'빛은 말없이\n소리를 품고\n세상을 노래한다',color:'#ff6f61'},
-{title:'음성의 그림',poem:'음성은 그림을 그려\n숨결에 색을 입히고\n마음에 울려 퍼진다',color:'#6f86ff'}
-];
-let sceneIndex=0;
-let paused=false;
-let particles=[];
-const maxParticles=700;
-const mouse={x:0,y:0,down:false};
-
-function initParticles(){
-  particles=[];
-  for(let i=0;i<maxParticles;i++){
-    particles.push({
-      x:Math.random()*width,
-      y:Math.random()*height,
-      vx:(Math.random()-0.5)*0.5,
-      vy:(Math.random()-0.5)*0.5,
-      size:Math.random()*2+1,
-      alpha:Math.random()*0.5+0.5
-    });
-  }
-}
-initParticles();
-
-function update(){
-  if(paused)return;
-  for(let p of particles){
-    p.x+=p.vx;
-    p.y+=p.vy;
-    if(p.x<0||p.x>width)p.vx*=-1;
-    if(p.y<0||p.y>height)p.vy*=-1;
-    // mouse attraction
-    const dx=p.x-mouse.x,dy=p.y-mouse.y;
-    const dist=Math.hypot(dx,dy);
-    if(dist<100){
-      const force=0.05*(100-dist)/100;
-      p.vx-=dx*force;
-      p.vy-=dy*force;
-    }
-  }
-}
-function draw(){
-  ctx.fillStyle='rgba(17,17,17,0.2)';
-  ctx.fillRect(0,0,width,height);
-  ctx.globalCompositeOperation='lighter';
-  for(let p of particles){
-    ctx.fillStyle=`rgba(255,255,255,${p.alpha})`;
+  function draw() {
+    ctx.clearRect(0,0,width,height);
+    // background gradient
+    const grd = ctx.createLinearGradient(0,0,width,height);
+    grd.addColorStop(0,'#111');
+    grd.addColorStop(1,'#222');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0,0,width,height);
+    // moving circle
     ctx.beginPath();
-    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.arc(pos.x, pos.y, radius, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(255,111,97,0.8)';
     ctx.fill();
+    // text overlay
+    ctx.font = '20px var(--font)';
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    ctx.fillText('gpt-oss-20b', width/2, height - 30);
   }
-  ctx.globalCompositeOperation='source-over';
-}
-function loop(){
-  if(!document.hidden || !document.hidden){
-    update();
+
+  function update() {
+    pos.x += dir.x * speed;
+    pos.y += dir.y * speed;
+    // wrap around
+    if(pos.x < -radius) pos.x = width + radius;
+    if(pos.x > width + radius) pos.x = -radius;
+    if(pos.y < -radius) pos.y = height + radius;
+    if(pos.y > height + radius) pos.y = -radius;
     draw();
   }
-  requestAnimationFrame(loop);
-}
-loop();
 
-function setScene(i){
-  sceneIndex=i%scenes.length;
-  const s=scenes[sceneIndex];
-  document.getElementById('title').textContent=s.title;
-  document.getElementById('poem').textContent=s.poem;
-  canvas.style.backgroundColor=s.color;
-}
-setScene(0);
+  // keyboard controls
+  document.addEventListener('keydown', e=>{
+    switch(e.key){
+      case 'ArrowUp': dir.y = -1; break;
+      case 'ArrowDown': dir.y = 1; break;
+      case 'ArrowLeft': dir.x = -1; break;
+      case 'ArrowRight': dir.x = 1; break;
+    }
+  });
+  document.addEventListener('keyup', e=>{
+    if(['ArrowUp','ArrowDown'].includes(e.key)) dir.y = 0;
+    if(['ArrowLeft','ArrowRight'].includes(e.key)) dir.x = 0;
+  });
 
-document.getElementById('pauseBtn').addEventListener('click',()=>{
-  paused=!paused;
-  document.getElementById('pauseBtn').textContent=paused?'PLAY':'PAUSE';
-});
-document.getElementById('nextBtn').addEventListener('click',()=>setScene(sceneIndex+1));
+  // mouse drag
+  let dragging = false;
+  canvas.addEventListener('mousedown', e=>{
+    dragging = true;
+    pos.x = e.offsetX;
+    pos.y = e.offsetY;
+  });
+  canvas.addEventListener('mousemove', e=>{
+    if(dragging){
+      pos.x = e.offsetX;
+      pos.y = e.offsetY;
+    }
+  });
+  canvas.addEventListener('mouseup', ()=>dragging=false);
+  canvas.addEventListener('mouseleave', ()=>dragging=false);
 
-canvas.addEventListener('mousemove',e=>{
-  const rect=canvas.getBoundingClientRect();
-  mouse.x=(e.clientX-rect.left)*dpr;
-  mouse.y=(e.clientY-rect.top)*dpr;
-});
-canvas.addEventListener('mousedown',()=>mouse.down=true);
-canvas.addEventListener('mouseup',()=>mouse.down=false);
-canvas.addEventListener('touchmove',e=>{
-  const rect=canvas.getBoundingClientRect();
-  const touch=e.touches[0];
-  mouse.x=(touch.clientX-rect.left)*dpr;
-  mouse.y=(touch.clientY-rect.top)*dpr;
-});
-canvas.addEventListener('touchstart',()=>mouse.down=true);
-canvas.addEventListener('touchend',()=>mouse.down=false);
+  // focus for accessibility
+  canvas.addEventListener('focus', ()=>{dir.x=0;dir.y=0;});
 
-if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-  paused=true;
-  document.getElementById('pauseBtn').textContent='PLAY';
-}
+  // animation loop
+  function loop(){ update(); requestAnimationFrame(loop); }
+  loop();
 </script>
 </body>
 </html>

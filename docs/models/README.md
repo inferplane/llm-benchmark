@@ -12,25 +12,28 @@
 
 작품의 HTML·CSS·JavaScript·시·시각적 표현은 해당 모델의 실제 응답입니다. 코드 펜스와 문서 바깥의 응답 포장만 제거하고 구현 코드는 수정하지 않습니다. 목록, 작성 기록 표시줄, sandbox 뷰어, 캡처·검증 도구는 Codex가 구현했습니다. 뷰어는 iframe의 크기가 정해진 다음 원본을 로드합니다.
 
-기본 요청은 `tools/self_portrait_prompt.txt`로 공통입니다. 모델 이름과 실제 호출 ID만 바꿔 요청합니다. 일부 모델의 잘린 응답에는 출력 예산을 늘려 다시 요청했고, 브라우저에서 확인된 코드 오류는 같은 작성 모델에게 이전 응답과 함께 돌려보내 수정받았습니다. 따라서 이 결과는 동일 조건의 단일 시도 코딩 벤치마크나 품질 순위가 아닙니다.
+이번 공개 작품은 `free-expression-20261012` 세대입니다. 예시 HTML·이전 작품·시각적 스타일·색·시·장면·표현 기법을 지정하지 않고 모두 새로 요청했습니다. 기본 요청 `tools/self_portrait_prompt.txt`에서 모델 이름과 실제 호출 ID만 바꿉니다. 단일 HTML, 모델 이름 표시, 다양한 화면 크기와 접근성, 외부 리소스 없이 실행하는 조건만 남겼습니다.
 
-개별 요청문·응답 텍스트·사용량·요청 ID·생성 시각·코드 해시는 `results/model-self-portraits/<name>/`에 저장됩니다. 수정 시도와 실패 응답은 가능한 범위에서 `attempts/`에 보존합니다. 독자적으로 코드를 수정하면 해당 파일은 기록된 모델 원문과 달라집니다.
+일부 모델의 잘린 응답에는 출력 예산을 늘려 다시 요청했고, 브라우저에서 확인된 코드 오류는 같은 작성 모델에게 돌려보내 수정받았습니다. 수정 요청은 해당 모델의 표현을 보존하면서 확인된 기능 오류를 해결하도록 합니다. 모델별 출력 예산·추론 설정·재시도·샘플링 설정이 다를 수 있으므로 동일 조건의 단일 시도 코딩 벤치마크나 품질 순위가 아닙니다.
+
+개별 요청문·응답 텍스트·사용량·요청 ID·생성 시각·코드 해시는 `results/model-self-portraits/generations/free-expression-20261012/<name>/`에 저장됩니다. 수정 시도와 실패 응답은 가능한 범위에서 `attempts/`에 보존합니다. 이전 세대 기록은 감사 이력으로만 남으며 이번 생성 입력으로 사용하지 않습니다. 독자적으로 코드를 수정하면 해당 파일은 기록된 모델 원문과 달라집니다.
 
 ```sh
 # 구성된 관리형 엔드포인트에서 실제 생성. 추론 비용이 발생합니다.
-uv run python tools/generate_self_portraits.py --managed --concurrency 4
+uv run python tools/generate_self_portraits.py --generation free-expression-20261012 --managed --concurrency 4
 
 # 모델 서버가 config.toml의 주소에서 준비된 뒤 해당 가중치를 검증하고 생성.
-uv run python tools/generate_self_portraits.py --models qwen3.6-27b --concurrency 1
+uv run python tools/generate_self_portraits.py --generation free-expression-20261012 --models qwen3.6-27b --concurrency 1
 
 # 이미 받은 실제 응답으로 목록·작성 기록만 갱신. 모델 호출 없음.
-uv run python tools/generate_self_portraits.py --catalog-only
+uv run python tools/generate_self_portraits.py --generation free-expression-20261012 \
+  --catalog-only --publication-review validation/self-portraits/free-expression-review.json
 
 # 로컬 보기
 python3 -m http.server 8000 -d docs
 ```
 
-생성된 성공 결과는 다시 호출하지 않습니다. `--feedback <JSON>`과 `--models <names>`를 같이 지정하면 그 작성 모델이 자기 코드를 수정합니다. `--max-output-tokens`는 별도 콘텐츠 생성 프로세스에만 적용하며, 번역 벤치마크의 기본 예산을 변경하지 않습니다. 자체 배포 모델은 `/v1/models`가 요청한 실제 HF ID를 반환해야 호출합니다.
+같은 세대에서 생성된 성공 결과는 다시 호출하지 않습니다. 새 `--generation` 이름을 지정하면 이전 세대의 코드나 수정 요청을 참조하지 않고 새 요청 이력을 시작합니다. `--feedback <JSON>`과 `--models <names>`를 같이 지정하면 그 작성 모델이 자기 코드를 수정합니다. `--max-output-tokens`와 `--bedrock-effort`는 별도 콘텐츠 생성 프로세스에만 적용하며, 번역 벤치마크의 기본 설정을 변경하지 않습니다. 자체 배포 모델은 `/v1/models`가 요청한 실제 HF ID를 반환해야 호출합니다.
 
 `--temperature`는 자체 배포 작품 요청에만 쓰는 별도 샘플링 설정이며 각 요청 기록에 보관합니다. 번역 벤치마크의 고정 설정은 바꾸지 않습니다. `--catalog-only --publication-review <JSON>`은 독립 검수의 점수·경고 수·원본 해시를 확인하고, 일치하는 PASS가 없는 작품을 ‘검수 보류’로 표시합니다. 실제 게시용 파일을 준비할 때 보류 작품의 `artwork.html`과 `preview.jpg`도 제외해야 합니다.
 

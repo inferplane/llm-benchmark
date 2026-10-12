@@ -1,0 +1,20 @@
+{
+  "model": "qwen3-32b",
+  "model_id": "qwen.qwen3-32b-v1:0",
+  "api": "bedrock",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:11:09.103892+00:00",
+  "prompt_sha256": "4a171fe9315a5135b5a1ac014b614d41b2a6320291e9c1d646accde2a4d480dd",
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "status": "generated",
+  "generated_at": "2026-10-12T08:11:23.135593+00:00",
+  "artwork_sha256": "dc1be4dfe2475ed3403d4436dedf92b7c7f25b7146c478feaa09f0d579051084",
+  "tokens_in": 249,
+  "tokens_out": 1371,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "274aab21-e947-42cb-8dd0-6c24f195199a"
+}

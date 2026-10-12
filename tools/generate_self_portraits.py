@@ -25,6 +25,7 @@ from bench import run
 OUTPUT = ROOT / "docs/models"
 RECORDS = ROOT / "results/model-self-portraits"
 PROMPT = ROOT / "tools/self_portrait_prompt.txt"
+GENERATION = "legacy"
 
 
 def now() -> str:
@@ -142,6 +143,10 @@ def build_catalog(models: list[dict], reviews: dict | None = None) -> None:
         directory.mkdir(parents=True, exist_ok=True)
         record = record_of(name)
         prompts = recorded_prompts(name, record)
+        active_prompt_files = {item["file"] for item in prompts}
+        for filename in ("prompt.txt", "initial-prompt.txt"):
+            if filename not in active_prompt_files:
+                (directory / filename).unlink(missing_ok=True)
         for item in prompts:
             (directory / item["file"]).write_text(item["text"])
         status = record["status"]
@@ -175,9 +180,12 @@ def build_catalog(models: list[dict], reviews: dict | None = None) -> None:
                 "reported_model", "artwork_sha256", "prompt_sha256",
                 "tokens_in", "tokens_out", "finish_reason", "max_output_tokens",
                 "reported_reasoning", "reasoning_tokens", "temperature", "temperature_sent",
+                "bedrock_reasoning_effort", "art_thinking_disabled_requested",
+                "stream_response",
             ) if key in record},
             "status": status,
             "generation_status": record["status"],
+            "generation": GENERATION,
             "prompt_available": bool(prompts),
         }
         if prompts:
@@ -202,13 +210,18 @@ def build_catalog(models: list[dict], reviews: dict | None = None) -> None:
                 record.get("reason", "아직 이 모델의 응답을 받지 않았습니다.")
             )
             panel = f'<main class="unavailable"><h1>{escape(name)}</h1><p>{escape(labels.get(status, status))}</p><p>{escape(reason)}</p><p>다른 모델이나 운영자가 대신 만든 작품은 표시하지 않습니다.</p></main>'
+        authorship_note = (
+            "작품 코드와 디자인은 이 모델의 실제 응답입니다."
+            if status == "generated" else
+            "현재 이 페이지는 모델의 작성·검수 상태를 안내합니다."
+        )
         directory.joinpath("index.html").write_text(f"""<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{escape(name)} · 모델이 만든 자기표현</title>
 <link rel="icon" href="../../favicon.svg"><link rel="stylesheet" href="../portraits.css"><link rel="stylesheet" href="../readability.css"><script src="../viewer.js" defer></script></head>
 <body class="viewer"><header class="viewer-bar"><a href="../">← 모델 목록</a><span><strong>{escape(name)}</strong><small>{escape(labels.get(status, status))}</small></span>
-<div class="viewer-actions">{'<button type="button" data-open-prompts>프롬프트</button>' if prompts else ''}<details><summary>작성 기록</summary><section><p>요청 모델: {escape(model["model_id"])}</p><p>상태: {escape(labels.get(status, status))}</p>
-<p>{escape(record.get('generated_at', ''))}</p><p>작품 코드와 디자인은 이 모델의 실제 응답입니다. 목록과 이 표시줄은 실행 도구가 제공합니다.</p>
+<div class="viewer-actions">{'<button type="button" data-open-prompts>프롬프트</button>' if prompts else ''}<details><summary>작성 기록</summary><section><p>모델 식별자: {escape(model["model_id"])}</p><p>상태: {escape(labels.get(status, status))}</p>
+<p>{escape(record.get('generated_at', ''))}</p><p>{authorship_note} 목록과 이 표시줄은 실행 도구가 제공합니다.</p>
 <a href="provenance.json" target="_blank" rel="noopener">작성자·응답 기록</a>{'<a href="artwork.html" target="_blank" rel="noopener">원본 작품만 열기 ↗</a>' if status == 'generated' else ''}</section></details></div></header>{panel}{prompt_dialog(prompts, name)}</body></html>""")
     generated = sum(item["status"] == "generated" for item in entries)
     cards = []
@@ -227,7 +240,7 @@ def build_catalog(models: list[dict], reviews: dict | None = None) -> None:
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>모델이 만든 자기표현 · LLM Self Portraits</title><link rel="icon" href="../favicon.svg"><link rel="stylesheet" href="portraits.css"><link rel="stylesheet" href="readability.css"><script src="catalog.js" defer></script></head>
 <body class="catalog"><header><a href="../index.html">LLM BENCHMARK ↗</a><span>SELF PORTRAITS</span></header>
-<main><section class="intro"><p>A SHARED BRIEF · EACH MODEL'S OWN CODE</p><h1>나는, 이런 모델입니다.</h1><div>모델마다 같은 기본 요청을 받았습니다.<br>“자신을 표현하는 미디어아트 웹페이지를 직접 구현해 주세요.”<br>발견된 코드 오류는 작성 모델에 돌려보내 수정받았습니다.<br>각 작품은 해당 모델이 반환한 코드 그대로입니다.{'<br>검수 보류 항목은 작품 대신 상태를 표시합니다.' if reviews is not None else ''}</div><p class="total">{generated}개 모델 {'작품 공개' if reviews is not None else '직접 작성'} · 전체 {len(entries)}개 항목</p></section>
+<main><section class="intro"><p>A SHARED BRIEF · EACH MODEL'S OWN CODE</p><h1>나는, 이런 모델입니다.</h1><div>모델마다 같은 기본 요청을 받았습니다.<br>“자신을 표현하는 미디어아트 웹페이지를 직접 구현해 주세요.”<br>예시와 표현 기법을 지정하지 않고 각 모델에 맡겼습니다.<br>발견된 코드 오류는 작성 모델에 돌려보내 수정받았습니다.<br>각 작품은 해당 모델이 반환한 코드 그대로입니다.{'<br>검수 보류 항목은 작품 대신 상태를 표시합니다.' if reviews is not None else ''}</div><p class="total">{generated}개 모델 {'작품 공개' if reviews is not None else '직접 작성'} · 전체 {len(entries)}개 항목</p></section>
 <div class="toolbar"><div class="filters">{filters}</div><label>모델 찾기 <input type="search" id="search" placeholder="Claude, GPT, Qwen…"></label></div>
 <section class="portrait-grid" aria-label="각 모델이 직접 만든 작품">{''.join(cards)}</section>
 <p id="empty" hidden>해당하는 모델이 없습니다.</p></main><footer>작성 모델과 실제 응답 기록은 각 작품의 ‘작성 기록’에서 확인할 수 있습니다.<br>코드 생성이 불가능하거나 실제 응답이 없는 항목은 작품 대신 그 상태를 표시합니다.</footer></body></html>""")
@@ -265,16 +278,17 @@ async def generate_one(model: dict, aws_region: str, limiter: asyncio.Semaphore)
             prompt = (
                 f"You are the original author, model {name}, served as {model['model_id']}. "
                 "Repair your OWN previously generated standalone HTML. This is a bug-fix task, "
-                "not a new creative brief. Preserve your own art and Korean poem. "
+                "not a new creative brief. Preserve your own expressive concept and visual choices. "
                 "Return ONLY one complete corrected HTML document, all tags closed. "
                 "No explanation, no Markdown fence, no snippets. No external dependencies or network. "
-                "Stay compact (about 3000 code output tokens).\n\nYOUR PREVIOUS FULL RESPONSE:\n"
+                "\n\nYOUR PREVIOUS FULL RESPONSE:\n"
                 + previous_code
                 + "\n\nMANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; "
                 "do not merely repeat your old code. The diagnostic list is the controlling repair request:\n"
                 + json.dumps(model["_feedback"], ensure_ascii=False)
-                + ("\n\nThe previous implementation was unreliable; implement a fresh minimal version "
-                   "yourself. Use DOM text and native buttons, one RAF controller, and keep all requirements."
+                + ("\n\nThe previous implementation was unreliable; implement a fresh version "
+                   "yourself using your own expressive concept and medium. Address the confirmed "
+                   "functional issues without adopting a shared visual template."
                    if model.get("_fresh_repair") else "")
                 + "\n\nReturn the complete repaired HTML now."
             )
@@ -295,22 +309,27 @@ async def generate_one(model: dict, aws_region: str, limiter: asyncio.Semaphore)
         )
         record = {
             "model": name, "model_id": model["model_id"], "api": model["api"],
+            "generation": GENERATION,
             "requested_at": now(), "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
             "max_output_tokens": run.MAX_OUTPUT_TOKENS,
             "temperature": model.get("_art_temperature", 0) if temperature_sent else None,
             "temperature_sent": temperature_sent,
+            "bedrock_reasoning_effort": model.get("_art_effort", model.get("bedrock_reasoning_effort")),
+            "art_thinking_disabled_requested": model.get("_art_disable_thinking", False),
+            "stream_response": model.get("_art_stream", False),
         }
         attempt = directory / "attempts" / record["requested_at"].replace(":", "-")
         attempt.mkdir(parents=True, exist_ok=True)
         attempt.joinpath("prompt.txt").write_text(prompt)
         try:
             if model["api"] == "bedrock":
-                result = await run.call_bedrock(client, model["model_id"], prompt, model.get("bedrock_reasoning_effort"))
+                override = {"thinking": {"type": "disabled"}} if model.get("_art_disable_thinking") else None
+                result = await run.call_bedrock(client, model["model_id"], prompt, model.get("_art_effort", model.get("bedrock_reasoning_effort")), additional_fields_override=override)
             elif model["api"] == "bedrock_mantle":
                 effort = model.get("mantle_reasoning_effort")
                 if effort is None and model["model_id"].startswith("openai.") and model["model_id"] in run.MANTLE_NO_TEMPERATURE:
                     effort = "low"
-                result = await run.call_mantle(client, model.get("mantle_region", aws_region), model["model_id"], prompt, reasoning_effort=effort)
+                result = await run.call_mantle(client, model.get("mantle_region", aws_region), model["model_id"], prompt, reasoning_effort=effort, stream_response=model.get("_art_stream", False))
             else:
                 # Prove the serving endpoint actually has the requested weights.
                 available = await client.models.list()
@@ -375,6 +394,18 @@ async def collect(args: argparse.Namespace) -> None:
         if any(model["api"] != "openai" or not model.get("base_url") for model in wanted):
             raise ValueError("Art sampling override is only supported for configured self-hosted models")
         wanted = [{**model, "_art_temperature": args.temperature} for model in wanted]
+    if args.bedrock_effort:
+        if any(model["api"] != "bedrock" for model in wanted):
+            raise ValueError("Artwork effort override is supported only on Bedrock Converse")
+        wanted = [{**model, "_art_effort": args.bedrock_effort} for model in wanted]
+    if args.disable_thinking:
+        if any(model["api"] != "bedrock" for model in wanted):
+            raise ValueError("Thinking override requires Bedrock Converse")
+        wanted = [{**model, "_art_disable_thinking": True} for model in wanted]
+    if args.mantle_stream:
+        if any(model["api"] != "bedrock_mantle" for model in wanted):
+            raise ValueError("Streaming override requires Mantle Responses")
+        wanted = [{**model, "_art_stream": True} for model in wanted]
     if selected and selected - {model["name"] for model in wanted}:
         raise ValueError(f"Unknown models: {sorted(selected - {model['name'] for model in wanted})}")
     if args.managed:
@@ -391,18 +422,28 @@ async def collect(args: argparse.Namespace) -> None:
 
 
 def main() -> int:
+    global RECORDS, GENERATION
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--generation", default="legacy", help="isolated request history; a new generation starts without old artwork/prompt context")
     parser.add_argument("--models", help="comma-separated config model names")
     parser.add_argument("--managed", action="store_true", help="only invoke configured managed endpoints")
     parser.add_argument("--concurrency", type=int, default=4)
     parser.add_argument("--catalog-only", action="store_true")
     parser.add_argument("--publication-review", help="independent review JSON; catalog-only mode withholds artworks without a matching PASS")
     parser.add_argument("--feedback", help="JSON mapping of model names to browser feedback; same author repairs its own code")
-    parser.add_argument("--fresh-repair", action="store_true", help="same author rebuilds a minimal implementation from review requirements without copying the prior broken code")
+    parser.add_argument("--fresh-repair", action="store_true", help="same author rebuilds its own expression to address review findings without copying the prior broken code")
     parser.add_argument("--temperature", type=float, help="isolated self-hosted artwork sampling override; benchmark defaults remain pinned")
+    parser.add_argument("--bedrock-effort", choices=("low", "medium", "high"), help="isolated artwork reasoning effort; does not change benchmark config")
+    parser.add_argument("--disable-thinking", action="store_true", help="isolated artwork provider thinking toggle, only when live supported")
+    parser.add_argument("--mantle-stream", action="store_true", help="stream transport until the provider's complete response, without changing the prompt")
     parser.add_argument("--max-output-tokens", type=int, default=run.MAX_OUTPUT_TOKENS,
                         help="isolated artwork request budget; does not change benchmark defaults")
     args = parser.parse_args()
+    if not re.fullmatch(r"[a-z0-9][a-z0-9.-]*", args.generation):
+        parser.error("Unsafe generation name")
+    GENERATION = args.generation
+    if GENERATION != "legacy":
+        RECORDS = ROOT / "results/model-self-portraits/generations" / GENERATION
     if args.publication_review and not args.catalog_only:
         parser.error("--publication-review requires --catalog-only")
     if args.concurrency < 1 or args.concurrency > 8:

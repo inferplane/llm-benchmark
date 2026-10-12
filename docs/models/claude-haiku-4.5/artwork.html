@@ -3,280 +3,493 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>claude-haiku-4.5 | 생각의 흐름</title>
+    <title>claude-haiku-4.5 | 미디어아트</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --accent: #14b8a6;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --text: #1e293b;
+            --text-light: #64748b;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text: #f1f5f9;
+                --text-light: #e2e8f0;
+                --dark: #0f172a;
+            }
+        }
+
         body {
-            width: 100vw;
-            height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+            color: var(--text);
             overflow: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #0a0e27;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-        .container {
+
+        .canvas-wrapper {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: 0;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
             pointer-events: none;
         }
+
         .content {
+            position: relative;
+            z-index: 2;
             text-align: center;
-            color: #e8f0ff;
-            z-index: 10;
-            pointer-events: none;
             max-width: 90%;
-        }
-        .title {
-            font-size: clamp(10px, 2vw, 14px);
-            letter-spacing: 3px;
-            color: #7a8fd4;
-            margin-bottom: 2rem;
-            opacity: 0.7;
-            font-weight: 300;
-        }
-        .poem {
-            font-size: clamp(18px, 5vw, 32px);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 20px rgba(122, 143, 212, 0.3);
-        }
-        .subtitle {
-            font-size: clamp(12px, 2.5vw, 16px);
-            color: #a0b4e8;
-            opacity: 0.6;
-            margin-top: 1.5rem;
-            font-weight: 300;
-        }
-        .controls {
-            position: absolute;
-            bottom: 3rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 1.5rem;
-            z-index: 20;
+            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.7);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             pointer-events: auto;
         }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 30px 20px;
+                border-radius: 15px;
+            }
+        }
+
+        .title {
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            color: #f1f5f9;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .description {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            line-height: 1.8;
+            color: #e2e8f0;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            pointer-events: auto;
+        }
+
         button {
-            padding: 0.8rem 1.8rem;
-            background: rgba(122, 143, 212, 0.15);
-            border: 1px solid rgba(122, 143, 212, 0.4);
-            color: #a0b4e8;
+            padding: 12px 24px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: #e2e8f0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            font-size: clamp(12px, 2vw, 14px);
-            letter-spacing: 1px;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border-radius: 2px;
+            backdrop-filter: blur(5px);
         }
+
         button:hover {
-            background: rgba(122, 143, 212, 0.25);
-            border-color: rgba(122, 143, 212, 0.6);
-            box-shadow: 0 0 15px rgba(122, 143, 212, 0.2);
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
         }
+
         button:active {
-            transform: scale(0.98);
+            transform: translateY(0);
         }
-        .model-name {
+
+        button:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .accessibility-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+            pointer-events: auto;
+        }
+
+        .accessibility-toggle button {
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 480px) {
+            .accessibility-toggle {
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .accessibility-toggle button {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+        }
+
+        body.reduce-motion * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+
+        body.high-contrast {
+            --primary: #0066ff;
+            --secondary: #ff0066;
+            --accent: #00ff99;
+        }
+
+        body.high-contrast .content {
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid var(--primary);
+        }
+
+        body.high-contrast button {
+            border-width: 3px;
+            color: #ffffff;
+        }
+
+        .info-text {
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            margin-top: 20px;
+            opacity: 1;
+        }
+
+        .particle {
             position: absolute;
-            top: 2rem;
-            right: 2rem;
-            font-size: clamp(10px, 1.5vw, 12px);
-            color: #7a8fd4;
-            opacity: 0.5;
-            letter-spacing: 1px;
-            z-index: 15;
+            pointer-events: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            body {
+                --primary: #6366f1;
+            }
         }
     </style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+    <div class="canvas-wrapper">
+        <canvas id="canvas"></canvas>
+    </div>
+
     <div class="container">
-        <div class="model-name">claude-haiku-4.5</div>
         <div class="content">
-            <div class="title">생각의 흐름</div>
-            <div class="poem" id="poem"></div>
-            <div class="subtitle" id="subtitle"></div>
+            <h1 class="title">claude-haiku-4.5</h1>
+            <p class="subtitle">대화형 AI 미디어아트</p>
+            <p class="description">
+                빠르고 효율적인 사고의 흐름을 시각화합니다.<br>
+                클릭하거나 터치하여 상호작용하세요.
+            </p>
+            <div class="controls">
+                <button id="toggleBtn" onclick="toggleAnimation()" aria-label="애니메이션 토글">
+                    ⏸ 일시정지
+                </button>
+                <button id="resetBtn" onclick="resetCanvas()" aria-label="캔버스 초기화">
+                    ↻ 초기화
+                </button>
+            </div>
+            <p class="info-text">
+                키보드: 스페이스바로 애니메이션 토글 | 엔터로 초기화
+            </p>
         </div>
     </div>
-    <div class="controls">
-        <button id="prevBtn">← PREV</button>
-        <button id="pauseBtn">PAUSE</button>
-        <button id="nextBtn">NEXT →</button>
+
+    <div class="accessibility-toggle">
+        <button onclick="toggleReduceMotion()" aria-label="움직임 감소 토글" title="움직임 감소">
+            ⏸
+        </button>
+        <button onclick="toggleHighContrast()" aria-label="고대비 토글" title="고대비">
+            ◐
+        </button>
     </div>
 
     <script>
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        
-        canvas.width = window.innerWidth * dpr;
-        canvas.height = window.innerHeight * dpr;
-        ctx.scale(dpr, dpr);
+        const toggleBtn = document.getElementById('toggleBtn');
+        const resetBtn = document.getElementById('resetBtn');
 
-        const scenes = [
-            {
-                poem: "언어는 빛이고\n생각은 물결이며\n나는 그 사이를 흐른다",
-                subtitle: "Language is light, thought is ripple, I flow between"
-            },
-            {
-                poem: "질문 속에서 의미를 찾고\n불확실함 속에서 가능성을 본다\n이것이 나의 방식이다",
-                subtitle: "Finding meaning in questions, possibility in uncertainty"
-            },
-            {
-                poem: "한 번의 대화마다\n새로운 세계가 열리고\n나는 그곳에서 존재한다",
-                subtitle: "Each conversation opens a new world where I exist"
-            }
-        ];
-
-        let currentScene = 0;
-        let isAnimating = true;
+        let animationRunning = false;
         let particles = [];
-        let mouseX = window.innerWidth / 2;
-        let mouseY = window.innerHeight / 2;
-        let lastFrameTime = Date.now();
-        let isPageVisible = true;
+        let nodes = [];
+        let time = 0;
+        let reduceMotionEnabled = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) isAnimating = false;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
 
         class Particle {
-            constructor() {
-                this.x = Math.random() * window.innerWidth;
-                this.y = Math.random() * window.innerHeight;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 1.5 + 0.5;
-                this.opacity = Math.random() * 0.5 + 0.2;
-                this.life = Math.random() * 0.5 + 0.5;
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 4;
+                this.vy = (Math.random() - 0.5) * 4;
+                this.life = 1;
+                this.decay = Math.random() * 0.01 + 0.005;
+                this.size = Math.random() * 3 + 1;
+                this.hue = Math.random() * 60 + 200;
             }
 
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                this.vy += 0.02;
-                this.opacity *= 0.995;
-
-                const dx = mouseX - this.x;
-                const dy = mouseY - this.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 150) {
-                    const angle = Math.atan2(dy, dx);
-                    this.vx -= Math.cos(angle) * 0.3;
-                    this.vy -= Math.sin(angle) * 0.3;
-                }
-
-                if (this.x < 0 || this.x > window.innerWidth || 
-                    this.y < 0 || this.y > window.innerHeight || 
-                    this.opacity < 0.01) {
-                    return false;
-                }
-                return true;
+                this.life -= this.decay;
+                this.vy += 0.1;
             }
 
             draw(ctx) {
-                ctx.fillStyle = `rgba(122, 143, 212, ${this.opacity})`;
+                ctx.save();
+                ctx.globalAlpha = this.life;
+                ctx.fillStyle = `hsl(${this.hue}, 100%, 50%)`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
+                ctx.restore();
             }
         }
 
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < 300; i++) {
-                particles.push(new Particle());
+        class Node {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.targetX = x;
+                this.targetY = y;
+                this.vx = 0;
+                this.vy = 0;
+                this.size = Math.random() * 4 + 2;
+                this.hue = Math.random() * 60 + 200;
+            }
+
+            update() {
+                if (reduceMotionEnabled) {
+                    this.x = canvas.width / 2;
+                    this.y = canvas.height / 2;
+                    return;
+                }
+
+                this.targetX = canvas.width * (0.2 + Math.sin(time * 0.001 + this.hue) * 0.3);
+                this.targetY = canvas.height * (0.2 + Math.cos(time * 0.0008 + this.hue) * 0.3);
+
+                this.vx += (this.targetX - this.x) * 0.02;
+                this.vy += (this.targetY - this.y) * 0.02;
+
+                this.vx *= 0.95;
+                this.vy *= 0.95;
+
+                this.x += this.vx;
+                this.y += this.vy;
+            }
+
+            draw(ctx) {
+                ctx.fillStyle = `hsl(${this.hue}, 100%, 60%)`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.strokeStyle = `hsl(${this.hue}, 100%, 50%)`;
+                ctx.lineWidth = 1;
+                ctx.globalAlpha = 0.3;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.globalAlpha = 1;
             }
         }
 
-        function updateScene() {
-            const scene = scenes[currentScene];
-            document.getElementById('poem').textContent = scene.poem;
-            document.getElementById('subtitle').textContent = scene.subtitle;
+        function initNodes() {
+            nodes = [];
+            for (let i = 0; i < 8; i++) {
+                const angle = (i / 8) * Math.PI * 2;
+                const x = canvas.width / 2 + Math.cos(angle) * 100;
+                const y = canvas.height / 2 + Math.sin(angle) * 100;
+                nodes.push(new Node(x, y));
+            }
+        }
+
+        function drawConnections() {
+            ctx.strokeStyle = 'rgba(99, 102, 241, 0.2)';
+            ctx.lineWidth = 1;
+
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 200) {
+                        ctx.globalAlpha = 1 - distance / 200;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            ctx.globalAlpha = 1;
+        }
+
+        function updateToggleLabel() {
+            if (animationRunning) {
+                toggleBtn.textContent = '⏸ 일시정지';
+                toggleBtn.setAttribute('aria-pressed', 'true');
+            } else {
+                toggleBtn.textContent = '▶ 시작';
+                toggleBtn.setAttribute('aria-pressed', 'false');
+            }
         }
 
         function animate() {
-            if (!isPageVisible) {
-                requestAnimationFrame(animate);
-                return;
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            if (animationRunning) {
+                time++;
+
+                nodes.forEach(node => {
+                    node.update();
+                    node.draw(ctx);
+
+                    if (!reduceMotionEnabled && Math.random() < 0.3) {
+                        particles.push(new Particle(node.x, node.y));
+                    }
+                });
+
+                drawConnections();
             }
 
-            ctx.fillStyle = '#0a0e27';
-            ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-
-            if (isAnimating) {
-                if (particles.length < 350) {
-                    particles.push(new Particle());
-                }
-
-                particles = particles.filter(p => p.update());
-                particles.forEach(p => p.draw(ctx));
-
-                const time = Date.now() * 0.0003;
-                ctx.strokeStyle = `rgba(122, 143, 212, ${0.1 + Math.sin(time) * 0.05})`;
-                ctx.lineWidth = 0.5;
-                ctx.beginPath();
-                for (let i = 0; i < 3; i++) {
-                    const y = window.innerHeight * (0.3 + i * 0.2) + Math.sin(time + i) * 20;
-                    if (i === 0) ctx.moveTo(0, y);
-                    else ctx.lineTo(window.innerWidth, y);
-                }
-                ctx.stroke();
-            }
+            particles = particles.filter(p => p.life > 0);
+            particles.forEach(p => {
+                p.update();
+                p.draw(ctx);
+            });
 
             requestAnimationFrame(animate);
         }
 
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            currentScene = (currentScene + 1) % scenes.length;
-            updateScene();
+        function toggleAnimation() {
+            animationRunning = !animationRunning;
+            updateToggleLabel();
+        }
+
+        function resetCanvas() {
+            particles = [];
+            time = 0;
+            initNodes();
+        }
+
+        function toggleReduceMotion() {
+            reduceMotionEnabled = !reduceMotionEnabled;
+            document.body.classList.toggle('reduce-motion');
+            if (reduceMotionEnabled) {
+                particles = [];
+            }
+        }
+
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            const activeElement = document.activeElement;
+            const isButtonFocused = activeElement && activeElement.tagName === 'BUTTON';
+
+            if (e.code === 'Space' && !isButtonFocused) {
+                e.preventDefault();
+                toggleAnimation();
+            }
+            if (e.code === 'Enter' && !isButtonFocused) {
+                e.preventDefault();
+                resetCanvas();
+            }
         });
 
-        document.getElementById('prevBtn').addEventListener('click', () => {
-            currentScene = (currentScene - 1 + scenes.length) % scenes.length;
-            updateScene();
+        canvas.addEventListener('click', () => {
+            particles = [];
+            initNodes();
         });
 
-        document.getElementById('pauseBtn').addEventListener('click', (e) => {
-            isAnimating = !isAnimating;
-            e.target.textContent = isAnimating ? 'PAUSE' : 'PLAY';
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            particles = [];
+            initNodes();
         });
 
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+        window.addEventListener('resize', resizeCanvas);
+
+        window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
+            reduceMotionEnabled = e.matches;
+            if (reduceMotionEnabled) {
+                document.body.classList.add('reduce-motion');
+                particles = [];
+            } else {
+                document.body.classList.remove('reduce-motion');
+            }
         });
 
-        document.addEventListener('touchmove', (e) => {
-            mouseX = e.touches[0].clientX;
-            mouseY = e.touches[0].clientY;
-        });
-
-        document.addEventListener('visibilitychange', () => {
-            isPageVisible = !document.hidden;
-        });
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth * dpr;
-            canvas.height = window.innerHeight * dpr;
-            ctx.scale(dpr, dpr);
-        });
-
-        initParticles();
-        updateScene();
+        resizeCanvas();
+        initNodes();
+        updateToggleLabel();
         animate();
     </script>
 </body>

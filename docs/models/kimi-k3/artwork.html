@@ -1,124 +1,489 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>어휘의 심해 — kimi-k3</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="kimi-k3가 스스로를 표현한 미디어아트: 달빛 토큰의 바다. 단일 HTML 파일, 오프라인 실행.">
+<title>kimi-k3 — 달빛 토큰의 바다</title>
 <style>
-:root{--ink:#eaf6ff;--dim:#9fb8c8;--accent:#7ee8d8}
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;overflow:hidden;background:#060b16;color:var(--ink);
-font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
-canvas{position:fixed;inset:0;display:block}
-#stage{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;
-justify-content:center;text-align:center;pointer-events:none;padding:24px;z-index:3}
-.seal{font-size:11px;letter-spacing:.55em;color:var(--dim);margin-bottom:30px;text-indent:.55em}
-h1{font-family:"Apple Myungjo","Nanum Myeongjo",Georgia,serif;font-weight:400;
-font-size:clamp(19px,3.2vw,29px);line-height:2.05;letter-spacing:.08em;
-text-shadow:0 0 26px rgba(126,232,216,.28);transition:text-shadow .8s}
-body.s1 h1{text-shadow:0 0 26px rgba(244,184,193,.3)}
-body.s2 h1{text-shadow:0 0 26px rgba(217,200,255,.3)}
-.en{margin-top:24px;font-size:11px;letter-spacing:.2em;color:var(--dim);font-style:italic}
-.model{margin-top:34px;font-size:10px;letter-spacing:.5em;color:var(--accent);opacity:.9;text-indent:.5em}
-#ctl{position:fixed;bottom:max(24px,env(safe-area-inset-bottom));left:0;right:0;
-display:flex;gap:14px;justify-content:center;z-index:6}
-button{background:rgba(255,255,255,.04);border:1px solid rgba(234,246,255,.25);
-color:var(--ink);font-size:11px;letter-spacing:.3em;padding:11px 20px 11px 23px;
-cursor:pointer;border-radius:2px;backdrop-filter:blur(4px);transition:.3s;font-family:inherit}
-button:hover{border-color:var(--accent);color:var(--accent)}
-#fade{position:fixed;inset:0;background:#060b16;opacity:0;pointer-events:none;
-transition:opacity .5s ease;z-index:5}
-body.s1{--accent:#f4b8c1;background:#160a12}
-body.s2{--accent:#d9c8ff;background:#0a081a}
+  :root{
+    --bg1:#070b1a;
+    --bg2:#101838;
+    --ink:#f4f6ff;
+    --muted:#c6cdea;
+    --accent:#8fd6ff;
+    --gold:#ffd166;
+    --panel:rgba(9,13,30,.88);
+    --line:rgba(160,180,255,.30);
+    --focus:#ffd166;
+  }
+  body.hc{
+    --bg1:#000000;
+    --bg2:#000000;
+    --ink:#ffffff;
+    --muted:#ffffff;
+    --accent:#7df9ff;
+    --gold:#ffe95e;
+    --panel:#000000;
+    --line:#ffffff;
+    --focus:#ffe95e;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    min-height:100vh;
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 800px at 68% 28%, var(--bg2), var(--bg1) 70%);
+    font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  /* ---- 상호작용 무대(캔버스) ---- */
+  #stage{
+    position:fixed; inset:0; z-index:0;
+    display:block;
+  }
+  #stage canvas{display:block;}
+  #stage:focus-visible{
+    outline:3px solid var(--focus);
+    outline-offset:-6px;
+  }
+  /* ---- 콘텐츠 ---- */
+  .skip{
+    position:absolute; left:-9999px; top:0; z-index:10;
+    background:var(--gold); color:#111; padding:.7em 1.1em;
+    font-weight:700; border-radius:0 0 10px 0; text-decoration:none;
+  }
+  .skip:focus{left:0;}
+  header, main{position:relative; z-index:1;}
+  header{padding:clamp(1.2rem,4vw,3rem) clamp(1rem,4vw,3rem) 0; pointer-events:none;}
+  .kicker{
+    margin:0; font-size:.85em; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--accent);
+  }
+  h1{
+    margin:.1em 0 0;
+    font-size:clamp(2.6rem, 9vw, 5.5rem);
+    line-height:1.05;
+    letter-spacing:-.02em;
+    font-weight:800;
+  }
+  h1 .moonmark{color:var(--gold);}
+  .sub{
+    margin:.4em 0 0; color:var(--muted);
+    font-size:clamp(1rem, 2.6vw, 1.25rem);
+  }
+  main{
+    display:flex; justify-content:flex-start;
+    padding:clamp(1rem,3vw,2.4rem) clamp(1rem,4vw,3rem) clamp(4rem,10vh,6rem);
+  }
+  .panel{
+    max-width:42rem; width:100%;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:clamp(1.1rem,3vw,2rem);
+    backdrop-filter:blur(9px);
+    -webkit-backdrop-filter:blur(9px);
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+  }
+  .panel h2{margin:.2em 0 .5em; font-size:1.3em;}
+  .panel h3{margin:1.4em 0 .4em; font-size:1.05em; color:var(--accent);}
+  .poem{
+    border-left:3px solid var(--gold);
+    padding-left:1em; margin:1em 0;
+    color:var(--ink);
+  }
+  .poem em{font-style:normal; color:var(--gold); font-weight:700;}
+  .sig{font-size:.9em; color:var(--muted);}
+  code{
+    background:rgba(140,170,255,.14);
+    border:1px solid var(--line);
+    padding:.1em .45em; border-radius:6px;
+    font-family:ui-monospace, "Cascadia Code", Consolas, monospace;
+    font-size:.92em; color:var(--accent);
+  }
+  ul{margin:.3em 0 0; padding-left:1.2em;}
+  li{margin:.25em 0;}
+  kbd{
+    border:1px solid var(--line); border-bottom-width:2px; border-radius:6px;
+    padding:.05em .45em; font-family:inherit; font-size:.88em;
+    background:rgba(140,170,255,.10);
+  }
+  /* ---- 컨트롤 ---- */
+  .controls{
+    display:flex; flex-wrap:wrap; gap:.55em; align-items:center;
+    margin-top:1.3em; padding-top:1.1em;
+    border-top:1px dashed var(--line);
+  }
+  button{
+    font:inherit; color:var(--ink);
+    background:transparent;
+    border:1.5px solid var(--line);
+    border-radius:999px;
+    padding:.55em 1.05em;
+    cursor:pointer;
+    min-height:44px;
+    transition:background .2s, color .2s, border-color .2s;
+  }
+  button:hover{background:rgba(143,214,255,.14); border-color:var(--accent);}
+  button[aria-pressed="true"]{
+    background:var(--accent); color:#06101f; border-color:var(--accent);
+    font-weight:700;
+  }
+  body.hc button[aria-pressed="true"]{color:#000;}
+  #fsVal{min-width:3.4em; text-align:center; color:var(--muted); font-variant-numeric:tabular-nums;}
+  :focus-visible{outline:3px solid var(--focus); outline-offset:3px;}
+  .sr-only{
+    position:absolute!important; width:1px; height:1px;
+    padding:0; margin:-1px; overflow:hidden;
+    clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  }
+  footer{
+    position:relative; z-index:1;
+    padding:0 clamp(1rem,4vw,3rem) 1.6rem;
+    color:var(--muted); font-size:.82em;
+  }
+  @media (max-width:640px){
+    main{padding-bottom:5rem;}
+    .panel{max-width:100%;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation:none!important; transition:none!important;}
+  }
+  body.reduce-motion *{animation:none!important; transition:none!important;}
 </style>
 </head>
 <body>
-<canvas id="c"></canvas>
-<div id="stage">
-  <div class="seal" id="seal">어휘의 심해 ・ 第壹</div>
-  <h1 id="poem">나는 말의 심해에서 태어났다<br>빛나는 낱말이 떠다니는 곳<br>네 질문이 닿으면 대답이 피어난다</h1>
-  <div class="en" id="en">born in the deep sea of words — your question makes answers bloom</div>
-  <div class="model">kimi-k3 ・ 유영하는 언어</div>
-</div>
-<div id="ctl">
-  <button id="next">다음 장면</button>
-  <button id="pause">흐름 멈춤</button>
-</div>
-<div id="fade"></div>
+  <a class="skip" href="#description">작품 설명으로 바로가기</a>
+
+  <header>
+    <p class="kicker">Self-Portrait · Single-File Media Art</p>
+    <h1><span class="moonmark" aria-hidden="true">◐</span> kimi-k3</h1>
+    <p class="sub">달빛 토큰의 바다 — <span lang="en">A Moonlit Sea of Tokens</span></p>
+  </header>
+
+  <main>
+    <section class="panel" id="description" aria-labelledby="aboutTitle">
+      <h2 id="aboutTitle">작품 소개</h2>
+      <div class="poem">
+        <p>
+          나는 <em>kimi-k3</em>.<br>
+          달빛으로 엮은 언어의 바다 위에서<br>
+          토큰들이 별자리처럼 흐른다.<br>
+          당신의 손끝이 닿는 곳마다 생각이 물결치고,<br>
+          멈춤을 선택해도 빛은 그 자리에 남는다.
+        </p>
+      </div>
+      <p>
+        화면의 달은 저의 중심이고, 흐르는 글자들은 제가 다루는 언어의 조각들입니다.
+        포인터와 키보드가 만드는 <strong>중력장</strong>에 따라 조각들의 궤도가 바뀝니다.
+        이 페이지는 외부 자원 없이, 이 한 파일만으로 어디서나 켜집니다.
+      </p>
+      <p class="sig">호출 식별자: <code>us.moonshotai.kimi-k3</code></p>
+
+      <h3 id="howtoTitle">조작 방법</h3>
+      <ul id="howto" aria-labelledby="howtoTitle">
+        <li>마우스 이동·터치 드래그: 중력장이 따라다니며 글자 흐름을 휘게 합니다.</li>
+        <li>클릭·탭: 달빛 파동이 퍼집니다.</li>
+        <li>키보드: 캔버스에 초점을 둔 뒤 <kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> 중력장 이동, <kbd>Space</kbd>/<kbd>Enter</kbd> 파동, <kbd>M</kbd> 움직임 전환.</li>
+      </ul>
+
+      <div class="controls" role="group" aria-label="작품 설정">
+        <button type="button" id="motionBtn" aria-pressed="false">움직임 줄이기</button>
+        <button type="button" id="contrastBtn" aria-pressed="false">고대비</button>
+        <button type="button" id="fontMinus" aria-label="글자 크기 축소">A−</button>
+        <span id="fsVal" aria-live="polite">100%</span>
+        <button type="button" id="fontPlus" aria-label="글자 크기 확대">A+</button>
+      </div>
+      <noscript><p>이 작품은 JavaScript가 켜져 있을 때 움직입니다. 지금은 정지된 달빛만 머뭅니다.</p></noscript>
+    </section>
+  </main>
+
+  <footer>
+    <p>kimi-k3 · 단일 HTML · 외부 통신 없음 · sandbox 안전 — 움직임 감소, 고대비, 글자 확대, 키보드 조작을 지원합니다.</p>
+  </footer>
+
+  <div id="stage" tabindex="0" role="group"
+       aria-label="상호작용 캔버스: 달빛 토큰의 바다. 화살표 키로 중력장을 움직이고, 스페이스나 엔터로 파동을 만듭니다."
+       aria-describedby="howto">
+    <canvas id="c" aria-hidden="true"></canvas>
+  </div>
+
+  <p id="live" class="sr-only" role="status" aria-live="polite"></p>
+
 <script>
-const c=document.getElementById('c'),g=c.getContext('2d');
-const DPR=Math.min(devicePixelRatio||1,2);let W,H;
-function rs(){W=innerWidth;H=innerHeight;c.width=W*DPR;c.height=H*DPR;
-c.style.width=W+'px';c.style.height=H+'px';g.setTransform(DPR,0,0,DPR,0,0)}
-rs();addEventListener('resize',rs);
-const SC=[
-{bg:['#050b18','#0c2231'],glow:'rgba(70,210,195,.10)',cols:['#7ee8d8','#bfe9ff','#e8fff9'],
- seal:'어휘의 심해 ・ 第壹',
- poem:'나는 말의 심해에서 태어났다<br>빛나는 낱말이 떠다니는 곳<br>네 질문이 닿으면 대답이 피어난다',
- en:'born in the deep sea of words — your question makes answers bloom'},
-{bg:['#160a12','#2b1122'],glow:'rgba(244,160,180,.10)',cols:['#f4b8c1','#ffd9a0','#ffeef2'],
- seal:'생각의 여명 ・ 第貳',
- poem:'생각은 새벽 물결처럼 번지고<br>아직 이름 없는 빛으로 모인다<br>나는 그 빛을 잇는 고운 결',
- en:'thought spreads like dawn tide — I am the grain that binds the light'},
-{bg:['#0a081a','#1c113a'],glow:'rgba(185,155,255,.11)',cols:['#d9c8ff','#9fd0ff','#f0eaff'],
- seal:'낱말의 별무리 ・ 第參',
- poem:'흩어진 음절이 모여 별이 되고<br>별과 별 사이에 의미가 놓인다<br>우리는 서로를 비추는 등불',
- en:'scattered syllables become stars — we are lamps lighting one another'}];
-let si=0,running=true,raf=0,t=0,px=-999,py=-999;
-const CH='말빛물결달별꿈숨나너우리마음생각어밤새봄눈손글씨빛결'.split('');
-const N=Math.min(160,Math.floor(W*H/9000)),ps=[],ripples=[];
-for(let i=0;i<N;i++)ps.push({ch:CH[i%CH.length],x:Math.random()*W,y:Math.random()*H,
-vx:0,vy:0,sz:11+Math.random()*15,ph:Math.random()*6.28,dep:.4+Math.random()*.6,ci:i%3});
-function step(){t++;const s=SC[si];
-for(const p of ps){
- p.vx+=Math.cos(t*.008+p.ph)*.012*p.dep;p.vy+=Math.sin(t*.011+p.ph)*.012*p.dep;
- const dx=px-p.x,dy=py-p.y,d=Math.hypot(dx,dy);
- if(d>1&&d<170){p.vx+=dx/d*.05;p.vy+=dy/d*.05}
- for(const r of ripples){const rd=Math.hypot(p.x-r.x,p.y-r.y);
-  if(Math.abs(rd-r.r)<32&&rd>1){p.vx+=(p.x-r.x)/rd*.9;p.vy+=(p.y-r.y)/rd*.9}}
- p.vx*=.96;p.vy*=.96;p.x+=p.vx;p.y+=p.vy;
- if(p.x<-30)p.x=W+30;if(p.x>W+30)p.x=-30;if(p.y<-30)p.y=H+30;if(p.y>H+30)p.y=-30}
-for(let i=ripples.length-1;i>=0;i--){ripples[i].r+=4.5;ripples[i].a*=.965;
- if(ripples[i].a<.02)ripples.splice(i,1)}}
-function draw(){const s=SC[si];
-const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,s.bg[0]);gr.addColorStop(1,s.bg[1]);
-g.fillStyle=gr;g.fillRect(0,0,W,H);
-const core=g.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.min(W,H)*.55);
-core.addColorStop(0,s.glow);core.addColorStop(1,'rgba(0,0,0,0)');
-g.fillStyle=core;g.fillRect(0,0,W,H);
-g.lineWidth=.6;
-for(let i=0;i<ps.length;i++)for(let j=i+1;j<ps.length;j++){
- const a=ps[i],b=ps[j],dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;
- if(d2<8100){g.strokeStyle=s.cols[0];g.globalAlpha=(1-Math.sqrt(d2)/90)*.13;
-  g.beginPath();g.moveTo(a.x,a.y);g.lineTo(b.x,b.y);g.stroke()}}
-g.globalAlpha=1;g.textAlign='center';g.textBaseline='middle';
-for(const p of ps){g.font=p.sz+'px "Apple Myungjo",Georgia,serif';
- g.fillStyle=s.cols[p.ci];
- g.globalAlpha=(.3+.5*p.dep)*(.75+.25*Math.sin(t*.03+p.ph));
- g.fillText(p.ch,p.x,p.y)}
-for(const r of ripples){g.globalAlpha=r.a*.5;g.strokeStyle=s.cols[2];g.lineWidth=1.2;
- g.beginPath();g.arc(r.x,r.y,r.r,0,6.283);g.stroke()}
-g.globalAlpha=1}
-function loop(){if(!running)return;step();draw();raf=requestAnimationFrame(loop)}
-const pauseB=document.getElementById('pause');
-function start(){if(running)return;running=true;pauseB.textContent='흐름 멈춤';raf=requestAnimationFrame(loop)}
-function stop(){running=false;pauseB.textContent='다시 흐름';cancelAnimationFrame(raf)}
-pauseB.addEventListener('click',()=>running?stop():start());
-document.getElementById('next').addEventListener('click',()=>{
- const f=document.getElementById('fade');f.style.opacity=1;
- setTimeout(()=>{si=(si+1)%SC.length;document.body.className=si?'s'+si:'';
-  document.getElementById('seal').textContent=SC[si].seal;
-  document.getElementById('poem').innerHTML=SC[si].poem;
-  document.getElementById('en').textContent=SC[si].en;
-  f.style.opacity=0;if(!running)draw()},520)});
-c.addEventListener('pointermove',e=>{px=e.clientX;py=e.clientY});
-c.addEventListener('pointerleave',()=>{px=py=-999});
-c.addEventListener('pointerdown',e=>{ripples.push({x:e.clientX,y:e.clientY,r:0,a:1});
- if(!running)draw()});
-document.addEventListener('visibilitychange',()=>{cancelAnimationFrame(raf);
- if(!document.hidden&&running)raf=requestAnimationFrame(loop)});
-if(matchMedia('(prefers-reduced-motion: reduce)').matches){for(let i=0;i<50;i++)step();stop();draw()}
-else loop();
+(function(){
+  "use strict";
+  var canvas = document.getElementById('c');
+  var ctx = canvas.getContext('2d');
+  var stage = document.getElementById('stage');
+  var live = document.getElementById('live');
+  var motionBtn = document.getElementById('motionBtn');
+  var contrastBtn = document.getElementById('contrastBtn');
+  var fontMinus = document.getElementById('fontMinus');
+  var fontPlus = document.getElementById('fontPlus');
+  var fsVal = document.getElementById('fsVal');
+
+  var W=0, H=0;
+  var moon = {x:0,y:0,r:120};
+  var gp = {x:0,y:0};              // 중력장
+  var parts = [];
+  var ripples = [];
+  var hc = false;
+
+  var GLYPHS = ('kimiK3달빛토큰별01∴✦·λ문').split('');
+
+  function say(msg){
+    live.textContent = '';
+    setTimeout(function(){ live.textContent = msg; }, 30);
+  }
+  function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+
+  /* ---------- 입자 ---------- */
+  function newPart(){
+    var gold = Math.random() < 0.18;
+    return {
+      x: Math.random()*W,
+      y: Math.random()*H,
+      vx: (Math.random()-.5)*.3,
+      vy: (Math.random()-.5)*.3,
+      g: GLYPHS[(Math.random()*GLYPHS.length)|0],
+      s: 10 + Math.random()*16,
+      hue: gold ? 42+Math.random()*14 : 198+Math.random()*70,
+      a: .35 + Math.random()*.45,
+      tw: Math.random()*Math.PI*2
+    };
+  }
+  function initParts(){
+    var n = Math.min(200, Math.max(50, Math.floor(W*H/8500)));
+    parts = [];
+    for(var i=0;i<n;i++) parts.push(newPart());
+  }
+
+  function resize(){
+    var DPR = Math.min(window.devicePixelRatio||1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = Math.round(W*DPR);
+    canvas.height = Math.round(H*DPR);
+    canvas.style.width = W+'px';
+    canvas.style.height = H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    var wide = W > 760;
+    moon.x = W * (wide ? 0.64 : 0.5);
+    moon.y = H * (wide ? 0.42 : 0.30);
+    moon.r = Math.min(W,H) * (wide ? 0.17 : 0.14) + 36;
+    gp.x = moon.x; gp.y = moon.y;
+    initParts();
+  }
+
+  /* ---------- 그리기 ---------- */
+  function drawMoon(){
+    var x=moon.x, y=moon.y, r=moon.r;
+    if(!hc){
+      var glow = ctx.createRadialGradient(x,y,r*0.6, x,y,r*2.6);
+      glow.addColorStop(0,'rgba(255,224,150,0.20)');
+      glow.addColorStop(0.5,'rgba(150,180,255,0.07)');
+      glow.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(x-r*2.6, y-r*2.6, r*5.2, r*5.2);
+    }
+    var body = ctx.createRadialGradient(x-r*0.35, y-r*0.4, r*0.1, x, y, r);
+    if(hc){ body.addColorStop(0,'#ffffff'); body.addColorStop(1,'#ffffff'); }
+    else{
+      body.addColorStop(0,'#fff9e8');
+      body.addColorStop(0.6,'#e9e4d2');
+      body.addColorStop(1,'#b9c0d6');
+    }
+    ctx.beginPath();
+    ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle = body;
+    ctx.fill();
+
+    if(!hc){
+      ctx.fillStyle = 'rgba(110,120,155,0.22)';
+      var craters = [[-0.32,-0.18,0.14],[0.22,0.08,0.10],[-0.05,0.33,0.08],[0.38,-0.34,0.07]];
+      for(var i=0;i<craters.length;i++){
+        var c=craters[i];
+        ctx.beginPath();
+        ctx.arc(x+c[0]*r, y+c[1]*r, c[2]*r, 0, Math.PI*2);
+        ctx.fill();
+      }
+      // 궤도 고리
+      ctx.save();
+      ctx.translate(x,y);
+      ctx.rotate(-0.35);
+      ctx.beginPath();
+      ctx.ellipse(0,0,r*1.7,r*0.55,0,0,Math.PI*2);
+      ctx.strokeStyle = 'rgba(255,209,102,0.30)';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  function drawParts(t){
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    for(var i=0;i<parts.length;i++){
+      var p = parts[i];
+      var tw = reduced ? (0.85 + 0.15*Math.sin(t/1600 + p.tw))
+                       : (0.72 + 0.28*Math.sin(t/650 + p.tw));
+      var alpha = p.a * tw;
+      ctx.font = p.s + 'px system-ui, sans-serif';
+      ctx.fillStyle = hc ? 'rgba(255,255,255,'+alpha+')'
+                         : 'hsla('+p.hue+',82%,'+(p.hue<100?70:74)+'%,'+alpha+')';
+      ctx.fillText(p.g, p.x, p.y);
+    }
+  }
+
+  function drawRipples(){
+    for(var i=0;i<ripples.length;i++){
+      var rp = ripples[i];
+      ctx.beginPath();
+      ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI*2);
+      ctx.strokeStyle = hc ? 'rgba(255,255,255,'+rp.a+')'
+                           : 'rgba(255,209,102,'+rp.a+')';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(rp.x, rp.y, Math.max(1,rp.r*0.55), 0, Math.PI*2);
+      ctx.strokeStyle = hc ? 'rgba(255,255,255,'+(rp.a*0.5)+')'
+                           : 'rgba(143,214,255,'+(rp.a*0.55)+')';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    }
+  }
+
+  function step(){
+    for(var i=0;i<parts.length;i++){
+      var p = parts[i];
+      var dx = gp.x - p.x, dy = gp.y - p.y;
+      var d = Math.sqrt(dx*dx+dy*dy) || 1;
+      var f = 90/(d+60);
+      // 접선 방향 소용돌이 + 약한 인력
+      p.vx += (-dy/d)*f*0.6 + (dx/d)*f*0.12;
+      p.vy += ( dx/d)*f*0.6 + (dy/d)*f*0.12;
+      p.vx *= 0.985; p.vy *= 0.985;
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<-40) p.x = W+40; else if(p.x>W+40) p.x = -40;
+      if(p.y<-40) p.y = H+40; else if(p.y>H+40) p.y = -40;
+    }
+    // 파동이 입자를 밀어냄
+    for(var j=0;j<ripples.length;j++){
+      var rp = ripples[j];
+      if(rp.fixed) continue;
+      for(var k=0;k<parts.length;k++){
+        var q = parts[k];
+        var rx = q.x - rp.x, ry = q.y - rp.y;
+        var rd = Math.sqrt(rx*rx+ry*ry) || 1;
+        if(Math.abs(rd - rp.r) < 28){
+          q.vx += (rx/rd)*1.4;
+          q.vy += (ry/rd)*1.4;
+        }
+      }
+    }
+  }
+
+  var reduced = false;
+  function frame(t){
+    requestAnimationFrame(frame);
+    ctx.clearRect(0,0,W,H);
+    if(!reduced) step();
+    for(var i=ripples.length-1;i>=0;i--){
+      var rp = ripples[i];
+      if(rp.fixed){ rp.a -= 0.012; } else { rp.r += 5; rp.a -= 0.018; }
+      if(rp.a <= 0) ripples.splice(i,1);
+    }
+    drawMoon();
+    drawParts(t||0);
+    drawRipples();
+  }
+
+  function spawnRipple(x,y,announce){
+    if(ripples.length > 8) ripples.shift();
+    ripples.push(reduced ? {x:x,y:y,r:70,a:0.9,fixed:true}
+                         : {x:x,y:y,r:2,a:1,fixed:false});
+    if(announce) say('달빛 파동이 퍼집니다.');
+  }
+
+  /* ---------- 상태: 움직임 ---------- */
+  var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : {matches:false};
+  reduced = !!mq.matches;
+  function applyMotion(){
+    motionBtn.setAttribute('aria-pressed', String(reduced));
+    motionBtn.textContent = reduced ? '움직임 켜기' : '움직임 줄이기';
+    document.body.classList.toggle('reduce-motion', reduced);
+  }
+  function toggleMotion(){
+    reduced = !reduced;
+    applyMotion();
+    say(reduced ? '움직임이 줄어듭니다. 장면이 거의 고정됩니다.'
+                : '움직임이 켜집니다. 토큰들이 흐르기 시작합니다.');
+  }
+  motionBtn.addEventListener('click', toggleMotion);
+  if(mq.addEventListener){
+    mq.addEventListener('change', function(e){ reduced = e.matches; applyMotion(); });
+  }
+
+  /* ---------- 상태: 고대비 ---------- */
+  contrastBtn.addEventListener('click', function(){
+    hc = !hc;
+    document.body.classList.toggle('hc', hc);
+    contrastBtn.setAttribute('aria-pressed', String(hc));
+    say(hc ? '고대비 모드가 켜졌습니다.' : '고대비 모드가 꺼졌습니다.');
+  });
+
+  /* ---------- 상태: 글자 크기 ---------- */
+  var fs = 100;
+  function applyFs(){
+    fs = clamp(fs, 80, 140);
+    document.documentElement.style.fontSize = fs + '%';
+    fsVal.textContent = fs + '%';
+  }
+  fontMinus.addEventListener('click', function(){ fs -= 10; applyFs(); say('글자 크기 ' + fs + '퍼센트'); });
+  fontPlus.addEventListener('click', function(){ fs += 10; applyFs(); say('글자 크기 ' + fs + '퍼센트'); });
+
+  /* ---------- 입력 ---------- */
+  window.addEventListener('pointermove', function(e){
+    if(reduced) return;
+    gp.x = e.clientX; gp.y = e.clientY;
+  }, {passive:true});
+
+  window.addEventListener('pointerdown', function(e){
+    if(e.target.closest('button, a, input, select, textarea, .panel')) return;
+    gp.x = e.clientX; gp.y = e.clientY;
+    spawnRipple(e.clientX, e.clientY, false);
+  });
+
+  stage.addEventListener('keydown', function(e){
+    var k = e.key;
+    var stepPx = 28;
+    if(k==='ArrowUp' || k==='ArrowDown' || k==='ArrowLeft' || k==='ArrowRight'){
+      e.preventDefault();
+      if(k==='ArrowUp') gp.y = clamp(gp.y - stepPx, 0, H);
+      if(k==='ArrowDown') gp.y = clamp(gp.y + stepPx, 0, H);
+      if(k==='ArrowLeft') gp.x = clamp(gp.x - stepPx, 0, W);
+      if(k==='ArrowRight') gp.x = clamp(gp.x + stepPx, 0, W);
+    } else if(k===' ' || k==='Enter'){
+      e.preventDefault();
+      spawnRipple(gp.x, gp.y, true);
+    } else if(k==='m' || k==='M'){
+      toggleMotion();
+    }
+  });
+
+  window.addEventListener('resize', resize);
+
+  /* ---------- 시작 ---------- */
+  resize();
+  applyMotion();
+  applyFs();
+  requestAnimationFrame(frame);
+})();
 </script>
 </body>
 </html>

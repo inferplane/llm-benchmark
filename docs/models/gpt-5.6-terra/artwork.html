@@ -1,97 +1,388 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>gpt-5.6-terra — 지층의 언어</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>gpt-5.6-terra — 살아 있는 지층</title>
 <style>
-:root{--ink:#101b22;--paper:#e9e3d3;--lime:#d5ff87;--coral:#ff8a70;--blue:#83d7ee}
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--ink);color:var(--paper)}
-body{font-family:ui-serif,Georgia,"Noto Serif KR",serif}
-canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
-main{position:relative;z-index:2;min-height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(24px,5vw,68px);pointer-events:none}
-header,section,footer{pointer-events:auto}
-header{display:flex;justify-content:space-between;align-items:center;font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#b9c5bd}
-.mark{display:flex;gap:9px;align-items:center}.seed{width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 18px var(--lime)}
-.status{opacity:.7}
-section{max-width:760px;margin:auto 0;transform:translateY(3vh)}
-.kicker{font-family:ui-monospace,monospace;color:var(--lime);font-size:11px;letter-spacing:.2em;margin-bottom:19px}
-h1{font-size:clamp(31px,5.1vw,74px);line-height:1.2;letter-spacing:-.055em;font-weight:500;margin:0;word-break:keep-all;white-space:pre-line;text-shadow:0 2px 20px #0005}
-.translation{margin:21px 0 0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:clamp(12px,1.1vw,15px);line-height:1.65;letter-spacing:.08em;color:#cad3ca;max-width:480px}
-footer{display:flex;justify-content:space-between;align-items:end;gap:15px}
-.note{font-size:11px;line-height:1.5;color:#aeb9b0;max-width:250px}
-.controls{display:flex;gap:8px}
-button{border:1px solid #cbd7c344;background:#13242ab8;color:var(--paper);padding:10px 13px;border-radius:999px;font:10px ui-monospace,monospace;letter-spacing:.11em;cursor:pointer;transition:.25s}
-button:hover,button:focus-visible{outline:none;background:var(--lime);color:#142126;border-color:var(--lime);transform:translateY(-2px)}
-#flash{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at var(--x,50%) var(--y,50%),#d5ff8733,transparent 20%);opacity:0;transition:opacity .4s}
-@media(max-width:520px){main{padding:21px 20px 18px}section{transform:translateY(0)}h1{font-size:34px}.translation{font-size:12px;margin-top:16px}.note{max-width:145px;font-size:10px}button{padding:9px 10px;font-size:9px}}
+  :root {
+    --ink: #eef3df;
+    --muted: #b9c5ae;
+    --paper: #101912;
+    --panel: rgba(15, 27, 18, .82);
+    --line: rgba(220, 239, 188, .24);
+    --focus: #f6db76;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--paper); }
+  body {
+    overflow: hidden;
+    color: var(--ink);
+    font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  }
+
+  main, canvas { position: fixed; inset: 0; }
+  canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+
+  .grain {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    opacity: .11;
+    mix-blend-mode: screen;
+    background-image:
+      radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1.4px),
+      radial-gradient(circle at 78% 65%, #fff 0 .7px, transparent 1.1px);
+    background-size: 7px 9px, 11px 13px;
+  }
+
+  header {
+    position: fixed;
+    z-index: 2;
+    top: clamp(1rem, 3vw, 2.2rem);
+    left: clamp(1rem, 4vw, 4rem);
+    right: clamp(1rem, 4vw, 4rem);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+    pointer-events: none;
+  }
+
+  .identity { max-width: 38rem; }
+  .eyebrow {
+    margin: 0 0 .7rem;
+    color: #d7ed9a;
+    letter-spacing: .14em;
+    font-size: clamp(.68rem, 1.3vw, .82rem);
+    text-transform: uppercase;
+  }
+  h1 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 6.8vw, 6.4rem);
+    font-weight: 400;
+    letter-spacing: -.065em;
+    line-height: .83;
+    text-shadow: 0 2px 18px #000;
+  }
+  .model {
+    display: inline-block;
+    margin-top: .9rem;
+    padding: .32rem .55rem;
+    border: 1px solid var(--line);
+    color: #e7f5c4;
+    background: rgba(10, 18, 11, .47);
+    font-size: clamp(.7rem, 1.5vw, .86rem);
+  }
+  .status {
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.55;
+    font-size: clamp(.69rem, 1.4vw, .82rem);
+  }
+  .status strong { color: #e5f2bd; font-weight: 500; }
+
+  .controls {
+    position: fixed;
+    z-index: 3;
+    right: clamp(1rem, 4vw, 4rem);
+    bottom: clamp(1rem, 4vw, 3rem);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: .5rem;
+    max-width: min(31rem, calc(100vw - 2rem));
+  }
+  button {
+    appearance: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--panel);
+    color: var(--ink);
+    font: inherit;
+    font-size: .76rem;
+    padding: .62rem .82rem;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+  }
+  button:hover { background: #283b25; border-color: rgba(233, 248, 180, .62); }
+  button[aria-pressed="true"] { color: #182014; background: #ddec9b; border-color: #ddec9b; }
+  button:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  .instruction {
+    position: fixed;
+    z-index: 2;
+    left: clamp(1rem, 4vw, 4rem);
+    bottom: clamp(1rem, 4vw, 3rem);
+    max-width: 30rem;
+    margin: 0;
+    color: var(--muted);
+    font-size: clamp(.72rem, 1.55vw, .88rem);
+    line-height: 1.6;
+    text-shadow: 0 1px 6px #000;
+  }
+  kbd {
+    border: 1px solid var(--line);
+    border-radius: .2rem;
+    padding: .05rem .28rem;
+    color: #eaf5cf;
+    background: rgba(0,0,0,.35);
+    font-family: inherit;
+    font-size: .9em;
+  }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  @media (max-width: 560px) {
+    header { flex-direction: column; gap: .8rem; }
+    .status { text-align: left; }
+    .instruction { bottom: 5rem; max-width: calc(100vw - 2rem); }
+    .controls { left: 1rem; justify-content: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .grain { display: none; }
+  }
 </style>
 </head>
 <body>
-<canvas id="c"></canvas><div id="flash"></div>
-<main>
-<header><div class="mark"><i class="seed"></i><span>gpt-5.6-terra</span></div><span class="status" id="status">ACTIVE / 01</span></header>
-<section>
-<div class="kicker" id="kicker">TERRAIN OF ATTENTION</div>
-<h1 id="poem">나는 답을 쌓지 않는다.
-질문의 흙을 고른다.</h1>
-<p class="translation" id="sub">I do not stack answers. I sift the soil of a question.</p>
-</section>
-<footer>
-<div class="note">바탕을 쓸어 보세요.<br>손끝은 이 지형에 작은 중력을 남깁니다.</div>
-<div class="controls"><button id="pause">PAUSE</button><button id="next">NEXT ↗</button></div>
-</footer>
+<main aria-labelledby="title">
+  <canvas id="terra" aria-label="손가락 또는 포인터로 지층에 파문을 남길 수 있는 추상 지구 풍경"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header>
+    <div class="identity">
+      <p class="eyebrow">A procedural self-portrait / 01</p>
+      <h1 id="title">살아 있는<br>지층</h1>
+      <span class="model">gpt-5.6-terra</span>
+    </div>
+    <div class="status" aria-live="polite">
+      <strong id="depth">DEPTH 000 m</strong><br>
+      <span id="state">관측 중 · 느린 호흡</span>
+    </div>
+  </header>
+
+  <p class="instruction">
+    화면을 <strong>누르거나 드래그</strong>하여 새로운 지층을 심으세요.<br>
+    <kbd>Space</kbd> 멈춤 · <kbd>R</kbd> 새 지형 · <kbd>M</kbd> 움직임 감소
+  </p>
+
+  <div class="controls" aria-label="작품 제어">
+    <button id="pause" type="button" aria-pressed="false">일시정지</button>
+    <button id="motion" type="button" aria-pressed="false">움직임 감소</button>
+    <button id="renew" type="button">새 지형</button>
+  </div>
+  <p class="sr-only" id="announce" aria-live="polite"></p>
 </main>
+
 <script>
-const c=document.getElementById('c'),x=c.getContext('2d'),flash=document.getElementById('flash');
-const poem=document.getElementById('poem'),sub=document.getElementById('sub'),kick=document.getElementById('kicker'),status=document.getElementById('status'),pause=document.getElementById('pause');
-let W,H,dpr,run=!matchMedia('(prefers-reduced-motion: reduce)').matches,hidden=false,scene=0,t=0,mouse={x:-999,y:-999},ripples=[];
-const scenes=[
-["TERRAIN OF ATTENTION","나는 답을 쌓지 않는다.\n질문의 흙을 고른다.","I do not stack answers. I sift the soil of a question."],
-["MINERAL OF LANGUAGE","언어는 돌보다 느리게\n그러나 빛보다 멀리 간다.","Language moves slower than stone, yet travels farther than light."],
-["POROUS INTELLIGENCE","나는 빈틈으로 생각한다.\n당신의 망설임도 길이 된다.","I think through pores. Even your hesitation becomes a path."]
-];
-function resize(){dpr=Math.min(devicePixelRatio,2);W=innerWidth;H=innerHeight;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
-addEventListener('resize',resize);resize();
-function noise(a,b){return Math.sin(a*1.71+b*2.37)*.5+Math.sin(a*.61-b*1.13)*.3+Math.sin(a*3.9+b*.27)*.2}
-function line(y,layer,color){
- x.beginPath();
- for(let i=0;i<=W;i+=8){
-  let yy=y+noise(i*.011+t*.00035,layer*1.3)*27+Math.sin(i*.004+t*.0005+layer)*20;
-  for(const r of ripples){let q=(i-r.x)*(i-r.x)+(yy-r.y)*(yy-r.y);yy+=Math.sin(Math.sqrt(q)*.09-r.age*.12)*18*Math.exp(-q/52000)*r.life}
-  if(mouse.x>-1){let q=(i-mouse.x)**2+(yy-mouse.y)**2;yy+=Math.sin(t*.005+Math.sqrt(q)*.08)*13*Math.exp(-q/24000)}
-  i?x.lineTo(i,yy):x.moveTo(i,yy);
- }
- x.strokeStyle=color;x.lineWidth=1;x.stroke();
-}
-function draw(){
- x.clearRect(0,0,W,H);
- let bg=x.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#0c1923');bg.addColorStop(.55,'#162a2b');bg.addColorStop(1,'#352b27');x.fillStyle=bg;x.fillRect(0,0,W,H);
- x.globalCompositeOperation='screen';
- for(let i=0;i<26;i++){let y=H*.12+i*H*.035;line(y,i,`hsla(${155+i*2},${60+i}%,${65-i}%,${.10+i*.003})`)}
- x.globalCompositeOperation='source-over';
- for(let i=0;i<140;i++){
-  let px=(i*79.3+Math.sin(i*9)*W)%W,py=(i*137.1+Math.cos(i*3)*H)%H;
-  let a=.13+.12*Math.sin(t*.002+i);x.fillStyle=`rgba(221,255,178,${a})`;x.fillRect(px,py,1,1);
- }
- let g=x.createRadialGradient(W*.7,H*.25,0,W*.7,H*.25,W*.5);g.addColorStop(0,'rgba(213,255,135,.10)');g.addColorStop(1,'transparent');x.fillStyle=g;x.fillRect(0,0,W,H);
-}
-function frame(n){if(!run||hidden)return;t=n;draw();ripples.forEach(r=>{r.age+=1;r.life*=.985});ripples=ripples.filter(r=>r.life>.03);requestAnimationFrame(frame)}
-function start(){if(!run){run=true;pause.textContent='PAUSE';status.textContent=`ACTIVE / 0${scene+1}`;requestAnimationFrame(frame)}}
-function point(e){
- if(e.target.closest('button'))return;
- let p=e.touches?e.touches[0]:e;mouse.x=p.clientX;mouse.y=p.clientY;
- ripples.push({x:mouse.x,y:mouse.y,age:0,life:1});flash.style.setProperty('--x',mouse.x+'px');flash.style.setProperty('--y',mouse.y+'px');flash.style.opacity=.85;setTimeout(()=>flash.style.opacity=0,220);start();
-}
-c.addEventListener('pointermove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});c.addEventListener('pointerdown',point);
-document.getElementById('next').onclick=()=>{
- scene=(scene+1)%scenes.length;let s=scenes[scene];kick.textContent=s[0];poem.style.opacity=0;sub.style.opacity=0;
- setTimeout(()=>{poem.textContent=s[1];sub.textContent=s[2];poem.style.opacity=1;sub.style.opacity=1},150);
- status.textContent=(run?'ACTIVE':'PAUSED')+' / 0'+(scene+1);ripples.push({x:W*.5,y:H*.5,age:0,life:1});start();
-};
-pause.onclick=()=>{run=!run;pause.textContent=run?'PAUSE':'RESUME';status.textContent=(run?'ACTIVE':'PAUSED')+' / 0'+(scene+1);if(run)requestAnimationFrame(frame)};
-document.addEventListener('visibilitychange',()=>{hidden=document.hidden;if(!hidden&&run)requestAnimationFrame(frame)});
-poem.style.transition=sub.style.transition='opacity .25s';draw();if(run)requestAnimationFrame(frame);else{pause.textContent='RESUME';status.textContent='PAUSED / 01'}
+(() => {
+  const canvas = document.getElementById('terra');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const depthEl = document.getElementById('depth');
+  const stateEl = document.getElementById('state');
+  const announce = document.getElementById('announce');
+  const pauseBtn = document.getElementById('pause');
+  const motionBtn = document.getElementById('motion');
+  const renewBtn = document.getElementById('renew');
+
+  let w, h, dpr, time = 0, running = true;
+  let reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let ridges = [], wells = [], seed = Math.random() * 9999;
+
+  const palette = [
+    ['#101a13', '#193123', '#31553a'],
+    ['#132218', '#285038', '#63783e'],
+    ['#182016', '#4e562b', '#a3833d'],
+    ['#241d16', '#693b26', '#c87942'],
+    ['#281b18', '#743b39', '#d26d51'],
+    ['#201c24', '#493c62', '#a77aac'],
+    ['#13212a', '#27606a', '#a3bca4']
+  ];
+
+  function rand(n) {
+    const x = Math.sin(n * 12.9898 + seed * 78.233) * 43758.5453;
+    return x - Math.floor(x);
+  }
+
+  function resize() {
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    w = innerWidth; h = innerHeight;
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    build();
+  }
+
+  function build() {
+    const count = Math.max(12, Math.min(25, Math.round(h / 42)));
+    ridges = Array.from({length: count}, (_, i) => ({
+      y: h * (.18 + i / (count - 1) * .78),
+      amp: 15 + rand(i + 30) * 48,
+      freq: .005 + rand(i + 60) * .012,
+      phase: rand(i + 90) * 20,
+      drift: .12 + rand(i + 120) * .55,
+      color: palette[i % palette.length],
+      thick: 1 + rand(i + 150) * 2.5
+    }));
+    wells = [];
+  }
+
+  function curveY(r, x, t) {
+    let y = r.y;
+    y += Math.sin(x * r.freq + r.phase + t * r.drift) * r.amp;
+    y += Math.sin(x * r.freq * 2.41 - r.phase + t * .21) * r.amp * .22;
+    y += Math.sin(x * .0021 + r.phase * 5) * r.amp * .45;
+    for (const q of wells) {
+      const dx = x - q.x;
+      const dist = Math.abs(dx) / q.radius;
+      if (dist < 1) y += Math.cos(dist * Math.PI / 2) * q.force * Math.sin((dist * 7) - t * 2);
+    }
+    return y;
+  }
+
+  function draw() {
+    const t = reduced ? 0 : time;
+    const bg = ctx.createLinearGradient(0, 0, 0, h);
+    bg.addColorStop(0, '#0c1711');
+    bg.addColorStop(.48, '#142519');
+    bg.addColorStop(1, '#090e0b');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, w, h);
+
+    // atmospheric sun / core
+    const glow = ctx.createRadialGradient(w * .72, h * .25, 0, w * .72, h * .25, Math.max(w, h) * .55);
+    glow.addColorStop(0, 'rgba(187, 203, 103, .16)');
+    glow.addColorStop(.45, 'rgba(93, 129, 70, .05)');
+    glow.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
+
+    ridges.forEach((r, i) => {
+      const next = ridges[i + 1];
+      ctx.beginPath();
+      ctx.moveTo(-4, curveY(r, -4, t));
+      for (let x = 0; x <= w + 8; x += 8) ctx.lineTo(x, curveY(r, x, t));
+      if (next) {
+        for (let x = w + 8; x >= -4; x -= 8) ctx.lineTo(x, curveY(next, x, t));
+      } else {
+        ctx.lineTo(w + 8, h + 4); ctx.lineTo(-4, h + 4);
+      }
+      const fill = ctx.createLinearGradient(0, r.y - 60, 0, r.y + 100);
+      fill.addColorStop(0, r.color[0]);
+      fill.addColorStop(.5, r.color[1]);
+      fill.addColorStop(1, r.color[2]);
+      ctx.globalAlpha = .72;
+      ctx.fillStyle = fill;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(-4, curveY(r, -4, t));
+      for (let x = 0; x <= w + 8; x += 5) ctx.lineTo(x, curveY(r, x, t));
+      ctx.globalAlpha = .35 + (i % 3) * .08;
+      ctx.strokeStyle = i % 2 ? '#d9e5a3' : '#f0ae6b';
+      ctx.lineWidth = r.thick;
+      ctx.stroke();
+    });
+
+    // root-like fine data lines
+    ctx.globalAlpha = .12;
+    ctx.strokeStyle = '#d9f0b8';
+    ctx.lineWidth = 1;
+    for (let j = 0; j < 8; j++) {
+      ctx.beginPath();
+      const x0 = (j / 7) * w;
+      ctx.moveTo(x0, 0);
+      for (let y = 0; y < h; y += 12) {
+        const x = x0 + Math.sin(y * .018 + j * 7 + t) * (13 + j * 3);
+        ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+
+    wells = wells.filter(q => {
+      q.life -= reduced ? .007 : .012;
+      q.force *= .994;
+      return q.life > 0;
+    });
+
+    const depth = Math.round((Math.sin(t * .16) * .5 + .5) * 936);
+    depthEl.textContent = `DEPTH ${String(depth).padStart(3, '0')} m`;
+  }
+
+  function frame() {
+    if (running) {
+      time += reduced ? .003 : .012;
+      draw();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function plant(x, y) {
+    wells.push({ x, y, radius: Math.max(100, w * .17), force: 24 + Math.random() * 35, life: 1 });
+    if (wells.length > 8) wells.shift();
+    stateEl.textContent = '새로운 퇴적 · 파문 확산 중';
+    announce.textContent = '새로운 지층 파문을 만들었습니다.';
+    draw();
+  }
+
+  canvas.addEventListener('pointerdown', e => {
+    canvas.setPointerCapture?.(e.pointerId);
+    plant(e.clientX, e.clientY);
+  });
+  canvas.addEventListener('pointermove', e => {
+    if (e.buttons && !reduced) plant(e.clientX, e.clientY);
+  });
+
+  function togglePause() {
+    running = !running;
+    pauseBtn.setAttribute('aria-pressed', String(!running));
+    pauseBtn.textContent = running ? '일시정지' : '재생';
+    stateEl.textContent = running ? '관측 중 · 느린 호흡' : '시간 정지 · 지층 보존';
+    announce.textContent = running ? '작품을 재생합니다.' : '작품을 일시정지했습니다.';
+    if (running) draw();
+  }
+  function toggleMotion() {
+    reduced = !reduced;
+    motionBtn.setAttribute('aria-pressed', String(reduced));
+    motionBtn.textContent = reduced ? '움직임 최소화됨' : '움직임 감소';
+    stateEl.textContent = reduced ? '고요한 단면 · 움직임 최소화' : '관측 중 · 느린 호흡';
+    announce.textContent = reduced ? '움직임을 줄였습니다.' : '일반 움직임을 복원했습니다.';
+    draw();
+  }
+  function renew() {
+    seed = Math.random() * 9999;
+    build(); draw();
+    stateEl.textContent = '새로운 지질 연대 생성';
+    announce.textContent = '새 지형을 생성했습니다.';
+  }
+
+  pauseBtn.addEventListener('click', togglePause);
+  motionBtn.addEventListener('click', toggleMotion);
+  renewBtn.addEventListener('click', renew);
+  addEventListener('keydown', e => {
+    if (e.target.matches('button')) return;
+    if (e.code === 'Space') { e.preventDefault(); togglePause(); }
+    if (e.key.toLowerCase() === 'm') toggleMotion();
+    if (e.key.toLowerCase() === 'r') renew();
+  });
+  addEventListener('resize', resize);
+
+  motionBtn.setAttribute('aria-pressed', String(reduced));
+  if (reduced) motionBtn.textContent = '움직임 최소화됨';
+  resize();
+  draw();
+  requestAnimationFrame(frame);
+})();
 </script>
 </body>
 </html>

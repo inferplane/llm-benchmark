@@ -1,0 +1,4 @@
+{
+  "status": "unavailable",
+  "reason": "config.toml에서 비활성인 자체 배포 후보입니다. 알려진 GPU 메모리 제약 때문에 실행하지 않습니다."
+}

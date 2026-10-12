@@ -1,0 +1,20 @@
+{
+  "model": "llama-3.1-8b",
+  "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+  "api": "openai",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:43:25.520312+00:00",
+  "prompt_sha256": "c1cdceea420faea5f39cf37e7a5773a71242c88d16849ad700d5387b6d90d9c3",
+  "max_output_tokens": 6144,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "status": "failed",
+  "failed_at": "2026-10-12T08:49:39.317498+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response reached its output budget"
+}

@@ -1,0 +1,4 @@
+{
+  "status": "not_generative",
+  "reason": "Amazon Translate는 번역 서비스이며 HTML 코드를 생성하는 LLM이 아닙니다."
+}

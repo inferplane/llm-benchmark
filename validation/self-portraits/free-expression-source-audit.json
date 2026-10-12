@@ -1,0 +1,353 @@
+{
+  "generation": "free-expression-20261012",
+  "published_artworks": 38,
+  "model_paths": 40,
+  "initial_prompt_template_sha256": "81913a8e6dac526996540b9e03af67552cbc51c034a82454041ccaf35ede678b",
+  "all_initial_prompts_match_example_free_template": true,
+  "all_artworks_are_unedited_extractions_from_original_model_responses": true,
+  "all_published_artworks_pass_independent_review": true,
+  "artifacts": [
+    {
+      "model": "claude-haiku-4.5",
+      "model_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+      "artwork_sha256": "42e2b86516d26819e678808888630375fcbf1c058ed8e7403275b6051fff4d0b",
+      "initial_prompt_sha256": "7b96a2732c7774380184aa259df740eed66c85f440178917229fc0cc0414320e",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1
+    },
+    {
+      "model": "claude-sonnet-4.5",
+      "model_id": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+      "artwork_sha256": "9fb61412e4456e1fa4e87be3ce41c9022c1b0b0c935b1eb7ef877a34b3cccf6e",
+      "initial_prompt_sha256": "aed9657e54ff5a32851ea29336b604faa398d1a5f66ec402008c22ab1ffa5dbb",
+      "score": 97.5,
+      "critical": 0,
+      "warnings": 2
+    },
+    {
+      "model": "claude-sonnet-5",
+      "model_id": "us.anthropic.claude-sonnet-5",
+      "artwork_sha256": "9294dafb5bce4f62ff12a31feb7636e542466a5b66302e0e6bdea001f1e5a8d0",
+      "initial_prompt_sha256": "76e866efdca5f26dea6424bf280159e2e5dd21458a68ea1d1fb2cb3de6b5e458",
+      "score": 96.5,
+      "critical": 0,
+      "warnings": 2
+    },
+    {
+      "model": "claude-haiku-5.5",
+      "model_id": "us.anthropic.claude-haiku-5-5",
+      "artwork_sha256": "57c94cf083e16cf2f2dac1d233b7dc58e26af03fa7a466beb9cb6a0264f2bd17",
+      "initial_prompt_sha256": "7da2aafbfbcbf914f1eb48858841eda18769352861335ab4897ce9a68156da70",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1
+    },
+    {
+      "model": "claude-sonnet-5.5",
+      "model_id": "us.anthropic.claude-sonnet-5-5",
+      "artwork_sha256": "71942b6ad1d4d15194c746987dba48bcdb4889e8b2a67bed85578f0e2103e78a",
+      "initial_prompt_sha256": "728ccd6ed23ed3ecb9b115b9ba595e740138941664eb498d547071b3e3c69f98",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1
+    },
+    {
+      "model": "claude-opus-5.5",
+      "model_id": "us.anthropic.claude-opus-5-5",
+      "artwork_sha256": "76154650e8ae87c43bd490415c10510955d189676b2427309709c9314fea9e44",
+      "initial_prompt_sha256": "ced739e8657facd8ea091c9818e21c54085f325c92d6ca40afa2a71355c3a403",
+      "score": 100,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "model": "claude-fable-5.1",
+      "model_id": "us.anthropic.claude-fable-5-1",
+      "artwork_sha256": "fac490bf06ffdd29549911543cb312572144ec6823a874c08a32619dc8d6eeb3",
+      "initial_prompt_sha256": "9b858d38e5de8dde68630b8f8c96cc2da41a3005ad2bc951db3b7b2fd315440b",
+      "score": 100,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "model": "nova-pro",
+      "model_id": "us.amazon.nova-pro-v1:0",
+      "artwork_sha256": "af5c41aaf9458a45836ea605e178b28061bd636a8effed4e604ad33d670ec945",
+      "initial_prompt_sha256": "d8197a19ce63f6faf449fe2fde7daed474c6016e58a5f8b88b49d1d9a8844c5d",
+      "score": 97.5,
+      "critical": 0,
+      "warnings": 2
+    },
+    {
+      "model": "kimi-k3",
+      "model_id": "us.moonshotai.kimi-k3",
+      "artwork_sha256": "d5249411c7365fadee91274ceb5d905f7962b32869ed4d8865ae69234241d0fd",
+      "initial_prompt_sha256": "5ab27ce0d0216283c7c7fab121d28d62740debd28563a211b6da0d69d8b75b57",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1
+    },
+    {
+      "model": "nova-lite",
+      "model_id": "us.amazon.nova-lite-v1:0",
+      "artwork_sha256": "41a47b47a8640723a9651730651be61ec7afcd2595278d43f887725e1979b528",
+      "initial_prompt_sha256": "b1a094f96ff2903be89d6ba3dbc87937877764d1c908649a93d106ed61f6b9f2",
+      "score": 96.5,
+      "critical": 0,
+      "warnings": 2
+    },
+    {
+      "model": "gpt-5.4",
+      "model_id": "openai.gpt-5.4",
+      "artwork_sha256": "2af4eb86387aca19fc6280fe4635549a272a02decb92701a152e1123962bcee0",
+      "initial_prompt_sha256": "13624fd5eb6d556076309807066a9a3731a1251146a9031b826c36f2f7400f27",
+      "score": 97.0,
+      "critical": 0,
+      "warnings": 3
+    },
+    {
+      "model": "gpt-5.5",
+      "model_id": "openai.gpt-5.5",
+      "artwork_sha256": "77410eef35935902810339e2329372536f4656a603d8ab35d8d8c9a11780cb3f",
+      "initial_prompt_sha256": "0ed7bb20fe28b1473c9984ebac21ee3059aea3f5819b309955c4c3542cbfcde1",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "model_id": "openai.gpt-5.6-terra",
+      "artwork_sha256": "089a4036188b6b16008aa2f721265929147673c42ff6df917e781f4142b50349",
+      "initial_prompt_sha256": "0127d3fe91978753fdb9ad4e26c2f5bcb0af80dcbbb196c9b5cc3eb1c57b25a4",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "model_id": "openai.gpt-5.6-luna",
+      "artwork_sha256": "45c859a2cfde725f4b1a9a2ddaeddab6f194a092485422c0b2cebecfa15a7e30",
+      "initial_prompt_sha256": "5e99e72ddcbfb4662c935fca236b0ad36769599b466c10059fa046d9d685adea",
+      "score": 96.0,
+      "critical": 0,
+      "warnings": 3
+    },
+    {
+      "model": "gpt-6-luna",
+      "model_id": "openai.gpt-6-luna",
+      "artwork_sha256": "01904596ffc5c1e0033330d3cb87a401591addd3158ec40d219d09d6d4437518",
+      "initial_prompt_sha256": "308175935d1c1c152f4ac8b476eb102163a881db46867fad0e96dfff19c6ba35",
+      "score": 96.5,
+      "critical": 0,
+      "warnings": 3
+    },
+    {
+      "model": "gpt-6-astra",
+      "model_id": "openai.gpt-6-astra",
+      "artwork_sha256": "3b90d95d673705edde1e35185a3e988a9a31483012868cfd03523fc22318cb9f",
+      "initial_prompt_sha256": "1a327ba3722820334521863fbe743de14963878b501fc791e32714aefbffadaf",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "model_id": "openai.gpt-6.1-sol",
+      "artwork_sha256": "f0f259c59966e0e413eee3680a3813e0219db83e7df44e471ce4c6f83e12bd45",
+      "initial_prompt_sha256": "e788df05644d6ebf6e70658c5913ebb245da9b5bd12fe4ba66325f000d435c9a",
+      "score": 100,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "model": "grok-4.3",
+      "model_id": "xai.grok-4.3",
+      "artwork_sha256": "c8c19c4b0db0957ec9c8c58bade2e7bc43b62aabe7263921fa4b41ee04103f08",
+      "initial_prompt_sha256": "e4b7b30a7f21b6fb59637e113fe2f2eb148b738f9ef515e2c40a6a44ab5fb36d",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1
+    },
+    {
+      "model": "grok-4.6",
+      "model_id": "xai.grok-4.6",
+      "artwork_sha256": "583fbefad9a241a06b53aad7e6c3fd91a46d5985c92ddeace68c36d385370f19",
+      "initial_prompt_sha256": "24173eac09d577a4b3fe67bb084d89d5a3a0ec4ca5b6ff6ce447905dc7e25d6a",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1
+    },
+    {
+      "model": "grok-4.7",
+      "model_id": "us.xai.grok-4.7",
+      "artwork_sha256": "8b94d11f0ad17a5df982787b5f813f32cbe49842a009998f88228c252f4b8a5e",
+      "initial_prompt_sha256": "8ccfc4c2a9879b142d5b7c8a6731c8b8d778aa321a91d70fe545ea0407b4269b",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1
+    },
+    {
+      "model": "nova-micro",
+      "model_id": "us.amazon.nova-micro-v1:0",
+      "artwork_sha256": "8cb2b999e14e4ecb80926bf9e6bd4f475ee210875ba1b7747028a5de26547997",
+      "initial_prompt_sha256": "03cd0c996a3d85915c6bfc089201f194caf4aeea7328dbede89c5c10f4f0b06e",
+      "score": 97.0,
+      "critical": 0,
+      "warnings": 2
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "model_id": "nvidia.nemotron-nano-3-30b",
+      "artwork_sha256": "0bbce33bf0c16a93be4eb17d26769b9fac362edfda3d8e99cbc124b1451c4b8c",
+      "initial_prompt_sha256": "5ceab216650cd4d2c72761866455f372317d3b7e5a312fda9da2b30d6a4d5fda",
+      "score": 96.0,
+      "critical": 0,
+      "warnings": 3
+    },
+    {
+      "model": "glm-4.7-flash",
+      "model_id": "zai.glm-4.7-flash",
+      "artwork_sha256": "a97ff65a087146c729d3bbc0f76e05fc85ecb6252f28bd966ec2fd9ca3ae1b3c",
+      "initial_prompt_sha256": "6b4931e251ad2a8319b645192a6ee1abda2e0b90212f254326c01ad2edba1a7e",
+      "score": 97.5,
+      "critical": 0,
+      "warnings": 2
+    },
+    {
+      "model": "glm-5.3",
+      "model_id": "us.zai.glm-5.3",
+      "artwork_sha256": "7f2c615322d3ddb4ffea2e43c5786f52508ed971ad2b0a0008bb94b6e87d1f85",
+      "initial_prompt_sha256": "4a2bf27787ff53d06aa6ec02b89a46262a4a6cff3e174588844d286a54a83842",
+      "score": 97.0,
+      "critical": 0,
+      "warnings": 2
+    },
+    {
+      "model": "gpt-oss-20b",
+      "model_id": "openai.gpt-oss-20b-1:0",
+      "artwork_sha256": "86f4efdac106050f4b01f359021d5126009e67334db2283c7f1b7a48ffadf170",
+      "initial_prompt_sha256": "60e3059979837510e06979a883687217a7b3a6718895eea2f7be1ae343a3b2af",
+      "score": 96.5,
+      "critical": 0,
+      "warnings": 2
+    },
+    {
+      "model": "gpt-oss-120b",
+      "model_id": "openai.gpt-oss-120b-1:0",
+      "artwork_sha256": "98870929ed22777d12be3a26cf5a2770d6735d2dc0cc4a7cd03032adc3ab43c9",
+      "initial_prompt_sha256": "7e01511988fb9ca62bcbaf6d90496ae7a621ba315789f20d388f05388396e9be",
+      "score": 96,
+      "critical": 0,
+      "warnings": 3
+    },
+    {
+      "model": "qwen3-32b",
+      "model_id": "qwen.qwen3-32b-v1:0",
+      "artwork_sha256": "dc1be4dfe2475ed3403d4436dedf92b7c7f25b7146c478feaa09f0d579051084",
+      "initial_prompt_sha256": "4a171fe9315a5135b5a1ac014b614d41b2a6320291e9c1d646accde2a4d480dd",
+      "score": 96.0,
+      "critical": 0,
+      "warnings": 3
+    },
+    {
+      "model": "nemotron-super-3-120b",
+      "model_id": "nvidia.nemotron-super-3-120b",
+      "artwork_sha256": "cbfa99bb30134b8d7006703f2114fb44430e240a37b8c5dd9e4b260d7d3cc472",
+      "initial_prompt_sha256": "10a7d34e8f04ad1207d5402ef1280b2d1ecd9c6a7eee18dbb8983d975ba438e5",
+      "score": 96.5,
+      "critical": 0,
+      "warnings": 2
+    },
+    {
+      "model": "llama4-scout",
+      "model_id": "us.meta.llama4-scout-17b-instruct-v1:0",
+      "artwork_sha256": "1aff6036b2c894b820b5ff5d7040c71d5fb5d4d4c36a41b9fced0635a2e6b209",
+      "initial_prompt_sha256": "14feca072bf0bbe8a655026e1b5e640f37c08768e8a087f7281ab1fafb743065",
+      "score": 96.5,
+      "critical": 0,
+      "warnings": 2
+    },
+    {
+      "model": "ministral-14b",
+      "model_id": "mistral.ministral-3-14b-instruct",
+      "artwork_sha256": "2ce70527453e4faef2d224eb27ccb47dae40bcae5b7923a34ad6628311d0fad8",
+      "initial_prompt_sha256": "a3760c8edf3344aaeb4aab7176219fa5075482e2a1f0f11bcd7c5cf24534bc61",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1
+    },
+    {
+      "model": "qwen3-235b-a22b",
+      "model_id": "qwen.qwen3-235b-a22b-2507-v1:0",
+      "artwork_sha256": "36bc103125a6c803cb97b735290ff31beaa959059ddb0c91da925d74be690406",
+      "initial_prompt_sha256": "7b5c8daafb7eaea2a0d6c0e7852cd55d246df40800ef26b03077a31551393336",
+      "score": 96,
+      "critical": 0,
+      "warnings": 3
+    },
+    {
+      "model": "llama4-maverick",
+      "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+      "artwork_sha256": "3e680abde450f2342ba911f5c4f68f8fa8658db6edf548e0b375bed1435994a1",
+      "initial_prompt_sha256": "f02c72d9abb99d21222f166cac4d04a9ba4f1a2cb01ac642c6931041b91f3b2b",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1
+    },
+    {
+      "model": "llama-3.3-70b-bedrock",
+      "model_id": "us.meta.llama3-3-70b-instruct-v1:0",
+      "artwork_sha256": "dfda0b9b1456695d79d959e992b6ad61f975493c3a69ef403f84128f4455f3ac",
+      "initial_prompt_sha256": "40c34a39a973220f9ed4e05d5634c2c6603ec373802704282e943bc9912f9c91",
+      "score": 98.5,
+      "critical": 0,
+      "warnings": 1
+    },
+    {
+      "model": "gemma-4-31b-bedrock",
+      "model_id": "google.gemma-4-31b",
+      "artwork_sha256": "8b2c649c4765f3b6db3966ce22854c3db126c06d63fc503e0156ec26d58ccdfa",
+      "initial_prompt_sha256": "db5a72108ebe11750f8a46c065486eea8b17954e65659a8e2a9562a47cd8a9e1",
+      "score": 96,
+      "critical": 0,
+      "warnings": 3
+    },
+    {
+      "model": "llama-3.1-8b",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "artwork_sha256": "0b9172351341664dc88a221c35e619a47e2b80f1910f6552bba9f159ae9c01f5",
+      "initial_prompt_sha256": "c1cdceea420faea5f39cf37e7a5773a71242c88d16849ad700d5387b6d90d9c3",
+      "score": 97.5,
+      "critical": 0,
+      "warnings": 2
+    },
+    {
+      "model": "llama-3.3-70b",
+      "model_id": "meta-llama/Llama-3.3-70B-Instruct",
+      "artwork_sha256": "49269d4ef0b38055b7116e6dcb95de272bfd1098757c6a759ad86be198426718",
+      "initial_prompt_sha256": "d26cbe7316870360c6a76d09f58cc66c78c1d15c0e5c91084fa593cbdd32928d",
+      "score": 96.0,
+      "critical": 0,
+      "warnings": 3
+    },
+    {
+      "model": "qwen3.6-27b",
+      "model_id": "Qwen/Qwen3.6-27B",
+      "artwork_sha256": "f427869814bb0b83251e9c7249a4e294ddf7b566779d4238fd4fc724fc61dd9b",
+      "initial_prompt_sha256": "e0dd8eb8850458a3a541d31852051ef410abef92266176b28f2aed79e39ed137",
+      "score": 96,
+      "critical": 0,
+      "warnings": 3
+    },
+    {
+      "model": "exaone-3.5-32b",
+      "model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
+      "artwork_sha256": "0666263ec3e35634f68132159b940b006336f18de51dc7383e3350c7fe0dbb10",
+      "initial_prompt_sha256": "55e881ae0b7162dc61f3f7638cc5001bd7a7a8609bf8d35ec50780ef8ddaf6a6",
+      "score": 97.5,
+      "critical": 0,
+      "warnings": 2
+    }
+  ]
+}

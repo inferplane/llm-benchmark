@@ -1,0 +1,27 @@
+{
+  "model": "gpt-5.6-luna",
+  "model_id": "openai.gpt-5.6-luna",
+  "api": "bedrock_mantle",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:09:33.170907+00:00",
+  "prompt_sha256": "5e99e72ddcbfb4662c935fca236b0ad36769599b466c10059fa046d9d685adea",
+  "max_output_tokens": 8192,
+  "temperature": null,
+  "temperature_sent": false,
+  "status": "generated",
+  "generated_at": "2026-10-12T08:09:52.143330+00:00",
+  "artwork_sha256": "45c859a2cfde725f4b1a9a2ddaeddab6f194a092485422c0b2cebecfa15a7e30",
+  "tokens_in": 213,
+  "tokens_out": 2655,
+  "response_status": "completed",
+  "http_status": 200,
+  "reported_model": "openai.gpt-5.6-luna",
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low",
+    "context": "all_turns"
+  },
+  "reasoning_tokens": 68,
+  "request_id": "req_hcwi2c3pwcu3hyv6bvs2kmqk26ecb77zcq7m6lf5tjy5iwjjcr7a",
+  "response_id": "resp_4duzps4lwqpcbbzknglqovk5jgpv5bdor7wjpybgg45z77cuallq"
+}

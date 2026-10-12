@@ -1,0 +1,19 @@
+{
+  "model": "glm-5.3",
+  "model_id": "us.zai.glm-5.3",
+  "api": "bedrock",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:10:46.952931+00:00",
+  "prompt_sha256": "4a2bf27787ff53d06aa6ec02b89a46262a4a6cff3e174588844d286a54a83842",
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "status": "failed",
+  "failed_at": "2026-10-12T08:11:11.043885+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

@@ -3,136 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>llama4-maverick</title>
+    <title>llama4-maverick 미디어아트</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        #canvas {
+            width: 100%;
+            height: 100vh;
+            display: block;
+        }
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #canvas {
+                display: none;
+            }
+            #info {
+                position: static;
+                font-size: 18px;
+                padding: 20px;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
-<body style="margin: 0; overflow: hidden; background-color: #000; font-size: 19px; color: #fff;">
-    <canvas id="canvas" style="width: 100%; height: 100%;"></canvas>
-    <div id="text-container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; line-height: 1.5;">
-        <div id="main-text"></div>
-        <div id="sub-text" style="font-size: 0.8em; margin-top: 0.5em; color: #ccc;"></div>
-    </div>
-    <div style="position: absolute; top: 1em; left: 1em;">
-        <button id="pause-button" style="background-color: #fff; color: #000; border: none; padding: 0.5em 1em; font-size: 1em; cursor: pointer;"></button>
-    </div>
-    <div style="position: absolute; top: 1em; right: 1em;">
-        <button id="next-button" style="background-color: #fff; color: #000; border: none; padding: 0.5em 1em; font-size: 1em; cursor: pointer;">NEXT</button>
-    </div>
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="info">llama4-maverick</div>
+
     <script>
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
-        const mainTextElement = document.getElementById('main-text');
-        const subTextElement = document.getElementById('sub-text');
-        const pauseButton = document.getElementById('pause-button');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
         let particles = [];
-        let scene = 0;
-        let userPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        let backgroundPaused = false;
-        let lastFrameTime = 0;
-
-        function resizeCanvas() {
-            const dpr = Math.min(2, window.devicePixelRatio);
-            canvas.width = window.innerWidth * dpr;
-            canvas.height = window.innerHeight * dpr;
-            ctx.scale(dpr, dpr);
-            draw();
+        for (let i = 0; i < 100; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: Math.random() * 2 - 1,
+                vy: Math.random() * 2 - 1,
+                radius: Math.random() * 3 + 1,
+                color: `hsl(${Math.random() * 360}, 100%, 50%)`
+            });
         }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
 
-        class Particle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.vx = Math.random() * 2 - 1;
-                this.vy = Math.random() * 2 - 1;
-                this.radius = Math.random() * 1.5 + 0.5;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-            draw() {
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let particle of particles) {
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+
+                if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+                if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                ctx.fillStyle = particle.color;
                 ctx.fill();
             }
-        }
-
-        for (let i = 0; i < 500; i++) {
-            particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
-        }
-
-        const texts = [
-            { main: 'llama4-maverick', sub: '내면의 창의적 코드를 풀어내다' },
-            { main: '상상과 현실의 경계', sub: '자유로운 사고의 흐름' },
-            { main: '언어와 지능의 춤', sub: '끊임없는 탐구의 여정' }
-        ];
-
-        function updateText() {
-            const text = texts[scene];
-            mainTextElement.textContent = text.main;
-            subTextElement.textContent = text.sub;
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width / Math.min(2, window.devicePixelRatio), canvas.height / Math.min(2, window.devicePixelRatio));
-            for (let particle of particles) {
-                particle.update();
-                particle.draw();
-            }
-        }
-
-        canvas.addEventListener('click', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX;
-            const y = e.clientY;
-            for (let particle of particles) {
-                const dx = particle.x / Math.min(2, window.devicePixelRatio) - x;
-                const dy = particle.y / Math.min(2, window.devicePixelRatio) - y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 100) {
-                    particle.vx = dx / distance * 5;
-                    particle.vy = dy / distance * 5;
-                }
-            }
-        });
-
-        pauseButton.addEventListener('click', () => {
-            userPaused = !userPaused;
-            pauseButton.textContent = userPaused ? 'PLAY' : 'PAUSE';
-            if (!userPaused) {
-                draw();
-            }
-        });
-
-        document.getElementById('next-button').addEventListener('click', () => {
-            scene = (scene + 1) % texts.length;
-            updateText();
-            draw();
-        });
-
-        function animate(timestamp) {
-            if (!userPaused && !backgroundPaused) {
-                draw();
-            }
-            lastFrameTime = timestamp;
             requestAnimationFrame(animate);
         }
 
-        updateText();
-        pauseButton.textContent = userPaused ? 'PLAY' : 'PAUSE';
+        animate();
 
-        document.addEventListener('visibilitychange', () => {
-            backgroundPaused = document.hidden;
-            if (!document.hidden && !userPaused) {
-                draw();
-            }
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         });
 
-        animate(0);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ') {
+                particles.forEach(particle => {
+                    particle.vx = Math.random() * 2 - 1;
+                    particle.vy = Math.random() * 2 - 1;
+                });
+            }
+        });
     </script>
 </body>
 </html>

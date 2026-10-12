@@ -1,0 +1,19 @@
+{
+  "model": "claude-sonnet-5.5",
+  "model_id": "us.anthropic.claude-sonnet-5-5",
+  "api": "bedrock",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:07:14.183136+00:00",
+  "prompt_sha256": "728ccd6ed23ed3ecb9b115b9ba595e740138941664eb498d547071b3e3c69f98",
+  "max_output_tokens": 8192,
+  "temperature": null,
+  "temperature_sent": false,
+  "status": "failed",
+  "failed_at": "2026-10-12T08:08:30.262331+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

@@ -1,0 +1,19 @@
+{
+  "model": "claude-opus-5.5",
+  "model_id": "us.anthropic.claude-opus-5-5",
+  "api": "bedrock",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:07:33.749466+00:00",
+  "prompt_sha256": "ced739e8657facd8ea091c9818e21c54085f325c92d6ca40afa2a71355c3a403",
+  "max_output_tokens": 8192,
+  "temperature": null,
+  "temperature_sent": false,
+  "status": "failed",
+  "failed_at": "2026-10-12T08:09:19.131760+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

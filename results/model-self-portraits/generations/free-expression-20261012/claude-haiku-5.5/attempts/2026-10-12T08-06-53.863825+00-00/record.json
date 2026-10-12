@@ -1,0 +1,19 @@
+{
+  "model": "claude-haiku-5.5",
+  "model_id": "us.anthropic.claude-haiku-5-5",
+  "api": "bedrock",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:06:53.863825+00:00",
+  "prompt_sha256": "7da2aafbfbcbf914f1eb48858841eda18769352861335ab4897ce9a68156da70",
+  "max_output_tokens": 8192,
+  "temperature": null,
+  "temperature_sent": false,
+  "status": "failed",
+  "failed_at": "2026-10-12T08:07:35.281806+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

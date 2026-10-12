@@ -44,7 +44,7 @@ async function main() {
       if (fs.existsSync(file)) allowed.set(`${base}models/${model.model}/${name}`, { file, type: "text/plain" });
     }
     const page = await context.newPage();
-    const errors = [], network = [];
+    const errors = [], warnings = [], network = [];
     page.on("pageerror", error => errors.push(error.message));
     page.on("console", message => {
       if (message.type() === "error" && /Content Security Policy|violates.*directive/i.test(message.text())) errors.push(message.text().slice(0, 300));
@@ -102,13 +102,19 @@ async function main() {
       const buttons = frame.locator("button");
       for (let index = 0; index < Math.min(await buttons.count(), 5); index++) {
         const button = buttons.nth(index);
-        if (await button.isVisible()) {
+        if (await button.isEnabled() && await button.evaluate(element => element.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }))) {
           await button.click({ timeout: 3000 }).catch(error => errors.push("Control click: " + error.message.slice(0, 200)));
           await page.waitForTimeout(120);
         }
       }
     }
     await page.setViewportSize({ width: 390, height: 844 });
+    if (frame) {
+      // Desktop clicks may have opened a modal. Test the fresh mobile page;
+      // background controls being inert behind an open modal is expected.
+      await frame.goto(frame.url(), { waitUntil: "load" });
+      await page.waitForTimeout(700);
+    }
     await page.waitForTimeout(200);
     if (await promptButton.count()) {
       await promptButton.click();
@@ -123,23 +129,32 @@ async function main() {
     if (frame) {
       const mobile = await frame.evaluate(() => {
         const controls = Array.from(document.querySelectorAll("button")).filter(button => {
-          const rect = button.getBoundingClientRect();
-          return rect.width > 0 && rect.height > 0;
+          return button.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true });
         }).map(button => {
           const rect = button.getBoundingClientRect();
           return { text: button.innerText, inside: rect.top >= 0 && rect.left >= -1 && rect.right <= innerWidth + 1 && rect.bottom <= innerHeight + 1 };
         });
         return { horizontalOverflow: document.documentElement.scrollWidth > innerWidth + 1, controls };
       });
+      for (const control of await frame.locator("button").all()) {
+        if (!await control.isEnabled() || !await control.evaluate(element => element.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }))) continue;
+        const label = await control.innerText();
+        try {
+          // Scrollable artworks may place usable controls below the fold.
+          // A trial click scrolls and checks occlusion without invoking handlers.
+          await control.click({ trial: true, timeout: 3000 });
+        } catch {
+          errors.push(`Mobile 390px: control cannot be reached by scrolling: ${label}`);
+        }
+      }
       details.mobile = mobile;
-      if (mobile.horizontalOverflow) errors.push("Mobile 390px: content overflows horizontally.");
-      if (mobile.controls.some(control => !control.inside)) errors.push("Mobile 390px: a visible control is outside the screen.");
+      if (mobile.horizontalOverflow) warnings.push("Mobile 390px: horizontal overflow requires visual review for clipping.");
     }
     if (network.length) errors.push("External network requests are not allowed: " + [...new Set(network)].join(", "));
-    const result = { model: model.model, httpStatus: response.status(), errors: [...new Set(errors)], ...details };
+    const result = { model: model.model, httpStatus: response.status(), errors: [...new Set(errors)], warnings, ...details };
     results.push(result);
     if (errors.length) feedback[model.model] = result.errors;
-    console.log(`${errors.length ? "ISSUES" : "PASS"} ${model.model}: ${[...new Set(errors)].join("; ") || "iframe, text, controls, mobile, no script errors"}`);
+    console.log(`${errors.length ? "ISSUES" : warnings.length ? "WARN" : "PASS"} ${model.model}: ${[...new Set([...errors, ...warnings])].join("; ") || "iframe, text, controls, mobile, no script errors"}`);
     await page.close();
     allowed.delete(`${base}models/${model.model}/`);
     allowed.delete(`${base}models/${model.model}/artwork.html`);

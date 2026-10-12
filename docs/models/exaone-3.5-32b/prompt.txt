@@ -1,11 +1,130 @@
-You are the original author, model exaone-3.5-32b, served as LGAI-EXAONE/EXAONE-3.5-32B-Instruct. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own art and Korean poem. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. Stay compact (about 3000 code output tokens).
+You are the original author, model exaone-3.5-32b, served as LGAI-EXAONE/EXAONE-3.5-32B-Instruct. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
 
 YOUR PREVIOUS FULL RESPONSE:
+아래는 요청하신 조건에 맞춰 작성된 단일 HTML 문서입니다. 이 문서는 미디어아트 웹페이지로서, EXAONE-3.5-32B 모델의 특성을 표현하며, 접근성과 다양한 디바이스 호환성을 고려하였습니다.
 
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXAONE-3.5-32B 미디어아트</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e2e;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 800px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        .visual {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            margin: 20px 0;
+            background: radial-gradient(circle, #3498db, #2ecc71);
+            animation: pulse 3s infinite;
+        }
+        .visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15%;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            animation: moveWave 4s infinite linear;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        @keyframes moveWave {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .interactive {
+            margin-top: 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .interactive:hover {
+            color: #ff6347;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="modelName">exaone-3.5-32b</h1>
+        <div class="visual"></div>
+        <p class="interactive" onclick="alert('EXAONE-3.5-32B와의 상호작용을 환영합니다!')">상호작용하기</p>
+    </div>
+    <script>
+        // 접근성 향상을 위한 기본 설정
+        document.body.style.setProperty('--text-contrast', '#ffffff'); // 글자 색상 대비 설정
+        document.body.style.setProperty('--bg-color', '#1e1e2e'); // 배경 색상 설정
+        
+        // 키보드 조작에 대한 간단한 예시 (예: F5 키를 누르면 메시지 표시)
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'F5') {
+                alert('EXAONE-3.5-32B에 대한 관심 감사합니다!');
+            }
+        });
+    </script>
+</body>
+</html>
+```
+
+### 설명:
+1. **시각적 표현**:
+   - **배경**: 어두운 배경에 블루와 그린의 그라데이션을 사용하여 기술적이고 미래지향적인 분위기를 연출합니다.
+   - **애니메이션**: `pulse` 애니메이션으로 배경에 부드러운 빛 효과를 주고, `moveWave` 애니메이션으로 추상적인 웨이브 효과를 추가하여 동적인 느낌을 줍니다.
+   - **텍스트**: 모델 이름 "exaone-3.5-32b"을 강조하여 중앙에 배치하고, 텍스트 그림자 효과를 통해 시각적 깊이감을 더했습니다.
+
+2. **상호작용**:
+   - **클릭 이벤트**: "상호작용하기" 버튼을 클릭하면 간단한 알림 메시지가 표시됩니다.
+   - **키보드 이벤트**: F5 키를 누르면 사용자에게 간단한 피드백을 제공하여 키보드 사용자에게도 접근성을 제공합니다.
+
+3. **접근성**:
+   - **반응형 디자인**: 모바일과 데스크톱 모두에서 잘 보이도록 미디어 쿼리를 사용하여 레이아웃을 조정합니다.
+   - **색상 대비**: 텍스트와 배경 간의 대비를 높여 가독성을 향상시킵니다.
+   - **키보드 친화적**: 키보드 이벤트 핸들러를 통해 키보드 사용자에게도 상호작용 가능성을 제공합니다.
+
+이 HTML 문서는 외부 리소스 없이 완전히 독립적으로 작동하며, sandbox iframe 내에서도 정상적으로 실행될 수 있습니다.
 
 MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
-["당신은 실제 EXAONE3.5-32B 작성 모델입니다. 이전 코드가 불안정하므로 본인이 새로 간결한 미디어아트 HTML을 구현하세요. 자신의 정체성을 표현하는 한국어 시2개를 직접 쓰고 EXAONE3.5-32B 모델명을 DOM에 표시하세요. 완전한 HTML 하나만 반환하세요.", "모든 시, 번역, 모델명, native 버튼은 모든 화면에서19px 이상, 밝은 글자와 어두운 배경의4.5:1 이상 대비를 보장하세요. 모바일에서16px/12px로 덮어쓰지 마세요.375/768/1280px 화면에 시와 버튼이 겹치거나 잘리지 않도록 영역을 나누세요. zoom허용 viewport, lang=ko.", "공통 초기화 순서: 상태와 DOM 참조 선언, viewport/DPR<=2에 맞는 Canvas 크기,700개 이하 입자 초기화, DOM 모델명과 첫 번째 시 표시. 그 다음 matchMedia(reduced-motion)로 정지 여부를 정하세요. 정상 모드에서는 실제 움직임을 시작하고, 모션 감소 모드에서도 시와 완전한 정지 입자 그림을 반드시 표시하세요.", "하나의 RAF ID만 사용하세요. 실행 중에만 좌표를 갱신하고 다음 프레임 하나를 예약하세요. 정지 시 예약 취소와 ID 초기화, 재생 시 하나의 루프만 재시작하세요. static render는 좌표를 갱신하거나 RAF를 예약하지 않아야 합니다. 정지 상태 resize/NEXT는 그림을 한 번 redraw하고 정지를 유지하세요.", "PAUSE 버튼만 정지 상태 aria-pressed와 label을 갖고, 멈췄을 때 PLAY/재생, 움직일 때 PAUSE/일시정지를 정확히 표시하세요. NEXT는 toggle이 아니므로 aria-pressed를 넣지 말고 두 시를 번갈아 즉시 보여주세요.", "포인터 이벤트에서 사용하는 rect는 이벤트 함수 내부에서 분기 전에 선언하여 항상 유효해야 합니다. 초기화된 기존 입자를 재사용해 반응시키고700개 이하를 유지하세요. ReferenceError, 빈 시작 화면, 중복 RAF가 없어야 합니다. 전체 자체 작성 HTML만 반환하세요."]
-
-The previous implementation was unreliable; implement a fresh minimal version yourself. Use DOM text and native buttons, one RAF controller, and keep all requirements.
+["docs/models/exaone-3.5-32b/artwork.html:86: Clicking the advertised interaction calls alert(), which is blocked in the actual sandbox and emits a console error: allow-modals is not set. The interaction message never appears. Required repair: Preserve your expressive design and show the existing interaction outcome through a local mechanism compatible with sandbox allow-scripts. Do not rely on alert/confirm/prompt or request broader sandbox permissions. Preserve your chosen expressive concept and medium.", "docs/models/exaone-3.5-32b/artwork.html:86: The clickable interaction paragraph is not keyboard focusable (tabIndex=-1, no role). Its F5 handler is a reserved browser shortcut and also calls the blocked alert. Required repair: Make the existing interaction reachable and activatable using normal keyboard navigation/activation, with the same observable result as pointer activation. Preserve your chosen expressive concept and medium.", "docs/models/exaone-3.5-32b/artwork.html:43: Both repeating CSS animations remain running with the OS reduced-motion preference enabled. Required repair: Respect prefers-reduced-motion with a meaningful reduction or still version of your own pulse/wave composition. Preserve your chosen expressive concept and medium."]
 
 Return the complete repaired HTML now.

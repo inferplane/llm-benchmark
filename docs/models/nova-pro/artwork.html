@@ -3,180 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nova-pro</title>
+    <title>nova-pro 미디어아트</title>
     <style>
         body {
             margin: 0;
-            overflow: hidden;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             background: #000;
             color: #fff;
             font-family: Arial, sans-serif;
         }
-        canvas {
-            display: block;
-        }
-        #text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+       .container {
             text-align: center;
         }
-        #text h1 {
-            font-size: 2em;
+       .nova-pro {
+            font-size: 3em;
             margin: 0;
+            padding: 0;
+            animation: glow 2s infinite alternate;
         }
-        #text p {
-            font-size: 1em;
-            margin: 0.5em 0 1em;
-        }
-        #controls {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-        }
-        #controls button {
-            background: #333;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            margin: 0 5px;
-        }
-        @media (max-width: 600px) {
-            #text h1 {
-                font-size: 1.5em;
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff, 0 0 60px #ff00ff, 0 0 70px #ff00ff;
             }
-            #text p {
-                font-size: 0.8em;
+            to {
+                text-shadow: 0 0 20px #fff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff, 0 0 60px #ff00ff, 0 0 70px #ff00ff, 0 0 80px #ff00ff;
             }
         }
     </style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-    <div id="text">
-        <h1>nova-pro</h1>
-        <p>별빛을 담은 꿈의 조각<br>깊은 밤하늘에 빛나는 너의 이름<br>영원한 혁신의 상징</p>
+    <div class="container">
+        <h1 class="nova-pro">nova-pro</h1>
+        <p>당신의 지식과 상상력을 넘어서는 경험을 제공합니다.</p>
     </div>
-    <div id="controls">
-        <button onclick="nextScene()">NEXT</button>
-        <button onclick="togglePause()">PAUSE</button>
-    </div>
+
     <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let width = window.innerWidth;
-        let height = window.innerHeight;
-        canvas.width = width;
-        canvas.height = height;
-        const particles = [];
-        const scenes = [
-            {
-                text: "별빛을 담은 꿈의 조각<br>깊은 밤하늘에 빛나는 너의 이름<br>영원한 혁신의 상징",
-                color: '#fff'
-            },
-            {
-                text: "빛나는 미래를 향한 여정<br>끝없이 펼쳐지는 가능성<br>새로운 시대의 서막",
-                color: '#ffd700'
-            }
-        ];
-        let currentScene = 0;
-        let paused = false;
-        let prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = Math.random() * 2 + 1;
-                this.color = scenes[currentScene].color;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-            update() {
-                if (!paused) {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    if (this.x > width || this.x < 0) this.vx *= -1;
-                    if (this.y > height || this.y < 0) this.vy *= -1;
-                }
-            }
-        }
-
-        function init() {
-            particles.length = 0;
-            for (let i = 0; i < 700; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-            if (!paused) requestAnimationFrame(animate);
-        }
-
-        function nextScene() {
-            currentScene = (currentScene + 1) % scenes.length;
-            init();
-            document.getElementById('text').innerHTML = `<h1>nova-pro</h1><p>${scenes[currentScene].text}</p>`;
-        }
-
-        function togglePause() {
-            paused = !paused;
-            if (!paused) animate();
-        }
-
-        function resize() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-            init();
-        }
-
-        window.addEventListener('resize', resize);
-        document.addEventListener('mousemove', (e) => {
-            if (!paused) {
-                particles.forEach(particle => {
-                    let dx = e.clientX - particle.x;
-                    let dy = e.clientY - particle.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 100) {
-                        particle.vx += dx * 0.01;
-                        particle.vy += dy * 0.01;
-                    }
-                });
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelector('.nova-pro').style.animation = 'none';
             }
         });
-
-        document.addEventListener('click', () => {
-            if (!paused) {
-                particles.forEach(particle => {
-                    particle.vx *= 1.5;
-                    particle.vy *= 1.5;
-                });
-            }
-        });
-
-        if (document.hidden || prefersReducedMotion) {
-            paused = true;
-        } else {
-            init();
-            animate();
-        }
     </script>
 </body>
 </html>

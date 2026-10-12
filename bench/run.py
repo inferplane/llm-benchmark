@@ -328,7 +328,7 @@ def _validate_result(result: dict):
             raise InvalidResponseError("invalid cache usage")
 
 
-async def call_bedrock(client, model_id: str, prompt: str, reasoning_effort: str | None = None) -> dict:
+async def call_bedrock(client, model_id: str, prompt: str, reasoning_effort: str | None = None, *, additional_fields_override: dict | None = None) -> dict:
     # temperature=0 + a shared max-token cap so Bedrock isn't compared against
     # OpenAI/vLLM under different decoding conditions (Bedrock defaults to each
     # model's own sampling temperature — e.g. Nova defaults to ~0.7 — when
@@ -345,7 +345,10 @@ async def call_bedrock(client, model_id: str, prompt: str, reasoning_effort: str
         # mantle_reasoning_effort / Qwen3.6's enable_thinking: translation
         # doesn't need CoT, and leaving it on biases cost/latency vs the
         # non-reasoning roster. Field name verified live per model.
-        if model_id == "us.xai.grok-4.7":
+        if model_id.startswith(("us.anthropic.", "anthropic.", "global.anthropic.")):
+            # Anthropic Converse effort uses its native output_config object.
+            additional_fields["output_config"] = {"effort": reasoning_effort}
+        elif model_id == "us.xai.grok-4.7":
             # Grok 4.7 uses the native reasoning object on Converse too.
             # A flat reasoning_effort is ignored and leaves the high default
             # active (live-verified 2026-10-12).
@@ -354,6 +357,8 @@ async def call_bedrock(client, model_id: str, prompt: str, reasoning_effort: str
             additional_fields["reasoning_effort"] = reasoning_effort
     if model_id in BEDROCK_DISABLE_THINKING:
         additional_fields["thinking"] = {"type": "disabled"}
+    if additional_fields_override:
+        additional_fields.update(additional_fields_override)
     kwargs = {"additionalModelRequestFields": additional_fields} if additional_fields else {}
 
     def _invoke():
@@ -451,6 +456,7 @@ def luna_usage(usage: dict) -> dict:
 async def call_mantle(
     session, region: str, model_id: str, prompt: str,
     response_format: dict | None = None, reasoning_effort: str | None = None,
+    *, stream_response: bool = False,
 ) -> dict:
     """Calls proprietary models hosted on Bedrock's bedrock-mantle endpoint
     (OpenAI's gpt-5.4/5.5/gpt-5.6-sol/terra/luna, xAI's grok-4.3), authenticated
@@ -471,6 +477,8 @@ async def call_mantle(
         payload["text"] = {"format": response_format}
     if reasoning_effort:
         payload["reasoning"] = {"effort": reasoning_effort}
+    if stream_response:
+        payload["stream"] = True
 
     context = {"phase": "credentials"}
     failed_response = None
@@ -486,9 +494,8 @@ async def call_mantle(
 
         context["phase"] = "request_headers"
         async with httpx.AsyncClient(timeout=REQUEST_TIMEOUT_S) as http:
-            # Stream only at the transport layer so response headers/request ID
-            # survive a stalled body. The model still receives a nonstreaming
-            # Responses request, with exactly the original generation settings.
+            # Keep headers/request ID if the body stalls. Benchmark requests
+            # remain nonstreaming; artwork may opt into provider SSE delivery.
             async with http.stream("POST", url, content=body, headers=dict(prepared.headers)) as resp:
                 context.update(phase="response_headers", http_status=resp.status_code)
                 for header in ("x-amzn-requestid", "x-amzn-request-id", "x-request-id"):
@@ -497,9 +504,24 @@ async def call_mantle(
                         break
                 resp.raise_for_status()
                 context["phase"] = "response_body"
-                await resp.aread()
+                if stream_response:
+                    data = None
+                    async for line in resp.aiter_lines():
+                        if not line.startswith("data:"):
+                            continue
+                        value = line[5:].strip()
+                        if not value or value == "[DONE]":
+                            continue
+                        event = json.loads(value)
+                        if event.get("type") in ("response.completed", "response.incomplete", "response.failed"):
+                            data = event.get("response")
+                            break
+                    if data is None:
+                        raise InvalidResponseError("stream ended without terminal response")
+                else:
+                    await resp.aread()
+                    data = resp.json()
                 context["phase"] = "response_validation"
-                data = resp.json()
 
         if not isinstance(data, dict):
             raise InvalidResponseError("response is not an object")
@@ -989,6 +1011,21 @@ def _selfcheck_mantle():
         result = await invoke(httpx.Response(200, json=completed, headers={"x-request-id": "req-success"}))
         assert result["text"] == "translated" and result["tokens_out"] == 3
         assert result["request_id"] == "req-success" and result["response_status"] == "completed"
+        # Artwork-only streamed delivery must use the terminal full response,
+        # not concatenate partial text deltas into an unverified result.
+        def streamed_response(request):
+            assert json.loads(request.content)["stream"] is True
+            events = [
+                {"type": "response.output_text.delta", "delta": "partial"},
+                {"type": "response.completed", "response": completed},
+            ]
+            return httpx.Response(200, content="".join(
+                "data: " + json.dumps(event) + "\n\n" for event in events),
+                headers={"content-type": "text/event-stream"})
+        transport = httpx.MockTransport(streamed_response)
+        with patch("httpx.AsyncClient", side_effect=lambda **kwargs: client_class(transport=transport, **kwargs)):
+            streamed = await call_mantle(session, "us-west-2", "xai.grok-4.6", "offline", stream_response=True)
+        assert streamed["text"] == "translated" and streamed["tokens_out"] == 3
         for model_id in ("openai.gpt-6-astra", "openai.gpt-6.1-sol"):
             cached = {**completed, "model": model_id, "usage": {
                 "input_tokens": 1_000_000, "output_tokens": 100_000,

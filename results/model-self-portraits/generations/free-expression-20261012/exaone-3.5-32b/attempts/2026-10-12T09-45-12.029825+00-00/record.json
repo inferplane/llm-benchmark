@@ -1,0 +1,21 @@
+{
+  "model": "exaone-3.5-32b",
+  "model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
+  "api": "openai",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T09:45:12.029825+00:00",
+  "prompt_sha256": "55e881ae0b7162dc61f3f7638cc5001bd7a7a8609bf8d35ec50780ef8ddaf6a6",
+  "max_output_tokens": 6144,
+  "temperature": 0.3,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-12T09:46:48.219695+00:00",
+  "artwork_sha256": "c7589da1262d272b3b112d4417af25e3579f7e5ba20cd167207e2a35a9cc146d",
+  "tokens_in": 230,
+  "tokens_out": 1419,
+  "finish_reason": "stop",
+  "reported_model": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct"
+}

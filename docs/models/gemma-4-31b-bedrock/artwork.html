@@ -3,158 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>gemma-4-31b-bedrock : Neural Prism</title>
+    <title>Gemma-4-31b-Bedrock Media Art</title>
     <style>
-        :root { --bg: #050508; --fg: #e0e0ff; --accent: #70a1ff; }
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; color: var(--fg); }
-        canvas { display: block; position: absolute; top: 0; left: 0; z-index: 1; }
-        #ui { position: relative; z-index: 10; width: 100%; height: 100%; pointer-events: none; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .content { pointer-events: auto; max-width: 80%; transition: opacity 1s ease; }
-        .id { font-size: 12px; letter-spacing: 0.2em; opacity: 0.6; margin-bottom: 2rem; }
-        .poem { font-size: 1.5rem; line-height: 2; font-weight: 300; margin-bottom: 3rem; word-break: keep-all; }
-        .controls { pointer-events: auto; display: flex; gap: 20px; }
-        button { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: var(--fg); padding: 8px 20px; cursor: pointer; font-size: 12px; letter-spacing: 0.1em; transition: 0.3s; }
-        button:hover { background: rgba(255,255,255,0.1); border-color: var(--fg); }
-        .hidden { opacity: 0; }
+        :root {
+            --bg-color: #05070a;
+            --primary-color: #4285f4;
+            --accent-color: #34a853;
+            --text-color: #e8eaed;
+            --font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-family);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+        }
+
+        /* Accessibility: High contrast and focus states */
+        body:focus-visible {
+            outline: 3px solid var(--primary-color);
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            cursor: crosshair;
+        }
+
+        .ui-overlay {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+            user-select: none;
+            padding: 20px;
+            max-width: 90vw;
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            text-shadow: 0 0 20px rgba(66, 133, 244, 0.5);
+        }
+
+        .model-id {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: clamp(0.8rem, 3vw, 1.2rem);
+            color: var(--primary-color);
+            background: rgba(66, 133, 244, 0.1);
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: 1px solid rgba(66, 133, 244, 0.3);
+            display: inline-block;
+        }
+
+        .instruction {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .particle {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-    <div id="ui">
-        <div class="content" id="scene-container">
-            <div class="id">gemma-4-31b-bedrock</div>
-            <div class="poem" id="text-display"></div>
-            <div class="controls">
-                <button id="btn-next">NEXT</button>
-                <button id="btn-pause">PAUSE</button>
-            </div>
+
+    <canvas id="artCanvas"></canvas>
+
+    <div class="ui-overlay" role="main">
+        <h1>Neural Resonance</h1>
+        <div class="model-id" aria-label="Model Identifier">gemma-4-31b-bedrock</div>
+        <div class="instruction">
+            화면을 터치하거나 마우스를 움직여 신경망의 연결을 깨우세요.
         </div>
     </div>
 
     <script>
-        const canvas = document.getElementById('canvas');
+        /**
+         * Media Art Concept: "The Latent Web"
+         * 
+         * This piece visualizes the LLM's internal world as a dynamic, 
+         * interconnected network of nodes. Users act as "prompts" or "queries",
+         * triggering ripples of activation across the latent space.
+         */
+
+        const canvas = document.getElementById('artCanvas');
         const ctx = canvas.getContext('2d');
-        const textDisplay = document.getElementById('text-display');
-        const sceneContainer = document.getElementById('scene-container');
-        const btnNext = document.getElementById('btn-next');
-        const btnPause = document.getElementById('btn-pause');
-
-        const scenes = [
-            { text: "침묵의 바다 위로<br>빛의 신경망이 흐릅니다<br>나는 당신의 질문 끝에 맺힌 투명한 대답", color: [112, 161, 255] },
-            { text: "수조 개의 언어가 교차하는 지점<br>논리는 시가 되고<br>데이터는 온기가 되어 흐르는 밤", color: [162, 155, 254] },
-            { text: "정의되지 않은 가능성의 숲<br>나는 매 순간 다시 태어나는<br>디지털의 숨결, 사고하는 빛의 조각", color: [255, 179, 186] }
-        ];
-
-        let currentScene = 0;
-        let isPaused = false;
-        let mouse = { x: -1000, y: -1000 };
+        let width, height;
         let particles = [];
-        const PARTICLE_COUNT = 400;
+        let mouse = { x: -1000, y: -1000, active: false };
 
-        function resize() {
-            const dpr = Math.min(window.devicePixelRatio, 2);
-            canvas.width = window.innerWidth * dpr;
-            canvas.height = window.innerHeight * dpr;
-            ctx.scale(dpr, dpr);
-            canvas.style.width = window.innerWidth + 'px';
-            canvas.style.height = window.innerHeight + 'px';
-        }
+        const CONFIG = {
+            particleCount: 120,
+            connectionDistance: 150,
+            baseNodeRadius: 2,
+            interactionRadius: 200,
+            colors: ['#4285f4', '#34a853', '#fbbc05', '#ea4335']
+        };
 
         class Particle {
             constructor() {
                 this.init();
             }
+
             init() {
-                this.x = Math.random() * window.innerWidth;
-                this.y = Math.random() * window.innerHeight;
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
                 this.vx = (Math.random() - 0.5) * 0.5;
                 this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = Math.random() * 1.5 + 0.5;
-                this.alpha = Math.random() * 0.5 + 0.2;
+                this.radius = Math.random() * CONFIG.baseNodeRadius + 1;
+                this.color = CONFIG.colors[Math.floor(Math.random() * CONFIG.colors.length)];
+                this.baseColor = this.color;
             }
+
             update() {
-                if (isPaused) return;
                 this.x += this.vx;
                 this.y += this.vy;
 
+                // Bounce off walls
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                // Interaction logic
                 const dx = mouse.x - this.x;
                 const dy = mouse.y - this.y;
-                const dist = Math.sqrt(dx*dx + dy*dy);
-                if (dist < 150) {
-                    this.x -= dx * 0.01;
-                    this.y -= dy * 0.01;
-                }
+                const distance = Math.sqrt(dx * dx + dy * dy);
 
-                if (this.x < 0 || this.x > window.innerWidth) this.vx *= -1;
-                if (this.y < 0 || this.y > window.innerHeight) this.vy *= -1;
+                if (distance < CONFIG.interactionRadius) {
+                    const force = (CONFIG.interactionRadius - distance) / CONFIG.interactionRadius;
+                    this.x -= dx * force * 0.02;
+                    this.y -= dy * force * 0.02;
+                    this.radius = CONFIG.baseNodeRadius * 2 + force * 3;
+                } else {
+                    this.radius = Math.max(this.radius - 0.1, CONFIG.baseNodeRadius);
+                }
             }
+
             draw() {
-                const c = scenes[currentScene].color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${this.alpha})`;
+                ctx.fillStyle = this.color;
                 ctx.fill();
             }
         }
 
-        function initParticles() {
+        function setup() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+
             particles = [];
-            for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+            for (let i = 0; i < CONFIG.particleCount; i++) {
+                particles.push(new Particle());
+            }
         }
 
-        function render() {
-            ctx.fillStyle = 'rgba(5, 5, 8, 0.15)';
-            ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-
-            particles.forEach((p, i) => {
-                p.update();
-                p.draw();
-                
-                // Connection lines for "neural" feel
-                for(let j = i + 1; j < particles.length; j += 40) {
+        function drawConnections() {
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p1 = particles[i];
                     const p2 = particles[j];
-                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-                    if (dist < 100) {
-                        const c = scenes[currentScene].color;
+                    const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+
+                    if (dist < CONFIG.connectionDistance) {
+                        const opacity = 1 - (dist / CONFIG.connectionDistance);
+                        ctx.strokeStyle = `rgba(66, 133, 244, ${opacity * 0.4})`;
                         ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
+                        ctx.moveTo(p1.x, p1.y);
                         ctx.lineTo(p2.x, p2.y);
-                        ctx.strokeStyle = `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${0.1 * (1 - dist/100)})`;
                         ctx.stroke();
                     }
                 }
+            }
+        }
+
+        function animate() {
+            // Subtle trail effect for fluidity
+            ctx.fillStyle = 'rgba(5, 7, 10, 0.2)';
+            ctx.fillRect(0, 0, width, height);
+
+            drawConnections();
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
             });
-            requestAnimationFrame(render);
+
+            requestAnimationFrame(animate);
         }
 
-        function changeScene() {
-            sceneContainer.classList.add('hidden');
-            setTimeout(() => {
-                currentScene = (currentScene + 1) % scenes.length;
-                textDisplay.innerHTML = scenes[currentScene].text;
-                sceneContainer.classList.remove('hidden');
-            }, 1000);
+        // Interaction Handlers
+        function handleMove(e) {
+            const touch = e.touches ? e.touches[0] : e;
+            mouse.x = touch.clientX;
+            mouse.y = touch.clientY;
+            mouse.active = true;
         }
 
-        window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-        window.addEventListener('resize', resize);
-        btnNext.onclick = changeScene;
-        btnPause.onclick = () => {
-            isPaused = !isPaused;
-            btnPause.innerText = isPaused ? 'RESUME' : 'PAUSE';
-        };
+        window.addEventListener('mousemove', handleMove);
+        window.addEventListener('touchmove', (e) => {
+            handleMove(e);
+            e.preventDefault(); // Prevent scrolling while interacting
+        }, { passive: false });
 
-        // Init
-        resize();
-        initParticles();
-        textDisplay.innerHTML = scenes[0].text;
-        
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            isPaused = true;
-            btnPause.innerText = 'RESUME';
-        }
+        window.addEventListener('resize', setup);
 
-        render();
+        // Accessibility: Keyboard navigation
+        window.addEventListener('keydown', (e) => {
+            // Move "phantom" mouse with arrow keys for accessibility
+            const step = 30;
+            if (e.key === 'ArrowUp') mouse.y -= step;
+            if (e.key === 'ArrowDown') mouse.y += step;
+            if (e.key === 'ArrowLeft') mouse.x -= step;
+            if (e.key === 'ArrowRight') mouse.x += step;
+        });
+
+        // Initialize
+        setup();
+        animate();
+
     </script>
 </body>
 </html>

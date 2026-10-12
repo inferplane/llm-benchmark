@@ -1,0 +1,398 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Sonnet 4.5 - Resonance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            color: #fff;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            margin-bottom: 3rem;
+            opacity: 0.7;
+            font-weight: 300;
+        }
+
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            min-height: 400px;
+            max-height: 700px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0f 100%);
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        button:hover, button:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            outline: 2px solid rgba(255, 255, 255, 0.3);
+            outline-offset: 2px;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .info {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .accessibility-note {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.75rem;
+            opacity: 0.4;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .canvas-container {
+                height: 50vh;
+                min-height: 300px;
+            }
+
+            .controls {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            button {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        .wave-indicator {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CLAUDE-SONNET-4.5</h1>
+        <div class="subtitle">공명 : Resonance</div>
+        
+        <div class="canvas-container">
+            <canvas id="canvas" role="img" aria-label="인터랙티브 파동 시각화"></canvas>
+            <div class="wave-indicator" id="waveCount">파동: 0</div>
+        </div>
+
+        <div class="controls">
+            <button id="addWave" aria-label="새로운 파동 추가">파동 생성 (Space)</button>
+            <button id="clearWaves" aria-label="모든 파동 제거">초기화 (C)</button>
+            <button id="toggleAnimation" aria-label="애니메이션 일시정지 또는 재생">일시정지 (P)</button>
+        </div>
+
+        <div class="info">
+            화면을 클릭하거나 터치하여 파동을 생성하세요.<br>
+            각 파동은 서로 영향을 주고받으며 새로운 패턴을 만들어냅니다.<br>
+            이것은 대화와 사고의 공명을 표현합니다.
+        </div>
+    </div>
+
+    <div class="accessibility-note">
+        키보드: Space(파동), C(초기화), P(일시정지)
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const addWaveBtn = document.getElementById('addWave');
+        const clearWavesBtn = document.getElementById('clearWaves');
+        const toggleAnimationBtn = document.getElementById('toggleAnimation');
+        const waveCountEl = document.getElementById('waveCount');
+
+        let waves = [];
+        let animationId;
+        let isPaused = false;
+        let time = 0;
+
+        // 캔버스 크기 설정
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * window.devicePixelRatio;
+            canvas.height = rect.height * window.devicePixelRatio;
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // 파동 클래스
+        class Wave {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.radius = 0;
+                this.maxRadius = Math.max(canvas.width, canvas.height) / window.devicePixelRatio;
+                this.speed = 2;
+                this.opacity = 1;
+                this.hue = Math.random() * 60 + 180; // 청록색 계열
+                this.frequency = Math.random() * 0.02 + 0.01;
+            }
+
+            update() {
+                this.radius += this.speed;
+                this.opacity = Math.max(0, 1 - (this.radius / this.maxRadius));
+            }
+
+            draw() {
+                if (this.opacity <= 0) return;
+
+                const rect = canvas.getBoundingClientRect();
+                
+                // 메인 원
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.strokeStyle = `hsla(${this.hue}, 70%, 60%, ${this.opacity * 0.6})`;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // 내부 글로우
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * 0.95, 0, Math.PI * 2);
+                ctx.strokeStyle = `hsla(${this.hue}, 80%, 70%, ${this.opacity * 0.3})`;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // 파동 패턴
+                const segments = 60;
+                for (let i = 0; i < segments; i++) {
+                    const angle = (Math.PI * 2 / segments) * i;
+                    const wave = Math.sin(angle * 3 + time * this.frequency) * 10;
+                    const x1 = this.x + Math.cos(angle) * (this.radius + wave);
+                    const y1 = this.y + Math.sin(angle) * (this.radius + wave);
+                    
+                    if (i === 0) {
+                        ctx.beginPath();
+                        ctx.moveTo(x1, y1);
+                    } else {
+                        ctx.lineTo(x1, y1);
+                    }
+                }
+                ctx.closePath();
+                ctx.strokeStyle = `hsla(${this.hue}, 60%, 50%, ${this.opacity * 0.4})`;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+
+            isDead() {
+                return this.opacity <= 0;
+            }
+        }
+
+        // 파동 추가
+        function addWave(x, y) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = rect.width / window.devicePixelRatio;
+            const scaleY = rect.height / window.devicePixelRatio;
+            waves.push(new Wave(x || scaleX / 2, y || scaleY / 2));
+            updateWaveCount();
+        }
+
+        // 파동 개수 업데이트
+        function updateWaveCount() {
+            waveCountEl.textContent = `파동: ${waves.length}`;
+        }
+
+        // 애니메이션 루프
+        function animate() {
+            if (!isPaused) {
+                const rect = canvas.getBoundingClientRect();
+                ctx.clearRect(0, 0, rect.width, rect.height);
+
+                // 배경 그라디언트
+                const gradient = ctx.createRadialGradient(
+                    rect.width / 2, rect.height / 2, 0,
+                    rect.width / 2, rect.height / 2, rect.width / 2
+                );
+                gradient.addColorStop(0, 'rgba(26, 26, 46, 0.1)');
+                gradient.addColorStop(1, 'rgba(10, 10, 15, 0.1)');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, rect.width, rect.height);
+
+                // 파동 간 상호작용 시각화
+                for (let i = 0; i < waves.length; i++) {
+                    for (let j = i + 1; j < waves.length; j++) {
+                        const dx = waves[i].x - waves[j].x;
+                        const dy = waves[i].y - waves[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        const radiusDiff = Math.abs(waves[i].radius - waves[j].radius);
+                        
+                        if (radiusDiff < 20 && distance < 300) {
+                            ctx.beginPath();
+                            ctx.moveTo(waves[i].x, waves[i].y);
+                            ctx.lineTo(waves[j].x, waves[j].y);
+                            const opacity = (1 - distance / 300) * waves[i].opacity * waves[j].opacity;
+                            ctx.strokeStyle = `rgba(100, 200, 255, ${opacity * 0.3})`;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                // 파동 업데이트 및 그리기
+                waves.forEach(wave => {
+                    wave.update();
+                    wave.draw();
+                });
+
+                // 죽은 파동 제거
+                waves = waves.filter(wave => !wave.isDead());
+                updateWaveCount();
+
+                time += 1;
+            }
+
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // 이벤트 리스너
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            addWave(x, y);
+        });
+
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            addWave(x, y);
+        });
+
+        addWaveBtn.addEventListener('click', () => addWave());
+
+        clearWavesBtn.addEventListener('click', () => {
+            waves = [];
+            updateWaveCount();
+        });
+
+        toggleAnimationBtn.addEventListener('click', () => {
+            isPaused = !isPaused;
+            toggleAnimationBtn.textContent = isPaused ? '재생 (P)' : '일시정지 (P)';
+        });
+
+        // 키보드 컨트롤
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                addWave();
+            } else if (e.code === 'KeyC') {
+                waves = [];
+                updateWaveCount();
+            } else if (e.code === 'KeyP') {
+                isPaused = !isPaused;
+                toggleAnimationBtn.textContent = isPaused ? '재생 (P)' : '일시정지 (P)';
+            }
+        });
+
+        // 초기 파동
+        addWave();
+        setTimeout(() => addWave(), 500);
+
+        // 애니메이션 시작
+        animate();
+
+        // prefers-reduced-motion 감지
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            isPaused = true;
+            toggleAnimationBtn.textContent = '재생 (P)';
+        }
+    </script>
+</body>
+</html>
+```

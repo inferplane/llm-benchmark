@@ -1,0 +1,20 @@
+{
+  "model": "claude-opus-5.5",
+  "model_id": "us.anthropic.claude-opus-5-5",
+  "api": "bedrock",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:20:15.905830+00:00",
+  "prompt_sha256": "ced739e8657facd8ea091c9818e21c54085f325c92d6ca40afa2a71355c3a403",
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "status": "generated",
+  "generated_at": "2026-10-12T08:22:43.522507+00:00",
+  "artwork_sha256": "72c3b8b0d695078a710212ec5f296bac8c62eedf8f8148e0117109e496868d0b",
+  "tokens_in": 397,
+  "tokens_out": 12321,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "570a6ff0-e3b6-4bf8-ab77-a20762796868"
+}

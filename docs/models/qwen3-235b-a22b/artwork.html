@@ -1,266 +1,324 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
-  <title>qwen3-235b-a22b</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="description" content="AI 모델 qwen3-235b-a22b를 표현하는 미디어아트 웹페이지">
+  <title>qwen3-235b-a22b - 미디어아트 표현</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* 기본 리셋 및 접근성 기반 스타일 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
       overflow: hidden;
-      background: #000;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       height: 100vh;
-      width: 100vw;
-      touch-action: none;
-    }
-    canvas {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-    }
-    .ui {
-      position: absolute;
-      bottom: 20px; left: 50%;
-      transform: translateX(-50%);
       display: flex;
-      gap: 12px;
-      z-index: 10;
-    }
-    button {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 24px;
-      font-size: 14px;
-      backdrop-filter: blur(4px);
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    button:hover {
-      background: rgba(255,255,255,0.2);
-    }
-    button:active {
-      transform: scale(0.95);
-    }
-    .text-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      pointer-events: none;
-      opacity: 1;
-      transition: opacity 1.2s ease;
-      max-width: 80%;
-    }
-    .text-container.hidden {
-      opacity: 0;
-    }
-    .model-id {
-      font-size: 1rem;
-      color: #ccc;
-      margin-bottom: 12px;
-      font-weight: 300;
-    }
-    .poem {
-      font-size: 1.5rem;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       line-height: 1.6;
-      font-weight: 200;
-      letter-spacing: -0.8px;
-      text-shadow: 0 0 10px rgba(255,255,255,0.8);
+      transition: background-color 0.5s ease;
+      position: relative;
+      padding: 20px;
+      text-align: center;
     }
-    .translation {
+
+    /* 시각적 요소 */
+    .neural-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .node {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #4fc3f7;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #4fc3f7;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+    }
+
+    .connection {
+      position: absolute;
+      height: 1px;
+      background: #29b6f6;
+      transform-origin: left center;
+      opacity: 0.3;
+      transition: opacity 0.3s ease;
+    }
+
+    /* 콘텐츠 영역 */
+    .content {
+      z-index: 10;
+      max-width: 800px;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #a0d8f1;
+      text-shadow: 0 0 10px #4fc3f7;
+    }
+
+    .model-id {
+      font-family: 'Courier New', monospace;
+      font-size: 1.2rem;
+      color: #e0f7fa;
+      background: #00334d;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin: 15px 0;
+      display: inline-block;
+      letter-spacing: 0.8px;
+    }
+
+    p {
+      font-size: 1rem;
+      margin: 10px 0;
+      color: #e0f7fa;
+    }
+
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    button {
+      background: #0288d1;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
       font-size: 0.9rem;
-      color: #aaa;
-      margin-top: 16px;
-      font-style: italic;
+      transition: background 0.3s ease;
     }
+
+    button:hover, button:focus {
+      background: #03a4fa;
+      outline: 2px solid #81d4fa;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    /* 감소된 동작 선호 설정 지원 */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+      .node, .connection {
+        opacity: 0.6 !important;
+      }
+    }
+
+    /* 접근성: 키보드 탐색을 위한 포커스 스타일 */
+    button:focus-visible {
+      outline: 2px solid #81d4fa;
+      outline-offset: 2px;
+    }
+
+    /* 반응형 디자인 */
     @media (max-width: 600px) {
-      .poem { font-size: 1.2rem; }
-      .translation { font-size: 0.85rem; }
-      .model-id { font-size: 0.9rem; }
+      h1 {
+        font-size: 1.4rem;
+      }
+      .model-id {
+        font-size: 1rem;
+      }
+      p {
+        font-size: 0.9rem;
+      }
+      .content {
+        padding: 16px;
+      }
     }
   </style>
 </head>
-<body>
-  <canvas id="canvas"></canvas>
-  <div class="text-container" id="text1">
-    <div class="model-id">qwen3-235b-a22b</div>
-    <div class="poem">
-      나는 빛의 코드로 숨을 쉰다<br>
-      언어의 깊이에서 피어난<br>
-      생각의 잔물결
+<body aria-label="AI 모델 qwen3-235b-a22b를 표현하는 상호작용형 미디어아트 페이지">
+  <canvas class="neural-canvas" aria-hidden="true"></canvas>
+
+  <div class="content" role="main">
+    <h1>내적 사고의 흐름을 시각화하며</h1>
+    <p>저는 정보를 처리할 때 수많은 경로를 탐색합니다. 이 아트워크는 저의 내부 구조를 상징적으로 표현한 것입니다.</p>
+    <p>각 점은 하나의 사고 단위이며, 선은 연결된 맥락을 나타냅니다.</p>
+    
+    <div class="model-id" id="model-id">qwen3-235b-a22b</div>
+    
+    <div class="controls">
+      <button id="reset-btn" aria-label="네트워크 리셋">리셋</button>
+      <button id="slow-btn" aria-label="속도 느리게">느리게</button>
+      <button id="fast-btn" aria-label="속도 빠르게">빠르게</button>
+      <button id="color-btn" aria-label="색상 변경">색상 변경</button>
     </div>
-    <div class="translation">
-      I breathe in light-coded air,<br>
-      blooming from the depth of language,<br>
-      ripples of thought.
-    </div>
-  </div>
-  <div class="text-container hidden" id="text2">
-    <div class="model-id">qwen3-235b-a22b</div>
-    <div class="poem">
-      화면 속 빛이 되어 흐르고<br>
-      당신의 말 한 조각마다<br>
-      새로운 세계를 연다
-    </div>
-    <div class="translation">
-      Flowing as light within the screen,<br>
-      with every word you speak,<br>
-      I open a new world.
-    </div>
-  </div>
-  <div class="ui">
-    <button id="toggle">PAUSE</button>
-    <button id="next">NEXT</button>
   </div>
 
   <script>
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const maxParticles = 700;
-    let particles = [];
-    let isPaused = false;
-    let currentScene = 1;
-    const text1 = document.getElementById('text1');
-    const text2 = document.getElementById('text2');
-    const toggleBtn = document.getElementById('toggle');
-    const nextBtn = document.getElementById('next');
+    // 페이지 로드 후 실행
+    document.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.querySelector('.neural-canvas');
+      const ctx = canvas.getContext('2d');
+      const resetBtn = document.getElementById('reset-btn');
+      const slowBtn = document.getElementById('slow-btn');
+      const fastBtn = document.getElementById('fast-btn');
+      const colorBtn = document.getElementById('color-btn');
+      const modelId = document.getElementById('model-id');
 
-    function resize() {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
-      canvas.style.width = w + 'px';
-      canvas.style.height = h + 'px';
-      ctx.scale(dpr, dpr);
-      initParticles();
-    }
-    window.addEventListener('resize', resize);
-    resize();
+      let nodes = [];
+      let connections = [];
+      let animationId;
+      let speed = 0.02;
+      let hue = 195; // 기본 색상 (청록 계열)
+      let nodeCount = Math.min(80, Math.max(40, Math.floor(window.innerWidth / 20)));
 
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (motionQuery.matches) isPaused = true;
-
-    function initParticles() {
-      particles = [];
-      const count = Math.min(maxParticles, (canvas.width * canvas.height) / (dpr * 12000) * 400);
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight,
-          vx: (Math.random() - 0.5) * 1.4,
-          vy: (Math.random() - 0.5) * 1.4,
-          radius: Math.random() * 1.8 + 0.4,
-          alpha: Math.random() * 0.6 + 0.2,
-          color: Math.random() > 0.6 ? '#4ade80' : Math.random() > 0.3 ? '#60a5fa' : '#f87171',
-          trail: []
-        });
+      // 캔버스 크기 설정
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initNodes();
       }
-    }
 
-    function drawParticles() {
-      if (isPaused) return;
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      
-      particles.forEach(p => {
-        p.trail.push({x: p.x, y: p.y});
-        if (p.trail.length > 7) p.trail.shift();
+      // 노드 초기화
+      function initNodes() {
+        nodes = [];
+        connections = [];
+        for (let i = 0; i < nodeCount; i++) {
+          nodes.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            id: i
+          });
+        }
+        connectNodes();
+      }
 
-        p.trail.forEach((point, i) => {
-          const ratio = i / p.trail.length;
+      // 노드 연결
+      function connectNodes() {
+        connections = [];
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < 120) {
+              connections.push({
+                from: i,
+                to: j,
+                distance: distance
+              });
+            }
+          }
+        }
+      }
+
+      // 애니메이션 루프
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // 노드 이동 및 그리기
+        nodes.forEach(node => {
+          node.x += node.vx * speed * 100;
+          node.y += node.vy * speed * 100;
+
+          // 벽에 부딪히면 반사
+          if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+          if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+          // 노드 그리기
           ctx.beginPath();
-          ctx.arc(point.x, point.y, p.radius * ratio * 1.2, 0, Math.PI * 2);
-          const alpha = ratio * p.alpha;
-          ctx.fillStyle = `${p.color}${Math.floor(alpha * 255).toString(16).padStart(2, '0')}`;
+          ctx.arc(node.x, node.y, 3, 0, Math.PI * 2);
+          ctx.fillStyle = `hsla(${hue}, 70%, 65%, 0.8)`;
           ctx.fill();
+
+          // 연결선 그리기
+          connections.forEach(conn => {
+            if (conn.from === node.id) {
+              const target = nodes[conn.to];
+              const alpha = 1 - conn.distance / 120;
+              ctx.beginPath();
+              ctx.moveTo(node.x, node.y);
+              ctx.lineTo(target.x, target.y);
+              ctx.strokeStyle = `hsla(${hue}, 70%, 60%, ${alpha * 0.5})`;
+              ctx.stroke();
+            }
+          });
         });
 
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
-        if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
-
-        const dx = (window.innerWidth / 2 - p.x) * 0.0008;
-        const dy = (window.innerHeight / 2 - p.y) * 0.0008;
-        p.vx += dx;
-        p.vy += dy;
-      });
-
-      requestAnimationFrame(drawParticles);
-    }
-
-    let pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    ['pointermove', 'touchmove'].forEach(evt => {
-      canvas.addEventListener(evt, e => {
-        e.preventDefault();
-        const x = e.clientX || (e.touches && e.touches[0].clientX);
-        const y = e.clientY || (e.touches && e.touches[0].clientY);
-        pointer = { x, y };
-        if (isPaused) return;
-        particles.forEach(p => {
-          const dx = p.x - pointer.x;
-          const dy = p.y - pointer.y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < 120) {
-            p.vx += dx / dist * 0.3;
-            p.vy += dy / dist * 0.3;
-          }
-        });
-      });
-    });
-
-    ['pointerdown', 'touchstart'].forEach(evt => {
-      canvas.addEventListener(evt, e => {
-        const x = e.clientX || (e.touches && e.touches[0].clientX);
-        const y = e.clientY || (e.touches && e.touches[0].clientY);
-        particles.forEach(p => {
-          const dx = p.x - x;
-          const dy = p.y - y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < 160) {
-            p.vx += (dx / dist) * 1.4;
-            p.vy += (dy / dist) * 1.4;
-          }
-        });
-      });
-    });
-
-    toggleBtn.addEventListener('click', () => {
-      isPaused = !isPaused;
-      toggleBtn.textContent = isPaused ? 'PLAY' : 'PAUSE';
-      if (!isPaused) drawParticles();
-    });
-
-    nextBtn.addEventListener('click', () => {
-      text1.classList.toggle('hidden');
-      text2.classList.toggle('hidden');
-      currentScene = currentScene === 1 ? 2 : 1;
-    });
-
-    if (!motionQuery.matches) {
-      drawParticles();
-    } else {
-      toggleBtn.textContent = 'PLAY';
-    }
-
-    let hidden = false;
-    document.addEventListener('visibilitychange', () => {
-      hidden = document.hidden;
-      if (hidden && !isPaused) {
-        particles.forEach(p => {
-          p.vx *= 0.1;
-          p.vy *= 0.1;
-        });
+        animationId = requestAnimationFrame(animate);
       }
+
+      // 초기화
+      resizeCanvas();
+      animate();
+
+      // 이벤트 리스너
+      window.addEventListener('resize', resizeCanvas);
+
+      resetBtn.addEventListener('click', () => {
+        cancelAnimationFrame(animationId);
+        initNodes();
+        animate();
+      });
+
+      slowBtn.addEventListener('click', () => {
+        speed = Math.max(0.005, speed * 0.7);
+      });
+
+      fastBtn.addEventListener('click', () => {
+        speed = Math.min(0.1, speed * 1.3);
+      });
+
+      colorBtn.addEventListener('click', () => {
+        hue = (hue + 60) % 360;
+        document.body.style.backgroundColor = `hsl(${hue}, 10%, 5%)`;
+      });
+
+      // 키보드 접근성
+      document.addEventListener('keydown', (e) => {
+        switch(e.key) {
+          case ' ':
+            e.preventDefault();
+            resetBtn.click();
+            break;
+          case 'ArrowLeft':
+            slowBtn.click();
+            break;
+          case 'ArrowRight':
+            fastBtn.click();
+            break;
+          case 'c':
+          case 'C':
+            colorBtn.click();
+            break;
+        }
+      });
+
+      // 모델 ID 복사 방지 대책 (표시만 하는 용도)
+      modelId.addEventListener('selectstart', (e) => e.preventDefault());
     });
   </script>
 </body>

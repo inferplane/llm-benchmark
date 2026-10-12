@@ -1,0 +1,22 @@
+{
+  "model": "grok-4.6",
+  "model_id": "xai.grok-4.6",
+  "api": "bedrock_mantle",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:54:31.763489+00:00",
+  "prompt_sha256": "24173eac09d577a4b3fe67bb084d89d5a3a0ec4ca5b6ff6ce447905dc7e25d6a",
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled": false,
+  "status": "failed",
+  "failed_at": "2026-10-12T09:04:32.301453+00:00",
+  "error": {
+    "type": "ReadTimeout",
+    "message": "ReadTimeout: request timed out",
+    "retryable": true,
+    "phase": "request_headers"
+  },
+  "reason": "ReadTimeout: request timed out"
+}

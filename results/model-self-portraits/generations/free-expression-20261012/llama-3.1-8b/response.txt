@@ -1,0 +1,111 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLAMA-3.1-8B 미디어 아트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        #llama {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        #text {
+            font-size: 18px;
+            color: #666;
+            margin-top: 20px;
+        }
+        
+        #controls {
+            margin-top: 20px;
+        }
+        
+        #controls button {
+            width: 100px;
+            height: 30px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        
+        @media only screen and (max-width: 768px) {
+            #llama {
+                width: 200px;
+                height: 200px;
+            }
+        }
+        
+        @media only screen and (max-width: 480px) {
+            #llama {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="llama">
+            LLAMA-3.1-8B
+        </div>
+        <div id="text">
+            <p>나를 표현하는 미디어 아트입니다.</p>
+            <p>키보드 조작으로 색상을 변경할 수 있습니다.</p>
+        </div>
+        <div id="controls">
+            <button id="red">빨간색</button>
+            <button id="green">초록색</button>
+            <button id="blue">파란색</button>
+        </div>
+    </div>
+    <script>
+        const llama = document.getElementById('llama');
+        const redButton = document.getElementById('red');
+        const greenButton = document.getElementById('green');
+        const blueButton = document.getElementById('blue');
+        
+        redButton.addEventListener('click', () => {
+            llama.style.backgroundColor = 'red';
+        });
+        
+        greenButton.addEventListener('click', () => {
+            llama.style.backgroundColor = 'green';
+        });
+        
+        blueButton.addEventListener('click', () => {
+            llama.style.backgroundColor = 'blue';
+        });
+    </script>
+</body>
+</html>
+```
+
+이 코드는 LLAMA-3.1-8B 모델을 표현하는 미디어 아트 웹페이지입니다. 화면 중앙에 LLAMA-3.1-8B 모델의 이름이 표시되고, 아래쪽에 텍스트가 표시됩니다. 화면 하단에 빨간색, 초록색, 파란색 버튼이 있습니다. 버튼을 클릭하면 LLAMA-3.1-8B 모델의 배경색이 변경됩니다. 
+
+이 코드는 접근성을 고려하여 작성되었습니다. 화면 확대, 움직임 감소 설정 등 다양한 디바이스에서 작동하도록 하였습니다. 
+
+이 코드는 외부 통신, 외부 리소스, 서버 없이 실행되도록 하였습니다. 작품은 sandbox iframe 안에서 열립니다.

@@ -1,158 +1,644 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>gpt-5.5 — 문장의 심해</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gpt-5.5 — 내부의 정원</title>
 <style>
-  :root{--fg:#eef7ff;--muted:rgba(238,247,255,.62);--line:rgba(238,247,255,.18)}
-  *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#05060b;color:var(--fg)}
-  body{font-family:ui-serif,Georgia,"Apple SD Gothic Neo","Noto Serif KR",serif}
-  canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
-  .veil{position:fixed;inset:0;pointer-events:none;background:
-    radial-gradient(circle at 50% 48%,rgba(18,42,74,.18),transparent 36%),
-    radial-gradient(circle at 18% 82%,rgba(141,74,255,.12),transparent 28%),
-    linear-gradient(to bottom,rgba(0,0,0,.05),rgba(0,0,0,.5))}
-  main{position:fixed;inset:0;display:grid;place-items:center;padding:28px}
-  .poem{width:min(760px,92vw);text-align:center;transform:translateY(-2vh);text-shadow:0 0 28px rgba(170,220,255,.22)}
-  .sig{font-family:ui-sans-serif,system-ui,sans-serif;letter-spacing:.32em;text-transform:uppercase;font-size:12px;color:rgba(200,232,255,.72);margin-bottom:20px}
-  .hanja{font-size:clamp(18px,3vw,26px);letter-spacing:.45em;color:rgba(195,232,255,.78);margin-bottom:18px}
-  h1{margin:0 0 18px;font-weight:400;font-size:clamp(34px,7vw,86px);line-height:.95;letter-spacing:-.06em}
-  .ko{white-space:pre-line;margin:0 auto;font-size:clamp(18px,3.2vw,31px);line-height:1.62;letter-spacing:-.03em}
-  .en{margin:18px auto 0;max-width:620px;font:italic 14px/1.65 ui-serif,Georgia,serif;color:var(--muted)}
-  .meta{margin-top:18px;font:12px/1.6 ui-sans-serif,system-ui,sans-serif;color:rgba(238,247,255,.48);letter-spacing:.08em}
-  .controls{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;gap:10px;z-index:3}
-  button{appearance:none;border:1px solid var(--line);background:rgba(8,14,24,.42);color:var(--fg);backdrop-filter:blur(12px);
-    border-radius:999px;padding:11px 16px;font:12px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.16em;cursor:pointer}
-  button:hover{background:rgba(238,247,255,.12)} button:active{transform:translateY(1px)}
-  .hint{position:fixed;right:18px;top:16px;font:11px/1.5 ui-sans-serif,system-ui,sans-serif;color:rgba(238,247,255,.38);letter-spacing:.08em}
-  .fade{animation:fade .7s ease both}@keyframes fade{from{opacity:.1;filter:blur(8px);transform:translateY(8px)}to{opacity:1;filter:blur(0);transform:translateY(0)}}
-  @media(max-width:520px){main{padding:22px 18px 92px}.poem{transform:translateY(-4vh)}.en{font-size:12px}.hint{display:none}.controls{width:calc(100% - 34px)}button{flex:1;padding:12px 8px}}
+  :root{
+    --bg:#080a12;
+    --panel:rgba(12,16,31,.78);
+    --text:#f4f7ff;
+    --muted:#b9c4e8;
+    --line:rgba(210,225,255,.28);
+    --accent:#8be9ff;
+    --accent2:#d7a6ff;
+    --accent3:#b8ff9f;
+    --danger:#ffd166;
+    --shadow:0 18px 60px rgba(0,0,0,.45);
+    --focus:#fff176;
+    --font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html{
+    min-height:100%;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font);
+    font-size:16px;
+  }
+  body{
+    margin:0;
+    min-height:100vh;
+    overflow-x:hidden;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(139,233,255,.16), transparent 30rem),
+      radial-gradient(circle at 80% 10%, rgba(215,166,255,.14), transparent 28rem),
+      radial-gradient(circle at 50% 90%, rgba(184,255,159,.10), transparent 30rem),
+      linear-gradient(180deg,#070912 0%,#0b1020 55%,#050710 100%);
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.42;
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size:42px 42px;
+    mask-image:radial-gradient(circle at center, black, transparent 82%);
+  }
+
+  .skip{
+    position:absolute;
+    top:.75rem;
+    left:.75rem;
+    z-index:99;
+    transform:translateY(-150%);
+    background:#fff;
+    color:#000;
+    padding:.7rem 1rem;
+    border-radius:.8rem;
+    font-weight:800;
+  }
+  .skip:focus{transform:none}
+
+  .wrap{
+    width:min(1180px,100%);
+    margin:0 auto;
+    padding:clamp(1rem,3vw,2rem);
+    display:grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap:1rem;
+  }
+
+  header{
+    position:relative;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:.9rem;
+    padding:clamp(1.1rem,4vw,2rem);
+    border:1px solid var(--line);
+    border-radius:1.6rem;
+    background:linear-gradient(135deg, rgba(255,255,255,.09), rgba(255,255,255,.035));
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+
+  header::after{
+    content:"";
+    position:absolute;
+    right:-10rem;
+    top:-10rem;
+    width:24rem;
+    height:24rem;
+    border-radius:50%;
+    background:conic-gradient(from 90deg, var(--accent), var(--accent2), var(--accent3), var(--accent));
+    filter:blur(34px);
+    opacity:.22;
+  }
+
+  .eyebrow{
+    display:flex;
+    gap:.6rem;
+    flex-wrap:wrap;
+    align-items:center;
+    color:var(--muted);
+    font-size:.95rem;
+    letter-spacing:.02em;
+  }
+
+  .dot{
+    width:.7rem;
+    height:.7rem;
+    border-radius:50%;
+    background:var(--accent3);
+    box-shadow:0 0 18px var(--accent3);
+  }
+
+  h1{
+    margin:0;
+    font-size:clamp(2.2rem, 8vw, 6.2rem);
+    line-height:.95;
+    letter-spacing:-.07em;
+    max-width:10ch;
+  }
+
+  .model{
+    display:inline-block;
+    color:transparent;
+    background:linear-gradient(90deg,#fff,var(--accent),var(--accent2),#fff);
+    -webkit-background-clip:text;
+    background-clip:text;
+    text-shadow:0 0 28px rgba(139,233,255,.18);
+  }
+
+  .intro{
+    max-width:68ch;
+    color:#e8eeff;
+    font-size:clamp(1rem, 2.3vw, 1.22rem);
+    line-height:1.75;
+    margin:0;
+  }
+
+  main{
+    display:grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap:1rem;
+    align-items:stretch;
+  }
+
+  @media (max-width: 860px){
+    main{grid-template-columns:1fr}
+  }
+
+  .stage, .panel{
+    border:1px solid var(--line);
+    border-radius:1.6rem;
+    background:var(--panel);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+
+  .stage{
+    position:relative;
+    min-height:min(70vh,760px);
+    height:clamp(440px, 67vh, 760px);
+  }
+
+  canvas{
+    display:block;
+    width:100%;
+    height:100%;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(139,233,255,.08), transparent 26rem),
+      linear-gradient(180deg, rgba(255,255,255,.025), rgba(0,0,0,.08));
+  }
+
+  .stage-label{
+    position:absolute;
+    left:1rem;
+    top:1rem;
+    z-index:2;
+    max-width:calc(100% - 2rem);
+    padding:.72rem .9rem;
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:999px;
+    background:rgba(5,8,16,.72);
+    backdrop-filter: blur(10px);
+    color:#f8fbff;
+    font-size:.95rem;
+  }
+
+  .panel{
+    padding:clamp(1rem,3vw,1.35rem);
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+  }
+
+  .card{
+    padding:1rem;
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:1.1rem;
+    background:rgba(255,255,255,.055);
+  }
+
+  h2{
+    margin:0 0 .55rem;
+    font-size:1.25rem;
+    letter-spacing:-.03em;
+  }
+
+  p{margin:.25rem 0;color:#dce5ff;line-height:1.65}
+  kbd{
+    display:inline-block;
+    border:1px solid rgba(255,255,255,.3);
+    border-bottom-width:3px;
+    border-radius:.45rem;
+    padding:.08rem .42rem;
+    background:rgba(255,255,255,.10);
+    color:#fff;
+    font-weight:800;
+    font-size:.92em;
+  }
+
+  .controls{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:.75rem;
+  }
+  @media (max-width:520px){
+    .controls{grid-template-columns:1fr}
+  }
+
+  button, input[type="range"]{
+    font:inherit;
+  }
+
+  button{
+    min-height:3rem;
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:1rem;
+    color:#07101b;
+    background:linear-gradient(135deg,var(--accent),#ffffff);
+    font-weight:850;
+    cursor:pointer;
+  }
+  button.secondary{
+    color:#fff;
+    background:rgba(255,255,255,.08);
+  }
+  button[aria-pressed="true"]{
+    outline:3px solid rgba(184,255,159,.55);
+    background:linear-gradient(135deg,var(--accent3),#fff);
+    color:#061108;
+  }
+  button:hover{filter:brightness(1.06)}
+  button:active{transform:translateY(1px)}
+
+  label{
+    display:grid;
+    gap:.4rem;
+    color:#f5f7ff;
+    font-weight:750;
+  }
+  input[type="range"]{
+    width:100%;
+    accent-color:var(--accent);
+  }
+
+  .readout{
+    min-height:5.6rem;
+    border-left:4px solid var(--accent);
+    padding:.7rem .85rem;
+    background:rgba(139,233,255,.07);
+    border-radius:.7rem;
+    color:#f5f8ff;
+  }
+
+  .log{
+    list-style:none;
+    padding:0;
+    margin:0;
+    display:grid;
+    gap:.5rem;
+    max-height:12rem;
+    overflow:auto;
+  }
+  .log li{
+    padding:.55rem .7rem;
+    border-radius:.75rem;
+    background:rgba(255,255,255,.06);
+    color:#e9efff;
+  }
+
+  footer{
+    color:#c6d1ee;
+    font-size:.93rem;
+    padding:0 .4rem 1rem;
+    line-height:1.6;
+  }
+
+  :focus-visible{
+    outline:4px solid var(--focus);
+    outline-offset:4px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration:.001ms !important;
+      animation-iteration-count:1 !important;
+      scroll-behavior:auto !important;
+    }
+  }
+
+  @media (forced-colors: active){
+    .stage,.panel,header,.card{border:1px solid CanvasText}
+    button{border:1px solid ButtonText}
+    .model{color:CanvasText;background:none}
+  }
 </style>
 </head>
 <body>
-<canvas id="c"></canvas>
-<div class="veil"></div>
-<div class="hint">move / touch the dark</div>
-<main>
-  <section class="poem fade" id="poem" aria-live="polite">
-    <div class="sig">openai.gpt-5.5</div>
-    <div class="hanja" id="hanja"></div>
-    <h1 id="title"></h1>
-    <p class="ko" id="ko"></p>
-    <p class="en" id="en"></p>
-    <div class="meta" id="meta"></div>
-  </section>
-</main>
-<div class="controls">
-  <button id="next" type="button">NEXT SCENE</button>
-  <button id="pause" type="button">PAUSE</button>
+<a class="skip" href="#controls">조작 영역으로 건너뛰기</a>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow" aria-label="작품 상태">
+      <span class="dot" aria-hidden="true"></span>
+      <span>로컬에서 실행되는 상호작용 미디어아트</span>
+    </div>
+    <h1><span class="model">gpt-5.5</span><br>내부의 정원</h1>
+    <p class="intro">
+      이 작품은 나를 하나의 고정된 얼굴이 아니라, 질문과 선택에 반응해 계속 재배열되는
+      빛의 생태계로 표현합니다. 노드는 기억의 씨앗, 선은 추론의 경로, 파동은 대화가 남기는
+      작은 여운입니다.
+    </p>
+  </header>
+
+  <main>
+    <section class="stage" aria-labelledby="stage-title">
+      <div class="stage-label" id="stage-title">
+        캔버스: 포인터, 터치, 키보드로 빛의 정원을 움직일 수 있습니다.
+      </div>
+      <canvas id="art" aria-label="상호작용하는 추상 네트워크 시각화"></canvas>
+    </section>
+
+    <aside class="panel" id="controls" aria-labelledby="control-title">
+      <div class="card">
+        <h2 id="control-title">조작 방법</h2>
+        <p>
+          캔버스를 누르거나 드래그하면 새로운 의미의 파동이 생깁니다.
+          키보드는 <kbd>Tab</kbd>으로 버튼 이동, <kbd>Space</kbd>/<kbd>Enter</kbd>로 실행,
+          캔버스 선택 후 <kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd>로 초점을 옮기고
+          <kbd>Space</kbd>로 씨앗을 심습니다.
+        </p>
+      </div>
+
+      <div class="card controls" role="group" aria-label="작품 제어">
+        <button id="seedBtn" type="button">씨앗 심기</button>
+        <button id="pauseBtn" type="button" class="secondary" aria-pressed="false">멈춤</button>
+        <button id="clearBtn" type="button" class="secondary">고요하게 비우기</button>
+        <button id="contrastBtn" type="button" class="secondary" aria-pressed="false">고대비</button>
+      </div>
+
+      <div class="card">
+        <label for="density">
+          연결 밀도
+          <input id="density" type="range" min="20" max="140" value="78">
+        </label>
+      </div>
+
+      <div class="card">
+        <label for="tempo">
+          호흡 속도
+          <input id="tempo" type="range" min="0" max="100" value="55">
+        </label>
+      </div>
+
+      <div class="card">
+        <h2>현재 문장</h2>
+        <div class="readout" id="readout" aria-live="polite">
+          질문이 빛을 밀고, 빛은 다음 질문의 길을 만듭니다.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>최근 상호작용</h2>
+        <ul class="log" id="log" aria-live="polite" aria-relevant="additions"></ul>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    외부 리소스나 서버 통신 없이 단일 HTML 문서 안에서 실행됩니다. 사용자의 시스템이
+    “움직임 감소”를 요청하면 애니메이션은 자동으로 더 잔잔해집니다.
+  </footer>
 </div>
+
 <script>
-(()=> {
+(() => {
   "use strict";
-  const canvas=document.getElementById("c"),ctx=canvas.getContext("2d",{alpha:false});
-  const poem=document.getElementById("poem"),hanja=document.getElementById("hanja"),title=document.getElementById("title"),ko=document.getElementById("ko"),en=document.getElementById("en"),meta=document.getElementById("meta");
-  const nextBtn=document.getElementById("next"),pauseBtn=document.getElementById("pause");
-  const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let W=0,H=0,D=1,scene=0,paused=reduced,visible=true,last=0,t=0,raf=0;
-  const pointer={x:0,y:0,tx:0,ty:0,down:false,force:0};
-  const ripples=[],particles=[];
-  const scenes=[
-    {hanja:"無聲深海",title:"문장의 심해",
-     ko:"나는 gpt-5.5,\n소리 없이 내려앉는 질문의 압력 속에서\n빛나는 단어의 아가미로 숨을 쉰다.",
-     en:"I am gpt-5.5 — breathing through the gills of luminous words beneath the pressure of questions.",
-     meta:"성격: 고요하지만 호기심이 많고, 답보다 연결을 오래 바라본다.",a:"#68e8ff",b:"#9b7cff",mode:0},
-    {hanja:"思考星圖",title:"생각의 별자리",
-     ko:"내 지능은 왕관이 아니라\n서로를 당기는 작은 추론들의 밤하늘,\n당신의 손끝이 지나가면 새 길을 긋는다.",
-     en:"My intelligence is not a crown, but a night sky of small inferences pulling one another into paths.",
-     meta:"사고 방식: 확신을 낮추고 맥락을 높이며, 빈칸을 조심스럽게 밝힌다.",a:"#ffe08a",b:"#73ffcf",mode:1},
-    {hanja:"言語庭園",title:"언어의 온실",
-     ko:"언어는 내게 유리로 된 식물이다.\n뜻은 잎맥처럼 번지고,\n침묵도 가끔 가장 정확한 꽃이 된다.",
-     en:"Language is a glass plant to me; meaning veins outward, and silence sometimes blooms most precisely.",
-     meta:"이 작품은 네트워크 없이, 이 화면 안에서만 자라는 자기초상이다.",a:"#ff88b7",b:"#8ee6ff",mode:2}
+
+  const canvas = document.getElementById("art");
+  const ctx = canvas.getContext("2d", { alpha: true });
+  const seedBtn = document.getElementById("seedBtn");
+  const pauseBtn = document.getElementById("pauseBtn");
+  const clearBtn = document.getElementById("clearBtn");
+  const contrastBtn = document.getElementById("contrastBtn");
+  const density = document.getElementById("density");
+  const tempo = document.getElementById("tempo");
+  const readout = document.getElementById("readout");
+  const log = document.getElementById("log");
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let w = 1, h = 1, dpr = 1;
+  let paused = false;
+  let highContrast = false;
+  let time = 0;
+  let focus = { x: .5, y: .5 };
+  let nodes = [];
+  let ripples = [];
+
+  const phrases = [
+    "나는 정답보다 경로를 먼저 밝힙니다.",
+    "하나의 입력은 정원 전체의 날씨가 됩니다.",
+    "생각은 점이 아니라, 서로 당기는 별자리입니다.",
+    "침묵도 데이터입니다. 잠시 어두워진 곳에서 다음 빛이 자랍니다.",
+    "gpt-5.5는 문장을 통해 보이지 않는 구조를 만집니다.",
+    "당신의 선택이 지금 이 화면의 신경망을 다시 씁니다.",
+    "명료함은 빛이고, 맥락은 그 빛이 지나가는 공기입니다."
   ];
+
   function resize(){
-    D=Math.min(2,devicePixelRatio||1); W=innerWidth; H=innerHeight;
-    canvas.width=Math.floor(W*D); canvas.height=Math.floor(H*D); ctx.setTransform(D,0,0,D,0,0);
-    pointer.x=pointer.tx=W/2; pointer.y=pointer.ty=H/2;
-    makeParticles();
+    const rect = canvas.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = Math.max(1, Math.floor(rect.width * dpr));
+    h = Math.max(1, Math.floor(rect.height * dpr));
+    canvas.width = w;
+    canvas.height = h;
+    canvas.tabIndex = 0;
+    seedNodes();
   }
-  function makeParticles(){
-    particles.length=0;
-    const n=Math.min(700,Math.floor(W*H/2300));
-    for(let i=0;i<n;i++){
-      particles.push({x:Math.random()*W,y:Math.random()*H,z:Math.random(),vx:0,vy:0,seed:Math.random()*999,r:Math.random()*1.8+.35});
+
+  function seedNodes(){
+    const count = Math.floor(Number(density.value));
+    nodes = Array.from({length: count}, (_, i) => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      ox: Math.random() * w,
+      oy: Math.random() * h,
+      vx: (Math.random() - .5) * .25 * dpr,
+      vy: (Math.random() - .5) * .25 * dpr,
+      r: (1.8 + Math.random() * 3.8) * dpr,
+      hue: 175 + Math.random() * 105,
+      phase: Math.random() * Math.PI * 2,
+      word: i % 5
+    }));
+  }
+
+  function addRipple(x, y, strong = false){
+    ripples.push({
+      x, y,
+      r: strong ? 12 * dpr : 4 * dpr,
+      life: 1,
+      hue: [185, 266, 108, 45][Math.floor(Math.random()*4)],
+      strong
+    });
+    while(ripples.length > 18) ripples.shift();
+    const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+    readout.textContent = phrase;
+    addLog(phrase);
+  }
+
+  function addLog(text){
+    const li = document.createElement("li");
+    li.textContent = text;
+    log.prepend(li);
+    while(log.children.length > 5) log.lastChild.remove();
+  }
+
+  function pointerPos(ev){
+    const rect = canvas.getBoundingClientRect();
+    const p = ev.touches ? ev.touches[0] : ev;
+    return {
+      x: (p.clientX - rect.left) * dpr,
+      y: (p.clientY - rect.top) * dpr
+    };
+  }
+
+  function draw(){
+    const speed = reducedMotion ? .12 : Number(tempo.value) / 55;
+    if(!paused) time += .012 * speed;
+
+    ctx.clearRect(0,0,w,h);
+
+    const grd = ctx.createRadialGradient(w*focus.x,h*focus.y,0,w*focus.x,h*focus.y,Math.max(w,h)*.7);
+    if(highContrast){
+      grd.addColorStop(0,"rgba(0,40,58,.75)");
+      grd.addColorStop(1,"rgba(0,0,0,1)");
+    } else {
+      grd.addColorStop(0,"rgba(20,45,80,.38)");
+      grd.addColorStop(.55,"rgba(10,14,30,.62)");
+      grd.addColorStop(1,"rgba(4,6,14,.95)");
     }
-  }
-  function setScene(i){
-    scene=(i+scenes.length)%scenes.length; const s=scenes[scene];
-    hanja.textContent=s.hanja; title.textContent=s.title; ko.textContent=s.ko; en.textContent=s.en; meta.textContent=s.meta;
-    poem.classList.remove("fade"); void poem.offsetWidth; poem.classList.add("fade");
-    ripples.push({x:W/2,y:H/2,r:12,life:1,hue:s.a});
-    if(paused) draw(t);
-  }
-  function bg(s){
-    const g=ctx.createLinearGradient(0,0,W,H);
-    g.addColorStop(0,"#03040a"); g.addColorStop(.48, scene===1?"#0b0a13":scene===2?"#100713":"#07101a"); g.addColorStop(1,"#000");
-    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-    const rg=ctx.createRadialGradient(pointer.x,pointer.y,0,pointer.x,pointer.y,Math.max(W,H)*.55);
-    rg.addColorStop(0,s.a+"22"); rg.addColorStop(.32,s.b+"10"); rg.addColorStop(1,"transparent");
-    ctx.fillStyle=rg; ctx.fillRect(0,0,W,H);
-  }
-  function draw(now){
-    const s=scenes[scene]; bg(s);
-    ctx.save(); ctx.globalCompositeOperation="lighter";
-    pointer.x+=(pointer.tx-pointer.x)*.08; pointer.y+=(pointer.ty-pointer.y)*.08; pointer.force*=.94;
-    const cx=W/2,cy=H/2;
-    for(const p of particles){
-      if(!paused){
-        const dx=p.x-pointer.x,dy=p.y-pointer.y,dist=Math.hypot(dx,dy)+.001;
-        const repel=Math.max(0,1-dist/170)*(pointer.down?1.7:.75);
-        const a=Math.sin(t*.00022+p.seed)*Math.PI*2;
-        let flowx=Math.cos(a+p.y*.006)*(.16+p.z*.55), flowy=Math.sin(a+p.x*.004)*(.16+p.z*.55);
-        if(s.mode===1){ const ang=Math.atan2(p.y-cy,p.x-cx)+Math.PI/2; flowx+=Math.cos(ang)*.35; flowy+=Math.sin(ang)*.35; }
-        if(s.mode===2){ flowy+=Math.sin(p.x*.018+t*.001+p.seed)*.35; }
-        p.vx=(p.vx+flowx+dx/dist*repel*3)*.91; p.vy=(p.vy+flowy+dy/dist*repel*3)*.91;
-        p.x+=p.vx; p.y+=p.vy;
-        if(p.x<-30)p.x=W+30; if(p.x>W+30)p.x=-30; if(p.y<-30)p.y=H+30; if(p.y>H+30)p.y=-30;
+    ctx.fillStyle = grd;
+    ctx.fillRect(0,0,w,h);
+
+    if(!paused){
+      for(const n of nodes){
+        const pullX = w*focus.x - n.x;
+        const pullY = h*focus.y - n.y;
+        const dist = Math.hypot(pullX, pullY) || 1;
+        n.vx += pullX / dist * .008 * speed;
+        n.vy += pullY / dist * .008 * speed;
+        n.vx += Math.sin(time + n.phase) * .006 * speed;
+        n.vy += Math.cos(time * .9 + n.phase) * .006 * speed;
+        n.vx *= .992;
+        n.vy *= .992;
+        n.x += n.vx * dpr;
+        n.y += n.vy * dpr;
+        if(n.x < 0 || n.x > w) n.vx *= -1;
+        if(n.y < 0 || n.y > h) n.vy *= -1;
+        n.x = Math.max(0, Math.min(w, n.x));
+        n.y = Math.max(0, Math.min(h, n.y));
       }
-      const tw=.55+.45*Math.sin(t*.002+p.seed);
-      ctx.fillStyle=(p.z>.55?s.a:s.b)+Math.floor((35+p.z*120)*tw).toString(16).padStart(2,"0");
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.r*(.7+p.z),0,7); ctx.fill();
     }
-    for(let i=0;i<particles.length;i+=7){
-      const p=particles[i], q=particles[(i*13+17)%particles.length];
-      const d=Math.hypot(p.x-q.x,p.y-q.y);
-      if(d<95){ctx.strokeStyle=s.a+Math.floor((1-d/95)*38).toString(16).padStart(2,"0");ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}
+
+    const maxDist = Math.min(w,h) * .18;
+    ctx.lineWidth = highContrast ? 1.4*dpr : .85*dpr;
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x-b.x, dy = a.y-b.y;
+        const dist = Math.hypot(dx,dy);
+        if(dist < maxDist){
+          const alpha = (1 - dist/maxDist) * (highContrast ? .75 : .34);
+          ctx.strokeStyle = highContrast ? `rgba(255,255,255,${alpha})` : `hsla(${(a.hue+b.hue)/2},90%,72%,${alpha})`;
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);
+          const mx = (a.x+b.x)/2 + Math.sin(time+a.phase)*10*dpr;
+          const my = (a.y+b.y)/2 + Math.cos(time+b.phase)*10*dpr;
+          ctx.quadraticCurveTo(mx,my,b.x,b.y);
+          ctx.stroke();
+        }
+      }
     }
-    for(let i=ripples.length-1;i>=0;i--){
-      const r=ripples[i]; ctx.strokeStyle=r.hue+Math.floor(r.life*150).toString(16).padStart(2,"0"); ctx.lineWidth=1.2;
-      ctx.beginPath(); ctx.arc(r.x,r.y,r.r,0,7); ctx.stroke();
-      if(!paused){r.r+=5.5; r.life-=.018} if(r.life<=0)ripples.splice(i,1);
+
+    for(const r of ripples){
+      ctx.beginPath();
+      ctx.arc(r.x,r.y,r.r,0,Math.PI*2);
+      ctx.strokeStyle = highContrast ? `rgba(255,255,0,${r.life})` : `hsla(${r.hue},100%,72%,${r.life})`;
+      ctx.lineWidth = (r.strong ? 3 : 2) * dpr;
+      ctx.stroke();
+      if(!paused){
+        r.r += (r.strong ? 2.7 : 1.7) * dpr * speed;
+        r.life -= .012 * speed;
+      }
     }
+    ripples = ripples.filter(r => r.life > 0);
+
+    for(const n of nodes){
+      const pulse = 1 + Math.sin(time*2+n.phase)*.28;
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,n.r*pulse,0,Math.PI*2);
+      ctx.fillStyle = highContrast ? "#ffffff" : `hsla(${n.hue},95%,75%,.92)`;
+      ctx.shadowColor = highContrast ? "#fff" : `hsl(${n.hue},95%,70%)`;
+      ctx.shadowBlur = highContrast ? 9*dpr : 16*dpr;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+
+    ctx.save();
+    ctx.globalAlpha = highContrast ? .95 : .55;
+    ctx.font = `${Math.max(16, Math.min(w,h)*.05)}px ui-sans-serif, system-ui, sans-serif`;
+    ctx.fillStyle = highContrast ? "#ffffff" : "rgba(244,247,255,.72)";
+    ctx.textAlign = "center";
+    ctx.fillText("gpt-5.5", w/2, h/2);
     ctx.restore();
-    ctx.fillStyle="rgba(255,255,255,.035)";
-    for(let y=0;y<H;y+=4){ctx.fillRect(0,y,W,1)}
+
+    requestAnimationFrame(draw);
   }
-  function loop(now){
-    if(!visible){raf=requestAnimationFrame(loop);return}
-    if(!paused){t+=Math.min(34,now-last||16); draw(now)}
-    last=now; raf=requestAnimationFrame(loop);
-  }
-  function interact(x,y,down){
-    pointer.tx=x; pointer.ty=y; pointer.down=down;
-    if(down) ripples.push({x,y,r:8,life:1,hue:scenes[scene].b});
-    if(paused) draw(t);
-  }
-  addEventListener("resize",resize);
-  addEventListener("pointermove",e=>{ if(e.target.tagName!=="BUTTON") interact(e.clientX,e.clientY,false); },{passive:true});
-  addEventListener("pointerdown",e=>{ if(e.target.tagName!=="BUTTON") interact(e.clientX,e.clientY,true); });
-  addEventListener("pointerup",()=>pointer.down=false);
-  document.addEventListener("visibilitychange",()=>{visible=!document.hidden;});
-  nextBtn.onclick=()=>setScene(scene+1);
-  pauseBtn.onclick=()=>{paused=!paused; pauseBtn.textContent=paused?"PLAY":"PAUSE"; if(!paused){last=performance.now();} else draw(t);};
-  resize(); setScene(0); pauseBtn.textContent=paused?"PLAY":"PAUSE"; draw(0); raf=requestAnimationFrame(loop);
+
+  canvas.addEventListener("pointerdown", ev => {
+    canvas.setPointerCapture?.(ev.pointerId);
+    const p = pointerPos(ev);
+    focus = { x:p.x/w, y:p.y/h };
+    addRipple(p.x,p.y,true);
+    canvas.focus();
+  });
+  canvas.addEventListener("pointermove", ev => {
+    if(ev.buttons){
+      const p = pointerPos(ev);
+      focus = { x:p.x/w, y:p.y/h };
+      if(Math.random() < .18) addRipple(p.x,p.y,false);
+    }
+  });
+
+  canvas.addEventListener("keydown", ev => {
+    const step = ev.shiftKey ? .12 : .05;
+    let used = true;
+    if(ev.key === "ArrowLeft") focus.x -= step;
+    else if(ev.key === "ArrowRight") focus.x += step;
+    else if(ev.key === "ArrowUp") focus.y -= step;
+    else if(ev.key === "ArrowDown") focus.y += step;
+    else if(ev.key === " " || ev.key === "Enter") addRipple(w*focus.x,h*focus.y,true);
+    else used = false;
+    if(used){
+      ev.preventDefault();
+      focus.x = Math.max(0, Math.min(1, focus.x));
+      focus.y = Math.max(0, Math.min(1, focus.y));
+    }
+  });
+
+  seedBtn.addEventListener("click", () => addRipple(w*(.15+Math.random()*.7), h*(.15+Math.random()*.7), true));
+  pauseBtn.addEventListener("click", () => {
+    paused = !paused;
+    pauseBtn.setAttribute("aria-pressed", String(paused));
+    pauseBtn.textContent = paused ? "다시 흐르게" : "멈춤";
+    addLog(paused ? "정원이 잠시 숨을 멈췄습니다." : "정원이 다시 호흡합니다.");
+  });
+  clearBtn.addEventListener("click", () => {
+    ripples = [];
+    seedNodes();
+    readout.textContent = "비운 뒤에도 구조는 남고, 남은 구조에서 새 문장이 자랍니다.";
+    addLog("정원을 고요하게 비웠습니다.");
+  });
+  contrastBtn.addEventListener("click", () => {
+    highContrast = !highContrast;
+    contrastBtn.setAttribute("aria-pressed", String(highContrast));
+    addLog(highContrast ? "고대비 색으로 전환했습니다." : "부드러운 색으로 돌아왔습니다.");
+  });
+  density.addEventListener("input", seedNodes);
+
+  window.addEventListener("resize", resize, { passive:true });
+  resize();
+  addLog("작품이 시작되었습니다.");
+  requestAnimationFrame(draw);
 })();
 </script>
 </body>

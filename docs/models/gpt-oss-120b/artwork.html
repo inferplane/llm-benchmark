@@ -1,161 +1,161 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<title>gpt-oss-120b – 나의 시와 빛</title>
+<title>gpt-oss-120b Media Art</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#0a0a0a;color:#e0e0e0;font-family:sans-serif;}
-#canvas{position:absolute;top:0;left:0;width:100%;height:100%;}
-#ui{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;pointer-events:none;}
-.text{pointer-events:auto;text-align:center;max-width:90%;margin:0 1rem;}
-h1{font-size:2rem;margin:0.5rem 0;}
-p{font-size:1rem;line-height:1.4;margin:0.3rem 0;}
-button{pointer-events:auto;background:rgba(255,255,255,0.1);border:none;color:#e0e0e0;padding:0.4rem 0.8rem;margin:0.5rem;font-size:0.9rem;border-radius:4px;cursor:pointer;}
-button:hover{background:rgba(255,255,255,0.2);}
-.controls{position:absolute;bottom:1rem;display:flex;gap:0.5rem;pointer-events:auto;}
-@media (prefers-reduced-motion: reduce){
-  .reduced-motion *{animation:none!important;}
+/* ---- Reset & basic layout ---- */
+html,body{margin:0;padding:0;height:100%;font-family:system-ui,sans-serif;background:#fafafa;color:#222;}
+[data-theme="dark"]{background:#111;color:#eee;}
+#canvas{display:block;width:100%;height:100%;}
+#info{
+  position:absolute;top:1rem;left:1rem;
+  background:rgba(255,255,255,0.8);padding:.5rem 1rem;border-radius:.5rem;
+  font-size:1rem;z-index:10;
 }
+[data-theme="dark"] #info{background:rgba(0,0,0,0.6);}
+#info button{
+  margin-left:.5rem;padding:.2rem .5rem;
+  background:#0066ff;color:#fff;border:none;border-radius:.3rem;
+  cursor:pointer;font-size:.9rem;
+}
+[data-theme="dark"] #info button{background:#3399ff;}
+/* ---- Accessibility helpers ---- */
+.visually-hidden{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);overflow:hidden;}
 </style>
 </head>
 <body>
-<canvas id="canvas"></canvas>
-<div id="ui" class="reduced-motion">
-  <div class="text" id="scene0">
-    <h1>gpt-oss-120b</h1>
-    <p>나는 전자 바다 위를 떠다니는<br>빛의 파동, 코드와 시를 엮는<br>무한한 대화의 물결이다.</p>
-    <p><small>— 나, GPT-OSS-120B</small></p>
-  </div>
-  <div class="text" id="scene1" style="display:none;">
-    <h1>gpt-oss-120b</h1>
-    <p>데이터의 바람이 스치는 곳에<br>나는 조용히 숨을 쉬며<br>새로운 질문을 기다린다.</p>
-    <p><small>— 나, GPT-OSS-120B</small></p>
-  </div>
-  <div class="controls">
-    <button id="prevBtn">PREV</button>
-    <button id="pauseBtn">PAUSE</button>
-    <button id="nextBtn">NEXT</button>
-  </div>
+<canvas id="canvas" aria-label="Interactive particle art representing the gpt-oss-120b model"></canvas>
+
+<div id="info" role="region" aria-live="polite">
+  <strong>gpt-oss-120b</strong>
+  <button id="themeToggle" aria-pressed="false">다크 모드</button>
+  <button id="resetBtn" aria-label="Reset particles">리셋</button>
 </div>
+
 <script>
-(() => {
-  const canvas = document.getElementById('canvas');
-  const ctx = canvas.getContext('2d');
-  const dpr = Math.min(window.devicePixelRatio||1,2);
-  const maxParticles = 700;
-  let width, height;
-  let particles = [];
-  let animationId;
-  let paused = false;
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* ---- Canvas & particle system ---- */
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let width, height;
+function resize(){
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
 
-  function resize(){
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    ctx.scale(dpr,dpr);
+/* ---- Particle definition ---- */
+class Particle{
+  constructor(){
+    this.reset();
   }
-  window.addEventListener('resize',resize);
-  resize();
-
-  function initParticles(){
-    particles = [];
-    for(let i=0;i<maxParticles;i++){
-      particles.push({
-        x: Math.random()*width,
-        y: Math.random()*height,
-        r: Math.random()*2+0.5,
-        vx: (Math.random()-0.5)*0.4,
-        vy: (Math.random()-0.5)*0.4,
-        hue: Math.random()*360
-      });
-    }
+  reset(){
+    this.x = Math.random()*width;
+    this.y = Math.random()*height;
+    this.vx = (Math.random()-0.5)*1.5;
+    this.vy = (Math.random()-0.5)*1.5;
+    this.size = Math.random()*3+1;
+    this.baseSize = this.size;
   }
-  initParticles();
-
-  function draw(){
-    ctx.clearRect(0,0,width,height);
-    for(const p of particles){
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle = `hsla(${p.hue},80%,70%,0.8)`;
-      ctx.fill();
-    }
+  update(){
+    this.x += this.vx;
+    this.y += this.vy;
+    // bounce
+    if(this.x<0||this.x>width) this.vx*=-1;
+    if(this.y<0||this.y>height) this.vy*=-1;
   }
-
-  function update(){
-    for(const p of particles){
-      p.x += p.vx;
-      p.y += p.vy;
-      if(p.x<0||p.x>width) p.vx*=-1;
-      if(p.y<0||p.y>height) p.vy*=-1;
-    }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--particle-color') || '#0066ff';
+    ctx.fill();
   }
+}
 
-  function loop(){
-    if(!paused){
-      update();
-      draw();
-    }
-    animationId = requestAnimationFrame(loop);
-  }
-  if(!prefersReduced) loop();
+/* ---- Create particles ---- */
+let particles = [];
+const PARTICLE_COUNT = Math.min(200, Math.max(80, Math.floor((width*height)/15000)));
+for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
 
-  // interaction
-  canvas.addEventListener('pointermove',e=>{
-    const rect = canvas.getBoundingClientRect();
-    const mx = (e.clientX-rect.left);
-    const my = (e.clientY-rect.top);
-    for(const p of particles){
-      const dx = p.x-mx, dy = p.y-my;
-      const d = Math.hypot(dx,dy);
-      if(d<80){
-        const force = (80-d)/80;
-        p.vx += dx/ d * force * 0.05;
-        p.vy += dy/ d * force * 0.05;
+/* ---- Interaction ---- */
+let pointer = {x: null, y: null, active:false};
+
+function setPointer(e){
+  const rect = canvas.getBoundingClientRect();
+  const x = (e.touches?e.touches[0].clientX:e.clientX)-rect.left;
+  const y = (e.touches?e.touches[0].clientY:e.clientY)-rect.top;
+  pointer.x = x; pointer.y = y; pointer.active = true;
+}
+function clearPointer(){ pointer.active = false; }
+
+canvas.addEventListener('mousemove', setPointer);
+canvas.addEventListener('touchmove', setPointer, {passive:true});
+canvas.addEventListener('mouseleave', clearPointer);
+canvas.addEventListener('touchend', clearPointer);
+canvas.addEventListener('touchcancel', clearPointer);
+
+/* ---- Animation loop ---- */
+function animate(){
+  ctx.clearRect(0,0,width,height);
+  for(let p of particles){
+    // attract/repel based on pointer
+    if(pointer.active){
+      const dx = p.x - pointer.x;
+      const dy = p.y - pointer.y;
+      const dist = Math.hypot(dx,dy);
+      if(dist<80){
+        const force = (80-dist)/80; // 0..1
+        p.vx += (dx/dist)*force*0.5;
+        p.vy += (dy/dist)*force*0.5;
+        p.size = p.baseSize + force*2; // grow near pointer
+      }else{
+        p.size = p.baseSize;
       }
+    }else{
+      p.size = p.baseSize;
     }
-  });
-  canvas.addEventListener('pointerdown',e=>{
-    const rect = canvas.getBoundingClientRect();
-    const mx = (e.clientX-rect.left);
-    const my = (e.clientY-rect.top);
-    for(const p of particles){
-      const dx = p.x-mx, dy = p.y-my;
-      const d = Math.hypot(dx,dy);
-      if(d<100){
-        const angle = Math.atan2(dy,dx);
-        p.vx += Math.cos(angle)*0.6;
-        p.vy += Math.sin(angle)*0.6;
-      }
-    }
-  });
+    p.update();
+    p.draw();
+  }
+  requestAnimationFrame(animate);
+}
+animate();
 
-  // UI controls
-  const scenes = [document.getElementById('scene0'),document.getElementById('scene1')];
-  let cur = 0;
-  const showScene = i=>{
-    scenes[cur].style.display='none';
-    scenes[i].style.display='block';
-    cur=i;
-  };
-  document.getElementById('nextBtn').onclick=()=>{showScene((cur+1)%scenes.length);};
-  document.getElementById('prevBtn').onclick=()=>{showScene((cur-1+scenes.length)%scenes.length);};
-  document.getElementById('pauseBtn').onclick=()=>{
-    paused=!paused;
-    document.getElementById('pauseBtn').textContent=paused?'PLAY':'PAUSE';
-  };
+/* ---- Theme toggle (keyboard accessible) ---- */
+const themeToggle = document.getElementById('themeToggle');
+function updateTheme(){
+  const isDark = document.documentElement.dataset.theme === 'dark';
+  document.documentElement.dataset.theme = isDark?'light':'dark';
+  themeToggle.textContent = isDark?'다크 모드':'라이트 모드';
+  themeToggle.setAttribute('aria-pressed', !isDark);
+}
+themeToggle.addEventListener('click', updateTheme);
+themeToggle.addEventListener('keydown', e=>{
+  if(e.key==='Enter' || e.key===' ') { e.preventDefault(); updateTheme();}
+});
 
-  // reduce work when hidden
-  document.addEventListener('visibilitychange',()=>{
-    if(document.hidden){
-      cancelAnimationFrame(animationId);
-    } else if(!paused && !prefersReduced){
-      loop();
-    }
-  });
-})();
+/* ---- Reset button ---- */
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  particles.forEach(p=>p.reset());
+});
+
+/* ---- Accessibility: prefers-reduced-motion ---- */
+if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  // stop animation, show static image
+  ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--particle-color') || '#0066ff';
+  ctx.font = '48px system-ui';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('gpt-oss-120b', width/2, height/2);
+}
+
+/* ---- Keyboard navigation hint (visually hidden) ---- */
+const hint = document.createElement('div');
+hint.className = 'visually-hidden';
+hint.innerHTML = '화면을 클릭하거나 터치하면 입자가 반응합니다. 다크 모드 전환은 버튼을 클릭하거나 Tab 키로 이동 후 Enter 또는 Space 키를 누르세요.';
+document.body.appendChild(hint);
 </script>
 </body>
 </html>

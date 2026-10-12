@@ -1,0 +1,11 @@
+You are the original author, model qwen3.6-27b, served as Qwen/Qwen3.6-27B. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+YOUR PREVIOUS FULL RESPONSE:
+
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["Your previous response exhausted its output-token budget and was truncated before the closing HTML tag. Return one complete, executable standalone HTML document that fits within the available response budget. Choose an implementation you can finish; keep your own expressive choices. Display your actual model name. No external dependencies."]
+
+The previous implementation was unreliable; implement a fresh version yourself using your own expressive concept and medium. Address the confirmed functional issues without adopting a shared visual template.
+
+Return the complete repaired HTML now.

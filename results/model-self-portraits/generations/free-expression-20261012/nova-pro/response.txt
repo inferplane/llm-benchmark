@@ -1,0 +1,54 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nova-pro 미디어아트</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+       .container {
+            text-align: center;
+        }
+       .nova-pro {
+            font-size: 3em;
+            margin: 0;
+            padding: 0;
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff, 0 0 60px #ff00ff, 0 0 70px #ff00ff;
+            }
+            to {
+                text-shadow: 0 0 20px #fff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff, 0 0 60px #ff00ff, 0 0 70px #ff00ff, 0 0 80px #ff00ff;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="nova-pro">nova-pro</h1>
+        <p>당신의 지식과 상상력을 넘어서는 경험을 제공합니다.</p>
+    </div>
+
+    <script>
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelector('.nova-pro').style.animation = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+```

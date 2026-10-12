@@ -1,0 +1,20 @@
+{
+  "model": "qwen3-235b-a22b",
+  "model_id": "qwen.qwen3-235b-a22b-2507-v1:0",
+  "api": "bedrock",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:22:43.544801+00:00",
+  "prompt_sha256": "7b5c8daafb7eaea2a0d6c0e7852cd55d246df40800ef26b03077a31551393336",
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "status": "generated",
+  "generated_at": "2026-10-12T08:23:12.651521+00:00",
+  "artwork_sha256": "36bc103125a6c803cb97b735290ff31beaa959059ddb0c91da925d74be690406",
+  "tokens_in": 265,
+  "tokens_out": 2458,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "72f23e41-dc62-4a03-a27c-e17cf616f1a2"
+}

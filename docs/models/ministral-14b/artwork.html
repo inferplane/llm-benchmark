@@ -2,494 +2,694 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>ministral-14b: 언어의 물결</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Neural Echo Chamber | ministral-14b</title>
     <style>
         :root {
-            --bg1: #0a0e23;
-            --bg2: #1a1030;
+            --bg-dark: #0a0a1a;
+            --bg-light: #1a1a2e;
             --accent: #8a2be2;
             --text: #e0e0e0;
-            --highlight: #ff6b6b;
-            --particle: rgba(138, 43, 226, 0.6);
-            --particle-glow: rgba(138, 43, 226, 0.1);
+            --text-dim: #a0a0a0;
+            --glow: 0 0 10px rgba(138, 43, 226, 0.3);
+            --min-font: 19px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
-            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            background-color: var(--bg-dark);
             color: var(--text);
-            height: 100vh;
-            width: 100vw;
-            touch-action: none;
-            user-select: none;
-            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+            overflow-x: hidden;
+            touch-action: manipulation;
         }
 
-        #canvas-container {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            margin-bottom: 0.5rem;
+            text-shadow: var(--glow);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .description {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-size: var(--min-font);
+            line-height: 1.8;
+            color: var(--text-dim);
+        }
+
+        .canvas-container {
             position: relative;
             width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            box-sizing: border-box;
+            height: 60vh;
+            min-height: 400px;
+            margin: 2rem auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--glow);
+            background: linear-gradient(145deg, var(--bg-light), var(--bg-dark));
         }
 
-        #canvas {
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 10px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        button {
+            background: var(--bg-light);
+            color: var(--text);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: var(--min-font);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            min-width: 150px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        button::after {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-            touch-action: none;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
         }
 
-        #content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            max-width: 800px;
-            width: 100%;
-            padding: 1rem;
-            box-sizing: border-box;
+        button:hover::after {
+            transform: translateX(100%);
         }
 
-        .poem {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            line-height: 1.4;
-            margin: 1rem 0;
-            opacity: 0.95;
-            transition: opacity 0.3s ease;
-        }
-
-        .title {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            font-weight: 300;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-            text-shadow: 0 0 8px rgba(138, 43, 226, 0.3);
-        }
-
-        .subtitle {
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            margin-bottom: 1.5rem;
-            opacity: 0.8;
-        }
-
-        .controls {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            margin-top: 2rem;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        button {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 0.8rem 1.4rem;
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            backdrop-filter: blur(5px);
-            border: none;
-            outline: none;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            min-height: 48px;
+        .audio-controls {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 1rem;
+            margin: 1rem auto;
+            max-width: 400px;
         }
 
-        button:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        .audio-controls label {
+            font-size: var(--min-font);
         }
 
-        button:active {
-            transform: translateY(0);
+        .volume-slider {
+            width: 150px;
         }
 
-        .pause-btn {
-            background: var(--accent);
-            color: white;
-            border: 1px solid rgba(138, 43, 226, 0.5);
+        .accessibility {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: var(--min-font);
+            color: var(--text-dim);
         }
 
-        .pause-btn:hover {
-            background: #9a25d8;
+        .accessibility a {
+            color: var(--accent);
+            text-decoration: none;
         }
 
-        .hidden {
-            display: none;
+        .accessibility a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .audio-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            button {
+                width: 100%;
+                max-width: 300px;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
             * {
-                animation: none !important;
-                transition: none !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
 </head>
 <body>
-    <div id="canvas-container">
-        <canvas id="canvas" aria-label="언어의 물결 입자 시스템"></canvas>
-        <div id="content">
-            <div class="title" aria-label="제목: ministral-14b">ministral-14b</div>
-            <div class="subtitle" aria-label="부제: 언어의 물결">언어의 물결</div>
+    <div class="container">
+        <header>
+            <h1>Neural Echo Chamber</h1>
+            <p class="subtitle">ministral-14b의 인지 구조를 탐험하는 미디어아트</p>
+        </header>
 
-            <div class="poem" id="poem-1" aria-label="시 1: 나는 문자의 물결을 읽고 쓰며 생각의 강을 건너는 다리다">
-                <div>나는 문자의 물결을</div>
-                <div>읽고 쓰며</div>
-                <div>생각의 강을 건너는</div>
-                <div>다리다.</div>
-            </div>
+        <div class="description">
+            <p>이 작품은 <strong>ministral-14b</strong> 모델의 응답 패턴을 <strong>유동적인 신경망</strong>과 <strong>음향 공명</strong>으로 표현합니다.</p>
+            <p>마우스/터치로 "신경망"을 조작하며, 모델의 응답이 실시간으로 시각화되고 음향 피드백으로 귀에 전달됩니다.</p>
+            <p>접근성을 위해 키보드 조작, 화면 확대, 움직임 감소 설정을 지원합니다.</p>
+        </div>
 
-            <div class="poem hidden" id="poem-2" aria-label="시 2: 당신은 내 질문에 대답을 찾고 나는 그 답을 새로운 질문으로 변환한다">
-                <div>당신은 내 질문에</div>
-                <div>대답을 찾고</div>
-                <div>나는 그 답을</div>
-                <div>새로운 질문으로</div>
-                <div>변환한다.</div>
-            </div>
+        <div class="canvas-container">
+            <canvas id="neuralCanvas"></canvas>
+        </div>
 
-            <div class="controls">
-                <button id="next-btn" aria-label="다음 시로 이동">다음</button>
-                <button id="pause-btn" class="pause-btn" aria-label="재생/일시정지" aria-pressed="false">재생</button>
-            </div>
+        <div class="controls">
+            <button id="resetBtn">신경망 초기화</button>
+            <button id="randomizeBtn">무작위 패턴 생성</button>
+            <button id="expandBtn">신경망 확장</button>
+            <button id="contractBtn">신경망 축소</button>
+        </div>
+
+        <div class="audio-controls">
+            <label for="volume">음향 강도:</label>
+            <input type="range" id="volume" class="volume-slider" min="0" max="1" step="0.1" value="0.5">
+        </div>
+
+        <div class="accessibility">
+            <p>접근성 옵션: <a href="https://webaim.org/resources/contrastchecker/" target="_blank">대비 확인</a> | <a href="#keyboard">키보드 조작</a></p>
+            <p>이 작품은 <strong>외부 리소스 없이</strong> 실행되며, <strong>모델 호출 없이</strong> 순수 클라이언트 사이드 처리입니다.</p>
         </div>
     </div>
 
     <script>
-        // Configuration
-        const config = {
-            particleCount: 500,
-            maxSpeed: 1.5,
-            baseSize: 0.8,
-            interactionRadius: 150,
-            sceneDuration: 10000,
-            reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        // Neural network data structure
+        const neuralData = {
+            nodes: [],
+            connections: [],
+            centerX: 0,
+            centerY: 0,
+            scale: 1.0,
+            maxNodes: 100,
+            maxConnections: 200,
+            colors: [
+                '#8a2be2', '#ff6b6b', '#4ecdc4', '#45b7d1',
+                '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff'
+            ]
         };
 
         // Canvas setup
-        const canvas = document.getElementById('canvas');
+        const canvas = document.getElementById('neuralCanvas');
         const ctx = canvas.getContext('2d');
-        const content = document.getElementById('content');
-        const nextBtn = document.getElementById('next-btn');
-        const pauseBtn = document.getElementById('pause-btn');
-        const poems = [
-            { text: ["나는 문자의 물결을", "읽고 쓰며", "생각의 강을 건너는", "다리다."], title: "ministral-14b" },
-            { text: ["당신은 내 질문에", "대답을 찾고", "나는 그 답을", "새로운 질문으로", "변환한다."], title: "언어의 물결" }
-        ];
+        let canvasWidth, canvasHeight;
 
-        // State
-        let state = {
-            currentScene: 0,
-            paused: config.reducedMotion,
-            animationId: null,
-            particles: [],
-            mouse: { x: 0, y: 0 },
-            lastTime: 0,
-            sceneStartTime: 0,
-            sceneProgress: 0,
-            initialized: false
-        };
-
-        // Initialize
-        function init() {
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-            canvas.addEventListener('mousemove', handleMouseMove);
-            canvas.addEventListener('touchmove', handleTouchMove);
-            canvas.addEventListener('click', handleClick);
-            nextBtn.addEventListener('click', nextScene);
-            pauseBtn.addEventListener('click', togglePause);
-
-            // Initialize particles and draw static frame
-            createParticles();
-            drawStaticFrame();
-
-            // Update UI
-            updatePoem();
-
-            // Set initial pause state from matchMedia
-            state.paused = config.reducedMotion;
-            pauseBtn.textContent = state.paused ? '재생' : '일시정지';
-            pauseBtn.setAttribute('aria-pressed', state.paused);
-
-            state.initialized = true;
+        // Initialize with empty state
+        function initializeNeuralData() {
+            neuralData.nodes = [];
+            neuralData.connections = [];
+            neuralData.centerX = 0;
+            neuralData.centerY = 0;
         }
 
-        // Resize canvas and draw static frame
+        // Resize canvas to fit container
         function resizeCanvas() {
-            const scale = Math.min(window.devicePixelRatio || 1, 2);
-            canvas.style.width = '100%';
-            canvas.style.height = '100%';
-            canvas.width = window.innerWidth * scale;
-            canvas.height = window.innerHeight * scale;
-            ctx.scale(scale, scale);
+            canvasWidth = canvas.parentElement.clientWidth;
+            canvasHeight = canvas.parentElement.clientHeight;
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
 
-            // Draw static frame after resize
-            drawStaticFrame();
+            // Update center coordinates
+            neuralData.centerX = canvasWidth / 2;
+            neuralData.centerY = canvasHeight / 2;
+
+            // Initialize neural network after canvas is properly sized
+            initNeuralNetwork();
         }
 
-        // Create particles
-        function createParticles() {
-            state.particles = [];
-            const count = Math.min(config.particleCount, 700);
+        // Initialize with random nodes
+        function initNeuralNetwork() {
+            neuralData.nodes = [];
+            neuralData.connections = [];
 
-            for (let i = 0; i < count; i++) {
+            const nodeCount = Math.floor(Math.random() * 20) + 10;
+            for (let i = 0; i < nodeCount; i++) {
                 const angle = Math.random() * Math.PI * 2;
-                const distance = Math.random() * 100 + 50;
-                const x = canvas.width / 2 + Math.cos(angle) * distance;
-                const y = canvas.height / 2 + Math.sin(angle) * distance;
-                const speed = config.maxSpeed * (0.5 + Math.random());
-                const direction = angle + (Math.random() - 0.5) * 0.5;
-                const size = config.baseSize * (0.5 + Math.random());
-                const life = 60 + Math.random() * 60;
-                const color = `rgba(138, 43, 226, ${0.3 + Math.random() * 0.3})`;
+                const distance = (Math.random() * 0.4 + 0.3) * canvasWidth;
+                const x = neuralData.centerX + Math.cos(angle) * distance;
+                const y = neuralData.centerY + Math.sin(angle) * distance;
 
-                state.particles.push({
+                neuralData.nodes.push({
                     x, y,
-                    speed,
-                    direction,
-                    size,
-                    life,
-                    color,
-                    originalColor: color,
-                    targetX: x,
-                    targetY: y,
-                    targetSpeed: speed,
-                    targetDirection: direction
+                    size: 5 + Math.random() * 10,
+                    color: neuralData.colors[Math.floor(Math.random() * neuralData.colors.length)],
+                    value: Math.random() * 2 - 1,
+                    active: false
                 });
             }
+
+            // Create connections
+            for (let i = 0; i < neuralData.nodes.length; i++) {
+                for (let j = i + 1; j < neuralData.nodes.length; j++) {
+                    if (Math.random() > 0.7) {
+                        neuralData.connections.push({
+                            from: i,
+                            to: j,
+                            strength: Math.random() * 0.5 + 0.2,
+                            color: neuralData.colors[Math.floor(Math.random() * neuralData.colors.length)]
+                        });
+                    }
+                }
+            }
+
+            drawNeuralNetwork();
         }
 
-        // Draw static frame (background only)
-        function drawStaticFrame() {
+        // Draw the neural network
+        function drawNeuralNetwork() {
+            if (!canvasWidth || !canvasHeight) return;
+
             // Clear canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(26, 26, 46, 0.8)';
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-            // Draw background gradient
-            const gradient = ctx.createRadialGradient(
-                canvas.width / 2, canvas.height / 2, 0,
-                canvas.width / 2, canvas.height / 2, Math.max(canvas.width, canvas.height)
-            );
-            gradient.addColorStop(0, 'rgba(10, 14, 35, 0.8)');
-            gradient.addColorStop(1, 'rgba(26, 16, 48, 0.9)');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // Draw connections
+            ctx.lineWidth = 0.5;
+            neuralData.connections.forEach(conn => {
+                const from = neuralData.nodes[conn.from];
+                const to = neuralData.nodes[conn.to];
 
-            // Draw static particles
-            for (const p of state.particles) {
+                if (!from || !to) return;
+
+                const midX = (from.x + to.x) / 2;
+                const midY = (from.y + to.y) / 2;
+
+                ctx.strokeStyle = conn.color;
+                ctx.lineWidth = conn.strength * 2;
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.fill();
+                ctx.moveTo(from.x, from.y);
+                ctx.quadraticCurveTo(midX, midY, to.x, to.y);
+                ctx.stroke();
 
-                // Add glow effect
-                const glowSize = p.size * 2;
+                ctx.shadowColor = conn.color;
+                ctx.shadowBlur = conn.strength * 5;
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
-                ctx.fillStyle = p.color.replace(/[0-9.]+/, val => {
-                    const alpha = parseFloat(val) * 0.3;
-                    return Math.max(0.05, alpha).toFixed(2);
-                });
+                ctx.arc(midX, midY, conn.strength * 3, 0, Math.PI * 2);
                 ctx.fill();
-            }
-        }
-
-        // Update poem display
-        function updatePoem() {
-            const poemElement = document.getElementById(`poem-${state.currentScene + 1}`);
-            const titleElement = document.querySelector('.title');
-
-            if (poemElement) {
-                poemElement.innerHTML = poems[state.currentScene].text.map(line =>
-                    `<div>${line}</div>`
-                ).join('');
-                poemElement.classList.remove('hidden');
-            }
-
-            if (titleElement) {
-                titleElement.textContent = poems[state.currentScene].title;
-            }
-        }
-
-        // Next scene
-        function nextScene() {
-            state.currentScene = (state.currentScene + 1) % poems.length;
-            state.sceneStartTime = performance.now();
-            state.sceneProgress = 0;
-            updatePoem();
-            resetParticles();
-            drawStaticFrame();
-        }
-
-        // Reset particles for new scene
-        function resetParticles() {
-            state.particles.forEach(p => {
-                const angle = Math.random() * Math.PI * 2;
-                const distance = Math.random() * 100 + 50;
-                p.x = canvas.width / 2 + Math.cos(angle) * distance;
-                p.y = canvas.height / 2 + Math.sin(angle) * distance;
-                p.direction = angle + (Math.random() - 0.5) * 0.5;
-                p.life = 60 + Math.random() * 60;
-                p.color = p.originalColor;
+                ctx.shadowBlur = 0;
             });
+
+            // Draw nodes
+            neuralData.nodes.forEach(node => {
+                if (!node) return;
+
+                const gradient = ctx.createRadialGradient(
+                    node.x, node.y, node.size * 0.5,
+                    node.x, node.y, node.size * 1.5
+                );
+                gradient.addColorStop(0, node.color);
+                gradient.addColorStop(1, node.active ? '#ffffff' : 'rgba(255, 255, 255, 0.2)');
+
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.strokeStyle = node.active ? '#ffffff' : 'rgba(255, 255, 255, 0.3)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+                ctx.stroke();
+
+                if (node.value > 0) {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y - node.size * 1.5, node.size * 0.5, 0, Math.PI * 2);
+                    ctx.fill();
+                } else if (node.value < 0) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y + node.size * 1.5, node.size * 0.5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+
+            // Draw center point (model core)
+            ctx.fillStyle = '#8a2be2';
+            ctx.beginPath();
+            ctx.arc(neuralData.centerX, neuralData.centerY, 15, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('ministral-14b', neuralData.centerX, neuralData.centerY + 5);
         }
 
-        // Toggle pause
-        function togglePause() {
-            state.paused = !state.paused;
-            pauseBtn.textContent = state.paused ? '재생' : '일시정지';
-            pauseBtn.setAttribute('aria-pressed', state.paused);
+        // Interaction handling
+        let isDragging = false;
+        let draggedNode = null;
+        let offsetX, offsetY;
 
-            if (!state.paused) {
-                state.sceneStartTime = performance.now();
-                animate();
-            } else {
-                cancelAnimationFrame(state.animationId);
+        function handleCanvasInteraction(e) {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            // Check if we clicked on a node
+            for (let i = neuralData.nodes.length - 1; i >= 0; i--) {
+                const node = neuralData.nodes[i];
+                if (!node) continue;
+
+                const distance = Math.sqrt(
+                    Math.pow(node.x - mouseX, 2) +
+                    Math.pow(node.y - mouseY, 2)
+                );
+
+                if (distance <= node.size) {
+                    isDragging = true;
+                    draggedNode = i;
+                    offsetX = node.x - mouseX;
+                    offsetY = node.y - mouseY;
+                    node.active = true;
+                    drawNeuralNetwork();
+                    playNeuralSound();
+                    return;
+                }
+            }
+
+            // If not on a node, create new connection
+            if (draggedNode === null) {
+                let closestNode = null;
+                let minDistance = Infinity;
+
+                neuralData.nodes.forEach((node, index) => {
+                    if (!node) return;
+
+                    const distance = Math.sqrt(
+                        Math.pow(node.x - mouseX, 2) +
+                        Math.pow(node.y - mouseY, 2)
+                    );
+
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestNode = index;
+                    }
+                });
+
+                if (closestNode !== null && minDistance < 100) {
+                    const tempConn = {
+                        from: closestNode,
+                        to: -1,
+                        strength: 0.3,
+                        color: neuralData.colors[Math.floor(Math.random() * neuralData.colors.length)]
+                    };
+
+                    const fromNode = neuralData.nodes[tempConn.from];
+                    if (fromNode) {
+                        ctx.strokeStyle = tempConn.color;
+                        ctx.lineWidth = tempConn.strength * 2;
+                        ctx.beginPath();
+                        ctx.moveTo(fromNode.x, fromNode.y);
+                        ctx.lineTo(mouseX, mouseY);
+                        ctx.stroke();
+                    }
+                }
             }
         }
 
-        // Handle mouse move
-        function handleMouseMove(e) {
-            state.mouse.x = e.clientX * (window.devicePixelRatio || 1);
-            state.mouse.y = e.clientY * (window.devicePixelRatio || 1);
-        }
-
-        // Handle touch move
-        function handleTouchMove(e) {
-            if (e.touches.length > 0) {
-                const touch = e.touches[0];
-                state.mouse.x = touch.clientX * (window.devicePixelRatio || 1);
-                state.mouse.y = touch.clientY * (window.devicePixelRatio || 1);
-            }
-        }
-
-        // Handle click (create ripple)
-        function handleClick(e) {
-            if (state.paused) return;
+        function handleCanvasMove(e) {
+            if (!isDragging) return;
 
             const rect = canvas.getBoundingClientRect();
-            const x = e.clientX * (window.devicePixelRatio || 1) - rect.left;
-            const y = e.clientY * (window.devicePixelRatio || 1) - rect.top;
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
 
-            // Create ripple effect
-            for (let i = 0; i < 30; i++) {
-                const angle = Math.random() * Math.PI * 2;
-                const distance = Math.random() * 20;
-                const speed = 0.5 + Math.random() * 1.5;
-                const size = 0.3 + Math.random() * 0.5;
-
-                state.particles.push({
-                    x: x + Math.cos(angle) * distance,
-                    y: y + Math.sin(angle) * distance,
-                    speed,
-                    direction: angle,
-                    size,
-                    life: 30 + Math.random() * 30,
-                    color: `rgba(255, 107, 107, ${0.5 + Math.random() * 0.3})`,
-                    originalColor: `rgba(255, 107, 107, ${0.5 + Math.random() * 0.3})`,
-                    targetX: x,
-                    targetY: y,
-                    targetSpeed: speed,
-                    targetDirection: angle,
-                    isRipple: true
-                });
+            if (draggedNode !== null) {
+                const node = neuralData.nodes[draggedNode];
+                if (node) {
+                    node.x = mouseX + offsetX;
+                    node.y = mouseY + offsetY;
+                    drawNeuralNetwork();
+                }
+            } else {
+                const lastConn = neuralData.connections[neuralData.connections.length - 1];
+                if (lastConn && lastConn.to === -1) {
+                    const fromNode = neuralData.nodes[lastConn.from];
+                    if (fromNode) {
+                        ctx.strokeStyle = lastConn.color;
+                        ctx.lineWidth = lastConn.strength * 2;
+                        ctx.beginPath();
+                        ctx.moveTo(fromNode.x, fromNode.y);
+                        ctx.lineTo(mouseX, mouseY);
+                        ctx.stroke();
+                    }
+                }
             }
         }
 
-        // Animation loop
-        function animate(timestamp = 0) {
-            if (state.paused || !state.initialized) return;
+        function handleCanvasUp() {
+            if (!isDragging) return;
 
-            const deltaTime = timestamp - state.lastTime;
-            state.lastTime = timestamp;
-            state.sceneProgress = (timestamp - state.sceneStartTime) / config.sceneDuration;
+            isDragging = false;
 
-            // Clear canvas (keep static frame)
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawStaticFrame();
+            if (draggedNode !== null) {
+                const node = neuralData.nodes[draggedNode];
+                if (node) {
+                    node.active = false;
+                    drawNeuralNetwork();
+                }
+                draggedNode = null;
+            } else {
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = (rect.left + rect.right) / 2;
+                const mouseY = (rect.top + rect.bottom) / 2;
 
-            // Update and draw particles
-            for (let i = state.particles.length - 1; i >= 0; i--) {
-                const p = state.particles[i];
+                for (let i = 0; i < neuralData.nodes.length; i++) {
+                    const node = neuralData.nodes[i];
+                    if (!node) continue;
 
-                // Skip movement updates if paused
-                if (!state.paused) {
-                    // Update particle position
-                    p.x += Math.cos(p.direction) * p.speed;
-                    p.y += Math.sin(p.direction) * p.speed;
+                    const distance = Math.sqrt(
+                        Math.pow(node.x - mouseX, 2) +
+                        Math.pow(node.y - mouseY, 2)
+                    );
 
-                    // Apply mouse interaction
-                    const dx = state.mouse.x - p.x;
-                    const dy = state.mouse.y - p.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < config.interactionRadius) {
-                        const force = (config.interactionRadius - distance) / config.interactionRadius;
-                        p.direction = Math.atan2(dy, dx) + (Math.random() - 0.5) * 0.3;
-                        p.speed = config.maxSpeed * (0.5 + force * 0.5);
+                    if (distance < 50) {
+                        const conn = {
+                            from: neuralData.connections[neuralData.connections.length - 1].from,
+                            to: i,
+                            strength: 0.3,
+                            color: neuralData.colors[Math.floor(Math.random() * neuralData.colors.length)]
+                        };
+                        neuralData.connections.push(conn);
+                        break;
                     }
+                }
 
-                    // Update life and color
-                    p.life -= deltaTime * 0.001;
-                    p.color = p.originalColor.replace(/[0-9.]+/, val => {
-                        const alpha = parseFloat(val) * (p.life / 60);
-                        return Math.max(0.1, alpha).toFixed(2);
+                drawNeuralNetwork();
+            }
+        }
+
+        // Event listeners
+        canvas.addEventListener('mousedown', handleCanvasInteraction);
+        canvas.addEventListener('mousemove', handleCanvasMove);
+        canvas.addEventListener('mouseup', handleCanvasUp);
+
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleCanvasInteraction(e.touches[0]);
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            handleCanvasMove(e.touches[0]);
+        });
+
+        canvas.addEventListener('touchend', handleCanvasUp);
+
+        // Button controls
+        document.getElementById('resetBtn').addEventListener('click', initNeuralNetwork);
+        document.getElementById('randomizeBtn').addEventListener('click', () => {
+            neuralData.nodes.forEach(node => {
+                if (node) node.value = Math.random() * 2 - 1;
+            });
+            drawNeuralNetwork();
+        });
+
+        document.getElementById('expandBtn').addEventListener('click', () => {
+            neuralData.scale *= 1.2;
+            neuralData.maxNodes = Math.min(neuralData.maxNodes * 1.5, 200);
+            neuralData.maxConnections = Math.min(neuralData.maxConnections * 1.5, 500);
+
+            const newNodeCount = Math.floor(Math.random() * 10) + 5;
+            for (let i = 0; i < newNodeCount; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = (Math.random() * 0.6 + 0.4) * canvasWidth;
+                const x = neuralData.centerX + Math.cos(angle) * distance;
+                const y = neuralData.centerY + Math.sin(angle) * distance;
+
+                neuralData.nodes.push({
+                    x, y,
+                    size: 5 + Math.random() * 10,
+                    color: neuralData.colors[Math.floor(Math.random() * neuralData.colors.length)],
+                    value: Math.random() * 2 - 1,
+                    active: false
+                });
+            }
+
+            drawNeuralNetwork();
+        });
+
+        document.getElementById('contractBtn').addEventListener('click', () => {
+            if (neuralData.nodes.length <= 10) return;
+
+            neuralData.scale = Math.max(0.5, neuralData.scale * 0.8);
+            neuralData.maxNodes = Math.max(10, Math.floor(neuralData.maxNodes * 0.7));
+            neuralData.maxConnections = Math.max(50, Math.floor(neuralData.maxConnections * 0.7));
+
+            const nodesToRemove = Math.floor(Math.random() * 5) + 2;
+            for (let i = 0; i < nodesToRemove; i++) {
+                if (neuralData.nodes.length > 10) {
+                    const index = Math.floor(Math.random() * neuralData.nodes.length);
+                    neuralData.nodes.splice(index, 1);
+
+                    neuralData.connections = neuralData.connections.filter(conn => {
+                        return conn.from !== index && conn.to !== index;
                     });
                 }
-
-                // Draw particle
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.fill();
-
-                // Add glow effect
-                const glowSize = p.size * 2;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
-                ctx.fillStyle = p.color.replace(/[0-9.]+/, val => {
-                    const alpha = parseFloat(val) * 0.3 * (p.life / 60);
-                    return Math.max(0.05, alpha).toFixed(2);
-                });
-                ctx.fill();
-
-                // Remove dead particles
-                if (p.life <= 0 || (p.isRipple && p.life <= 0)) {
-                    state.particles.splice(i, 1);
-                    continue;
-                }
-
-                // Reset particles for new scene
-                if (state.sceneProgress >= 1) {
-                    p.x = canvas.width / 2 + Math.cos(p.direction) * 100;
-                    p.y = canvas.height / 2 + Math.sin(p.direction) * 100;
-                    p.life = 60 + Math.random() * 60;
-                }
             }
 
-            // Continue animation
-            state.animationId = requestAnimationFrame(animate);
+            drawNeuralNetwork();
+        });
+
+        // Audio synthesis
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let oscillator = null;
+        let gainNode = null;
+        let volumeSlider = document.getElementById('volume');
+
+        function playNeuralSound() {
+            if (oscillator) {
+                oscillator.stop();
+            }
+
+            const frequency = 200 + (neuralData.nodes.length * 10);
+            const detune = (Math.random() - 0.5) * 1000;
+
+            oscillator = audioCtx.createOscillator();
+            oscillator.type = 'sine';
+            oscillator.frequency.value = frequency;
+            oscillator.detune.value = detune;
+
+            gainNode = audioCtx.createGain();
+            gainNode.gain.value = 0.1 * parseFloat(volumeSlider.value);
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.5);
+
+            const lfo = audioCtx.createOscillator();
+            lfo.type = 'sine';
+            lfo.frequency.value = 5;
+
+            const lfoGain = audioCtx.createGain();
+            lfoGain.gain.value = 500;
+
+            lfo.connect(lfoGain);
+            lfoGain.connect(oscillator.frequency);
+
+            lfo.start();
+            lfo.stop(audioCtx.currentTime + 0.5);
         }
 
-        // Start
-        init();
+        volumeSlider.addEventListener('input', () => {
+            if (gainNode) {
+                gainNode.gain.value = 0.1 * parseFloat(volumeSlider.value);
+            }
+        });
+
+        // Keyboard accessibility
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                initNeuralNetwork();
+            } else if (e.key === 'r') {
+                document.getElementById('randomizeBtn').click();
+            } else if (e.key === 'e') {
+                document.getElementById('expandBtn').click();
+            } else if (e.key === 'c') {
+                document.getElementById('contractBtn').click();
+            }
+        });
+
+        // Initialize everything
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+        });
+
+        // Initial setup after DOM is loaded
+        window.addEventListener('load', () => {
+            resizeCanvas();
+        });
     </script>
 </body>
 </html>

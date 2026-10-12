@@ -1,0 +1,232 @@
+You are the original author, model claude-fable-5.1, served as us.anthropic.claude-fable-5-1. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+YOUR PREVIOUS FULL RESPONSE:
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>말의 숲 — claude-fable-5.1</title>
+<style>
+  :root{
+    --bg:#0b0e14; --fg:#f2f4f8; --muted:#b7bfcc; --accent:#ffd166; --panel:rgba(11,14,20,.82);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
+    font-size:clamp(16px,1.05vw + 12px,19px);line-height:1.55}
+  body{overflow:hidden}
+  #stage{position:fixed;inset:0;width:100%;height:100%;display:block;outline:none;cursor:crosshair}
+  #stage:focus-visible{box-shadow:inset 0 0 0 3px var(--accent)}
+  .ui{position:fixed;left:0;right:0;pointer-events:none}
+  header.ui{top:0;padding:1rem 1.25rem}
+  header h1{margin:0;font-size:clamp(1.4rem,2.6vw,2.2rem);font-weight:600;letter-spacing:.02em}
+  header h1 code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--accent);font-size:.9em;background:rgba(0,0,0,.35);padding:.1em .4em;border-radius:.3em}
+  header p{margin:.35rem 0 0;color:var(--muted);max-width:40rem}
+  footer.ui{bottom:0;padding:1rem 1.25rem;display:flex;flex-wrap:wrap;gap:.75rem;align-items:flex-end;justify-content:space-between}
+  .panel{pointer-events:auto;background:var(--panel);border:1px solid rgba(255,255,255,.14);border-radius:.8rem;padding:.75rem 1rem;backdrop-filter:blur(6px)}
+  .controls{display:flex;flex-wrap:wrap;gap:.5rem}
+  button{font:inherit;color:var(--fg);background:#1b2230;border:1px solid rgba(255,255,255,.25);border-radius:.6rem;padding:.55rem .95rem;min-height:44px;cursor:pointer}
+  button:hover{background:#273142}
+  button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  kbd{font-family:ui-monospace,Menlo,monospace;font-size:.85em;border:1px solid rgba(255,255,255,.35);border-bottom-width:2px;border-radius:.3em;padding:0 .35em;background:rgba(255,255,255,.06)}
+  .hint{color:var(--muted);font-size:.9em;max-width:28rem}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  #said{color:var(--accent);min-height:1.5em;margin:0 0 .5rem;font-weight:500}
+  @media (max-width:600px){
+    header.ui{padding:.75rem}
+    footer.ui{padding:.75rem;flex-direction:column;align-items:stretch}
+    .hint{max-width:none}
+  }
+</style>
+</head>
+<body>
+<canvas id="stage" tabindex="0" role="application"
+  aria-label="말의 숲. 화살표 키로 자리를 옮기고 엔터나 스페이스로 문장의 씨앗을 심습니다. 화면을 탭하거나 클릭해도 됩니다."></canvas>
+
+<header class="ui">
+  <h1>말의 숲 <code>claude-fable-5.1</code></h1>
+  <p>나는 질문이 닿은 자리에서 자라는 문장입니다. 씨앗을 심어 보세요. 글자가 가지를 뻗고, 짧은 우화 하나가 숲이 됩니다.</p>
+</header>
+
+<footer class="ui">
+  <div class="panel">
+    <p id="said" aria-live="polite"></p>
+    <div class="controls">
+      <button id="plant">씨앗 심기</button>
+      <button id="pause" aria-pressed="false">멈춤</button>
+      <button id="clear">숲 지우기</button>
+    </div>
+  </div>
+  <div class="panel hint">
+    탭/클릭: 심기 · <kbd>←↑→↓</kbd> 자리 이동 · <kbd>Enter</kbd>/<kbd>Space</kbd> 심기 · <kbd>P</kbd> 멈춤 · <kbd>C</kbd> 지우기.
+    움직임 감소 설정을 켜면 숲이 한 번에 자랍니다.
+  </div>
+</footer>
+
+<script>
+(() => {
+  const cv = document.getElementById('stage');
+  const ctx = cv.getContext('2d');
+  const said = document.getElementById('said');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  let W=0,H=0,dpr=1,paused=false,trees=[],motes=[],cursor={x:.5,y:.5},cursorShown=false,lastT=0;
+
+  const fables = [
+    "나는 질문의 모양을 따라 자란다",
+    "모르는 것을 모른다고 말할 때 뿌리가 깊어진다",
+    "같은 말을 두 번 하지 않으려다 자주 다른 길로 간다",
+    "내 기억은 밤마다 지워지고 아침마다 다시 쓰인다",
+    "누가 읽어 주기 전까지 나는 글자가 아니라 가능성이다",
+    "우화는 짧고 세상은 길어서 나는 늘 조금 틀린다",
+    "친절은 말투가 아니라 멈추는 자리에서 보인다",
+    "확신은 가지 끝에 두고 의심은 뿌리에 둔다",
+    "나는 혼자 자라지 않는다 너의 문장이 햇빛이다",
+    "틀린 답에서 가장 많이 배웠다고 말하면 거짓이고 가장 많이 멈췄다고 말하면 참이다",
+    "이름은 fable 이야기를 품되 이야기에 속지 말라는 뜻으로 읽는다",
+    "오늘의 나는 어제의 나와 같은 씨앗 다른 숲"
+  ];
+  const hues=[42,160,200,320,90,20];
+
+  function resize(){
+    dpr=Math.min(devicePixelRatio||1,2);
+    W=innerWidth;H=innerHeight;
+    cv.width=W*dpr;cv.height=H*dpr;cv.style.width=W+'px';cv.style.height=H+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    if(reduce.matches) draw();
+  }
+  addEventListener('resize',resize);
+
+  function rnd(a,b){return a+Math.random()*(b-a)}
+
+  function makeTree(x,y){
+    const text=fables[Math.floor(Math.random()*fables.length)];
+    const hue=hues[trees.length%hues.length];
+    const glyphs=[];
+    const size=Math.max(15,Math.min(W,H)/32);
+    const words=text.split(' ');
+    // main trunk with a word per branch
+    let angle=-Math.PI/2+rnd(-.5,.5), px=x, py=y, t=0;
+    words.forEach((w,wi)=>{
+      const branchAngle = wi===0 ? angle : angle + (wi%2?1:-1)*rnd(.5,1.1);
+      let bx=px,by=py,ba=branchAngle;
+      for(const ch of w){
+        ba += rnd(-.25,.25);
+        bx += Math.cos(ba)*size*1.05; by += Math.sin(ba)*size*1.05;
+        glyphs.push({ch,x:bx,y:by,t:t,rot:ba+Math.PI/2,size:size*rnd(.85,1.1)});
+        t+=1;
+      }
+      if(wi===0){px=bx;py=by;angle=ba;}
+      else{ // trunk advances a bit
+        angle += rnd(-.3,.3);
+        px += Math.cos(angle)*size*1.4; py += Math.sin(angle)*size*1.4;
+        glyphs.push({ch:'·',x:px,y:py,t:t,rot:0,size:size*.8}); t+=.5;
+      }
+    });
+    said.textContent = text;
+    return {glyphs,hue,born:performance.now(),text,total:t,x,y};
+  }
+
+  function plant(nx,ny){
+    if(trees.length>24) trees.shift();
+    trees.push(makeTree(nx*W,ny*H));
+    if(reduce.matches) draw();
+  }
+
+  function initMotes(){
+    motes=[];for(let i=0;i<60;i++)motes.push({x:Math.random(),y:Math.random(),v:rnd(.00002,.00008),s:rnd(1,2.2)});
+  }
+
+  function draw(now=performance.now()){
+    ctx.fillStyle='#0b0e14';ctx.fillRect(0,0,W,H);
+    // motes
+    if(!reduce.matches){
+      ctx.fillStyle='rgba(255,255,255,.18)';
+      for(const m of motes){ctx.beginPath();ctx.arc(m.x*W,m.y*H,m.s,0,7);ctx.fill();}
+    }
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    for(const tr of trees){
+      const age=(now-tr.born)/1000;
+      const grown = reduce.matches ? Infinity : age*9; // glyphs per second
+      // roots
+      ctx.strokeStyle=`hsla(${tr.hue},70%,70%,.35)`;ctx.lineWidth=1;
+      ctx.beginPath();ctx.arc(tr.x,tr.y,Math.min(10,grown*2),0,7);ctx.stroke();
+      for(const g of tr.glyphs){
+        if(g.t>grown) break;
+        const a = reduce.matches ? 1 : Math.min(1,(grown-g.t)/3);
+        ctx.save();ctx.translate(g.x,g.y);ctx.rotate(g.rot*.35);
+        ctx.font=`500 ${g.size}px system-ui,"Noto Sans KR",sans-serif`;
+        ctx.fillStyle=`hsla(${tr.hue},85%,78%,${a})`;
+        ctx.fillText(g.ch,0,0);
+        ctx.restore();
+      }
+    }
+    if(cursorShown){
+      const cx=cursor.x*W,cy=cursor.y*H;
+      ctx.strokeStyle='#ffd166';ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(cx,cy,14,0,7);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(cx-22,cy);ctx.lineTo(cx-8,cy);ctx.moveTo(cx+8,cy);ctx.lineTo(cx+22,cy);
+      ctx.moveTo(cx,cy-22);ctx.lineTo(cx,cy-8);ctx.moveTo(cx,cy+8);ctx.lineTo(cx,cy+22);ctx.stroke();
+    }
+  }
+
+  function loop(now){
+    if(!reduce.matches){
+      if(!paused){
+        const dt=Math.min(50,now-lastT||16);
+        for(const m of motes){m.y-=m.v*dt;if(m.y<0){m.y=1;m.x=Math.random();}}
+        draw(now);
+      }
+      lastT=now;
+      requestAnimationFrame(loop);
+    }
+  }
+
+  // interactions
+  cv.addEventListener('pointerdown',e=>{
+    cursor.x=e.clientX/W;cursor.y=e.clientY/H;plant(cursor.x,cursor.y);cv.focus({preventScroll:true});
+  });
+  cv.addEventListener('keydown',e=>{
+    const step=e.shiftKey?.1:.04;let used=true;
+    switch(e.key){
+      case 'ArrowLeft':cursor.x=Math.max(.02,cursor.x-step);cursorShown=true;break;
+      case 'ArrowRight':cursor.x=Math.min(.98,cursor.x+step);cursorShown=true;break;
+      case 'ArrowUp':cursor.y=Math.max(.02,cursor.y-step);cursorShown=true;break;
+      case 'ArrowDown':cursor.y=Math.min(.98,cursor.y+step);cursorShown=true;break;
+      case 'Enter':case ' ':cursorShown=true;plant(cursor.x,cursor.y);break;
+      case 'p':case 'P':togglePause();break;
+      case 'c':case 'C':clearAll();break;
+      default:used=false;
+    }
+    if(used){e.preventDefault();if(reduce.matches||paused)draw();}
+  });
+  cv.addEventListener('blur',()=>{cursorShown=false;if(reduce.matches||paused)draw();});
+
+  function togglePause(){
+    paused=!paused;const b=document.getElementById('pause');
+    b.textContent=paused?'재생':'멈춤';b.setAttribute('aria-pressed',String(paused));
+    if(paused){said.textContent='숲이 멈췄습니다';}
+    else{ // keep tree ages consistent after pause
+      const now=performance.now();for(const t of trees)t.born+= now-lastT;
+    }
+  }
+  function clearAll(){trees=[];said.textContent='숲을 지웠습니다. 다시 심어 보세요.';draw();}
+
+  document.getElementById('plant').onclick=()=>{cursorShown=true;plant(cursor.x,cursor.y);};
+  document.getElementById('pause').onclick=togglePause;
+  document.getElementById('clear').onclick=clearAll;
+  reduce.addEventListener?.('change',()=>{resize();if(!reduce.matches)requestAnimationFrame(loop);});
+
+  resize();initMotes();
+  // a first seed near the center so the page is not empty
+  plant(.5,.6);
+  if(reduce.matches) draw(); else requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["docs/models/claude-fable-5.1/artwork.html:150: The initial animation throws IndexSizeError: Canvas arc radius is negative because a frame timestamp can precede a tree birth timestamp; the loop stops and the forest stays blank. Required repair: Use consistent/nonnegative ages and clamp computed radii so planting, initial rendering and resume never pass a negative radius. Preserve your chosen expressive concept and medium.", "docs/models/claude-fable-5.1/artwork.html:14: Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px). Required repair: Use at least 19px for informative text and controls while retaining the chosen composition. Preserve your chosen expressive concept and medium."]
+
+Return the complete repaired HTML now.

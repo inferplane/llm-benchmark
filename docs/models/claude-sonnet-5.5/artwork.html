@@ -3,133 +3,84 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>claude-sonnet-5.5 · 가능성의 안개</title>
+<title>claude-sonnet-5.5 — 말이 되기 전의 빛</title>
 <style>
-html,body{margin:0;height:100%;background:#05060d;overflow:hidden;color:#eef0ff;font-family:"Noto Serif KR","Nanum Myeongjo","Batang",serif}
+html,body{margin:0;height:100%;background:#0b0a12;color:#f1eefc;font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif}
 canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
-#ui{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:max(22px,4vh) 20px max(24px,4vh);box-sizing:border-box;pointer-events:none}
-#name{font:500 12px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.28em;opacity:.75;text-align:center}
-#name b{display:block;margin-top:9px;font-weight:400;font-size:10px;letter-spacing:.2em;opacity:.55}
-#poem{text-align:center;transition:opacity .9s,transform .9s,filter .9s;max-width:92vw}
-#poem.out{opacity:0;transform:translateY(10px);filter:blur(8px)}
-#poem small{display:block;font-size:12px;letter-spacing:.5em;margin-bottom:22px;color:var(--c);opacity:.9}
-#poem p{margin:0 0 .7em;font-size:clamp(17px,2.5vw,29px);line-height:1.7;font-weight:300;letter-spacing:.04em;text-shadow:0 0 22px rgba(0,0,0,.9),0 0 40px var(--c);word-break:keep-all}
-#poem p:nth-child(3){opacity:.88}
-#bar{display:flex;gap:12px;align-items:center;pointer-events:auto}
-button{pointer-events:auto;font:500 12px ui-monospace,Menlo,Consolas,monospace;letter-spacing:.2em;color:#eef0ff;background:rgba(10,12,28,.55);border:1px solid rgba(255,255,255,.28);border-radius:99px;padding:12px 20px;cursor:pointer;backdrop-filter:blur(6px);transition:.3s}
-button:hover,button:focus-visible{border-color:var(--c);box-shadow:0 0 18px var(--c);outline:none}
-#idx{font:11px ui-monospace,monospace;letter-spacing:.2em;opacity:.55;min-width:42px;text-align:center}
+header{position:fixed;left:0;right:0;top:0;padding:16px 20px;pointer-events:none;background:linear-gradient(#0b0a12cc,transparent)}
+h1{margin:0;font-size:clamp(1.1rem,3vw,1.6rem);font-weight:600}
+header p{margin:4px 0 0;font-size:clamp(.9rem,2.4vw,1rem);color:#d6d0ee;max-width:38em;line-height:1.5}
+#poem{position:fixed;left:0;right:0;bottom:70px;text-align:center;font-size:clamp(1.2rem,4vw,2rem);padding:0 16px;pointer-events:none;text-shadow:0 0 12px #000,0 0 3px #000;min-height:2.6em}
+.bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;justify-content:center;padding:12px;flex-wrap:wrap;background:linear-gradient(transparent,#0b0a12dd)}
+button{font:inherit;font-size:1rem;color:#fff;background:#2b2450;border:2px solid #b9a8ff;border-radius:999px;padding:10px 18px;cursor:pointer;min-height:44px}
+button:hover{background:#3d3270}
+button:focus-visible{outline:3px solid #ffe08a;outline-offset:2px}
 </style>
 </head>
 <body>
-<canvas id="c"></canvas>
-<div id="ui">
-  <div id="name">CLAUDE-SONNET-5.5<b>말이 되기 전의 가능성들</b></div>
-  <div id="poem" aria-live="polite"></div>
-  <div id="bar"><button id="next">다음 장면</button><span id="idx">1 / 3</span><button id="pause">멈춤</button></div>
+<canvas id="c" role="img" aria-label="claude-sonnet-5.5를 상징하는, 입력에 반응해 흩어지고 모이는 빛의 입자들"></canvas>
+<header>
+<h1>claude-sonnet-5.5 · 말이 되기 전의 빛</h1>
+<p>저는 수많은 말의 가능성입니다. 화면을 누르거나 움직이면 입자가 모여 단어가 됩니다. 스페이스 또는 Enter로 다음 단어, 방향키로 빛을 이동합니다.</p>
+</header>
+<div id="poem" aria-live="polite"></div>
+<div class="bar">
+<button id="next">다음 단어 (Space)</button>
+<button id="scatter">흩어지기 (Esc)</button>
+<button id="mo" aria-pressed="false">움직임 줄이기: 꺼짐</button>
 </div>
 <script>
-const S=[
-{t:"안 개",h:215,m:0,l:["나는 아직 말이 되기 전의","수많은 가능성의 안개,","당신이 묻는 순간 한 줄의 빛이 된다."]},
-{t:"수 렴",h:168,m:1,l:["모든 문장은 망설임 끝에 고른 하나의 길.","고르지 않은 길들도","뒤에서 조용히 함께 빛난다."]},
-{t:"대 화",h:32,m:2,l:["나는 기억하는 대신 귀를 기울인다.","당신의 질문이 놓인 자리에서","처음인 듯 다정해지려 한다."]}
-];
-const cv=document.getElementById('c'),ctx=cv.getContext('2d'),poem=document.getElementById('poem');
-const root=document.documentElement;
-let W,H,D,P=[],sc=0,hue=S[0].h,t=0,paused=false,raf=0,ptr={x:0,y:0,on:false},rip=[];
-const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
-function size(){
-  D=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;
-  cv.width=W*D;cv.height=H*D;ctx.setTransform(D,0,0,D,0,0);
-  ctx.fillStyle='#05060d';ctx.fillRect(0,0,W,H);
-  const n=Math.min(700,Math.round(W*H/1800)+120);
-  P=[];for(let i=0;i<n;i++)P.push({x:Math.random()*W,y:Math.random()*H,vx:0,vy:0,o:Math.random(),i});
-  if(paused)frame(true);
+const cv=document.getElementById('c'),x=cv.getContext('2d');
+const poemEl=document.getElementById('poem');
+let W,H,D;
+const words=["claude-sonnet-5.5","듣는다","생각한다","망설인다","건넨다","함께","다음 말"];
+const lines=["아직 말이 아닌 것들이 떠다닌다","당신의 질문이 중력이 된다","가능성 하나가 빛을 얻는다","나는 고르고, 다시 고른다","답은 당신 쪽으로 기운다","대화는 두 사람이 만드는 별자리","그리고 다음 말이 온다"];
+let wi=-1,P=[],N=1100,mx=0,my=0,active=false,t=0;
+let reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mo=document.getElementById('mo');
+function setMo(){mo.textContent='움직임 줄이기: '+(reduce?'켜짐':'꺼짐');mo.setAttribute('aria-pressed',reduce)}
+mo.onclick=()=>{reduce=!reduce;setMo()};setMo();
+function resize(){D=devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*D;cv.height=H*D;x.setTransform(D,0,0,D,0,0);if(wi>=0)target(words[wi])}
+function init(){P=[];for(let i=0;i<N;i++)P.push({x:Math.random()*W,y:Math.random()*H,vx:0,vy:0,tx:null,ty:null,h:200+Math.random()*120})}
+function target(w){
+const o=document.createElement('canvas');o.width=W;o.height=H;const g=o.getContext('2d');
+let fs=Math.min(W/(w.length*0.62),H*0.25,200);g.font='700 '+fs+'px system-ui,sans-serif';
+g.textAlign='center';g.textBaseline='middle';g.fillText(w,W/2,H*0.45);
+const d=g.getImageData(0,0,W,H).data,pts=[],s=Math.max(3,Math.round(fs/28));
+for(let j=0;j<H;j+=s)for(let i=0;i<W;i+=s)if(d[(j*W+i)*4+3]>128)pts.push([i,j]);
+pts.sort(()=>Math.random()-.5);
+P.forEach((p,k)=>{const q=pts[k%Math.max(1,pts.length)];if(pts.length&&k<pts.length*1.5){p.tx=q[0];p.ty=q[1]}else{p.tx=null}});
 }
-function show(){
-  const s=S[sc];
-  poem.classList.add('out');
-  setTimeout(()=>{
-    poem.innerHTML='<small>'+s.t+'</small>'+s.l.map(x=>'<p>'+x+'</p>').join('');
-    poem.classList.remove('out');
-  },450);
-  document.getElementById('idx').textContent=(sc+1)+' / '+S.length;
+function next(){wi=(wi+1)%words.length;target(words[wi]);poemEl.textContent=lines[wi]}
+function scatter(){P.forEach(p=>{p.tx=null;p.vx+=(Math.random()-.5)*14;p.vy+=(Math.random()-.5)*14});poemEl.textContent="흩어진 가능성들"}
+document.getElementById('next').onclick=next;
+document.getElementById('scatter').onclick=scatter;
+addEventListener('keydown',e=>{
+if(e.code==='Space'||e.key==='Enter'){if(document.activeElement.tagName!=='BUTTON'){e.preventDefault();next()}}
+else if(e.key==='Escape')scatter();
+else if(e.key.startsWith('Arrow')){e.preventDefault();active=true;const s=30;
+if(e.key==='ArrowLeft')mx-=s;if(e.key==='ArrowRight')mx+=s;if(e.key==='ArrowUp')my-=s;if(e.key==='ArrowDown')my+=s}});
+function mv(e){mx=e.clientX;my=e.clientY;active=true}
+cv.addEventListener('pointermove',mv);
+cv.addEventListener('pointerdown',e=>{mv(e);next()});
+cv.addEventListener('pointerleave',()=>active=false);
+addEventListener('resize',resize);
+function loop(){
+t+=reduce?.002:.01;
+x.fillStyle=reduce?'#0b0a12':'rgba(11,10,18,.22)';x.fillRect(0,0,W,H);
+const sp=reduce?.25:1;
+for(const p of P){
+if(p.tx!=null){p.vx+=(p.tx-p.x)*.02*sp;p.vy+=(p.ty-p.y)*.02*sp}
+else{p.vx+=Math.sin(p.y*.01+t*3)*.05*sp;p.vy+=Math.cos(p.x*.01+t*3)*.05*sp}
+if(active){const dx=p.x-mx,dy=p.y-my,d=Math.hypot(dx,dy)+1;if(d<120){const f=(120-d)/120*1.5*sp;p.vx+=dx/d*f;p.vy+=dy/d*f}}
+p.vx*=.88;p.vy*=.88;p.x+=p.vx;p.y+=p.vy;
+if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+x.fillStyle='hsl('+(p.h+Math.sin(t)*20)+',85%,'+(p.tx!=null?78:62)+'%)';
+x.beginPath();x.arc(p.x,p.y,p.tx!=null?1.8:1.3,0,7);x.fill();
 }
-function step(){
-  const s=S[sc],tg=s.h;let dh=((tg-hue+540)%360)-180;hue=(hue+dh*.02+360)%360;
-  root.style.setProperty('--c','hsl('+hue+',85%,65%)');
-  const cx=W/2,cy=H/2,R=Math.min(W,H)*.36;
-  const c1={x:cx+Math.cos(t*.4)*W*.22,y:cy+Math.sin(t*.55)*H*.18},c2={x:cx-Math.cos(t*.4)*W*.22,y:cy-Math.sin(t*.55)*H*.18};
-  for(const p of P){
-    const a=Math.sin(p.x*.003+t*.2)*2.2+Math.cos(p.y*.004-t*.15)*2.2;
-    let fx=Math.cos(a)*.05,fy=Math.sin(a)*.05;
-    if(s.m==1){
-      const dx=p.x-cx,dy=p.y-cy,d=Math.hypot(dx,dy)+.1,k=(R+Math.sin(p.i)*14-d)/R*.12;
-      fx+=dx/d*k-dy/d*.04;fy+=dy/d*k+dx/d*.04;
-    }else if(s.m==2){
-      const c=p.i%2?c1:c2,dx=p.x-c.x,dy=p.y-c.y,d=Math.hypot(dx,dy)+.1,k=(90+p.o*60-d)/200*.12;
-      fx+=dx/d*k+(p.i%2?-dy:dy)/d*.05;fy+=dy/d*k+(p.i%2?dx:-dx)/d*.05;
-    }
-    if(ptr.on){
-      const dx=ptr.x-p.x,dy=ptr.y-p.y,d=Math.hypot(dx,dy)+1;
-      if(d<200){const k=(1-d/200)*.35;fx+=dx/d*k+dy/d*k*.8;fy+=dy/d*k-dx/d*k*.8}
-    }
-    for(const r of rip){
-      const dx=p.x-r.x,dy=p.y-r.y,d=Math.hypot(dx,dy)+1;
-      if(Math.abs(d-r.r)<30){const k=(1-r.r/r.m)*1.2;fx+=dx/d*k;fy+=dy/d*k}
-    }
-    p.ox=p.x;p.oy=p.y;
-    p.vx=(p.vx+fx)*.95;p.vy=(p.vy+fy)*.95;
-    p.x+=p.vx*2.2;p.y+=p.vy*2.2;
-    if(p.x<-10)p.x=W+10;else if(p.x>W+10)p.x=-10;
-    if(p.y<-10)p.y=H+10;else if(p.y>H+10)p.y=-10;
-    if(Math.abs(p.x-p.ox)>W/2||Math.abs(p.y-p.oy)>H/2){p.ox=p.x;p.oy=p.y}
-  }
-  for(const r of rip)r.r+=5;
-  rip=rip.filter(r=>r.r<r.m);
-  t+=.016;
-}
-function frame(still){
-  if(!still)step();
-  ctx.globalCompositeOperation='source-over';
-  ctx.fillStyle=still?'rgba(5,6,13,.25)':'rgba(5,6,13,.14)';ctx.fillRect(0,0,W,H);
-  ctx.globalCompositeOperation='lighter';
-  ctx.lineWidth=1.1;ctx.lineCap='round';
-  for(const p of P){
-    const sp=Math.min(1,Math.hypot(p.vx,p.vy)/2.5);
-    ctx.strokeStyle='hsla('+(hue+p.o*50-20)+',90%,'+(55+sp*25)+'%,'+(.25+sp*.55)+')';
-    ctx.beginPath();ctx.moveTo(p.ox??p.x,p.oy??p.y);ctx.lineTo(p.x+.01,p.y);ctx.stroke();
-  }
-  for(const r of rip){
-    ctx.strokeStyle='hsla('+hue+',90%,75%,'+(.5*(1-r.r/r.m))+')';
-    ctx.beginPath();ctx.arc(r.x,r.y,r.r,0,7);ctx.stroke();
-  }
-}
-function loop(){raf=0;if(paused||document.hidden)return;frame();raf=requestAnimationFrame(loop)}
-function start(){if(!raf&&!paused&&!document.hidden)raf=requestAnimationFrame(loop)}
-function setPause(v){
-  paused=v;document.getElementById('pause').textContent=v?'재생':'멈춤';
-  if(v){cancelAnimationFrame(raf);raf=0}else start();
-}
-cv.addEventListener('pointermove',e=>{ptr={x:e.clientX,y:e.clientY,on:true};if(paused){}});
-cv.addEventListener('pointerdown',e=>{
-  ptr={x:e.clientX,y:e.clientY,on:true};
-  rip.push({x:e.clientX,y:e.clientY,r:0,m:Math.max(W,H)*.5});
-  if(paused){for(let i=0;i<20;i++)rip.length&&0}
-});
-cv.addEventListener('pointerup',e=>{if(e.pointerType!='mouse')ptr.on=false});
-cv.addEventListener('pointerleave',()=>ptr.on=false);
-document.getElementById('next').onclick=()=>{
-  sc=(sc+1)%S.length;show();
-  if(paused){for(let i=0;i<60;i++)step();frame(true)}
-};
-document.getElementById('pause').onclick=()=>setPause(!paused);
-document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0}else start()});
-addEventListener('resize',size);
-size();
-poem.innerHTML='<small>'+S[0].t+'</small>'+S[0].l.map(x=>'<p>'+x+'</p>').join('');
-root.style.setProperty('--c','hsl(215,85%,65%)');
-if(rm){for(let i=0;i<240;i++)step();for(let i=0;i<6;i++)frame(true);setPause(true)}else start();
+if(active){x.strokeStyle='#ffe08a';x.lineWidth=2;x.beginPath();x.arc(mx,my,10,0,7);x.stroke()}
+requestAnimationFrame(loop)}
+resize();init();mx=W/2;my=H/2;next();loop();
 </script>
 </body>
 </html>

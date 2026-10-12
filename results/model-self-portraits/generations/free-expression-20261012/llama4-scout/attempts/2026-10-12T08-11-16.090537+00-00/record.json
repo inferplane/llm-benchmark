@@ -1,0 +1,20 @@
+{
+  "model": "llama4-scout",
+  "model_id": "us.meta.llama4-scout-17b-instruct-v1:0",
+  "api": "bedrock",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:11:16.090537+00:00",
+  "prompt_sha256": "14feca072bf0bbe8a655026e1b5e640f37c08768e8a087f7281ab1fafb743065",
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "status": "generated",
+  "generated_at": "2026-10-12T08:11:18.029795+00:00",
+  "artwork_sha256": "1aff6036b2c894b820b5ff5d7040c71d5fb5d4d4c36a41b9fced0635a2e6b209",
+  "tokens_in": 217,
+  "tokens_out": 420,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "973d06ed-be98-40ad-927f-f112adf8dd31"
+}

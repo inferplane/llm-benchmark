@@ -1,0 +1,26 @@
+{
+  "model": "gemma-4-31b-bedrock",
+  "model_id": "google.gemma-4-31b",
+  "api": "bedrock_mantle",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:11:50.179190+00:00",
+  "prompt_sha256": "db5a72108ebe11750f8a46c065486eea8b17954e65659a8e2a9562a47cd8a9e1",
+  "max_output_tokens": 8192,
+  "temperature": null,
+  "temperature_sent": false,
+  "status": "generated",
+  "generated_at": "2026-10-12T08:12:16.662815+00:00",
+  "artwork_sha256": "8b2c649c4765f3b6db3966ce22854c3db126c06d63fc503e0156ec26d58ccdfa",
+  "tokens_in": 243,
+  "tokens_out": 2236,
+  "response_status": "completed",
+  "http_status": 200,
+  "reported_model": "google.gemma-4-31b",
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "medium"
+  },
+  "reasoning_tokens": 0,
+  "request_id": "req_ht55xj6bozoq4sj7uaangse4jccjz2l4gntm7eia7e5l4x6ridga",
+  "response_id": "resp_qi2c5ym534jym3zvbg5p5egfo2gidq6ke2ctgspa7gqjd2p3lusa"
+}

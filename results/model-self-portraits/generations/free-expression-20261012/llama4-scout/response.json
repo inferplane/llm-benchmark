@@ -1,0 +1,9 @@
+{
+  "text": "```html\n<!DOCTYPE html>\n<html lang=\"ko\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>llama4-scout 미디어 아트</title>\n    <style>\n        body {\n            font-family: Arial, sans-serif;\n            background-color: #f0f0f0;\n            margin: 0;\n            padding: 0;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            height: 100vh;\n            flex-direction: column;\n        }\n        .llama4-scout {\n            font-size: 2rem;\n            font-weight: bold;\n            margin-bottom: 1rem;\n        }\n        .canvas {\n            border: 1px solid #ccc;\n        }\n        @media (max-width: 768px) {\n            .llama4-scout {\n                font-size: 1.5rem;\n            }\n        }\n    </style>\n</head>\n<body>\n    <h1 class=\"llama4-scout\">llama4-scout</h1>\n    <canvas class=\"canvas\" id=\"canvas\" width=\"400\" height=\"400\"></canvas>\n    <script>\n        const canvas = document.getElementById('canvas');\n        const ctx = canvas.getContext('2d');\n\n        // 미디어 아트: 움직이는 원\n        function draw() {\n            ctx.clearRect(0, 0, canvas.width, canvas.height);\n            ctx.beginPath();\n            ctx.arc(canvas.width / 2 + Math.sin(Date.now() * 0.001) * 100, canvas.height / 2 + Math.cos(Date.now() * 0.001) * 100, 50, 0, 2 * Math.PI);\n            ctx.fillStyle = '#007bff';\n            ctx.fill();\n            requestAnimationFrame(draw);\n        }\n        draw();\n    </script>\n</body>\n</html>\n```",
+  "tokens_in": 217,
+  "tokens_out": 420,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "973d06ed-be98-40ad-927f-f112adf8dd31"
+}

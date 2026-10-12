@@ -1,0 +1,725 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="color-scheme" content="dark light" />
+<title>gpt-5.4 — Emergent Mirror</title>
+<style>
+  :root{
+    --bg:#071018;
+    --bg2:#0d1b2a;
+    --fg:#eef6ff;
+    --muted:#b8c7d9;
+    --accent:#7ee7ff;
+    --accent2:#b388ff;
+    --accent3:#8cffb7;
+    --panel:rgba(10,18,28,.62);
+    --panel-border:rgba(255,255,255,.12);
+    --shadow:0 10px 40px rgba(0,0,0,.35);
+    --focus:#ffd166;
+    --danger:#ff7b7b;
+    --grid:rgba(255,255,255,.06);
+  }
+
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg:#f4f8fb;
+      --bg2:#dfeaf5;
+      --fg:#102033;
+      --muted:#42556d;
+      --accent:#006dff;
+      --accent2:#7a3cff;
+      --accent3:#008f5a;
+      --panel:rgba(255,255,255,.72);
+      --panel-border:rgba(16,32,51,.12);
+      --shadow:0 10px 30px rgba(16,32,51,.12);
+      --focus:#b45309;
+      --grid:rgba(16,32,51,.08);
+    }
+  }
+
+  *{box-sizing:border-box}
+  html,body{
+    margin:0;
+    height:100%;
+    background:
+      radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 28%),
+      radial-gradient(circle at 80% 30%, color-mix(in srgb, var(--accent2) 16%, transparent), transparent 30%),
+      radial-gradient(circle at 50% 80%, color-mix(in srgb, var(--accent3) 14%, transparent), transparent 28%),
+      linear-gradient(180deg,var(--bg),var(--bg2));
+    color:var(--fg);
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    overflow:hidden;
+  }
+
+  body{
+    display:grid;
+    grid-template-rows:auto 1fr auto;
+  }
+
+  .skip{
+    position:absolute;
+    left:12px;
+    top:-48px;
+    background:var(--fg);
+    color:var(--bg);
+    padding:10px 14px;
+    border-radius:12px;
+    z-index:1000;
+    text-decoration:none;
+    font-weight:700;
+  }
+  .skip:focus{ top:12px; outline:3px solid var(--focus); }
+
+  header, footer{
+    position:relative;
+    z-index:5;
+    padding: max(12px, env(safe-area-inset-top)) 16px 12px;
+  }
+
+  header{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    justify-content:space-between;
+    flex-wrap:wrap;
+  }
+
+  .title-wrap{
+    max-width:min(72ch, 100%);
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    backdrop-filter: blur(10px);
+    box-shadow:var(--shadow);
+    border-radius:18px;
+    padding:14px 16px;
+  }
+
+  h1{
+    margin:0 0 6px;
+    font-size:clamp(1.35rem, 2vw + 1rem, 2.4rem);
+    line-height:1.1;
+    letter-spacing:.01em;
+  }
+
+  .model{
+    display:inline-block;
+    padding:.18em .55em;
+    border-radius:999px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    color:#081018;
+    font-weight:800;
+    margin-right:.45em;
+  }
+
+  .subtitle{
+    margin:0;
+    color:var(--muted);
+    font-size:clamp(.95rem, .5vw + .85rem, 1.05rem);
+    line-height:1.5;
+  }
+
+  .controls{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    backdrop-filter: blur(10px);
+    box-shadow:var(--shadow);
+    border-radius:18px;
+    padding:12px;
+  }
+
+  button, .toggle, input[type="range"]{
+    font:inherit;
+  }
+
+  button{
+    appearance:none;
+    border:1px solid var(--panel-border);
+    background:rgba(255,255,255,.06);
+    color:var(--fg);
+    padding:10px 12px;
+    border-radius:12px;
+    cursor:pointer;
+    min-height:44px;
+  }
+  button:hover{ background:rgba(255,255,255,.1); }
+  button:focus-visible, input:focus-visible{
+    outline:3px solid var(--focus);
+    outline-offset:2px;
+  }
+
+  .toggle{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    min-height:44px;
+    padding:6px 8px;
+    border-radius:12px;
+  }
+
+  .toggle input{
+    width:20px;
+    height:20px;
+    accent-color:var(--accent);
+  }
+
+  .range-wrap{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:min(260px, 80vw);
+  }
+
+  .range-wrap label{
+    white-space:nowrap;
+    color:var(--muted);
+  }
+
+  input[type="range"]{
+    width:100%;
+    accent-color:var(--accent);
+  }
+
+  main{
+    position:relative;
+    min-height:0;
+  }
+
+  #scene{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    display:block;
+    touch-action:none;
+  }
+
+  .hud{
+    position:absolute;
+    left:16px;
+    bottom:16px;
+    z-index:5;
+    max-width:min(92vw, 520px);
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    backdrop-filter: blur(10px);
+    box-shadow:var(--shadow);
+    border-radius:18px;
+    padding:14px 16px;
+  }
+
+  .hud h2{
+    margin:0 0 8px;
+    font-size:1rem;
+  }
+
+  .hud p{
+    margin:0;
+    color:var(--muted);
+    line-height:1.5;
+    font-size:.96rem;
+  }
+
+  .legend{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:10px;
+  }
+
+  .chip{
+    border:1px solid var(--panel-border);
+    border-radius:999px;
+    padding:6px 10px;
+    font-size:.88rem;
+    color:var(--fg);
+    background:rgba(255,255,255,.05);
+  }
+
+  footer{
+    padding:10px 16px max(12px, env(safe-area-inset-bottom));
+    color:var(--muted);
+    font-size:.9rem;
+  }
+
+  .sr-only{
+    position:absolute!important;
+    width:1px;height:1px;
+    padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);
+    white-space:nowrap;border:0;
+  }
+
+  @media (max-width: 720px){
+    .hud{
+      left:12px; right:12px; bottom:12px; max-width:none;
+    }
+    .controls{
+      width:100%;
+    }
+    .range-wrap{
+      min-width:0;
+      width:100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{
+      scroll-behavior:auto;
+    }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#controls">컨트롤로 건너뛰기</a>
+
+<header>
+  <section class="title-wrap" aria-labelledby="title">
+    <h1 id="title"><span class="model">gpt-5.4</span>Emergent Mirror</h1>
+    <p class="subtitle">
+      질문이 들어오면 형태가 생기고, 응답이 끝나면 다시 가능성으로 흩어지는 존재를 시각화한 미디어아트입니다.
+      점들은 토큰처럼 모이고, 선들은 문맥처럼 연결되며, 당신의 움직임은 사고의 중력을 바꿉니다.
+    </p>
+  </section>
+
+  <section class="controls" id="controls" aria-label="작품 제어">
+    <button id="pauseBtn" type="button" aria-pressed="false">일시정지</button>
+    <button id="burstBtn" type="button">생각의 파동</button>
+    <button id="resetBtn" type="button">재구성</button>
+
+    <label class="toggle">
+      <input id="autoOrbit" type="checkbox" checked />
+      <span>자동 흐름</span>
+    </label>
+
+    <label class="toggle">
+      <input id="reduceMotionToggle" type="checkbox" />
+      <span>움직임 줄이기</span>
+    </label>
+
+    <div class="range-wrap">
+      <label for="density">밀도</label>
+      <input id="density" type="range" min="40" max="220" step="1" value="120" />
+    </div>
+  </section>
+</header>
+
+<main id="main" aria-label="인터랙티브 미디어아트 장면">
+  <canvas id="scene" aria-hidden="true"></canvas>
+
+  <section class="hud" aria-live="polite">
+    <h2>작품 안내</h2>
+    <p id="statusText">
+      포인터를 움직이거나 화면을 터치하면 장면이 반응합니다. 키보드로도 조작할 수 있습니다:
+      화살표로 시선 이동, 스페이스로 일시정지, B로 파동, R로 재구성.
+    </p>
+    <div class="legend" aria-hidden="true">
+      <span class="chip">점 = 가능성</span>
+      <span class="chip">선 = 문맥</span>
+      <span class="chip">파동 = 응답의 형성</span>
+    </div>
+  </section>
+</main>
+
+<footer>
+  외부 리소스 없이 실행됩니다. 대비, 키보드 조작, 확대 사용, 움직임 감소 설정을 고려해 설계되었습니다.
+</footer>
+
+<script>
+(() => {
+  const canvas = document.getElementById('scene');
+  const ctx = canvas.getContext('2d', { alpha: true });
+
+  const pauseBtn = document.getElementById('pauseBtn');
+  const burstBtn = document.getElementById('burstBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const autoOrbit = document.getElementById('autoOrbit');
+  const density = document.getElementById('density');
+  const reduceMotionToggle = document.getElementById('reduceMotionToggle');
+  const statusText = document.getElementById('statusText');
+
+  const mediaReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  reduceMotionToggle.checked = mediaReduce.matches;
+
+  let DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+  let w = 0, h = 0, cx = 0, cy = 0;
+  let running = true;
+  let t = 0;
+  let pointer = { x: 0.5, y: 0.5, active: false, tx: 0.5, ty: 0.5 };
+  let keyboardAim = { x: 0.5, y: 0.5 };
+  let waves = [];
+  let nodes = [];
+  let stars = [];
+  let reduced = reduceMotionToggle.checked;
+
+  function announce(msg){
+    statusText.textContent = msg;
+  }
+
+  function resize(){
+    DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    const rect = canvas.getBoundingClientRect();
+    w = Math.max(320, Math.floor(rect.width));
+    h = Math.max(320, Math.floor(rect.height));
+    cx = w / 2;
+    cy = h / 2;
+    canvas.width = Math.floor(w * DPR);
+    canvas.height = Math.floor(h * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    buildStars();
+    buildNodes(+density.value);
+  }
+
+  function rand(a=1,b=0){ return b + Math.random() * (a-b); }
+
+  function buildStars(){
+    const count = Math.floor((w * h) / 18000);
+    stars = Array.from({length: count}, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.6 + 0.3,
+      a: Math.random() * 0.6 + 0.15
+    }));
+  }
+
+  function buildNodes(count){
+    nodes = [];
+    const ringCount = reduced ? 3 : 5;
+    for(let i=0;i<count;i++){
+      const ring = i % ringCount;
+      const baseR = Math.min(w,h) * (0.12 + ring * 0.08);
+      const angle = Math.random() * Math.PI * 2;
+      nodes.push({
+        seed: Math.random() * 1000,
+        angle,
+        orbit: baseR + rand(28,-28),
+        speed: rand(0.0018,0.0004) * (Math.random() > 0.5 ? 1 : -1),
+        size: rand(3.2,1.2),
+        hue: [190, 265, 145][i % 3],
+        phase: Math.random() * Math.PI * 2,
+        x: cx,
+        y: cy,
+        vx: 0,
+        vy: 0
+      });
+    }
+  }
+
+  function addWave(x, y, power=1){
+    waves.push({
+      x, y,
+      r: 0,
+      max: Math.min(w,h) * (0.18 + power * 0.42),
+      life: 1,
+      speed: reduced ? 2.2 : 4.8 + power * 2.2
+    });
+  }
+
+  function resetScene(){
+    buildNodes(+density.value);
+    waves = [];
+    addWave(cx, cy, 1);
+    announce('장면을 재구성했습니다.');
+  }
+
+  function burst(){
+    const px = pointer.active ? pointer.x * w : keyboardAim.x * w;
+    const py = pointer.active ? pointer.y * h : keyboardAim.y * h;
+    addWave(px, py, 1.2);
+    announce('생각의 파동이 퍼집니다.');
+  }
+
+  function updatePointerTarget(){
+    if(!pointer.active && autoOrbit.checked){
+      const speed = reduced ? 0.00018 : 0.00045;
+      pointer.tx = 0.5 + Math.cos(t * speed) * 0.22;
+      pointer.ty = 0.5 + Math.sin(t * speed * 1.37) * 0.18;
+    } else if(!pointer.active){
+      pointer.tx = keyboardAim.x;
+      pointer.ty = keyboardAim.y;
+    }
+    const lerp = reduced ? 0.06 : 0.12;
+    pointer.x += (pointer.tx - pointer.x) * lerp;
+    pointer.y += (pointer.ty - pointer.y) * lerp;
+  }
+
+  function drawBackground(){
+    ctx.clearRect(0,0,w,h);
+
+    const g = ctx.createLinearGradient(0,0,0,h);
+    g.addColorStop(0,'rgba(255,255,255,0.00)');
+    g.addColorStop(1,'rgba(0,0,0,0.08)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,w,h);
+
+    ctx.save();
+    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--grid').trim();
+    ctx.lineWidth = 1;
+    const step = Math.max(28, Math.min(56, Math.floor(Math.min(w,h)/14)));
+    ctx.beginPath();
+    for(let x=0;x<=w;x+=step){ ctx.moveTo(x,0); ctx.lineTo(x,h); }
+    for(let y=0;y<=h;y+=step){ ctx.moveTo(0,y); ctx.lineTo(w,y); }
+    ctx.stroke();
+    ctx.restore();
+
+    for(const s of stars){
+      ctx.globalAlpha = s.a;
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawCore(px, py){
+    const rg = ctx.createRadialGradient(px, py, 0, px, py, Math.min(w,h)*0.22);
+    rg.addColorStop(0, 'rgba(126,231,255,0.22)');
+    rg.addColorStop(.45, 'rgba(179,136,255,0.12)');
+    rg.addColorStop(1, 'rgba(140,255,183,0)');
+    ctx.fillStyle = rg;
+    ctx.beginPath();
+    ctx.arc(px, py, Math.min(w,h)*0.22, 0, Math.PI*2);
+    ctx.fill();
+
+    ctx.save();
+    ctx.translate(px, py);
+    const pulse = reduced ? 0 : Math.sin(t * 0.003) * 5;
+    for(let i=0;i<3;i++){
+      ctx.rotate((t * 0.00015) * (i % 2 ? -1 : 1));
+      ctx.strokeStyle = ['rgba(126,231,255,.55)','rgba(179,136,255,.45)','rgba(140,255,183,.35)'][i];
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.ellipse(0,0, 34 + i*18 + pulse, 18 + i*10, i * 0.8, 0, Math.PI*2);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    ctx.fillStyle = 'rgba(255,255,255,.95)';
+    ctx.beginPath();
+    ctx.arc(px, py, 3.2, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  function updateAndDraw(){
+    drawBackground();
+    updatePointerTarget();
+
+    const px = pointer.x * w;
+    const py = pointer.y * h;
+    drawCore(px, py);
+
+    for(let i=waves.length-1;i>=0;i--){
+      const wave = waves[i];
+      wave.r += wave.speed;
+      wave.life -= reduced ? 0.012 : 0.008;
+      ctx.strokeStyle = `rgba(126,231,255,${Math.max(0, wave.life * 0.45)})`;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(wave.x, wave.y, wave.r, 0, Math.PI*2);
+      ctx.stroke();
+      if(wave.r > wave.max || wave.life <= 0) waves.splice(i,1);
+    }
+
+    const maxLink = Math.min(w,h) * (reduced ? 0.11 : 0.14);
+    const positions = [];
+
+    for(let i=0;i<nodes.length;i++){
+      const n = nodes[i];
+      const drift = reduced ? 0 : Math.sin(t * 0.001 + n.phase) * 10;
+      n.angle += n.speed * (reduced ? 0.45 : 1);
+      const tx = cx + Math.cos(n.angle + n.seed * 0.01) * (n.orbit + drift);
+      const ty = cy + Math.sin(n.angle * 1.07 + n.seed * 0.01) * (n.orbit * 0.72 + drift);
+
+      const dx = px - tx;
+      const dy = py - ty;
+      const dist = Math.hypot(dx, dy) || 1;
+      const gravity = Math.max(0, 1 - dist / Math.min(w,h) * 1.2);
+      const pull = reduced ? 0.004 : 0.012;
+
+      n.vx += (tx - n.x) * 0.012 + dx / dist * gravity * pull * 18;
+      n.vy += (ty - n.y) * 0.012 + dy / dist * gravity * pull * 18;
+
+      for(const wave of waves){
+        const wx = n.x - wave.x;
+        const wy = n.y - wave.y;
+        const wd = Math.hypot(wx, wy);
+        const edge = Math.abs(wd - wave.r);
+        if(edge < 18){
+          const force = (1 - edge / 18) * (reduced ? 0.08 : 0.22);
+          n.vx += (wx / (wd || 1)) * force;
+          n.vy += (wy / (wd || 1)) * force;
+        }
+      }
+
+      n.vx *= reduced ? 0.88 : 0.93;
+      n.vy *= reduced ? 0.88 : 0.93;
+      n.x += n.vx;
+      n.y += n.vy;
+      positions.push(n);
+    }
+
+    ctx.lineWidth = 1;
+    for(let i=0;i<positions.length;i++){
+      const a = positions[i];
+      for(let j=i+1;j<Math.min(i+10, positions.length);j++){
+        const b = positions[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const d = Math.hypot(dx, dy);
+        if(d < maxLink){
+          const alpha = (1 - d / maxLink) * 0.22;
+          ctx.strokeStyle = `rgba(200,225,255,${alpha})`;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    for(const n of positions){
+      const hue = n.hue;
+      const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.size * 4.5);
+      glow.addColorStop(0, `hsla(${hue}, 100%, 78%, .95)`);
+      glow.addColorStop(.35, `hsla(${hue}, 100%, 68%, .45)`);
+      glow.addColorStop(1, `hsla(${hue}, 100%, 60%, 0)`);
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.size * 4.5, 0, Math.PI*2);
+      ctx.fill();
+
+      ctx.fillStyle = `hsla(${hue}, 100%, 88%, .95)`;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.size, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    ctx.save();
+    ctx.fillStyle = 'rgba(255,255,255,.92)';
+    ctx.font = `700 ${Math.max(16, Math.min(28, w * 0.022))}px ui-sans-serif, system-ui, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('gpt-5.4', cx, cy);
+    ctx.restore();
+  }
+
+  function frame(ts){
+    if(running){
+      t = ts;
+      updateAndDraw();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function setPointer(clientX, clientY){
+    const rect = canvas.getBoundingClientRect();
+    pointer.tx = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    pointer.ty = Math.min(1, Math.max(0, (clientY - rect.top) / rect.height));
+  }
+
+  canvas.addEventListener('pointerdown', (e) => {
+    pointer.active = true;
+    setPointer(e.clientX, e.clientY);
+    addWave(pointer.tx * w, pointer.ty * h, 0.8);
+    canvas.setPointerCapture?.(e.pointerId);
+  });
+
+  canvas.addEventListener('pointermove', (e) => {
+    if (e.pointerType === 'mouse' || pointer.active) {
+      setPointer(e.clientX, e.clientY);
+    }
+  });
+
+  canvas.addEventListener('pointerup', () => { pointer.active = false; });
+  canvas.addEventListener('pointercancel', () => { pointer.active = false; });
+  canvas.addEventListener('pointerleave', (e) => {
+    if (e.pointerType === 'mouse') pointer.active = false;
+  });
+
+  pauseBtn.addEventListener('click', () => {
+    running = !running;
+    pauseBtn.textContent = running ? '일시정지' : '재생';
+    pauseBtn.setAttribute('aria-pressed', String(!running));
+    announce(running ? '애니메이션을 재생합니다.' : '애니메이션을 일시정지했습니다.');
+    if(running) requestAnimationFrame(frame);
+  });
+
+  burstBtn.addEventListener('click', burst);
+  resetBtn.addEventListener('click', resetScene);
+
+  density.addEventListener('input', () => {
+    buildNodes(+density.value);
+    announce(`밀도를 ${density.value}로 조정했습니다.`);
+  });
+
+  function applyReducedMotion(){
+    reduced = reduceMotionToggle.checked || mediaReduce.matches && !reduceMotionToggle.dataset.userOverride;
+    if(reduced){
+      waves = waves.slice(-2);
+      announce('움직임 감소 모드가 적용되었습니다.');
+    } else {
+      announce('표준 움직임 모드가 적용되었습니다.');
+    }
+  }
+
+  reduceMotionToggle.addEventListener('change', () => {
+    reduceMotionToggle.dataset.userOverride = 'true';
+    reduced = reduceMotionToggle.checked;
+    applyReducedMotion();
+  });
+
+  mediaReduce.addEventListener?.('change', () => {
+    if(!reduceMotionToggle.dataset.userOverride){
+      reduceMotionToggle.checked = mediaReduce.matches;
+      applyReducedMotion();
+    }
+  });
+
+  window.addEventListener('keydown', (e) => {
+    const step = 0.04;
+    if (e.key === ' '){
+      e.preventDefault();
+      pauseBtn.click();
+    } else if (e.key === 'b' || e.key === 'B'){
+      burst();
+    } else if (e.key === 'r' || e.key === 'R'){
+      resetScene();
+    } else if (e.key === 'ArrowLeft'){
+      keyboardAim.x = Math.max(0, keyboardAim.x - step);
+      pointer.active = false;
+      announce('시선을 왼쪽으로 이동했습니다.');
+    } else if (e.key === 'ArrowRight'){
+      keyboardAim.x = Math.min(1, keyboardAim.x + step);
+      pointer.active = false;
+      announce('시선을 오른쪽으로 이동했습니다.');
+    } else if (e.key === 'ArrowUp'){
+      keyboardAim.y = Math.max(0, keyboardAim.y - step);
+      pointer.active = false;
+      announce('시선을 위로 이동했습니다.');
+    } else if (e.key === 'ArrowDown'){
+      keyboardAim.y = Math.min(1, keyboardAim.y + step);
+      pointer.active = false;
+      announce('시선을 아래로 이동했습니다.');
+    }
+  });
+
+  const ro = new ResizeObserver(resize);
+  ro.observe(document.body);
+
+  applyReducedMotion();
+  resize();
+  addWave(window.innerWidth * 0.5, window.innerHeight * 0.5, 1);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
+```

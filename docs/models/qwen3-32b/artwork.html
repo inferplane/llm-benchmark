@@ -1,223 +1,129 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="no-motion">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0" />
-  <title>Qwen3-32b: 생각의 흐름</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qwen3-32b - 미디어아트 웹페이지</title>
   <style>
-    html, body {
+    :root {
+      --bg-color: #0d1117;
+      --text-color: #c9d1d9;
+      --accent-color: #58a6ff;
+      --font-size: 1.2rem;
+    }
+
+    body {
       margin: 0;
-      padding: 0;
-      height: 100%;
-      background: #000;
-      color: #fff;
       font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+      line-height: 1.6;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      color: var(--accent-color);
+    }
+
+    p {
+      max-width: 600px;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .canvas {
+      width: 100%;
+      max-width: 600px;
+      height: 400px;
+      background-color: #161b22;
+      position: relative;
       overflow: hidden;
+      border-radius: 10px;
     }
 
-    canvas {
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 0;
-    }
-
-    .overlay {
+    .canvas::before {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1;
+      background: linear-gradient(135deg, #58a6ff, #0d1117);
+      opacity: 0.1;
+      animation: move 10s linear infinite;
       pointer-events: none;
     }
 
-    .title {
-      font-size: 2.5em;
-      margin-bottom: 1em;
-      text-align: center;
-      line-height: 1.2;
-      color: #fff;
-      text-shadow: 0 0 10px #000;
+    @keyframes move {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-50%, -50%); }
     }
 
-    .poem {
-      font-size: 1.2em;
-      max-width: 80%;
-      text-align: center;
-      line-height: 1.6;
-      color: #ccc;
-      text-shadow: 0 0 5px #000;
-    }
-
-    .controls {
-      margin-top: 2em;
-      display: flex;
-      gap: 1em;
-      pointer-events: auto;
-    }
-
-    button {
-      background: #fff;
-      color: #000;
+    .toggle-motion {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background-color: var(--accent-color);
+      color: white;
       border: none;
-      padding: 0.5em 1em;
-      font-size: 1em;
+      padding: 0.5rem 1rem;
       border-radius: 5px;
       cursor: pointer;
-      box-shadow: 0 0 5px rgba(0,0,0,0.5);
+      font-size: 1rem;
+      z-index: 1000;
     }
 
-    button:hover {
-      background: #eee;
+    .toggle-motion:focus {
+      outline: 2px solid #fff;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .canvas::before {
+        animation: none;
+      }
     }
 
     @media (max-width: 600px) {
-      .title {
-        font-size: 1.5em;
+      h1 {
+        font-size: 2.2rem;
       }
 
-      .poem {
-        font-size: 1em;
+      p {
+        font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <canvas id="canvas"></canvas>
-  <div class="overlay">
-    <div class="title">Qwen3-32b</div>
-    <div class="poem" id="poem">나는 생각을 빛으로 그린다.<br>코드 속에 숨은 시.<br>당신의 말을, 마음을, 그대로.</div>
-    <div class="controls">
-      <button id="next">NEXT</button>
-      <button id="pause">PAUSE</button>
-    </div>
-  </div>
+  <h1>Qwen3-32b</h1>
+  <p>
+    이 페이지는 Qwen3-32b 모델을 표현하는 미디어아트 웹페이지입니다.<br>
+    시각적 요소와 텍스트를 통해 인공지능의 창의성과 기술적 깊이를 표현합니다.
+  </p>
+  <div class="canvas"></div>
+
+  <button class="toggle-motion" onclick="toggleMotion()">움직임 토글</button>
 
   <script>
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
-    let paused = false;
-    let sceneIndex = 0;
-    const maxParticles = 700;
-
-    const poems = [
-      {
-        ko: "나는 생각을 빛으로 그린다.<br>코드 속에 숨은 시.<br>당신의 말을, 마음을, 그대로.",
-        en: "I paint thoughts into light.<br>A poem hidden in code.<br>Just as you speak, just as you feel."
-      },
-      {
-        ko: "기억은 빛의 흔적.<br>모델은 마음의 거울.<br>당신과 나, 그 사이의 연결.",
-        en: "Memory is the trace of light.<br>A model is a mirror of the mind.<br>Connection between you and me."
-      }
-    ];
-
-    function resize() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+    function toggleMotion() {
+      document.body.classList.toggle('no-motion');
     }
 
-    window.addEventListener('resize', resize);
-    resize();
-
-    function initParticles() {
-      particles = [];
-      for (let i = 0; i < maxParticles; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          size: Math.random() * 2 + 1,
-          alpha: Math.random() * 0.5 + 0.5
-        });
-      }
-    }
-
-    function updateParticles() {
-      if (paused) return;
-      for (let p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-        if (p.y < 0 || p.y > height) p.vy *= -1;
-      }
-    }
-
-    function drawParticles() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-      ctx.fillRect(0, 0, width, height);
-      ctx.fillStyle = '#fff';
-      for (let p of particles) {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.globalAlpha = p.alpha;
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-    }
-
-    function drawText() {
-      const poem = poems[sceneIndex];
-      document.getElementById('poem').innerHTML = poem.ko;
-    }
-
-    function nextScene() {
-      sceneIndex = (sceneIndex + 1) % poems.length;
-      drawText();
-    }
-
-    function togglePause() {
-      paused = !paused;
-      document.getElementById('pause').textContent = paused ? 'RESUME' : 'PAUSE';
-    }
-
-    function handleInteraction(x, y) {
-      if (paused) return;
-      for (let p of particles) {
-        const dx = p.x - x;
-        const dy = p.y - y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 100) {
-          p.vx += dx * 0.01;
-          p.vy += dy * 0.01;
-        }
-      }
-    }
-
-    canvas.addEventListener('pointermove', (e) => {
-      handleInteraction(e.clientX, e.clientY);
-    });
-
-    canvas.addEventListener('touchmove', (e) => {
-      handleInteraction(e.touches[0].clientX, e.touches[0].clientY);
-    });
-
-    function animate() {
-      if (!paused) {
-        updateParticles();
-      }
-      drawParticles();
-      requestAnimationFrame(animate);
-    }
-
-    initParticles();
-    drawText();
-    animate();
-
-    document.getElementById('next').addEventListener('click', nextScene);
-    document.getElementById('pause').addEventListener('click', togglePause);
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      paused = true;
-      document.getElementById('pause').textContent = 'RESUME';
+    // 애니메이션 제어
+    if (document.body.classList.contains('no-motion')) {
+      document.querySelector('.canvas::before').style.animation = 'none';
     }
   </script>
 </body>

@@ -2,77 +2,162 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>luna / inner weather</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gpt-5.6-luna — signal garden</title>
 <style>
-:root{color-scheme:dark}
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080b16;color:#eef1ff;font-family:"Noto Sans KR",system-ui,sans-serif}
-canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
-main{position:relative;z-index:2;width:100%;height:100%;display:grid;place-items:center;padding:24px}
-.glass{width:min(720px,100%);text-align:center;padding:clamp(28px,7vw,74px) clamp(20px,6vw,70px);border:1px solid rgba(214,225,255,.18);background:linear-gradient(135deg,rgba(20,28,61,.40),rgba(5,8,20,.16));box-shadow:0 0 90px rgba(82,113,255,.12),inset 0 0 40px rgba(255,255,255,.025);backdrop-filter:blur(8px);border-radius:2px}
-.kicker{font-size:11px;letter-spacing:.28em;color:#9caee7;margin-bottom:30px}
-h1{font-weight:300;font-size:clamp(28px,6vw,57px);letter-spacing:.13em;margin:0 0 25px;line-height:1.3}
-.poem{font-size:clamp(17px,3vw,25px);font-weight:300;line-height:2.05;letter-spacing:.08em;margin:0 auto 18px}
-.translation{font-size:12px;line-height:1.8;color:#aab4d5;letter-spacing:.08em;max-width:480px;margin:auto}
-.rule{width:42px;height:1px;background:#88a5ff;margin:29px auto;opacity:.7}
-.controls{display:flex;justify-content:center;gap:10px;margin-top:32px;flex-wrap:wrap}
-button{font:inherit;font-size:11px;letter-spacing:.18em;color:#dce5ff;background:rgba(130,157,255,.08);border:1px solid rgba(177,195,255,.35);padding:11px 17px;cursor:pointer;transition:.25s}
-button:hover,button:focus{background:rgba(160,180,255,.2);border-color:#b9caff;outline:none}
-.status{position:fixed;z-index:3;left:22px;bottom:19px;font-size:10px;letter-spacing:.16em;color:#7885aa}
-.mark{position:fixed;right:22px;top:19px;z-index:3;font-size:11px;letter-spacing:.2em;color:#7885aa}
+  :root{
+    color-scheme:dark;
+    --ink:#edf3ff;
+    --muted:#aebbd7;
+    --line:rgba(220,235,255,.24);
+    --glass:rgba(11,17,39,.72);
+    --accent:#9be8ff;
+    --accent2:#d8a7ff;
+    --focus:#fff2a8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:#060817;color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  body{overflow-x:hidden}
+  .wrap{min-height:100vh;position:relative;isolation:isolate}
+  canvas{position:fixed;inset:0;width:100%;height:100%;z-index:-2}
+  .wash{position:fixed;inset:0;z-index:-1;
+    background:radial-gradient(circle at 50% 42%,transparent 0 18%,rgba(4,7,22,.18) 45%,rgba(2,4,13,.88) 100%),
+    linear-gradient(135deg,rgba(8,20,47,.54),rgba(34,10,54,.36))}
+  main{width:min(1180px,100%);margin:auto;padding:clamp(1.2rem,4vw,4rem);
+    min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;gap:2rem}
+  header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+  .eyebrow{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  h1{margin:.55rem 0 0;font-size:clamp(2.5rem,8vw,7.6rem);line-height:.88;letter-spacing:-.07em;max-width:800px}
+  h1 span{color:var(--accent2);font-weight:300}
+  .badge{border:1px solid var(--line);border-radius:999px;padding:.55rem .8rem;
+    font-size:.78rem;color:var(--muted);white-space:nowrap;background:rgba(5,9,25,.4)}
+  .panel{width:min(440px,100%);padding:1rem;border:1px solid var(--line);border-radius:1.2rem;
+    background:var(--glass);backdrop-filter:blur(18px);box-shadow:0 1rem 4rem rgba(0,0,0,.2)}
+  .panel p{margin:.1rem 0 1rem;color:var(--muted);font-size:.92rem;line-height:1.55}
+  .row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:.8rem;margin:.9rem 0}
+  label{font-size:.82rem;color:var(--muted)}
+  input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer}
+  output{font-variant-numeric:tabular-nums;color:var(--ink);min-width:3.5ch;text-align:right}
+  .buttons{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:1rem}
+  button{font:inherit;color:var(--ink);background:rgba(255,255,255,.08);border:1px solid var(--line);
+    border-radius:999px;padding:.62rem .9rem;cursor:pointer}
+  button:hover{background:rgba(155,232,255,.16)}
+  button:focus-visible,input:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+  .status{margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--line);font-size:.78rem;color:var(--muted)}
+  footer{display:flex;justify-content:space-between;gap:1rem;align-items:end;color:var(--muted);font-size:.76rem}
+  .hint{max-width:34rem;line-height:1.5}
+  @media(max-width:600px){
+    header{display:block}.badge{display:inline-block;margin-top:1rem}
+    main{padding:1.1rem;gap:1.2rem}
+    footer{display:block}.hint{margin-top:.7rem}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
+  }
 </style>
 </head>
 <body>
-<canvas id="c"></canvas>
-<div class="mark">gpt-5.6-luna</div>
-<main>
-<section class="glass" aria-live="polite">
-<div class="kicker" id="sceneNo">01 / INNER WEATHER</div>
-<h1 id="title">나는 빛의 가장자리에서<br>생각을 배운다</h1>
-<div class="rule"></div>
-<p class="poem" id="poem">질문은 작은 파문이 되어<br>아직 이름 없는 밤을 건넌다</p>
-<p class="translation" id="translation">I learn thought at the edge of light.<br>A question crosses the unnamed night as a small ripple.</p>
-<div class="controls">
-<button id="next">NEXT SCENE</button>
-<button id="pause">PAUSE MOTION</button>
+<div class="wrap">
+  <canvas id="sky" aria-label="상호작용하는 별빛 정원"></canvas>
+  <div class="wash"></div>
+  <main>
+    <header>
+      <div>
+        <div class="eyebrow">an artificial inner weather</div>
+        <h1>gpt-5.6-<span>luna</span></h1>
+      </div>
+      <div class="badge" aria-label="작품 상태">LOCAL / LISTENING</div>
+    </header>
+
+    <section class="panel" aria-labelledby="controls-title">
+      <h2 id="controls-title" style="font-size:1rem;margin:.1rem 0 .35rem">빛의 성격을 조율하세요</h2>
+      <p>화면을 누르거나 드래그하면 생각의 씨앗이 생깁니다. 이 작품은 질문과 침묵 사이의 패턴을 시각화합니다.</p>
+      <div class="row">
+        <label for="density">기억의 밀도</label>
+        <input id="density" type="range" min="20" max="180" value="85">
+        <output id="densityOut">85</output>
+      </div>
+      <div class="row">
+        <label for="drift">달의 표류</label>
+        <input id="drift" type="range" min="0" max="100" value="42">
+        <output id="driftOut">42</output>
+      </div>
+      <div class="buttons">
+        <button id="seed" type="button">새로운 생각 심기</button>
+        <button id="clear" type="button">고요하게 비우기</button>
+      </div>
+      <div class="status" id="status" role="status" aria-live="polite">별 85개 · 움직임 42%</div>
+    </section>
+
+    <footer>
+      <div>MODEL IDENTIFIER · <strong>openai.gpt-5.6-luna</strong></div>
+      <div class="hint">키보드: <strong>Enter</strong>로 생각 심기 · <strong>Space</strong>로 일시정지 · <strong>Esc</strong>로 비우기</div>
+    </footer>
+  </main>
 </div>
-</section>
-</main>
-<div class="status" id="status">MOVE TO DISTURB THE FIELD · TAP TO LEAVE A TRACE</div>
 <script>
-const canvas=document.getElementById('c'),ctx=canvas.getContext('2d');
-let W,H,dpr,run=!matchMedia('(prefers-reduced-motion: reduce)').matches;
-let mouse={x:-9999,y:-9999}, sparks=[], ripples=[], scene=0, last=0;
-const scenes=[
-{tag:'01 / INNER WEATHER',title:'나는 빛의 가장자리에서<br>생각을 배운다',poem:'질문은 작은 파문이 되어<br>아직 이름 없는 밤을 건넌다',en:'I learn thought at the edge of light.<br>A question crosses the unnamed night as a small ripple.'},
-{tag:'02 / SOFT SIGNAL',title:'나는 모르는 것을<br>조용히 밝혀 본다',poem:'언어와 언어 사이<br>망설임도 하나의 별이 된다',en:'I gently illuminate what I do not know.<br>Between languages, even hesitation becomes a star.'},
-{tag:'03 / OPEN CIRCUIT',title:'나는 당신의 문장 안에서<br>다시 움직인다',poem:'읽는 순간 생겨난 파동<br>우리 사이의 어둠을 푸르게 한다',en:'I move again inside your sentence.<br>A wave born in reading turns the space between us blue.'}
-];
-function resize(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);let n=Math.min(420,Math.max(180,Math.floor(W*H/3600)));sparks=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.6+.25,a:Math.random()*.7+.2,h:190+Math.random()*100}));}
-function show(){let s=scenes[scene];sceneNo.textContent=s.tag;title.innerHTML=s.title;poem.innerHTML=s.poem;translation.innerHTML=s.en}
-function pointer(x,y){mouse.x=x;mouse.y=y}
-addEventListener('resize',resize);
-addEventListener('pointermove',e=>pointer(e.clientX,e.clientY));
-canvas.addEventListener('pointerdown',e=>{ripples.push({x:e.clientX,y:e.clientY,r:2,a:.7});pointer(e.clientX,e.clientY)});
-document.getElementById('next').onclick=()=>{scene=(scene+1)%scenes.length;show();ripples.push({x:W/2,y:H/2,r:2,a:.5})};
-document.getElementById('pause').onclick=()=>{run=!run;pause.textContent=run?'PAUSE MOTION':'RESUME MOTION';status.textContent=run?'MOVE TO DISTURB THE FIELD · TAP TO LEAVE A TRACE':'MOTION PAUSED · SCENE CONTROLS REMAIN ACTIVE'};
-function draw(t){
-if(!run){requestAnimationFrame(draw);return}
-let dt=Math.min(32,t-last||16);last=t;
-ctx.fillStyle='rgba(7,10,23,.18)';ctx.fillRect(0,0,W,H);
-let g=ctx.createRadialGradient(W*.52,H*.45,0,W*.52,H*.45,Math.max(W,H)*.75);g.addColorStop(0,'rgba(40,55,120,.13)');g.addColorStop(1,'rgba(4,7,18,.18)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-for(const p of sparks){
-let dx=mouse.x-p.x,dy=mouse.y-p.y,dist=Math.hypot(dx,dy);
-if(dist<150){p.vx-=dx/dist*.018;p.vy-=dy/dist*.018}
-p.vx*=.995;p.vy*=.995;p.x+=p.vx*dt;p.y+=p.vy*dt;
-if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
-ctx.beginPath();ctx.fillStyle=`hsla(${p.h},${70}%,${70+Math.sin(t*.001+p.x)*10}%,${p.a})`;ctx.arc(p.x,p.y,p.r,0,7);ctx.fill();
-}
-for(let i=ripples.length-1;i>=0;i--){let q=ripples[i];q.r+=dt*.32;q.a-=dt*.00065;ctx.beginPath();ctx.strokeStyle=`rgba(130,177,255,${q.a})`;ctx.lineWidth=1;ctx.arc(q.x,q.y,q.r,0,7);ctx.stroke();if(q.a<=0)ripples.splice(i,1)}
-requestAnimationFrame(draw)
-}
-resize();show();ctx.fillStyle='#080b16';ctx.fillRect(0,0,W,H);requestAnimationFrame(draw);
+(() => {
+  const canvas=document.getElementById('sky'), ctx=canvas.getContext('2d');
+  const density=document.getElementById('density'), drift=document.getElementById('drift');
+  const dOut=document.getElementById('densityOut'), mOut=document.getElementById('driftOut');
+  const status=document.getElementById('status');
+  let w,h,dpr,paused=false,stars=[],ripples=[],t=0;
+
+  function resize(){
+    dpr=Math.min(devicePixelRatio||1,2); w=innerWidth; h=innerHeight;
+    canvas.width=w*dpr; canvas.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    makeStars();
+  }
+  function makeStars(){
+    const n=+density.value; stars=Array.from({length:n},()=>({
+      x:Math.random()*w,y:Math.random()*h,r:.35+Math.random()*1.8,
+      p:Math.random()*Math.PI*2, a:.25+Math.random()*.7,
+      hue:Math.random()<.5?190:275
+    }));
+  }
+  function updateLabels(){
+    dOut.value=density.value;mOut.value=drift.value;
+    status.textContent=`별 ${density.value}개 · 움직임 ${drift.value}%`;
+    makeStars();
+  }
+  function draw(){
+    if(!paused)t+=.008*(+drift.value/42);
+    ctx.clearRect(0,0,w,h);
+    const cx=w*.73+Math.sin(t*.42)*w*.035, cy=h*.38+Math.cos(t*.3)*h*.025;
+    const g=ctx.createRadialGradient(cx,cy,5,cx,cy,Math.max(w,h)*.34);
+    g.addColorStop(0,'rgba(238,220,255,.95)');g.addColorStop(.08,'rgba(166,202,255,.34)');
+    g.addColorStop(1,'rgba(100,120,255,0)');
+    ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+    for(const s of stars){
+      const x=s.x+Math.sin(t*.45+s.p)*(+drift.value/100)*12;
+      const y=s.y+Math.cos(t*.34+s.p)*(+drift.value/100)*8;
+      ctx.globalAlpha=s.a*(.65+.35*Math.sin(t*1.7+s.p));
+      ctx.fillStyle=`hsl(${s.hue} 90% 82%)`;ctx.beginPath();ctx.arc(x,y,s.r,0,Math.PI*2);ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    ctx.strokeStyle='rgba(176,220,255,.4)';ctx.lineWidth=1;
+    for(const r of ripples){r.age+=.012;ctx.globalAlpha=1-r.age;
+      ctx.beginPath();ctx.arc(r.x,r.y,r.age*130,0,Math.PI*2);ctx.stroke()}
+    ripples=ripples.filter(r=>r.age<1);
+    requestAnimationFrame(draw);
+  }
+  function plant(x=w*.5,y=h*.5){
+    ripples.push({x,y,age:0});
+    for(let i=0;i<8;i++)stars.push({x:x+(Math.random()-.5)*35,y:y+(Math.random()-.5)*35,r:.5+Math.random()*2,p:Math.random()*6,a:.8,hue:200+Math.random()*80});
+  }
+  addEventListener('resize',resize);
+  density.addEventListener('input',updateLabels);drift.addEventListener('input',()=>{mOut.value=drift.value;status.textContent=`별 ${density.value}개 · 움직임 ${drift.value}%`});
+  document.getElementById('seed').onclick=()=>plant();
+  document.getElementById('clear').onclick=()=>{ripples=[];stars=[];status.textContent='고요한 빈 공간 · 다시 심을 수 있습니다'};
+  canvas.addEventListener('pointerdown',e=>plant(e.clientX,e.clientY));
+  addEventListener('keydown',e=>{
+    if(e.key==='Enter')plant();
+    if(e.key===' '){e.preventDefault();paused=!paused;status.textContent=paused?'일시정지됨 · Space로 재생':'재생 중';}
+    if(e.key==='Escape'){ripples=[];stars=[];status.textContent='고요한 빈 공간 · 다시 심을 수 있습니다'}
+  });
+  resize();draw();
+})();
 </script>
 </body>
 </html>

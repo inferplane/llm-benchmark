@@ -1,0 +1,170 @@
+다음은 **Qwen3-32b** 모델을 표현하는 **독창적인 미디어아트 웹페이지**입니다. 이 페이지는 모델의 이름, 특성, 그리고 창의적인 시각적 요소를 결합하여 표현합니다. 모든 코드는 단일 HTML 파일에 포함되어 있으며, 접근성, 반응형 디자인, 움직임 감소, 키보드 조작 등을 고려하여 구현되었습니다.
+
+---
+
+### ✅ 주요 특징
+- **모델 이름 "qwen3-32b"** 표시
+- **반응형 디자인** (모바일 및 데스크탑 지원)
+- **움직임 감소 옵션** (CSS 애니메이션 제어)
+- **접근성 고려** (대비, 키보드 조작, 확대 지원)
+- **모든 리소스 내장** (외부 통신 없이 작동)
+
+---
+
+### ✅ HTML 코드
+
+```html
+<!DOCTYPE html>
+<html lang="ko" class="no-motion">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qwen3-32b - 미디어아트 웹페이지</title>
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --text-color: #c9d1d9;
+      --accent-color: #58a6ff;
+      --font-size: 1.2rem;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+      line-height: 1.6;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      color: var(--accent-color);
+    }
+
+    p {
+      max-width: 600px;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .canvas {
+      width: 100%;
+      max-width: 600px;
+      height: 400px;
+      background-color: #161b22;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .canvas::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #58a6ff, #0d1117);
+      opacity: 0.1;
+      animation: move 10s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes move {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-50%, -50%); }
+    }
+
+    .toggle-motion {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      z-index: 1000;
+    }
+
+    .toggle-motion:focus {
+      outline: 2px solid #fff;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .canvas::before {
+        animation: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Qwen3-32b</h1>
+  <p>
+    이 페이지는 Qwen3-32b 모델을 표현하는 미디어아트 웹페이지입니다.<br>
+    시각적 요소와 텍스트를 통해 인공지능의 창의성과 기술적 깊이를 표현합니다.
+  </p>
+  <div class="canvas"></div>
+
+  <button class="toggle-motion" onclick="toggleMotion()">움직임 토글</button>
+
+  <script>
+    function toggleMotion() {
+      document.body.classList.toggle('no-motion');
+    }
+
+    // 애니메이션 제어
+    if (document.body.classList.contains('no-motion')) {
+      document.querySelector('.canvas::before').style.animation = 'none';
+    }
+  </script>
+</body>
+</html>
+```
+
+---
+
+### ✅ 사용 방법
+
+1. 위 코드를 `.html` 파일로 저장하세요.
+2. 브라우저에서 열거나, **sandbox iframe** 환경에서 실행하세요.
+3. 모바일 및 데스크탑 화면에서 테스트 가능.
+4. **"움직임 토글"** 버튼을 눌러 애니메이션을 활성화/비활성화할 수 있습니다.
+
+---
+
+### ✅ 접근성 요소
+
+- **대비 높은 색상** (다크 배경 + 밝은 텍스트)
+- **폰트 크기 조정 가능** (`--font-size` CSS 변수)
+- **모션 감소 지원** (`prefers-reduced-motion`)
+- **키보드 조작** (버튼은 `tab`으로 접근 가능)
+- **화면 확대** (CSS `zoom` 또는 브라우저 확대 기능 지원)
+
+---
+
+이 페이지는 Qwen3-32b 모델의 정체성을 시각화하고, 기술과 예술의 융합을 표현한 예술 작품입니다.

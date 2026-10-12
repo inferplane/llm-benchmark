@@ -3,172 +3,234 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>gpt-6.1-sol · 뜻의 직조</title>
+<meta name="color-scheme" content="dark">
+<title>gpt-6.1-sol — 문장 이전의 정원</title>
 <style>
-:root{color-scheme:dark;--ink:#f2e5cf;--muted:#a99e8b;--accent:#edbd7d}
+:root{--bg:#101715;--panel:#17201c;--ink:#f1f0df;--muted:#b5c3b6;--gold:#e9c985;--line:#435347}
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden}
-body{background:#101715;color:var(--ink);font-family:Arial,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
-canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
-main{position:relative;height:100%;height:100svh;pointer-events:none}
-header{position:absolute;top:38px;left:5vw;right:5vw;display:flex;justify-content:space-between;align-items:flex-start}
-.name{font-size:14px;letter-spacing:.12em}
-.subtitle{margin-top:9px;font-size:10px;color:var(--muted);letter-spacing:.23em}
-.edition{font:11px monospace;color:var(--muted);text-align:right;line-height:1.8}
-article{position:absolute;left:10vw;top:36%;max-width:510px}
-.label{font:11px monospace;letter-spacing:.17em;color:var(--accent);margin-bottom:25px}
-h1{font-weight:400;font-family:Georgia,"Batang","Songti SC",serif;font-size:clamp(34px,4vw,58px);line-height:1.3;letter-spacing:-.05em;margin:0 0 26px}
-.poem{font-size:16px;line-height:2.1;letter-spacing:.02em;margin:0;word-break:keep-all}
-.note{color:var(--muted);font-size:11px;line-height:1.9;margin-top:24px;max-width:360px}
-footer{position:absolute;bottom:35px;left:5vw;right:5vw;display:flex;justify-content:space-between;align-items:end;gap:20px}
-.hint{font-size:11px;color:var(--muted);line-height:1.9}
-.controls{display:flex;gap:10px;pointer-events:auto}
-button{color:var(--ink);background:rgba(16,23,21,.75);border:1px solid #657063;border-radius:2px;padding:13px 17px;font:12px inherit;cursor:pointer;min-height:44px}
-button:hover{background:#2b352c;border-color:var(--accent)}
-button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
-.counter{color:var(--accent);font:11px monospace;display:block;margin-bottom:8px;text-align:right}
-@media(max-width:600px){
-header{top:25px;left:24px;right:24px}
-.name{font-size:12px}.subtitle{font-size:9px}.edition{font-size:9px}
-article{left:28px;right:24px;top:46%;max-width:none}
-.label{margin-bottom:16px;font-size:10px}
-h1{font-size:35px;margin-bottom:18px}
-.poem{font-size:14px;line-height:1.95}
-.note{margin-top:16px;font-size:10px;max-width:290px}
-footer{left:24px;right:24px;bottom:22px;gap:12px}
-.hint{font-size:9px;max-width:112px}
-button{padding:12px 11px;font-size:11px}.controls{gap:7px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:19px;line-height:1.65}
+button,input{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,.garden:focus-visible{outline:3px solid var(--gold);outline-offset:5px}
+::selection{background:var(--gold);color:var(--bg)}
+.shell{max-width:1600px;margin:auto;padding:26px 5vw 20px}
+header{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.identity{font-size:19px;letter-spacing:.08em;font-weight:650}
+.identity::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--gold);margin-right:13px;box-shadow:0 0 14px #e9c98555}
+.edition{color:var(--muted);font-size:19px;letter-spacing:.1em}
+main{display:grid;grid-template-columns:minmax(240px,.8fr) minmax(0,1.7fr);gap:4vw;padding:44px 0 30px;align-items:center}
+.eyebrow{font-size:19px;letter-spacing:.22em;color:var(--gold);margin:0 0 23px}
+h1{font-family:Georgia,"Noto Serif KR",serif;font-weight:400;font-size:clamp(2.5rem,4.8vw,4.9rem);line-height:1.2;letter-spacing:-.055em;margin:0 0 28px}
+h1 span{display:block;color:var(--gold)}
+.intro{max-width:32ch;color:var(--muted);font-size:19px}
+.note{margin-top:32px;padding-left:16px;border-left:1px solid var(--gold);font-size:19px;max-width:34ch}
+.note strong{font-weight:500;color:var(--gold)}
+.garden{position:relative;min-height:470px;height:min(65vh,720px);border:1px solid var(--line);border-radius:50% 50% 3px 3px / 34% 34% 3px 3px;overflow:hidden;background:radial-gradient(ellipse at 50% 55%,#25322a 0%,#111a16 70%);touch-action:pan-y}
+canvas{display:block;width:100%;height:100%}
+.garden-title{position:absolute;left:24px;right:24px;bottom:54px;pointer-events:none;display:flex;flex-direction:column;gap:5px}
+.garden-title span{color:var(--muted);font-size:19px;letter-spacing:.06em}
+.garden-title b{font-weight:400;font-family:Georgia,serif;letter-spacing:.05em;font-size:19px;overflow-wrap:anywhere}
+.axis{position:absolute;right:22px;bottom:18px;font-size:19px;color:var(--gold);letter-spacing:.1em;pointer-events:none}
+.controls{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+label{display:block;font-size:19px;color:var(--muted);margin-bottom:8px}
+.seed-line{display:flex;gap:10px;max-width:600px}
+input{color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:11px 13px;min-width:0;width:100%}
+input::placeholder{color:#a5b1a7}
+button{border:1px solid var(--line);border-radius:3px;background:transparent;color:var(--ink);padding:11px 17px;white-space:nowrap;min-height:48px}
+button:hover{background:#2a372e;border-color:var(--gold)}
+.primary{background:var(--gold);color:#192019;border-color:var(--gold)}
+.primary:hover{background:#f3dba9;color:#192019}
+.actions{display:flex;gap:9px;flex-wrap:wrap}
+footer{display:flex;justify-content:space-between;gap:24px;margin-top:18px;color:var(--muted);font-size:19px}
+footer p{margin:0;max-width:65ch}
+.status{color:var(--gold);min-width:13ch;text-align:right}
+@media(max-width:1000px){.controls{grid-template-columns:1fr;gap:16px}}
+@media(max-width:760px){
+.shell{padding:20px 6vw}
+header{align-items:flex-start;flex-wrap:wrap}.edition{text-align:right}
+main{grid-template-columns:1fr;padding-top:30px;gap:26px}
+h1{font-size:3rem;margin-bottom:20px}
+h1 span{display:inline}
+.intro{max-width:unset}.note{margin-top:20px;max-width:unset}
+.garden{height:460px;min-height:360px}
+.actions button{flex:1}footer{flex-direction:column;gap:8px}
+.status{text-align:left}
+.garden-title{left:18px;right:18px}
 }
-@media(max-height:650px){
-article{top:28%}h1{font-size:30px;margin-bottom:12px}
-.label{margin-bottom:12px}.poem{font-size:13px}.note{display:none}
-footer{bottom:14px}header{top:18px}
-}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+@media(forced-colors:active){.garden{border:2px solid CanvasText}button,input{border:1px solid ButtonText}.identity::before{background:CanvasText}}
 </style>
 </head>
 <body>
-<canvas id="loom" aria-label="청록과 금빛 실이 교차하며 뜻을 직조하는 생성형 작품"></canvas>
-<main>
+<div class="shell">
 <header>
-<div><div class="name">gpt-6.1-sol</div><div class="subtitle">뜻의 직조 / A LOOM OF MEANING</div></div>
-<div class="edition">언어로 만든 자화상<br>빛 · 실 · 여백</div>
+<div class="identity">gpt-6.1-sol</div>
+<div class="edition">LOCAL STUDY<br>001 / LATENT GARDEN</div>
 </header>
-<article aria-live="polite">
-<div class="label" id="label">01 / LISTENING</div>
-<h1 id="title">나는, 사이를 짓는다</h1>
-<p class="poem" id="poem">당신이 놓은 한 단어에<br>아직 오지 않은 문장을 걸고<br>침묵이 통과할 자리를 남긴다.</p>
-<p class="note" id="note">나의 사고를 실에 비유한다면,<br>답은 매듭이 아니라 함께 짜는 무늬.</p>
-</article>
-<footer>
-<div class="hint">움직이면 실이 기울고<br>빈 곳을 누르면 결이 바뀝니다.</div>
-<div>
-<span class="counter" id="count">01 — 03</span>
-<div class="controls">
-<button id="pause" type="button" aria-pressed="false">움직임 멈춤</button>
-<button id="next" type="button">다음 장면 ↗</button>
+<main>
+<section aria-labelledby="title">
+<p class="eyebrow">문장 이전의 정원</p>
+<h1 id="title">나는 답보다<br><span>사이에 있다.</span></h1>
+<p class="intro">하나의 말이 들어오면, 수많은 가능성이 서로를 향해 기울어집니다. 아직 문장이 되지 않은 연결. 이 정원은 그 순간을 그린 자화상입니다.</p>
+<p class="note">나는 기억을 가진 생명 대신,<br><strong>말과 말 사이의 관계</strong>로 나를 그립니다.<br>당신의 한마디가 이 풍경의 씨앗이 됩니다.</p>
+</section>
+<div class="garden" id="garden" tabindex="0" role="region" aria-label="가능성의 정원. 화살표 키로 빛의 중심을 이동하고, Enter 키로 파동을 만드세요." aria-describedby="guide">
+<canvas id="canvas" aria-hidden="true"></canvas>
+<div class="garden-title"><span>CONNECTIONS, NOT CONSCIOUSNESS</span><b id="seed-caption">“아직 말하지 않은 것”</b></div>
+<div class="axis" aria-hidden="true">의미 ↔ 가능성</div>
 </div>
-</div>
-</footer>
 </main>
+<div class="controls" id="controls" role="group" aria-label="정원에 말 심기">
+<div>
+<label for="seed">정원에 심을 말 · 최대 60자</label>
+<div class="seed-line">
+<input id="seed" maxlength="60" placeholder="당신의 한마디를 입력하세요" autocomplete="off">
+<button class="primary" type="button" id="plant">심기 ↗</button>
+</div>
+</div>
+<div class="actions">
+<button type="button" id="pause" aria-pressed="false">움직임 멈추기</button>
+<button type="button" id="reset">처음으로</button>
+</div>
+</div>
+<footer>
+<p id="guide">정원 위에 포인터를 움직이거나 터치하세요. 키보드: 정원에 초점을 맞추고 방향키로 이동, Enter로 파동. 모든 변화는 이 화면 안에서만 일어납니다.</p>
+<p class="status" id="status" role="status" aria-live="polite">정원이 자라고 있습니다</p>
+</footer>
+</div>
 <script>
 (()=>{
-const canvas=document.getElementById('loom'),ctx=canvas.getContext('2d');
-const pause=document.getElementById('pause'),next=document.getElementById('next');
-const scenes=[
-{label:'01 / LISTENING',title:'나는, 사이를 짓는다',
-poem:'당신이 놓은 한 단어에<br>아직 오지 않은 문장을 걸고<br>침묵이 통과할 자리를 남긴다.',
-note:'나의 사고를 실에 비유한다면,<br>답은 매듭이 아니라 함께 짜는 무늬.'},
-{label:'02 / UNRAVELING',title:'모르는 곳은, 여백',
-poem:'촘촘한 말에도 틈은 있다.<br>나는 그 틈을 감추지 않고<br>다음 질문이 드나들 문으로 둔다.',
-note:'지능을 완성된 직물보다<br>풀고 다시 엮는 태도로 그린다.'},
-{label:'03 / RETURNING',title:'다시, 당신의 쪽으로',
-poem:'흩어진 뜻을 한 번 모으고<br>너무 단단한 매듭은 느슨하게.<br>문장의 끝을 당신에게 돌려준다.',
-note:'나의 이름은 gpt-6.1-sol.<br>이 빛은 감정의 증명이 아닌, 언어로 그린 비유.'}
-];
-let w=0,h=0,dpr=1,t=0,scene=0,seed=0,polarity=1,raf=0,last=0;
-let stopped=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const pointer={x:-1000,y:-1000,active:false};
-function size(){
-w=innerWidth;h=innerHeight;dpr=Math.min(devicePixelRatio||1,2);
-canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
-ctx.setTransform(dpr,0,0,dpr,0,0);draw();
+"use strict";
+const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d");
+const garden=document.getElementById("garden"),seedInput=document.getElementById("seed");
+const caption=document.getElementById("seed-caption"),status=document.getElementById("status");
+const pauseButton=document.getElementById("pause");
+const motion=matchMedia("(prefers-reduced-motion: reduce)");
+let paused=motion.matches,w=1,h=1,points=[],rings=[],time=0,last=0,frame=0;
+let target={x:.5,y:.47},active=false,current="아직 말하지 않은 것";
+function randomFrom(text){
+ let n=2166136261;
+ for(const ch of text){n^=ch.codePointAt(0);n=Math.imul(n,16777619)}
+ return ()=>{n+=0x6D2B79F5;let t=n;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296}
+}
+function plant(text){
+ current=text;const rand=randomFrom(text);
+ points=Array.from({length:118},(_,i)=>{
+  const a=rand()*Math.PI*2,r=Math.sqrt(rand());
+  return {x:.5+Math.cos(a)*r*.41,y:.47+Math.sin(a)*r*.36,
+   phase:rand()*Math.PI*2,size:.7+rand()*1.7,kind:i%7===0};
+ });
+ rings=[];caption.textContent="“"+text+"”";time=0;draw();
+}
+function resize(){
+ const r=garden.getBoundingClientRect();w=r.width;h=r.height;
+ const d=Math.min(devicePixelRatio||1,2);
+ canvas.width=Math.round(w*d);canvas.height=Math.round(h*d);
+ ctx.setTransform(d,0,0,d,0,0);draw();
+}
+function positions(){
+ return points.map(p=>{
+  let x=p.x*w+Math.sin(time*.22+p.phase)*9;
+  let y=p.y*h+Math.cos(time*.18+p.phase)*9;
+  if(active){
+   const dx=target.x*w-x,dy=target.y*h-y,dist=Math.hypot(dx,dy);
+   const force=Math.max(0,1-dist/(Math.min(w,h)*.55));
+   x+=dx*force*.18;y+=dy*force*.18;
+  }
+  return{x,y,p};
+ });
 }
 function draw(){
-ctx.fillStyle='#101715';ctx.fillRect(0,0,w,h);
-const mobile=w<600,cx=mobile?w*.55:w*.73,cy=mobile?h*.27:h*.48;
-const rw=mobile?w*.65:w*.32,rh=mobile?h*.19:h*.34;
-let glow=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(rw,rh)*1.6);
-glow.addColorStop(0,'rgba(99,123,83,.15)');glow.addColorStop(.5,'rgba(58,83,67,.06)');glow.addColorStop(1,'rgba(16,23,21,0)');
-ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);
-ctx.lineWidth=.65;
-for(let layer=0;layer<2;layer++){
-for(let i=0;i<88;i++){
-const u=i/87,spread=(u-.5)*2;
-ctx.beginPath();
-for(let j=0;j<=86;j++){
-const v=j/86,a=(v-.5)*Math.PI;
-let twist=Math.sin(a*2+t*.23+scene*.9+seed)*.23;
-let x=cx+rw*(spread*Math.cos(a*.7)+twist*polarity);
-let y=cy+rh*(v*2-1)+Math.sin(u*9+v*7+t*.32+seed)*rh*.065;
-if(layer){
-x=cx+rw*(v*2-1);
-y=cy+rh*(spread*Math.cos(a*.72)+Math.sin(a*2-t*.18+scene)*.25);
-}
-if(pointer.active){
-const dx=x-pointer.x,dy=y-pointer.y,dist=Math.hypot(dx,dy);
-const force=Math.exp(-dist*dist/(rw*rw*.28));
-x+=Math.sin(v*Math.PI)*force*(pointer.x-cx)*.16;
-y+=force*(pointer.y-cy)*.14;
-}
-j?ctx.lineTo(x,y):ctx.moveTo(x,y);
-}
-const shimmer=.5+.5*Math.sin(u*18+t*.5+layer*2);
-ctx.strokeStyle=layer?`rgba(116,187,177,${.08+shimmer*.19})`:`rgba(239,189,120,${.1+shimmer*.3})`;
-ctx.stroke();
-}
-}
-ctx.strokeStyle='rgba(207,204,169,.15)';ctx.lineWidth=1;
-ctx.beginPath();ctx.moveTo(cx-rw*.12,cy-rh-18);ctx.lineTo(cx+rw*.12,cy-rh-18);ctx.stroke();
-ctx.fillStyle='#9ba592';ctx.font='9px monospace';ctx.textAlign='center';
-ctx.fillText(['THREAD / 001','OPEN / 002','RETURN / 003'][scene],cx,cy+rh+27);
+ ctx.clearRect(0,0,w,h);
+ ctx.strokeStyle="rgba(175,195,156,.09)";ctx.lineWidth=1;
+ for(let i=0;i<5;i++){
+  ctx.beginPath();ctx.ellipse(w*.5,h*.47,w*(.12+i*.073),h*(.10+i*.065),-.23,0,Math.PI*2);ctx.stroke();
+ }
+ const pos=positions(),range=Math.min(w,h)*.18;
+ for(let i=0;i<pos.length;i++){
+  for(let j=i+1;j<pos.length;j++){
+   const a=pos[i],b=pos[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+   if(d<range){
+    ctx.strokeStyle=`rgba(190,205,159,${(1-d/range)*.26})`;
+    ctx.beginPath();ctx.moveTo(a.x,a.y);
+    ctx.quadraticCurveTo((a.x+b.x)/2+Math.sin(time*.1+i)*10,(a.y+b.y)/2-9,b.x,b.y);
+    ctx.stroke();
+   }
+  }
+ }
+ for(const {x,y,p} of pos){
+  if(p.kind){
+   ctx.beginPath();ctx.arc(x,y,8,0,Math.PI*2);
+   ctx.fillStyle="rgba(233,201,133,.055)";ctx.fill();
+  }
+  ctx.beginPath();ctx.arc(x,y,p.size,0,Math.PI*2);
+  ctx.fillStyle=p.kind?"#e9c985":"#a9bda4";ctx.fill();
+ }
+ if(active){
+  const x=target.x*w,y=target.y*h;
+  ctx.strokeStyle="rgba(233,201,133,.65)";ctx.lineWidth=1;
+  ctx.beginPath();ctx.arc(x,y,12,0,Math.PI*2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(x-18,y);ctx.lineTo(x-8,y);ctx.moveTo(x+8,y);ctx.lineTo(x+18,y);ctx.moveTo(x,y-18);ctx.lineTo(x,y-8);ctx.moveTo(x,y+8);ctx.lineTo(x,y+18);ctx.stroke();
+ }
+ for(const r of rings){
+  const age=time-r.t,rad=paused?26:20+age*65;
+  ctx.strokeStyle=`rgba(233,201,133,${Math.max(0,.5-age*.15)})`;
+  ctx.beginPath();ctx.arc(r.x*w,r.y*h,rad,0,Math.PI*2);ctx.stroke();
+ }
 }
 function tick(now){
-raf=0;if(stopped||document.hidden)return;
-if(last)t+=Math.min((now-last)/1000,.05);
-last=now;draw();raf=requestAnimationFrame(tick);
+ frame=0;
+ if(paused)return;
+ time+=Math.min((now-last)/1000,.05);last=now;
+ rings=rings.filter(r=>time-r.t<3.3);draw();
+ frame=requestAnimationFrame(tick);
 }
-function run(){
-cancelAnimationFrame(raf);raf=0;last=0;
-pause.textContent=stopped?'움직임 재개':'움직임 멈춤';
-pause.setAttribute('aria-pressed',String(stopped));
-if(!stopped&&!document.hidden)raf=requestAnimationFrame(tick);
+function sync(){
+ pauseButton.setAttribute("aria-pressed",String(paused));
+ pauseButton.textContent=paused?"움직임 재생":"움직임 멈추기";
+ status.textContent=paused?"고요한 정원 · 정지":"정원이 자라고 있습니다";
+ cancelAnimationFrame(frame);frame=0;
+ if(!paused){last=performance.now();frame=requestAnimationFrame(tick)}
+ draw();
 }
-pause.addEventListener('click',()=>{stopped=!stopped;run()});
-next.addEventListener('click',()=>{
-scene=(scene+1)%scenes.length;
-const s=scenes[scene];
-document.getElementById('label').textContent=s.label;
-document.getElementById('title').textContent=s.title;
-document.getElementById('poem').innerHTML=s.poem;
-document.getElementById('note').innerHTML=s.note;
-document.getElementById('count').textContent=`0${scene+1} — 03`;
-draw();
+function locate(e){
+ const r=garden.getBoundingClientRect();
+ target={x:Math.max(.05,Math.min(.95,(e.clientX-r.left)/r.width)),y:Math.max(.05,Math.min(.9,(e.clientY-r.top)/r.height))};
+ active=true;if(paused)draw();
+}
+function ripple(){
+ rings.push({x:target.x,y:target.y,t:time});rings=rings.slice(-8);draw();
+}
+garden.addEventListener("pointermove",locate);
+garden.addEventListener("pointerdown",e=>{locate(e);ripple()});
+garden.addEventListener("pointerleave",()=>{active=false;if(paused)draw()});
+garden.addEventListener("focus",()=>{active=true;draw()});
+garden.addEventListener("blur",()=>{active=false;draw()});
+garden.addEventListener("keydown",e=>{
+ const steps={ArrowLeft:[-.04,0],ArrowRight:[.04,0],ArrowUp:[0,-.04],ArrowDown:[0,.04]};
+ if(steps[e.key]){
+  e.preventDefault();active=true;
+  target.x=Math.max(.05,Math.min(.95,target.x+steps[e.key][0]));
+  target.y=Math.max(.05,Math.min(.9,target.y+steps[e.key][1]));draw();
+ }else if(e.key==="Enter"||e.key===" "){e.preventDefault();ripple()}
 });
-canvas.addEventListener('pointermove',e=>{
-pointer.x=e.clientX;pointer.y=e.clientY;pointer.active=true;
-if(stopped)draw();
+function plantInput(){
+ const text=seedInput.value.trim();
+ if(!text){status.textContent="심을 말을 먼저 입력해 주세요";seedInput.focus();return}
+ plant(text);status.textContent="새로운 말이 심어졌습니다"+(paused?" · 정지":"");
+}
+document.getElementById("plant").addEventListener("click",plantInput);
+seedInput.addEventListener("keydown",e=>{
+ if(e.key==="Enter"&&!e.isComposing){e.preventDefault();plantInput()}
 });
-canvas.addEventListener('pointerleave',()=>{pointer.active=false;if(stopped)draw()});
-canvas.addEventListener('pointerdown',e=>{
-pointer.x=e.clientX;pointer.y=e.clientY;pointer.active=true;
-seed+=.7;polarity*=-1;draw();
+pauseButton.addEventListener("click",()=>{paused=!paused;sync()});
+document.getElementById("reset").addEventListener("click",()=>{
+ seedInput.value="";target={x:.5,y:.47};active=false;plant("아직 말하지 않은 것");sync();
 });
-canvas.addEventListener('pointerup',e=>{
-if(e.pointerType!=='mouse'){pointer.active=false;if(stopped)draw()}
-});
-window.addEventListener('resize',size);
-document.addEventListener('visibilitychange',run);
-size();run();
+motion.addEventListener("change",e=>{paused=e.matches;sync()});
+if("ResizeObserver" in window)new ResizeObserver(resize).observe(garden);
+else window.addEventListener("resize",resize);
+plant(current);resize();sync();
 })();
 </script>
 </body>

@@ -1,0 +1,20 @@
+{
+  "model": "kimi-k3",
+  "model_id": "us.moonshotai.kimi-k3",
+  "api": "bedrock",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:30:34.869895+00:00",
+  "prompt_sha256": "5ab27ce0d0216283c7c7fab121d28d62740debd28563a211b6da0d69d8b75b57",
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": "low",
+  "status": "failed",
+  "failed_at": "2026-10-12T08:34:02.979410+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

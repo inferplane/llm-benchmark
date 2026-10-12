@@ -1,0 +1,22 @@
+{
+  "model": "qwen3.6-27b",
+  "model_id": "Qwen/Qwen3.6-27B",
+  "api": "openai",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T09:17:15.340641+00:00",
+  "prompt_sha256": "e0dd8eb8850458a3a541d31852051ef410abef92266176b28f2aed79e39ed137",
+  "max_output_tokens": 7600,
+  "temperature": 0.3,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "failed",
+  "failed_at": "2026-10-12T09:24:24.084517+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

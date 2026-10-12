@@ -1,0 +1,21 @@
+{
+  "model": "qwen3.6-27b",
+  "model_id": "Qwen/Qwen3.6-27B",
+  "api": "openai",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T09:24:58.131566+00:00",
+  "prompt_sha256": "7f825ec994f96cb4e30aad7936e90bf8c22dd5f52515616fa3a2f8ea75724549",
+  "max_output_tokens": 6144,
+  "temperature": 0.5,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-12T09:27:27.810156+00:00",
+  "artwork_sha256": "f427869814bb0b83251e9c7249a4e294ddf7b566779d4238fd4fc724fc61dd9b",
+  "tokens_in": 241,
+  "tokens_out": 2658,
+  "finish_reason": "stop",
+  "reported_model": "Qwen/Qwen3.6-27B"
+}

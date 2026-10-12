@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Nemotron-Super-3-120b: 빛의 흐름</title>
+  <style>
+    :root {
+      --bg: #0a0a12;
+      --primary: #00f5ff;
+      --secondary: #7b61ff;
+      --text: #e0e6f0;
+      --accent: #ff6b9d;
+      --shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+      --font-sans: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      --font-mono: 'Courier New', Courier, monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+      touch-action: manipulation;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 2rem;
+      line-height: 1.6;
+      gap: 1.5rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 8vw, 5rem);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: var(--shadow);
+      letter-spacing: -0.03em;
+      position: relative;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+      border-radius: 2px;
+    }
+
+    .model-name {
+      font-family: var(--font-mono);
+      font-size: clamp(1.5rem, 6vw, 3.5rem);
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+      margin: 1rem 0;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+
+    .canvas-container {
+      width: 100%;
+      max-width: 800px;
+      height: 400px;
+      margin: 1.5rem auto;
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: radial-gradient(circle at center, rgba(10,10,18,0.8) 0%, var(--bg) 70%);
+      border: 1px solid rgba(0, 245, 255, 0.1);
+    }
+
+    #particle-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .description {
+      max-width: 700px;
+      text-align: center;
+      font-size: clamp(1.2rem, 4vw, 1.4rem);
+      line-height: 1.8;
+      color: var(--text);
+      opacity: 0.9;
+      margin-top: 1rem;
+      padding: 0 1rem;
+    }
+
+    .description strong {
+      color: var(--secondary);
+    }
+
+    .controls {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      background: rgba(0, 245, 255, 0.1);
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 0.8rem 1.5rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      font-family: var(--font-sans);
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    button:hover {
+      background: rgba(0, 245, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:focus {
+      outline: 3px solid var(--secondary);
+      outline-offset: 2px;
+    }
+
+    .accessibility-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: rgba(10,10,18,0.9);
+      border: 1px solid var(--primary);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .accessibility-toggle:hover {
+      background: rgba(0,245,255,0.2);
+      transform: scale(1.1);
+    }
+
+    .accessibility-toggle svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--primary);
+    }
+
+    /* Reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+      .model-name {
+        animation: none;
+      }
+    }
+
+    /* High contrast mode */
+    @media (prefers-contrast: high) {
+      :root {
+        --bg: #000;
+        --text: #fff;
+        --primary: #0ff;
+        --secondary: #f0f;
+        --accent: #f06;
+      }
+    }
+
+    /* Dark mode preference */
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8f9fa;
+        --primary: #0066cc;
+        --secondary: #6f42c1;
+        --text: #212529;
+        --accent: #dc3545;
+        --shadow: 0 0 20px rgba(0,102,204,0.2);
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+      }
+      .model-name {
+        color: var(--primary);
+        text-shadow: 0 0 10px rgba(0,102,204,0.3);
+      }
+      .accessibility-toggle {
+        background: rgba(248,249,250,0.9);
+        border: 1px solid var(--primary);
+      }
+      .accessibility-toggle svg {
+        fill: var(--primary);
+      }
+      button {
+        background: rgba(0,102,204,0.1);
+        border: 2px solid var(--primary);
+        color: var(--primary);
+      }
+      button:hover {
+        background: rgba(0,102,204,0.2);
+      }
+      .canvas-container {
+        background: radial-gradient(circle at center, rgba(248,249,250,0.8) 0%, var(--bg) 70%);
+        border: 1px solid rgba(0,102,204,0.1);
+      }
+    }
+
+    /* Keyboard navigation */
+    button:focus-visible {
+      outline: 3px solid var(--secondary);
+      outline-offset: 2px;
+    }
+
+    /* Touch-friendly */
+    @media (hover: none) {
+      button {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 1rem;
+      }
+    }
+
+    /* Accessibility classes for toggle */
+    .high-contrast {
+      --bg: #000 !important;
+      --text: #fff !important;
+      --primary: #0ff !important;
+      --secondary: #f0f !important;
+      --accent: #f06 !important;
+      --shadow: 0 0 20px rgba(0,255,255,0.3) !important;
+    }
+    .high-contrast body {
+      background: var(--bg) !important;
+      color: var(--text) !important;
+    }
+    .high-contrast .model-name {
+      color: var(--primary) !important;
+      text-shadow: 0 0 10px rgba(0,255,255,0.3) !important;
+    }
+    .high-contrast .accessibility-toggle {
+      background: rgba(248,249,250,0.9) !important;
+      border: 1px solid var(--primary) !important;
+    }
+    .high-contrast .accessibility-toggle svg {
+      fill: var(--primary) !important;
+    }
+    .high-contrast button {
+      background: rgba(0,102,204,0.1) !important;
+      border: 2px solid var(--primary) !important;
+      color: var(--primary) !important;
+    }
+    .high-contrast button:hover {
+      background: rgba(0,102,204,0.2) !important;
+    }
+    .high-contrast .canvas-container {
+      background: radial-gradient(circle at center, rgba(248,249,250,0.8) 0%, var(--bg) 70%) !important;
+      border: 1px solid rgba(0,102,204,0.1) !important;
+    }
+
+    .reduced-motion * {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .reduced-motion .model-name {
+      animation: none !important;
+    }
+  </style>
+</head>
+<body>
+  <h1>Nemotron-Super-3-120b</h1>
+  <div class="model-name">nemotron-super-3-120b</div>
+
+  <div class="canvas-container">
+    <canvas id="particle-canvas"></canvas>
+  </div>
+
+  <p class="description">
+    이 작품은 <strong>nemotron-super-3-120b</strong>의 사고 과정을 시각화한 것입니다. <br>
+    입자들은 모델의 신경망 연결을 상징하며, 빛의 흐름은 정보의 전달과 변환을 나타냅니다. <br>
+    마우스를 움직이거나 터치하여 입자 흐름을 조작해 보세요. <br>
+    <em>접근성을 고려한 디자인: 키보드 조작, 화면 확대, 움직임 감소, 고대비 모드 지원</em>
+  </p>
+
+  <div class="controls">
+    <button id="reset-btn">리셋</button>
+    <button id="toggle-motion">움직임 중지</button>
+    <button id="change-color">색상 변경</button>
+  </div>
+
+  <button class="accessibility-toggle" title="접근성 설정 토글" aria-label="접근성 설정 토글">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="16"></line>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+    </svg>
+  </button>
+
+  <script>
+    // Particle system for nemotron-super-3-120b visualization
+    class ParticleSystem {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.particles = [];
+        this.mouse = { x: 0, y: 0, down: false };
+        this.width = canvas.width;
+        this.height = canvas.height;
+        this.colors = [
+          '#00f5ff', // primary cyan
+          '#7b61ff', // secondary purple
+          '#ff6b9d', // accent pink
+          '#00ff88', // green
+          '#ffaa00'  // orange
+        ];
+        this.currentColorIndex = 0;
+        this.motionEnabled = true;
+        this.init();
+        this.animate();
+        this.bindEvents();
+      }
+
+      init() {
+        // Create initial particles
+        for (let i = 0; i < 150; i++) {
+          this.particles.push(this.createParticle());
+        }
+      }
+
+      createParticle() {
+        return {
+          x: Math.random() * this.width,
+          y: Math.random() * this.height,
+          radius: Math.random() * 2 + 1,
+          vx: (Math.random() - 0.5) * 0.8,
+          vy: (Math.random() - 0.5) * 0.8,
+          color: this.colors[Math.floor(Math.random() * this.colors.length)],
+          alpha: Math.random() * 0.6 + 0.4,
+          originalRadius: Math.random() * 2 + 1,
+          life: Math.random() * 100,
+          maxLife: 100 + Math.random() * 50
+        };
+      }
+
+      update() {
+        if (!this.motionEnabled) return;
+
+        this.particles.forEach((p, i) => {
+          // Move particles
+          p.x += p.vx;
+          p.y += p.vy;
+
+          // Bounce off walls
+          if (p.x < 0 || p.x > this.width) p.vx *= -1;
+          if (p.y < 0 || p.y > this.height) p.vy *= -1;
+
+          // Mouse interaction
+          if (this.mouse.down) {
+            const dx = p.x - this.mouse.x;
+            const dy = p.y - this.mouse.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const force = Math.max(0, 1 - distance / 150);
+            const angle = Math.atan2(dy, dx);
+            p.vx += (Math.cos(angle) * force * 0.5);
+            p.vy += (Math.sin(angle) * force * 0.5);
+          }
+
+          // Life cycle
+          p.life++;
+          if (p.life > p.maxLife) {
+            this.particles[i] = this.createParticle();
+          }
+
+          // Velocity damping
+          p.vx *= 0.99;
+          p.vy *= 0.99;
+        });
+      }
+
+      draw() {
+        // Clear with transparent black for trailing effect
+        this.ctx.fillStyle = 'rgba(10, 10, 18, 0.1)';
+        this.ctx.fillRect(0, 0, this.width, this.height);
+
+        // Draw particles
+        this.particles.forEach(p => {
+          this.ctx.beginPath();
+          this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          this.ctx.fillStyle = `rgba(${hexToRgb(p.color)}, ${p.alpha * (p.life / p.maxLife)})`;
+          this.ctx.fill();
+
+          // Draw glow
+          this.ctx.shadowBlur = p.radius * 2;
+          this.ctx.shadowColor = p.color;
+          this.ctx.fill();
+          this.ctx.shadowBlur = 0;
+
+          // Draw connections to nearby particles
+          this.particles.forEach(other => {
+            if (p === other) return;
+            const dx = p.x - other.x;
+            const dy = p.y - other.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < 120) {
+              this.ctx.beginPath();
+              this.ctx.moveTo(p.x, p.y);
+              this.ctx.lineTo(other.x, other.y);
+              this.ctx.strokeStyle = `rgba(${hexToRgb(p.color)}, ${0.3 * (1 - distance / 120)})`;
+              this.ctx.lineWidth = 0.5;
+              this.ctx.stroke();
+            }
+          });
+        });
+      }
+
+      bindEvents() {
+        // Mouse events
+        this.canvas.addEventListener('mousemove', (e) => {
+          const rect = this.canvas.getBoundingClientRect();
+          this.mouse.x = e.clientX - rect.left;
+          this.mouse.y = e.clientY - rect.top;
+        });
+
+        this.canvas.addEventListener('mousedown', () => {
+          this.mouse.down = true;
+        });
+
+        this.canvas.addEventListener('mouseup', () => {
+          this.mouse.down = false;
+        });
+
+        this.canvas.addEventListener('mouseleave', () => {
+          this.mouse.down = false;
+        });
+
+        // Touch events
+        this.canvas.addEventListener('touchmove', (e) => {
+          e.preventDefault();
+          const touch = e.touches[0];
+          const rect = this.canvas.getBoundingClientRect();
+          this.mouse.x = touch.clientX - rect.left;
+          this.mouse.y = touch.clientY - rect.top;
+        }, { passive: false });
+
+        this.canvas.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          const touch = e.touches[0];
+          const rect = this.canvas.getBoundingClientRect();
+          this.mouse.x = touch.clientX - rect.left;
+          this.mouse.y = touch.clientY - rect.top;
+          this.mouse.down = true;
+        }, { passive: false });
+
+        this.canvas.addEventListener('touchend', () => {
+          this.mouse.down = false;
+        });
+
+        // Button events
+        document.getElementById('reset-btn').addEventListener('click', () => {
+          this.particles = [];
+          for (let i = 0; i < 150; i++) {
+            this.particles.push(this.createParticle());
+          }
+        });
+
+        document.getElementById('toggle-motion').addEventListener('click', () => {
+          this.motionEnabled = !this.motionEnabled;
+          const btn = document.getElementById('toggle-motion');
+          btn.textContent = this.motionEnabled ? '움직임 중지' : '움직임 시작';
+        });
+
+        document.getElementById('change-color').addEventListener('click', () => {
+          this.currentColorIndex = (this.currentColorIndex + 1) % this.colors.length;
+          this.particles.forEach(p => {
+            p.color = this.colors[this.currentColorIndex];
+          });
+        });
+
+        // Window resize
+        window.addEventListener('resize', () => {
+          this.resizeCanvas();
+        });
+
+        // Accessibility toggle
+        document.querySelector('.accessibility-toggle').addEventListener('click', () => {
+          document.body.classList.toggle('high-contrast');
+          document.body.classList.toggle('reduced-motion');
+        });
+      }
+
+      resizeCanvas() {
+        this.width = this.canvas.clientWidth;
+        this.height = this.canvas.clientHeight;
+        this.canvas.width = this.width * window.devicePixelRatio;
+        this.canvas.height = this.height * window.devicePixelRatio;
+        this.ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      }
+
+      animate() {
+        this.update();
+        this.draw();
+        requestAnimationFrame(() => this.animate());
+      }
+    }
+
+    // Helper function to convert hex to rgb
+    function hexToRgb(hex) {
+      const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+      hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : null;
+    }
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('particle-canvas');
+      const particleSystem = new ParticleSystem(canvas);
+
+      // Set initial button text
+      document.getElementById('toggle-motion').textContent = '움직임 중지';
+
+      // Handle prefers-reduced-motion media query
+      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const handleReduceMotion = (e) => {
+        if (e.matches) {
+          particleSystem.motionEnabled = false;
+          document.getElementById('toggle-motion').textContent = '움직임 시작';
+        } else {
+          particleSystem.motionEnabled = true;
+          document.getElementById('toggle-motion').textContent = '움직임 중지';
+        }
+      };
+      handleReduceMotion(mediaQuery);
+      mediaQuery.addEventListener('change', handleReduceMotion);
+
+      // Handle prefers-contrast media query
+      const contrastQuery = window.matchMedia('(prefers-contrast: high)');
+      const handleContrast = (e) => {
+        if (e.matches) {
+          document.body.classList.add('high-contrast');
+        } else {
+          document.body.classList.remove('high-contrast');
+        }
+      };
+      handleContrast(contrastQuery);
+      contrastQuery.addEventListener('change', handleContrast);
+
+      // Handle prefers-color-scheme media query
+      const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: light)');
+      const handleColorScheme = (e) => {
+        if (e.matches) {
+          document.body.classList.add('light-mode');
+        } else {
+          document.body.classList.remove('light-mode');
+        }
+      };
+      handleColorScheme(colorSchemeQuery);
+      colorSchemeQuery.addEventListener('change', handleColorScheme);
+    });
+  </script>
+</body>
+</html>

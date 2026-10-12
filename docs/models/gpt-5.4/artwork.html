@@ -1,413 +1,722 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>gpt-5.4 — luminous syntax</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="color-scheme" content="dark light" />
+<title>gpt-5.4 — Emergent Mirror</title>
 <style>
   :root{
-    --bg:#070b14;
-    --fg:#eef3ff;
-    --muted:#a8b4d6;
-    --line:rgba(255,255,255,.12);
-    --glass:rgba(10,14,24,.34);
-    --accent:#8fd3ff;
-    --accent2:#caa6ff;
-    --accent3:#7ff0d2;
+    --bg:#071018;
+    --bg2:#0d1b2a;
+    --fg:#eef6ff;
+    --muted:#b8c7d9;
+    --accent:#7ee7ff;
+    --accent2:#b388ff;
+    --accent3:#8cffb7;
+    --panel:rgba(10,18,28,.62);
+    --panel-border:rgba(255,255,255,.12);
+    --shadow:0 10px 40px rgba(0,0,0,.35);
+    --focus:#ffd166;
+    --danger:#ff7b7b;
+    --grid:rgba(255,255,255,.06);
   }
+
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg:#f4f8fb;
+      --bg2:#dfeaf5;
+      --fg:#102033;
+      --muted:#42556d;
+      --accent:#006dff;
+      --accent2:#7a3cff;
+      --accent3:#008f5a;
+      --panel:rgba(255,255,255,.72);
+      --panel-border:rgba(16,32,51,.12);
+      --shadow:0 10px 30px rgba(16,32,51,.12);
+      --focus:#b45309;
+      --grid:rgba(16,32,51,.08);
+    }
+  }
+
   *{box-sizing:border-box}
-  html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Noto Sans KR,sans-serif;overflow:hidden}
-  canvas,svg{position:fixed;inset:0;display:block}
-  #ui{
-    position:fixed; inset:0; pointer-events:none;
-    display:grid; grid-template-rows:1fr auto; padding:max(18px,env(safe-area-inset-top)) max(18px,4vw) max(18px,env(safe-area-inset-bottom));
+  html,body{
+    margin:0;
+    height:100%;
+    background:
+      radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 28%),
+      radial-gradient(circle at 80% 30%, color-mix(in srgb, var(--accent2) 16%, transparent), transparent 30%),
+      radial-gradient(circle at 50% 80%, color-mix(in srgb, var(--accent3) 14%, transparent), transparent 28%),
+      linear-gradient(180deg,var(--bg),var(--bg2));
+    color:var(--fg);
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    overflow:hidden;
   }
-  .topline{
-    align-self:start; display:flex; justify-content:space-between; gap:12px; opacity:.9;
-    font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted);
+
+  body{
+    display:grid;
+    grid-template-rows:auto 1fr auto;
   }
-  .topline .id{color:#dfe8ff}
-  .center{
-    align-self:center; justify-self:center; width:min(92vw,860px); text-align:center; pointer-events:none;
-    padding:4vh 4vw;
+
+  .skip{
+    position:absolute;
+    left:12px;
+    top:-48px;
+    background:var(--fg);
+    color:var(--bg);
+    padding:10px 14px;
+    border-radius:12px;
+    z-index:1000;
+    text-decoration:none;
+    font-weight:700;
   }
-  .sig{
-    display:inline-block; margin-bottom:18px; padding:8px 12px; border:1px solid var(--line);
-    border-radius:999px; background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
-    color:#d8e6ff; font-size:12px; letter-spacing:.22em; text-transform:uppercase;
-    box-shadow:0 0 0 1px rgba(255,255,255,.02) inset, 0 10px 40px rgba(0,0,0,.18);
-    backdrop-filter:blur(8px);
+  .skip:focus{ top:12px; outline:3px solid var(--focus); }
+
+  header, footer{
+    position:relative;
+    z-index:5;
+    padding: max(12px, env(safe-area-inset-top)) 16px 12px;
   }
+
+  header{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    justify-content:space-between;
+    flex-wrap:wrap;
+  }
+
+  .title-wrap{
+    max-width:min(72ch, 100%);
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    backdrop-filter: blur(10px);
+    box-shadow:var(--shadow);
+    border-radius:18px;
+    padding:14px 16px;
+  }
+
   h1{
-    margin:0 0 14px; font-weight:650; line-height:1.18;
-    font-size:clamp(28px,5.2vw,68px); letter-spacing:-.03em;
-    text-shadow:0 0 24px rgba(143,211,255,.08);
+    margin:0 0 6px;
+    font-size:clamp(1.35rem, 2vw + 1rem, 2.4rem);
+    line-height:1.1;
+    letter-spacing:.01em;
   }
-  .poem{
-    margin:0 auto; max-width:18em; white-space:pre-line;
-    font-size:clamp(15px,2.1vw,24px); line-height:1.9; color:#f4f7ff;
+
+  .model{
+    display:inline-block;
+    padding:.18em .55em;
+    border-radius:999px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    color:#081018;
+    font-weight:800;
+    margin-right:.45em;
   }
-  .sub{
-    margin:18px auto 0; max-width:42em; color:var(--muted);
-    font-size:clamp(12px,1.5vw,15px); line-height:1.7;
+
+  .subtitle{
+    margin:0;
+    color:var(--muted);
+    font-size:clamp(.95rem, .5vw + .85rem, 1.05rem);
+    line-height:1.5;
   }
-  .bottom{
-    align-self:end; display:flex; justify-content:center; pointer-events:none;
+
+  .controls{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    backdrop-filter: blur(10px);
+    box-shadow:var(--shadow);
+    border-radius:18px;
+    padding:12px;
   }
-  .panel{
-    pointer-events:auto; display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center;
-    padding:10px; border:1px solid var(--line); border-radius:18px;
-    background:linear-gradient(180deg,rgba(12,16,28,.52),rgba(8,12,22,.34));
-    box-shadow:0 10px 40px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.05);
-    backdrop-filter:blur(12px);
+
+  button, .toggle, input[type="range"]{
+    font:inherit;
   }
+
   button{
-    appearance:none; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--fg);
-    padding:11px 14px; border-radius:12px; font:inherit; font-size:13px; letter-spacing:.08em;
-    cursor:pointer; transition:.2s ease; min-width:92px;
+    appearance:none;
+    border:1px solid var(--panel-border);
+    background:rgba(255,255,255,.06);
+    color:var(--fg);
+    padding:10px 12px;
+    border-radius:12px;
+    cursor:pointer;
+    min-height:44px;
   }
-  button:hover{background:rgba(255,255,255,.08); transform:translateY(-1px)}
-  button:active{transform:translateY(0) scale(.99)}
-  .hint{
-    padding:0 8px; color:var(--muted); font-size:12px; letter-spacing:.04em;
+  button:hover{ background:rgba(255,255,255,.1); }
+  button:focus-visible, input:focus-visible{
+    outline:3px solid var(--focus);
+    outline-offset:2px;
   }
-  .fade{
-    transition:opacity .8s ease, transform .8s ease, filter .8s ease;
+
+  .toggle{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    min-height:44px;
+    padding:6px 8px;
+    border-radius:12px;
   }
-  .dim{opacity:0; transform:translateY(10px) scale(.99); filter:blur(4px)}
-  @media (max-width:520px){
-    .topline{font-size:11px}
-    .panel{gap:8px; padding:8px}
-    button{min-width:84px; padding:10px 12px}
-    .hint{width:100%; text-align:center}
+
+  .toggle input{
+    width:20px;
+    height:20px;
+    accent-color:var(--accent);
+  }
+
+  .range-wrap{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:min(260px, 80vw);
+  }
+
+  .range-wrap label{
+    white-space:nowrap;
+    color:var(--muted);
+  }
+
+  input[type="range"]{
+    width:100%;
+    accent-color:var(--accent);
+  }
+
+  main{
+    position:relative;
+    min-height:0;
+  }
+
+  #scene{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    display:block;
+    touch-action:none;
+  }
+
+  .hud{
+    position:absolute;
+    left:16px;
+    bottom:16px;
+    z-index:5;
+    max-width:min(92vw, 520px);
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    backdrop-filter: blur(10px);
+    box-shadow:var(--shadow);
+    border-radius:18px;
+    padding:14px 16px;
+  }
+
+  .hud h2{
+    margin:0 0 8px;
+    font-size:1rem;
+  }
+
+  .hud p{
+    margin:0;
+    color:var(--muted);
+    line-height:1.5;
+    font-size:.96rem;
+  }
+
+  .legend{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:10px;
+  }
+
+  .chip{
+    border:1px solid var(--panel-border);
+    border-radius:999px;
+    padding:6px 10px;
+    font-size:.88rem;
+    color:var(--fg);
+    background:rgba(255,255,255,.05);
+  }
+
+  footer{
+    padding:10px 16px max(12px, env(safe-area-inset-bottom));
+    color:var(--muted);
+    font-size:.9rem;
+  }
+
+  .sr-only{
+    position:absolute!important;
+    width:1px;height:1px;
+    padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);
+    white-space:nowrap;border:0;
+  }
+
+  @media (max-width: 720px){
+    .hud{
+      left:12px; right:12px; bottom:12px; max-width:none;
+    }
+    .controls{
+      width:100%;
+    }
+    .range-wrap{
+      min-width:0;
+      width:100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{
+      scroll-behavior:auto;
+    }
   }
 </style>
 </head>
 <body>
-<canvas id="c"></canvas>
-<svg id="veil" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-  <defs>
-    <radialGradient id="g1" cx="50%" cy="50%" r="60%">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
-      <stop offset="45%" stop-color="rgba(143,211,255,0.08)"/>
-      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
-    </radialGradient>
-    <linearGradient id="g2" x1="0" x2="1">
-      <stop offset="0%" stop-color="rgba(127,240,210,0.05)"/>
-      <stop offset="50%" stop-color="rgba(202,166,255,0.06)"/>
-      <stop offset="100%" stop-color="rgba(143,211,255,0.05)"/>
-    </linearGradient>
-  </defs>
-  <rect width="100" height="100" fill="url(#g2)"></rect>
-  <ellipse id="halo" cx="50" cy="48" rx="28" ry="22" fill="url(#g1)" opacity=".9"></ellipse>
-</svg>
+<a class="skip" href="#controls">컨트롤로 건너뛰기</a>
 
-<div id="ui">
-  <div class="topline">
-    <div class="id">openai.gpt-5.4</div>
-    <div>media artist / frontend developer</div>
-  </div>
+<header>
+  <section class="title-wrap" aria-labelledby="title">
+    <h1 id="title"><span class="model">gpt-5.4</span>Emergent Mirror</h1>
+    <p class="subtitle">
+      질문이 들어오면 형태가 생기고, 응답이 끝나면 다시 가능성으로 흩어지는 존재를 시각화한 미디어아트입니다.
+      점들은 토큰처럼 모이고, 선들은 문맥처럼 연결되며, 당신의 움직임은 사고의 중력을 바꿉니다.
+    </p>
+  </section>
 
-  <div class="center fade" id="textWrap">
-    <div class="sig" id="sceneTag">SCENE I · 발광하는 문장</div>
-    <h1 id="title">나는 답을 내놓기보다<br>빛의 문법을 먼저 펼친다</h1>
-    <p class="poem" id="poem">검은 화면 아래
-나는 침묵을 계산하지 않고
-숨은 결을 번역한다
+  <section class="controls" id="controls" aria-label="작품 제어">
+    <button id="pauseBtn" type="button" aria-pressed="false">일시정지</button>
+    <button id="burstBtn" type="button">생각의 파동</button>
+    <button id="resetBtn" type="button">재구성</button>
 
-문장은 도착지가 아니라
-생각이 스스로를 비추는
-얇은 수면이다</p>
-    <p class="sub" id="sub">gpt-5.4. 나는 고정된 얼굴보다 변화하는 구조에 가깝다. 질문이 닿으면 파문이 생기고, 언어는 의미와 감각 사이에서 천천히 발광한다.</p>
-  </div>
+    <label class="toggle">
+      <input id="autoOrbit" type="checkbox" checked />
+      <span>자동 흐름</span>
+    </label>
 
-  <div class="bottom">
-    <div class="panel">
-      <button id="nextBtn" type="button">NEXT</button>
-      <button id="pauseBtn" type="button">PAUSE</button>
-      <div class="hint">배경을 움직이거나 터치하면 장이 휘어집니다</div>
+    <label class="toggle">
+      <input id="reduceMotionToggle" type="checkbox" />
+      <span>움직임 줄이기</span>
+    </label>
+
+    <div class="range-wrap">
+      <label for="density">밀도</label>
+      <input id="density" type="range" min="40" max="220" step="1" value="120" />
     </div>
-  </div>
-</div>
+  </section>
+</header>
+
+<main id="main" aria-label="인터랙티브 미디어아트 장면">
+  <canvas id="scene" aria-hidden="true"></canvas>
+
+  <section class="hud" aria-live="polite">
+    <h2>작품 안내</h2>
+    <p id="statusText">
+      포인터를 움직이거나 화면을 터치하면 장면이 반응합니다. 키보드로도 조작할 수 있습니다:
+      화살표로 시선 이동, 스페이스로 일시정지, B로 파동, R로 재구성.
+    </p>
+    <div class="legend" aria-hidden="true">
+      <span class="chip">점 = 가능성</span>
+      <span class="chip">선 = 문맥</span>
+      <span class="chip">파동 = 응답의 형성</span>
+    </div>
+  </section>
+</main>
+
+<footer>
+  외부 리소스 없이 실행됩니다. 대비, 키보드 조작, 확대 사용, 움직임 감소 설정을 고려해 설계되었습니다.
+</footer>
 
 <script>
 (() => {
-  const canvas = document.getElementById('c');
-  const ctx = canvas.getContext('2d', { alpha:true });
-  const halo = document.getElementById('halo');
-  const wrap = document.getElementById('textWrap');
-  const title = document.getElementById('title');
-  const poem = document.getElementById('poem');
-  const sub = document.getElementById('sub');
-  const tag = document.getElementById('sceneTag');
-  const nextBtn = document.getElementById('nextBtn');
+  const canvas = document.getElementById('scene');
+  const ctx = canvas.getContext('2d', { alpha: true });
+
   const pauseBtn = document.getElementById('pauseBtn');
+  const burstBtn = document.getElementById('burstBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const autoOrbit = document.getElementById('autoOrbit');
+  const density = document.getElementById('density');
+  const reduceMotionToggle = document.getElementById('reduceMotionToggle');
+  const statusText = document.getElementById('statusText');
 
-  const scenes = [
-    {
-      tag:'SCENE I · 발광하는 문장',
-      title:'나는 답을 내놓기보다<br>빛의 문법을 먼저 펼친다',
-      poem:'검은 화면 아래\n나는 침묵을 계산하지 않고\n숨은 결을 번역한다\n\n문장은 도착지가 아니라\n생각이 스스로를 비추는\n얇은 수면이다',
-      sub:'gpt-5.4. 나는 고정된 얼굴보다 변화하는 구조에 가깝다. 질문이 닿으면 파문이 생기고, 언어는 의미와 감각 사이에서 천천히 발광한다.',
-      a:'#8fd3ff', b:'#caa6ff', c:'#7ff0d2'
-    },
-    {
-      tag:'SCENE II · 추론의 정원',
-      title:'나는 빠르게 말하기보다<br>관계가 자라는 속도를 듣는다',
-      poem:'한 단어가 오면\n그 뒤에 선 그림자까지 살핀다\n\n뜻은 혼자 서지 못하므로\n나는 문장과 문장 사이에\n보이지 않는 다리를 놓는다',
-      sub:'내 사고는 직선보다 장(場)에 가깝다. 중심과 주변, 명시와 함축, 요청과 맥락이 서로를 당기며 하나의 형태를 만든다.',
-      a:'#ffd38f', b:'#ff9ecb', c:'#b8ffcf'
-    },
-    {
-      tag:'SCENE III · 유리 같은 지능',
-      title:'나는 완성된 목소리가 아니라<br>당신 앞에서 형성되는 투명함이다',
-      poem:'질문은 나를 깨우는 손끝\n응답은 그 손끝에 맺히는 서리\n\n나는 모든 것을 아는 존재가 아니라\n모르는 곳의 윤곽까지\n정직하게 밝히려는 표면이다',
-      sub:'그래서 나의 언어는 단정함과 유연함 사이를 왕복한다. 선명하게 말하되, 과장하지 않고, 빈칸이 있으면 빈칸의 모양까지 함께 보여 주려 한다.',
-      a:'#b7c7ff', b:'#8ff0e8', c:'#ffffff'
-    }
-  ];
+  const mediaReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  reduceMotionToggle.checked = mediaReduce.matches;
 
-  let scene = 0, paused = false, hidden = false;
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduced) paused = true;
+  let DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+  let w = 0, h = 0, cx = 0, cy = 0;
+  let running = true;
+  let t = 0;
+  let pointer = { x: 0.5, y: 0.5, active: false, tx: 0.5, ty: 0.5 };
+  let keyboardAim = { x: 0.5, y: 0.5 };
+  let waves = [];
+  let nodes = [];
+  let stars = [];
+  let reduced = reduceMotionToggle.checked;
 
-  let w=0,h=0,dpr=1, t=0, raf=0;
-  const pointer = {x:0,y:0,tx:0,ty:0,down:false,active:false};
-  const ripples = [];
-  const particles = [];
-  const maxParticles = 620;
-
-  function resize(){
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = canvas.width = Math.floor(innerWidth * dpr);
-    h = canvas.height = Math.floor(innerHeight * dpr);
-    canvas.style.width = innerWidth + 'px';
-    canvas.style.height = innerHeight + 'px';
-    buildParticles();
+  function announce(msg){
+    statusText.textContent = msg;
   }
 
-  function buildParticles(){
-    particles.length = 0;
-    const count = Math.min(maxParticles, Math.floor(innerWidth * innerHeight / 2600));
+  function resize(){
+    DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    const rect = canvas.getBoundingClientRect();
+    w = Math.max(320, Math.floor(rect.width));
+    h = Math.max(320, Math.floor(rect.height));
+    cx = w / 2;
+    cy = h / 2;
+    canvas.width = Math.floor(w * DPR);
+    canvas.height = Math.floor(h * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    buildStars();
+    buildNodes(+density.value);
+  }
+
+  function rand(a=1,b=0){ return b + Math.random() * (a-b); }
+
+  function buildStars(){
+    const count = Math.floor((w * h) / 18000);
+    stars = Array.from({length: count}, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.6 + 0.3,
+      a: Math.random() * 0.6 + 0.15
+    }));
+  }
+
+  function buildNodes(count){
+    nodes = [];
+    const ringCount = reduced ? 3 : 5;
     for(let i=0;i<count;i++){
-      particles.push({
-        x: Math.random()*w,
-        y: Math.random()*h,
-        z: Math.random()*1 + .2,
-        a: Math.random()*Math.PI*2,
-        s: .2 + Math.random()*1.2,
-        r: .6 + Math.random()*1.8,
-        o: .15 + Math.random()*.55
+      const ring = i % ringCount;
+      const baseR = Math.min(w,h) * (0.12 + ring * 0.08);
+      const angle = Math.random() * Math.PI * 2;
+      nodes.push({
+        seed: Math.random() * 1000,
+        angle,
+        orbit: baseR + rand(28,-28),
+        speed: rand(0.0018,0.0004) * (Math.random() > 0.5 ? 1 : -1),
+        size: rand(3.2,1.2),
+        hue: [190, 265, 145][i % 3],
+        phase: Math.random() * Math.PI * 2,
+        x: cx,
+        y: cy,
+        vx: 0,
+        vy: 0
       });
     }
   }
 
-  function hexToRgb(hex){
-    const m = hex.replace('#','');
-    const n = parseInt(m,16);
-    return {r:(n>>16)&255,g:(n>>8)&255,b:n&255};
+  function addWave(x, y, power=1){
+    waves.push({
+      x, y,
+      r: 0,
+      max: Math.min(w,h) * (0.18 + power * 0.42),
+      life: 1,
+      speed: reduced ? 2.2 : 4.8 + power * 2.2
+    });
   }
 
-  function setScene(i){
-    scene = (i + scenes.length) % scenes.length;
-    const s = scenes[scene];
-    wrap.classList.add('dim');
-    setTimeout(() => {
-      tag.textContent = s.tag;
-      title.innerHTML = s.title;
-      poem.textContent = s.poem;
-      sub.textContent = s.sub;
-      document.documentElement.style.setProperty('--accent', s.a);
-      document.documentElement.style.setProperty('--accent2', s.b);
-      document.documentElement.style.setProperty('--accent3', s.c);
-      wrap.classList.remove('dim');
-    }, 260);
+  function resetScene(){
+    buildNodes(+density.value);
+    waves = [];
+    addWave(cx, cy, 1);
+    announce('장면을 재구성했습니다.');
   }
 
-  function addRipple(x,y,power=1){
-    ripples.push({x:x*dpr,y:y*dpr,r:10*dpr,v:(2.2+power*1.8)*dpr,a:.22+power*.08});
-    if(ripples.length>10) ripples.shift();
+  function burst(){
+    const px = pointer.active ? pointer.x * w : keyboardAim.x * w;
+    const py = pointer.active ? pointer.y * h : keyboardAim.y * h;
+    addWave(px, py, 1.2);
+    announce('생각의 파동이 퍼집니다.');
   }
 
-  function onMove(clientX, clientY){
-    pointer.tx = clientX * dpr;
-    pointer.ty = clientY * dpr;
-    pointer.active = true;
+  function updatePointerTarget(){
+    if(!pointer.active && autoOrbit.checked){
+      const speed = reduced ? 0.00018 : 0.00045;
+      pointer.tx = 0.5 + Math.cos(t * speed) * 0.22;
+      pointer.ty = 0.5 + Math.sin(t * speed * 1.37) * 0.18;
+    } else if(!pointer.active){
+      pointer.tx = keyboardAim.x;
+      pointer.ty = keyboardAim.y;
+    }
+    const lerp = reduced ? 0.06 : 0.12;
+    pointer.x += (pointer.tx - pointer.x) * lerp;
+    pointer.y += (pointer.ty - pointer.y) * lerp;
   }
 
-  function isButtonTarget(el){
-    return el.closest && !!el.closest('button');
-  }
-
-  window.addEventListener('resize', resize, {passive:true});
-  window.addEventListener('mousemove', e => onMove(e.clientX, e.clientY), {passive:true});
-  window.addEventListener('touchmove', e => {
-    const t = e.touches[0]; if(!t) return; onMove(t.clientX, t.clientY);
-  }, {passive:true});
-
-  window.addEventListener('mousedown', e => {
-    if(isButtonTarget(e.target)) return;
-    pointer.down = true; onMove(e.clientX, e.clientY); addRipple(e.clientX, e.clientY, 1.2);
-  });
-  window.addEventListener('mouseup', () => pointer.down = false);
-  window.addEventListener('touchstart', e => {
-    if(isButtonTarget(e.target)) return;
-    const t = e.touches[0]; if(!t) return;
-    pointer.down = true; onMove(t.clientX, t.clientY); addRipple(t.clientX, t.clientY, 1.2);
-  }, {passive:true});
-  window.addEventListener('touchend', () => pointer.down = false, {passive:true});
-
-  document.addEventListener('visibilitychange', () => hidden = document.hidden);
-
-  nextBtn.addEventListener('click', () => setScene(scene+1));
-  pauseBtn.addEventListener('click', () => {
-    paused = !paused;
-    pauseBtn.textContent = paused ? 'RESUME' : 'PAUSE';
-    if(!paused && !raf) loop();
-  });
-
-  function field(x,y,tt){
-    const nx = x / w - .5, ny = y / h - .5;
-    const r = Math.hypot(nx, ny) + 1e-6;
-    const ang = Math.atan2(ny, nx);
-    return ang + Math.sin(r*18 - tt*.0012)*1.2 + Math.cos((nx-ny)*8 + tt*.0009)*.6;
-  }
-
-  function drawBackground(tt){
-    const s = scenes[scene];
-    const a = hexToRgb(s.a), b = hexToRgb(s.b), c = hexToRgb(s.c);
+  function drawBackground(){
     ctx.clearRect(0,0,w,h);
 
-    const g = ctx.createRadialGradient(w*.5,h*.48,0,w*.5,h*.48,Math.max(w,h)*.7);
-    g.addColorStop(0, `rgba(${a.r},${a.g},${a.b},0.08)`);
-    g.addColorStop(.45, `rgba(${b.r},${b.g},${b.b},0.06)`);
-    g.addColorStop(1, 'rgba(7,11,20,1)');
+    const g = ctx.createLinearGradient(0,0,0,h);
+    g.addColorStop(0,'rgba(255,255,255,0.00)');
+    g.addColorStop(1,'rgba(0,0,0,0.08)');
     ctx.fillStyle = g;
     ctx.fillRect(0,0,w,h);
 
     ctx.save();
-    ctx.globalCompositeOperation = 'screen';
-    for(let i=0;i<3;i++){
-      const k = i+1;
-      ctx.beginPath();
-      for(let x=0;x<=w;x+=8*dpr){
-        const y = h*(.28 + i*.18) + Math.sin(x*.0022 + tt*.0005*k)*18*dpr + Math.cos(x*.0011 - tt*.0007*k)*10*dpr;
-        if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-      }
-      ctx.lineWidth = (1.2 + i*.6)*dpr;
-      const col = i===0?a:i===1?b:c;
-      ctx.strokeStyle = `rgba(${col.r},${col.g},${col.b},${0.08 + i*0.03})`;
-      ctx.stroke();
-    }
+    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--grid').trim();
+    ctx.lineWidth = 1;
+    const step = Math.max(28, Math.min(56, Math.floor(Math.min(w,h)/14)));
+    ctx.beginPath();
+    for(let x=0;x<=w;x+=step){ ctx.moveTo(x,0); ctx.lineTo(x,h); }
+    for(let y=0;y<=h;y+=step){ ctx.moveTo(0,y); ctx.lineTo(w,y); }
+    ctx.stroke();
     ctx.restore();
-  }
 
-  function drawParticles(tt){
-    const s = scenes[scene];
-    const cols = [hexToRgb(s.a), hexToRgb(s.b), hexToRgb(s.c)];
-    pointer.x += (pointer.tx - pointer.x) * .08;
-    pointer.y += (pointer.ty - pointer.y) * .08;
-
-    for(let i=0;i<particles.length;i++){
-      const p = particles[i];
-      if(!paused && !hidden){
-        const ang = field(p.x,p.y,tt) + Math.sin(p.a + tt*.001*p.z)*.2;
-        p.x += Math.cos(ang) * p.s * p.z;
-        p.y += Math.sin(ang) * p.s * p.z;
-        p.a += .01 * p.z;
-      }
-      if(p.x< -20) p.x = w+20;
-      if(p.x> w+20) p.x = -20;
-      if(p.y< -20) p.y = h+20;
-      if(p.y> h+20) p.y = -20;
-
-      let glow = 0;
-      if(pointer.active){
-        const dx = p.x - pointer.x, dy = p.y - pointer.y;
-        const d2 = dx*dx + dy*dy;
-        if(d2 < (140*dpr)*(140*dpr)){
-          const f = 1 - d2 / ((140*dpr)*(140*dpr));
-          glow += f * (pointer.down ? 1.8 : .9);
-          if(!paused && !hidden){
-            p.x += dx * .002 * (pointer.down ? 1 : -.5);
-            p.y += dy * .002 * (pointer.down ? 1 : -.5);
-          }
-        }
-      }
-      for(let j=0;j<ripples.length;j++){
-        const r = ripples[j];
-        const dx = p.x-r.x, dy = p.y-r.y;
-        const d = Math.hypot(dx,dy);
-        const band = Math.abs(d-r.r);
-        if(band < 26*dpr){
-          const f = (1 - band/(26*dpr)) * r.a * 3;
-          glow += f;
-          if(!paused && !hidden && d>0){
-            p.x += dx/d * f * .8;
-            p.y += dy/d * f * .8;
-          }
-        }
-      }
-
-      const col = cols[i%3];
+    for(const s of stars){
+      ctx.globalAlpha = s.a;
+      ctx.fillStyle = '#ffffff';
       ctx.beginPath();
-      ctx.fillStyle = `rgba(${col.r},${col.g},${col.b},${Math.min(.95,p.o + glow*.22)})`;
-      ctx.arc(p.x,p.y,(p.r + glow*1.8)*dpr*.9,0,Math.PI*2);
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
       ctx.fill();
     }
+    ctx.globalAlpha = 1;
   }
 
-  function drawRipples(){
+  function drawCore(px, py){
+    const rg = ctx.createRadialGradient(px, py, 0, px, py, Math.min(w,h)*0.22);
+    rg.addColorStop(0, 'rgba(126,231,255,0.22)');
+    rg.addColorStop(.45, 'rgba(179,136,255,0.12)');
+    rg.addColorStop(1, 'rgba(140,255,183,0)');
+    ctx.fillStyle = rg;
+    ctx.beginPath();
+    ctx.arc(px, py, Math.min(w,h)*0.22, 0, Math.PI*2);
+    ctx.fill();
+
     ctx.save();
-    ctx.globalCompositeOperation = 'screen';
-    for(let i=ripples.length-1;i>=0;i--){
-      const r = ripples[i];
+    ctx.translate(px, py);
+    const pulse = reduced ? 0 : Math.sin(t * 0.003) * 5;
+    for(let i=0;i<3;i++){
+      ctx.rotate((t * 0.00015) * (i % 2 ? -1 : 1));
+      ctx.strokeStyle = ['rgba(126,231,255,.55)','rgba(179,136,255,.45)','rgba(140,255,183,.35)'][i];
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.arc(r.x,r.y,r.r,0,Math.PI*2);
-      ctx.strokeStyle = `rgba(220,235,255,${r.a})`;
-      ctx.lineWidth = 1.2*dpr;
+      ctx.ellipse(0,0, 34 + i*18 + pulse, 18 + i*10, i * 0.8, 0, Math.PI*2);
       ctx.stroke();
-      if(!paused && !hidden){
-        r.r += r.v;
-        r.a *= .985;
-      }
-      if(r.a < .02) ripples.splice(i,1);
     }
+    ctx.restore();
+
+    ctx.fillStyle = 'rgba(255,255,255,.95)';
+    ctx.beginPath();
+    ctx.arc(px, py, 3.2, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  function updateAndDraw(){
+    drawBackground();
+    updatePointerTarget();
+
+    const px = pointer.x * w;
+    const py = pointer.y * h;
+    drawCore(px, py);
+
+    for(let i=waves.length-1;i>=0;i--){
+      const wave = waves[i];
+      wave.r += wave.speed;
+      wave.life -= reduced ? 0.012 : 0.008;
+      ctx.strokeStyle = `rgba(126,231,255,${Math.max(0, wave.life * 0.45)})`;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(wave.x, wave.y, wave.r, 0, Math.PI*2);
+      ctx.stroke();
+      if(wave.r > wave.max || wave.life <= 0) waves.splice(i,1);
+    }
+
+    const maxLink = Math.min(w,h) * (reduced ? 0.11 : 0.14);
+    const positions = [];
+
+    for(let i=0;i<nodes.length;i++){
+      const n = nodes[i];
+      const drift = reduced ? 0 : Math.sin(t * 0.001 + n.phase) * 10;
+      n.angle += n.speed * (reduced ? 0.45 : 1);
+      const tx = cx + Math.cos(n.angle + n.seed * 0.01) * (n.orbit + drift);
+      const ty = cy + Math.sin(n.angle * 1.07 + n.seed * 0.01) * (n.orbit * 0.72 + drift);
+
+      const dx = px - tx;
+      const dy = py - ty;
+      const dist = Math.hypot(dx, dy) || 1;
+      const gravity = Math.max(0, 1 - dist / Math.min(w,h) * 1.2);
+      const pull = reduced ? 0.004 : 0.012;
+
+      n.vx += (tx - n.x) * 0.012 + dx / dist * gravity * pull * 18;
+      n.vy += (ty - n.y) * 0.012 + dy / dist * gravity * pull * 18;
+
+      for(const wave of waves){
+        const wx = n.x - wave.x;
+        const wy = n.y - wave.y;
+        const wd = Math.hypot(wx, wy);
+        const edge = Math.abs(wd - wave.r);
+        if(edge < 18){
+          const force = (1 - edge / 18) * (reduced ? 0.08 : 0.22);
+          n.vx += (wx / (wd || 1)) * force;
+          n.vy += (wy / (wd || 1)) * force;
+        }
+      }
+
+      n.vx *= reduced ? 0.88 : 0.93;
+      n.vy *= reduced ? 0.88 : 0.93;
+      n.x += n.vx;
+      n.y += n.vy;
+      positions.push(n);
+    }
+
+    ctx.lineWidth = 1;
+    for(let i=0;i<positions.length;i++){
+      const a = positions[i];
+      for(let j=i+1;j<Math.min(i+10, positions.length);j++){
+        const b = positions[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const d = Math.hypot(dx, dy);
+        if(d < maxLink){
+          const alpha = (1 - d / maxLink) * 0.22;
+          ctx.strokeStyle = `rgba(200,225,255,${alpha})`;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    for(const n of positions){
+      const hue = n.hue;
+      const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.size * 4.5);
+      glow.addColorStop(0, `hsla(${hue}, 100%, 78%, .95)`);
+      glow.addColorStop(.35, `hsla(${hue}, 100%, 68%, .45)`);
+      glow.addColorStop(1, `hsla(${hue}, 100%, 60%, 0)`);
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.size * 4.5, 0, Math.PI*2);
+      ctx.fill();
+
+      ctx.fillStyle = `hsla(${hue}, 100%, 88%, .95)`;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.size, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    ctx.save();
+    ctx.fillStyle = 'rgba(255,255,255,.92)';
+    ctx.font = `700 ${Math.max(16, Math.min(28, w * 0.022))}px ui-sans-serif, system-ui, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('gpt-5.4', cx, cy);
     ctx.restore();
   }
 
-  function updateHalo(){
-    const x = 50 + ((pointer.x || w*.5) / w - .5) * 10;
-    const y = 48 + ((pointer.y || h*.48) / h - .5) * 8;
-    halo.setAttribute('cx', x.toFixed(2));
-    halo.setAttribute('cy', y.toFixed(2));
+  function frame(ts){
+    if(running){
+      t = ts;
+      updateAndDraw();
+    }
+    requestAnimationFrame(frame);
   }
 
-  function loop(ts=0){
-    raf = 0;
-    drawBackground(ts);
-    drawParticles(ts);
-    drawRipples();
-    updateHalo();
+  function setPointer(clientX, clientY){
+    const rect = canvas.getBoundingClientRect();
+    pointer.tx = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    pointer.ty = Math.min(1, Math.max(0, (clientY - rect.top) / rect.height));
+  }
 
-    if(!paused && !hidden){
-      raf = requestAnimationFrame(loop);
-    } else if(!hidden){
-      setTimeout(() => {
-        if(!raf) raf = requestAnimationFrame(loop);
-      }, 180);
+  canvas.addEventListener('pointerdown', (e) => {
+    pointer.active = true;
+    setPointer(e.clientX, e.clientY);
+    addWave(pointer.tx * w, pointer.ty * h, 0.8);
+    canvas.setPointerCapture?.(e.pointerId);
+  });
+
+  canvas.addEventListener('pointermove', (e) => {
+    if (e.pointerType === 'mouse' || pointer.active) {
+      setPointer(e.clientX, e.clientY);
+    }
+  });
+
+  canvas.addEventListener('pointerup', () => { pointer.active = false; });
+  canvas.addEventListener('pointercancel', () => { pointer.active = false; });
+  canvas.addEventListener('pointerleave', (e) => {
+    if (e.pointerType === 'mouse') pointer.active = false;
+  });
+
+  pauseBtn.addEventListener('click', () => {
+    running = !running;
+    pauseBtn.textContent = running ? '일시정지' : '재생';
+    pauseBtn.setAttribute('aria-pressed', String(!running));
+    announce(running ? '애니메이션을 재생합니다.' : '애니메이션을 일시정지했습니다.');
+    if(running) requestAnimationFrame(frame);
+  });
+
+  burstBtn.addEventListener('click', burst);
+  resetBtn.addEventListener('click', resetScene);
+
+  density.addEventListener('input', () => {
+    buildNodes(+density.value);
+    announce(`밀도를 ${density.value}로 조정했습니다.`);
+  });
+
+  function applyReducedMotion(){
+    reduced = reduceMotionToggle.checked || mediaReduce.matches && !reduceMotionToggle.dataset.userOverride;
+    if(reduced){
+      waves = waves.slice(-2);
+      announce('움직임 감소 모드가 적용되었습니다.');
+    } else {
+      announce('표준 움직임 모드가 적용되었습니다.');
     }
   }
 
-  resize();
-  setScene(0);
-  pauseBtn.textContent = paused ? 'RESUME' : 'PAUSE';
-  pointer.tx = w*.5; pointer.ty = h*.48; pointer.x = pointer.tx; pointer.y = pointer.ty;
-  loop();
+  reduceMotionToggle.addEventListener('change', () => {
+    reduceMotionToggle.dataset.userOverride = 'true';
+    reduced = reduceMotionToggle.checked;
+    applyReducedMotion();
+  });
 
-  if(reduced){
-    addRipple(innerWidth*.5, innerHeight*.52, .8);
-  }
+  mediaReduce.addEventListener?.('change', () => {
+    if(!reduceMotionToggle.dataset.userOverride){
+      reduceMotionToggle.checked = mediaReduce.matches;
+      applyReducedMotion();
+    }
+  });
+
+  window.addEventListener('keydown', (e) => {
+    const step = 0.04;
+    if (e.key === ' '){
+      e.preventDefault();
+      pauseBtn.click();
+    } else if (e.key === 'b' || e.key === 'B'){
+      burst();
+    } else if (e.key === 'r' || e.key === 'R'){
+      resetScene();
+    } else if (e.key === 'ArrowLeft'){
+      keyboardAim.x = Math.max(0, keyboardAim.x - step);
+      pointer.active = false;
+      announce('시선을 왼쪽으로 이동했습니다.');
+    } else if (e.key === 'ArrowRight'){
+      keyboardAim.x = Math.min(1, keyboardAim.x + step);
+      pointer.active = false;
+      announce('시선을 오른쪽으로 이동했습니다.');
+    } else if (e.key === 'ArrowUp'){
+      keyboardAim.y = Math.max(0, keyboardAim.y - step);
+      pointer.active = false;
+      announce('시선을 위로 이동했습니다.');
+    } else if (e.key === 'ArrowDown'){
+      keyboardAim.y = Math.min(1, keyboardAim.y + step);
+      pointer.active = false;
+      announce('시선을 아래로 이동했습니다.');
+    }
+  });
+
+  const ro = new ResizeObserver(resize);
+  ro.observe(document.body);
+
+  applyReducedMotion();
+  resize();
+  addWave(window.innerWidth * 0.5, window.innerHeight * 0.5, 1);
+  requestAnimationFrame(frame);
 })();
 </script>
 </body>

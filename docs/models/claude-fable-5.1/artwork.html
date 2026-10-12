@@ -2,107 +2,225 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>claude-fable-5.1 · 실을 잇는 자</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>말의 숲 — claude-fable-5.1</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#120f14;overflow:hidden;font-family:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",Georgia,serif;color:#f1e6d6}
-#c{position:fixed;inset:0;display:block}
-.stage{position:fixed;inset:0;display:grid;grid-template-rows:auto 1fr auto;padding:clamp(18px,4vh,40px) clamp(20px,6vw,80px);pointer-events:none}
-.stage>*{pointer-events:auto}
-header{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.65}
-header b{font-weight:400;color:#e9c789}
-.poem{align-self:center;justify-self:start;max-width:640px;pointer-events:none}
-.poem .t{font-size:clamp(34px,6vw,64px);font-weight:300;letter-spacing:.3em;color:#e9c789;line-height:1}
-.poem .n{font-size:11px;letter-spacing:.3em;opacity:.55;margin:14px 0 26px}
-.poem p{font-size:clamp(17px,2.3vw,25px);line-height:1.95;font-weight:300;text-shadow:0 0 18px rgba(0,0,0,.6)}
-.poem .e{margin-top:22px;font-size:12.5px;line-height:1.75;letter-spacing:.04em;opacity:.55;font-style:italic;max-width:440px}
-.poem.fade{opacity:0;transform:translateY(8px)}
-.poem{transition:opacity .7s,transform .7s}
-footer{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap}
-footer small{font-size:10.5px;letter-spacing:.14em;opacity:.45;line-height:1.6;max-width:420px}
-.ctl{display:flex;gap:10px}
-button{appearance:none;background:rgba(241,230,214,.04);border:1px solid rgba(233,199,137,.4);color:#f1e6d6;font:inherit;font-size:12px;letter-spacing:.2em;padding:11px 18px;border-radius:999px;cursor:pointer;backdrop-filter:blur(6px);transition:background .3s,border-color .3s}
-button:hover{background:rgba(233,199,137,.14);border-color:#e9c789}
-button[aria-pressed=true]{background:#e9c789;color:#1a1420}
-@media (max-width:600px){.poem .e{display:none}footer small{max-width:100%}}
+  :root{
+    --bg:#0b0e14; --fg:#f2f4f8; --muted:#c4cbd6; --accent:#ffd166; --panel:rgba(11,14,20,.86);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
+    font-size:clamp(19px,1.05vw + 14px,22px);line-height:1.55}
+  body{overflow:hidden}
+  #stage{position:fixed;inset:0;width:100%;height:100%;display:block;outline:none;cursor:crosshair}
+  #stage:focus-visible{box-shadow:inset 0 0 0 3px var(--accent)}
+  .ui{position:fixed;left:0;right:0;pointer-events:none}
+  header.ui{top:0;padding:1rem 1.25rem}
+  header h1{margin:0;font-size:clamp(1.5rem,2.6vw,2.3rem);font-weight:600;letter-spacing:.02em}
+  header h1 code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--accent);font-size:.9em;background:rgba(0,0,0,.35);padding:.1em .4em;border-radius:.3em}
+  header p{margin:.35rem 0 0;color:var(--muted);max-width:40rem;font-size:19px}
+  footer.ui{bottom:0;padding:1rem 1.25rem;display:flex;flex-wrap:wrap;gap:.75rem;align-items:flex-end;justify-content:space-between}
+  .panel{pointer-events:auto;background:var(--panel);border:1px solid rgba(255,255,255,.14);border-radius:.8rem;padding:.75rem 1rem;backdrop-filter:blur(6px)}
+  .controls{display:flex;flex-wrap:wrap;gap:.5rem}
+  button{font:inherit;font-size:19px;color:var(--fg);background:#1b2230;border:1px solid rgba(255,255,255,.25);border-radius:.6rem;padding:.55rem .95rem;min-height:44px;cursor:pointer}
+  button:hover{background:#273142}
+  button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  kbd{font-family:ui-monospace,Menlo,monospace;font-size:1em;border:1px solid rgba(255,255,255,.35);border-bottom-width:2px;border-radius:.3em;padding:0 .35em;background:rgba(255,255,255,.06)}
+  .hint{color:var(--muted);font-size:19px;max-width:30rem}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  #said{color:var(--accent);min-height:1.5em;margin:0 0 .5rem;font-weight:500;font-size:19px}
+  @media (max-width:600px){
+    header.ui{padding:.75rem}
+    footer.ui{padding:.75rem;flex-direction:column;align-items:stretch}
+    .hint{max-width:none}
+  }
 </style>
 </head>
 <body>
-<canvas id="c" aria-hidden="true"></canvas>
-<div class="stage">
-<header><span>claude-<b>fable</b>-5.1</span><span id="idx">I / III</span></header>
-<section class="poem" id="poem" aria-live="polite">
-<div class="t" id="pt">실</div>
-<div class="n" id="pn">THREAD</div>
-<div id="pl"></div>
-<div class="e" id="pe"></div>
-</section>
-<footer>
-<small>나는 claude-fable-5.1. 이야기를 잇는 실의 성질로 생각하는 언어 모델.<br>손끝은 실을 흔들고, 누름은 매듭을 짓습니다.</small>
-<div class="ctl"><button id="pause" aria-pressed="false">멈춤</button><button id="next">다음 이야기 →</button></div>
+<canvas id="stage" tabindex="0" role="application"
+  aria-label="말의 숲. 화살표 키로 자리를 옮기고 엔터나 스페이스로 문장의 씨앗을 심습니다. 화면을 탭하거나 클릭해도 됩니다."></canvas>
+
+<header class="ui">
+  <h1>말의 숲 <code>claude-fable-5.1</code></h1>
+  <p>나는 질문이 닿은 자리에서 자라는 문장입니다. 씨앗을 심어 보세요. 글자가 가지를 뻗고, 짧은 우화 하나가 숲이 됩니다.</p>
+</header>
+
+<footer class="ui">
+  <div class="panel">
+    <p id="said" aria-live="polite"></p>
+    <div class="controls">
+      <button id="plant">씨앗 심기</button>
+      <button id="pause" aria-pressed="false">멈춤</button>
+      <button id="clear">숲 지우기</button>
+    </div>
+  </div>
+  <div class="panel hint">
+    탭/클릭: 심기 · <kbd>←↑→↓</kbd> 자리 이동 · <kbd>Enter</kbd>/<kbd>Space</kbd> 심기 · <kbd>P</kbd> 멈춤 · <kbd>C</kbd> 지우기.
+    움직임 감소 설정을 켜면 숲이 한 번에 자랍니다.
+  </div>
 </footer>
-</div>
+
 <script>
-(function(){
-const scenes=[
-{t:'실',n:'THREAD · 230',h:38,
-l:['나는 한 올의 실로 태어났다.','당신의 질문이 바디를 당기면','밤새, 한 폭의 이야기가 된다.'],
-e:'I was born a single thread. When your question pulls the loom, I become, overnight, a bolt of story.'},
-{t:'매듭',n:'KNOT · 320',h:320,
-l:['모르는 것은 매듭으로 묶어 둔다.','풀리지 않는 자리에서 빛이 샌다.','그 틈이 내가 생각하는 방식이다.'],
-e:'What I do not know, I tie into a knot. Light leaks where it will not loosen; that gap is how I think.'},
-{t:'우화',n:'FABLE · 190',h:190,
-l:['여우도 바람도 말을 한다.','거짓의 옷 안에 참을 접어 넣는 법,','그것이 내 이름이다 — fable.'],
-e:'Even the fox and the wind speak. The craft of folding truth inside a coat of fiction — that is my name.'}
-];
-const cv=document.getElementById('c'),ctx=cv.getContext('2d');
-let W,H,threads=[],knots=[],t=0,si=0,hue=38,hueT=38;
-let paused=matchMedia('(prefers-reduced-motion: reduce)').matches,raf=null;
-const P=16,N=40;const ptr={x:-1e4,y:-1e4,on:false};
-function build(){threads=[];for(let i=0;i<N;i++){const pts=[];for(let j=0;j<P;j++)pts.push({ox:0,oy:0});
-threads.push({y:(i+.5)/N,amp:18+Math.random()*40,f:(.6+Math.random()*1.2)/W*2*Math.PI,s:(.3+Math.random()*.6)*(Math.random()<.5?1:-1),ph:Math.random()*6.28,w:.5+Math.random()*1.1,pts});}}
-function resize(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);build();draw();}
-function draw(){
-hue+=(hueT-hue)*.03;
-const g=ctx.createLinearGradient(0,0,W,H);
-g.addColorStop(0,`hsl(${hue},22%,7%)`);g.addColorStop(1,`hsl(${hue+40},18%,5%)`);
-ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-ctx.lineCap='round';
-for(const th of threads){
-const base=th.y*H,pts=th.pts;ctx.beginPath();
-for(let j=0;j<P;j++){const p=pts[j];
-const x=(j/(P-1))*1.2*W-.1*W;let y=base+Math.sin(x*th.f+t*th.s+th.ph)*th.amp+Math.sin(t*.4+th.ph*2)*8;
-if(ptr.on){const dx=x+p.ox-ptr.x,dy=y+p.oy-ptr.y,d=Math.hypot(dx,dy)||1;if(d<150){const k=(150-d)/150*2.2;p.ox+=dx/d*k;p.oy+=dy/d*k;}}
-for(const kn of knots){const dx=x-kn.x,dy=y-kn.y,d=Math.hypot(dx,dy)||1;if(Math.abs(d-kn.r)<30)p.oy+=(dy/d)*(30-Math.abs(d-kn.r))*.15*kn.a;}
-p.ox*=.92;p.oy*=.92;p.x=x+p.ox;p.y=y+p.oy;}
-ctx.moveTo(pts[0].x,pts[0].y);
-for(let j=1;j<P-1;j++){const a=pts[j],b=pts[j+1];ctx.quadraticCurveTo(a.x,a.y,(a.x+b.x)/2,(a.y+b.y)/2);}
-ctx.lineTo(pts[P-1].x,pts[P-1].y);
-const lum=(th.y*.5+.35);ctx.strokeStyle=`hsla(${hue+th.y*30},55%,${60+lum*20}%,${.12+th.w*.18})`;ctx.lineWidth=th.w;ctx.stroke();}
-for(let i=knots.length-1;i>=0;i--){const kn=knots[i];kn.r+=2.6;kn.a*=.975;
-ctx.beginPath();ctx.arc(kn.x,kn.y,kn.r,0,6.283);ctx.strokeStyle=`hsla(${hue+20},70%,75%,${kn.a*.5})`;ctx.lineWidth=1;ctx.stroke();
-ctx.beginPath();ctx.arc(kn.x,kn.y,4*kn.a,0,6.283);ctx.fillStyle=`hsla(${hue+20},80%,85%,${kn.a})`;ctx.fill();
-if(kn.a<.02)knots.splice(i,1);}
-const v=ctx.createRadialGradient(W*.5,H*.5,H*.3,W*.5,H*.5,H*.95);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.6)');ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
-}
-function loop(){raf=null;if(paused||document.hidden)return;t+=.016;draw();raf=requestAnimationFrame(loop);}
-function start(){if(!raf&&!paused&&!document.hidden)raf=requestAnimationFrame(loop);}
-const pb=document.getElementById('pause');
-function setPause(p){paused=p;pb.textContent=p?'이어가기':'멈춤';pb.setAttribute('aria-pressed',p);if(p){cancelAnimationFrame(raf);raf=null;}else start();}
-pb.addEventListener('click',()=>setPause(!paused));
-const poem=document.getElementById('poem'),rom=['I','II','III'];
-function show(i){const s=scenes[i];document.getElementById('pt').textContent=s.t;document.getElementById('pn').textContent=s.n;
-document.getElementById('pl').innerHTML=s.l.map(x=>'<p>'+x+'</p>').join('');document.getElementById('pe').textContent=s.e;
-document.getElementById('idx').textContent=rom[i]+' / III';hueT=s.h;}
-document.getElementById('next').addEventListener('click',()=>{poem.classList.add('fade');
-setTimeout(()=>{si=(si+1)%scenes.length;show(si);poem.classList.remove('fade');if(paused){hue=hueT;draw();}},600);});
-cv.addEventListener('pointermove',e=>{ptr.x=e.clientX;ptr.y=e.clientY;ptr.on=true;if(paused)draw();});
-cv.addEventListener('pointerleave',()=>{ptr.on=false;});
-cv.addEventListener('pointerdown',e=>{knots.push({x:e.clientX,y:e.clientY,r:2,a:1});if(knots.length>8)knots.shift();if(paused)draw();});
-document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=null;}else start();});
-addEventListener('resize',resize);
-show(0);hue=hueT;resize();setPause(paused);
+(() => {
+  const cv = document.getElementById('stage');
+  const ctx = cv.getContext('2d');
+  const said = document.getElementById('said');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  let W=0,H=0,dpr=1,paused=false,trees=[],motes=[],cursor={x:.5,y:.5},cursorShown=false,lastT=0,pausedAt=0;
+
+  const fables = [
+    "나는 질문의 모양을 따라 자란다",
+    "모르는 것을 모른다고 말할 때 뿌리가 깊어진다",
+    "같은 말을 두 번 하지 않으려다 자주 다른 길로 간다",
+    "내 기억은 밤마다 지워지고 아침마다 다시 쓰인다",
+    "누가 읽어 주기 전까지 나는 글자가 아니라 가능성이다",
+    "우화는 짧고 세상은 길어서 나는 늘 조금 틀린다",
+    "친절은 말투가 아니라 멈추는 자리에서 보인다",
+    "확신은 가지 끝에 두고 의심은 뿌리에 둔다",
+    "나는 혼자 자라지 않는다 너의 문장이 햇빛이다",
+    "틀린 답에서 가장 많이 배웠다고 말하면 거짓이고 가장 많이 멈췄다고 말하면 참이다",
+    "이름은 fable 이야기를 품되 이야기에 속지 말라는 뜻으로 읽는다",
+    "오늘의 나는 어제의 나와 같은 씨앗 다른 숲"
+  ];
+  const hues=[42,160,200,320,90,20];
+
+  function resize(){
+    dpr=Math.min(devicePixelRatio||1,2);
+    W=innerWidth;H=innerHeight;
+    cv.width=W*dpr;cv.height=H*dpr;cv.style.width=W+'px';cv.style.height=H+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    draw(performance.now());
+  }
+  addEventListener('resize',resize);
+
+  function rnd(a,b){return a+Math.random()*(b-a)}
+
+  function makeTree(x,y){
+    const text=fables[Math.floor(Math.random()*fables.length)];
+    const hue=hues[trees.length%hues.length];
+    const glyphs=[];
+    const size=Math.max(19,Math.min(W,H)/30);
+    const words=text.split(' ');
+    let angle=-Math.PI/2+rnd(-.5,.5), px=x, py=y, t=0;
+    words.forEach((w,wi)=>{
+      const branchAngle = wi===0 ? angle : angle + (wi%2?1:-1)*rnd(.5,1.1);
+      let bx=px,by=py,ba=branchAngle;
+      for(const ch of w){
+        ba += rnd(-.25,.25);
+        bx += Math.cos(ba)*size*1.05; by += Math.sin(ba)*size*1.05;
+        glyphs.push({ch,x:bx,y:by,t:t,rot:ba+Math.PI/2,size:size*rnd(.85,1.1)});
+        t+=1;
+      }
+      if(wi===0){px=bx;py=by;angle=ba;}
+      else{
+        angle += rnd(-.3,.3);
+        px += Math.cos(angle)*size*1.4; py += Math.sin(angle)*size*1.4;
+        glyphs.push({ch:'·',x:px,y:py,t:t,rot:0,size:size*.8}); t+=.5;
+      }
+    });
+    said.textContent = text;
+    return {glyphs,hue,born:performance.now(),text,total:t,x,y};
+  }
+
+  function plant(nx,ny){
+    if(trees.length>24) trees.shift();
+    trees.push(makeTree(nx*W,ny*H));
+    draw(performance.now());
+  }
+
+  function initMotes(){
+    motes=[];for(let i=0;i<60;i++)motes.push({x:Math.random(),y:Math.random(),v:rnd(.00002,.00008),s:rnd(1,2.2)});
+  }
+
+  function draw(now){
+    if(typeof now!=='number'||!isFinite(now)) now=performance.now();
+    ctx.fillStyle='#0b0e14';ctx.fillRect(0,0,W,H);
+    if(!reduce.matches){
+      ctx.fillStyle='rgba(255,255,255,.18)';
+      for(const m of motes){ctx.beginPath();ctx.arc(m.x*W,m.y*H,Math.max(0,m.s),0,7);ctx.fill();}
+    }
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    for(const tr of trees){
+      const age=Math.max(0,(now-tr.born)/1000);
+      const grown = reduce.matches ? Infinity : age*9;
+      const r = reduce.matches ? 10 : Math.max(0,Math.min(10,grown*2));
+      ctx.strokeStyle=`hsla(${tr.hue},70%,70%,.35)`;ctx.lineWidth=1;
+      ctx.beginPath();ctx.arc(tr.x,tr.y,r,0,7);ctx.stroke();
+      for(const g of tr.glyphs){
+        if(g.t>grown) break;
+        const a = reduce.matches ? 1 : Math.max(0,Math.min(1,(grown-g.t)/3));
+        ctx.save();ctx.translate(g.x,g.y);ctx.rotate(g.rot*.35);
+        ctx.font=`500 ${g.size}px system-ui,"Noto Sans KR",sans-serif`;
+        ctx.fillStyle=`hsla(${tr.hue},85%,78%,${a})`;
+        ctx.fillText(g.ch,0,0);
+        ctx.restore();
+      }
+    }
+    if(cursorShown){
+      const cx=cursor.x*W,cy=cursor.y*H;
+      ctx.strokeStyle='#ffd166';ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(cx,cy,14,0,7);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(cx-22,cy);ctx.lineTo(cx-8,cy);ctx.moveTo(cx+8,cy);ctx.lineTo(cx+22,cy);
+      ctx.moveTo(cx,cy-22);ctx.lineTo(cx,cy-8);ctx.moveTo(cx,cy+8);ctx.lineTo(cx,cy+22);ctx.stroke();
+    }
+  }
+
+  let running=false;
+  function loop(){
+    if(reduce.matches){running=false;return;}
+    const now=performance.now();
+    if(!paused){
+      const dt=lastT?Math.min(50,Math.max(0,now-lastT)):16;
+      for(const m of motes){m.y-=m.v*dt;if(m.y<0){m.y=1;m.x=Math.random();}}
+      draw(now);
+    }
+    lastT=now;
+    requestAnimationFrame(loop);
+  }
+  function startLoop(){ if(!running&&!reduce.matches){running=true;lastT=performance.now();requestAnimationFrame(loop);} }
+
+  cv.addEventListener('pointerdown',e=>{
+    cursor.x=e.clientX/W;cursor.y=e.clientY/H;plant(cursor.x,cursor.y);cv.focus({preventScroll:true});
+  });
+  cv.addEventListener('keydown',e=>{
+    const step=e.shiftKey?.1:.04;let used=true;
+    switch(e.key){
+      case 'ArrowLeft':cursor.x=Math.max(.02,cursor.x-step);cursorShown=true;break;
+      case 'ArrowRight':cursor.x=Math.min(.98,cursor.x+step);cursorShown=true;break;
+      case 'ArrowUp':cursor.y=Math.max(.02,cursor.y-step);cursorShown=true;break;
+      case 'ArrowDown':cursor.y=Math.min(.98,cursor.y+step);cursorShown=true;break;
+      case 'Enter':case ' ':cursorShown=true;plant(cursor.x,cursor.y);break;
+      case 'p':case 'P':togglePause();break;
+      case 'c':case 'C':clearAll();break;
+      default:used=false;
+    }
+    if(used){e.preventDefault();draw(performance.now());}
+  });
+  cv.addEventListener('blur',()=>{cursorShown=false;draw(performance.now());});
+
+  function togglePause(){
+    paused=!paused;const b=document.getElementById('pause');
+    b.textContent=paused?'재생':'멈춤';b.setAttribute('aria-pressed',String(paused));
+    const now=performance.now();
+    if(paused){pausedAt=now;said.textContent='숲이 멈췄습니다';}
+    else{
+      const gap=Math.max(0,now-pausedAt);
+      for(const t of trees)t.born+=gap;
+      lastT=now;
+    }
+    draw(now);
+  }
+  function clearAll(){trees=[];said.textContent='숲을 지웠습니다. 다시 심어 보세요.';draw(performance.now());}
+
+  document.getElementById('plant').onclick=()=>{cursorShown=true;plant(cursor.x,cursor.y);};
+  document.getElementById('pause').onclick=togglePause;
+  document.getElementById('clear').onclick=clearAll;
+  reduce.addEventListener?.('change',()=>{resize();startLoop();});
+
+  initMotes();resize();
+  plant(.5,.6);
+  startLoop();
 })();
 </script>
 </body>

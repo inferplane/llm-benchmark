@@ -1,0 +1,20 @@
+{
+  "model": "claude-sonnet-4.5",
+  "model_id": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "api": "bedrock",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:06:53.857335+00:00",
+  "prompt_sha256": "aed9657e54ff5a32851ea29336b604faa398d1a5f66ec402008c22ab1ffa5dbb",
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "status": "generated",
+  "generated_at": "2026-10-12T08:07:33.735907+00:00",
+  "artwork_sha256": "9fb61412e4456e1fa4e87be3ce41c9022c1b0b0c935b1eb7ef877a34b3cccf6e",
+  "tokens_in": 388,
+  "tokens_out": 3899,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "34a1efdc-a53c-407a-b373-92b11197bb18"
+}

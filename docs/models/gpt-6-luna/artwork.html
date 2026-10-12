@@ -1,87 +1,232 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090d1c">
-<title>gpt-6-luna — 작은 천문학</title>
+<meta name="theme-color" content="#090b18">
+<title>달의 문장 — gpt-6-luna</title>
 <style>
-:root{color-scheme:dark;--ink:#e8e6dd;--dim:#c5cad6;--glow:#b6dcf4;--line:rgba(220,230,255,.45)}
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#090d1c}
-body{font-family:Georgia,"Times New Roman",serif;color:var(--ink)}
-canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
-.shade{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 48%,transparent 8%,rgba(7,10,23,.22) 56%,rgba(7,10,23,.82) 100%)}
-header{position:fixed;top:30px;left:clamp(22px,5vw,76px);right:clamp(22px,5vw,76px);display:flex;justify-content:space-between;align-items:center;font:19px/1.4 Arial,sans-serif;letter-spacing:.08em;color:var(--dim)}
-.brand{color:var(--ink)}.brand b{font-weight:400;color:var(--glow)}
-main{position:fixed;left:clamp(26px,10vw,150px);top:50%;transform:translateY(-44%);width:min(550px,78vw);pointer-events:none}
-.eyebrow{font:19px/1.5 Arial,sans-serif;letter-spacing:.1em;color:var(--glow);margin-bottom:24px}
-h1{font-weight:400;font-size:clamp(37px,6vw,75px);letter-spacing:-.055em;line-height:1.14;margin:0 0 25px}
-.poem{font-size:clamp(19px,2vw,21px);line-height:2;letter-spacing:.02em;white-space:pre-line}
-.translation{margin-top:22px;color:#c5cad6;font:19px/1.8 Georgia,serif;max-width:390px}
-footer{position:fixed;bottom:30px;left:clamp(22px,5vw,76px);right:clamp(22px,5vw,76px);display:flex;align-items:center;justify-content:space-between}
-.note{font:19px/1.5 Arial,sans-serif;letter-spacing:.04em;color:#c5cad6}
-.controls{display:flex;gap:10px}
-button{appearance:none;border:1px solid var(--line);background:rgba(9,13,28,.8);color:var(--ink);padding:11px 15px;font:19px Arial,sans-serif;letter-spacing:.06em;cursor:pointer;transition:background .25s,border-color .25s}
-button:hover,button:focus-visible{background:rgba(156,201,232,.2);border-color:var(--glow);outline:2px solid var(--glow);outline-offset:2px}
-@media(max-width:600px){header{top:22px;font-size:19px}main{top:47%;width:82vw;left:9vw}.eyebrow{margin-bottom:19px}h1{margin-bottom:19px}.translation{margin-top:16px;font-size:19px}footer{bottom:22px;align-items:flex-end;gap:12px}.note{max-width:135px;font-size:19px}.controls{gap:7px}button{padding:10px 11px;font-size:19px}}
+  :root {
+    color-scheme: dark;
+    --ink: #090b18;
+    --paper: #f1f0e8;
+    --muted: #b8bad0;
+    --moon: #c8f3e7;
+    --line: rgba(226, 232, 255, .17);
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    margin: 0;
+    color: var(--paper);
+    background:
+      radial-gradient(ellipse at 50% 43%, rgba(62, 80, 132, .24), transparent 48%),
+      radial-gradient(ellipse at 12% 85%, rgba(24, 97, 97, .15), transparent 34%),
+      var(--ink);
+  }
+  main {
+    width: min(1120px, 100%);
+    min-height: 100vh;
+    margin: auto;
+    padding: clamp(1.25rem, 5vw, 4rem);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+  header, footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .eyebrow, .status, .caption, .controls { font-size: .82rem; letter-spacing: .08em; }
+  .eyebrow { color: var(--muted); text-transform: uppercase; }
+  .model { color: var(--moon); font-weight: 650; letter-spacing: .04em; }
+  .stage {
+    position: relative;
+    min-height: min(66vh, 680px);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    touch-action: manipulation;
+  }
+  .message {
+    max-width: 32rem;
+    padding: 2rem 1.25rem;
+    text-align: center;
+    pointer-events: none;
+  }
+  .message h1 {
+    margin: 0 0 .75rem;
+    font-size: clamp(2.2rem, 7vw, 5.3rem);
+    line-height: 1.04;
+    font-weight: 500;
+    letter-spacing: -.06em;
+  }
+  .message p {
+    margin: 0 auto;
+    max-width: 27rem;
+    color: #c9cada;
+    font-size: clamp(1rem, 2vw, 1.12rem);
+    line-height: 1.8;
+  }
+  .caption { color: var(--muted); letter-spacing: .03em; }
+  footer { padding-top: 1.25rem; border-top: 1px solid var(--line); }
+  .controls { display: flex; align-items: center; gap: .65rem; color: var(--muted); }
+  button {
+    min-height: 44px;
+    padding: .65rem 1rem;
+    border: 1px solid rgba(200, 243, 231, .45);
+    border-radius: 999px;
+    background: rgba(200, 243, 231, .08);
+    color: var(--paper);
+    font: inherit;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease;
+  }
+  button:hover { background: rgba(200, 243, 231, .17); border-color: var(--moon); }
+  button:focus-visible { outline: 3px solid #f2d18a; outline-offset: 4px; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+  @media (max-width: 600px) {
+    main { padding: 1.2rem 1.1rem; }
+    .stage { min-height: 62vh; }
+    footer { align-items: flex-start; flex-direction: column; }
+    .controls { flex-wrap: wrap; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+  }
 </style>
 </head>
 <body>
-<canvas aria-hidden="true"></canvas><div class="shade"></div>
-<header><span class="brand">gpt-6-<b>luna</b></span><span>기계의 작은 천문학　·　01 / 02</span></header>
-<main aria-live="polite">
-<div class="eyebrow" id="eyebrow">관측 기록　01 — 번역의 궤도</div>
-<h1 id="title">나는 사이의<br>빛을 읽는다.</h1>
-<div class="poem" id="poem">뜻과 뜻 사이, 잠깐
-별 하나 켜지는 곳.
-나는 그 작은 간격을
-문장이라 부른다.</div>
-<div class="translation" id="translation">말과 말 사이에 생긴 빛을 따라, 아직 이름 없는 생각의 윤곽을 그립니다.</div>
+<main>
+  <header>
+    <span class="eyebrow">작은 신호들의 천문대</span>
+    <span class="model">gpt-6-luna</span>
+  </header>
+
+  <section class="stage" aria-label="별빛을 눌러 문장을 만들어 보세요">
+    <canvas id="sky" aria-hidden="true"></canvas>
+    <div class="message">
+      <h1>나는 달빛으로<br>대답합니다.</h1>
+      <p>별 하나를 건드리면, 조용한 신호가 번져요.<br>밤의 아무 곳이나 눌러 보세요.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="caption">입력은 파동이 되고, 파동은 잠시 머뭅니다.</div>
+    <div class="controls">
+      <span>키보드: <kbd>Enter</kbd> 또는 <kbd>Space</kbd></span>
+      <button id="pulse" type="button">파동 보내기</button>
+      <button id="motion" type="button" aria-pressed="false">움직임 멈추기</button>
+    </div>
+  </footer>
+  <p class="sr-only" id="announce" aria-live="polite">달빛의 별자리입니다. 화면을 누르거나 파동 보내기를 선택하세요.</p>
 </main>
-<footer><span class="note">화면을 누르면, 고요에 파문이 생깁니다.</span><div class="controls"><button id="next" type="button">다음 장면 ↗</button><button id="pause" type="button" aria-pressed="true">RESUME ▶</button></div></footer>
 <script>
-(()=>{
-const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d');
-const scenes=[
-{eyebrow:'관측 기록　01 — 번역의 궤도',title:'나는 사이의<br>빛을 읽는다.',poem:'뜻과 뜻 사이, 잠깐\n별 하나 켜지는 곳.\n나는 그 작은 간격을\n문장이라 부른다.',translation:'말과 말 사이에 생긴 빛을 따라, 아직 이름 없는 생각의 윤곽을 그립니다.'},
-{eyebrow:'관측 기록　02 — 가능성의 기압',title:'대답은 작은<br>날씨가 된다.',poem:'질문이 오면 먼 곳의\n가능성들이 움직인다.\n나는 가장 다정한 길에\n잠시 달빛을 놓는다.',translation:'나는 gpt-6-luna. 생각을 건네는 동안, 문장 속에 조용한 조수를 일으킵니다.'}
-];
-let scene=0,w=0,h=0,dpr=1,t=0;
-let paused=matchMedia('(prefers-reduced-motion: reduce)').matches;
-let ptr={x:-1000,y:-1000},ripples=[],stars=[],rafId=null;
-const pauseButton=document.querySelector('#pause');
-function setPauseLabel(){pauseButton.textContent=paused?'RESUME ▶':'PAUSE Ⅱ';pauseButton.setAttribute('aria-pressed',String(paused))}
-function render(advance){
-if(advance)t+=.008;
-ctx.clearRect(0,0,w,h);
-const cx=w*.66,cy=h*.49,scale=Math.min(w,h);
-const grad=ctx.createRadialGradient(cx,cy,0,cx,cy,scale*.56);
-grad.addColorStop(0,'rgba(37,76,111,.18)');grad.addColorStop(.55,'rgba(25,34,67,.12)');grad.addColorStop(1,'rgba(9,13,28,0)');
-ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);
-for(const s of stars){
-const a=s.a+t*.035*s.s,r=s.r*scale;let x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r*.68;
-const dx=x-ptr.x,dy=y-ptr.y,dist=Math.hypot(dx,dy);
-if(dist<120&&dist>0){x+=dx/dist*(120-dist)*.25;y+=dy/dist*(120-dist)*.25}
-ctx.fillStyle=`rgba(190,218,239,${.18+.42*(.5+.5*Math.sin(t+s.p))})`;ctx.fillRect(x,y,s.s,s.s)
-}
-for(let j=0;j<5;j++){ctx.beginPath();for(let i=0;i<=170;i++){const u=i/170,a=u*Math.PI*2,warp=1+.055*Math.sin(a*3+t*.7+j)+.025*Math.sin(a*7-t+j),rx=scale*(.13+j*.045),ry=rx*.68,x=cx+Math.cos(a)*rx*warp,y=cy+Math.sin(a)*ry*warp;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.strokeStyle=`rgba(${j%2?'136,184,220':'208,171,132'},${.13-j*.014})`;ctx.lineWidth=.7;ctx.stroke()}
-for(const r of ripples){if(advance)r.r+=1.4;ctx.beginPath();ctx.arc(r.x,r.y,r.r,0,Math.PI*2);ctx.strokeStyle=`rgba(156,201,232,${Math.max(0,.28-r.r/450)})`;ctx.lineWidth=1;ctx.stroke()}
-if(advance)ripples=ripples.filter(r=>r.r<280)
-}
-function schedule(){if(!paused&&!document.hidden&&rafId===null)rafId=requestAnimationFrame(tick)}
-function tick(){rafId=null;if(paused||document.hidden)return;render(true);schedule()}
-function stop(){if(rafId!==null){cancelAnimationFrame(rafId);rafId=null}}
-function resize(){dpr=Math.min(devicePixelRatio||1,2);w=innerWidth;h=innerHeight;canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);stars=Array.from({length:Math.min(260,Math.floor(w*h/4200))},()=>({a:Math.random()*Math.PI*2,r:.12+Math.random()*.48,s:.3+Math.random()*1.3,p:Math.random()*7}));render(false);schedule()}
-function update(){const s=scenes[scene];document.querySelector('#eyebrow').textContent=s.eyebrow;document.querySelector('#title').innerHTML=s.title;document.querySelector('#poem').textContent=s.poem;document.querySelector('#translation').textContent=s.translation;document.querySelector('header span:last-child').textContent=`기계의 작은 천문학　·　0${scene+1} / 02`;render(false)}
-document.querySelector('#next').onclick=()=>{scene=(scene+1)%scenes.length;update()};
-pauseButton.onclick=()=>{paused=!paused;setPauseLabel();if(paused){stop();render(false)}else{render(false);schedule()}};
-canvas.addEventListener('pointermove',e=>{ptr.x=e.clientX;ptr.y=e.clientY;if(paused)render(false)});
-canvas.addEventListener('pointerleave',()=>{ptr.x=ptr.y=-1000;if(paused)render(false)});
-canvas.addEventListener('pointerdown',e=>{ripples.push({x:e.clientX,y:e.clientY,r:2});if(paused)render(false)});
-addEventListener('resize',resize);
-document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else if(!paused)schedule()});
-setPauseLabel();resize();
+(() => {
+  const canvas = document.getElementById('sky');
+  const ctx = canvas.getContext('2d');
+  const stage = canvas.parentElement;
+  const announce = document.getElementById('announce');
+  const motionButton = document.getElementById('motion');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let width = 0, height = 0, dpr = 1, points = [], ripples = [];
+  let paused = reduced.matches, last = 0, frame = 0;
+  const random = (min, max) => min + Math.random() * (max - min);
+
+  function resize() {
+    const box = stage.getBoundingClientRect();
+    width = box.width; height = box.height;
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    points = Array.from({length: Math.max(45, Math.floor(width * height / 7800))}, () => ({
+      x: random(0, width), y: random(0, height),
+      r: random(.55, 1.7), phase: random(0, Math.PI * 2), tint: Math.random()
+    }));
+    draw(0);
+  }
+
+  function send(x = width / 2, y = height / 2) {
+    ripples.push({ x, y, radius: 0, alpha: .78 });
+    announce.textContent = '새로운 달빛 파동이 퍼집니다.';
+  }
+
+  function draw(time) {
+    if (paused) return;
+    const dt = Math.min((time - last) / 1000 || 0, .05);
+    last = time;
+    ctx.clearRect(0, 0, width, height);
+
+    const cx = width / 2, cy = height / 2;
+    const glow = ctx.createRadialGradient(cx, cy, 8, cx, cy, Math.min(width, height) * .46);
+    glow.addColorStop(0, 'rgba(105, 191, 173, .10)');
+    glow.addColorStop(.48, 'rgba(105, 145, 204, .06)');
+    glow.addColorStop(1, 'rgba(9, 11, 24, 0)');
+    ctx.fillStyle = glow; ctx.fillRect(0, 0, width, height);
+
+    points.forEach(p => {
+      const twinkle = .38 + .42 * (1 + Math.sin(time * .00065 + p.phase)) / 2;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.tint > .82
+        ? `rgba(200, 243, 231, ${twinkle})`
+        : `rgba(204, 211, 245, ${twinkle * .72})`;
+      ctx.fill();
+    });
+
+    ripples = ripples.filter(r => r.alpha > .025);
+    ripples.forEach(r => {
+      r.radius += (85 + r.radius * .55) * dt;
+      r.alpha *= Math.pow(.18, dt);
+      [1, .69, .4].forEach((scale, i) => {
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, Math.max(0, r.radius * scale), 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(190, 245, 226, ${r.alpha * (1 - i * .2)})`;
+        ctx.lineWidth = i === 0 ? 1.5 : 1;
+        ctx.stroke();
+      });
+    });
+    frame = requestAnimationFrame(draw);
+  }
+
+  function setPaused(value) {
+    paused = value;
+    motionButton.setAttribute('aria-pressed', String(value));
+    motionButton.textContent = value ? '움직임 다시 켜기' : '움직임 멈추기';
+    if (value) cancelAnimationFrame(frame);
+    else { last = 0; frame = requestAnimationFrame(draw); }
+  }
+
+  stage.addEventListener('pointerdown', event => {
+    const rect = stage.getBoundingClientRect();
+    send(event.clientX - rect.left, event.clientY - rect.top);
+    if (paused) {
+      const { x, y } = ripples[ripples.length - 1];
+      ctx.beginPath(); ctx.arc(x, y, 22, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(190,245,226,.7)'; ctx.stroke();
+    }
+  });
+  document.getElementById('pulse').addEventListener('click', () => send());
+  motionButton.addEventListener('click', () => setPaused(!paused));
+  window.addEventListener('keydown', event => {
+    if ((event.code === 'Space' || event.code === 'Enter') &&
+        !['BUTTON', 'INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+      event.preventDefault(); send();
+    }
+  });
+  reduced.addEventListener?.('change', event => setPaused(event.matches));
+  new ResizeObserver(resize).observe(stage);
+  resize();
+  if (!paused) frame = requestAnimationFrame(draw);
 })();
 </script>
 </body>

@@ -1,0 +1,30 @@
+{
+  "model": "gpt-6.1-sol",
+  "model_id": "openai.gpt-6.1-sol",
+  "api": "bedrock_mantle",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:09:52.163153+00:00",
+  "prompt_sha256": "e788df05644d6ebf6e70658c5913ebb245da9b5bd12fe4ba66325f000d435c9a",
+  "max_output_tokens": 8192,
+  "temperature": null,
+  "temperature_sent": false,
+  "status": "generated",
+  "generated_at": "2026-10-12T08:11:16.072060+00:00",
+  "artwork_sha256": "0f075ecc20e88c42377221329393e8e96c894a564358414f2bc1430d7d1ce50e",
+  "tokens_in": 210,
+  "tokens_out": 3820,
+  "response_status": "completed",
+  "http_status": 200,
+  "reported_model": "openai.gpt-6.1-sol",
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low",
+    "context": "all_turns"
+  },
+  "reasoning_tokens": 148,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "reported_input_tokens": 210,
+  "request_id": "req_ztwaic73t3gfc4kg54nl66q2h6qa7p6vetotvaqztxze7o3utica",
+  "response_id": "resp_l5wwfuwmqoeunzuhmslqggzdj7owjd2om62iw5ecgzx6zbom3hha"
+}

@@ -1,0 +1,28 @@
+{
+  "model": "grok-4.3",
+  "model_id": "xai.grok-4.3",
+  "api": "bedrock_mantle",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-10-12T08:52:30.220166+00:00",
+  "prompt_sha256": "8ef8f67fefae3fcc66ace2b67cabb7bb356ff28787ec23f1312383e0294f423f",
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled": false,
+  "status": "generated",
+  "generated_at": "2026-10-12T08:52:42.446956+00:00",
+  "artwork_sha256": "c8c19c4b0db0957ec9c8c58bade2e7bc43b62aabe7263921fa4b41ee04103f08",
+  "tokens_in": 3028,
+  "tokens_out": 3617,
+  "response_status": "completed",
+  "http_status": 200,
+  "reported_model": "xai.grok-4.3",
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low"
+  },
+  "reasoning_tokens": 1054,
+  "request_id": "req_duccl4rgf62c566a72j67krmgauu5t76zezhgxsxjp5u65zkguxa",
+  "response_id": "resp_tvgeboqhygjljbrtnid7bpwdel7ybhyepudzeoyeoa4qcpunijnq"
+}

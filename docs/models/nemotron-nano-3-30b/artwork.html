@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nemotron-nano-3-30b</title>
+  <style>
+    /* 기본 리셋 및 접근성 보장 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      /* 화면 확대 및 키보드 조작을 위한 가상 클래스 */
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background-color: #f8f8f8;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      /* 키보드 접근성: 포커스 스타일 보장 */
+    }
+
+    :focus {
+      outline: 3px solid #005fcc;
+      outline-offset: 2px;
+    }
+
+    /* 화면 축소/확대 대비: 비율 유지 */
+    img, video, canvas, svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* 움직임 감축: 사용자 선호 설정 존중 */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* 다크 모드 지원 (시스템 설정 존중) */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #121212;
+        color: #e0e0e0;
+      }
+    }
+
+    /* 텍스트 가독성 강화 */
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-align: center;
+      margin: 1.5rem 0;
+      letter-spacing: -0.5px;
+      /* 고대비 텍스트 */
+      text-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(10px);
+      /* 터치 및 키보드 친화적 크기 */
+    }
+
+    .model-name {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #005fcc;
+      margin: 1rem 0;
+      /* 키보드 사용자를 위한 가시성 */
+      position: relative;
+    }
+
+    .model-name::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #005fcc, transparent);
+      border-radius: 50%;
+    }
+
+    .description {
+      font-size: 1.2rem;
+      margin: 2rem 0;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+      /* 고대비 배경 대비 */
+      color: #222;
+    }
+
+    .interactive-area {
+      margin: 3rem 0;
+      padding: 2rem;
+      background: rgba(240, 240, 240, 0.9);
+      border-radius: 16px;
+      /* 터치 및 키보드 조작을 위한 영역 */
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* 접근성: 포커스 가능한 요소 */
+    }
+
+    .interactive-area:focus {
+      outline: 4px solid #003b7a;
+      outline-offset: 4px;
+    }
+
+    /* 모바일 및 데스크톱 대응 */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .model-name {
+        font-size: 2.2rem;
+      }
+      .description {
+        font-size: 1.1rem;
+      }
+      .interactive-area {
+        min-height: 250px;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .container {
+        padding: 3rem;
+      }
+    }
+
+    /* 애니메이션은 사용자 설정으로 제어 */
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* 접근성: 스크린 리더를 위한 텍스트 대체 */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Nemotron-nano-3-30b</h1>
+    <div class="model-name">Nemotron-nano-3-30b</div>
+    <p class="description">
+      이 작품은 NVIDIA에서 개발한 초경량 대형 언어 모델 <strong>nemotron-nano-3-30b</strong>의 창조적 표현을 담은 미디어아트입니다.<br>
+      이 모델은 300억 파라미터로 구성된 효율적인 지능의 흐름을 시각화한 것으로,<br>
+      단순한 텍스트를 넘어, 지능의 구조와 창조의 파동을 예술로 승화시킵니다.
+    </p>
+
+    <div class="interactive-area" tabindex="0">
+      <span class="sr-only">예술 작품 영역입니다. 키보드로 포커스를 이동할 수 있습니다.</span>
+      <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="40" fill="none" stroke="#005fcc" stroke-width="4" opacity="0.6">
+          <animate attributeName="stroke-opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite" />
+          <animate attributeName="transform" attributeType="XML" 
+                   values="rotate(0deg);rotate(360deg)" dur="4s" repeatCount="indefinite" />
+        </circle>
+        <text x="50" y="55" text-anchor="middle" font-size="12" fill="#005fcc" opacity="0.8">
+          <tspan>nemotron-nano-3-30b</tspan>
+        </text>
+      </svg>
+    </div>
+
+    <p class="description" style="margin-top: 2rem;">
+      이 작품은 외부 통신 없이 순수하게 로컬에서 실행되며,<br>
+      모바일과 데스크톱 모두에서 동일한 경험을 제공합니다.<br>
+      키보드로 탭을 눌러 포커스를 이동하고, 엔터로 상호작용할 수 있습니다.
+    </p>
+  </div>
+
+  <script>
+    // 접근성 강화: 키보드 조작을 위한 포커스 관리
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const area = document.querySelector('.interactive-area');
+        if (area) {
+          area.click();
+        }
+      }
+    });
+
+    // 화면 확대 대비: 비율 유지 및 터치 친화적 크기
+    const svg = document.querySelector('svg');
+    svg.setAttribute('style', 'width: 100%; height: auto;');
+
+    // 움직임 감축 설정 존중
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('*').forEach(el => {
+        el.style.animation = 'none !important';
+        el.style.transition = 'none !important';
+      });
+    }
+  </script>
+</body>
+</html>

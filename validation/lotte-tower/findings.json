@@ -1,0 +1,15 @@
+{
+  "verdict": "PASS",
+  "required_fixes": [],
+  "warnings": [
+    {
+      "severity": "Warning",
+      "category": "Accessibility",
+      "file": "docs/lotte-tower/index.html",
+      "line": 57,
+      "quote": "font-size=\"14\"",
+      "problem": "SVG drawing annotations use14px before viewBox scaling, below the14pt(approximately19px)review minimum. Main interface text is19px or larger.",
+      "action": "For a later readability improvement, enlarge informative SVG annotations or provide an enlarged drawing view while avoiding label overlaps."
+    }
+  ]
+}

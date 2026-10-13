@@ -1,0 +1,122 @@
+{
+  "review_type": "Single host-authored interactive LotteWorldTower HTML page; content gate only",
+  "reviewed_at": "2026-10-13T07:53:05.457192+00:00",
+  "verdict": "PASS",
+  "score": 98.5,
+  "critical": 0,
+  "warnings": 1,
+  "category_scores": {
+    "Layout": 8,
+    "Terminology": 8,
+    "No Hallucination": 12,
+    "Language Consistency": 8,
+    "No Sensitive Data": 12,
+    "Content-Type Quality": 2,
+    "Icon Usage": 5,
+    "Renders": 5,
+    "Interactions": 5,
+    "Readability": 5,
+    "Accessibility": 3.5,
+    "Structural Completeness": 5,
+    "Data Accuracy and References": 5,
+    "Legal Compliance": 5,
+    "Message Clarity": 5,
+    "Duplication and Gaps": 5
+  },
+  "release_review_complete": true,
+  "rubric": "100point fixed quarter-category deductions, summed and rounded once to0.5(midpoints up); independent score/Critical/Warning bands.",
+  "approved_scope": [
+    "docs/lotte-tower/index.html",
+    "docs/lotte-tower/runtime/three-runtime.js",
+    "docs/lotte-tower/runtime/LICENSE"
+  ],
+  "files_sha256": {
+    "docs/lotte-tower/index.html": "9ef88430c43d256dcc5a11f73061d62ca909f5d2e98679e1587333f834f2a235",
+    "docs/lotte-tower/runtime/three-runtime.js": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
+    "docs/lotte-tower/runtime/LICENSE": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc"
+  },
+  "html_sha256": "9ef88430c43d256dcc5a11f73061d62ca909f5d2e98679e1587333f834f2a235",
+  "findings": [
+    {
+      "severity": "Warning",
+      "category": "Accessibility",
+      "file": "docs/lotte-tower/index.html",
+      "line": 57,
+      "quote": "font-size=\"14\"",
+      "problem": "SVG drawing annotations use14px before viewBox scaling, below the14pt(approximately19px)review minimum. Main interface text is19px or larger.",
+      "action": "For a later readability improvement, enlarge informative SVG annotations or provide an enlarged drawing view while avoiding label overlaps."
+    }
+  ],
+  "required_fixes": [],
+  "benchmark_scoring_performed": false,
+  "excluded_scope": [
+    "All earlier architecture-3d pilot/model-comparison pages, scores and response records. They are not approved for publication by this review."
+  ],
+  "authorship": "Host-authored single page. No claim that an external model authored this deliverable.",
+  "validated": {
+    "self_contained_local_runtime": true,
+    "actual_WebGL_scene": true,
+    "public_facts": "555m height and123above-ground floors withKPF/LERA links; other dimensions/structures and site layout explicitly conceptual, not official construction/verified engineering.",
+    "floor_mesh_count": 123,
+    "shared_core_profile": {
+      "top_y_m": 500,
+      "top_width_m": 4.264705657958984,
+      "top_depth_m": 6.141176700592041,
+      "floor_plan_and_section_share_coreWidth": true,
+      "previous_constant_core_protrusion_resolved": true
+    },
+    "floor_linking": [
+      "1F→4.1m",
+      "65F→264.2m",
+      "123F→500.0m",
+      "KeyboardLeft→122F; SVGdownload includes122F"
+    ],
+    "workflow": "Six selectable explanatory stages; fiveassembly configurations plus finaloverview. Stages5/6intentionally share completedgeometry; screenshot-hash changes are not called proof of different assemblies.",
+    "camera": [
+      "Pointerdrag changes camera pose",
+      "Wheelchanges camera distance",
+      "Zoomin/out correctly decrease/increase distance",
+      "Keyboard arrows change pose",
+      "Home/reset return defaultpose",
+      "Front/top/isometric presets work"
+    ],
+    "section": "Clipping changes live3D exterior/floor visibility; structural blueprints retain their full plan/section geometry.",
+    "slab_toggle": "Hides123floor slabs; final label accurately limits scope to slabs.",
+    "reduced_motion": "Automatically clearsrotation, disablescheckbox, exposes explanatory note and leaves manualcamera controls available; settledcamera remains unchanged.",
+    "responsive_viewports": [
+      1440,
+      768,
+      375
+    ],
+    "horizontal_overflow": false,
+    "download": "Valid self-containedSVG for latest selected122F; filename lotte-concept-floor-122.svg.",
+    "runtime_console_errors": 0,
+    "unexpected_network_requests": 0,
+    "MIT_license_complete_and_matches_upstream": true,
+    "credential_private_key_patterns": 0
+  },
+  "evidence": {
+    "full_geometry_control_mobile_export_review": "/tmp/lotte-tower-review/d8aa98cbba33/browser.json",
+    "final_label_motion_scoped_rereview": "/tmp/lotte-tower-review/9ef88430c43d/reduced-browser.json",
+    "final_frozen_manifest": "/tmp/lotte-tower-review/9ef88430c43d/manifest.json",
+    "desktop": "/tmp/lotte-tower-review/d8aa98cbba33/desktop.jpg",
+    "completed_3d": "/tmp/lotte-tower-review/d8aa98cbba33/stage-6.jpg",
+    "cutaway": "/tmp/lotte-tower-review/d8aa98cbba33/section.jpg",
+    "mobile": "/tmp/lotte-tower-review/d8aa98cbba33/view-375.jpg",
+    "exported_svg": "/tmp/lotte-tower-review/d8aa98cbba33/floor.svg"
+  },
+  "environment": {
+    "renderer": "Chromium SwiftShader softwareWebGL",
+    "performance_claim": "Functional review only; no compositorFPS, physicalGPU performance or modelbenchmark scores claimed."
+  },
+  "resolved_findings": [
+    "Core geometry now tapers using the exact same coreWidth(y)profile used by floor-plan and section drawing.",
+    "Slab control wording now matches its actual scope.",
+    "Reduced-motion auto-rotation control is disabled and explained rather than falsely appearing active."
+  ],
+  "notes": [
+    "Only the final label/motion lines differ from the full-tested source; passive renderer inspection and scoped finalrecheck confirmed these changes. The reviewer changed no page/geometry/runtime files.",
+    "Only the three approved public files may be deployed under /lotte-tower/. Recopying this review proof does not authorize the abandoned model-comparison pilot.",
+    "The remaining annotation-font warning is retained under the fixed PASS band; no mandatory corrective work remains."
+  ]
+}

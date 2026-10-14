@@ -1,0 +1,23 @@
+{
+  "model": "claude-haiku-4.5",
+  "model_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T11:23:03.919993+00:00",
+  "prompt_sha256": "f5528d4e56a678858a1970075a212cc8dded06df8fc8f4de1d52c841f36be4c7",
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T11:23:31.634648+00:00",
+  "artwork_sha256": "74e2846cd8c821cedd7fcf1e2cf781b3d3a8813c800eaa7bac382ce7aefe5fed",
+  "tokens_in": 1458,
+  "tokens_out": 6031,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "63b2efc8-753c-41f5-a202-8f3216066a45"
+}

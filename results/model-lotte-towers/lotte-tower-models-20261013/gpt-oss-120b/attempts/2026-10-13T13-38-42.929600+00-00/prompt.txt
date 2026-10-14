@@ -1,0 +1,11 @@
+You are the original author, model gpt-oss-120b, served as openai.gpt-oss-120b-1:0. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+YOUR PREVIOUS FULL RESPONSE:
+
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["docs/models/gpt-oss-120b/lotte-tower/artwork.html:14: Informative controls, descriptions and diagram annotations include text below the 19px review minimum. Required repair: Use at least 19px meaningful text at rendered size while preserving the composition. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gpt-oss-120b/lotte-tower/artwork.html:27: All navigation choices are clickable divs without focus/keyboard activation, and the camera lacks keyboard orbit/zoom. Required repair: Make all mode selectors and camera operations available through keyboard-accessible controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gpt-oss-120b/lotte-tower/artwork.html:90: No view-reset button or reset keyboard action is implemented. Required repair: Provide a reset action returning to a useful complete-model view. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gpt-oss-120b/lotte-tower/artwork.html:136: CylinderGeometry receives baseRadius as radiusTop and topRadius as radiusBottom: the final tower widens upward, contradicting the tapered elevation and supplied fact. Required repair: Correct the geometric parameter order so your stages/final model narrow upward consistently with the drawings. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."]
+
+The previous implementation was unreliable; implement a fresh version yourself using your own expressive concept and medium. Address the confirmed functional issues without adopting a shared visual template.
+
+Return the complete repaired HTML now.

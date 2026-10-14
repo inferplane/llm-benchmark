@@ -1,0 +1,158 @@
+You are the original author, model llama-3.3-70b, served as meta-llama/Llama-3.3-70B-Instruct. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+YOUR PREVIOUS FULL RESPONSE:
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>롯데월드타워 3D 모델 및 설계 과정</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #container {
+            width: 80%;
+            margin: 40px auto;
+            text-align: center;
+        }
+        #model-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        #description {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        #diagrams {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        #diagrams img {
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #3d-model {
+            width: 600px;
+            height: 600px;
+            margin: 40px auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #controls {
+            margin-top: 20px;
+        }
+        #controls button {
+            width: 100px;
+            height: 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+        }
+        #controls button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="model-name">llama-3.3-70b</div>
+        <div id="description">
+            롯데월드타워의 건축 설계 과정을 이해할 수 있도록, 설계도면과 단계별 3D 모델 및 완성된 3D 모델을 함께 보여주는 인터랙티브 웹페이지입니다.
+        </div>
+        <div id="diagrams">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="배치도">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="기준층 평면도">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="입면도">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="단면도">
+        </div>
+        <div id="3d-model"></div>
+        <div id="controls">
+            <button id="prev-button">이전 단계</button>
+            <button id="next-button">다음 단계</button>
+            <button id="reset-button">초기화</button>
+        </div>
+    </div>
+
+    <script src="../runtime/three-runtime.js"></script>
+    <script>
+        let scene, camera, renderer, controls;
+        let modelStep = 0;
+        const modelSteps = [
+            { name: '초기 모델', url: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==' },
+            { name: '중간 모델', url: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==' },
+            { name: '완성 모델', url: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==' }
+        ];
+
+        init();
+        animate();
+
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({
+                canvas: document.getElementById('3d-model'),
+                antialias: true
+            });
+            renderer.setSize(600, 600);
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+            camera.position.z = 5;
+
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            const cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+            document.getElementById('prev-button').addEventListener('click', prevStep);
+            document.getElementById('next-button').addEventListener('click', nextStep);
+            document.getElementById('reset-button').addEventListener('click', reset);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        function prevStep() {
+            modelStep = (modelStep - 1 + modelSteps.length) % modelSteps.length;
+            updateModel();
+        }
+
+        function nextStep() {
+            modelStep = (modelStep + 1) % modelSteps.length;
+            updateModel();
+        }
+
+        function reset() {
+            modelStep = 0;
+            updateModel();
+        }
+
+        function updateModel() {
+            const model = modelSteps[modelStep];
+            document.getElementById('3d-model').style.backgroundImage = `url(${model.url})`;
+        }
+    </script>
+</body>
+</html>
+```
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["The current output renders only a green unit cube and switches background placeholder images. This does not implement the requested Lotte World Tower. Replace your own placeholder with actual tapered tower geometry reflecting555m/123floors; generate the4conceptdrawings andchangeactual3Dcomponents when stageschange. Keep the suppliedlocalTHREE runtime, your own design, mobile+keyboard access. Return a complete executable HTML, not an image slideshow. This is functional scope correction, not a supplied geometry example."]
+
+Return the complete repaired HTML now.

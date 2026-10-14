@@ -1,0 +1,11 @@
+You are the original author, model nemotron-super-3-120b, served as nvidia.nemotron-super-3-120b. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+YOUR PREVIOUS FULL RESPONSE:
+
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["docs/models/nemotron-super-3-120b/lotte-tower/artwork.html:119: The code replaces the real3D runtime with no-op mock THREE classes; startup then throws onmissingobjectproperties andno live3D exists. Required repair: Remove mock/simulatedengine definitions andload the supplied realglobalruntime; verify every constructor/property/control against it. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html:13: Informative labels/controls/drawing text render below19px. Required repair: Use at least19px meaningful text and controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html:79: The code explicitly substitutes paragraphs for allfourdrawing images. Required repair: Render actual site/floor/elevation/section views in your chosenmedium rather than text-only placeholders. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html:75: Drawing/model tabs are clickabledivs without keyboard focus/activation; camera rotation/zoom alsohas no keyboard path. Required repair: Make existingtabs andcameraactions operable through keyboardnavigation andactivation. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."]
+
+The previous implementation was unreliable; implement a fresh version yourself using your own expressive concept and medium. Address the confirmed functional issues without adopting a shared visual template.
+
+Return the complete repaired HTML now.

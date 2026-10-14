@@ -1,0 +1,23 @@
+{
+  "model": "ministral-14b",
+  "model_id": "mistral.ministral-3-14b-instruct",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T15:05:57.415771+00:00",
+  "prompt_sha256": "a83acdd06d19fb04e5a06c20cb3111bc89d2055f824c769ec306f6a306ecdb20",
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T15:07:11.359236+00:00",
+  "artwork_sha256": "95efdcf9dcb9f0fa1bf80555aefd9281515431cb189b665aa8a6e1d87f2f45dd",
+  "tokens_in": 1215,
+  "tokens_out": 13838,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "eaeb0ebf-765e-475b-8cf5-c91521d14dab"
+}

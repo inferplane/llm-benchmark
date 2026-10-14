@@ -1,0 +1,164 @@
+{
+  "model": "glm-5.3",
+  "task": "lotte-tower",
+  "requested_model_id": "us.zai.glm-5.3",
+  "provider": "bedrock",
+  "family": "Z.AI",
+  "generation": "lotte-tower-models-20261013",
+  "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/glm-5.3",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "67c9eb19f5f24a94250275dac483baf325d6d988b887036e7ae46dd7be5d04b2",
+  "content_review": {
+    "task_requirements_complete": true,
+    "model": "glm-5.3",
+    "score": 98.5,
+    "critical": 0,
+    "warnings": 1,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 3.5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "artwork_sha256": "67c9eb19f5f24a94250275dac483baf325d6d988b887036e7ae46dd7be5d04b2",
+    "model_id": "us.zai.glm-5.3",
+    "origin_generation": "lotte-tower-models-20261013",
+    "original_response_bytes_verified": true,
+    "source": "/tmp/model-lotte-review/glm-5.3/67c9eb19f5f2",
+    "browser_evidence": "/tmp/model-lotte-review/glm-5.3/67c9eb19f5f2/browser.json",
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Data Accuracy and References",
+        "file": "docs/models/glm-5.3/lotte-tower/artwork.html",
+        "line": 214,
+        "quote": "return 0.5*(1+0.55*t*t)-0.28*t;",
+        "problem": "The profile narrows to its middle then expands to0.495 at the top, nearly its0.5base width, contrary to the stated upward-narrowing form.",
+        "action": "Use a coherent upward-narrowing profile and keep its schematic elevation/section consistent."
+      }
+    ],
+    "notes": [
+      "Third re-review/iteration4 of the original author repair. Exact response bytes, original model identity and successful runtime were verified.",
+      "Previous four controlling issues are fixed:555m includes the40m crown, both viewers resize from actual bounds, diagram labels use CSS-pixel text, and both canvases have keyboard orbit/zoom/reset. Four diagrams and five geometric states exist; no console errors at375/768/1440.",
+      "Remaining conceptual shape inaccuracy is a Warning, not a benchmark score or a requirement for shared host geometry. Required task features are present and operate."
+    ],
+    "reviewed_at": "2026-10-13T15:48:21.370073+00:00",
+    "re_review_number": 3,
+    "review_iteration": 4,
+    "retry_limit_reached": false,
+    "current_generation_status": "generated",
+    "active_source": true
+  },
+  "prompt_sha256": "75a3a62dfe78378dad58cf8394f9a7796ead1002561913f5fca99df47a0296e1",
+  "initial_prompt_sha256": "92aff15734a7b9f4e6487d4cda66c39784e75e366c3d1c3b2ccc13660a484fc3",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "lotte-tower-models-20261013",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 1.848,
+      "price_out": 5.808,
+      "price_cache_read": 0.3432,
+      "price_cache_write": 2.31
+    },
+    "estimated_total_usd": 0.255299616,
+    "estimated_final_response_usd": 0.053930448,
+    "recorded_attempts": 5,
+    "successful_code_responses": 4,
+    "additional_attempts": 4,
+    "known_cost_attempts": 5,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 10436,
+      "tokens_out": 40636,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-13T10:59:36.843496+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.09671244,
+        "request_seconds": null,
+        "record_sha256": "dd559b6e304cf2f26149ca3b05b222c75d1a302968ed8234994ec7a35f4744e9",
+        "response_sha256": "501188d498f3bc73f40c639e986e74bf9407027bcc257cfdde5ed369f082484b"
+      },
+      {
+        "requested_at": "2026-10-13T11:24:44.992211+00:00",
+        "status": "generated",
+        "request_id": "e8e783fd-afb0-458e-8f9c-987b49f11efc",
+        "usage_available": true,
+        "estimated_cost_usd": 0.04900632,
+        "request_seconds": null,
+        "record_sha256": "fc17bbb127cdf29622aece67445bb48b1162d1a2229ea4fd393fe158fb628999",
+        "response_sha256": "c817ee8b1effeb1ee7aded0d7c23b0f870e87b9008b3469fa6ada87ec582d461"
+      },
+      {
+        "requested_at": "2026-10-13T13:38:38.005551+00:00",
+        "status": "generated",
+        "request_id": "f316059b-5d2c-4c3e-aeaf-309a71174b00",
+        "usage_available": true,
+        "estimated_cost_usd": 0.021701592,
+        "request_seconds": null,
+        "record_sha256": "c1d6f658c5c4be48cb8d57d4b5a2b64631c698e2b304006e07dada8698a3eeb5",
+        "response_sha256": "7f81835cb22c128a38e76f10a2fe9ba97687171b7a38874af937284d40025e50"
+      },
+      {
+        "requested_at": "2026-10-13T15:07:49.415615+00:00",
+        "status": "generated",
+        "request_id": "2ea21b05-ed34-46a1-ba7e-3e383a657f66",
+        "usage_available": true,
+        "estimated_cost_usd": 0.033948816,
+        "request_seconds": null,
+        "record_sha256": "86551b786054c560bfd684aa73c46cd6ee537f13a5eff3c87865c0625521f28d",
+        "response_sha256": "9796d4b742784cab492489b3e5d6eaaef17b75e296a7123151e323b14daf8157"
+      },
+      {
+        "requested_at": "2026-10-13T15:26:27.331396+00:00",
+        "status": "generated",
+        "request_id": "5210cead-c180-4d26-8113-eea3d3814ac9",
+        "usage_available": true,
+        "estimated_cost_usd": 0.053930448,
+        "request_seconds": null,
+        "record_sha256": "e60794f1dcbab830bd6f1352b7755b21ee43874766d93b02ea646f3b47d60a79",
+        "response_sha256": "aef6de1cbc29aa71feff98d1af4efc82e6d588d145005663f5161d26311b4363"
+      }
+    ]
+  },
+  "request_id": "5210cead-c180-4d26-8113-eea3d3814ac9",
+  "requested_at": "2026-10-13T15:26:27.331396+00:00",
+  "generated_at": "2026-10-13T15:26:45.040705+00:00",
+  "tokens_in": 6586,
+  "tokens_out": 7190,
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": "low",
+  "finish_reason": "end_turn"
+}

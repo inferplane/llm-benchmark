@@ -1,0 +1,311 @@
+{
+  "model": "nemotron-nano-3-30b",
+  "requested_model_id": "nvidia.nemotron-nano-3-30b",
+  "family": "NVIDIA",
+  "tasks": {
+    "whoami": {
+      "model": "nemotron-nano-3-30b",
+      "task": "whoami",
+      "requested_model_id": "nvidia.nemotron-nano-3-30b",
+      "provider": "bedrock",
+      "family": "NVIDIA",
+      "generation": "free-expression-20261012",
+      "source_records": "results/model-self-portraits/generations/free-expression-20261012/nemotron-nano-3-30b",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "0bbce33bf0c16a93be4eb17d26769b9fac362edfda3d8e99cbc124b1451c4b8c",
+      "content_review": {
+        "model": "nemotron-nano-3-30b",
+        "generation": "free-expression-20261012",
+        "score": 96.0,
+        "critical": 0,
+        "warnings": 3,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 3.5,
+          "Readability": 5,
+          "Accessibility": 2.5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/nemotron-nano-3-30b/artwork.html",
+            "line": 139,
+            "quote": "font-size: 1.1rem;",
+            "problem": "Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px).",
+            "action": "Use at least 19px for informative text and controls while retaining the chosen composition."
+          },
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/nemotron-nano-3-30b/artwork.html",
+            "line": 189,
+            "quote": "<circle cx=\"50\" cy=\"50\" r=\"40\" fill=\"none\" stroke=\"#005fcc\" stroke-width=\"4\" opacity=\"0.6\">",
+            "problem": "The repeating SVG SMIL animations are unaffected by the CSS/JS animation styles used for reduced motion.",
+            "action": "Make the actual SVG animation respect reduced-motion preferences."
+          },
+          {
+            "severity": "Warning",
+            "category": "Interactions",
+            "file": "docs/models/nemotron-nano-3-30b/artwork.html",
+            "line": 203,
+            "quote": "키보드로 탭을 눌러 포커스를 이동하고, 엔터로 상호작용할 수 있습니다.",
+            "problem": "The page advertises Enter interaction, but the keyboard handler only dispatches click on an area with no click behavior.",
+            "action": "Make the advertised action perform an observable effect of your choice, or accurately describe this chosen static/focus-only area."
+          }
+        ],
+        "artwork_sha256": "0bbce33bf0c16a93be4eb17d26769b9fac362edfda3d8e99cbc124b1451c4b8c",
+        "model_id": "nvidia.nemotron-nano-3-30b",
+        "reported_model": null,
+        "requested_at": "2026-10-12T08:10:37.565800+00:00",
+        "reviewed_at": "2026-10-12T08:51:09.256328+00:00",
+        "initial_prompt_sha256": "5ceab216650cd4d2c72761866455f372317d3b7e5a312fda9da2b30d6a4d5fda",
+        "exact_example_free_initial_prompt": true,
+        "original_response_containment": true,
+        "frozen_source": "/tmp/free-expression-review/nemotron-nano-3-30b/0bbce33bf0c1",
+        "browser_evidence": "/tmp/free-expression-review/nemotron-nano-3-30b/0bbce33bf0c1/browser.json",
+        "notes": [
+          "Browser/source evidence frozen at /tmp/free-expression-review/nemotron-nano-3-30b/0bbce33bf0c1. Actual model response containment and exact example-free initial prompt verified."
+        ]
+      },
+      "prompt_sha256": "5ceab216650cd4d2c72761866455f372317d3b7e5a312fda9da2b30d6a4d5fda",
+      "initial_prompt_sha256": "5ceab216650cd4d2c72761866455f372317d3b7e5a312fda9da2b30d6a4d5fda",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "free-expression-20261012",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 0.06,
+          "price_out": 0.24
+        },
+        "estimated_total_usd": 0.00049716,
+        "estimated_final_response_usd": 0.00049716,
+        "recorded_attempts": 1,
+        "successful_code_responses": 1,
+        "additional_attempts": 0,
+        "known_cost_attempts": 1,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 230,
+          "tokens_out": 2014,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-12T08:10:37.565800+00:00",
+            "status": "generated",
+            "request_id": "1fd32c2e-f529-45d0-806f-0c9290dafaad",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00049716,
+            "request_seconds": null,
+            "record_sha256": "a21a5ca54b46a1680d29a09257a0543d894ce94f631f1438443a0f0a28580461",
+            "response_sha256": "489d279a814eb40374ae4feccdd8d5c972201bc8b22d801bcc696693eb37022a"
+          }
+        ]
+      },
+      "request_id": "1fd32c2e-f529-45d0-806f-0c9290dafaad",
+      "requested_at": "2026-10-12T08:10:37.565800+00:00",
+      "generated_at": "2026-10-12T08:10:46.935555+00:00",
+      "tokens_in": 230,
+      "tokens_out": 2014,
+      "max_output_tokens": 8192,
+      "temperature": 0,
+      "temperature_sent": true,
+      "finish_reason": "end_turn"
+    },
+    "lotte-tower": {
+      "model": "nemotron-nano-3-30b",
+      "task": "lotte-tower",
+      "requested_model_id": "nvidia.nemotron-nano-3-30b",
+      "provider": "bedrock",
+      "family": "NVIDIA",
+      "generation": "lotte-tower-models-20261013",
+      "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b",
+      "status": "review_held",
+      "generation_status": "generated",
+      "artwork_sha256": "acc83a509b386bdc4f2335c08d3b474566d8e4e1ea9a5e146bd0428d16b15786",
+      "content_review": {
+        "task_requirements_complete": false,
+        "model": "nemotron-nano-3-30b",
+        "score": 92.0,
+        "critical": 1,
+        "warnings": 2,
+        "verdict": "FAIL",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 0,
+          "Interactions": 5,
+          "Readability": 3.5,
+          "Accessibility": 5,
+          "Structural Completeness": 3.5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "artwork_sha256": "acc83a509b386bdc4f2335c08d3b474566d8e4e1ea9a5e146bd0428d16b15786",
+        "model_id": "nvidia.nemotron-nano-3-30b",
+        "origin_generation": "lotte-tower-models-20261013",
+        "original_response_bytes_verified": true,
+        "source": "/tmp/model-lotte-review/nemotron-nano-3-30b/acc83a509b38",
+        "browser_evidence": "/tmp/model-lotte-review/nemotron-nano-3-30b/acc83a509b38/browser.json",
+        "findings": [
+          {
+            "severity": "Critical",
+            "category": "Renders",
+            "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
+            "line": 99,
+            "quote": "const siteTex = texLoader.load(sitePlanCanvas);",
+            "problem": "TextureLoader still receives canvases as URLs, attempting missing[object HTMLCanvasElement] image requests.",
+            "action": "Use CanvasTexture with real drawn contents."
+          },
+          {
+            "severity": "Warning",
+            "category": "Structural Completeness",
+            "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
+            "line": 93,
+            "quote": "const sitePlanCanvas = makeCanvas(256, 256);",
+            "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
+            "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+          },
+          {
+            "severity": "Warning",
+            "category": "Readability",
+            "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
+            "line": 11,
+            "quote": "#info p { margin:0; font-size:1rem; line-height:1.4; }",
+            "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+            "action": "Use at least19px meaningful rendered text and controls."
+          }
+        ],
+        "notes": [
+          "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+          "Two tower variants now exist, but drawings remain blank textures and the confirmed texture-loading error persists."
+        ],
+        "reviewed_at": "2026-10-13T15:51:47.610861+00:00",
+        "re_review_number": 3,
+        "review_iteration": 4,
+        "retry_limit_reached": true,
+        "current_generation_status": "generated",
+        "active_source": true
+      },
+      "prompt_sha256": "3dea68cc57d46155405bdc986119d2d5cc57227fa3efee5264e70c0ffaca0736",
+      "initial_prompt_sha256": "c9b2413b78ac0cef17e8fb4bb536dfd9be46764ec0c34dafc264bf54fc44c6da",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "lotte-tower-models-20261013",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 0.06,
+          "price_out": 0.24
+        },
+        "estimated_total_usd": 0.00224424,
+        "estimated_final_response_usd": 0.00084156,
+        "recorded_attempts": 4,
+        "successful_code_responses": 4,
+        "additional_attempts": 3,
+        "known_cost_attempts": 4,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 6344,
+          "tokens_out": 7765,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-13T10:58:55.920702+00:00",
+            "status": "generated",
+            "request_id": "7722b3bf-3aec-438d-89a1-639ccf2ef024",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00050172,
+            "request_seconds": null,
+            "record_sha256": "f12de524ebafc620cc65958395c8556171b9d862198acbf0f3737731035f15ce",
+            "response_sha256": "e3d259b9cf7d74d1f05e9c54b5ba310213037556b937819df245f836f2a0645b"
+          },
+          {
+            "requested_at": "2026-10-13T13:36:52.012438+00:00",
+            "status": "generated",
+            "request_id": "a4102adc-7f21-4afd-9a0d-5c6fc07298fc",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00027312,
+            "request_seconds": null,
+            "record_sha256": "bb7b8a3670401c8a31ff5bc06e336c2ad1eebb791572b842c7a01b095ebc73f0",
+            "response_sha256": "135b3b36e35de363adfa4a13b8d26877978fcb3b00b9aef6e18b4897115cbbf9"
+          },
+          {
+            "requested_at": "2026-10-13T15:05:31.767936+00:00",
+            "status": "generated",
+            "request_id": "8bdcd10f-446d-44b3-b23e-df5edcd58487",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00062784,
+            "request_seconds": null,
+            "record_sha256": "cd42c4e7b73cd2b76481d5f0010f20fd345bd595a943c082e241cf79376e92ef",
+            "response_sha256": "114fae87c5223b89681d27b0ac62dc9e693858c2ab364f3bb4a132c3c8b6fa1d"
+          },
+          {
+            "requested_at": "2026-10-13T15:26:49.638065+00:00",
+            "status": "generated",
+            "request_id": "bd11e552-c94a-4b41-a6a4-132f9ddab708",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00084156,
+            "request_seconds": null,
+            "record_sha256": "94ab6ae89294fc8d9bc838ea925b122e45aaf0abcd22ae4911f9a6c860843a1e",
+            "response_sha256": "e6ea2d365b876f75cbd36a1dee3bc7209611fe11f826f72cb31a3a5cc216dafc"
+          }
+        ]
+      },
+      "request_id": "bd11e552-c94a-4b41-a6a4-132f9ddab708",
+      "requested_at": "2026-10-13T15:26:49.638065+00:00",
+      "generated_at": "2026-10-13T15:27:01.646013+00:00",
+      "tokens_in": 3430,
+      "tokens_out": 2649,
+      "max_output_tokens": 16384,
+      "temperature": 0,
+      "temperature_sent": true,
+      "bedrock_reasoning_effort": null,
+      "finish_reason": "end_turn"
+    }
+  }
+}

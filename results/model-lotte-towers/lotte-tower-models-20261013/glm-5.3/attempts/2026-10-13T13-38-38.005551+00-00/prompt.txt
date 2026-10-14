@@ -1,0 +1,11 @@
+You are the original author, model glm-5.3, served as us.zai.glm-5.3. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+YOUR PREVIOUS FULL RESPONSE:
+
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["docs/models/glm-5.3/lotte-tower/artwork.html:25: Informative controls, descriptions and diagram annotations include text below the 19px review minimum. Required repair: Use at least 19px meaningful text at rendered size while preserving the composition. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/glm-5.3/lotte-tower/artwork.html:357: The pinned runtime emits the THREE.Clock deprecation console warning on each page load. Required repair: Use a supported timing mechanism, without changing geometry or interaction intent. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/glm-5.3/lotte-tower/artwork.html:183: Korean stage explanation includes the untranslated Chinese fragment 기본容积. Required repair: Use a coherent Korean wording for this stage description. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/glm-5.3/lotte-tower/artwork.html:361: The initially visible comparison group rotates continuously even under prefers-reduced-motion; the auto-rotation button controls OrbitControls, not this group. Required repair: Respect reduced-motion and provide a usable stop mechanism for the comparison-group motion as well as camera auto rotation. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."]
+
+The previous implementation was unreliable; implement a fresh version yourself using your own expressive concept and medium. Address the confirmed functional issues without adopting a shared visual template.
+
+Return the complete repaired HTML now.

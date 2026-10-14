@@ -1,0 +1,132 @@
+{
+  "model": "claude-haiku-4.5",
+  "task": "whoami",
+  "requested_model_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "provider": "bedrock",
+  "family": "Claude",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/claude-haiku-4.5",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "42e2b86516d26819e678808888630375fcbf1c058ed8e7403275b6051fff4d0b",
+  "content_review": {
+    "model": "claude-haiku-4.5",
+    "generation": "free-expression-20261012",
+    "score": 98.5,
+    "critical": 0,
+    "warnings": 1,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 3.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/claude-haiku-4.5/artwork.html",
+        "line": 109,
+        "quote": "font-size: clamp(1.1rem, 3vw, 1.3rem);",
+        "problem": "Some informative descriptions, labels or control text still render below 19px.",
+        "action": "Use at least 19px for informative text and controls."
+      }
+    ],
+    "artwork_sha256": "42e2b86516d26819e678808888630375fcbf1c058ed8e7403275b6051fff4d0b",
+    "model_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "reported_model": null,
+    "requested_at": "2026-10-12T08:52:10.089266+00:00",
+    "reviewed_at": "2026-10-12T08:58:35.153502+00:00",
+    "initial_prompt_sha256": "7b96a2732c7774380184aa259df740eed66c85f440178917229fc0cc0414320e",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/claude-haiku-4.5/42e2b86516d2",
+    "browser_evidence": "/tmp/free-expression-review/claude-haiku-4.5/42e2b86516d2/browser.json",
+    "notes": [
+      "First re-review of the actual original-author correction. Source/prompt/response fidelity rechecked; no coordinator artwork edits.",
+      "The prior contrast, OS/manual reduction, keyboard interception, misleading start state and blocked canvas issues are fixed. All3 widths fit; zero errors."
+    ],
+    "review_iteration": 2
+  },
+  "prompt_sha256": "20f97b531c6783d7accf0ea2c7abb43acb267346bb7ee44557580046fc6b9b61",
+  "initial_prompt_sha256": "7b96a2732c7774380184aa259df740eed66c85f440178917229fc0cc0414320e",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 1.1,
+      "price_out": 5.5,
+      "price_cache_read": 0.11,
+      "price_cache_write": 1.375
+    },
+    "estimated_total_usd": 0.0523457,
+    "estimated_final_response_usd": 0.0288959,
+    "recorded_attempts": 2,
+    "successful_code_responses": 2,
+    "additional_attempts": 1,
+    "known_cost_attempts": 2,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 5242,
+      "tokens_out": 8469,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:06:53.849715+00:00",
+        "status": "generated",
+        "request_id": "d9ed314d-f8a7-4499-9a95-6a69e612d89f",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0234498,
+        "request_seconds": null,
+        "record_sha256": "95ee81558d3f2344d3a2daeadd88dfa88e0bb136368b82ca5d275d839476ce45",
+        "response_sha256": "9f0cbea5a0c80a84d62a994a9bd94f8d227abd2793c8b19fd7909122f3c13ae8"
+      },
+      {
+        "requested_at": "2026-10-12T08:52:10.089266+00:00",
+        "status": "generated",
+        "request_id": "67b9b2a1-3e8d-4f58-b650-b05ca8f9c662",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0288959,
+        "request_seconds": null,
+        "record_sha256": "af575ef817917a6ecf903ea670a1cf95e0d3599ed1b2ad4f3d32fc7d0c990c9d",
+        "response_sha256": "2baa5ed494ea178010f6ead770f472a0b691da5b75732cdb782803f4f8398dcf"
+      }
+    ]
+  },
+  "request_id": "67b9b2a1-3e8d-4f58-b650-b05ca8f9c662",
+  "requested_at": "2026-10-12T08:52:10.089266+00:00",
+  "generated_at": "2026-10-12T08:52:30.193781+00:00",
+  "tokens_in": 4854,
+  "tokens_out": 4283,
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "finish_reason": "end_turn"
+}

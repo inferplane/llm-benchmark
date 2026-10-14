@@ -1,0 +1,22 @@
+{
+  "model": "kimi-k3",
+  "model_id": "us.moonshotai.kimi-k3",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T11:24:16.170098+00:00",
+  "prompt_sha256": "b26b71439a59471bd2cf16836815884bc711881736e8d815592d07aa9b20c2c6",
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "failed",
+  "failed_at": "2026-10-13T11:28:03.506196+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

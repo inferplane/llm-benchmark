@@ -1,0 +1,23 @@
+{
+  "model": "qwen3-32b",
+  "model_id": "qwen.qwen3-32b-v1:0",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T10:59:53.310140+00:00",
+  "prompt_sha256": "df23df8d85d99bb5268e2ed4243ca22b3403ba48de035f65e2baab3cd04d95a7",
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T11:00:06.533840+00:00",
+  "artwork_sha256": "2ff35141f51009e477f27565ef7d49a306aff1fc0de6241c105c4e571f8ba5de",
+  "tokens_in": 760,
+  "tokens_out": 1405,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "8e7e142a-8d04-4ca4-9770-92373abc82a1"
+}

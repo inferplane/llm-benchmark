@@ -1,0 +1,342 @@
+{
+  "model": "llama-3.1-8b",
+  "requested_model_id": "meta-llama/Llama-3.1-8B-Instruct",
+  "family": "Meta",
+  "tasks": {
+    "whoami": {
+      "model": "llama-3.1-8b",
+      "task": "whoami",
+      "requested_model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "provider": "vllm",
+      "family": "Meta",
+      "generation": "free-expression-20261012",
+      "source_records": "results/model-self-portraits/generations/free-expression-20261012/llama-3.1-8b",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "0b9172351341664dc88a221c35e619a47e2b80f1910f6552bba9f159ae9c01f5",
+      "content_review": {
+        "model": "llama-3.1-8b",
+        "generation": "free-expression-20261012",
+        "score": 97.5,
+        "critical": 0,
+        "warnings": 2,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 5,
+          "Accessibility": 2.5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/llama-3.1-8b/artwork.html",
+            "line": 38,
+            "quote": "font-size: 18px;",
+            "problem": "The description is 18px and button labels are 16px, below the 14pt rubric minimum.",
+            "action": "Keep informative text and control labels at least 19px."
+          },
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/llama-3.1-8b/artwork.html",
+            "line": 94,
+            "quote": "greenButton.addEventListener('click', () => {",
+            "problem": "The color controls retain dark #333 model text on green/blue/red backgrounds; the resulting text contrast falls below 4.5:1.",
+            "action": "Use readable foreground/background pairs in every authored color state."
+          }
+        ],
+        "artwork_sha256": "0b9172351341664dc88a221c35e619a47e2b80f1910f6552bba9f159ae9c01f5",
+        "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+        "reported_model": "meta-llama/Llama-3.1-8B-Instruct",
+        "requested_at": "2026-10-12T08:51:29.810807+00:00",
+        "reviewed_at": "2026-10-12T08:55:23.990102+00:00",
+        "initial_prompt_sha256": "c1cdceea420faea5f39cf37e7a5773a71242c88d16849ad700d5387b6d90d9c3",
+        "exact_example_free_initial_prompt": true,
+        "original_response_containment": true,
+        "frozen_source": "/tmp/free-expression-review/llama-3.1-8b/0b9172351341",
+        "browser_evidence": "/tmp/free-expression-review/llama-3.1-8b/0b9172351341/browser.json",
+        "notes": [
+          "PASS: static DOM composition is legitimate; no animation, NEXT, poetry or pointer interface required.",
+          "375/768/1280: zero console errors and horizontal overflow. All three color actions work by mouse and native keyboard Enter.",
+          "Requested/reported model meta-llama/Llama-3.1-8B-Instruct; artwork-only temperature0.3,809 tokens. Exact example-free initial prompt and full original response containment verified."
+        ]
+      },
+      "prompt_sha256": "c1cdceea420faea5f39cf37e7a5773a71242c88d16849ad700d5387b6d90d9c3",
+      "initial_prompt_sha256": "c1cdceea420faea5f39cf37e7a5773a71242c88d16849ad700d5387b6d90d9c3",
+      "implementation_cost": {
+        "kind": "gpu_request_time",
+        "generation": "free-expression-20261012",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "gpu_hourly_usd": 1.627
+        },
+        "estimated_total_usd": 0.19080897261083332,
+        "estimated_final_response_usd": 0.021873411049166666,
+        "recorded_attempts": 2,
+        "successful_code_responses": 1,
+        "additional_attempts": 1,
+        "known_cost_attempts": 2,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": 422.19563700000003,
+        "tokens": {
+          "tokens_in": 508,
+          "tokens_out": 6953,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "GPU_model_loading_and_idle_time",
+          "other_infrastructure"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-12T08:43:25.520312+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.16893556156166667,
+            "request_seconds": 373.797186,
+            "record_sha256": "9eff440bd5707d721e31c0876afff469faea937e6c0f732de772c4602b845a0d",
+            "response_sha256": "b19c8176e001de4f2c36836cd7352a29f4979a5d7f2f32cb28d8ce2b76b9e407"
+          },
+          {
+            "requested_at": "2026-10-12T08:51:29.810807+00:00",
+            "status": "generated",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.021873411049166666,
+            "request_seconds": 48.398451,
+            "record_sha256": "b40d8915f13062865b770eac880811367cbe944a4f64b0319ec6ec36630c180b",
+            "response_sha256": "6c5246ab7d3324357af8ef429cfb0c80abb5c61de463f36e55c4e6efe35c3d37"
+          }
+        ]
+      },
+      "requested_at": "2026-10-12T08:51:29.810807+00:00",
+      "generated_at": "2026-10-12T08:52:18.209258+00:00",
+      "reported_model": "meta-llama/Llama-3.1-8B-Instruct",
+      "tokens_in": 254,
+      "tokens_out": 809,
+      "max_output_tokens": 6144,
+      "temperature": 0.3,
+      "temperature_sent": true,
+      "bedrock_reasoning_effort": null,
+      "finish_reason": "stop"
+    },
+    "lotte-tower": {
+      "model": "llama-3.1-8b",
+      "task": "lotte-tower",
+      "requested_model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "provider": "vllm",
+      "family": "Meta",
+      "generation": "lotte-tower-models-20261013",
+      "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b",
+      "status": "review_held",
+      "generation_status": "generated",
+      "artwork_sha256": "c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1",
+      "content_review": {
+        "task_requirements_complete": false,
+        "model": "llama-3.1-8b",
+        "score": 88.0,
+        "critical": 1,
+        "warnings": 5,
+        "verdict": "FAIL",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 0,
+          "Interactions": 3.5,
+          "Readability": 3.5,
+          "Accessibility": 5,
+          "Structural Completeness": 2.5,
+          "Data Accuracy and References": 3.5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "artwork_sha256": "c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1",
+        "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+        "origin_generation": "lotte-tower-models-20261013",
+        "original_response_bytes_verified": true,
+        "source": "/tmp/model-lotte-review/llama-3.1-8b/c32057471d5a",
+        "browser_evidence": "/tmp/model-lotte-review/llama-3.1-8b/c32057471d5a/browser.json",
+        "findings": [
+          {
+            "severity": "Critical",
+            "category": "Renders",
+            "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+            "line": 81,
+            "quote": "const diagram1 = new THREE.CanvasRenderer();",
+            "problem": "The pinned runtime has no CanvasRenderer; construction throws THREE.CanvasRenderer is not a constructor before controls or animation initialize.",
+            "action": "Use supported local rendering APIs and real2Dcanvas contexts for diagrams, initialize actual scene geometry before rendering, and verify all controls."
+          },
+          {
+            "severity": "Warning",
+            "category": "Structural Completeness",
+            "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+            "line": 113,
+            "quote": "diagram1.render(scene, camera);",
+            "problem": "All four drawing renderers are intended to render the identical scene/camera, with no distinct site/floor/elevation/section drawing content; inner canvases appended inside canvas elements would remain fallback content.",
+            "action": "Render four meaningful distinct diagram views directly into their visible canvases or SVG, with labels/units/model correspondence."
+          },
+          {
+            "severity": "Warning",
+            "category": "Structural Completeness",
+            "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+            "line": 158,
+            "quote": "switch (stage) {",
+            "problem": "The four states swap a cylinder, plane and two offset cubes rather than showing an explained3D development process leading to the completed tower.",
+            "action": "Implement actual intermediate tower forms and a completed stage with understandable explanations."
+          },
+          {
+            "severity": "Warning",
+            "category": "Data Accuracy and References",
+            "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+            "line": 188,
+            "quote": "const geometry = new THREE.CylinderGeometry(50, 50, 500, 32);",
+            "problem": "The purported tower remains an untapered500-unit cylinder, inconsistent with the supplied upward-narrowing555m form.",
+            "action": "Build the coherent authored tapering tower at a stated555m scale and align diagrams."
+          },
+          {
+            "severity": "Warning",
+            "category": "Interactions",
+            "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+            "line": 133,
+            "quote": "camera.position.copy(cameraPosition);",
+            "problem": "Every camera handler calls updateScene, which immediately restores fixed cameraPosition/lookAt, undoing Zoom/Orbit/Tilt/Pointer changes.",
+            "action": "Keep camera state separate from geometry updates; apply actual target-relative camera operations and reset only on explicit reset."
+          },
+          {
+            "severity": "Warning",
+            "category": "Readability",
+            "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+            "line": 14,
+            "quote": "#controls {",
+            "problem": "Native buttons retain the browser default~13px font despite19px body/control-container text.",
+            "action": "Explicitly set button and other meaningful control text to at least19px."
+          }
+        ],
+        "notes": [
+          "Third re-review/iteration4. ExactSHA c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1. Browser reproduces unsupported CanvasRenderer constructor failure.",
+          "Three-re-review limit reached, task incomplete. Stop automatic paid repair for this native model and require a bundled user decision. Raw author bytes remain untouched."
+        ],
+        "reviewed_at": "2026-10-13T15:43:11.362278+00:00",
+        "re_review_number": 3,
+        "review_iteration": 4,
+        "retry_limit_reached": true,
+        "current_generation_status": "generated",
+        "active_source": true
+      },
+      "prompt_sha256": "1926b0f7ad97f730923d6334201c35bd203bfaaa78114de8e377d5b14a39da2f",
+      "initial_prompt_sha256": "a8579dd0ee4b74fc146f255c9d15286d8ad84bc8167d3e1a49c8569bc7d551d8",
+      "implementation_cost": {
+        "kind": "gpu_request_time",
+        "generation": "lotte-tower-models-20261013",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "gpu_hourly_usd": 1.627
+        },
+        "estimated_total_usd": 0.15133013487583333,
+        "estimated_final_response_usd": 0.04769708138222222,
+        "recorded_attempts": 4,
+        "successful_code_responses": 4,
+        "additional_attempts": 3,
+        "known_cost_attempts": 4,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": 334.842339,
+        "tokens": {
+          "tokens_in": 5417,
+          "tokens_out": 5520,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "GPU_model_loading_and_idle_time",
+          "other_infrastructure"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-13T15:30:57.389845+00:00",
+            "status": "generated",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.03594139173777778,
+            "request_seconds": 79.526128,
+            "record_sha256": "5656877562352562e0d5faca6551d989e8f38c47c1767fb85e3d7210ec46763b",
+            "response_sha256": "4198ea8fdddd35ad4c25fbd3ef995e57aa1727aec5bca9d24dcc4119c2074fe9"
+          },
+          {
+            "requested_at": "2026-10-13T15:34:02.549695+00:00",
+            "status": "generated",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.02508871330611111,
+            "request_seconds": 55.512826,
+            "record_sha256": "37d9fe1479b14e7b19aeefb428c8758b0d4110cdb7f4e90d5b982e3b4b5668fd",
+            "response_sha256": "c9fc86b9ea8e484e4c39b6b069bf24a710753843b70430431c92934826638086"
+          },
+          {
+            "requested_at": "2026-10-13T15:35:58.901422+00:00",
+            "status": "generated",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.04260294844972222,
+            "request_seconds": 94.265897,
+            "record_sha256": "5a803e1b7ae7bc15cfc961bdfb127dc026ecc196ce4274c16fab2a132c8e1637",
+            "response_sha256": "c2829d64be956e900aaecc3997f45b3f8e2a236b4c5336942555456dd1cc2fc9"
+          },
+          {
+            "requested_at": "2026-10-13T15:39:48.976436+00:00",
+            "status": "generated",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.04769708138222222,
+            "request_seconds": 105.537488,
+            "record_sha256": "4ba0102c46065402e758cdf025296ea2e97015c8b40af6959d0b526b7401b12b",
+            "response_sha256": "21800ac43f141b91512be06acbaf93f978dd31ac5bda3e6b9d0de6eb2880b4b0"
+          }
+        ]
+      },
+      "requested_at": "2026-10-13T15:39:48.976436+00:00",
+      "generated_at": "2026-10-13T15:41:34.513924+00:00",
+      "reported_model": "meta-llama/Llama-3.1-8B-Instruct",
+      "tokens_in": 1610,
+      "tokens_out": 1734,
+      "max_output_tokens": 4096,
+      "temperature": 0.3,
+      "temperature_sent": true,
+      "bedrock_reasoning_effort": null,
+      "finish_reason": "stop"
+    }
+  }
+}

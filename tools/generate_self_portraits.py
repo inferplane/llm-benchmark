@@ -27,6 +27,11 @@ OUTPUT = ROOT / "docs/models"
 RECORDS = ROOT / "results/model-self-portraits"
 PROMPT = ROOT / "tools/self_portrait_prompt.txt"
 GENERATION = "legacy"
+ARTIFACT_SUBDIR = ""
+
+
+def artifact_directory(name: str) -> Path:
+    return OUTPUT / name / ARTIFACT_SUBDIR
 
 
 def now() -> str:
@@ -193,6 +198,14 @@ def cost_dialog(cost: dict, name: str) -> str:
 
 
 def build_catalog(models: list[dict], reviews: dict | None = None) -> None:
+    existing_catalog = OUTPUT / "catalog.json"
+    if existing_catalog.exists():
+        existing = json.loads(existing_catalog.read_text())
+        if existing and "tasks" in existing[0]:
+            raise ValueError(
+                "Model/task routes are active. Rebuild them with tools/model_pages.py; "
+                "the legacy self-portrait catalog would overwrite model hubs."
+            )
     OUTPUT.mkdir(parents=True, exist_ok=True)
     entries = []
     for model in models:
@@ -314,7 +327,7 @@ async def generate_one(model: dict, aws_region: str, limiter: asyncio.Semaphore)
     if not re.fullmatch(r"[a-z0-9][a-z0-9.-]*", name):
         raise ValueError("Unsafe configured model path")
     previous = record_of(name)
-    artwork = OUTPUT / name / "artwork.html"
+    artwork = artifact_directory(name) / "artwork.html"
     same_source = (
         artwork.exists()
         and previous.get("model_id") == model["model_id"]
@@ -335,6 +348,7 @@ async def generate_one(model: dict, aws_region: str, limiter: asyncio.Semaphore)
         print(f"Requesting {name} ({model['model_id']})", flush=True)
         prompt = PROMPT.read_text().replace("{name}", name).replace("{model_id}", model["model_id"])
         if model.get("_feedback"):
+            original_brief = prompt
             response = directory / "response.txt"
             previous_code = response.read_text() if response.exists() and not model.get("_fresh_repair") else ""
             prompt = (
@@ -342,8 +356,11 @@ async def generate_one(model: dict, aws_region: str, limiter: asyncio.Semaphore)
                 "Repair your OWN previously generated standalone HTML. This is a bug-fix task, "
                 "not a new creative brief. Preserve your own expressive concept and visual choices. "
                 "Return ONLY one complete corrected HTML document, all tags closed. "
-                "No explanation, no Markdown fence, no snippets. No external dependencies or network. "
-                "\n\nYOUR PREVIOUS FULL RESPONSE:\n"
+                "No explanation, no Markdown fence, no snippets. No external network or "
+                "dependencies except local assets explicitly permitted by the original task. "
+                "\n\nORIGINAL TASK BRIEF. Retain every requested feature and disclosure:\n"
+                + original_brief
+                + "\n\nYOUR PREVIOUS FULL RESPONSE:\n"
                 + previous_code
                 + "\n\nMANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; "
                 "do not merely repeat your old code. The diagnostic list is the controlling repair request:\n"
@@ -383,6 +400,9 @@ async def generate_one(model: dict, aws_region: str, limiter: asyncio.Semaphore)
         attempt = directory / "attempts" / record["requested_at"].replace(":", "-")
         attempt.mkdir(parents=True, exist_ok=True)
         attempt.joinpath("prompt.txt").write_text(prompt)
+        # Persist the request before the paid call, so an interrupted process
+        # cannot silently erase an attempted request or imply zero charges.
+        write_json(attempt / "record.json", {**record, "status": "requesting"})
         try:
             if model["api"] == "bedrock":
                 override = {"thinking": {"type": "disabled"}} if model.get("_art_disable_thinking") else None

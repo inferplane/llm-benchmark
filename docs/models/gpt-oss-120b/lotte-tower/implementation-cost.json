@@ -1,0 +1,74 @@
+{
+  "kind": "api_tokens",
+  "generation": "lotte-tower-models-20261013",
+  "currency": "USD",
+  "price_source": "config.toml",
+  "price_snapshot": {
+    "price_in": 0.15,
+    "price_out": 0.6
+  },
+  "estimated_total_usd": 0.00661005,
+  "estimated_final_response_usd": 0.00216405,
+  "recorded_attempts": 4,
+  "successful_code_responses": 4,
+  "additional_attempts": 3,
+  "known_cost_attempts": 4,
+  "unknown_usage_attempts": 0,
+  "missing_duration_attempts": 0,
+  "total_request_seconds": null,
+  "tokens": {
+    "tokens_in": 6283,
+    "tokens_out": 9446,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "complete_request_estimate": true,
+  "excludes": [
+    "reviewer_and_coordinator_calls",
+    "historical_generations",
+    "taxes_and_discounts",
+    "requests_without_returned_usage"
+  ],
+  "attempts": [
+    {
+      "requested_at": "2026-10-13T10:59:49.472573+00:00",
+      "status": "generated",
+      "request_id": "060e49ce-aedf-4e53-a3ff-558f45c30813",
+      "usage_available": true,
+      "estimated_cost_usd": 0.00161355,
+      "request_seconds": null,
+      "record_sha256": "a25390cf122021486550e1e0e2ee28692d82ae59ae5b63bd15b613557e50b4ea",
+      "response_sha256": "cad81d393d816ce188b6037ca736fb6bb4006aa96b99021e53a576464fe84493"
+    },
+    {
+      "requested_at": "2026-10-13T13:38:42.929600+00:00",
+      "status": "generated",
+      "request_id": "29f9c01f-517b-4166-b41f-eb2d0646db2c",
+      "usage_available": true,
+      "estimated_cost_usd": 0.00106425,
+      "request_seconds": null,
+      "record_sha256": "625408816817cab46cf5d7d42fcc663e03a4dc7e99a12b2cae691d0f32c12087",
+      "response_sha256": "44107e45f2cfe4e2c8ca1b136122735ca8183297da676ad4022f0eaa5cc5d065"
+    },
+    {
+      "requested_at": "2026-10-13T15:07:53.414141+00:00",
+      "status": "generated",
+      "request_id": "71e656e9-baa5-45fe-80a6-fe2f90ab1eae",
+      "usage_available": true,
+      "estimated_cost_usd": 0.0017682,
+      "request_seconds": null,
+      "record_sha256": "28d1edbafbc9b4a1e192ca9ec45770b1079f5c29d2d2f48dfa1950f5c173f214",
+      "response_sha256": "32bfdb8d86f4b1a1e43d0748e8d906c9f57d016478ce71e11be2d21e4a7c24f1"
+    },
+    {
+      "requested_at": "2026-10-13T15:27:01.936341+00:00",
+      "status": "generated",
+      "request_id": "d98cfdd2-debe-4ce2-88b5-745a15f47b01",
+      "usage_available": true,
+      "estimated_cost_usd": 0.00216405,
+      "request_seconds": null,
+      "record_sha256": "c772675f893716776800c0f2137142b507daee60c15568363a57a6d73f0dcec7",
+      "response_sha256": "15802f7bf552856251b15ca36e6775e453017f9a293bcf10ffb85300bac680ca"
+    }
+  ]
+}

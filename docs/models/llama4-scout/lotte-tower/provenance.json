@@ -1,0 +1,188 @@
+{
+  "model": "llama4-scout",
+  "task": "lotte-tower",
+  "requested_model_id": "us.meta.llama4-scout-17b-instruct-v1:0",
+  "provider": "bedrock",
+  "family": "Meta",
+  "generation": "lotte-tower-models-20261013",
+  "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/llama4-scout",
+  "status": "review_held",
+  "generation_status": "generated",
+  "artwork_sha256": "a3b57bbea3622ba0ef514355fceb37db14506babefa82f0ed1501cb684731362",
+  "content_review": {
+    "task_requirements_complete": true,
+    "model": "llama4-scout",
+    "score": 93.5,
+    "critical": 0,
+    "warnings": 4,
+    "verdict": "REVIEW",
+    "category_scores": {
+      "Layout": 6.0,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 3.5,
+      "Readability": 3.5,
+      "Accessibility": 5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 3.5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "artwork_sha256": "a3b57bbea3622ba0ef514355fceb37db14506babefa82f0ed1501cb684731362",
+    "model_id": "us.meta.llama4-scout-17b-instruct-v1:0",
+    "origin_generation": "lotte-tower-models-20261013",
+    "original_response_bytes_verified": true,
+    "source": "/tmp/model-lotte-review/llama4-scout/a3b57bbea362",
+    "browser_evidence": "/tmp/model-lotte-review/llama4-scout/a3b57bbea362/browser.json",
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/llama4-scout/lotte-tower/artwork.html",
+        "line": 212,
+        "quote": "sitePlanCtx.font = '12px Arial';",
+        "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+        "action": "Use at least19px meaningful rendered text and controls."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/llama4-scout/lotte-tower/artwork.html",
+        "line": 109,
+        "quote": "renderer.setSize(window.innerWidth, window.innerHeight);",
+        "problem": "Full-window renderer and absolute drawing panels overlap/overflow on narrow screens; border sizing also exceeds viewport width.",
+        "action": "Reflow the panels around a usable responsive model surface."
+      },
+      {
+        "severity": "Warning",
+        "category": "Data Accuracy and References",
+        "file": "docs/models/llama4-scout/lotte-tower/artwork.html",
+        "line": 245,
+        "quote": "elevationCtx.fillText('100m', 70, 150);",
+        "problem": "Elevation/section label100m while the complete model uses200units and the supplied total is555m; the scale correspondence is unexplained.",
+        "action": "Use consistent total-height/scale labels and identify assumed dimensions."
+      },
+      {
+        "severity": "Warning",
+        "category": "Interactions",
+        "file": "docs/models/llama4-scout/lotte-tower/artwork.html",
+        "line": 301,
+        "quote": "camera.rotateX(0.1);",
+        "problem": "Arrow handlers rotate camera quaternion directly, but OrbitControls.update immediately restores its orientation; targeted key tests show no camera change.",
+        "action": "Orbit by changing camera-to-target position through supported controls."
+      }
+    ],
+    "notes": [
+      "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+      "Four dimensioned schematic drawings and three intermediate boxes plus completed cone are now present. Their inaccuracies remain explicit Warnings; no polished shared geometry is required. This is its second successful-source re-review."
+    ],
+    "reviewed_at": "2026-10-13T15:51:47.669166+00:00",
+    "re_review_number": 2,
+    "review_iteration": 3,
+    "retry_limit_reached": false,
+    "current_generation_status": "generated",
+    "active_source": true
+  },
+  "prompt_sha256": "80cb8098bbc045968977ac0661cc26b28140f4b13646717cf00278bf83415394",
+  "initial_prompt_sha256": "d517de1356f6c42d11fdab8f532ca3d5681f56d7f1a9e13335584e4af3177488",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "lotte-tower-models-20261013",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.17,
+      "price_out": 0.66
+    },
+    "estimated_total_usd": 0.00546811,
+    "estimated_final_response_usd": 0.0021497,
+    "recorded_attempts": 5,
+    "successful_code_responses": 3,
+    "additional_attempts": 4,
+    "known_cost_attempts": 4,
+    "unknown_usage_attempts": 1,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 5777,
+      "tokens_out": 6797,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": false,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-13T11:00:06.786146+00:00",
+        "status": "generated",
+        "request_id": "9783cda7-cbbd-445e-bb79-1dce9a386208",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0007014,
+        "request_seconds": null,
+        "record_sha256": "e67bcf6533ef0fe4888ad1bdabc4da30b0eed38c81c5a30213519a3b32699133",
+        "response_sha256": "5fa5e358992e0ee370e33416bd44305016c6dd297a5c69d5424b49a789807a4a"
+      },
+      {
+        "requested_at": "2026-10-13T13:38:56.495704+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.00111257,
+        "request_seconds": null,
+        "record_sha256": "44450d462a71da72ca78ad79f45889db44b14ccd8a195164a3713c8358e91006",
+        "response_sha256": "b589944245541830f4fd704303e2fe7f7ce047855bc63f59a81891f5eccf8ec3"
+      },
+      {
+        "requested_at": "2026-10-13T15:00:48.804612+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": false,
+        "estimated_cost_usd": null,
+        "request_seconds": null,
+        "record_sha256": "8d145af5611674b6c7d9fba15d087ee6be973c87bcd1a7debc74061b546a935a",
+        "response_sha256": null
+      },
+      {
+        "requested_at": "2026-10-13T15:04:22.691366+00:00",
+        "status": "generated",
+        "request_id": "120d7016-69e1-452c-a81c-80120932b4a3",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00150444,
+        "request_seconds": null,
+        "record_sha256": "54c6908a78655f4aaad7fc7909c5a783dfd55c717be637356eb821ba849705bb",
+        "response_sha256": "d3514f65da6cbc45b5871d110f5c25d928f7bc41d5d792c3fcae99cb8c236cd1"
+      },
+      {
+        "requested_at": "2026-10-13T15:27:19.776452+00:00",
+        "status": "generated",
+        "request_id": "89c79ed5-f2ec-4154-ad06-5639111c380a",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0021497,
+        "request_seconds": null,
+        "record_sha256": "9cca8c02d37c993884f40711311d3cad94d0aab8f40e48587a41cd780a13d6d9",
+        "response_sha256": "45c8ece84a5b5a58b536ee7f0e6825f43475abb10ccad6a26af0df951fa205ce"
+      }
+    ]
+  },
+  "request_id": "89c79ed5-f2ec-4154-ad06-5639111c380a",
+  "requested_at": "2026-10-13T15:27:19.776452+00:00",
+  "generated_at": "2026-10-13T15:27:27.368150+00:00",
+  "tokens_in": 2986,
+  "tokens_out": 2488,
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "finish_reason": "end_turn"
+}

@@ -1,0 +1,290 @@
+{
+  "model": "claude-fable-5.1",
+  "requested_model_id": "us.anthropic.claude-fable-5-1",
+  "family": "Claude",
+  "tasks": {
+    "whoami": {
+      "model": "claude-fable-5.1",
+      "task": "whoami",
+      "requested_model_id": "us.anthropic.claude-fable-5-1",
+      "provider": "bedrock",
+      "family": "Claude",
+      "generation": "free-expression-20261012",
+      "source_records": "results/model-self-portraits/generations/free-expression-20261012/claude-fable-5.1",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "fac490bf06ffdd29549911543cb312572144ec6823a874c08a32619dc8d6eeb3",
+      "content_review": {
+        "model": "claude-fable-5.1",
+        "generation": "free-expression-20261012",
+        "score": 100,
+        "critical": 0,
+        "warnings": 0,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 5,
+          "Accessibility": 5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "findings": [],
+        "artwork_sha256": "fac490bf06ffdd29549911543cb312572144ec6823a874c08a32619dc8d6eeb3",
+        "model_id": "us.anthropic.claude-fable-5-1",
+        "reported_model": null,
+        "requested_at": "2026-10-12T08:53:35.269749+00:00",
+        "reviewed_at": "2026-10-12T08:58:35.163495+00:00",
+        "initial_prompt_sha256": "9b858d38e5de8dde68630b8f8c96cc2da41a3005ad2bc951db3b7b2fd315440b",
+        "exact_example_free_initial_prompt": true,
+        "original_response_containment": true,
+        "frozen_source": "/tmp/free-expression-review/claude-fable-5.1/fac490bf06ff",
+        "browser_evidence": "/tmp/free-expression-review/claude-fable-5.1/fac490bf06ff/browser.json",
+        "notes": [
+          "First re-review of the actual original-author correction. Source/prompt/response fidelity rechecked; no coordinator artwork edits.",
+          "Initial forest, planting, clearing, pause/resume and keyboard controls now render without negative radii. Informative fonts meet19px; OS reduced mode draws a still forest."
+        ],
+        "review_iteration": 2
+      },
+      "prompt_sha256": "deb08de58def164d0d32f55003ac6d2d7f49e20b953d4b7c23232081c069388b",
+      "initial_prompt_sha256": "9b858d38e5de8dde68630b8f8c96cc2da41a3005ad2bc951db3b7b2fd315440b",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "free-expression-20261012",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 11.0,
+          "price_out": 55.0,
+          "price_cache_read": 0.275,
+          "price_cache_write": 13.75
+        },
+        "estimated_total_usd": 2.024066,
+        "estimated_final_response_usd": 0.34408,
+        "recorded_attempts": 4,
+        "successful_code_responses": 2,
+        "additional_attempts": 3,
+        "known_cost_attempts": 4,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 6751,
+          "tokens_out": 35451,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-12T08:07:35.655870+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.454927,
+            "request_seconds": null,
+            "record_sha256": "1c89dc29e96af7a8b315640f504f7fb2c9c13f5705a3bdbb1e7b33e7d369fa7e",
+            "response_sha256": "330a883f10c6ac21b118d848a5263e85271634177bb12fa080a9b60ba0e215a0"
+          },
+          {
+            "requested_at": "2026-10-12T08:20:52.713549+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.905487,
+            "request_seconds": null,
+            "record_sha256": "65744b56fc998d10ed89b9e3277e1afff4ca265dfbd76995b5f9587f51a75923",
+            "response_sha256": "a14400ca4e2d0c5451eaca7f21163484757fd20414b58ab8e77d8afec9920989"
+          },
+          {
+            "requested_at": "2026-10-12T08:30:34.862672+00:00",
+            "status": "generated",
+            "request_id": "8acea496-38ba-4ebc-8f84-bbf7bdf6f9cc",
+            "usage_available": true,
+            "estimated_cost_usd": 0.319572,
+            "request_seconds": null,
+            "record_sha256": "130209458c14ba67fb8768bfaefa3fc433bad773a28a22a6437caa807c4a831a",
+            "response_sha256": "35589bb538ceb9e2dca6155f5a8b0db1166002224eac95fd627980f85b6ae079"
+          },
+          {
+            "requested_at": "2026-10-12T08:53:35.269749+00:00",
+            "status": "generated",
+            "request_id": "73f5d541-3c55-45c5-8458-5323fc1ee9d2",
+            "usage_available": true,
+            "estimated_cost_usd": 0.34408,
+            "request_seconds": null,
+            "record_sha256": "213382203bc8b0548c8a0e0ccd5ce7f94c89dd8f918623eb38dc58ea8dee123d",
+            "response_sha256": "d6f156f155550a6d43c61e309d3802b0e1f096a591214c4638b5d38a47f95ce5"
+          }
+        ]
+      },
+      "request_id": "73f5d541-3c55-45c5-8458-5323fc1ee9d2",
+      "requested_at": "2026-10-12T08:53:35.269749+00:00",
+      "generated_at": "2026-10-12T08:54:31.471968+00:00",
+      "tokens_in": 5560,
+      "tokens_out": 5144,
+      "max_output_tokens": 16384,
+      "temperature": null,
+      "temperature_sent": false,
+      "bedrock_reasoning_effort": "low",
+      "finish_reason": "end_turn"
+    },
+    "lotte-tower": {
+      "model": "claude-fable-5.1",
+      "task": "lotte-tower",
+      "requested_model_id": "us.anthropic.claude-fable-5-1",
+      "provider": "bedrock",
+      "family": "Claude",
+      "generation": "lotte-tower-models-20261013",
+      "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/claude-fable-5.1",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "a722373a6f6dce9c0e1cdffb6f8901b18b50dc849747ce6ffb7d0a6353efefd1",
+      "content_review": {
+        "model": "claude-fable-5.1",
+        "score": 97.0,
+        "critical": 0,
+        "warnings": 2,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 3.5,
+          "Accessibility": 3.5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "artwork_sha256": "a722373a6f6dce9c0e1cdffb6f8901b18b50dc849747ce6ffb7d0a6353efefd1",
+        "model_id": "us.anthropic.claude-fable-5-1",
+        "origin_generation": "lotte-tower-models-20261013",
+        "original_response_bytes_verified": true,
+        "source": "/tmp/model-lotte-review/claude-fable-5.1/a722373a6f6d",
+        "browser_evidence": "/tmp/model-lotte-review/claude-fable-5.1/a722373a6f6d/browser.json",
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Readability",
+            "file": "docs/models/claude-fable-5.1/lotte-tower/artwork.html",
+            "line": 13,
+            "quote": "header p{margin:4px 0 0;color:var(--mute);font-size:.9rem}",
+            "problem": "Informative captions and controls use 12–16px text below the 19px review minimum.",
+            "action": "Increase meaningful text and controls to at least 19px while preserving the composition."
+          },
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/claude-fable-5.1/lotte-tower/artwork.html",
+            "line": 150,
+            "quote": "const ct=new THREE.OrbitControls(cam,cv);ct.target.set(0,260,0);ct.enableDamping=!reduce;ct.maxDistance=2500;ct.minDistance=80;ct.listenToKeyEvents&&ct.listenToKeyEvents(cv);",
+            "problem": "Canvas arrow-key handling is attached through listenToKeyEvents, but neither viewer has a keyboard-accessible zoom operation.",
+            "action": "Provide keyboard or native-button zoom controls for both viewers."
+          }
+        ],
+        "notes": [
+          "Both real 3D viewers and four SVG drawings operate; steps and floor markers update. Reduced-motion suppresses continuous auto rotation; explicit one-step rotation is preserved."
+        ],
+        "reviewed_at": "2026-10-13T12:41:44.800852+00:00",
+        "task_requirements_complete": true,
+        "current_generation_status": "generated",
+        "active_source": true,
+        "re_review_number": 0,
+        "review_iteration": 1,
+        "retry_limit_reached": false
+      },
+      "prompt_sha256": "46f5230b45dd5a0516c5d33fa8e9a59f800c523d34bceec0921f9cec9e31ba51",
+      "initial_prompt_sha256": "9d5dbab6dde0ef9399c7cef909589df849da12a241040ce6e00a0aa8dba40d49",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "lotte-tower-models-20261013",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 11.0,
+          "price_out": 55.0,
+          "price_cache_read": 0.275,
+          "price_cache_write": 13.75
+        },
+        "estimated_total_usd": 1.553244,
+        "estimated_final_response_usd": 0.639265,
+        "recorded_attempts": 2,
+        "successful_code_responses": 1,
+        "additional_attempts": 1,
+        "known_cost_attempts": 2,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 2824,
+          "tokens_out": 27676,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-13T10:54:48.192160+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.913979,
+            "request_seconds": null,
+            "record_sha256": "e3e07c1ad812de237dada2b7a4236d6ff56fc4d14e40b6fd8f46ac513461ce23",
+            "response_sha256": "f4ce78064466420ca1c9fe1fa3c8c0885f911ef8732b39df3abcaa778ab2caae"
+          },
+          {
+            "requested_at": "2026-10-13T11:23:31.850074+00:00",
+            "status": "generated",
+            "request_id": "4cbc89c2-32e6-4df3-8772-dda33407105c",
+            "usage_available": true,
+            "estimated_cost_usd": 0.639265,
+            "request_seconds": null,
+            "record_sha256": "f440e92d8620b46b4abda3a27cb3b5244940503fe5db02b7d84bfe5552ed43ff",
+            "response_sha256": "9b1f5c04691d0e6657f582f2e4408ece0882cbef624a82c0ca62f5d20a0e9a53"
+          }
+        ]
+      },
+      "request_id": "4cbc89c2-32e6-4df3-8772-dda33407105c",
+      "requested_at": "2026-10-13T11:23:31.850074+00:00",
+      "generated_at": "2026-10-13T11:26:07.663178+00:00",
+      "tokens_in": 1655,
+      "tokens_out": 11292,
+      "max_output_tokens": 16384,
+      "temperature": null,
+      "temperature_sent": false,
+      "bedrock_reasoning_effort": "low",
+      "finish_reason": "end_turn"
+    }
+  }
+}

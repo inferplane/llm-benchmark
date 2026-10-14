@@ -1,0 +1,260 @@
+{
+  "model": "qwen3.6-27b",
+  "requested_model_id": "Qwen/Qwen3.6-27B",
+  "family": "Qwen",
+  "tasks": {
+    "whoami": {
+      "model": "qwen3.6-27b",
+      "task": "whoami",
+      "requested_model_id": "Qwen/Qwen3.6-27B",
+      "provider": "vllm",
+      "family": "Qwen",
+      "generation": "free-expression-20261012",
+      "source_records": "results/model-self-portraits/generations/free-expression-20261012/qwen3.6-27b",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "f427869814bb0b83251e9c7249a4e294ddf7b566779d4238fd4fc724fc61dd9b",
+      "content_review": {
+        "model": "qwen3.6-27b",
+        "generation": "free-expression-20261012",
+        "score": 96,
+        "critical": 0,
+        "warnings": 3,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 5,
+          "Accessibility": 1,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/qwen3.6-27b/artwork.html",
+            "line": 73,
+            "quote": "font-size: 0.8rem;",
+            "problem": "Status/log text and the command controls render at about13–14px, below the14pt rubric minimum.",
+            "action": "Use at least19px for informative labels, log text and controls."
+          },
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/qwen3.6-27b/artwork.html",
+            "line": 74,
+            "quote": "color: var(--secondary);",
+            "problem": "The purple ONLINE status is low contrast against the dark background, and its opacity pulse reduces contrast further.",
+            "action": "Maintain at least4.5:1 contrast for the informative status throughout all display states."
+          },
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/qwen3.6-27b/artwork.html",
+            "line": 245,
+            "quote": "function animate() {",
+            "problem": "The Canvas animation, status pulse and interface tilt do not respond to the operating-system reduced-motion preference.",
+            "action": "Apply a meaningful motion reduction or still variant to the actual chosen animations."
+          }
+        ],
+        "artwork_sha256": "f427869814bb0b83251e9c7249a4e294ddf7b566779d4238fd4fc724fc61dd9b",
+        "model_id": "Qwen/Qwen3.6-27B",
+        "reported_model": "Qwen/Qwen3.6-27B",
+        "requested_at": "2026-10-12T09:24:58.131566+00:00",
+        "reviewed_at": "2026-10-12T09:35:30.370011+00:00",
+        "initial_prompt_sha256": "e0dd8eb8850458a3a541d31852051ef410abef92266176b28f2aed79e39ed137",
+        "exact_example_free_initial_prompt": true,
+        "original_response_containment": true,
+        "frozen_source": "/tmp/free-expression-review/qwen3.6-27b/f427869814bb",
+        "browser_evidence": "/tmp/free-expression-review/qwen3.6-27b/f427869814bb/browser.json",
+        "notes": [
+          "Original native Qwen/Qwen3.6-27B identity and response bytes verified; current call2658tokens/temp0.5. Earliest generation prompt exactly matches the short example-free template.",
+          "375/768/1280: no horizontal overflow and no console/network errors. Authored local terminal accepts keyboard Enter and adds the input to the log; no native form submission.",
+          "Static/animated medium choice and simulated-terminal concept are preserved."
+        ],
+        "review_iteration": 1
+      },
+      "prompt_sha256": "7f825ec994f96cb4e30aad7936e90bf8c22dd5f52515616fa3a2f8ea75724549",
+      "initial_prompt_sha256": "e0dd8eb8850458a3a541d31852051ef410abef92266176b28f2aed79e39ed137",
+      "implementation_cost": {
+        "kind": "gpu_request_time",
+        "generation": "free-expression-20261012",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "gpu_hourly_usd": 5.6582
+        },
+        "estimated_total_usd": 1.4502411727450555,
+        "estimated_final_response_usd": 0.23525316609388888,
+        "recorded_attempts": 3,
+        "successful_code_responses": 1,
+        "additional_attempts": 2,
+        "known_cost_attempts": 3,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": 922.7083210000001,
+        "tokens": {
+          "tokens_in": 645,
+          "tokens_out": 16402,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "GPU_model_loading_and_idle_time",
+          "other_infrastructure"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-12T09:08:19.944511+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.5411217291002778,
+            "request_seconds": 344.285855,
+            "record_sha256": "7f49b0c7f0c64610dd78123acc6441930e2fa0e9e428cc78fe9c6ab96bbef448",
+            "response_sha256": "de63d9c7740242a9abbae403ea76ef0f462faa503ee7eb458c94758ada759658"
+          },
+          {
+            "requested_at": "2026-10-12T09:17:15.340641+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.6738662775508889,
+            "request_seconds": 428.743876,
+            "record_sha256": "686570cbb2d6b195d48e8f15826db94d936f15688a3db3ab28647916d2ef1cf5",
+            "response_sha256": "baf7fada8d533fd1eae4aea0f2cd1bccea05a67c7410fdf5fbd9e3f7b59ac943"
+          },
+          {
+            "requested_at": "2026-10-12T09:24:58.131566+00:00",
+            "status": "generated",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.23525316609388888,
+            "request_seconds": 149.67859,
+            "record_sha256": "878592078271618516a8204f1c8ea5bff000770df4cb82d087b50a5791de8c15",
+            "response_sha256": "7d4f003669491eb1cad2e9c223e5d74df768c87701dbf1cade88e59408b3ef95"
+          }
+        ]
+      },
+      "requested_at": "2026-10-12T09:24:58.131566+00:00",
+      "generated_at": "2026-10-12T09:27:27.810156+00:00",
+      "reported_model": "Qwen/Qwen3.6-27B",
+      "tokens_in": 241,
+      "tokens_out": 2658,
+      "max_output_tokens": 6144,
+      "temperature": 0.5,
+      "temperature_sent": true,
+      "bedrock_reasoning_effort": null,
+      "finish_reason": "stop"
+    },
+    "lotte-tower": {
+      "model": "qwen3.6-27b",
+      "task": "lotte-tower",
+      "requested_model_id": "Qwen/Qwen3.6-27B",
+      "provider": "vllm",
+      "family": "Qwen",
+      "generation": "lotte-tower-models-20261013",
+      "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b",
+      "status": "failed",
+      "generation_status": "failed",
+      "artwork_sha256": null,
+      "content_review": null,
+      "prompt_sha256": "553eb3056cc280afbfdcc6c471dc65b3b8615cfa0346d5f5e374a8e5341e87e4",
+      "initial_prompt_sha256": "b0b32ebd145da106e700152a96b2e71748711f12daea088231d438fe14983ff0",
+      "implementation_cost": {
+        "kind": "gpu_request_time",
+        "generation": "lotte-tower-models-20261013",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "gpu_hourly_usd": 5.6582
+        },
+        "estimated_total_usd": 1.638711523943389,
+        "estimated_final_response_usd": 0.36399467635605554,
+        "recorded_attempts": 4,
+        "successful_code_responses": 0,
+        "additional_attempts": 3,
+        "known_cost_attempts": 4,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": 1042.621591,
+        "tokens": {
+          "tokens_in": 3264,
+          "tokens_out": 18432,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "GPU_model_loading_and_idle_time",
+          "other_infrastructure"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-13T15:55:51.471356+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.5459349963811667,
+            "request_seconds": 347.348271,
+            "record_sha256": "48bc098ea8c70ebb02ae07a4e260ac5bd7d678256386e79a066185b4ad6674f3",
+            "response_sha256": "f319ad28bc2f41ad18bef6532f6cdf46f7ba21d1bf48308b62b7729ef14238b1"
+          },
+          {
+            "requested_at": "2026-10-13T16:01:39.551286+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.36485538759455555,
+            "request_seconds": 232.137322,
+            "record_sha256": "758ed9112321486917a7c93d4503790e1df53ef2ba001909928fa1b70ed71d8f",
+            "response_sha256": "44d61fce45dbaae683d8538fd9c848ed42b2e78fef8c39798dd3ccd11fce1182"
+          },
+          {
+            "requested_at": "2026-10-13T16:05:32.479447+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.36392646361161113,
+            "request_seconds": 231.546299,
+            "record_sha256": "e883488b5a65d92fac6c9849ed66bd6de8f381b421fc8a69c138b5282fbe895c",
+            "response_sha256": "ccf4b491fcc135316cd23e2c4c4c9a9653a38ce0f7662ac63f36c29483eab776"
+          },
+          {
+            "requested_at": "2026-10-13T16:09:24.809457+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.36399467635605554,
+            "request_seconds": 231.589699,
+            "record_sha256": "08642fd0d20134a0a4c27687a5d13d32ecbcee6520474ff8b24dfda561d163c1",
+            "response_sha256": "5f748c27c833cc7e529ab8b180f01e41011dfcfaa771ee4a4cda790d20ac5e0f"
+          }
+        ]
+      },
+      "requested_at": "2026-10-13T16:09:24.809457+00:00",
+      "max_output_tokens": 4096,
+      "temperature": 0.3,
+      "temperature_sent": true,
+      "bedrock_reasoning_effort": null
+    }
+  }
+}

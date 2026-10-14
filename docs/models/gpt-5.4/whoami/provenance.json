@@ -1,0 +1,141 @@
+{
+  "model": "gpt-5.4",
+  "task": "whoami",
+  "requested_model_id": "openai.gpt-5.4",
+  "provider": "bedrock_mantle",
+  "family": "OpenAI",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/gpt-5.4",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "2af4eb86387aca19fc6280fe4635549a272a02decb92701a152e1123962bcee0",
+  "content_review": {
+    "model": "gpt-5.4",
+    "generation": "free-expression-20261012",
+    "score": 97.0,
+    "critical": 0,
+    "warnings": 3,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 1.5,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 2.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/gpt-5.4/artwork.html",
+        "line": 120,
+        "quote": "font-size:clamp(.95rem, .5vw + .85rem, 1.05rem);",
+        "problem": "Several informative descriptions, status and control labels render below 19px.",
+        "action": "Raise meaningful text/control labels to at least 19px while preserving the composition."
+      },
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/gpt-5.4/artwork.html",
+        "line": 685,
+        "quote": "window.addEventListener('keydown', (e) => {",
+        "problem": "Global Space prevents the focused reduce-motion checkbox from toggling and triggers pause instead; the same handler intercepts the other checkbox.",
+        "action": "Preserve native keyboard activation of focused inputs/buttons; scope artwork shortcuts appropriately."
+      },
+      {
+        "severity": "Warning",
+        "category": "Content-Type Quality",
+        "file": "docs/models/gpt-5.4/artwork.html",
+        "line": 651,
+        "quote": "if(running) requestAnimationFrame(frame);",
+        "problem": "Each resume schedules another requestAnimationFrame chain although the existing frame loop continues while paused; measured two pending callbacks after one resume.",
+        "action": "Keep one live animation loop across pause/resume to avoid accumulating rendering work."
+      }
+    ],
+    "artwork_sha256": "2af4eb86387aca19fc6280fe4635549a272a02decb92701a152e1123962bcee0",
+    "model_id": "openai.gpt-5.4",
+    "reported_model": "openai.gpt-5.4",
+    "requested_at": "2026-10-12T08:08:33.823463+00:00",
+    "reviewed_at": "2026-10-12T08:46:03.457830+00:00",
+    "initial_prompt_sha256": "13624fd5eb6d556076309807066a9a3731a1251146a9031b826c36f2f7400f27",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/gpt-5.4/2af4eb86387a",
+    "browser_evidence": "/tmp/free-expression-review/gpt-5.4/2af4eb86387a/browser.json",
+    "notes": [
+      "Meaningful reduced-motion behavior is present: drift/pulse are suppressed and rotation is slowed. It is not required to become fully static.",
+      "Burst/reset update their advertised status; no clipping or horizontal overflow found at 375/768/1280."
+    ]
+  },
+  "prompt_sha256": "13624fd5eb6d556076309807066a9a3731a1251146a9031b826c36f2f7400f27",
+  "initial_prompt_sha256": "13624fd5eb6d556076309807066a9a3731a1251146a9031b826c36f2f7400f27",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 2.5,
+      "price_out": 15.0
+    },
+    "estimated_total_usd": 0.0939525,
+    "estimated_final_response_usd": 0.0939525,
+    "recorded_attempts": 1,
+    "successful_code_responses": 1,
+    "additional_attempts": 0,
+    "known_cost_attempts": 1,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 207,
+      "tokens_out": 6229,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:08:33.823463+00:00",
+        "status": "generated",
+        "request_id": "req_5j56xuq43hngiawjzciwp6rik3q4kxr3j54lviwz4wrodauzxk7q",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0939525,
+        "request_seconds": null,
+        "record_sha256": "e53fe100ed0a84f188823e5ef1c60fe8591c7a33e9eae563fa73becf78c752b1",
+        "response_sha256": "313d1bb0e84a32a45bb905fd1cd40002d60732016954d1798ca4e1f3fb212731"
+      }
+    ]
+  },
+  "request_id": "req_5j56xuq43hngiawjzciwp6rik3q4kxr3j54lviwz4wrodauzxk7q",
+  "response_id": "resp_2q4xmsmve3wpsetbw7onr2la24an2b3inrd4ui7uke6le7uvhhbq",
+  "requested_at": "2026-10-12T08:08:33.823463+00:00",
+  "generated_at": "2026-10-12T08:09:09.178486+00:00",
+  "reported_model": "openai.gpt-5.4",
+  "tokens_in": 207,
+  "tokens_out": 6229,
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "none"
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "model": "glm-5.3",
+  "task": "whoami",
+  "requested_model_id": "us.zai.glm-5.3",
+  "provider": "bedrock",
+  "family": "Z.AI",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/glm-5.3",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "7f2c615322d3ddb4ffea2e43c5786f52508ed971ad2b0a0008bb94b6e87d1f85",
+  "content_review": {
+    "model": "glm-5.3",
+    "generation": "free-expression-20261012",
+    "score": 97.0,
+    "critical": 0,
+    "warnings": 2,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 3.5,
+      "Readability": 5,
+      "Accessibility": 3.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/glm-5.3/artwork.html",
+        "line": 42,
+        "quote": "font-size: clamp(12px, 1.6vw, 15px);",
+        "problem": "Meaningful subtitles, instructions and button labels render at 11–15px.",
+        "action": "Use at least 19px for informative text and controls while retaining your composition."
+      },
+      {
+        "severity": "Warning",
+        "category": "Interactions",
+        "file": "docs/models/glm-5.3/artwork.html",
+        "line": 200,
+        "quote": "t += 0.008 * speed;",
+        "problem": "The pause control freezes token positions but time, breathing opacity and active wave rings keep advancing outside the paused guard.",
+        "action": "Make the existing pause action stop the ongoing animation it announces as stopped."
+      }
+    ],
+    "artwork_sha256": "7f2c615322d3ddb4ffea2e43c5786f52508ed971ad2b0a0008bb94b6e87d1f85",
+    "model_id": "us.zai.glm-5.3",
+    "reported_model": null,
+    "requested_at": "2026-10-12T08:22:34.016708+00:00",
+    "reviewed_at": "2026-10-12T08:51:34.317346+00:00",
+    "initial_prompt_sha256": "4a2bf27787ff53d06aa6ec02b89a46262a4a6cff3e174588844d286a54a83842",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/glm-5.3/7f2c615322d3",
+    "browser_evidence": "/tmp/free-expression-review/glm-5.3/7f2c615322d3/browser.json",
+    "notes": [
+      "One animation chain; initial reduced preference meaningfully lowers speed to 12%. Keyboard/button/theme/reset actions execute without errors."
+    ]
+  },
+  "prompt_sha256": "4a2bf27787ff53d06aa6ec02b89a46262a4a6cff3e174588844d286a54a83842",
+  "initial_prompt_sha256": "4a2bf27787ff53d06aa6ec02b89a46262a4a6cff3e174588844d286a54a83842",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 1.848,
+      "price_out": 5.808,
+      "price_cache_read": 0.3432,
+      "price_cache_write": 2.31
+    },
+    "estimated_total_usd": 0.07630128,
+    "estimated_final_response_usd": 0.02818992,
+    "recorded_attempts": 2,
+    "successful_code_responses": 1,
+    "additional_attempts": 1,
+    "known_cost_attempts": 2,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 576,
+      "tokens_out": 12954,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:10:46.952931+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.04811136,
+        "request_seconds": null,
+        "record_sha256": "c87fc10cab31d4fce195d20d81b7b8584c8e5d445237448def48df0f552ee17f",
+        "response_sha256": "c87d470aabc9b8a7b35c76839225da697ecc11ae27360a05a376d3bb69e0412b"
+      },
+      {
+        "requested_at": "2026-10-12T08:22:34.016708+00:00",
+        "status": "generated",
+        "request_id": "e71bcf85-79dc-457d-b50f-43c906fe548e",
+        "usage_available": true,
+        "estimated_cost_usd": 0.02818992,
+        "request_seconds": null,
+        "record_sha256": "a4456f7fef468fa5b1e10a065a9f3d106ccdc65802ab5101687003aec477905e",
+        "response_sha256": "e23f07db49bfcd198eec887b8dcccca4ae54edc7c9913978b3ec86662da3619d"
+      }
+    ]
+  },
+  "request_id": "e71bcf85-79dc-457d-b50f-43c906fe548e",
+  "requested_at": "2026-10-12T08:22:34.016708+00:00",
+  "generated_at": "2026-10-12T08:22:48.662994+00:00",
+  "tokens_in": 288,
+  "tokens_out": 4762,
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "finish_reason": "end_turn"
+}

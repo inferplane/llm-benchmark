@@ -1,0 +1,11 @@
+You are the original author, model gpt-5.5, served as openai.gpt-5.5. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+YOUR PREVIOUS FULL RESPONSE:
+
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["docs/models/gpt-5.5/lotte-tower/artwork.html:33: Informative controls, descriptions and diagram annotations include text below the 19px review minimum. Required repair: Use at least 19px meaningful text at rendered size while preserving the composition. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gpt-5.5/lotte-tower/artwork.html:263: Keyboard controls select stages and reset, but cannot rotate or zoom the camera. Required repair: Provide keyboard or native-button equivalents for camera orbit and zoom. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gpt-5.5/lotte-tower/artwork.html:209: The initial/reset camera clips the upper completed tower; the main view does not show the whole completed shape. Required repair: Fit the full tower including crown in the initial/reset view across desktop and mobile. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gpt-5.5/lotte-tower/artwork.html:237: The 555-unit body receives a 55-unit cone at y=H+27, making the top 609.5 while the elevation and stated overall height remain 555m. Required repair: Make your complete 3D height and corresponding elevation agree at 555m, including the crown. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."]
+
+The previous implementation was unreliable; implement a fresh version yourself using your own expressive concept and medium. Address the confirmed functional issues without adopting a shared visual template.
+
+Return the complete repaired HTML now.

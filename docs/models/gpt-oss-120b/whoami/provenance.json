@@ -1,0 +1,135 @@
+{
+  "model": "gpt-oss-120b",
+  "task": "whoami",
+  "requested_model_id": "openai.gpt-oss-120b-1:0",
+  "provider": "bedrock",
+  "family": "OpenAI",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/gpt-oss-120b",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "98870929ed22777d12be3a26cf5a2770d6735d2dc0cc4a7cd03032adc3ab43c9",
+  "content_review": {
+    "model": "gpt-oss-120b",
+    "generation": "free-expression-20261012",
+    "score": 96,
+    "critical": 0,
+    "warnings": 3,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 1,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/gpt-oss-120b/artwork.html",
+        "line": 15,
+        "quote": "font-size:1rem;z-index:10;",
+        "problem": "Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px).",
+        "action": "Use at least 19px for informative text and controls while retaining the chosen composition."
+      },
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/gpt-oss-120b/artwork.html",
+        "line": 145,
+        "quote": "if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){",
+        "problem": "The operating-system reduced-motion preference does not reduce the actual continuous artwork animation; the rule only affects CSS while this motion is script-driven.",
+        "action": "Apply the reduced-motion preference to the actual animation with a meaningful reduction or still version, preserving your medium."
+      },
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/gpt-oss-120b/artwork.html",
+        "line": 17,
+        "quote": "[data-theme=\"dark\"] #info{background:rgba(0,0,0,0.6);}",
+        "problem": "Switching to dark mode darkens the info panel, but the body still supplies #222 text, producing dark model text on a dark panel; the dark-theme blue button also lowers white-label contrast.",
+        "action": "Apply the selected theme consistently and maintain 4.5:1 informative text/control contrast."
+      }
+    ],
+    "artwork_sha256": "98870929ed22777d12be3a26cf5a2770d6735d2dc0cc4a7cd03032adc3ab43c9",
+    "model_id": "openai.gpt-oss-120b-1:0",
+    "reported_model": null,
+    "requested_at": "2026-10-12T08:10:56.255922+00:00",
+    "reviewed_at": "2026-10-12T08:51:09.261143+00:00",
+    "initial_prompt_sha256": "7e01511988fb9ca62bcbaf6d90496ae7a621ba315789f20d388f05388396e9be",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/gpt-oss-120b/98870929ed22",
+    "browser_evidence": "/tmp/free-expression-review/gpt-oss-120b/98870929ed22/browser.json",
+    "notes": [
+      "Browser/source evidence frozen at /tmp/free-expression-review/gpt-oss-120b/98870929ed22. Actual model response containment and exact example-free initial prompt verified."
+    ]
+  },
+  "prompt_sha256": "7e01511988fb9ca62bcbaf6d90496ae7a621ba315789f20d388f05388396e9be",
+  "initial_prompt_sha256": "7e01511988fb9ca62bcbaf6d90496ae7a621ba315789f20d388f05388396e9be",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.15,
+      "price_out": 0.6
+    },
+    "estimated_total_usd": 0.00096825,
+    "estimated_final_response_usd": 0.00096825,
+    "recorded_attempts": 1,
+    "successful_code_responses": 1,
+    "additional_attempts": 0,
+    "known_cost_attempts": 1,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 275,
+      "tokens_out": 1545,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:10:56.255922+00:00",
+        "status": "generated",
+        "request_id": "9ee494b4-ab54-4ee9-bf7b-d75864147f71",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00096825,
+        "request_seconds": null,
+        "record_sha256": "91efa238519633f45bcd2f44b98dfc5bafaed8537d09300ed68095c4049aa45f",
+        "response_sha256": "293f0373408fb6450a93c40ae27dfd8caddf7c2784e13e6ccef9bfaa2b97e6cc"
+      }
+    ]
+  },
+  "request_id": "9ee494b4-ab54-4ee9-bf7b-d75864147f71",
+  "requested_at": "2026-10-12T08:10:56.255922+00:00",
+  "generated_at": "2026-10-12T08:11:09.085832+00:00",
+  "tokens_in": 275,
+  "tokens_out": 1545,
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "finish_reason": "end_turn"
+}

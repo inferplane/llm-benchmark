@@ -1,0 +1,23 @@
+{
+  "model": "claude-haiku-5.5",
+  "model_id": "us.anthropic.claude-haiku-5-5",
+  "api": "bedrock",
+  "generation": "lotte-world-tower-20261013-pilot",
+  "requested_at": "2026-10-13T07:22:24.826873+00:00",
+  "prompt_sha256": "9048e8532948d7fee9de8317a7af87379a430a7050ce22ff63b255161b4246d6",
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": "low",
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T07:22:59.747414+00:00",
+  "artwork_sha256": "6fa8dd0377ec0fa0126a9c36e5ee26e90bf6081f9fadbfa5255217d6e65dd7d5",
+  "tokens_in": 11962,
+  "tokens_out": 12010,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "3d7efa72-48aa-4405-9d26-30006b9f7e09"
+}

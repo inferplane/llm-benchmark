@@ -1,0 +1,177 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotte World Tower Interactive Design</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+            overflow: auto;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background-color: #003366;
+            color: white;
+        }
+        .description {
+            width: 80%;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .drawings,.stages,.model {
+            width: 80%;
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .drawing,.stage,.model-part {
+            width: 30%;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+       .control-button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        canvas {
+            background-color: #000;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Lotte World Tower Interactive Design</h1>
+        <p>Model: nova-micro</p>
+    </div>
+    <div class="description">
+        <p style="font-size: 19px;">This interactive web page allows you to explore the architectural design process of the Lotte World Tower in Seoul. The tower stands at 555 meters tall with 123 floors, narrowing upwards. The design by KPF draws inspiration from Korean pottery aesthetics.</p>
+    </div>
+    <div class="drawings">
+        <div class="drawing">
+            <h2>Site Plan</h2>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAQCAYAAADNo+9XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AEKDR0Iu3JyDAA==" alt="Site Plan">
+        </div>
+        <div class="drawing">
+            <h2>Floor Plan</h2>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAQCAYAAADNo+9XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AEKDR0Iu3JyDAA==" alt="Floor Plan">
+        </div>
+        <div class="drawing">
+            <h2>Elevation</h2>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAQCAYAAADNo+9XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AEKDR0Iu3JyDAA==" alt="Elevation">
+        </div>
+        <div class="drawing">
+            <h2>Section</h2>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAQCAYAAADNo+9XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AEKDR0Iu3JyDAA==" alt="Section">
+        </div>
+    </div>
+    <div class="stages">
+        <div class="stage">
+            <h2>Conceptual Design</h2>
+            <div id="stage1" class="model-part"></div>
+        </div>
+        <div class="stage">
+            <h2>Intermediate Design</h2>
+            <div id="stage2" class="model-part"></div>
+        </div>
+        <div class="stage">
+            <h2>Final Design</h2>
+            <div id="stage3" class="model-part"></div>
+        </div>
+    </div>
+    <div class="model">
+        <div id="final-model" class="model-part"></div>
+    </div>
+    <div class="controls">
+        <button class="control-button" onclick="rotateModel(-10)">Rotate Left</button>
+        <button class="control-button" onclick="zoomModel(0.9)">Zoom In</button>
+        <button class="control-button" onclick="zoomModel(1.1)">Zoom Out</button>
+        <button class="control-button" onclick="resetView()">Reset View</button>
+    </div>
+
+    <script src="../runtime/three-runtime.js"></script>
+    <script>
+        let camera, scene, renderer;
+        const models = [];
+
+        function init() {
+            const canvas = document.createElement('canvas');
+            document.body.appendChild(canvas);
+            renderer = new THREE.WebGLRenderer({ canvas });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            scene = new THREE.Scene();
+
+            models[0] = createStage('Conceptual Design');
+            models[1] = createStage('Intermediate Design');
+            models[2] = createStage('Final Design');
+            models[3] = createStage('Final Model');
+
+            scene.add(models[2]);
+
+            animate();
+        }
+
+        function createStage(name) {
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.name = name;
+            return mesh;
+        }
+
+        function rotateModel(degrees) {
+            scene.children.forEach(child => {
+                child.rotation.y += degrees * Math.PI / 180;
+            });
+            renderer.render(scene, camera);
+        }
+
+        function zoomModel(factor) {
+            camera.position.z *= factor;
+            renderer.render(scene, camera);
+        }
+
+        function resetView() {
+            camera.position.set(0, 0, 5);
+            camera.rotation.set(0, 0, 0);
+            renderer.render(scene, camera);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        init();
+    </script>
+</body>
+</html>
+```

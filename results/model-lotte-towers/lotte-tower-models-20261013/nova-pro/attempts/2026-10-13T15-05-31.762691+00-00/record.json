@@ -1,0 +1,25 @@
+{
+  "model": "nova-pro",
+  "model_id": "us.amazon.nova-pro-v1:0",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T15:05:31.762691+00:00",
+  "prompt_sha256": "a048259bb4d877671b499b9405d8aea5eb27be3429c477b1620e631cb3dea1f3",
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "failed",
+  "failed_at": "2026-10-13T15:05:32.219037+00:00",
+  "error": {
+    "type": "ValidationException",
+    "message": "ValidationException: provider returned ValidationException",
+    "retryable": false,
+    "http_status": 400,
+    "code": "ValidationException",
+    "request_id": "fe9ed16c-4c9b-4aa6-bfda-3dd410ef87ee"
+  },
+  "reason": "ValidationException: provider returned ValidationException"
+}

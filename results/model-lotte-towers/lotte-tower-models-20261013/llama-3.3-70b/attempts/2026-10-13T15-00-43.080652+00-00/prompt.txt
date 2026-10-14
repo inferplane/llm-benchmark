@@ -1,0 +1,169 @@
+You are the original author, model llama-3.3-70b, served as meta-llama/Llama-3.3-70B-Instruct. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+YOUR PREVIOUS FULL RESPONSE:
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>롯데월드타워 3D 모델 및 설계 과정</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #container {
+            width: 80%;
+            margin: 40px auto;
+            text-align: center;
+        }
+        #model-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        #description {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        #diagrams {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        #diagrams img {
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #3d-model {
+            width: 600px;
+            height: 600px;
+            margin: 40px auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #controls {
+            margin-top: 20px;
+        }
+        #controls button {
+            width: 100px;
+            height: 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+        }
+        #controls button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="model-name">롯데월드타워</div>
+        <div id="description">
+            롯데월드타워의 건축 설계 과정을 이해할 수 있도록, 설계도면과 단계별 3D 모델 및 완성된 3D 모델을 함께 보여주는 인터랙티브 웹페이지입니다.
+        </div>
+        <div id="diagrams">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="배치도">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="기준층 평면도">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="입면도">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="단면도">
+        </div>
+        <div id="3d-model"></div>
+        <div id="controls">
+            <button id="prev-button">이전 단계</button>
+            <button id="next-button">다음 단계</button>
+            <button id="reset-button">초기화</button>
+        </div>
+    </div>
+
+    <script src="../runtime/three-runtime.js"></script>
+    <script>
+        let scene, camera, renderer, controls;
+        let modelStep = 0;
+        const modelSteps = [
+            { name: '초기 모델', height: 100, floors: 20 },
+            { name: '중간 모델', height: 300, floors: 60 },
+            { name: '완성 모델', height: 555, floors: 123 }
+        ];
+
+        init();
+        animate();
+
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({
+                canvas: document.createElement('canvas'),
+                antialias: true
+            });
+            renderer.setSize(600, 600);
+            document.getElementById('3d-model').appendChild(renderer.domElement);
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+            camera.position.z = 5;
+
+            updateModel();
+
+            document.getElementById('prev-button').addEventListener('click', prevStep);
+            document.getElementById('next-button').addEventListener('click', nextStep);
+            document.getElementById('reset-button').addEventListener('click', reset);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        function prevStep() {
+            modelStep = (modelStep - 1 + modelSteps.length) % modelSteps.length;
+            updateModel();
+        }
+
+        function nextStep() {
+            modelStep = (modelStep + 1) % modelSteps.length;
+            updateModel();
+        }
+
+        function reset() {
+            modelStep = 0;
+            updateModel();
+        }
+
+        function updateModel() {
+            scene.clear();
+            const model = modelSteps[modelStep];
+            const geometry = new THREE.CylinderGeometry(50, 20, model.height, 64);
+            const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            const tower = new THREE.Mesh(geometry, material);
+            scene.add(tower);
+            const floors = model.floors;
+            const floorHeight = model.height / floors;
+            for (let i = 0; i < floors; i++) {
+                const floorGeometry = new THREE.PlaneGeometry(100, 100);
+                const floorMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+                const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+                floor.position.y = i * floorHeight;
+                scene.add(floor);
+            }
+        }
+    </script>
+</body>
+</html>
+```
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["docs/models/llama-3.3-70b/lotte-tower/artwork.html:24: Description18px and defaultbutton labels fall below19px. Required repair: Use at least19px for informative text/control labels. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/llama-3.3-70b/lotte-tower/artwork.html:57: White labels on the green buttons have insufficient4.5:1 text contrast. Required repair: Use readable button foreground/background pairs of at least4.5:1. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/llama-3.3-70b/lotte-tower/artwork.html:108: Camera rotation/zoom is pointer-only with no focusable keyboard camera interface. Required repair: Provide keyboard-operable camera rotation andzoom through your own controls or a focusable viewport. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/llama-3.3-70b/lotte-tower/artwork.html:106: The600×600render surface is fixed, has no resize handler, and overflows the375px task viewport. The CSS selector #3d-model is also invalid unless escaped. Required repair: Make the viewport and renderer responsive; use a valid selector/identifier and actual container dimensions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/llama-3.3-70b/lotte-tower/artwork.html:110: The camera starts only5units from the origin, inside the large tower/floor geometry, so the initial view is an obstructed/blank close-up instead of a usable building view. Required repair: Place andtarget the initial/home camera so the complete conceptual building is visible at all viewport sizes. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/llama-3.3-70b/lotte-tower/artwork.html:135: Reset only sets modelStep=0 and rebuilds; it does not restore camera position/orientation/target after orbit or zoom. Required repair: Implement an accessible actual view-reset operation, optionally retaining your chosen stage-reset behavior. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/llama-3.3-70b/lotte-tower/artwork.html:72: All four drawings are the same tiny5×5PNG placeholder, not site/floor/elevation/section geometry. Required repair: Implement four actual conceptual drawing views of your own model with readablelabels,555m/123-floor publicbasis and clear assumed dimensions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/llama-3.3-70b/lotte-tower/artwork.html:143: Cylinder radiusTop50 exceeds radiusBottom20, reversing the required taper; the cylinder is centered abouty0 while floor positions startaty0, and planes remainvertical, so the level geometry does not correspond to the tower. Required repair: Use a coherent shared height/ground datum, upward-narrowing envelope and horizontal floors contained in it. Choose your own dimensions/style and mark assumptions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."]
+
+Return the complete repaired HTML now.

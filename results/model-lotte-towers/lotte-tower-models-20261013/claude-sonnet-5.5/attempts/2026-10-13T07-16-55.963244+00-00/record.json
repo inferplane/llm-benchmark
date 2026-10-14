@@ -1,0 +1,23 @@
+{
+  "model": "claude-sonnet-5.5",
+  "model_id": "us.anthropic.claude-sonnet-5-5",
+  "api": "bedrock",
+  "generation": "lotte-world-tower-20261013-pilot",
+  "requested_at": "2026-10-13T07:16:55.963244+00:00",
+  "prompt_sha256": "83e484221a474ab0fa52a5c39dbcfcdc204c72aa3ccbfaeb823997e0f732859e",
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": "low",
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T07:17:45.773221+00:00",
+  "artwork_sha256": "c32619e9452fed1799a24cdae0fd1009ceb37a84980a68a1a090338d0eb49b96",
+  "tokens_in": 1175,
+  "tokens_out": 7589,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "fb7b3e77-4ede-4db0-9f1d-bd271952990c"
+}

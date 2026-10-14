@@ -1,0 +1,320 @@
+{
+  "model": "claude-sonnet-5",
+  "requested_model_id": "us.anthropic.claude-sonnet-5",
+  "family": "Claude",
+  "tasks": {
+    "whoami": {
+      "model": "claude-sonnet-5",
+      "task": "whoami",
+      "requested_model_id": "us.anthropic.claude-sonnet-5",
+      "provider": "bedrock",
+      "family": "Claude",
+      "generation": "free-expression-20261012",
+      "source_records": "results/model-self-portraits/generations/free-expression-20261012/claude-sonnet-5",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "9294dafb5bce4f62ff12a31feb7636e542466a5b66302e0e6bdea001f1e5a8d0",
+      "content_review": {
+        "model": "claude-sonnet-5",
+        "generation": "free-expression-20261012",
+        "score": 96.5,
+        "critical": 0,
+        "warnings": 2,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 6.0,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 5,
+          "Accessibility": 3.5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/claude-sonnet-5/artwork.html",
+            "line": 89,
+            "quote": "font-size: clamp(14px, 2.2vw, 16px);",
+            "problem": "Some informative descriptions, labels or control text still render below 19px.",
+            "action": "Use at least 19px for informative text and controls."
+          },
+          {
+            "severity": "Warning",
+            "category": "Layout",
+            "file": "docs/models/claude-sonnet-5/artwork.html",
+            "line": 209,
+            "quote": "",
+            "problem": "The fixed mobile control stack still overlaps and obscures the fixed status text at375px.",
+            "action": "Keep status text and controls in separate readable space at mobile widths."
+          }
+        ],
+        "artwork_sha256": "9294dafb5bce4f62ff12a31feb7636e542466a5b66302e0e6bdea001f1e5a8d0",
+        "model_id": "us.anthropic.claude-sonnet-5",
+        "reported_model": null,
+        "requested_at": "2026-10-12T08:52:10.097804+00:00",
+        "reviewed_at": "2026-10-12T08:58:35.157064+00:00",
+        "initial_prompt_sha256": "76e866efdca5f26dea6424bf280159e2e5dd21458a68ea1d1fb2cb3de6b5e458",
+        "exact_example_free_initial_prompt": true,
+        "original_response_containment": true,
+        "frozen_source": "/tmp/free-expression-review/claude-sonnet-5/9294dafb5bce",
+        "browser_evidence": "/tmp/free-expression-review/claude-sonnet-5/9294dafb5bce/browser.json",
+        "notes": [
+          "First re-review of the actual original-author correction. Source/prompt/response fidelity rechecked; no coordinator artwork edits.",
+          "Sandbox autofocus error eliminated; help-modal focus now stays inside and Escape closes it. All existing actions execute without errors."
+        ],
+        "review_iteration": 2
+      },
+      "prompt_sha256": "7d5e7d5f91c39450efcce3f8e89a7d8fa2bdb5bc7e058dbee5fb418597847382",
+      "initial_prompt_sha256": "76e866efdca5f26dea6424bf280159e2e5dd21458a68ea1d1fb2cb3de6b5e458",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "free-expression-20261012",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 2.2,
+          "price_out": 11.0,
+          "price_cache_read": 0.22,
+          "price_cache_write": 2.75
+        },
+        "estimated_total_usd": 0.2933634,
+        "estimated_final_response_usd": 0.1117974,
+        "recorded_attempts": 3,
+        "successful_code_responses": 2,
+        "additional_attempts": 2,
+        "known_cost_attempts": 3,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 9647,
+          "tokens_out": 24740,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-12T08:06:53.860730+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.090981,
+            "request_seconds": null,
+            "record_sha256": "ef7ddeec0c6d66ff2e7b683558c065f4939515a2deac8283278564a5341a9674",
+            "response_sha256": "4b156b8d43b76b9851a7960019db679bdbd335ee3a460bf7bb2c4d5f2a0b80e3"
+          },
+          {
+            "requested_at": "2026-10-12T08:20:15.890113+00:00",
+            "status": "generated",
+            "request_id": "e7fcd0f2-d6b8-42de-ae65-f4dd7b7b851d",
+            "usage_available": true,
+            "estimated_cost_usd": 0.090585,
+            "request_seconds": null,
+            "record_sha256": "00bbe2240d8f1f22c0eac201de828877c5480a4c8ac483e2974b2baa327f2216",
+            "response_sha256": "669c10421493a0d2c6fc2a03ce0ee2d5dc9f5b132e9ffe9869e6736303e8c78f"
+          },
+          {
+            "requested_at": "2026-10-12T08:52:10.097804+00:00",
+            "status": "generated",
+            "request_id": "58133cbd-f55c-43c2-8592-063b67f0f809",
+            "usage_available": true,
+            "estimated_cost_usd": 0.1117974,
+            "request_seconds": null,
+            "record_sha256": "ca80724c1cd76a86028e5672357788fff33ced1f1c710109066f6a68d1614b04",
+            "response_sha256": "c9faa1ea6f6bb98757e3a51554f0a4a7b587fa93aef6ede5d59c4836444809ea"
+          }
+        ]
+      },
+      "request_id": "58133cbd-f55c-43c2-8592-063b67f0f809",
+      "requested_at": "2026-10-12T08:52:10.097804+00:00",
+      "generated_at": "2026-10-12T08:53:07.412327+00:00",
+      "tokens_in": 8857,
+      "tokens_out": 8392,
+      "max_output_tokens": 16384,
+      "temperature": null,
+      "temperature_sent": false,
+      "bedrock_reasoning_effort": null,
+      "finish_reason": "end_turn"
+    },
+    "lotte-tower": {
+      "model": "claude-sonnet-5",
+      "task": "lotte-tower",
+      "requested_model_id": "us.anthropic.claude-sonnet-5",
+      "provider": "bedrock",
+      "family": "Claude",
+      "generation": "lotte-tower-models-20261013",
+      "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/claude-sonnet-5",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "3e1d73cc628cb9afa8e884c7f39e84b8833ef8a6b11fd1bf0837e292188e472b",
+      "content_review": {
+        "task_requirements_complete": true,
+        "model": "claude-sonnet-5",
+        "score": 96.5,
+        "critical": 0,
+        "warnings": 2,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 6.0,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 3.5,
+          "Accessibility": 5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "artwork_sha256": "3e1d73cc628cb9afa8e884c7f39e84b8833ef8a6b11fd1bf0837e292188e472b",
+        "model_id": "us.anthropic.claude-sonnet-5",
+        "origin_generation": "lotte-tower-models-20261013",
+        "original_response_bytes_verified": true,
+        "source": "/tmp/model-lotte-review/claude-sonnet-5/3e1d73cc628c",
+        "browser_evidence": "/tmp/model-lotte-review/claude-sonnet-5/3e1d73cc628c/browser.json",
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Readability",
+            "file": "docs/models/claude-sonnet-5/lotte-tower/artwork.html",
+            "line": 168,
+            "quote": "dctx.font = '15px monospace';",
+            "problem": "Some meaningful UI/diagram annotations render below19px, including fixed-size drawing labels scaled down on mobile.",
+            "action": "Keep meaningful text at least19px at its rendered size; adapt labels or provide readable HTML equivalents."
+          },
+          {
+            "severity": "Warning",
+            "category": "Layout",
+            "file": "docs/models/claude-sonnet-5/lotte-tower/artwork.html",
+            "line": 390,
+            "quote": "camera.position.set(60,70,120);",
+            "problem": "The reset framing is too close/low for the full completed90-unit body plus14-unit crown.",
+            "action": "Fit the complete authored model in the home/reset pose."
+          }
+        ],
+        "notes": [
+          "Second re-review of revised source (iteration3) with full original brief restored. Actual response bytes/model identity matched, offline375/768/1440 tested; no source edits.",
+          "Four drawings and real geometric stages restored. Shift+Up/Down supplies keyboard zoom; regular arrows orbit, native reset works. Reduced-motion startup is static."
+        ],
+        "reviewed_at": "2026-10-13T15:16:55.080199+00:00",
+        "re_review_number": 2,
+        "review_iteration": 3,
+        "retry_limit_reached": false,
+        "current_generation_status": "generated",
+        "active_source": true
+      },
+      "prompt_sha256": "9520a506f7609c677a6ca2fa99cabbdd3dfefdb5d9413402b2888d06f39a6e9d",
+      "initial_prompt_sha256": "7ccba0639bcc21d4c2803ecd4810987c2e27cf6199cc75a34b1a99d387f90787",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "lotte-tower-models-20261013",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 2.2,
+          "price_out": 11.0,
+          "price_cache_read": 0.22,
+          "price_cache_write": 2.75
+        },
+        "estimated_total_usd": 0.3542,
+        "estimated_final_response_usd": 0.1244452,
+        "recorded_attempts": 4,
+        "successful_code_responses": 3,
+        "additional_attempts": 3,
+        "known_cost_attempts": 4,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 5365,
+          "tokens_out": 31127,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-13T10:54:09.273636+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.0926794,
+            "request_seconds": null,
+            "record_sha256": "56a4bf2ae1d7cfcee7aa4966cd14f77674e8c5a5efd6f58a00c5ab3488b197b3",
+            "response_sha256": "da88498a5380cc7a5e34aa6af4a5f65c8e2c9fafae313cbf9a3b1d669df8408e"
+          },
+          {
+            "requested_at": "2026-10-13T11:23:03.951317+00:00",
+            "status": "generated",
+            "request_id": "c0edae39-326e-4837-97bf-b470dea86625",
+            "usage_available": true,
+            "estimated_cost_usd": 0.0968176,
+            "request_seconds": null,
+            "record_sha256": "7e42f0da3c31271a3a257c79315b15337554a1c50b3d3e04ff84176778cadc02",
+            "response_sha256": "ae16abf64096f52a0aba3a478ced04c5aaf9dcdc0a88ce9001d001f807e63375"
+          },
+          {
+            "requested_at": "2026-10-13T13:37:31.802782+00:00",
+            "status": "generated",
+            "request_id": "64278265-2813-462d-ade8-c37d791a1ced",
+            "usage_available": true,
+            "estimated_cost_usd": 0.0402578,
+            "request_seconds": null,
+            "record_sha256": "69b6b2c2ac4e802d3725acaff417ebb4b760b3fe43bc85e96e1806b4a314e400",
+            "response_sha256": "5954fcc6834e89215a9e71312fad46af176806048326f6b6064e61a08b1c8828"
+          },
+          {
+            "requested_at": "2026-10-13T15:06:06.832801+00:00",
+            "status": "generated",
+            "request_id": "8102e1a0-c2bc-4f17-9384-99faa6ad4092",
+            "usage_available": true,
+            "estimated_cost_usd": 0.1244452,
+            "request_seconds": null,
+            "record_sha256": "35e6d2f42b5033558a3fb18221cd8a8bf615b8a818d71c2f5fd4b820d8de95eb",
+            "response_sha256": "8351cec67597e3094a04892d5e354f557a11546e870d65b382a5aa2d05119ea1"
+          }
+        ]
+      },
+      "request_id": "8102e1a0-c2bc-4f17-9384-99faa6ad4092",
+      "requested_at": "2026-10-13T15:06:06.832801+00:00",
+      "generated_at": "2026-10-13T15:07:41.921707+00:00",
+      "tokens_in": 1966,
+      "tokens_out": 10920,
+      "max_output_tokens": 16384,
+      "temperature": null,
+      "temperature_sent": false,
+      "bedrock_reasoning_effort": "low",
+      "finish_reason": "end_turn"
+    }
+  }
+}

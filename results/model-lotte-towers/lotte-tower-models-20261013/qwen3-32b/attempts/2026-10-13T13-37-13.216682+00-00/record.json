@@ -1,0 +1,22 @@
+{
+  "model": "qwen3-32b",
+  "model_id": "qwen.qwen3-32b-v1:0",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T13:37:13.216682+00:00",
+  "prompt_sha256": "380f7039db7839f877205ab55bdd23bb92203fb7467df702bbd65b9ab3a2e73f",
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "failed",
+  "failed_at": "2026-10-13T13:37:19.720689+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Only the pinned local Three.js runtime is permitted"
+}

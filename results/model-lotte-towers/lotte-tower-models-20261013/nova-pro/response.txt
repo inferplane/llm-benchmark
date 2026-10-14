@@ -1,0 +1,118 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>롯데월드타워 건축 설계 과정</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+       .container { display: flex; flex-wrap: wrap; justify-content: center; }
+       .drawing { width: 45%; margin: 10px; border: 1px solid #000; }
+       .model-container { width: 100%; height: 600px; position: relative; }
+       .controls { position: absolute; bottom: 10px; left: 10px; background: rgba(255, 255, 255, 0.7); padding: 5px; }
+        button { font-size: 19px; margin: 5px; }
+        @media (max-width: 600px) {
+            .drawing { width: 90%; }
+           .model-container { height: 400px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <canvas id="sitePlan" class="drawing"></canvas>
+        <canvas id="floorPlan" class="drawing"></canvas>
+        <canvas id="elevation" class="drawing"></canvas>
+        <canvas id="section" class="drawing"></canvas>
+        <div class="model-container">
+            <div id="model"></div>
+            <div class="controls">
+                <button id="rotateLeft">왼쪽 회전</button>
+                <button id="rotateRight">오른쪽 회전</button>
+                <button id="zoomIn">확대</button>
+                <button id="zoomOut">축소</button>
+                <button id="resetView">시점 초기화</button>
+            </div>
+        </div>
+    </div>
+    <script src="../runtime/three-runtime.js"></script>
+    <script>
+        const canvases = ['sitePlan', 'floorPlan', 'elevation','section'];
+        const ctxs = canvases.map(id => document.getElementById(id).getContext('2d'));
+
+        function drawDiagrams() {
+            ctxs.forEach((ctx, index) => {
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                ctx.font = '19px Arial';
+                ctx.fillText(canvases[index], 10, 20);
+                // Placeholder for actual diagram drawing
+                ctx.fillText('Diagram Placeholder', 10, 40);
+            });
+        }
+
+        drawDiagrams();
+
+        const modelContainer = document.getElementById('model');
+        let renderer, camera, scene, controls;
+
+        function init3D() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, modelContainer.offsetWidth / modelContainer.offsetHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(modelContainer.offsetWidth, modelContainer.offsetHeight);
+            modelContainer.appendChild(renderer.domElement);
+
+            const geometry = new THREE.CylinderGeometry(5, 2.5, 55, 40);
+            const material = new THREE.MeshBasicMaterial({ color: 0x8B4513 });
+            const tower = new THREE.Mesh(geometry, material);
+            scene.add(tower);
+
+            camera.position.z = 20;
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.25;
+            controls.enableZoom = true;
+
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            const width = modelContainer.offsetWidth;
+            const height = modelContainer.offsetHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+
+        document.getElementById('rotateLeft').addEventListener('click', () => {
+            scene.rotation.y -= 0.1;
+        });
+
+        document.getElementById('rotateRight').addEventListener('click', () => {
+            scene.rotation.y += 0.1;
+        });
+
+        document.getElementById('zoomIn').addEventListener('click', () => {
+            camera.position.z -= 1;
+        });
+
+        document.getElementById('zoomOut').addEventListener('click', () => {
+            camera.position.z += 1;
+        });
+
+        document.getElementById('resetView').addEventListener('click', () => {
+            camera.position.z = 20;
+            scene.rotation.y = 0;
+        });
+
+        init3D();
+    </script>
+</body>
+</html>
+```

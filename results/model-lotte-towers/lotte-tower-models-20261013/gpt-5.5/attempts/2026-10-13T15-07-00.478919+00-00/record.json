@@ -1,0 +1,29 @@
+{
+  "model": "gpt-5.5",
+  "model_id": "openai.gpt-5.5",
+  "api": "bedrock_mantle",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T15:07:00.478919+00:00",
+  "prompt_sha256": "efd78cabbb0a720fd2679843e16b5717f13baa63fc348c904a3b402dbef6d470",
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T15:07:53.095427+00:00",
+  "artwork_sha256": "bd6bf561e86cc1c317cd36c8d1e3497c1a697ca50486b84bc97dfcadfafdecc1",
+  "tokens_in": 1251,
+  "tokens_out": 6926,
+  "response_status": "completed",
+  "http_status": 200,
+  "reported_model": "openai.gpt-5.5",
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low"
+  },
+  "reasoning_tokens": 45,
+  "request_id": "req_7o7ovfigpcee4nuzrmugs5k5apvrxxudiu3c2k5irrzdlnvl6h2a",
+  "response_id": "resp_ovvp6nckzeqb6oa7dkkmvv6agcdm7ucevhkwuwcow4tn74vfacpa"
+}

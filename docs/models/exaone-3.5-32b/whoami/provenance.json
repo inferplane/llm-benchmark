@@ -1,0 +1,140 @@
+{
+  "model": "exaone-3.5-32b",
+  "task": "whoami",
+  "requested_model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
+  "provider": "vllm",
+  "family": "LG AI Research",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/exaone-3.5-32b",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "0666263ec3e35634f68132159b940b006336f18de51dc7383e3350c7fe0dbb10",
+  "content_review": {
+    "model": "exaone-3.5-32b",
+    "generation": "free-expression-20261012",
+    "score": 97.5,
+    "critical": 0,
+    "warnings": 2,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 2.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/exaone-3.5-32b/artwork.html",
+        "line": 111,
+        "quote": "const message = document.createElement('div');",
+        "problem": "The newly shown interaction message inherits the default16px font, below the14pt rubric minimum.",
+        "action": "Use at least19px for the informative interaction message."
+      },
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/exaone-3.5-32b/artwork.html",
+        "line": 122,
+        "quote": "document.body.appendChild(message);",
+        "problem": "The interaction result is appended as an ordinary div while keyboard focus remains on the trigger, then disappears after3seconds; it has no live-region/status announcement for assistive technology.",
+        "action": "Expose the same interaction result as an accessible status announcement or equivalent accessible feedback."
+      }
+    ],
+    "artwork_sha256": "0666263ec3e35634f68132159b940b006336f18de51dc7383e3350c7fe0dbb10",
+    "model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
+    "reported_model": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
+    "requested_at": "2026-10-12T09:49:35.109227+00:00",
+    "reviewed_at": "2026-10-12T09:53:29.529373+00:00",
+    "initial_prompt_sha256": "55e881ae0b7162dc61f3f7638cc5001bd7a7a8609bf8d35ec50780ef8ddaf6a6",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/exaone-3.5-32b/0666263ec3e3",
+    "browser_evidence": "/tmp/free-expression-review/exaone-3.5-32b/0666263ec3e3/browser.json",
+    "notes": [
+      "First same-author repair re-review. All3 original blockers resolved: no blocked modal calls, keyboard focus/Enter produce the same visible result, and both CSS animations stop under OS reduced motion.",
+      "Pointer activation produced an in-page message; keyboard Enter added another identical message (count1→2). Zero console errors at375/768/1280, no horizontal overflow.",
+      "Actual requested/reported native LGAI-EXAONE/EXAONE-3.5-32B-Instruct retained;1450tokens,temp0.3. Exact raw response containment and earliest example-free initial prompt verified."
+    ],
+    "review_iteration": 2
+  },
+  "prompt_sha256": "f154aa27e5285e8ed478ec63d042797dcc7f918296d43781bca575840d9ffd6d",
+  "initial_prompt_sha256": "55e881ae0b7162dc61f3f7638cc5001bd7a7a8609bf8d35ec50780ef8ddaf6a6",
+  "implementation_cost": {
+    "kind": "gpu_request_time",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "gpu_hourly_usd": 5.6582
+    },
+    "estimated_total_usd": 0.30835046013716666,
+    "estimated_final_response_usd": 0.1571667039055,
+    "recorded_attempts": 2,
+    "successful_code_responses": 2,
+    "additional_attempts": 1,
+    "known_cost_attempts": 2,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": 196.18635899999998,
+    "tokens": {
+      "tokens_in": 2115,
+      "tokens_out": 2869,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "GPU_model_loading_and_idle_time",
+      "other_infrastructure"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T09:45:12.029825+00:00",
+        "status": "generated",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.15118375623166666,
+        "request_seconds": 96.18987,
+        "record_sha256": "641a51b3784b791fd23593efa802377a9a13bdbf2fb714379a2b772b04bad114",
+        "response_sha256": "736c6187fe1db079562c0dae2839922c9ad3c24483040eba180244ce13fc269a"
+      },
+      {
+        "requested_at": "2026-10-12T09:49:35.109227+00:00",
+        "status": "generated",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.1571667039055,
+        "request_seconds": 99.996489,
+        "record_sha256": "7ae9b2a008a3c9a4130af884cc39289140cd14328cf0720cd870fc774d8e00b8",
+        "response_sha256": "d3ab9791ad802ba1dce8a3a2728e1c176b8931713c33abab6dfe161a1f3d9965"
+      }
+    ]
+  },
+  "requested_at": "2026-10-12T09:49:35.109227+00:00",
+  "generated_at": "2026-10-12T09:51:15.105716+00:00",
+  "reported_model": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
+  "tokens_in": 1885,
+  "tokens_out": 1450,
+  "max_output_tokens": 4096,
+  "temperature": 0.3,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "finish_reason": "stop"
+}

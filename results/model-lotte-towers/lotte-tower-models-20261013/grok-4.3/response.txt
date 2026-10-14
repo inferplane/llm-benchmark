@@ -1,0 +1,408 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>롯데월드타워 설계 과정 • grok-4.3</title>
+<style>
+body { margin:0; padding:0; background:#0a0a0a; color:#ddd; font-family: system-ui, -apple-system, sans-serif; }
+header { padding:20px; text-align:center; border-bottom:1px solid #333; }
+h1 { margin:0; font-size:28px; }
+.model-id { font-size:19px; color:#ffcc66; margin-top:8px; }
+.container { max-width:1400px; margin:0 auto; padding:20px; }
+.tabs { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+.tab { padding:12px 24px; background:#222; border:1px solid #444; cursor:pointer; font-size:19px; border-radius:6px; }
+.tab.active { background:#ffcc66; color:#000; }
+.section { display:none; }
+.section.active { display:block; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(420px,1fr)); gap:24px; }
+.canvas-container { background:#111; border:1px solid #333; border-radius:8px; padding:12px; position:relative; }
+canvas { display:block; width:100%; max-width:100%; height:auto; background:#0a0a0a; }
+.controls { margin-top:12px; display:flex; flex-wrap:wrap; gap:8px; }
+button { padding:10px 18px; font-size:19px; background:#222; color:#ddd; border:1px solid #555; border-radius:6px; cursor:pointer; }
+button:hover { background:#333; }
+.info { font-size:19px; line-height:1.5; margin:16px 0; padding:16px; background:#111; border-left:4px solid #ffcc66; }
+.disclosure { font-size:16px; color:#888; margin-top:20px; }
+.stage-btn { margin:4px; }
+#three-canvas { touch-action:none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>롯데월드타워 건축 설계 과정</h1>
+  <div class="model-id">grok-4.3</div>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <div class="tab active" onclick="showSection('drawings')">설계 도면</div>
+    <div class="tab" onclick="showSection('stages')">설계 단계별 3D</div>
+    <div class="tab" onclick="showSection('final')">완성 3D 모델</div>
+  </div>
+
+  <!-- Drawings Section -->
+  <div id="drawings" class="section active">
+    <div class="grid">
+      <div>
+        <h3 style="font-size:22px;">배치도 (Site Plan)</h3>
+        <div class="canvas-container"><canvas id="site-canvas" width="480" height="480"></canvas></div>
+        <div class="info">서울 송파구 잠실동 부지. 타워 중심점 기준 반경 120m 내 주요 동선 표시. (개념 재구성)</div>
+      </div>
+      <div>
+        <h3 style="font-size:22px;">기준층 평면도 (Floor Plan)</h3>
+        <div class="canvas-container"><canvas id="floor-canvas" width="480" height="480"></canvas></div>
+        <div class="info">지상 30층 기준층. 코어 중심, 외곽 윤곽 42m×42m. 상층으로 갈수록 축소.</div>
+      </div>
+      <div>
+        <h3 style="font-size:22px;">입면도 (Elevation)</h3>
+        <div class="canvas-container"><canvas id="elevation-canvas" width="480" height="520"></canvas></div>
+        <div class="info">총 높이 555m, 지상 123층. 한국 도자기 곡선 참조한 외관 윤곽.</div>
+      </div>
+      <div>
+        <h3 style="font-size:22px;">단면도 (Section)</h3>
+        <div class="canvas-container"><canvas id="section-canvas" width="480" height="520"></canvas></div>
+        <div class="info">중심 코어 + 외피 구조. 모든 치수는 공개 자료 기반 추정 개념 치수.</div>
+      </div>
+    </div>
+    <div class="disclosure">
+      ※ 본 도면은 KPF 공개 자료와 일반 건축 정보를 바탕으로 한 개념 재구성입니다. 실제 시공 도면이 아니며, 모든 치수와 단면은 추정치입니다.
+    </div>
+  </div>
+
+  <!-- Stages Section -->
+  <div id="stages" class="section">
+    <div class="controls">
+      <button class="stage-btn" onclick="setStage(0)">1. 초기 개념</button>
+      <button class="stage-btn" onclick="setStage(1)">2. 매스 모델</button>
+      <button class="stage-btn" onclick="setStage(2)">3. 형태 정교화</button>
+      <button class="stage-btn" onclick="setStage(3)">4. 최종 설계</button>
+    </div>
+    <div class="canvas-container" style="max-width:620px;margin:20px auto;">
+      <canvas id="stage-canvas" width="600" height="620"></canvas>
+    </div>
+    <div class="info" id="stage-info">단계별 3D 형상 변화. 한국 도자기 선의 유려한 곡선을 점진적으로 반영.</div>
+  </div>
+
+  <!-- Final 3D Model -->
+  <div id="final" class="section">
+    <div class="canvas-container" style="max-width:720px;margin:0 auto;">
+      <canvas id="three-canvas" width="700" height="700"></canvas>
+    </div>
+    <div class="controls" style="justify-content:center;margin-top:16px;">
+      <button onclick="resetCamera()">시점 초기화 (R)</button>
+      <button onclick="zoomIn()">확대 (+)</button>
+      <button onclick="zoomOut()">축소 (−)</button>
+    </div>
+    <div class="info">
+      완성된 롯데월드타워 3D 모델. 마우스 드래그로 회전, 휠로 확대/축소. 키보드 방향키와 +/- 키 지원. 터치 드래그/핀치 지원.
+    </div>
+    <div class="disclosure">
+      높이 555m, 지상 123층. 상층으로 갈수록 외곽이 좁아지는 테이퍼 형태. KPF가 참고한 한국 도자기 선을 시각화.
+    </div>
+  </div>
+</div>
+
+<script>
+// Tab switching
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (event && event.target) event.target.classList.add('active');
+}
+
+// Draw all conceptual drawings - all labels kept at 19px+
+function drawSitePlan() {
+  const c = document.getElementById('site-canvas');
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0,0,c.width,c.height);
+  ctx.strokeStyle = '#ffcc66'; ctx.lineWidth = 2;
+  ctx.strokeRect(60,60,360,360);
+  ctx.fillStyle = '#334455'; ctx.fillRect(180,180,120,120);
+  ctx.strokeStyle = '#ffcc66'; ctx.strokeRect(180,180,120,120);
+  ctx.fillStyle = '#ddd'; ctx.font = '19px system-ui';
+  ctx.fillText('타워 중심', 195, 245);
+  ctx.fillText('주요 동선', 80, 100);
+}
+
+function drawFloorPlan() {
+  const c = document.getElementById('floor-canvas');
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0,0,c.width,c.height);
+  ctx.strokeStyle = '#ffcc66'; ctx.lineWidth = 2.5;
+  ctx.fillStyle = '#223344'; ctx.fillRect(190,190,100,100);
+  ctx.strokeRect(190,190,100,100);
+  ctx.strokeRect(120,120,240,240);
+  ctx.fillStyle = '#ddd'; ctx.font = '19px system-ui';
+  ctx.fillText('코어', 210, 245);
+  ctx.fillText('외곽 42m', 130, 380);
+}
+
+function drawElevation() {
+  const c = document.getElementById('elevation-canvas');
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0,0,c.width,c.height);
+  ctx.strokeStyle = '#ffcc66'; ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.moveTo(140,480); ctx.lineTo(340,480);
+  ctx.lineTo(310,40); ctx.lineTo(170,40); ctx.closePath();
+  ctx.stroke();
+  ctx.fillStyle = '#334455'; ctx.fill();
+  ctx.fillStyle = '#ddd'; ctx.font = '19px system-ui';
+  ctx.fillText('555m', 360, 260);
+  ctx.fillText('123층', 360, 300);
+}
+
+function drawSection() {
+  const c = document.getElementById('section-canvas');
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0,0,c.width,c.height);
+  ctx.strokeStyle = '#ffcc66'; ctx.lineWidth = 2.5;
+  ctx.fillStyle = '#223344'; ctx.fillRect(210,40,60,440);
+  ctx.strokeRect(210,40,60,440);
+  ctx.strokeRect(140,40,200,440);
+  ctx.fillStyle = '#ddd'; ctx.font = '19px system-ui';
+  ctx.fillText('중심 코어', 220, 260);
+}
+
+// Stage 3D - now with real depth and rotation
+let currentStage = 3;
+let stageRotX = 0.25, stageRotY = 0.9, stageZoom = 1.0;
+
+function setStage(stage) {
+  currentStage = stage;
+  drawStage();
+}
+
+function drawStage() {
+  const c = document.getElementById('stage-canvas');
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0,0,c.width,c.height);
+  
+  const baseW = 220, baseD = 220, topW = 80, topD = 80, h = 480;
+  const cx = c.width/2, cy = 520;
+  const taper = 1 - currentStage * 0.15;
+  
+  ctx.strokeStyle = '#ffcc66';
+  ctx.lineWidth = 2.2;
+  
+  // 4 corners with depth
+  const corners = [
+    [-baseW/2, baseD/2], [baseW/2, baseD/2],
+    [baseW/2, -baseD/2], [-baseW/2, -baseD/2]
+  ];
+  const topCorners = [
+    [-topW*taper/2, topD*taper/2], [topW*taper/2, topD*taper/2],
+    [topW*taper/2, -topD*taper/2], [-topW*taper/2, -topD*taper/2]
+  ];
+  
+  // Draw vertical edges
+  for (let i = 0; i < 4; i++) {
+    const p1 = projectStage(corners[i][0], cy, corners[i][1], stageRotX, stageRotY, stageZoom);
+    const p2 = projectStage(topCorners[i][0], cy - h, topCorners[i][1], stageRotX, stageRotY, stageZoom);
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.stroke();
+  }
+  
+  // Draw top and base squares
+  for (let level = 0; level < 2; level++) {
+    const y = level === 0 ? cy : cy - h;
+    const ws = level === 0 ? baseW : topW * taper;
+    const ds = level === 0 ? baseD : topD * taper;
+    const pts = [
+      projectStage(-ws/2, y, ds/2, stageRotX, stageRotY, stageZoom),
+      projectStage(ws/2, y, ds/2, stageRotX, stageRotY, stageZoom),
+      projectStage(ws/2, y, -ds/2, stageRotX, stageRotY, stageZoom),
+      projectStage(-ws/2, y, -ds/2, stageRotX, stageRotY, stageZoom)
+    ];
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    ctx.lineTo(pts[1].x, pts[1].y);
+    ctx.lineTo(pts[2].x, pts[2].y);
+    ctx.lineTo(pts[3].x, pts[3].y);
+    ctx.closePath();
+    ctx.stroke();
+  }
+  
+  document.getElementById('stage-info').innerHTML = 
+    ['초기 개념 매스', '기본 테이퍼 적용', '도자기 곡선 반영', '최종 외관 완성'][currentStage];
+}
+
+function projectStage(x, y, z, rx, ry, zm) {
+  const cosY = Math.cos(ry), sinY = Math.sin(ry);
+  const cosX = Math.cos(rx), sinX = Math.sin(rx);
+  let x1 = x * cosY - z * sinY;
+  let z1 = x * sinY + z * cosY;
+  let y1 = y * cosX - z1 * sinX;
+  let z2 = y * sinX + z1 * cosX;
+  
+  const scale = 1.6 * zm;
+  const dist = 1100;
+  const px = x1 * scale;
+  const py = y1 * scale;
+  const pz = z2 * scale + dist;
+  const f = 620 / Math.max(pz, 50);
+  return {
+    x: 300 + px * f,
+    y: 310 + py * f
+  };
+}
+
+// Final 3D Model - real depth geometry + full rotation
+let rotX = 0.3, rotY = 0.8, zoom = 1.0;
+const canvas = document.getElementById('three-canvas');
+const ctx = canvas.getContext('2d');
+
+function rotatePoint(x, y, z, rx, ry) {
+  const cosY = Math.cos(ry), sinY = Math.sin(ry);
+  const cosX = Math.cos(rx), sinX = Math.sin(rx);
+  let x1 = x * cosY - z * sinY;
+  let z1 = x * sinY + z * cosY;
+  let y1 = y * cosX - z1 * sinX;
+  let z2 = y * sinX + z1 * cosX;
+  return {x: x1, y: y1, z: z2};
+}
+
+function project(x, y, z) {
+  const p = rotatePoint(x, y, z, rotX, rotY);
+  const scale = 1.8 * zoom;
+  const dist = 900;
+  const px = p.x * scale;
+  const py = p.y * scale;
+  const pz = p.z * scale + dist;
+  const f = 650 / Math.max(pz, 40);
+  return {
+    x: canvas.width/2 + px * f,
+    y: canvas.height/2 + py * f
+  };
+}
+
+function drawTower() {
+  ctx.fillStyle = '#0a0a0a';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  
+  const baseW = 110, baseD = 110, topW = 38, topD = 38, height = 520;
+  const segments = 12;
+  
+  ctx.strokeStyle = '#ffcc66';
+  ctx.lineWidth = 1.8;
+  
+  // Horizontal rings with real depth
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    const w = baseW * (1-t) + topW * t;
+    const d = baseD * (1-t) + topD * t;
+    const y = height/2 - height * t;
+    
+    const pts = [
+      project(-w, y, d), project(w, y, d),
+      project(w, y, -d), project(-w, y, -d)
+    ];
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    ctx.lineTo(pts[1].x, pts[1].y);
+    ctx.lineTo(pts[2].x, pts[2].y);
+    ctx.lineTo(pts[3].x, pts[3].y);
+    ctx.closePath();
+    ctx.stroke();
+  }
+  
+  // Vertical ceramic-inspired edges
+  ctx.strokeStyle = '#ffaa33';
+  ctx.lineWidth = 1.4;
+  const vEdges = [
+    [-baseW, baseD], [baseW, baseD],
+    [baseW, -baseD], [-baseW, -baseD]
+  ];
+  for (let i = 0; i < 4; i++) {
+    const pTop = project(vEdges[i][0], -height/2, vEdges[i][1]);
+    const pBot = project(vEdges[i][0], height/2, vEdges[i][1]);
+    ctx.beginPath();
+    ctx.moveTo(pTop.x, pTop.y);
+    ctx.lineTo(pBot.x, pBot.y);
+    ctx.stroke();
+  }
+}
+
+function update3D() {
+  drawTower();
+}
+
+// Camera controls
+function resetCamera() {
+  rotX = 0.3; rotY = 0.8; zoom = 1.0;
+  update3D();
+}
+
+function zoomIn() { zoom = Math.min(zoom * 1.2, 3.5); update3D(); }
+function zoomOut() { zoom = Math.max(zoom / 1.2, 0.4); update3D(); }
+
+// Mouse controls
+let isDragging = false, lastX = 0, lastY = 0;
+
+canvas.addEventListener('mousedown', e => {
+  isDragging = true; lastX = e.clientX; lastY = e.clientY;
+});
+window.addEventListener('mouseup', () => isDragging = false);
+canvas.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  rotY += (e.clientX - lastX) * 0.005;
+  rotX += (e.clientY - lastY) * 0.005;
+  lastX = e.clientX; lastY = e.clientY;
+  update3D();
+});
+
+// Touch support
+canvas.addEventListener('touchstart', e => {
+  if (e.touches.length === 1) {
+    isDragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
+  }
+});
+canvas.addEventListener('touchend', () => isDragging = false);
+canvas.addEventListener('touchmove', e => {
+  if (!isDragging || e.touches.length !== 1) return;
+  rotY += (e.touches[0].clientX - lastX) * 0.005;
+  rotX += (e.touches[0].clientY - lastY) * 0.005;
+  lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
+  update3D();
+  e.preventDefault();
+});
+
+// Keyboard controls
+document.addEventListener('keydown', e => {
+  if (document.getElementById('final').classList.contains('active')) {
+    if (e.key === 'ArrowLeft') rotY -= 0.15;
+    if (e.key === 'ArrowRight') rotY += 0.15;
+    if (e.key === 'ArrowUp') rotX -= 0.12;
+    if (e.key === 'ArrowDown') rotX += 0.12;
+    if (e.key === '+' || e.key === '=') zoomIn();
+    if (e.key === '-') zoomOut();
+    if (e.key.toLowerCase() === 'r') resetCamera();
+    update3D();
+  }
+});
+
+// Wheel zoom
+canvas.addEventListener('wheel', e => {
+  if (e.deltaY < 0) zoomIn(); else zoomOut();
+  e.preventDefault();
+}, {passive:false});
+
+// Initialize everything
+function init() {
+  drawSitePlan();
+  drawFloorPlan();
+  drawElevation();
+  drawSection();
+  setStage(3);
+  update3D();
+  canvas.setAttribute('tabindex', '0');
+}
+
+init();
+</script>
+</body>
+</html>
+```

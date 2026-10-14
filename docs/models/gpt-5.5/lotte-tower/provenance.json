@@ -1,0 +1,155 @@
+{
+  "model": "gpt-5.5",
+  "task": "lotte-tower",
+  "requested_model_id": "openai.gpt-5.5",
+  "provider": "bedrock_mantle",
+  "family": "OpenAI",
+  "generation": "lotte-tower-models-20261013",
+  "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-5.5",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "bd6bf561e86cc1c317cd36c8d1e3497c1a697ca50486b84bc97dfcadfafdecc1",
+  "content_review": {
+    "task_requirements_complete": true,
+    "model": "gpt-5.5",
+    "score": 97.0,
+    "critical": 0,
+    "warnings": 2,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 3.5,
+      "Accessibility": 3.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "artwork_sha256": "bd6bf561e86cc1c317cd36c8d1e3497c1a697ca50486b84bc97dfcadfafdecc1",
+    "model_id": "openai.gpt-5.5",
+    "origin_generation": "lotte-tower-models-20261013",
+    "original_response_bytes_verified": true,
+    "source": "/tmp/model-lotte-review/gpt-5.5/bd6bf561e86c",
+    "browser_evidence": "/tmp/model-lotte-review/gpt-5.5/bd6bf561e86c/browser.json",
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/gpt-5.5/lotte-tower/artwork.html",
+        "line": 53,
+        "quote": "text{font-family:system-ui,-apple-system,Segoe UI,Apple SD Gothic Neo,Noto Sans KR,sans-serif;font-size:19px;fill:#102036}",
+        "problem": "Some meaningful UI/diagram annotations render below19px, including fixed-size drawing labels scaled down on mobile.",
+        "action": "Keep meaningful text at least19px at its rendered size; adapt labels or provide readable HTML equivalents."
+      },
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/gpt-5.5/lotte-tower/artwork.html",
+        "line": 306,
+        "quote": "if(model && !reduce) model.rotation.y += 0.0012;",
+        "problem": "The model rotates continuously in normal mode, but no user stop/resume control is provided. Reset and camera controls do not stop that motion.",
+        "action": "Add an accessible motion toggle and preserve its state during camera/stage changes."
+      }
+    ],
+    "notes": [
+      "Second re-review of revised source (iteration3) with full original brief restored. Actual response bytes/model identity matched, offline375/768/1440 tested; no source edits.",
+      "Four SVG diagrams and five3D stages restored, actual full model fits camera, crown stays within555, all camera buttons and shortcuts execute. Reduced-motion starts static."
+    ],
+    "reviewed_at": "2026-10-13T15:16:55.086456+00:00",
+    "re_review_number": 2,
+    "review_iteration": 3,
+    "retry_limit_reached": false,
+    "current_generation_status": "generated",
+    "active_source": true
+  },
+  "prompt_sha256": "efd78cabbb0a720fd2679843e16b5717f13baa63fc348c904a3b402dbef6d470",
+  "initial_prompt_sha256": "a18ee9d850ef985c99ed6a484eafb4c45cc38808e40e735596b591db99f3ebfc",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "lotte-tower-models-20261013",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 5.0,
+      "price_out": 30.0
+    },
+    "estimated_total_usd": 0.580975,
+    "estimated_final_response_usd": 0.214035,
+    "recorded_attempts": 3,
+    "successful_code_responses": 3,
+    "additional_attempts": 2,
+    "known_cost_attempts": 3,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 2381,
+      "tokens_out": 18969,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-13T10:57:00.725990+00:00",
+        "status": "generated",
+        "request_id": "req_n5ro6rbdtt2s55cphjvoqh4cg4eyehsoepjbf3x3jyjlt365i3jq",
+        "usage_available": true,
+        "estimated_cost_usd": 0.189865,
+        "request_seconds": null,
+        "record_sha256": "8535c2b7e3f80ce90f9b374feb08678aeb247352ae27c55dd2d70a654290181b",
+        "response_sha256": "018322d26140809936a03f7a1aadd15984582ea48ba8484232ac91371c15c2cc"
+      },
+      {
+        "requested_at": "2026-10-13T13:38:00.040067+00:00",
+        "status": "generated",
+        "request_id": "req_pfnrfhirw6jldbubcf2zmw2zccwwexcznco5cthatv6nchoq6iva",
+        "usage_available": true,
+        "estimated_cost_usd": 0.177075,
+        "request_seconds": null,
+        "record_sha256": "db77e5c3684552974441d2d1d428d2800e104ba62184a5a87226c4a77115c88d",
+        "response_sha256": "f323865145ad8f99bd0c70368a6c24c1933357c0a68420874d10841ea9140ed0"
+      },
+      {
+        "requested_at": "2026-10-13T15:07:00.478919+00:00",
+        "status": "generated",
+        "request_id": "req_7o7ovfigpcee4nuzrmugs5k5apvrxxudiu3c2k5irrzdlnvl6h2a",
+        "usage_available": true,
+        "estimated_cost_usd": 0.214035,
+        "request_seconds": null,
+        "record_sha256": "ca837b5bcc770c0225c193261140c1b37d4a85e4a0f687208c17e09c47a16a95",
+        "response_sha256": "d31c49efa6135f5e9abdec77ea976bd0aeda1595654037e3864885b5507baa73"
+      }
+    ]
+  },
+  "request_id": "req_7o7ovfigpcee4nuzrmugs5k5apvrxxudiu3c2k5irrzdlnvl6h2a",
+  "response_id": "resp_ovvp6nckzeqb6oa7dkkmvv6agcdm7ucevhkwuwcow4tn74vfacpa",
+  "requested_at": "2026-10-13T15:07:00.478919+00:00",
+  "generated_at": "2026-10-13T15:07:53.095427+00:00",
+  "reported_model": "openai.gpt-5.5",
+  "tokens_in": 1251,
+  "tokens_out": 6926,
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": null,
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low"
+  }
+}

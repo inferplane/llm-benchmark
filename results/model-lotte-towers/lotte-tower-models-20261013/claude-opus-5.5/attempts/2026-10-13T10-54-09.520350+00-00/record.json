@@ -1,0 +1,22 @@
+{
+  "model": "claude-opus-5.5",
+  "model_id": "us.anthropic.claude-opus-5-5",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T10:54:09.520350+00:00",
+  "prompt_sha256": "6a20f228e3b7799b89a4085a9c0fd4507aa07165de2166cc44ebf328cffbd798",
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": "low",
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "failed",
+  "failed_at": "2026-10-13T10:57:49.393226+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

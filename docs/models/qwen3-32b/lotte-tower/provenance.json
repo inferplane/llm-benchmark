@@ -1,0 +1,178 @@
+{
+  "model": "qwen3-32b",
+  "task": "lotte-tower",
+  "requested_model_id": "qwen.qwen3-32b-v1:0",
+  "provider": "bedrock",
+  "family": "Qwen",
+  "generation": "lotte-tower-models-20261013",
+  "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b",
+  "status": "review_held",
+  "generation_status": "generated",
+  "artwork_sha256": "129863275742c51e3d06f0af0960d7a1997c40b3874e217eab2e499d3596c50f",
+  "content_review": {
+    "task_requirements_complete": false,
+    "model": "qwen3-32b",
+    "score": 90.5,
+    "critical": 1,
+    "warnings": 3,
+    "verdict": "FAIL",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 0,
+      "Interactions": 5,
+      "Readability": 3.5,
+      "Accessibility": 5,
+      "Structural Completeness": 3.5,
+      "Data Accuracy and References": 3.5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "artwork_sha256": "129863275742c51e3d06f0af0960d7a1997c40b3874e217eab2e499d3596c50f",
+    "model_id": "qwen.qwen3-32b-v1:0",
+    "origin_generation": "lotte-tower-models-20261013",
+    "original_response_bytes_verified": true,
+    "source": "/tmp/model-lotte-review/qwen3-32b/129863275742",
+    "browser_evidence": "/tmp/model-lotte-review/qwen3-32b/129863275742/browser.json",
+    "findings": [
+      {
+        "severity": "Critical",
+        "category": "Renders",
+        "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+        "line": 108,
+        "quote": "if (typeof THREE === 'undefined') {",
+        "problem": "The local runtime script was omitted; initialization logs runtime not loaded then throws on THREE.Scene.",
+        "action": "Load ../runtime/three-runtime.js before initialization and verify actual rendering."
+      },
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+        "line": 260,
+        "quote": "function updateDrawing() {",
+        "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
+        "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+      },
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+        "line": 73,
+        "quote": "font-size: 14px;",
+        "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+        "action": "Use at least19px meaningful rendered text and controls."
+      },
+      {
+        "severity": "Warning",
+        "category": "Data Accuracy and References",
+        "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+        "line": 189,
+        "quote": "new THREE.CylinderGeometry(baseRadiusBottom, baseRadiusTop, baseHeight, 32),",
+        "problem": "Cylinder radius order is still reversed, contradicting the upward-tapering description.",
+        "action": "Use correct top/bottom radii throughout all stages."
+      }
+    ],
+    "notes": [
+      "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+      "This is its second successful-source re-review, not a fabricated third; earlier failed API responses were not rendered artifacts. New drawing choices currently show prose only."
+    ],
+    "reviewed_at": "2026-10-13T15:51:47.649370+00:00",
+    "re_review_number": 2,
+    "review_iteration": 3,
+    "retry_limit_reached": false,
+    "current_generation_status": "generated",
+    "active_source": true
+  },
+  "prompt_sha256": "1d225e8e09be49b83a601fd3b1241acba83cb499a72e0858950822e2584e5e0a",
+  "initial_prompt_sha256": "df23df8d85d99bb5268e2ed4243ca22b3403ba48de035f65e2baab3cd04d95a7",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "lotte-tower-models-20261013",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.15,
+      "price_out": 0.6
+    },
+    "estimated_total_usd": 0.0056697,
+    "estimated_final_response_usd": 0.00210165,
+    "recorded_attempts": 4,
+    "successful_code_responses": 3,
+    "additional_attempts": 3,
+    "known_cost_attempts": 4,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 5346,
+      "tokens_out": 8113,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-13T10:59:53.310140+00:00",
+        "status": "generated",
+        "request_id": "8e7e142a-8d04-4ca4-9770-92373abc82a1",
+        "usage_available": true,
+        "estimated_cost_usd": 0.000957,
+        "request_seconds": null,
+        "record_sha256": "1c4ee9a9ec9e1970473c4dda6cab76d7f00032ed6a1d77b8d9af588931d29e64",
+        "response_sha256": "05389f27985b19eb2ebb5e596eb3eac55cc34288351b530ba10530d31108e01f"
+      },
+      {
+        "requested_at": "2026-10-13T13:37:13.216682+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.00129,
+        "request_seconds": null,
+        "record_sha256": "6681d6b45eabbf4bf63ea6b03e07be2c0f3ba5ac07f9b9d5ba19cbd085ce313e",
+        "response_sha256": "7ce2dc4b33b3efee03487f41663001694f5cfa9a3e3ae5d2c3bac4cb7134180d"
+      },
+      {
+        "requested_at": "2026-10-13T15:00:48.804616+00:00",
+        "status": "generated",
+        "request_id": "5b6f4c58-cac3-4483-9c69-fbca9f24bb99",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00132105,
+        "request_seconds": null,
+        "record_sha256": "32e4bafd0d0dea32a2264b672fbe0e7461859daa42172441c9cfcdc620510f9f",
+        "response_sha256": "1d9dfbc83b3899772359fd8f75e6dd62d3f81738f2f07cb8cbcd4d5de804d43b"
+      },
+      {
+        "requested_at": "2026-10-13T15:27:02.167190+00:00",
+        "status": "generated",
+        "request_id": "5cbbac75-e033-4112-a3bd-0c235c7733ec",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00210165,
+        "request_seconds": null,
+        "record_sha256": "7d4c17cab0832f628b1b1f7b0c7b773fc3b6443ac7802085f431874cc715bf5f",
+        "response_sha256": "4f2e27ee86e81ea7194daa086f62e8736e8c2ea257758ad7475001c091594d79"
+      }
+    ]
+  },
+  "request_id": "5cbbac75-e033-4112-a3bd-0c235c7733ec",
+  "requested_at": "2026-10-13T15:27:02.167190+00:00",
+  "generated_at": "2026-10-13T15:27:27.768405+00:00",
+  "tokens_in": 3207,
+  "tokens_out": 2701,
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "finish_reason": "end_turn"
+}

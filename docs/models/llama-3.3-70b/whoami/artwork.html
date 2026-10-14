@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>llama-3.3-70b 미디어아트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .description {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        .canvas-container {
+            width: 80%;
+            height: 80vh;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        #canvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">llama-3.3-70b</div>
+        <div class="description">이 작품은 llama-3.3-70b 모델의 창의적인 표현입니다. 마우스나 터치를 이용하여 상호작용할 수 있습니다.</div>
+        <div class="canvas-container">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth * 0.8;
+        canvas.height = window.innerHeight * 0.8;
+        let particles = [];
+        let mouse = { x: 0, y: 0 };
+        let touch = { x: 0, y: 0 };
+        let isTouch = false;
+        let isMouse = false;
+        let color = '#333';
+        let particleSize = 5;
+        let particleSpeed = 2;
+        let particleCount = 100;
+        
+        // 초기화
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: Math.random() * particleSpeed - particleSpeed / 2,
+                vy: Math.random() * particleSpeed - particleSpeed / 2,
+                radius: particleSize
+            });
+        }
+        
+        // 애니메이션
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                const particle = particles[i];
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+                if (particle.x < 0 || particle.x > canvas.width) {
+                    particle.vx *= -1;
+                }
+                if (particle.y < 0 || particle.y > canvas.height) {
+                    particle.vy *= -1;
+                }
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+            }
+            if (isTouch || isMouse) {
+                ctx.beginPath();
+                ctx.arc(mouse.x, mouse.y, particleSize * 2, 0, Math.PI * 2);
+                ctx.fillStyle = '#666';
+                ctx.fill();
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+        
+        // 마우스 이벤트
+        canvas.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX - canvas.offsetLeft;
+            mouse.y = e.clientY - canvas.offsetTop;
+            isMouse = true;
+        });
+        canvas.addEventListener('mouseout', () => {
+            isMouse = false;
+        });
+        
+        // 터치 이벤트
+        canvas.addEventListener('touchmove', (e) => {
+            touch.x = e.touches[0].clientX - canvas.offsetLeft;
+            touch.y = e.touches[0].clientY - canvas.offsetTop;
+            mouse.x = touch.x;
+            mouse.y = touch.y;
+            isTouch = true;
+        });
+        canvas.addEventListener('touchend', () => {
+            isTouch = false;
+        });
+    </script>
+</body>
+</html>

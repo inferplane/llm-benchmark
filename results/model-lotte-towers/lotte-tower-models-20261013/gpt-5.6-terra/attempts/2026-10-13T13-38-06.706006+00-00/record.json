@@ -1,0 +1,30 @@
+{
+  "model": "gpt-5.6-terra",
+  "model_id": "openai.gpt-5.6-terra",
+  "api": "bedrock_mantle",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T13:38:06.706006+00:00",
+  "prompt_sha256": "567e5c3c55dea818930e2b534090f70b2af1c4fdeb90b4a7fbb8540c4dbd602d",
+  "max_output_tokens": 8192,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T13:38:37.787630+00:00",
+  "artwork_sha256": "a81e07fe340080dab2d28b96e7e9b64be15b4cce0707d682f151fe513eefde53",
+  "tokens_in": 559,
+  "tokens_out": 4387,
+  "response_status": "completed",
+  "http_status": 200,
+  "reported_model": "openai.gpt-5.6-terra",
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low",
+    "context": "all_turns"
+  },
+  "reasoning_tokens": 516,
+  "request_id": "req_gtbxfvnvjamqbxofdmbpzt4ibbz4rgplnw7dxjgovlouumd7pleq",
+  "response_id": "resp_t6la2uv2f6uyp3ctqyfxrrtfedshwnplvl5vrteogfkn4zvpk2qa"
+}

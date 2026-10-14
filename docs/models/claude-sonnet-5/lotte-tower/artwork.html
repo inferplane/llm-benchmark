@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>롯데월드타워 설계 과정 — claude-sonnet-5</title>
+<style>
+  :root{
+    --bg:#0b0e14;
+    --panel:#141925;
+    --panel2:#1b2232;
+    --line:#3a4a63;
+    --accent:#e8c074;
+    --accent2:#7ec8e3;
+    --text:#eef2f7;
+    --muted:#aab6c8;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;font-size:19px;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001s !important; transition-duration:0.001s !important;}
+  }
+  header{
+    padding:14px 18px;background:linear-gradient(180deg,#141925,#0b0e14);
+    border-bottom:1px solid var(--line);
+  }
+  header h1{margin:0 0 4px;font-size:24px;color:var(--accent);}
+  header p{margin:0;color:var(--muted);font-size:19px;line-height:1.5;}
+  .model-tag{
+    display:inline-block;margin-top:8px;padding:4px 10px;border:1px solid var(--accent2);
+    border-radius:6px;color:var(--accent2);font-size:19px;
+  }
+  main{
+    display:grid;grid-template-columns:1fr;gap:14px;padding:14px;
+  }
+  @media (min-width:980px){
+    main{grid-template-columns:1.1fr 1fr;}
+  }
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:14px;
+  }
+  .card h2{margin:0 0 8px;font-size:21px;color:var(--accent2);}
+  .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+  button{
+    font-size:19px;padding:9px 14px;border-radius:8px;border:1px solid var(--line);
+    background:var(--panel2);color:var(--text);cursor:pointer;
+  }
+  button:hover{border-color:var(--accent2);}
+  button.active{background:var(--accent);color:#1b1304;border-color:var(--accent);font-weight:bold;}
+  button:focus-visible{outline:3px solid var(--accent2);}
+  #draw-canvas{
+    width:100%;height:420px;display:block;background:#0e1420;border:1px solid var(--line);
+    border-radius:8px;touch-action:none;
+  }
+  #draw-info{
+    margin-top:10px;font-size:19px;line-height:1.5;color:var(--muted);
+    border-left:3px solid var(--accent2);padding-left:10px;
+  }
+  #stage-info{
+    margin-top:10px;font-size:19px;line-height:1.6;color:var(--muted);
+    border-left:3px solid var(--accent);padding-left:10px;
+  }
+  .viewer-wrap{position:relative;}
+  #three-canvas{
+    width:100%;height:420px;display:block;background:#06080c;border:1px solid var(--line);
+    border-radius:8px;touch-action:none;
+  }
+  .ctrl-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+  .corr{
+    margin-top:14px;padding:10px;background:var(--panel2);border-radius:8px;
+    font-size:19px;line-height:1.5;color:var(--text);border:1px dashed var(--accent2);
+  }
+  .disclosure{
+    margin-top:14px;padding:12px;background:#201a10;border:1px solid var(--accent);
+    border-radius:8px;font-size:19px;line-height:1.6;
+  }
+  .disclosure strong{color:var(--accent);}
+  footer{padding:14px 18px;color:var(--muted);font-size:19px;}
+  a{color:var(--accent2);}
+  .sr-only{position:absolute;left:-9999px;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>롯데월드타워 설계 과정 다이어그램</h1>
+  <p>도면(배치도·평면도·입면도·단면도), 단계별 설계 진화, 완성 3D 형상을 함께 살펴보는 설명용 재구성입니다.</p>
+  <span class="model-tag">모델: claude-sonnet-5 (us.anthropic.claude-sonnet-5)</span>
+</header>
+
+<main>
+  <section class="card" aria-labelledby="draw-h">
+    <h2 id="draw-h">1. 개념 도면</h2>
+    <div class="tabs" role="tablist" aria-label="도면 종류 선택">
+      <button data-draw="site" class="active" role="tab" aria-selected="true">배치도</button>
+      <button data-draw="plan" role="tab" aria-selected="false">기준층 평면도</button>
+      <button data-draw="elev" role="tab" aria-selected="false">입면도</button>
+      <button data-draw="section" role="tab" aria-selected="false">단면도</button>
+    </div>
+    <canvas id="draw-canvas" width="900" height="420" role="img" aria-label="선택된 도면"></canvas>
+    <div id="draw-info"></div>
+    <div class="corr" id="correspondence">대응 관계: 도면을 선택하면 아래 설계 단계·3D 모델과 자동으로 연결됩니다.</div>
+  </section>
+
+  <section class="card" aria-labelledby="stage-h">
+    <h2 id="stage-h">2. 설계 단계별 3D 형상</h2>
+    <div class="tabs" role="tablist" aria-label="설계 단계 선택">
+      <button data-stage="0" class="active" role="tab" aria-selected="true">0: 매스 블록</button>
+      <button data-stage="1" role="tab" aria-selected="false">1: 테이퍼링</button>
+      <button data-stage="2" role="tab" aria-selected="false">2: 곡면 다듬기</button>
+      <button data-stage="3" role="tab" aria-selected="false">3: 완성 형상</button>
+    </div>
+    <div class="viewer-wrap">
+      <canvas id="three-canvas"></canvas>
+    </div>
+    <div class="ctrl-row">
+      <button id="btn-reset">시점 초기화</button>
+      <button id="btn-auto">자동회전 켜기/끄기</button>
+      <span class="sr-only" id="hint">드래그로 회전, 스크롤 또는 핀치로 확대/축소, 방향키로도 회전 가능</span>
+    </div>
+    <div id="stage-info"></div>
+  </section>
+</main>
+
+<section class="card" style="margin:0 14px 14px;">
+  <div class="disclosure">
+    <strong>자료 근거 및 한계 고지.</strong> 실제 높이 555m·지상 123층, 상부로 갈수록 평면이 좁아지는 형태, 한국 도자기 선을 참조한 외관 설계 의도는 KPF 프로젝트 소개(kpf.com/project/lotte-world-tower)와 구조설계사 LERA(lera.com/lotte-world-tower)의 공개 설명에 기반한 사실입니다.
+    이 페이지의 치수 숫자(기준층 폭, 각 단계 비율, 단면 두께, 코어 크기 등)와 평면·단면의 세부 선은 <strong>공식 시공 도면이 아니며</strong>, 설명을 돕기 위해 추정하여 재구성한 개념적 수치입니다. 실제 구조 부재나 치수와 다를 수 있습니다.
+  </div>
+</section>
+
+<footer>
+  Three.js r186 로컬 런타임 사용. 외부 네트워크 요청 없음. 조작: 마우스 드래그/휠, 터치 드래그/핀치, 방향키(←→↑↓), Shift+방향키(확대/축소).
+</footer>
+
+<script src="../runtime/three-runtime.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- 도면부 (2D canvas) ---------------- */
+  const drawCanvas = document.getElementById('draw-canvas');
+  const dctx = drawCanvas.getContext('2d');
+  const drawInfo = document.getElementById('draw-info');
+  const corrBox = document.getElementById('correspondence');
+
+  function clearDraw(){
+    dctx.clearRect(0,0,drawCanvas.width,drawCanvas.height);
+    dctx.fillStyle = '#0e1420';
+    dctx.fillRect(0,0,drawCanvas.width,drawCanvas.height);
+  }
+
+  function gridLines(w,h,step){
+    dctx.strokeStyle = 'rgba(122,140,170,0.15)';
+    dctx.lineWidth = 1;
+    for(let x=0;x<=w;x+=step){
+      dctx.beginPath(); dctx.moveTo(x,0); dctx.lineTo(x,h); dctx.stroke();
+    }
+    for(let y=0;y<=h;y+=step){
+      dctx.beginPath(); dctx.moveTo(0,y); dctx.lineTo(w,y); dctx.stroke();
+    }
+  }
+
+  function labelScale(text){
+    dctx.fillStyle = '#aab6c8';
+    dctx.font = '15px monospace';
+    dctx.fillText(text, 14, drawCanvas.height-14);
+  }
+
+  function drawSite(){
+    clearDraw();
+    gridLines(900,420,30);
+    labelScale('배치도 — 단위: 1칸=30px(개념 축척, 대략 1칸≈25m 가정). 서울 송파구 신천동 부지 개념.');
+    dctx.strokeStyle = '#3a4a63';
+    dctx.lineWidth = 2;
+    dctx.strokeRect(60,60,780,300);
+
+    // 한강/주변 블록 암시
+    dctx.fillStyle = 'rgba(126,200,227,0.12)';
+    dctx.fillRect(60,60,780,60);
+    dctx.fillStyle = '#7ec8e3';
+    dctx.font = '19px sans-serif';
+    dctx.fillText('인접 저층 단지(개념 블록)', 80, 95);
+
+    // 타워 평면(사각 코어+곡선 외곽 근사)
+    dctx.save();
+    dctx.translate(450,260);
+    dctx.beginPath();
+    dctx.ellipse(0,0,120,90,0,0,Math.PI*2);
+    dctx.fillStyle = 'rgba(232,192,116,0.25)';
+    dctx.fill();
+    dctx.strokeStyle = '#e8c074';
+    dctx.lineWidth = 3;
+    dctx.stroke();
+    dctx.fillStyle = '#e8c074';
+    dctx.font = '19px sans-serif';
+    dctx.textAlign = 'center';
+    dctx.fillText('타워 기준층 외곽(개념)', 0, -110);
+    dctx.restore();
+
+    dctx.textAlign = 'left';
+    dctx.fillStyle = '#eef2f7';
+    dctx.font = '19px sans-serif';
+    dctx.fillText('부지 경계(개념 재구성)', 70, 50);
+  }
+
+  function drawPlan(){
+    clearDraw();
+    gridLines(900,420,20);
+    labelScale('기준층 평면도 — 단위: 1칸=20px(개념 축척, 대략 1칸≈2m 가정). 중앙 코어+8각 외곽 추정.');
+    const cx=450, cy=220;
+    dctx.save();
+    dctx.translate(cx,cy);
+
+    // 8각형 외곽(도자기 곡선을 다각형으로 단순화)
+    dctx.beginPath();
+    const R=160;
+    for(let i=0;i<8;i++){
+      const a = Math.PI/8 + i*Math.PI/4;
+      const x = Math.cos(a)*R, y=Math.sin(a)*R*0.78;
+      if(i===0) dctx.moveTo(x,y); else dctx.lineTo(x,y);
+    }
+    dctx.closePath();
+    dctx.strokeStyle = '#e8c074';
+    dctx.lineWidth = 3;
+    dctx.fillStyle = 'rgba(232,192,116,0.08)';
+    dctx.fill();
+    dctx.stroke();
+
+    // 코어
+    dctx.strokeStyle = '#7ec8e3';
+    dctx.lineWidth = 2;
+    dctx.strokeRect(-55,-55,110,110);
+    dctx.fillStyle = 'rgba(126,200,227,0.15)';
+    dctx.fillRect(-55,-55,110,110);
+    dctx.fillStyle = '#7ec8e3';
+    dctx.font = '19px sans-serif';
+    dctx.textAlign = 'center';
+    dctx.fillText('코어(승강/계단, 추정)', 0, 4);
+
+    dctx.restore();
+    dctx.fillStyle = '#eef2f7';
+    dctx.font = '19px sans-serif';
+    dctx.textAlign='left';
+    dctx.fillText('외곽 다각형: 8각 변형 — 상층부로 축소되는 기준층 중 한 층 개념도', 60, 390);
+  }
+
+  function drawElev(){
+    clearDraw();
+    gridLines(900,420,20);
+    labelScale('입면도 — 단위: 1칸=20px(개념 축척, 전체높이 555m를 420px 중 360px에 매핑, 약 1.54m/px 가정).');
+    const baseY=380, topY=20, baseW=360, topW=70, cx=450;
+    dctx.beginPath();
+    const steps=28;
+    for(let i=0;i<=steps;i++){
+      const t=i/steps;
+      const y = baseY - t*(baseY-topY);
+      const w = baseW - (baseW-topW)*Math.pow(t,1.15);
+      const x = cx - w/2;
+      if(i===0) dctx.moveTo(x,y); else dctx.lineTo(x,y);
+    }
+    for(let i=steps;i>=0;i--){
+      const t=i/steps;
+      const y = baseY - t*(baseY-topY);
+      const w = baseW - (baseW-topW)*Math.pow(t,1.15);
+      const x = cx + w/2;
+      dctx.lineTo(x,y);
+    }
+    dctx.closePath();
+    dctx.fillStyle = 'rgba(232,192,116,0.12)';
+    dctx.fill();
+    dctx.strokeStyle = '#e8c074';
+    dctx.lineWidth = 2;
+    dctx.stroke();
+
+    // 층선
+    dctx.strokeStyle = 'rgba(170,182,200,0.3)';
+    for(let i=1;i<30;i++){
+      const y = baseY - i*((baseY-topY)/30);
+      dctx.beginPath(); dctx.moveTo(cx-180,y); dctx.lineTo(cx+180,y); dctx.stroke();
+    }
+
+    dctx.fillStyle='#eef2f7';
+    dctx.font='19px sans-serif';
+    dctx.textAlign='left';
+    dctx.fillText('높이 555m / 지상 123층(공개 사실). 층 분할선은 개념 비례선.', 60, 400);
+    dctx.fillText('윤곽선: 도자기 곡선을 참조한 테이퍼링 형태(공개 설명 기반, 세부 곡률은 추정)', 60, 416);
+  }
+
+  function drawSection(){
+    clearDraw();
+    gridLines(900,420,20);
+    labelScale('단면도 — 단위: 1칸=20px(개념 축척). 중앙 코어와 외피 사이 바닥판 구조를 개념적으로 표현.');
+    const baseY=380, topY=20, baseW=320, topW=60, cx=450;
+    // 외피 윤곽(좌우 절반만 표시하는 단면 느낌)
+    dctx.beginPath();
+    const steps=28;
+    for(let i=0;i<=steps;i++){
+      const t=i/steps;
+      const y=baseY - t*(baseY-topY);
+      const w=baseW-(baseW-topW)*Math.pow(t,1.15);
+      const x=cx-w/2;
+      if(i===0) dctx.moveTo(x,y); else dctx.lineTo(x,y);
+    }
+    dctx.lineTo(cx-topW/2+topW,topY);
+    for(let i=steps;i>=0;i--){
+      const t=i/steps;
+      const y=baseY - t*(baseY-topY);
+      const w=baseW-(baseW-topW)*Math.pow(t,1.15);
+      const x=cx+w/2;
+      dctx.lineTo(x,y);
+    }
+    dctx.closePath();
+    dctx.strokeStyle='#7ec8e3';
+    dctx.lineWidth=2;
+    dctx.fillStyle='rgba(126,200,227,0.08)';
+    dctx.fill();
+    dctx.stroke();
+
+    // 중앙 코어 수직선
+    dctx.strokeStyle='#e8c074';
+    dctx.lineWidth=3;
+    dctx.beginPath();
+    dctx.moveTo(cx-30,baseY);
+    dctx.lineTo(cx-30,topY+10);
+    dctx.moveTo(cx+30,baseY);
+    dctx.lineTo(cx+30,topY+10);
+    dctx.stroke();
+
+    // 바닥판(층) 가로선 - 코어~외피
+    dctx.strokeStyle='rgba(170,182,200,0.35)';
+    for(let i=1;i<24;i++){
+      const t=i/24;
+      const y=baseY - t*(baseY-topY);
+      const w=baseW-(baseW-topW)*Math.pow(t,1.15);
+      dctx.beginPath();
+      dctx.moveTo(cx-w/2,y); dctx.lineTo(cx+w/2,y);
+      dctx.stroke();
+    }
+
+    dctx.fillStyle='#eef2f7';
+    dctx.font='19px sans-serif';
+    dctx.textAlign='left';
+    dctx.fillText('좌우 두 세로선: 코어(추정 폭), 가로선: 층 바닥판(개념). 실제 구조부재 치수 아님.', 60, 400);
+  }
+
+  const drawFns = {site:drawSite, plan:drawPlan, elev:drawElev, section:drawSection};
+  const drawTexts = {
+    site:'배치도: 타워가 놓인 부지와 주변 맥락을 보여줍니다. 축척·치수는 설명용 추정치입니다. 공개 자료: KPF 프로젝트 페이지 참고.',
+    plan:'기준층 평면도: 중앙 코어와 외곽 윤곽의 관계를 보여줍니다. 실제 평면은 비공개이며 다각형 형태는 개념적 단순화입니다.',
+    elev:'입면도: 상부로 갈수록 좁아지는 테이퍼 형태와 전체 높이 555m·123층 비례를 보여줍니다. 공개된 사실(높이·층수)과 추정 곡선이 섞여 있습니다.',
+    section:'단면도: 중앙 코어와 외피 사이 바닥판 구조를 개념적으로 표현합니다. 실제 구조 부재나 두께가 아닌 설명용 가정입니다.'
+  };
+  const drawToStage = {site:0, plan:1, elev:2, section:3};
+
+  function selectDraw(key){
+    document.querySelectorAll('[data-draw]').forEach(b=>{
+      const active = b.dataset.draw===key;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-selected', active?'true':'false');
+    });
+    drawFns[key]();
+    drawInfo.textContent = drawTexts[key];
+    const stage = drawToStage[key];
+    selectStage(String(stage), false);
+    corrBox.textContent = '대응 관계: "' + {site:'배치도',plan:'평면도',elev:'입면도',section:'단면도'}[key] +
+      '" ↔ 설계 단계 ' + stage + ' ↔ 아래 3D 뷰어의 해당 형상이 함께 갱신되었습니다.';
+  }
+
+  document.querySelectorAll('[data-draw]').forEach(b=>{
+    b.addEventListener('click', ()=>selectDraw(b.dataset.draw));
+  });
+
+  /* ---------------- 3D부 ---------------- */
+  const threeCanvas = document.getElementById('three-canvas');
+  const stageInfo = document.getElementById('stage-info');
+
+  let renderer, scene, camera, controls, towerGroup;
+  let autoRotate = false;
+
+  function initThree(){
+    renderer = new THREE.WebGLRenderer({canvas:threeCanvas, antialias:true, alpha:false});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x06080c);
+
+    camera = new THREE.PerspectiveCamera(45, 1, 0.1, 2000);
+    camera.position.set(60,70,120);
+
+    const amb = new THREE.AmbientLight(0xffffff, 0.55);
+    scene.add(amb);
+    const dir = new THREE.DirectionalLight(0xfff2d8, 1.0);
+    dir.position.set(80,120,60);
+    scene.add(dir);
+    const dir2 = new THREE.DirectionalLight(0x7ec8e3, 0.4);
+    dir2.position.set(-80,40,-60);
+    scene.add(dir2);
+
+    const grid = new THREE.GridHelper(220, 22, 0x3a4a63, 0x1b2232);
+    scene.add(grid);
+
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.target.set(0,30,0);
+    controls.update();
+
+    towerGroup = new THREE.Group();
+    scene.add(towerGroup);
+
+    resizeThree();
+    buildStage(0);
+    animate();
+  }
+
+  function resizeThree(){
+    const w = threeCanvas.clientWidth || threeCanvas.parentElement.clientWidth;
+    const h = threeCanvas.clientHeight || 420;
+    threeCanvas.width = w; threeCanvas.height = h;
+    renderer.setSize(w,h,false);
+    camera.aspect = w/h;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resizeThree);
+
+  function clearGroup(g){
+    while(g.children.length) g.remove(g.children[0]);
+  }
+
+  // 8각 단면 모양 생성(평면도와 대응)
+  function octShape(radius, squashY){
+    const pts=[];
+    for(let i=0;i<8;i++){
+      const a = Math.PI/8 + i*Math.PI/4;
+      pts.push(new THREE.Vector2(Math.cos(a)*radius, Math.sin(a)*radius*squashY));
+    }
+    return pts;
+  }
+
+  function buildTaperedTower(segments, taperPow, roughness, color){
+    const group = new THREE.Group();
+    const totalH = 90;
+    const baseR = 26, topR = 6;
+    const layerH = totalH/segments;
+    for(let i=0;i<segments;i++){
+      const t0=i/segments, t1=(i+1)/segments;
+      const r0 = baseR - (baseR-topR)*Math.pow(t0, taperPow);
+      const r1 = baseR - (baseR-topR)*Math.pow(t1, taperPow);
+      const geom = new THREE.CylinderGeometry(r1*0.9, r0*0.9, layerH, 8, 1, false);
+      const mat = new THREE.MeshStandardMaterial({
+        color: color, metalness:0.3, roughness: roughness,
+        flatShading: true
+      });
+      const mesh = new THREE.Mesh(geom, mat);
+      mesh.position.y = i*layerH + layerH/2;
+      mesh.rotation.y = Math.PI/8;
+      group.add(mesh);
+    }
+    return group;
+  }
+
+  function buildCurvedTower(color, roughness, segments){
+    // 더 부드러운 곡면 근사: Lathe로 도자기 곡선 느낌
+    const pts = [];
+    const N = 24;
+    for(let i=0;i<=N;i++){
+      const t = i/N;
+      const y = t*90;
+      const r = 6 + (26-6)*Math.pow(1-t, 1.3) * (1 - 0.08*Math.sin(t*Math.PI*1.5));
+      pts.push(new THREE.Vector2(Math.max(r,0.5), y));
+    }
+    const geom = new THREE.LatheGeometry(pts, 16);
+    const mat = new THREE.MeshStandardMaterial({color, metalness:0.35, roughness, flatShading:false});
+    const mesh = new THREE.Mesh(geom, mat);
+    const group = new THREE.Group();
+    group.add(mesh);
+    return group;
+  }
+
+  const stageDefs = [
+    { // 0 매스 블록
+      label:'0단계: 기본 매스 블록',
+      text:'대지 조건과 전체 높이(555m 비례)만 반영한 단순 각기둥 매스. 평면/입면의 큰 틀만 잡는 초기 스터디 단계(개념).',
+      build:()=>{
+        const g = new THREE.Group();
+        const geo = new THREE.BoxGeometry(40,90,40);
+        const mat = new THREE.MeshStandardMaterial({color:0x5a6b85, roughness:0.9, flatShading:true});
+        const m = new THREE.Mesh(geo, mat);
+        m.position.y = 45;
+        g.add(m);
+        return g;
+      }
+    },
+    { // 1 테이퍼링
+      label:'1단계: 테이퍼링 적용',
+      text:'평면도에서 본 8각 외곽을 기준으로, 위로 갈수록 단면이 좁아지는 세그먼트 매스를 적용합니다(공개된 "위로 좁아지는 형태" 반영, 세부 비율은 추정).',
+      build:()=> buildTaperedTower(8, 1.0, 0.85, 0x7a8aa5)
+    },
+    { // 2 곡면 다듬기
+      label:'2단계: 도자기 곡선 참조한 곡면 다듬기',
+      text:'KPF가 밝힌 한국 도자기 선 참조에 따라 세그먼트 외곽을 완만한 곡선으로 다듬는 단계. 실제 곡률 수식은 비공개이며 여기서는 임의 곡선으로 근사했습니다.',
+      build:()=> buildCurvedTower(0xb79a60, 0.6, 20)
+    },
+    { // 3 완성
+      label:'3단계: 완성 형상(개념 재구성)',
+      text:'곡면과 유리 외피, 첨탑부를 더해 완성된 전체 형상을 개념적으로 재구성했습니다. 실제 외피 패널 분할·구조는 공식 자료가 아닙니다.',
+      build:()=>{
+        const g = buildCurvedTower(0xdcc98a, 0.25, 24);
+        // 첨탑
+        const spireGeo = new THREE.ConeGeometry(1.6, 14, 10);
+        const spireMat = new THREE.MeshStandardMaterial({color:0xf2e6c0, metalness:0.6, roughness:0.2});
+        const spire = new THREE.Mesh(spireGeo, spireMat);
+        spire.position.y = 90+7;
+        g.add(spire);
+        // 글로우 느낌 포인트 라이트
+        const pl = new THREE.PointLight(0xffe9b0, 0.6, 60);
+        pl.position.set(0,70,0);
+        g.add(pl);
+        return g;
+      }
+    }
+  ];
+
+  function buildStage(idx){
+    clearGroup(towerGroup);
+    const def = stageDefs[idx];
+    const model = def.build();
+    towerGroup.add(model);
+    stageInfo.textContent = def.text;
+  }
+
+  function selectStage(idxStr, scrollUpdate){
+    const idx = parseInt(idxStr,10);
+    document.querySelectorAll('[data-stage]').forEach(b=>{
+      const active = b.dataset.stage===idxStr;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-selected', active?'true':'false');
+    });
+    buildStage(idx);
+  }
+
+  document.querySelectorAll('[data-stage]').forEach(b=>{
+    b.addEventListener('click', ()=>selectStage(b.dataset.stage));
+  });
+
+  document.getElementById('btn-reset').addEventListener('click', ()=>{
+    camera.position.set(60,70,120);
+    controls.target.set(0,30,0);
+    controls.update();
+  });
+  document.getElementById('btn-auto').addEventListener('click', ()=>{
+    autoRotate = !autoRotate;
+    controls.autoRotate = autoRotate;
+  });
+
+  // 키보드 조작
+  window.addEventListener('keydown', (e)=>{
+    const step = 0.12;
+    switch(e.key){
+      case 'ArrowLeft': controls.setAzimuthalAngle ? null : null; rotateCam(step); break;
+      case 'ArrowRight': rotateCam(-step); break;
+      case 'ArrowUp': pitchCam(step); break;
+      case 'ArrowDown': pitchCam(-step); break;
+    }
+    if(e.shiftKey){
+      if(e.key==='ArrowUp') dollyCam(-5);
+      if(e.key==='ArrowDown') dollyCam(5);
+    }
+  });
+
+  function rotateCam(a){
+    const offset = new THREE.Vector3().copy(camera.position).sub(controls.target);
+    const spherical = new THREE.Spherical().setFromVector3(offset);
+    spherical.theta += a;
+    offset.setFromSpherical(spherical);
+    camera.position.copy(controls.target).add(offset);
+    controls.update();
+  }
+  function pitchCam(a){
+    const offset = new THREE.Vector3().copy(camera.position).sub(controls.target);
+    const spherical = new THREE.Spherical().setFromVector3(offset);
+    spherical.phi = Math.min(Math.max(spherical.phi - a, 0.15), Math.PI-0.15);
+    offset.setFromSpherical(spherical);
+    camera.position.copy(controls.target).add(offset);
+    controls.update();
+  }
+  function dollyCam(d){
+    const dir = new THREE.Vector3().copy(camera.position).sub(controls.target).normalize();
+    camera.position.addScaledVector(dir, d);
+    controls.update();
+  }
+
+  function animate(){
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+  }
+
+  // 초기화
+  initThree();
+  selectDraw('site');
+})();
+</script>
+</body>
+</html>

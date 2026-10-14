@@ -1,0 +1,187 @@
+{
+  "model": "llama-3.3-70b-bedrock",
+  "task": "lotte-tower",
+  "requested_model_id": "us.meta.llama3-3-70b-instruct-v1:0",
+  "provider": "bedrock",
+  "family": "Meta",
+  "generation": "lotte-tower-models-20261013",
+  "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock",
+  "status": "review_held",
+  "generation_status": "generated",
+  "artwork_sha256": "e67818ea849c028c22f5335f3a765d43a209a64804c2a516d35ac385f7de3052",
+  "content_review": {
+    "task_requirements_complete": false,
+    "model": "llama-3.3-70b-bedrock",
+    "score": 88.5,
+    "critical": 1,
+    "warnings": 4,
+    "verdict": "FAIL",
+    "category_scores": {
+      "Layout": 6.0,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 0,
+      "Interactions": 3.5,
+      "Readability": 5,
+      "Accessibility": 5,
+      "Structural Completeness": 3.5,
+      "Data Accuracy and References": 3.5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "artwork_sha256": "e67818ea849c028c22f5335f3a765d43a209a64804c2a516d35ac385f7de3052",
+    "model_id": "us.meta.llama3-3-70b-instruct-v1:0",
+    "origin_generation": "lotte-tower-models-20261013",
+    "original_response_bytes_verified": true,
+    "source": "/tmp/model-lotte-review/llama-3.3-70b-bedrock/e67818ea849c",
+    "browser_evidence": "/tmp/model-lotte-review/llama-3.3-70b-bedrock/e67818ea849c/browser.json",
+    "findings": [
+      {
+        "severity": "Critical",
+        "category": "Renders",
+        "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+        "line": 135,
+        "quote": "case 'ArrowDown':",
+        "problem": "Down/Right invoke nonexistent rotateDown/rotateRight; actual keyboard tests throw for both directions.",
+        "action": "Use signed supported rotateUp/rotateLeft operations."
+      },
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+        "line": 57,
+        "quote": "<img id=\"site-plan\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==\">",
+        "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
+        "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+      },
+      {
+        "severity": "Warning",
+        "category": "Data Accuracy and References",
+        "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+        "line": 76,
+        "quote": "const geometry = new THREE.CylinderGeometry(radius, radius / 2, height, 64);",
+        "problem": "All frusta widen upward, and final height is400 with no555m scale correspondence.",
+        "action": "Use coherent upward-narrowing stages and a consistent555m completed representation."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+        "line": 149,
+        "quote": "camera.aspect = window.innerWidth / window.innerHeight;",
+        "problem": "Camera aspect uses full-window height while renderer uses80%height.",
+        "action": "Derive aspect from the actual renderer dimensions."
+      },
+      {
+        "severity": "Warning",
+        "category": "Interactions",
+        "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+        "line": 109,
+        "quote": "document.getElementById('reset-view').addEventListener('click', () => {",
+        "problem": "Reset only sets camera.z, preserving prior orbit x/y/target, so it does not restore a valid home view.",
+        "action": "Restore complete home position/target/orientation."
+      }
+    ],
+    "notes": [
+      "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+      "Real canvas constructor is fixed. Four identical5×5PNG placeholders remain, not actual drawings."
+    ],
+    "reviewed_at": "2026-10-13T15:51:47.699283+00:00",
+    "re_review_number": 3,
+    "review_iteration": 4,
+    "retry_limit_reached": true,
+    "current_generation_status": "generated",
+    "active_source": true
+  },
+  "prompt_sha256": "e2d8df7c45f6fab88cc4f579d220e741af9d6d381b65c2a7675d289a70c932cf",
+  "initial_prompt_sha256": "e3bc21659d48c0fe0379b154d425efacea5a86d24d9ecea2e8a4c5366a610909",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "lotte-tower-models-20261013",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.72,
+      "price_out": 0.72
+    },
+    "estimated_total_usd": 0.00773784,
+    "estimated_final_response_usd": 0.00295344,
+    "recorded_attempts": 4,
+    "successful_code_responses": 4,
+    "additional_attempts": 3,
+    "known_cost_attempts": 4,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 5785,
+      "tokens_out": 4962,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-13T11:00:33.369856+00:00",
+        "status": "generated",
+        "request_id": "179ad269-905b-45e4-a5eb-7e20325ec4a8",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00124128,
+        "request_seconds": null,
+        "record_sha256": "a1ecae4e475582eb4e16b56162b625f3512065f575d9599835edc1798cd1378c",
+        "response_sha256": "d4f1827cd5a39ded4aa392681df3c87c6c20b8b25984071cd6bfd5b28f0b7c4e"
+      },
+      {
+        "requested_at": "2026-10-13T13:38:59.894980+00:00",
+        "status": "generated",
+        "request_id": "bf8a8a60-b577-4a2b-93ce-44c80d6fe515",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00138024,
+        "request_seconds": null,
+        "record_sha256": "40c72126467cfacade9b6811641876d93c05e51a069b02658a52325905a07cf2",
+        "response_sha256": "a7e2479c8d78f737939776b53e66594e3756bb90057857c09dcc9a3181934c63"
+      },
+      {
+        "requested_at": "2026-10-13T15:08:00.888824+00:00",
+        "status": "generated",
+        "request_id": "f7b48b9e-c66d-404d-845c-3bd3d62b96ed",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00216288,
+        "request_seconds": null,
+        "record_sha256": "09fe533d4f0968b09d04635d876c4efed10309c467490a5529715e893e2b02ba",
+        "response_sha256": "f155e39635affe4a4b9ff1873eff5dcf055cd62900f3c5b2d936daa89116f099"
+      },
+      {
+        "requested_at": "2026-10-13T15:27:33.255263+00:00",
+        "status": "generated",
+        "request_id": "7b954f7f-a3ce-4541-b440-99d35c7b525d",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00295344,
+        "request_seconds": null,
+        "record_sha256": "cb285f2a59f32c7eaa150f37ae5c42d99b6c6c4582d58170c45c87f516441ef0",
+        "response_sha256": "dce135a3dc884eb3c449112976c96becb0ca5d4291bf30c9ff330b7507de6acb"
+      }
+    ]
+  },
+  "request_id": "7b954f7f-a3ce-4541-b440-99d35c7b525d",
+  "requested_at": "2026-10-13T15:27:33.255263+00:00",
+  "generated_at": "2026-10-13T15:27:42.644574+00:00",
+  "tokens_in": 2605,
+  "tokens_out": 1497,
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "finish_reason": "end_turn"
+}

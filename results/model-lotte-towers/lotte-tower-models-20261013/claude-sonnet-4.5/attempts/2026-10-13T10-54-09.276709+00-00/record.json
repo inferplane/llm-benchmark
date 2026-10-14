@@ -1,0 +1,22 @@
+{
+  "model": "claude-sonnet-4.5",
+  "model_id": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T10:54:09.276709+00:00",
+  "prompt_sha256": "9637495291d5e23f506957cb17e3ed1532cfb76a706779642f7a3ab3bd6ee518",
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "failed",
+  "failed_at": "2026-10-13T10:55:38.507181+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

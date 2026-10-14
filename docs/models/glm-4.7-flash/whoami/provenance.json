@@ -1,0 +1,139 @@
+{
+  "model": "glm-4.7-flash",
+  "task": "whoami",
+  "requested_model_id": "zai.glm-4.7-flash",
+  "provider": "bedrock",
+  "family": "Z.AI",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/glm-4.7-flash",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "a97ff65a087146c729d3bbc0f76e05fc85ecb6252f28bd966ec2fd9ca3ae1b3c",
+  "content_review": {
+    "model": "glm-4.7-flash",
+    "generation": "free-expression-20261012",
+    "score": 97.5,
+    "critical": 0,
+    "warnings": 2,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 2.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/glm-4.7-flash/artwork.html",
+        "line": 95,
+        "quote": "font-size: 0.9rem;",
+        "problem": "Some informative descriptions, labels or control text still render below 19px.",
+        "action": "Use at least 19px for informative text and controls."
+      },
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/glm-4.7-flash/artwork.html",
+        "line": 405,
+        "quote": "const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;",
+        "problem": "The new prefersReducedMotion variable is read but never used; actual Canvas motion remains unchanged under the preference.",
+        "action": "Apply the preference to the animation updates instead of only reading it."
+      }
+    ],
+    "artwork_sha256": "a97ff65a087146c729d3bbc0f76e05fc85ecb6252f28bd966ec2fd9ca3ae1b3c",
+    "model_id": "zai.glm-4.7-flash",
+    "reported_model": null,
+    "requested_at": "2026-10-12T08:52:42.471044+00:00",
+    "reviewed_at": "2026-10-12T08:58:35.174001+00:00",
+    "initial_prompt_sha256": "6b4931e251ad2a8319b645192a6ee1abda2e0b90212f254326c01ad2edba1a7e",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/glm-4.7-flash/a97ff65a0871",
+    "browser_evidence": "/tmp/free-expression-review/glm-4.7-flash/a97ff65a0871/browser.json",
+    "notes": [
+      "First re-review of the actual original-author correction. Source/prompt/response fidelity rechecked; no coordinator artwork edits.",
+      "Zoom is permitted and keyboard guidance contrast increased. Existing controls work; zero runtime errors."
+    ],
+    "review_iteration": 2
+  },
+  "prompt_sha256": "66540929f9c77c26d710e53d2a83919d1ca30ca0a332ba5108c65d6b01242a32",
+  "initial_prompt_sha256": "6b4931e251ad2a8319b645192a6ee1abda2e0b90212f254326c01ad2edba1a7e",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.07,
+      "price_out": 0.4
+    },
+    "estimated_total_usd": 0.00329418,
+    "estimated_final_response_usd": 0.00180754,
+    "recorded_attempts": 2,
+    "successful_code_responses": 2,
+    "additional_attempts": 1,
+    "known_cost_attempts": 2,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 4334,
+      "tokens_out": 7477,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:10:38.533138+00:00",
+        "status": "generated",
+        "request_id": "6edadb3b-85e1-4f3c-8bce-d88a6e763049",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00148664,
+        "request_seconds": null,
+        "record_sha256": "d55c72e6335d77133e24f8e3a0d41df21fb05397c9b6d032e5d73317a26ce0df",
+        "response_sha256": "7d343d2af45ff96a27428fde48cc28f9907e2438feed6937c481005f4c3bf8b2"
+      },
+      {
+        "requested_at": "2026-10-12T08:52:42.471044+00:00",
+        "status": "generated",
+        "request_id": "598a7f84-ffed-40d6-a3f0-cf57ce2ad7a5",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00180754,
+        "request_seconds": null,
+        "record_sha256": "08151e7a671e1f9606bd90a4fad945a86909bdc934a66e8ab6c6fdc0c4cdd62c",
+        "response_sha256": "0ea13f820534351a1b42abc689a2c1317cf8306e92417b6a9fed8de637438101"
+      }
+    ]
+  },
+  "request_id": "598a7f84-ffed-40d6-a3f0-cf57ce2ad7a5",
+  "requested_at": "2026-10-12T08:52:42.471044+00:00",
+  "generated_at": "2026-10-12T08:52:57.385800+00:00",
+  "tokens_in": 4062,
+  "tokens_out": 3808,
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "finish_reason": "end_turn"
+}

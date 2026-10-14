@@ -1,0 +1,141 @@
+{
+  "model": "claude-sonnet-5.5",
+  "task": "whoami",
+  "requested_model_id": "us.anthropic.claude-sonnet-5-5",
+  "provider": "bedrock",
+  "family": "Claude",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/claude-sonnet-5.5",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "71942b6ad1d4d15194c746987dba48bcdb4889e8b2a67bed85578f0e2103e78a",
+  "content_review": {
+    "model": "claude-sonnet-5.5",
+    "generation": "free-expression-20261012",
+    "score": 98.5,
+    "critical": 0,
+    "warnings": 1,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 3.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/claude-sonnet-5.5/artwork.html",
+        "line": 12,
+        "quote": "header p{margin:4px 0 0;font-size:clamp(.9rem,2.4vw,1rem);color:#d6d0ee;max-width:38em;line-height:1.5}",
+        "problem": "Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px).",
+        "action": "Use at least 19px for informative text and controls while retaining the chosen composition."
+      }
+    ],
+    "artwork_sha256": "71942b6ad1d4d15194c746987dba48bcdb4889e8b2a67bed85578f0e2103e78a",
+    "model_id": "us.anthropic.claude-sonnet-5-5",
+    "reported_model": null,
+    "requested_at": "2026-10-12T08:30:34.857715+00:00",
+    "reviewed_at": "2026-10-12T08:51:09.239084+00:00",
+    "initial_prompt_sha256": "728ccd6ed23ed3ecb9b115b9ba595e740138941664eb498d547071b3e3c69f98",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/claude-sonnet-5.5/71942b6ad1d4",
+    "browser_evidence": "/tmp/free-expression-review/claude-sonnet-5.5/71942b6ad1d4/browser.json",
+    "notes": [
+      "Authored next/scatter/reduction actions execute without errors. Reduced mode reduces forces/speed; no imposed scene count.",
+      "Browser/source evidence frozen at /tmp/free-expression-review/claude-sonnet-5.5/71942b6ad1d4. Actual model response containment and exact example-free initial prompt verified."
+    ]
+  },
+  "prompt_sha256": "728ccd6ed23ed3ecb9b115b9ba595e740138941664eb498d547071b3e3c69f98",
+  "initial_prompt_sha256": "728ccd6ed23ed3ecb9b115b9ba595e740138941664eb498d547071b3e3c69f98",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 2.2,
+      "price_out": 11.0,
+      "price_cache_read": 0.11,
+      "price_cache_write": 2.75
+    },
+    "estimated_total_usd": 0.3060288,
+    "estimated_final_response_usd": 0.0339196,
+    "recorded_attempts": 3,
+    "successful_code_responses": 1,
+    "additional_attempts": 2,
+    "known_cost_attempts": 3,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 1209,
+      "tokens_out": 27579,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:07:14.183136+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.0909986,
+        "request_seconds": null,
+        "record_sha256": "9d3e4719d312812e19df2fc7f5478aa6b9a097648503385bc5de9b14f61cec7e",
+        "response_sha256": "c5ce9e7ae75a9b24f45e47191829b933ff75295ad6410577bf6b570bad593b04"
+      },
+      {
+        "requested_at": "2026-10-12T08:20:15.902538+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.1811106,
+        "request_seconds": null,
+        "record_sha256": "892e55a07ffba7b1bec6844077d266dce5adfb6b6c80cf438132045fcab0b4c8",
+        "response_sha256": "8e838cbc420b586dd6e3da72afe0eac26ef660e0b414d027df794bdd172d19eb"
+      },
+      {
+        "requested_at": "2026-10-12T08:30:34.857715+00:00",
+        "status": "generated",
+        "request_id": "aa6e3e42-3b41-426e-8cf0-ce2e4129fa37",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0339196,
+        "request_seconds": null,
+        "record_sha256": "d259243c266163733d53af6c6158e4241441c57b20db516da1fe51dedba10c87",
+        "response_sha256": "cf26fcd817ce4dbfa59eaf19f89f635333a12578ff3f7032eb45f8de3addfc5b"
+      }
+    ]
+  },
+  "request_id": "aa6e3e42-3b41-426e-8cf0-ce2e4129fa37",
+  "requested_at": "2026-10-12T08:30:34.857715+00:00",
+  "generated_at": "2026-10-12T08:30:53.740282+00:00",
+  "tokens_in": 403,
+  "tokens_out": 3003,
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": "low",
+  "finish_reason": "end_turn"
+}

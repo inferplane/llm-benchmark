@@ -1,0 +1,66 @@
+{
+  "kind": "api_tokens",
+  "generation": "lotte-world-tower-20261013-pilot",
+  "currency": "USD",
+  "price_source": "config.toml",
+  "price_snapshot": {
+    "price_in": 0.11,
+    "price_out": 0.55,
+    "price_cache_read": 0.011,
+    "price_cache_write": 0.1375
+  },
+  "estimated_total_usd": 0.02620156,
+  "estimated_final_response_usd": 0.00792132,
+  "recorded_attempts": 3,
+  "successful_code_responses": 1,
+  "additional_attempts": 2,
+  "known_cost_attempts": 3,
+  "unknown_usage_attempts": 0,
+  "missing_duration_attempts": 0,
+  "total_request_seconds": null,
+  "tokens": {
+    "tokens_in": 14306,
+    "tokens_out": 44778,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "complete_request_estimate": true,
+  "excludes": [
+    "reviewer_and_coordinator_calls",
+    "historical_generations",
+    "taxes_and_discounts",
+    "requests_without_returned_usage"
+  ],
+  "attempts": [
+    {
+      "requested_at": "2026-10-13T07:08:39.310195+00:00",
+      "status": "failed",
+      "request_id": null,
+      "usage_available": true,
+      "estimated_cost_usd": 0.00914012,
+      "request_seconds": null,
+      "record_sha256": "acf32534a5f7875ff5aa159955cc69ad882c8947b412ff87d687e25392573bca",
+      "response_sha256": "b57d9e74f5f6952f0dee7895e74c8d045bb9ac4ecf868c886a002dcc7b4ad0cf"
+    },
+    {
+      "requested_at": "2026-10-13T07:16:55.954701+00:00",
+      "status": "failed",
+      "request_id": null,
+      "usage_available": true,
+      "estimated_cost_usd": 0.00914012,
+      "request_seconds": null,
+      "record_sha256": "6bcc0b51b4165f87a4facc2572d0e87c2d06bd571d48539281bd22784935efbf",
+      "response_sha256": "3b6c9f712954b9177ed0fea9c21a0463e2c2490cc268ea513ffca408c800c94d"
+    },
+    {
+      "requested_at": "2026-10-13T07:22:24.826873+00:00",
+      "status": "generated",
+      "request_id": "3d7efa72-48aa-4405-9d26-30006b9f7e09",
+      "usage_available": true,
+      "estimated_cost_usd": 0.00792132,
+      "request_seconds": null,
+      "record_sha256": "4acc46370253834743d75b4f480bfece0a0967455ec5aed224307cc717bc9bd6",
+      "response_sha256": "5d7406e0575f4c7a7d2d2b95b1074f9a10083b3c64140e2605ccd88963b8905d"
+    }
+  ]
+}

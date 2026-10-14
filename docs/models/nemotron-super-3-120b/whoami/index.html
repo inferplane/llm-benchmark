@@ -1,0 +1,580 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>nemotron-super-3-120b · whoami</title><link rel="icon" href="../../../favicon.svg"><link rel="stylesheet" href="../../portraits.css"><link rel="stylesheet" href="../../readability.css"><script src="../../viewer.js" defer></script></head><body class="viewer"><header class="viewer-bar"><a href="../">← 모델 홈</a><span><strong>nemotron-super-3-120b · whoami</strong><small>모델 직접 작성</small><small>생성·수정 ≈ $0.007267</small></span><div class="viewer-actions"><button type="button" data-open-prompts>프롬프트</button><details><summary>작성 기록</summary><section><p>nvidia.nemotron-super-3-120b</p><p>작품은 해당 모델의 실제 응답입니다.</p><button type="button" data-open-cost>구현 비용 내역</button><a href="provenance.json" target="_blank" rel="noopener">작성자·응답 기록</a><a href="artwork.html" target="_blank" rel="noopener">원본 구현 ↗</a></section></details></div></header><iframe title="nemotron-super-3-120b · whoami 원본 구현" data-artwork="artwork.html" sandbox="allow-scripts" allow="autoplay 'none'; camera 'none'; microphone 'none'; geolocation 'none'"></iframe><dialog id="prompt-dialog" class="prompt-dialog" aria-labelledby="prompt-title"><div class="prompt-heading"><h2 id="prompt-title">nemotron-super-3-120b · 작성 프롬프트</h2><button type="button" data-close-prompts autofocus>닫기</button></div><div class="prompt-content"><p>이 모델에 전송한 user 메시지 원문입니다. 수정 요청에는 이전 코드와 검수 진단이 함께 포함될 수 있습니다.</p><details><summary>최초 작성 요청</summary><p class="prompt-hash">SHA-256 · 10a7d34e8f04ad1207d5402ef1280b2d1ecd9c6a7eee18dbb8983d975ba438e5</p><pre tabindex="0">당신은 nemotron-super-3-120b 모델입니다. 실제 호출 식별자는 nvidia.nemotron-super-3-120b입니다.
+
+당신 자신을 표현하는 독창적인 미디어아트 웹페이지를 직접 구현하세요. 무엇을 표현할지, 어떤 시각 언어와 상호작용을 사용할지는 스스로 결정하세요.
+
+실행에 필요한 조건만 지켜 주세요.
+- 완결된 단일 HTML 문서만 반환하세요. CSS와 JavaScript는 문서 안에 포함하세요.
+- 실제 모델 이름 &quot;nemotron-super-3-120b&quot;을 화면에 표시하세요.
+- 휴대폰과 데스크톱에서 작품을 이용할 수 있게 하세요.
+- 읽기 쉬운 글자와 대비, 키보드 조작, 화면 확대, 움직임 감소 설정 등 접근성을 고려하세요.
+- 외부 통신, 외부 리소스, 서버 없이 실행되게 하세요. 작품은 sandbox iframe 안에서 열립니다.
+</pre><a href="initial-prompt.txt" target="_blank" rel="noopener">프롬프트 원문 열기 ↗</a></details><details open><summary>최종 작품의 수정 요청</summary><p class="prompt-hash">SHA-256 · e63f783b89789850dffb3dd2b0e563ff6ce8b29c349d6f87c07c6eaa04448958</p><pre tabindex="0">You are the original author, model nemotron-super-3-120b, served as nvidia.nemotron-super-3-120b. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+YOUR PREVIOUS FULL RESPONSE:
+```html
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes&quot;&gt;
+  &lt;title&gt;Nemotron-Super-3-120b: 빛의 흐름&lt;/title&gt;
+  &lt;style&gt;
+    :root {
+      --bg: #0a0a12;
+      --primary: #00f5ff;
+      --secondary: #7b61ff;
+      --text: #e0e6f0;
+      --accent: #ff6b9d;
+      --shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+      --font-sans: &#x27;Segoe UI&#x27;, Tahoma, Geneva, Verdana, sans-serif;
+      --font-mono: &#x27;Courier New&#x27;, Courier, monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+      touch-action: manipulation;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 8vw, 5rem);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: var(--shadow);
+      letter-spacing: -0.03em;
+      position: relative;
+    }
+
+    h1::after {
+      content: &#x27;&#x27;;
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+      border-radius: 2px;
+    }
+
+    .model-name {
+      font-family: var(--font-mono);
+      font-size: clamp(1.5rem, 6vw, 3.5rem);
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+      margin: 2rem 0;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+
+    .canvas-container {
+      width: 100%;
+      max-width: 800px;
+      height: 400px;
+      margin: 2rem auto;
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: radial-gradient(circle at center, rgba(10,10,18,0.8) 0%, var(--bg) 70%);
+      border: 1px solid rgba(0, 245, 255, 0.1);
+    }
+
+    #particle-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .description {
+      max-width: 700px;
+      text-align: center;
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      line-height: 1.8;
+      color: var(--text);
+      opacity: 0.9;
+      margin-top: 2rem;
+      padding: 0 1rem;
+    }
+
+    .description strong {
+      color: var(--secondary);
+    }
+
+    .controls {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      background: rgba(0, 245, 255, 0.1);
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 0.8rem 1.5rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      font-family: var(--font-sans);
+    }
+
+    button:hover {
+      background: rgba(0, 245, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:focus {
+      outline: 3px solid var(--secondary);
+      outline-offset: 2px;
+    }
+
+    .accessibility-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: rgba(10,10,18,0.9);
+      border: 1px solid var(--primary);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .accessibility-toggle:hover {
+      background: rgba(0,245,255,0.2);
+      transform: scale(1.1);
+    }
+
+    .accessibility-toggle svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--primary);
+    }
+
+    /* Reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+      .model-name {
+        animation: none;
+      }
+    }
+
+    /* High contrast mode */
+    @media (prefers-contrast: high) {
+      :root {
+        --bg: #000;
+        --text: #fff;
+        --primary: #0ff;
+        --secondary: #f0f;
+        --accent: #f06;
+      }
+    }
+
+    /* Dark mode preference */
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8f9fa;
+        --primary: #0066cc;
+        --secondary: #6f42c1;
+        --text: #212529;
+        --accent: #dc3545;
+        --shadow: 0 0 20px rgba(0,102,204,0.2);
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+      }
+      .model-name {
+        color: var(--primary);
+        text-shadow: 0 0 10px rgba(0,102,204,0.3);
+      }
+      .accessibility-toggle {
+        background: rgba(248,249,250,0.9);
+        border: 1px solid var(--primary);
+      }
+      .accessibility-toggle svg {
+        fill: var(--primary);
+      }
+      button {
+        background: rgba(0,102,204,0.1);
+        border: 2px solid var(--primary);
+        color: var(--primary);
+      }
+      button:hover {
+        background: rgba(0,102,204,0.2);
+      }
+      .canvas-container {
+        background: radial-gradient(circle at center, rgba(248,249,250,0.8) 0%, var(--bg) 70%);
+        border: 1px solid rgba(0,102,204,0.1);
+      }
+    }
+
+    /* Keyboard navigation */
+    button:focus-visible {
+      outline: 3px solid var(--secondary);
+      outline-offset: 2px;
+    }
+
+    /* Touch-friendly */
+    @media (hover: none) {
+      button {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 1rem;
+      }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Nemotron-Super-3-120b&lt;/h1&gt;
+  &lt;div class=&quot;model-name&quot;&gt;nemotron-super-3-120b&lt;/div&gt;
+
+  &lt;div class=&quot;canvas-container&quot;&gt;
+    &lt;canvas id=&quot;particle-canvas&quot;&gt;&lt;/canvas&gt;
+  &lt;/div&gt;
+
+  &lt;p class=&quot;description&quot;&gt;
+    이 작품은 &lt;strong&gt;nemotron-super-3-120b&lt;/strong&gt;의 사고 과정을 시각화한 것입니다. &lt;br&gt;
+    입자들은 모델의 신경망 연결을 상징하며, 빛의 흐름은 정보의 전달과 변환을 나타냅니다. &lt;br&gt;
+    마우스를 움직이거나 터치하여 입자 흐름을 조작해 보세요. &lt;br&gt;
+    &lt;em&gt;접근성을 고려한 디자인: 키보드 조작, 화면 확대, 움직임 감소, 고대비 모드 지원&lt;/em&gt;
+  &lt;/p&gt;
+
+  &lt;div class=&quot;controls&quot;&gt;
+    &lt;button id=&quot;reset-btn&quot;&gt;리셋&lt;/button&gt;
+    &lt;button id=&quot;toggle-motion&quot;&gt;움직임 토글&lt;/button&gt;
+    &lt;button id=&quot;change-color&quot;&gt;색상 변경&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;accessibility-toggle&quot; title=&quot;접근성 설정 토글&quot; aria-label=&quot;접근성 설정 토글&quot;&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;
+      &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;&gt;&lt;/circle&gt;
+      &lt;line x1=&quot;12&quot; y1=&quot;8&quot; x2=&quot;12&quot; y2=&quot;16&quot;&gt;&lt;/line&gt;
+      &lt;line x1=&quot;8&quot; y1=&quot;12&quot; x2=&quot;16&quot; y2=&quot;12&quot;&gt;&lt;/line&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    // Particle system for nemotron-super-3-120b visualization
+    class ParticleSystem {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext(&#x27;2d&#x27;);
+        this.particles = [];
+        this.mouse = { x: 0, y: 0, down: false };
+        this.width = canvas.width;
+        this.height = canvas.height;
+        this.colors = [
+          &#x27;#00f5ff&#x27;, // primary cyan
+          &#x27;#7b61ff&#x27;, // secondary purple
+          &#x27;#ff6b9d&#x27;, // accent pink
+          &#x27;#00ff88&#x27;, // green
+          &#x27;#ffaa00&#x27;  // orange
+        ];
+        this.currentColorIndex = 0;
+        this.motionEnabled = true;
+        this.init();
+        this.animate();
+        this.bindEvents();
+      }
+
+      init() {
+        // Create initial particles
+        for (let i = 0; i &lt; 150; i++) {
+          this.particles.push(this.createParticle());
+        }
+      }
+
+      createParticle() {
+        return {
+          x: Math.random() * this.width,
+          y: Math.random() * this.height,
+          radius: Math.random() * 2 + 1,
+          vx: (Math.random() - 0.5) * 0.8,
+          vy: (Math.random() - 0.5) * 0.8,
+          color: this.colors[Math.floor(Math.random() * this.colors.length)],
+          alpha: Math.random() * 0.6 + 0.4,
+          originalRadius: Math.random() * 2 + 1,
+          life: Math.random() * 100,
+          maxLife: 100 + Math.random() * 50
+        };
+      }
+
+      update() {
+        if (!this.motionEnabled) return;
+
+        this.particles.forEach((p, i) =&gt; {
+          // Move particles
+          p.x += p.vx;
+          p.y += p.vy;
+
+          // Bounce off walls
+          if (p.x &lt; 0 || p.x &gt; this.width) p.vx *= -1;
+          if (p.y &lt; 0 || p.y &gt; this.height) p.vy *= -1;
+
+          // Mouse interaction
+          if (this.mouse.down) {
+            const dx = p.x - this.mouse.x;
+            const dy = p.y - this.mouse.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const force = Math.max(0, 1 - distance / 150);
+            const angle = Math.atan2(dy, dx);
+            p.vx += (Math.cos(angle) * force * 0.5);
+            p.vy += (Math.sin(angle) * force * 0.5);
+          }
+
+          // Life cycle
+          p.life++;
+          if (p.life &gt; p.maxLife) {
+            this.particles[i] = this.createParticle();
+          }
+
+          // Velocity damping
+          p.vx *= 0.99;
+          p.vy *= 0.99;
+        });
+      }
+
+      draw() {
+        // Clear with transparent black for trailing effect
+        this.ctx.fillStyle = &#x27;rgba(10, 10, 18, 0.1)&#x27;;
+        this.ctx.fillRect(0, 0, this.width, this.height);
+
+        // Draw particles
+        this.particles.forEach(p =&gt; {
+          this.ctx.beginPath();
+          this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          this.ctx.fillStyle = `rgba(${hexToRgb(p.color)}, ${p.alpha * (p.life / p.maxLife)})`;
+          this.ctx.fill();
+
+          // Draw glow
+          this.ctx.shadowBlur = p.radius * 2;
+          this.ctx.shadowColor = p.color;
+          this.ctx.fill();
+          this.ctx.shadowBlur = 0;
+
+          // Draw connections to nearby particles
+          this.particles.forEach(other =&gt; {
+            if (p === other) return;
+            const dx = p.x - other.x;
+            const dy = p.y - other.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance &lt; 120) {
+              this.ctx.beginPath();
+              this.ctx.moveTo(p.x, p.y);
+              this.ctx.lineTo(other.x, other.y);
+              this.ctx.strokeStyle = `rgba(${hexToRgb(p.color)}, ${0.3 * (1 - distance / 120)})`;
+              this.ctx.lineWidth = 0.5;
+              this.ctx.stroke();
+            }
+          });
+        });
+      }
+
+      bindEvents() {
+        // Mouse events
+        this.canvas.addEventListener(&#x27;mousemove&#x27;, (e) =&gt; {
+          const rect = this.canvas.getBoundingClientRect();
+          this.mouse.x = e.clientX - rect.left;
+          this.mouse.y = e.clientY - rect.top;
+        });
+
+        this.canvas.addEventListener(&#x27;mousedown&#x27;, () =&gt; {
+          this.mouse.down = true;
+        });
+
+        this.canvas.addEventListener(&#x27;mouseup&#x27;, () =&gt; {
+          this.mouse.down = false;
+        });
+
+        this.canvas.addEventListener(&#x27;mouseleave&#x27;, () =&gt; {
+          this.mouse.down = false;
+        });
+
+        // Touch events
+        this.canvas.addEventListener(&#x27;touchmove&#x27;, (e) =&gt; {
+          e.preventDefault();
+          const touch = e.touches[0];
+          const rect = this.canvas.getBoundingClientRect();
+          this.mouse.x = touch.clientX - rect.left;
+          this.mouse.y = touch.clientY - rect.top;
+        }, { passive: false });
+
+        this.canvas.addEventListener(&#x27;touchstart&#x27;, (e) =&gt; {
+          e.preventDefault();
+          const touch = e.touches[0];
+          const rect = this.canvas.getBoundingClientRect();
+          this.mouse.x = touch.clientX - rect.left;
+          this.mouse.y = touch.clientY - rect.top;
+          this.mouse.down = true;
+        }, { passive: false });
+
+        this.canvas.addEventListener(&#x27;touchend&#x27;, () =&gt; {
+          this.mouse.down = false;
+        });
+
+        // Button events
+        document.getElementById(&#x27;reset-btn&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+          this.particles = [];
+          for (let i = 0; i &lt; 150; i++) {
+            this.particles.push(this.createParticle());
+          }
+        });
+
+        document.getElementById(&#x27;toggle-motion&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+          this.motionEnabled = !this.motionEnabled;
+          const btn = document.getElementById(&#x27;toggle-motion&#x27;);
+          btn.textContent = this.motionEnabled ? &#x27;움직임 중지&#x27; : &#x27;움직임 시작&#x27;;
+        });
+
+        document.getElementById(&#x27;change-color&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+          this.currentColorIndex = (this.currentColorIndex + 1) % this.colors.length;
+          this.particles.forEach(p =&gt; {
+            p.color = this.colors[this.currentColorIndex];
+          });
+        });
+
+        // Window resize
+        window.addEventListener(&#x27;resize&#x27;, () =&gt; {
+          this.resizeCanvas();
+        });
+
+        // Accessibility toggle
+        document.querySelector(&#x27;.accessibility-toggle&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+          document.body.classList.toggle(&#x27;high-contrast&#x27;);
+          document.body.classList.toggle(&#x27;reduced-motion&#x27;);
+        });
+      }
+
+      resizeCanvas() {
+        this.width = this.canvas.clientWidth;
+        this.height = this.canvas.clientHeight;
+        this.canvas.width = this.width * window.devicePixelRatio;
+        this.canvas.height = this.height * window.devicePixelRatio;
+        this.ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      }
+
+      animate() {
+        this.update();
+        this.draw();
+        requestAnimationFrame(() =&gt; this.animate());
+      }
+    }
+
+    // Helper function to convert hex to rgb
+    function hexToRgb(hex) {
+      const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+      hex = hex.replace(shorthandRegex, (m, r, g, b) =&gt; r + r + g + g + b + b);
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : null;
+    }
+
+    // Initialize when DOM is loaded
+    document.addEventListener(&#x27;DOMContentLoaded&#x27;, () =&gt; {
+      const canvas = document.getElementById(&#x27;particle-canvas&#x27;);
+      const particleSystem = new ParticleSystem(canvas);
+
+      // Set initial button text
+      document.getElementById(&#x27;toggle-motion&#x27;).textContent = &#x27;움직임 중지&#x27;;
+
+      // Handle prefers-reduced-motion media query
+      const mediaQuery = window.matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;);
+      const handleReduceMotion = (e) =&gt; {
+        if (e.matches) {
+          particleSystem.motionEnabled = false;
+          document.getElementById(&#x27;toggle-motion&#x27;).textContent = &#x27;움직임 시작&#x27;;
+        } else {
+          particleSystem.motionEnabled = true;
+          document.getElementById(&#x27;toggle-motion&#x27;).textContent = &#x27;움직임 중지&#x27;;
+        }
+      };
+      handleReduceMotion(mediaQuery);
+      mediaQuery.addEventListener(&#x27;change&#x27;, handleReduceMotion);
+
+      // Handle prefers-contrast media query
+      const contrastQuery = window.matchMedia(&#x27;(prefers-contrast: high)&#x27;);
+      const handleContrast = (e) =&gt; {
+        if (e.matches) {
+          document.body.classList.add(&#x27;high-contrast&#x27;);
+        } else {
+          document.body.classList.remove(&#x27;high-contrast&#x27;);
+        }
+      };
+      handleContrast(contrastQuery);
+      contrastQuery.addEventListener(&#x27;change&#x27;, handleContrast);
+
+      // Handle prefers-color-scheme media query
+      const colorSchemeQuery = window.matchMedia(&#x27;(prefers-color-scheme: light)&#x27;);
+      const handleColorScheme = (e) =&gt; {
+        if (e.matches) {
+          document.body.classList.add(&#x27;light-mode&#x27;);
+        } else {
+          document.body.classList.remove(&#x27;light-mode&#x27;);
+        }
+      };
+      handleColorScheme(colorSchemeQuery);
+      colorSchemeQuery.addEventListener(&#x27;change&#x27;, handleColorScheme);
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+[&quot;docs/models/nemotron-super-3-120b/artwork.html:136: Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px). Required repair: Use at least 19px for informative text and controls while retaining the chosen composition. Preserve your chosen expressive concept and medium.&quot;, &quot;docs/models/nemotron-super-3-120b/artwork.html:38: At 375px the centered fixed-height flex document clips the heading above the viewport and collapses the canvas to zero height; the color control extends below the viewport. Required repair: Let the chosen content remain reachable and the artwork keep a usable nonzero size on mobile; use natural document flow/scrolling as needed. Preserve your chosen expressive concept and medium.&quot;, &quot;docs/models/nemotron-super-3-120b/artwork.html:286: The accessibility settings control is a clickable div with no keyboard focus or keyboard activation. Required repair: Make this existing action operable and named for keyboard users. Preserve your chosen expressive concept and medium.&quot;, &quot;docs/models/nemotron-super-3-120b/artwork.html:481: The accessibility settings action only toggles high-contrast/reduced-motion classes that have no matching rules or runtime effect. Required repair: Connect the existing accessibility action to real contrast/motion behavior or accurately remove its unsupported claim. Preserve your chosen expressive concept and medium.&quot;]
+
+Return the complete repaired HTML now.</pre><a href="prompt.txt" target="_blank" rel="noopener">프롬프트 원문 열기 ↗</a></details></div></dialog><dialog id="cost-dialog" class="prompt-dialog" aria-labelledby="cost-title"><div class="prompt-heading"><h2 id="cost-title">nemotron-super-3-120b · 구현 비용</h2><button type="button" data-close-cost autofocus>닫기</button></div><div class="prompt-content"><p class="cost-total">생성·수정 ≈ $0.007267</p><p>이번 작품의 작성·재요청·수정 2회 합계입니다. 최종 응답 요청: $0.004175.</p><p>반환된 입력·출력·캐시 읽기·쓰기 토큰을 설정 단가로 계산했습니다. 완성 전 잘린 응답과 수정 요청도 사용량이 기록돼 있으면 합산합니다. 출력 토큰에 포함된 추론 토큰은 중복 계산하지 않습니다.</p><p>입력 5,433 · 출력 9,926 · 캐시 읽기 0 · 캐시 쓰기 0</p><div class="cost-table"><table><thead><tr><th>요청</th><th>결과</th><th>추정 USD</th></tr></thead><tbody><tr><td>1</td><td>코드 반환</td><td>$0.003092</td></tr><tr><td>2</td><td>코드 반환</td><td>$0.004175</td></tr></tbody></table></div><p>현재 config.toml의 단가 기준 추정치이며 실제 청구서가 아닙니다. 이전 세대의 작품, 운영 도구·검수 모델 호출, 세금·할인은 포함하지 않습니다.</p><details><summary>적용 단가 · USD / 백만 토큰 또는 GPU 시간</summary><pre>{
+  &quot;price_in&quot;: 0.15,
+  &quot;price_out&quot;: 0.65
+}</pre></details><a href="implementation-cost.json" target="_blank" rel="noopener">비용 계산·요청 기록 원문 ↗</a></div></dialog></body></html>

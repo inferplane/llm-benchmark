@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>롯데월드타워 설계 과정 — 개념 재구성</title>
+<style>
+:root{--bg:#0e1116;--panel:#171c24;--ink:#e8ecf2;--mute:#9aa6b8;--acc:#e0a44a;--line:#2a3240;--blue:#6fb6ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+header{padding:16px 20px 8px;border-bottom:1px solid var(--line)}
+h1{margin:0;font-size:1.35rem;font-weight:600;letter-spacing:.02em}
+header p{margin:4px 0 0;color:var(--mute);font-size:.9rem}
+.badge{display:inline-block;background:#24303f;color:var(--blue);padding:2px 8px;border-radius:4px;font-size:.78rem;margin-left:8px}
+main{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;padding:12px 20px 24px}
+section{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px}
+h2{font-size:1rem;margin:0 0 8px;color:var(--acc);font-weight:600}
+.dw{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+figure{margin:0;background:#0b0e13;border:1px solid var(--line);border-radius:6px;padding:6px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:.78rem;color:var(--mute);margin-top:4px}
+.view{position:relative;height:420px;background:#0b0e13;border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+.view canvas{width:100%;height:100%;display:block;outline:none}
+.view canvas:focus{box-shadow:inset 0 0 0 2px var(--blue)}
+.ctl{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+button{background:#232c38;color:var(--ink);border:1px solid #3a4557;border-radius:6px;padding:6px 10px;font-size:.85rem;cursor:pointer}
+button:hover{border-color:var(--acc)}
+button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+button[aria-pressed="true"]{background:var(--acc);color:#1a1200;border-color:var(--acc);font-weight:600}
+label{font-size:.85rem;color:var(--mute)}
+input[type=range]{width:100%;accent-color:var(--acc)}
+.note{font-size:.82rem;color:var(--mute);margin:6px 0 0}
+.est{color:#f0c48a}
+.desc{font-size:.88rem;min-height:4.5em;margin:0 0 6px}
+.hint{position:absolute;left:8px;bottom:6px;font-size:.72rem;color:var(--mute);pointer-events:none}
+.fail{display:flex;align-items:center;justify-content:center;height:100%;color:var(--mute);padding:20px;text-align:center}
+footer{padding:0 20px 20px;font-size:.8rem;color:var(--mute)}
+footer a{color:var(--blue)}
+@media(max-width:1100px){main{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){main{grid-template-columns:1fr;padding:10px}.view{height:340px}}
+</style>
+</head>
+<body>
+<header>
+<h1>롯데월드타워 — 설계 과정 인터랙티브 재구성 <span class="badge">claude-fable-5.1</span></h1>
+<p>서울 잠실, 높이 555 m · 지상 123층. 위로 갈수록 좁아지는 형태와 한국 도자기의 선(KPF 설명)을 공개 자료로 재해석한 <strong class="est">설명용 개념 모델</strong>입니다. 공식 시공 도면·검증 구조 설계가 아니며, <span class="est">주황색 표시</span>는 추정 치수입니다.</p>
+</header>
+<main>
+<section aria-labelledby="h-dw">
+<h2 id="h-dw">① 설계도면 (SVG, 단위 m)</h2>
+<div class="dw">
+<figure><svg id="svSite" viewBox="0 0 220 220" role="img" aria-label="배치도"></svg><figcaption><b>배치도</b> — 대지·타워 발자국·북향. 타워 저층 폭 <span class="est">약 72 m(추정)</span>, 주변 포디움은 개념 표현.</figcaption></figure>
+<figure><svg id="svPlan" viewBox="0 0 220 220" role="img" aria-label="기준층 평면도"></svg><figcaption><b>기준층 평면도</b> — 선택 층의 외곽. 코어 위치·크기는 <span class="est">추정</span>. 치수는 모델 함수값.</figcaption></figure>
+<figure><svg id="svElev" viewBox="0 0 220 300" role="img" aria-label="입면도"></svg><figcaption><b>입면도</b> — 전체 높이 555 m(공개값). 폭 변화 곡선은 <span class="est">개념 추정</span>.</figcaption></figure>
+<figure><svg id="svSect" viewBox="0 0 220 300" role="img" aria-label="단면도"></svg><figcaption><b>단면도</b> — 123층(공개값), 층고 평균 ≈555/123≈4.5 m. 코어·아웃리거 위치는 <span class="est">추정</span>.</figcaption></figure>
+</div>
+<label for="fl">기준층 선택: <b id="flv">60</b>층 (높이 <b id="flh">0</b> m) — 도면·3D 모델에 동시에 표시</label>
+<input id="fl" type="range" min="1" max="123" value="60" aria-label="층 선택">
+</section>
+
+<section aria-labelledby="h-st">
+<h2 id="h-st">② 설계 발전 단계</h2>
+<div class="ctl" role="group" aria-label="설계 단계">
+<button data-s="0" aria-pressed="true">1 배치·매스</button>
+<button data-s="1" aria-pressed="false">2 테이퍼</button>
+<button data-s="2" aria-pressed="false">3 도자기 곡선</button>
+<button data-s="3" aria-pressed="false">4 외피·정점</button>
+</div>
+<p class="desc" id="desc"></p>
+<div class="view"><canvas id="c1" tabindex="0" aria-label="선택 단계 3D 모델. 드래그 회전, 휠 확대, 방향키 회전"></canvas><div class="hint">드래그 회전 · 휠/핀치 확대 · 방향키</div></div>
+<div class="ctl"><button id="r1">시점 초기화</button><span class="note">입면도의 윤곽선이 현재 단계 형상으로 갱신됩니다.</span></div>
+</section>
+
+<section aria-labelledby="h-fn">
+<h2 id="h-fn">③ 완성 모델 (555 m · 123층)</h2>
+<p class="desc">단계 4의 형상에 층 띠·외피 분할선·정점 랜턴을 더한 최종 개념 모델. 노란 띠 = 선택한 기준층 높이.</p>
+<div class="view"><canvas id="c2" tabindex="0" aria-label="완성 3D 모델. 드래그 회전, 휠 확대, 방향키 회전"></canvas><div class="hint">드래그 회전 · 휠/핀치 확대 · 방향키</div></div>
+<div class="ctl"><button id="r2">시점 초기화</button><button id="spin" aria-pressed="false">자동 회전</button></div>
+<p class="note">근거: 높이 555 m, 123층, 상부 축소 형태 — 공개 자료. 저층 폭·곡률·코어·랜턴 치수 — <span class="est">추정</span>.</p>
+</section>
+</main>
+<footer>참고(텍스트 출처, 실행 중 접속하지 않음): KPF — kpf.com/project/lotte-world-tower · LERA — lera.com/lotte-world-tower. 생성 모델: claude-fable-5.1 (us.anthropic.claude-fable-5-1)</footer>
+<script src="../runtime/three-runtime.js"></script>
+<script>
+(function(){
+const H=555,FLOORS=123,BASE=36,TOP=13;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let stage=0,floor=60,spin=false;
+const DESC=[
+ '대지 위에 발자국(저층 폭 약 72 m, 추정)을 잡고 555 m 높이의 단순 직육면체 매스를 세워 규모와 배치를 검토하는 단계.',
+ '위로 갈수록 기준층 면적을 줄이는 테이퍼 적용. 상부 폭은 약 26 m(추정)로 수렴하며 구조 효율과 조망을 함께 고려한 개념.',
+ '직선 테이퍼를 한국 도자기의 완만한 곡선으로 바꾸고, 모서리를 둥글려 네모난 저층이 상부에서 부드러운 타원형에 가까워지도록 변화.',
+ '유리 외피의 수직 분할선과 정상부의 열린 랜턴(추정)을 더해 외관을 정리. 완성 모델(③)의 기초 형상.'
+];
+function hw(t,s){ if(s===0)return BASE; if(s===1)return BASE+(TOP-BASE)*t; return TOP+(BASE-TOP)*Math.pow(1-t,1.35); }
+function nExp(t,s){ return s<2?12:(6-3.6*t); }
+function ring(t,s,n){const a=[],r=hw(t,s),e=nExp(t,s);for(let i=0;i<n;i++){const th=i/n*Math.PI*2,c=Math.cos(th),si=Math.sin(th);a.push([r*Math.sign(c)*Math.pow(Math.abs(c),2/e),r*Math.sign(si)*Math.pow(Math.abs(si),2/e)]);}return a;}
+
+/* ---------- SVG drawings ---------- */
+const S=(id)=>document.getElementById(id);
+function el(n,at){const e=document.createElementNS('http://www.w3.org/2000/svg',n);for(const k in at)e.setAttribute(k,at[k]);return e;}
+function txt(p,x,y,s,o){const t=el('text',Object.assign({x,y,fill:'#c6d0de','font-size':7,'font-family':'sans-serif'},o||{}));t.textContent=s;p.appendChild(t);return t;}
+function clear(p){while(p.firstChild)p.removeChild(p.firstChild);}
+function drawSite(){const p=S('svSite');clear(p);
+ p.appendChild(el('rect',{x:20,y:20,width:180,height:180,fill:'#121a22',stroke:'#4a5a70','stroke-dasharray':'4 2'}));
+ p.appendChild(el('rect',{x:30,y:110,width:160,height:80,fill:'#1b2531',stroke:'#3a4a60'}));
+ const rg=ring(0,stage,64),cx=110,cy=96,k=1.2;
+ p.appendChild(el('polygon',{points:rg.map(q=>(cx+q[0]*k)+','+(cy-q[1]*k)).join(' '),fill:'#2b4a6e',stroke:'#e0a44a','stroke-width':1.2}));
+ txt(p,70,100,'타워 발자국 '+(2*BASE)+' m*',{fill:'#f0c48a'});txt(p,36,152,'저층부 포디움 (개념)');txt(p,22,15,'대지 경계 (개념)');
+ txt(p,172,36,'N',{fill:'#fff','font-size':9});p.appendChild(el('path',{d:'M176 60 L176 42 M172 46 L176 42 L180 46',stroke:'#fff',fill:'none'}));
+ p.appendChild(el('path',{d:'M30 208 L90 208',stroke:'#c6d0de','stroke-width':2}));txt(p,30,217,'0');txt(p,84,217,'50 m');txt(p,120,217,'*추정',{fill:'#f0c48a'});
+}
+function drawPlan(){const p=S('svPlan');clear(p);const t=(floor-1)/(FLOORS-1),rg=ring(t,stage,96),w=hw(t,stage),cx=110,cy=105,k=2.2;
+ p.appendChild(el('polygon',{points:ring(0,stage,96).map(q=>(cx+q[0]*k)+','+(cy-q[1]*k)).join(' '),fill:'none',stroke:'#3a4a60','stroke-dasharray':'3 2'}));
+ p.appendChild(el('polygon',{points:rg.map(q=>(cx+q[0]*k)+','+(cy-q[1]*k)).join(' '),fill:'#1f3550',stroke:'#e0a44a','stroke-width':1.3}));
+ const c=Math.max(5,w*0.42)*k;p.appendChild(el('rect',{x:cx-c/2,y:cy-c/2,width:c,height:c,fill:'#3c2f1a',stroke:'#f0c48a'}));
+ txt(p,cx-10,cy+3,'코어*',{fill:'#f0c48a','font-size':6.5});
+ const y=cy+w*k+10;p.appendChild(el('path',{d:'M'+(cx-w*k)+' '+y+' L'+(cx+w*k)+' '+y,stroke:'#c6d0de'}));
+ txt(p,cx-18,y+9,(2*w).toFixed(1)+' m*',{fill:'#f0c48a'});
+ txt(p,8,12,floor+'층 평면 (바닥 '+Math.round((floor-1)*H/FLOORS)+' m)');txt(p,8,212,'점선=1층 외곽 · *추정');
+}
+function elevPath(s){const pts=[];for(let i=0;i<=60;i++){const t=i/60;pts.push([hw(t,s),t]);}return pts;}
+function drawElevLike(p,isSect){clear(p);const cx=110,yb=270,k=0.42,pts=elevPath(stage);
+ const L=pts.map(q=>(cx-q[0]*k*1.0)+','+(yb-q[1]*H*k)),R=pts.slice().reverse().map(q=>(cx+q[0]*k)+','+(yb-q[1]*H*k));
+ p.appendChild(el('path',{d:'M20 '+yb+' L200 '+yb,stroke:'#6a7a90'}));
+ p.appendChild(el('polygon',{points:L.concat(R).join(' '),fill:isSect?'#141c26':'#1f3550',stroke:'#dfe6f0','stroke-width':1}));
+ if(isSect){for(let f=0;f<=FLOORS;f+=3){const t=f/FLOORS,w=hw(t,stage)*k;p.appendChild(el('path',{d:'M'+(cx-w)+' '+(yb-t*H*k)+' L'+(cx+w)+' '+(yb-t*H*k),stroke:'#2e3c50','stroke-width':.5}));}
+  const cw=hw(0,stage)*0.42*k;p.appendChild(el('rect',{x:cx-cw/2,y:yb-H*k*0.97,width:cw,height:H*k*0.97,fill:'#3c2f1a',stroke:'#f0c48a','stroke-width':.6}));
+  [0.3,0.6].forEach(t=>{const w=hw(t,stage)*k;p.appendChild(el('path',{d:'M'+(cx-w)+' '+(yb-t*H*k)+' L'+(cx+w)+' '+(yb-t*H*k),stroke:'#f0c48a','stroke-width':1.5}));});
+  txt(p,cx+hw(0.3,stage)*k+3,yb-0.3*H*k,'아웃리거*',{fill:'#f0c48a','font-size':6});txt(p,cx-8,yb-30,'코어*',{fill:'#f0c48a','font-size':6});
+ }else if(stage>=3){for(let i=-3;i<=3;i++){if(!i)continue;const d=pts.map(q=>(cx+q[0]*k*i/3.6)+','+(yb-q[1]*H*k));p.appendChild(el('polyline',{points:d.join(' '),fill:'none',stroke:'#3d5a80','stroke-width':.5}));}}
+ const ty=yb-(floor-1)/FLOORS*H*k;p.appendChild(el('path',{d:'M30 '+ty+' L190 '+ty,stroke:'#ffd34d','stroke-width':1,'stroke-dasharray':'3 2'}));
+ txt(p,150,ty-2,floor+'F',{fill:'#ffd34d'});
+ p.appendChild(el('path',{d:'M206 '+yb+' L206 '+(yb-H*k),stroke:'#c6d0de'}));txt(p,196,yb-H*k-4,'555 m',{fill:'#fff'});txt(p,198,yb+9,'0 m');
+ txt(p,8,12,isSect?'종단면 (개념)':'입면 — 단계 '+(stage+1));txt(p,8,290,isSect?'*추정 부재 · 층선 3층마다':'폭 저층 '+(2*hw(0,stage)).toFixed(0)+' m* / 상부 '+(2*hw(1,stage)).toFixed(0)+' m*',{fill:'#f0c48a'});
+}
+function drawAll(){drawSite();drawPlan();drawElevLike(S('svElev'),false);drawElevLike(S('svSect'),true);
+ S('flv').textContent=floor;S('flh').textContent=Math.round((floor-1)*H/FLOORS);}
+
+/* ---------- 3D ---------- */
+const ok=typeof THREE!=='undefined'&&THREE.OrbitControls;
+function towerGeom(s,rings,segs){const pos=[],idx=[];for(let j=0;j<=rings;j++){const t=j/rings,r=ring(t,s,segs);for(let i=0;i<segs;i++)pos.push(r[i][0],t*H,r[i][1]);}
+ for(let j=0;j<rings;j++)for(let i=0;i<segs;i++){const a=j*segs+i,b=j*segs+(i+1)%segs,c=a+segs,d=b+segs;idx.push(a,c,b,b,c,d);}
+ const top=pos.length/3;pos.push(0,H,0);for(let i=0;i<segs;i++)idx.push(rings*segs+i,top,rings*segs+(i+1)%segs);
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();return g;}
+function makeViewer(cv,withDetail){
+ const r=new THREE.WebGLRenderer({canvas:cv,antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));
+ const sc=new THREE.Scene();sc.background=new THREE.Color(0x0b0e13);sc.fog=new THREE.Fog(0x0b0e13,900,2200);
+ const cam=new THREE.PerspectiveCamera(40,1,1,5000);const home=new THREE.Vector3(620,420,720);cam.position.copy(home);
+ const ct=new THREE.OrbitControls(cam,cv);ct.target.set(0,260,0);ct.enableDamping=!reduce;ct.maxDistance=2500;ct.minDistance=80;ct.listenToKeyEvents&&ct.listenToKeyEvents(cv);
+ sc.add(new THREE.HemisphereLight(0xcfe3ff,0x2a2418,0.9));const sun=new THREE.DirectionalLight(0xfff0d8,1.1);sun.position.set(400,700,300);sc.add(sun);
+ const g=new THREE.Mesh(new THREE.PlaneGeometry(1400,1400),new THREE.MeshStandardMaterial({color:0x1a222c,roughness:1}));g.rotation.x=-Math.PI/2;sc.add(g);
+ const grid=new THREE.GridHelper(1400,28,0x334455,0x222c38);grid.position.y=0.2;sc.add(grid);
+ const pod=new THREE.Mesh(new THREE.BoxGeometry(150,30,80),new THREE.MeshStandardMaterial({color:0x2a3340}));pod.position.set(0,15,95);sc.add(pod);
+ const grp=new THREE.Group();sc.add(grp);
+ const hl=new THREE.Mesh(new THREE.CylinderGeometry(1,1,1.6,64,1,true),new THREE.MeshBasicMaterial({color:0xffd34d,side:THREE.DoubleSide}));sc.add(hl);
+ function build(s){while(grp.children.length)grp.remove(grp.children[0]);
+  const mat=new THREE.MeshStandardMaterial({color:s>=3?0x6f9fcf:0xb9c6d4,metalness:s>=3?0.6:0.1,roughness:s>=3?0.25:0.7,transparent:s>=3,opacity:s>=3?0.92:1});
+  const m=new THREE.Mesh(towerGeom(s,s<2?2:60,s<2?64:96),mat);grp.add(m);
+  if(s>=3||withDetail){const pts=[];const segs=96;
+   for(let f=0;f<=FLOORS;f+=withDetail?4:10){const t=f/FLOORS,rg=ring(t,3,segs);for(let i=0;i<segs;i++){const a=rg[i],b=rg[(i+1)%segs];pts.push(a[0],t*H+0.3,a[1],b[0],t*H+0.3,b[1]);}}
+   for(let i=0;i<segs;i+=8){for(let j=0;j<60;j++){const a=ring(j/60,3,segs)[i],b=ring((j+1)/60,3,segs)[i];pts.push(a[0]*1.003,j/60*H,a[1]*1.003,b[0]*1.003,(j+1)/60*H,b[1]*1.003);}}
+   const lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.Float32BufferAttribute(pts,3));
+   grp.add(new THREE.LineSegments(lg,new THREE.LineBasicMaterial({color:0xdfeeff,transparent:true,opacity:0.35})));
+   const lan=new THREE.Mesh(new THREE.CylinderGeometry(TOP*0.55,TOP*0.95,26,48,1,true),new THREE.MeshStandardMaterial({color:0xffe6b0,emissive:0x604010,side:THREE.DoubleSide,transparent:true,opacity:0.6}));lan.position.y=H-12;grp.add(lan);}
+  if(s===0){const sb=new THREE.Mesh(new THREE.BoxGeometry(2*BASE+20,0.5,2*BASE+20),new THREE.MeshBasicMaterial({color:0xe0a44a}));sb.position.y=0.4;grp.add(sb);}
+ }
+ function setFloor(f,s){const t=(f-1)/FLOORS,w=hw(t,s)+1.5;hl.scale.set(w,1,w);hl.position.y=t*H;}
+ function size(){const w=cv.clientWidth||300,h=cv.clientHeight||300;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();}
+ function reset(){cam.position.copy(home);ct.target.set(0,260,0);ct.update();}
+ let auto=false;
+ function loop(){if(auto&&!reduce)grp.rotation.y+=0.003;ct.update();r.render(sc,cam);requestAnimationFrame(loop);}
+ size();loop();addEventListener('resize',size);
+ return{build,setFloor,reset,setAuto:v=>{auto=v;},spinOnce:()=>{grp.rotation.y+=Math.PI/12;}};
+}
+let v1=null,v2=null;
+if(ok){try{v1=makeViewer(S('c1'),false);v2=makeViewer(S('c2'),true);v2.build(3);}catch(e){ok2(e);}}else ok2();
+function ok2(e){['c1','c2'].forEach(id=>{const c=S(id);const d=document.createElement('div');d.className='fail';d.textContent='3D 런타임(../runtime/three-runtime.js)을 불러올 수 없어 3D 뷰를 표시하지 못했습니다. 도면은 정상 동작합니다.'+(e?' ('+e.message+')':'');c.parentNode.replaceChild(d,c);});}
+
+function update(){drawAll();if(v1){v1.build(stage);v1.setFloor(floor,stage);}if(v2)v2.setFloor(floor,3);S('desc').textContent=DESC[stage];}
+document.querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',()=>{stage=+b.dataset.s;document.querySelectorAll('[data-s]').forEach(x=>x.setAttribute('aria-pressed',x===b));update();}));
+S('fl').addEventListener('input',e=>{floor=+e.target.value;update();});
+S('r1').addEventListener('click',()=>v1&&v1.reset());S('r2').addEventListener('click',()=>v2&&v2.reset());
+S('spin').addEventListener('click',e=>{spin=!spin;e.currentTarget.setAttribute('aria-pressed',spin);if(v2){v2.setAuto(spin);if(reduce&&spin)v2.spinOnce();}});
+update();
+})();
+</script>
+</body>
+</html>

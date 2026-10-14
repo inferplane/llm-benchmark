@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>롯데월드타워 설계 과정 인터랙티브 뷰어 · gpt-5.4</title>
+<style>
+  :root{
+    --bg:#0b1020;
+    --panel:#121a31;
+    --panel2:#182241;
+    --ink:#eef3ff;
+    --muted:#b8c4e6;
+    --line:#3a4a7a;
+    --accent:#7fd3ff;
+    --accent2:#9ef0c8;
+    --warn:#ffd27a;
+    --danger:#ff9aa2;
+    --shadow:0 10px 30px rgba(0,0,0,.28);
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Pretendard,Apple SD Gothic Neo,Noto Sans KR,sans-serif;
+    background:
+      radial-gradient(circle at 20% 0%, #1a2750 0%, transparent 35%),
+      radial-gradient(circle at 100% 20%, #12354a 0%, transparent 30%),
+      linear-gradient(180deg,#09101f,#0d1326 45%,#0a1020);
+    color:var(--ink);
+  }
+  .app{
+    display:grid;
+    grid-template-columns: 380px 1fr;
+    min-height:100vh;
+    gap:14px;
+    padding:14px;
+  }
+  .sidebar,.main{
+    min-width:0;
+  }
+  .sidebar{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .card{
+    background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.015));
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .card .hd{
+    padding:14px 16px 10px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    background:linear-gradient(180deg,rgba(255,255,255,.03),transparent);
+  }
+  .card .bd{padding:14px 16px}
+  h1,h2,h3,p{margin:0}
+  h1{font-size:1.2rem; line-height:1.3}
+  h2{font-size:1rem; margin-bottom:8px}
+  h3{font-size:.95rem; margin-bottom:8px}
+  .sub{color:var(--muted); font-size:.92rem; line-height:1.5}
+  .tiny{font-size:.82rem; color:var(--muted); line-height:1.45}
+  .badge{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:6px 10px; border-radius:999px;
+    background:rgba(127,211,255,.12); color:var(--accent);
+    border:1px solid rgba(127,211,255,.25);
+    font-size:.82rem; font-weight:700;
+  }
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+  .facts{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;
+  }
+  .fact{
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:12px; padding:10px;
+  }
+  .fact .k{font-size:.78rem; color:var(--muted)}
+  .fact .v{font-size:1rem; font-weight:700; margin-top:4px}
+  .controls{
+    display:grid; gap:12px;
+  }
+  .seg{
+    display:flex; flex-wrap:wrap; gap:8px;
+  }
+  button, .btnlike{
+    appearance:none; border:none; cursor:pointer;
+    background:var(--panel2); color:var(--ink);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:12px; padding:10px 12px;
+    font:inherit;
+  }
+  button:hover{filter:brightness(1.08)}
+  button:focus-visible, input:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+  .seg button.active{
+    background:linear-gradient(180deg,rgba(127,211,255,.22),rgba(127,211,255,.12));
+    border-color:rgba(127,211,255,.45);
+    color:#fff;
+  }
+  .rangeRow{display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center}
+  input[type="range"]{width:100%}
+  .legend{
+    display:grid; gap:8px;
+  }
+  .legend .item{
+    display:grid; grid-template-columns:14px 1fr; gap:10px; align-items:start;
+    font-size:.9rem; color:var(--muted);
+  }
+  .sw{width:14px;height:14px;border-radius:4px;border:1px solid rgba(255,255,255,.2)}
+  .main{
+    display:grid;
+    grid-template-rows: minmax(360px, 58vh) auto;
+    gap:14px;
+  }
+  .viewerWrap{
+    position:relative;
+    min-height:360px;
+  }
+  #viewer{
+    width:100%; height:100%;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0)),
+      radial-gradient(circle at 50% 0%, rgba(127,211,255,.08), transparent 35%);
+  }
+  .overlay{
+    position:absolute; inset:0; pointer-events:none;
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:14px;
+  }
+  .overlayTop,.overlayBottom{
+    display:flex; justify-content:space-between; gap:10px; align-items:flex-start;
+  }
+  .pill{
+    pointer-events:auto;
+    background:rgba(10,16,32,.72);
+    backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:12px;
+    padding:10px 12px;
+    max-width:min(420px, 100%);
+  }
+  .pill strong{display:block; margin-bottom:4px}
+  .toolbar{
+    display:flex; gap:8px; flex-wrap:wrap; pointer-events:auto;
+  }
+  .toolbar button{background:rgba(10,16,32,.78)}
+  .bottomGrid{
+    display:grid; grid-template-columns: 1.1fr .9fr;
+    gap:14px;
+  }
+  .drawings{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px;
+  }
+  .drawingCard canvas{
+    width:100%; height:auto; display:block;
+    background:#f7fbff;
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+  .drawingMeta{
+    padding:10px 12px;
+    background:#eef5ff;
+    color:#1b2748;
+    border-top:1px solid #d7e4ff;
+  }
+  .drawingMeta .title{font-weight:800; margin-bottom:4px}
+  .drawingMeta .desc{font-size:.86rem; line-height:1.45}
+  .mapping{
+    display:grid; gap:10px;
+  }
+  .mapRow{
+    padding:10px 12px; border-radius:12px;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .mapRow strong{color:#fff}
+  a{color:var(--accent)}
+  .note{
+    margin-top:10px; padding:10px 12px; border-radius:12px;
+    background:rgba(255,210,122,.08); border:1px solid rgba(255,210,122,.22);
+    color:#ffe8b3; font-size:.88rem; line-height:1.5;
+  }
+  .sr-only{
+    position:absolute!important; width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+  }
+  @media (max-width: 1100px){
+    .app{grid-template-columns:1fr}
+    .main{grid-template-rows:minmax(320px, 48vh) auto}
+    .bottomGrid{grid-template-columns:1fr}
+  }
+  @media (max-width: 760px){
+    .drawings{grid-template-columns:1fr}
+    .facts{grid-template-columns:1fr 1fr}
+    .overlayTop,.overlayBottom{flex-direction:column; align-items:stretch}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <section class="card">
+      <div class="hd">
+        <div class="badge">모델 표시: gpt-5.4</div>
+        <h1 style="margin-top:10px;">롯데월드타워 설계 과정 인터랙티브 뷰어</h1>
+        <p class="sub" style="margin-top:8px;">
+          배치도·평면도·입면도·단면도와 단계별 3D 형상, 완성 3D 모델을 한 화면 체계로 연결한 설명용 개념 재구성입니다.
+        </p>
+      </div>
+      <div class="bd">
+        <div class="facts">
+          <div class="fact"><div class="k">공개 기준 높이</div><div class="v">555 m</div></div>
+          <div class="fact"><div class="k">공개 기준 층수</div><div class="v">지상 123층</div></div>
+          <div class="fact"><div class="k">형태 특징</div><div class="v">상부로 갈수록 축소</div></div>
+          <div class="fact"><div class="k">형태 참고</div><div class="v">한국 도자기 선</div></div>
+        </div>
+        <div class="note">
+          이 페이지는 공개 설명 자료를 바탕으로 한 <strong>개념적 시각화</strong>입니다. 공식 시공 도면, 검증된 구조 설계, 실제 상세 치수로 사용하면 안 됩니다. 공개 자료에 없는 치수·단면·부재는 추정값으로 표현했습니다.
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="hd"><h2>3D 보기 제어</h2></div>
+      <div class="bd controls">
+        <div>
+          <h3>표시 모드</h3>
+          <div class="seg" id="modeButtons" role="tablist" aria-label="표시 모드">
+            <button data-mode="stage" class="active" role="tab" aria-selected="true">설계 단계</button>
+            <button data-mode="final" role="tab" aria-selected="false">완성 모델</button>
+            <button data-mode="compare" role="tab" aria-selected="false">비교 오버레이</button>
+          </div>
+        </div>
+
+        <div>
+          <h3>설계 단계</h3>
+          <div class="seg" id="stageButtons" role="tablist" aria-label="설계 단계">
+            <button data-stage="0" class="active">1. 기본 질량</button>
+            <button data-stage="1">2. 테이퍼</button>
+            <button data-stage="2">3. 분절/후퇴</button>
+            <button data-stage="3">4. 외피 정제</button>
+          </div>
+        </div>
+
+        <div>
+          <h3>층 높이 탐색</h3>
+          <div class="rangeRow">
+            <input id="floorSlider" type="range" min="1" max="123" value="60" step="1" aria-label="층 높이 탐색 슬라이더">
+            <output id="floorOut" for="floorSlider">60층</output>
+          </div>
+          <p class="tiny" style="margin-top:6px;">선택 층의 개념적 기준층 윤곽을 3D와 도면에 함께 강조합니다.</p>
+        </div>
+
+        <div class="grid2">
+          <button id="toggleWire">와이어프레임</button>
+          <button id="toggleDims">도면 치수선 표시</button>
+          <button id="resetView">시점 초기화</button>
+          <button id="topView">상부 시점</button>
+        </div>
+
+        <div class="legend">
+          <div class="item"><span class="sw" style="background:#7fd3ff"></span><span>현재 선택 설계 단계 형상</span></div>
+          <div class="item"><span class="sw" style="background:#9ef0c8"></span><span>완성 모델 형상</span></div>
+          <div class="item"><span class="sw" style="background:#ffd27a"></span><span>선택 층의 기준층 윤곽</span></div>
+          <div class="item"><span class="sw" style="background:#ff9aa2"></span><span>도면에서 강조된 대응 요소</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="hd"><h2>출처와 해석 범위</h2></div>
+      <div class="bd tiny">
+        <p>원 설계사 공개 설명: <a href="https://www.kpf.com/project/lotte-world-tower" target="_blank" rel="noopener noreferrer">KPF · Lotte World Tower</a></p>
+        <p style="margin-top:8px;">구조 설계사 공개 설명: <a href="https://www.lera.com/lotte-world-tower" target="_blank" rel="noopener noreferrer">LERA · Lotte World Tower</a></p>
+        <p style="margin-top:10px;">
+          본 페이지의 배치도, 평면도, 입면도, 단면도는 공개 사실인 높이·층수·상부 축소 형상·도자기 선 참고 개념을 중심으로 재구성했습니다. 실제 코어 형상, 구조 시스템 상세, 커튼월 분절, 피난·기계층 구성, 기초 및 부재 치수는 공개 자료에 없는 부분이므로 설명용 추정으로 단순화했습니다.
+        </p>
+      </div>
+    </section>
+  </aside>
+
+  <main class="main">
+    <section class="card viewerWrap">
+      <div id="viewer" aria-label="3차원 모델 뷰어"></div>
+      <div class="overlay">
+        <div class="overlayTop">
+          <div class="pill" id="statusPill">
+            <strong>현재 보기</strong>
+            <div class="tiny" id="statusText">설계 단계 1 · 기본 질량</div>
+          </div>
+          <div class="toolbar">
+            <button id="zoomIn" aria-label="확대">확대 +</button>
+            <button id="zoomOut" aria-label="축소">축소 −</button>
+            <button id="frontView">정면</button>
+            <button id="isoView">사시</button>
+          </div>
+        </div>
+        <div class="overlayBottom">
+          <div class="pill">
+            <strong>조작</strong>
+            <div class="tiny">마우스/손가락으로 회전, 확대/축소, 이동. 키보드: 1~4 단계 선택, F 완성 모델, C 비교, R 초기화, ←/→ 층 이동.</div>
+          </div>
+          <div class="pill" id="mappingPill">
+            <strong>도면 대응</strong>
+            <div class="tiny" id="mappingText">배치도는 타워의 대지 내 위치와 기준 축을, 평면도는 선택 층의 윤곽 변화를, 입면도·단면도는 높이 555m와 상부 축소를 함께 보여줍니다.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bottomGrid">
+      <section class="card">
+        <div class="hd"><h2>설명용 도면 세트</h2></div>
+        <div class="bd drawings">
+          <article class="drawingCard card" style="overflow:hidden;">
+            <canvas id="siteCanvas" width="700" height="460" aria-label="배치도"></canvas>
+            <div class="drawingMeta">
+              <div class="title">배치도</div>
+              <div class="desc">대지 안에서 타워의 위치, 접근 방향, 기준 축, 개념적 포디움 범위를 표시합니다. 단위는 m이며, 대지와 포디움 크기는 공개 자료에 없는 부분을 설명용으로 단순 추정했습니다.</div>
+            </div>
+          </article>
+
+          <article class="drawingCard card" style="overflow:hidden;">
+            <canvas id="planCanvas" width="700" height="460" aria-label="기준층 평면도"></canvas>
+            <div class="drawingMeta">
+              <div class="title">기준층 평면도</div>
+              <div class="desc">선택 층의 개념적 기준층 윤곽과 중심 코어를 보여줍니다. 상부로 갈수록 외곽이 줄어드는 관계를 확인할 수 있습니다. 실제 코어·실 배치는 공개 자료에 없는 추정입니다.</div>
+            </div>
+          </article>
+
+          <article class="drawingCard card" style="overflow:hidden;">
+            <canvas id="elevCanvas" width="700" height="460" aria-label="입면도"></canvas>
+            <div class="drawingMeta">
+              <div class="title">입면도</div>
+              <div class="desc">전체 높이 555m와 상부 축소 형상을 정면에서 보여줍니다. 층수는 123층 기준이며, 층고 분포는 설명용 평균화입니다.</div>
+            </div>
+          </article>
+
+          <article class="drawingCard card" style="overflow:hidden;">
+            <canvas id="sectionCanvas" width="700" height="460" aria-label="단면도"></canvas>
+            <div class="drawingMeta">
+              <div class="title">단면도</div>
+              <div class="desc">개념적 중앙 코어와 외곽, 선택 층 위치를 함께 보여줍니다. 구조 부재와 설비층 구성은 실제 상세가 아닌 설명용 단순화입니다.</div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="hd"><h2>설계 단계와 도면의 대응 관계</h2></div>
+        <div class="bd mapping" id="mappingList">
+          <div class="mapRow"><strong>1. 기본 질량</strong> — 배치도에서 타워의 자리와 축을 먼저 정하고, 평면도에서는 큰 기준 윤곽을 확인합니다.</div>
+          <div class="mapRow"><strong>2. 테이퍼</strong> — 입면도와 단면도에서 상부로 갈수록 폭이 줄어드는 전체 비례를 읽습니다.</div>
+          <div class="mapRow"><strong>3. 분절/후퇴</strong> — 평면도와 입면도에서 높이에 따라 윤곽이 단계적으로 정제되는 과정을 봅니다.</div>
+          <div class="mapRow"><strong>4. 외피 정제</strong> — 완성 모델에 가까운 매끈한 외피와 도자기 선을 연상시키는 연속 곡선을 확인합니다.</div>
+          <div class="mapRow"><strong>완성 모델</strong> — 선택 층 슬라이더를 움직이면 평면도·입면도·단면도와 3D 모델에서 같은 높이의 윤곽이 동시에 강조됩니다.</div>
+        </div>
+      </section>
+    </section>
+  </main>
+</div>
+
+<script src="../runtime/three-runtime.js"></script>
+<script>
+(() => {
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const state = {
+    mode: 'stage',
+    stage: 0,
+    floor: 60,
+    showWire: false,
+    showDims: true
+  };
+
+  const STAGES = [
+    { name:'기본 질량', desc:'대지 위에 세장한 타워 질량을 세우고 전체 높이와 대략적 폭을 먼저 잡는 단계.' },
+    { name:'테이퍼', desc:'상부로 갈수록 기준층 면적과 외곽이 줄어드는 비례를 형성하는 단계.' },
+    { name:'분절/후퇴', desc:'높이에 따라 윤곽이 조금씩 달라지는 분절감을 주어 수직성을 강화하는 단계.' },
+    { name:'외피 정제', desc:'도자기 선을 연상시키는 매끈한 외피와 모서리 정제를 통해 완성 형상에 접근하는 단계.' }
+  ];
+
+  const viewer = document.getElementById('viewer');
+  const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  viewer.appendChild(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  scene.background = null;
+
+  const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 5000);
+  camera.position.set(180, 140, 220);
+
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = !prefersReduced;
+  controls.dampingFactor = 0.08;
+  controls.target.set(0, 110, 0);
+  controls.minDistance = 60;
+  controls.maxDistance = 700;
+  controls.maxPolarAngle = Math.PI * 0.495;
+
+  scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+  const dir1 = new THREE.DirectionalLight(0xffffff, 1.2);
+  dir1.position.set(180, 260, 120);
+  scene.add(dir1);
+  const dir2 = new THREE.DirectionalLight(0x88bbff, 0.7);
+  dir2.position.set(-160, 120, -140);
+  scene.add(dir2);
+
+  const root = new THREE.Group();
+  scene.add(root);
+
+  const ground = new THREE.Mesh(
+    new THREE.CircleGeometry(220, 80),
+    new THREE.MeshPhongMaterial({ color:0x0f1730, transparent:true, opacity:0.9, side:THREE.DoubleSide })
+  );
+  ground.rotation.x = -Math.PI/2;
+  ground.position.y = -0.02;
+  root.add(ground);
+
+  const grid = new THREE.GridHelper(360, 24, 0x3a4a7a, 0x243252);
+  grid.position.y = 0;
+  root.add(grid);
+
+  const axis = new THREE.Group();
+  const axisMatX = new THREE.LineBasicMaterial({ color:0xff9aa2 });
+  const axisMatZ = new THREE.LineBasicMaterial({ color:0x7fd3ff });
+  axis.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-120,0,0), new THREE.Vector3(120,0,0)]), axisMatX));
+  axis.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,-120), new THREE.Vector3(0,0,120)]), axisMatZ));
+  root.add(axis);
+
+  const modelGroup = new THREE.Group();
+  root.add(modelGroup);
+
+  const stageMaterial = new THREE.MeshPhongMaterial({
+    color:0x7fd3ff, emissive:0x0d1f33, shininess:70, transparent:true, opacity:0.92, side:THREE.DoubleSide
+  });
+  const finalMaterial = new THREE.MeshPhongMaterial({
+    color:0x9ef0c8, emissive:0x10261f, shininess:90, transparent:true, opacity:0.88, side:THREE.DoubleSide
+  });
+  const compareMaterial = new THREE.MeshPhongMaterial({
+    color:0xffffff, emissive:0x111111, shininess:40, transparent:true, opacity:0.18, side:THREE.DoubleSide
+  });
+
+  let stageMesh = null;
+  let finalMesh = null;
+  let compareMesh = null;
+  let wireStage = null;
+  let wireFinal = null;
+  let floorRing = null;
+
+  function widthAtHeight(yNorm, stageIndex, smooth=true){
+    const base = 44;
+    const top = 10.5;
+    let w;
+    if(stageIndex === 0){
+      w = base;
+    }else if(stageIndex === 1){
+      w = base + (top - base) * Math.pow(yNorm, 0.92);
+    }else if(stageIndex === 2){
+      const t = base + (top - base) * Math.pow(yNorm, 0.92);
+      const step = (yNorm > 0.78 ? -2.2 : 0) + (yNorm > 0.58 ? -1.6 : 0) + (yNorm > 0.38 ? -1.0 : 0);
+      w = t + step;
+    }else{
+      const t = base + (top - base) * (0.18*yNorm + 0.82*Math.pow(yNorm, 0.88));
+      const curve = 1.8*Math.sin(yNorm*Math.PI)*0.18;
+      w = t - curve;
+    }
+    return Math.max(8.5, w);
+  }
+
+  function profilePoints(stageIndex){
+    const pts = [];
+    const H = 555;
+    const segs = 80;
+    for(let i=0;i<=segs;i++){
+      const y = H * i / segs;
+      const yn = y / H;
+      pts.push(new THREE.Vector2(widthAtHeight(yn, stageIndex), y));
+    }
+    return pts;
+  }
+
+  function buildTowerGeometry(stageIndex, radialSegs=72){
+    const pts = profilePoints(stageIndex);
+    const geo = new THREE.LatheGeometry(pts, radialSegs);
+    geo.rotateY(Math.PI/4);
+    return geo;
+  }
+
+  function buildFloorRing(stageIndex, floor){
+    const H = 555;
+    const y = H * (floor / 123);
+    const yn = y / H;
+    const w = widthAtHeight(yn, stageIndex);
+    const shape = new THREE.Shape();
+    const r = w * 0.92;
+    shape.moveTo(r,0);
+    shape.absellipse(0,0,r,r*0.92,0,Math.PI*2,false,0);
+    const pts = shape.getPoints(80).map(p => new THREE.Vector3(p.x, y, p.y));
+    const geo = new THREE.BufferGeometry().setFromPoints(pts.concat([pts[0]]));
+    return new THREE.Line(geo, new THREE.LineBasicMaterial({ color:0xffd27a, linewidth:2 }));
+  }
+
+  function buildCore(stageIndex){
+    const H = 555;
+    const geo = new THREE.CylinderGeometry(8.5, 12, H, 24, 1, false);
+    geo.translate(0, H/2, 0);
+    const mat = new THREE.MeshPhongMaterial({ color:0xff9aa2, transparent:true, opacity:0.18 });
+    return new THREE.Mesh(geo, mat);
+  }
+
+  function clearModel(){
+    while(modelGroup.children.length) {
+      const c = modelGroup.children.pop();
+      if(c.geometry) c.geometry.dispose?.();
+      if(c.material){
+        if(Array.isArray(c.material)) c.material.forEach(m=>m.dispose?.());
+        else c.material.dispose?.();
+      }
+    }
+  }
+
+  function rebuildModel(){
+    clearModel();
+
+    stageMesh = new THREE.Mesh(buildTowerGeometry(state.stage), stageMaterial.clone());
+    finalMesh = new THREE.Mesh(buildTowerGeometry(3), finalMaterial.clone());
+    compareMesh = new THREE.Mesh(buildTowerGeometry(3), compareMaterial.clone());
+
+    const core = buildCore(state.stage);
+    modelGroup.add(core);
+
+    wireStage = new THREE.LineSegments(
+      new THREE.WireframeGeometry(stageMesh.geometry),
+      new THREE.LineBasicMaterial({ color:0xdff4ff, transparent:true, opacity:0.35 })
+    );
+    wireFinal = new THREE.LineSegments(
+      new THREE.WireframeGeometry(finalMesh.geometry),
+      new THREE.LineBasicMaterial({ color:0xeafff4, transparent:true, opacity:0.28 })
+    );
+
+    floorRing = buildFloorRing(state.mode === 'final' ? 3 : state.stage, state.floor);
+
+    if(state.mode === 'stage'){
+      modelGroup.add(stageMesh);
+      if(state.showWire) modelGroup.add(wireStage);
+    }else if(state.mode === 'final'){
+      modelGroup.add(finalMesh);
+      if(state.showWire) modelGroup.add(wireFinal);
+    }else{
+      modelGroup.add(compareMesh);
+      modelGroup.add(stageMesh);
+      if(state.showWire) modelGroup.add(wireStage);
+    }
+    modelGroup.add(floorRing);
+
+    updateStatus();
+  }
+
+  function updateStatus(){
+    const statusText = document.getElementById('statusText');
+    const mappingText = document.getElementById('mappingText');
+    if(state.mode === 'stage'){
+      statusText.textContent = `설계 단계 ${state.stage+1} · ${STAGES[state.stage].name}`;
+      mappingText.textContent = `현재는 "${STAGES[state.stage].name}" 단계입니다. 선택 층 ${state.floor}층의 윤곽이 평면도와 3D에서 함께 강조됩니다. 입면도·단면도에서는 555m 전체 높이 안에서 이 단계의 비례를 읽을 수 있습니다.`;
+    }else if(state.mode === 'final'){
+      statusText.textContent = `완성 모델 · 선택 층 ${state.floor}층`;
+      mappingText.textContent = `완성 모델에서 ${state.floor}층 높이의 개념적 기준층 윤곽을 강조합니다. 평면도는 해당 층의 외곽, 입면도·단면도는 같은 높이의 위치를 동시에 보여줍니다.`;
+    }else{
+      statusText.textContent = `비교 오버레이 · 단계 ${state.stage+1} vs 완성 모델`;
+      mappingText.textContent = `반투명 완성 형상 위에 단계 ${state.stage+1} 형상을 겹쳐 보여줍니다. 도면에서는 같은 층 높이와 전체 비례를 비교해 설계 발전 방향을 읽을 수 있습니다.`;
+    }
+  }
+
+  function resize(){
+    const w = viewer.clientWidth;
+    const h = viewer.clientHeight;
+    renderer.setSize(w,h,false);
+    camera.aspect = w/h;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resize);
+
+  function animate(){
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+  }
+
+  function setView(kind){
+    if(kind === 'reset' || kind === 'iso'){
+      camera.position.set(180, 140, 220);
+      controls.target.set(0, 110, 0);
+    }else if(kind === 'top'){
+      camera.position.set(0, 420, 0.01);
+      controls.target.set(0, 120, 0);
+    }else if(kind === 'front'){
+      camera.position.set(0, 150, 280);
+      controls.target.set(0, 140, 0);
+    }
+    camera.updateProjectionMatrix();
+    controls.update();
+  }
+
+  function setMode(mode){
+    state.mode = mode;
+    document.querySelectorAll('#modeButtons button').forEach(b=>{
+      const active = b.dataset.mode === mode;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    rebuildModel();
+    drawAll();
+  }
+
+  function setStage(stage){
+    state.stage = stage;
+    document.querySelectorAll('#stageButtons button').forEach(b=>{
+      b.classList.toggle('active', Number(b.dataset.stage) === stage);
+    });
+    rebuildModel();
+    drawAll();
+  }
+
+  function setFloor(floor){
+    state.floor = Math.max(1, Math.min(123, floor));
+    document.getElementById('floorSlider').value = state.floor;
+    document.getElementById('floorOut').value = `${state.floor}층`;
+    rebuildModel();
+    drawAll();
+  }
+
+  document.getElementById('modeButtons').addEventListener('click', e=>{
+    const btn = e.target.closest('button[data-mode]');
+    if(!btn) return;
+    setMode(btn.dataset.mode);
+  });
+  document.getElementById('stageButtons').addEventListener('click', e=>{
+    const btn = e.target.closest('button[data-stage]');
+    if(!btn) return;
+    setStage(Number(btn.dataset.stage));
+  });
+  document.getElementById('floorSlider').addEventListener('input', e=>setFloor(Number(e.target.value)));
+  document.getElementById('toggleWire').addEventListener('click', ()=>{
+    state.showWire = !state.showWire;
+    rebuildModel();
+  });
+  document.getElementById('toggleDims').addEventListener('click', ()=>{
+    state.showDims = !state.showDims;
+    drawAll();
+  });
+  document.getElementById('resetView').addEventListener('click', ()=>setView('reset'));
+  document.getElementById('topView').addEventListener('click', ()=>setView('top'));
+  document.getElementById('frontView').addEventListener('click', ()=>setView('front'));
+  document.getElementById('isoView').addEventListener('click', ()=>setView('iso'));
+  document.getElementById('zoomIn').addEventListener('click', ()=>{
+    camera.position.multiplyScalar(0.88); controls.update();
+  });
+  document.getElementById('zoomOut').addEventListener('click', ()=>{
+    camera.position.multiplyScalar(1.14); controls.update();
+  });
+
+  window.addEventListener('keydown', e=>{
+    if(['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
+    if(e.key === '1') setStage(0);
+    if(e.key === '2') setStage(1);
+    if(e.key === '3') setStage(2);
+    if(e.key === '4') setStage(3);
+    if(e.key.toLowerCase() === 'f') setMode('final');
+    if(e.key.toLowerCase() === 'c') setMode('compare');
+    if(e.key.toLowerCase() === 'r') setView('reset');
+    if(e.key === 'ArrowRight') setFloor(state.floor + 1);
+    if(e.key === 'ArrowLeft') setFloor(state.floor - 1);
+  });
+
+  function drawSheetBase(ctx, w, h, title){
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle = '#f7fbff';
+    ctx.fillRect(0,0,w,h);
+    ctx.strokeStyle = '#d7e4ff';
+    ctx.lineWidth = 1;
+    for(let x=20;x<w;x+=40){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke(); }
+    for(let y=20;y<h;y+=40){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
+    ctx.fillStyle = '#1b2748';
+    ctx.font = '700 18px system-ui, sans-serif';
+    ctx.fillText(title, 18, 28);
+    ctx.font = '12px system-ui, sans-serif';
+    ctx.fillStyle = '#4a5d8f';
+    ctx.fillText('설명용 개념 재구성 · 단위 m', 18, 46);
+  }
+
+  function drawDim(ctx, x1,y1,x2,y2,label, vertical=false){
+    if(!state.showDims) return;
+    ctx.save();
+    ctx.strokeStyle = '#6f84b8';
+    ctx.fillStyle = '#42598f';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+    const ah = 6;
+    if(vertical){
+      ctx.beginPath();
+      ctx.moveTo(x1-ah,y1+ah); ctx.lineTo(x1,y1); ctx.lineTo(x1+ah,y1+ah);
+      ctx.moveTo(x2-ah,y2-ah); ctx.lineTo(x2,y2); ctx.lineTo(x2+ah,y2-ah);
+      ctx.stroke();
+      ctx.save();
+      ctx.translate(x1-10,(y1+y2)/2);
+      ctx.rotate(-Math.PI/2);
+      ctx.font = '12px system-ui, sans-serif';
+      ctx.fillText(label,0,0);
+      ctx.restore();
+    }else{
+      ctx.beginPath();
+      ctx.moveTo(x1+ah,y1-ah); ctx.lineTo(x1,y1); ctx.lineTo(x1+ah,y1+ah);
+      ctx.moveTo(x2-ah,y2-ah); ctx.lineTo(x2,y2); ctx.lineTo(x2-ah,y2+ah);
+      ctx.stroke();
+      ctx.font = '12px system-ui, sans-serif';
+      ctx.fillText(label,(x1+x2)/2-18,y1-8);
+    }
+    ctx.restore();
+  }
+
+  function currentStageForDrawings(){
+    return state.mode === 'final' ? 3 : state.stage;
+  }
+
+  function drawSite(){
+    const c = document.getElementById('siteCanvas');
+    const ctx = c.getContext('2d');
+    const w = c.width, h = c.height;
+    drawSheetBase(ctx,w,h,'배치도');
+    const pad = 70;
+    ctx.save();
+    ctx.translate(w/2, h/2+20);
+
+    ctx.strokeStyle = '#1b2748';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(-220,-130,440,260);
+    ctx.fillStyle = 'rgba(127,211,255,.08)';
+    ctx.fillRect(-220,-130,440,260);
+
+    ctx.fillStyle = 'rgba(158,240,200,.18)';
+    ctx.strokeStyle = '#2f8f73';
+    ctx.lineWidth = 2;
+    ctx.fillRect(-95,-55,190,110);
+    ctx.strokeRect(-95,-55,190,110);
+
+    ctx.save();
+    ctx.rotate(Math.PI/4);
+    ctx.fillStyle = 'rgba(255,154,162,.28)';
+    ctx.strokeStyle = '#b84f5a';
+    ctx.beginPath();
+    ctx.ellipse(0,0,42,38,0,0,Math.PI*2);
+    ctx.fill(); ctx.stroke();
+    ctx.restore();
+
+    ctx.strokeStyle = '#ff9aa2';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(-140,0); ctx.lineTo(140,0); ctx.stroke();
+    ctx.strokeStyle = '#7fd3ff';
+    ctx.beginPath(); ctx.moveTo(0,-100); ctx.lineTo(0,100); ctx.stroke();
+
+    ctx.fillStyle = '#1b2748';
+    ctx.font = '12px system-ui, sans-serif';
+    ctx.fillText('개념적 대지 경계', -210, -138);
+    ctx.fillText('개념적 포디움 범위', -92, -64);
+    ctx.fillText('타워 중심', 18, -8);
+    ctx.fillText('N', 0, -112);
+
+    drawDim(ctx, w/2-220, h/2+160, w/2+220, h/2+160, '약 220 m');
+    drawDim(ctx, w/2+240, h/2-110, w/2+240, h/2+150, '약 130 m', true);
+    ctx.restore();
+  }
+
+  function drawPlan(){
+    const c = document.getElementById('planCanvas');
+    const ctx = c.getContext('2d');
+    const w = c.width, h = c.height;
+    drawSheetBase(ctx,w,h,`기준층 평면도 · ${state.floor}층`);
+    ctx.save();
+    ctx.translate(w/2, h/2+20);
+
+    const stage = currentStageForDrawings();
+    const yn = (555 * (state.floor/123)) / 555;
+    const width = widthAtHeight(yn, stage);
+    const scale = 3.2;
+    const rx = width * scale;
+    const ry = width * scale * 0.92;
+
+    ctx.save();
+    ctx.rotate(Math.PI/4);
+    ctx.fillStyle = 'rgba(127,211,255,.18)';
+    ctx.strokeStyle = '#2f6f9f';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.ellipse(0,0,rx,ry,0,0,Math.PI*2);
+    ctx.fill(); ctx.stroke();
+
+    ctx.fillStyle = 'rgba(255,154,162,.28)';
+    ctx.strokeStyle = '#b84f5a';
+    ctx.beginPath();
+    ctx.roundRect(-rx*0.22,-ry*0.22,rx*0.44,ry*0.44,10);
+    ctx.fill(); ctx.stroke();
+    ctx.restore();
+
+    ctx.strokeStyle = '#ffd27a';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(-rx-30,0); ctx.lineTo(rx+30,0); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0,-ry-30); ctx.lineTo(0,ry+30); ctx.stroke();
+
+    ctx.fillStyle = '#1b2748';
+    ctx.font = '12px system-ui, sans-serif';
+    ctx.fillText('외곽 윤곽(선택 층)', -rx, -ry-18);
+    ctx.fillText('개념적 중심 코어', 14, 0);
+
+    drawDim(ctx, w/2-rx, h/2+20+ry+42, w/2+rx, h/2+20+ry+42, `약 ${Math.round(width*2)} m`);
+    drawDim(ctx, w/2+rx+42, h/2+20-ry, w/2+rx+42, h/2+20+ry, `약 ${Math.round(width*2*0.92)} m`, true);
+    ctx.restore();
+  }
+
+  function drawElevation(){
+    const c = document.getElementById('elevCanvas');
+    const ctx = c.getContext('2d');
+    const w = c.width, h = c.height;
+    drawSheetBase(ctx,w,h,'입면도');
+    const stage = currentStageForDrawings();
+    const Hpx = 330;
+    const baseY = h - 55;
+    const centerX = w/2;
+    const scaleY = Hpx / 555;
+
+    ctx.save();
+    ctx.translate(centerX, baseY);
+
+    ctx.beginPath();
+    for(let i=0;i<=80;i++){
+      const y = 555 * i/80;
+      const yn = y/555;
+      const ww = widthAtHeight(yn, stage) * 2.2;
+      const px = ww;
+      const py = -y*scaleY;
+      if(i===0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    for(let i=80;i>=0;i--){
+      const y = 555 * i/80;
+      const yn = y/555;
+      const ww = widthAtHeight(yn, stage) * 2.2;
+      const px = -ww;
+      const py = -y*scaleY;
+      ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(127,211,255,.18)';
+    ctx.strokeStyle = '#2f6f9f';
+    ctx.lineWidth = 3;
+    ctx.fill(); ctx.stroke();
+
+    const fy = -(555 * (state.floor/123)) * scaleY;
+    ctx.strokeStyle = '#ff9aa2';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(-90, fy); ctx.lineTo(90, fy); ctx.stroke();
+
+    ctx.strokeStyle = '#6f84b8';
+    ctx.setLineDash([5,5]);
+    for(let i=0;i<=123;i+=20){
+      const y = -(555 * (i/123)) * scaleY;
+      ctx.beginPath(); ctx.moveTo(-120,y); ctx.lineTo(120,y); ctx.stroke();
+    }
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = '#1b2748';
+    ctx.font = '12px system-ui, sans-serif';
+    ctx.fillText('선택 층 높이', 98, fy+4);
+    ctx.fillText('상부로 갈수록 축소', 58, -250);
+
+    drawDim(ctx, centerX+140, baseY, centerX+140, baseY-Hpx, '555 m', true);
+    ctx.restore();
+  }
+
+  function drawSection(){
+    const c = document.getElementById('sectionCanvas');
+    const ctx = c.getContext('2d');
+    const w = c.width, h = c.height;
+    drawSheetBase(ctx,w,h,'단면도');
+    const stage = currentStageForDrawings();
+    const Hpx = 330;
+    const baseY = h - 55;
+    const centerX = w/2;
+    const scaleY = Hpx / 555;
+
+    ctx.save();
+    ctx.translate(centerX, baseY);
+
+    ctx.beginPath();
+    for(let i=0;i<=80;i++){
+      const y = 555 * i/80;
+      const yn = y/555;
+      const ww = widthAtHeight(yn, stage) * 1.8;
+      const py = -y*scaleY;
+      if(i===0) ctx.moveTo(ww, py);
+      else ctx.lineTo(ww, py);
+    }
+    for(let i=80;i>=0;i--){
+      const y = 555 * i/80;
+      const yn = y/555;
+      const ww = widthAtHeight(yn, stage) * 1.8;
+      const py = -y*scaleY;
+      ctx.lineTo(-ww, py);
+    }
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(158,240,200,.16)';
+    ctx.strokeStyle = '#2f8f73';
+    ctx.lineWidth = 3;
+    ctx.fill(); ctx.stroke();
+
+    ctx.fillStyle = 'rgba(255,154,162,.28)';
+    ctx.strokeStyle = '#b84f5a';
+    ctx.beginPath();
+    ctx.roundRect(-18, -Hpx, 36, Hpx, 8);
+    ctx.fill(); ctx.stroke();
+
+    const fy = -(555 * (state.floor/123)) * scaleY;
+    ctx.strokeStyle = '#ffd27a';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(-100, fy); ctx.lineTo(100, fy); ctx.stroke();
+
+    ctx.fillStyle = '#1b2748';
+    ctx.font = '12px system-ui, sans-serif';
+    ctx.fillText('개념적 코어', 24, -180);
+    ctx.fillText(`${state.floor}층`, 106, fy+4);
+
+    drawDim(ctx, centerX+140, baseY, centerX+140, baseY-Hpx, '555 m', true);
+    ctx.restore();
+  }
+
+  function drawAll(){
+    drawSite();
+    drawPlan();
+    drawElevation();
+    drawSection();
+  }
+
+  resize();
+  rebuildModel();
+  drawAll();
+  setView('iso');
+  animate();
+})();
+</script>
+</body>
+</html>

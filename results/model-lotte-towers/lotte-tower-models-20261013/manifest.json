@@ -1,0 +1,169 @@
+{
+  "task": "lotte-tower",
+  "generation": "lotte-tower-models-20261013",
+  "prompt_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+  "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
+  "models": [
+    {
+      "name": "claude-haiku-4.5",
+      "model_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0"
+    },
+    {
+      "name": "claude-sonnet-4.5",
+      "model_id": "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
+    },
+    {
+      "name": "claude-sonnet-5",
+      "model_id": "us.anthropic.claude-sonnet-5"
+    },
+    {
+      "name": "claude-haiku-5.5",
+      "model_id": "us.anthropic.claude-haiku-5-5"
+    },
+    {
+      "name": "claude-sonnet-5.5",
+      "model_id": "us.anthropic.claude-sonnet-5-5"
+    },
+    {
+      "name": "claude-opus-5.5",
+      "model_id": "us.anthropic.claude-opus-5-5"
+    },
+    {
+      "name": "claude-fable-5.1",
+      "model_id": "us.anthropic.claude-fable-5-1"
+    },
+    {
+      "name": "nova-pro",
+      "model_id": "us.amazon.nova-pro-v1:0"
+    },
+    {
+      "name": "kimi-k3",
+      "model_id": "us.moonshotai.kimi-k3"
+    },
+    {
+      "name": "nova-lite",
+      "model_id": "us.amazon.nova-lite-v1:0"
+    },
+    {
+      "name": "amazon-translate",
+      "model_id": "aws.translate.text"
+    },
+    {
+      "name": "gpt-5.4",
+      "model_id": "openai.gpt-5.4"
+    },
+    {
+      "name": "gpt-5.5",
+      "model_id": "openai.gpt-5.5"
+    },
+    {
+      "name": "gpt-5.6-terra",
+      "model_id": "openai.gpt-5.6-terra"
+    },
+    {
+      "name": "gpt-5.6-luna",
+      "model_id": "openai.gpt-5.6-luna"
+    },
+    {
+      "name": "gpt-6-luna",
+      "model_id": "openai.gpt-6-luna"
+    },
+    {
+      "name": "gpt-6-astra",
+      "model_id": "openai.gpt-6-astra"
+    },
+    {
+      "name": "gpt-6.1-sol",
+      "model_id": "openai.gpt-6.1-sol"
+    },
+    {
+      "name": "grok-4.3",
+      "model_id": "xai.grok-4.3"
+    },
+    {
+      "name": "grok-4.6",
+      "model_id": "xai.grok-4.6"
+    },
+    {
+      "name": "grok-4.7",
+      "model_id": "us.xai.grok-4.7"
+    },
+    {
+      "name": "nova-micro",
+      "model_id": "us.amazon.nova-micro-v1:0"
+    },
+    {
+      "name": "nemotron-nano-3-30b",
+      "model_id": "nvidia.nemotron-nano-3-30b"
+    },
+    {
+      "name": "glm-4.7-flash",
+      "model_id": "zai.glm-4.7-flash"
+    },
+    {
+      "name": "glm-5.3",
+      "model_id": "us.zai.glm-5.3"
+    },
+    {
+      "name": "gpt-oss-20b",
+      "model_id": "openai.gpt-oss-20b-1:0"
+    },
+    {
+      "name": "gpt-oss-120b",
+      "model_id": "openai.gpt-oss-120b-1:0"
+    },
+    {
+      "name": "qwen3-32b",
+      "model_id": "qwen.qwen3-32b-v1:0"
+    },
+    {
+      "name": "nemotron-super-3-120b",
+      "model_id": "nvidia.nemotron-super-3-120b"
+    },
+    {
+      "name": "llama4-scout",
+      "model_id": "us.meta.llama4-scout-17b-instruct-v1:0"
+    },
+    {
+      "name": "ministral-14b",
+      "model_id": "mistral.ministral-3-14b-instruct"
+    },
+    {
+      "name": "qwen3-235b-a22b",
+      "model_id": "qwen.qwen3-235b-a22b-2507-v1:0"
+    },
+    {
+      "name": "llama4-maverick",
+      "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0"
+    },
+    {
+      "name": "llama-3.3-70b-bedrock",
+      "model_id": "us.meta.llama3-3-70b-instruct-v1:0"
+    },
+    {
+      "name": "gemma-4-31b-bedrock",
+      "model_id": "google.gemma-4-31b"
+    },
+    {
+      "name": "llama-3.1-8b",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "name": "llama-3.3-70b",
+      "model_id": "meta-llama/Llama-3.3-70B-Instruct"
+    },
+    {
+      "name": "gemma-4-31b",
+      "model_id": "google/gemma-4-31B-it"
+    },
+    {
+      "name": "qwen3.6-27b",
+      "model_id": "Qwen/Qwen3.6-27B"
+    },
+    {
+      "name": "exaone-3.5-32b",
+      "model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct"
+    }
+  ],
+  "policy": "Only original model HTML, no coordinator/other-model substitutions. Retained pilot requests are imported once unchanged, with provenance. Token budgets and request settings are recorded per attempt."
+}

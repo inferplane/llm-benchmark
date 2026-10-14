@@ -1,0 +1,23 @@
+{
+  "model": "llama-3.3-70b",
+  "model_id": "meta-llama/Llama-3.3-70B-Instruct",
+  "api": "openai",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T13:36:57.535079+00:00",
+  "prompt_sha256": "aa4ba715234509085435ec4ba8a727270b59f1486c059246543a7f0d794818c3",
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "failed",
+  "failed_at": "2026-10-13T13:36:57.748737+00:00",
+  "error": {
+    "type": "BadRequestError",
+    "message": "BadRequestError: provider returned HTTP 400",
+    "retryable": false,
+    "http_status": 400
+  },
+  "reason": "BadRequestError: provider returned HTTP 400"
+}

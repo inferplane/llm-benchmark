@@ -1,0 +1,21 @@
+{
+  "model": "exaone-3.5-32b",
+  "model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
+  "api": "openai",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T16:27:48.307472+00:00",
+  "prompt_sha256": "05c84b82f909544a751df95d31f959599dcabcff28c16c879556c8723cb87387",
+  "max_output_tokens": 6144,
+  "temperature": 0.3,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T16:30:00.712960+00:00",
+  "artwork_sha256": "b3a72deedef3cecb153ea9e2b8b82fc8d9e6fa36429917106f4e2c041848e67c",
+  "tokens_in": 662,
+  "tokens_out": 1938,
+  "finish_reason": "stop",
+  "reported_model": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct"
+}

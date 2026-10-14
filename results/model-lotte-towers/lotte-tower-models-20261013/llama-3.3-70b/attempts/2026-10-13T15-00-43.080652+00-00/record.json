@@ -1,0 +1,22 @@
+{
+  "model": "llama-3.3-70b",
+  "model_id": "meta-llama/Llama-3.3-70B-Instruct",
+  "api": "openai",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T15:00:43.080652+00:00",
+  "prompt_sha256": "753c7b7f1e0ad02fd34edd803eddaec344a6bc2e9ab76653ecfac71040f32452",
+  "max_output_tokens": 4096,
+  "temperature": 0.3,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "failed",
+  "failed_at": "2026-10-13T15:06:05.749257+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

@@ -1,0 +1,23 @@
+{
+  "model": "claude-fable-5.1",
+  "model_id": "us.anthropic.claude-fable-5-1",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T11:23:31.850074+00:00",
+  "prompt_sha256": "46f5230b45dd5a0516c5d33fa8e9a59f800c523d34bceec0921f9cec9e31ba51",
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": "low",
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T11:26:07.663178+00:00",
+  "artwork_sha256": "a722373a6f6dce9c0e1cdffb6f8901b18b50dc849747ce6ffb7d0a6353efefd1",
+  "tokens_in": 1655,
+  "tokens_out": 11292,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "4cbc89c2-32e6-4df3-8772-dda33407105c"
+}

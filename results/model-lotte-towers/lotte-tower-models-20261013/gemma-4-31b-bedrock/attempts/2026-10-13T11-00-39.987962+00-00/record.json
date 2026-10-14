@@ -1,0 +1,22 @@
+{
+  "model": "gemma-4-31b-bedrock",
+  "model_id": "google.gemma-4-31b",
+  "api": "bedrock_mantle",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T11:00:39.987962+00:00",
+  "prompt_sha256": "dcc401d065a563d83f07d7390db8ab4ce2c44a19da62b7b8753a1260ca1703d2",
+  "max_output_tokens": 8192,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "failed",
+  "failed_at": "2026-10-13T11:01:24.796890+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Only the pinned local Three.js runtime is permitted"
+}

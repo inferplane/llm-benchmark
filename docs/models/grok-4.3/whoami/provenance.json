@@ -1,0 +1,135 @@
+{
+  "model": "grok-4.3",
+  "task": "whoami",
+  "requested_model_id": "xai.grok-4.3",
+  "provider": "bedrock_mantle",
+  "family": "xAI",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/grok-4.3",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "c8c19c4b0db0957ec9c8c58bade2e7bc43b62aabe7263921fa4b41ee04103f08",
+  "content_review": {
+    "model": "grok-4.3",
+    "generation": "free-expression-20261012",
+    "score": 98.5,
+    "critical": 0,
+    "warnings": 1,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 3.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/grok-4.3/artwork.html",
+        "line": 67,
+        "quote": "font-size: 13px;",
+        "problem": "Some informative descriptions, labels or control text still render below 19px.",
+        "action": "Use at least 19px for informative text and controls."
+      }
+    ],
+    "artwork_sha256": "c8c19c4b0db0957ec9c8c58bade2e7bc43b62aabe7263921fa4b41ee04103f08",
+    "model_id": "xai.grok-4.3",
+    "reported_model": "xai.grok-4.3",
+    "requested_at": "2026-10-12T08:52:30.220166+00:00",
+    "reviewed_at": "2026-10-12T08:58:35.169969+00:00",
+    "initial_prompt_sha256": "e4b7b30a7f21b6fb59637e113fe2f2eb148b738f9ef515e2c40a6a44ab5fb36d",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/grok-4.3/c8c19c4b0db0",
+    "browser_evidence": "/tmp/free-expression-review/grok-4.3/c8c19c4b0db0/browser.json",
+    "notes": [
+      "First re-review of the actual original-author correction. Source/prompt/response fidelity rechecked; no coordinator artwork edits.",
+      "External resource import removed. Initial reduced mode damps velocities; pause/resume stays within one rendering chain. Zero console errors."
+    ],
+    "review_iteration": 2
+  },
+  "prompt_sha256": "8ef8f67fefae3fcc66ace2b67cabb7bb356ff28787ec23f1312383e0294f423f",
+  "initial_prompt_sha256": "e4b7b30a7f21b6fb59637e113fe2f2eb148b738f9ef515e2c40a6a44ab5fb36d",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 1.25,
+      "price_out": 2.5
+    },
+    "estimated_total_usd": 0.02161875,
+    "estimated_final_response_usd": 0.0128275,
+    "recorded_attempts": 2,
+    "successful_code_responses": 2,
+    "additional_attempts": 1,
+    "known_cost_attempts": 2,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 3261,
+      "tokens_out": 7017,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:10:00.519605+00:00",
+        "status": "generated",
+        "request_id": "req_m3r2m7qo2gmnl7ws4mkvoi4fiipzrjbppt4g2xpovpnkkw37q2ra",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00879125,
+        "request_seconds": null,
+        "record_sha256": "cc808153879c3d41653834a2dcd2c711ac47ed507ff9e5441601baba6c948be5",
+        "response_sha256": "f8d65252ff2b21078b07397fb953a93d6ba0e788dc1bd516f7d90122a884e02d"
+      },
+      {
+        "requested_at": "2026-10-12T08:52:30.220166+00:00",
+        "status": "generated",
+        "request_id": "req_duccl4rgf62c566a72j67krmgauu5t76zezhgxsxjp5u65zkguxa",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0128275,
+        "request_seconds": null,
+        "record_sha256": "c3305897ee8d4f33a1dd761c3e056999b742a8c659b43a7872751e822730c2ba",
+        "response_sha256": "ea48a1141b63eac9dbf96344c1f42fe06f3707dd65e2068713662d856d76ed32"
+      }
+    ]
+  },
+  "request_id": "req_duccl4rgf62c566a72j67krmgauu5t76zezhgxsxjp5u65zkguxa",
+  "response_id": "resp_tvgeboqhygjljbrtnid7bpwdel7ybhyepudzeoyeoa4qcpunijnq",
+  "requested_at": "2026-10-12T08:52:30.220166+00:00",
+  "generated_at": "2026-10-12T08:52:42.446956+00:00",
+  "reported_model": "xai.grok-4.3",
+  "tokens_in": 3028,
+  "tokens_out": 3617,
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low"
+  }
+}

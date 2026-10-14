@@ -1,0 +1,22 @@
+{
+  "model": "glm-5.3",
+  "model_id": "us.zai.glm-5.3",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T10:59:36.843496+00:00",
+  "prompt_sha256": "92aff15734a7b9f4e6487d4cda66c39784e75e366c3d1c3b2ccc13660a484fc3",
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": "low",
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "failed",
+  "failed_at": "2026-10-13T11:00:27.078447+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

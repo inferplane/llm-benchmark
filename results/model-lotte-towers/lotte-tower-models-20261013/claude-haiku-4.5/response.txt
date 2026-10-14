@@ -1,0 +1,920 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>롯데월드타워 건축 설계 과정 - claude-haiku-4.5</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            border-bottom: 2px solid rgba(255, 200, 100, 0.3);
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #ffc864;
+            font-weight: 700;
+        }
+
+        .model-info {
+            font-size: 20px;
+            color: #b0b0b0;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #a0a0a0;
+            margin-top: 10px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            background: rgba(20, 25, 45, 0.8);
+            border: 1px solid rgba(255, 200, 100, 0.2);
+            border-radius: 8px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section h2 {
+            font-size: 24px;
+            color: #ffc864;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 200, 100, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .drawings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .drawing-item {
+            background: rgba(10, 15, 30, 0.6);
+            border: 1px solid rgba(255, 200, 100, 0.15);
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .drawing-canvas {
+            width: 100%;
+            height: 280px;
+            background: rgba(5, 10, 20, 0.9);
+            border-radius: 4px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 200, 100, 0.1);
+        }
+
+        .drawing-label {
+            font-size: 19px;
+            font-weight: 600;
+            color: #ffc864;
+            margin-bottom: 8px;
+        }
+
+        .drawing-description {
+            font-size: 19px;
+            color: #c0c0c0;
+            line-height: 1.5;
+        }
+
+        .assumption-note {
+            font-size: 18px;
+            color: #ffb366;
+            margin-top: 8px;
+            padding: 8px;
+            background: rgba(255, 179, 102, 0.1);
+            border-left: 3px solid #ffb366;
+            border-radius: 3px;
+        }
+
+        .stages-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stage-button {
+            padding: 15px;
+            background: rgba(255, 200, 100, 0.1);
+            border: 2px solid rgba(255, 200, 100, 0.3);
+            border-radius: 6px;
+            color: #ffc864;
+            font-size: 19px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .stage-button:hover {
+            background: rgba(255, 200, 100, 0.2);
+            border-color: rgba(255, 200, 100, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .stage-button.active {
+            background: rgba(255, 200, 100, 0.3);
+            border-color: #ffc864;
+            box-shadow: 0 0 15px rgba(255, 200, 100, 0.3);
+        }
+
+        .model-viewer {
+            width: 100%;
+            height: 500px;
+            background: rgba(5, 10, 20, 0.9);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 200, 100, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .controls-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .control-button {
+            padding: 12px;
+            background: rgba(255, 200, 100, 0.15);
+            border: 1px solid rgba(255, 200, 100, 0.3);
+            border-radius: 4px;
+            color: #ffc864;
+            font-size: 19px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-button:hover {
+            background: rgba(255, 200, 100, 0.25);
+            border-color: #ffc864;
+        }
+
+        .control-button:focus {
+            outline: 2px solid #ffc864;
+            outline-offset: 2px;
+        }
+
+        .info-box {
+            background: rgba(255, 200, 100, 0.08);
+            border-left: 4px solid #ffc864;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+            font-size: 19px;
+            line-height: 1.6;
+        }
+
+        .fact-label {
+            color: #ffc864;
+            font-weight: 600;
+        }
+
+        .concept-label {
+            color: #ffb366;
+            font-weight: 600;
+        }
+
+        .keyboard-hint {
+            font-size: 18px;
+            color: #a0a0a0;
+            margin-top: 12px;
+            padding: 10px;
+            background: rgba(100, 100, 100, 0.1);
+            border-radius: 4px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .drawings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .section h2 {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+            .section h2 {
+                font-size: 20px;
+            }
+
+            .model-viewer {
+                height: 350px;
+            }
+
+            .stages-container {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-panel {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 200, 100, 0.2);
+            font-size: 18px;
+            color: #808080;
+        }
+
+        .reference-link {
+            color: #ffc864;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 200, 100, 0.3);
+        }
+
+        .reference-link:hover {
+            border-bottom-color: #ffc864;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>롯데월드타워 건축 설계 과정</h1>
+            <div class="model-info">모델: claude-haiku-4.5</div>
+            <div class="subtitle">설계도면 · 단계별 3D 모델 · 완성 형상</div>
+        </header>
+
+        <div class="main-grid">
+            <!-- 좌측: 도면 섹션 -->
+            <div class="section">
+                <h2>건축 도면</h2>
+                <div class="drawings-grid">
+                    <div class="drawing-item">
+                        <div class="drawing-label">배치도 (Site Plan)</div>
+                        <canvas class="drawing-canvas" id="sitePlanCanvas"></canvas>
+                        <div class="drawing-description">
+                            롯데월드타워의 부지 배치와 주변 관계를 표시합니다.
+                        </div>
+                        <div class="assumption-note">
+                            <span class="concept-label">개념 표현:</span> 실제 부지 경계는 공개 자료 기반 추정
+                        </div>
+                    </div>
+
+                    <div class="drawing-item">
+                        <div class="drawing-label">기준층 평면도 (Floor Plan)</div>
+                        <canvas class="drawing-canvas" id="floorPlanCanvas"></canvas>
+                        <div class="drawing-description">
+                            중층부 기준층의 평면 형태. 위로 갈수록 면적이 감소합니다.
+                        </div>
+                        <div class="assumption-note">
+                            <span class="concept-label">개념 가정:</span> 약 6,000 m² (추정 개념)
+                        </div>
+                    </div>
+
+                    <div class="drawing-item">
+                        <div class="drawing-label">입면도 (Elevation)</div>
+                        <canvas class="drawing-canvas" id="elevationCanvas"></canvas>
+                        <div class="drawing-description">
+                            정면 입면. 높이 555m, 지상 123층. 한국 도자기의 선을 참고한 곡선 형태.
+                        </div>
+                        <div class="assumption-note">
+                            <span class="fact-label">공개 사실:</span> 높이 555m, 123층 (KPF 설계)
+                        </div>
+                    </div>
+
+                    <div class="drawing-item">
+                        <div class="drawing-label">단면도 (Section)</div>
+                        <canvas class="drawing-canvas" id="sectionCanvas"></canvas>
+                        <div class="drawing-description">
+                            수직 단면. 하부에서 상부로 갈수록 외곽이 좁아지는 테이퍼 형태.
+                        </div>
+                        <div class="assumption-note">
+                            <span class="concept-label">개념 표현:</span> 구조 단면은 공개 자료 기반 재구성
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div><span class="fact-label">공개 자료 출처:</span></div>
+                    <div style="margin-top: 8px; font-size: 18px;">
+                        설계: <span class="reference-link">KPF (Kohn Pedersen Fox)</span><br>
+                        구조: <span class="reference-link">LERA (Leslie E. Robertson Associates)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 우측: 3D 모델 섹션 -->
+            <div class="section">
+                <h2>3D 모델 뷰어</h2>
+
+                <div style="margin-bottom: 20px;">
+                    <div style="font-size: 20px; color: #ffc864; margin-bottom: 12px; font-weight: 600;">설계 단계 선택</div>
+                    <div class="stages-container">
+                        <button class="stage-button active" data-stage="0">개념 단계</button>
+                        <button class="stage-button" data-stage="1">기본 설계</button>
+                        <button class="stage-button" data-stage="2">상세 설계</button>
+                        <button class="stage-button" data-stage="3">완성 형상</button>
+                    </div>
+                </div>
+
+                <div class="model-viewer" id="modelViewer"></div>
+
+                <div class="controls-panel">
+                    <button class="control-button" id="rotateLeftBtn" title="좌회전 (← 키)">← 좌회전</button>
+                    <button class="control-button" id="rotateRightBtn" title="우회전 (→ 키)">우회전 →</button>
+                    <button class="control-button" id="zoomInBtn" title="확대 (↑ 키)">확대 ↑</button>
+                    <button class="control-button" id="zoomOutBtn" title="축소 (↓ 키)">축소 ↓</button>
+                    <button class="control-button" id="resetViewBtn" title="초기화 (R 키)">초기화</button>
+                </div>
+
+                <div class="keyboard-hint">
+                    <strong>키보드 조작:</strong> ← → (회전) | ↑ ↓ (확대/축소) | R (초기화) | 마우스 드래그 (자유 회전)
+                </div>
+
+                <div class="info-box">
+                    <div><span class="fact-label">모델 정보:</span></div>
+                    <div style="margin-top: 8px; font-size: 18px;">
+                        높이: 555m | 층수: 123층 | 설계: KPF<br>
+                        <span class="concept-label">개념 모델:</span> 공개 자료 기반 재구성 (검증된 구조 설계 아님)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>롯데월드타워 건축 설계 과정 인터랙티브 시각화 | claude-haiku-4.5</p>
+        <p style="margin-top: 10px; font-size: 16px;">
+            이 페이지는 공개 자료를 기반으로 한 개념 재구성입니다. 실제 시공 도면이나 검증된 구조 설계가 아닙니다.
+        </p>
+    </div>
+
+    <script src="../runtime/three-runtime.js"></script>
+    <script>
+        // ============ 도면 렌더링 함수 ============
+
+        function drawSitePlan(canvas) {
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+
+            ctx.fillStyle = '#0a0e27';
+            ctx.fillRect(0, 0, w, h);
+
+            // 격자
+            ctx.strokeStyle = 'rgba(255, 200, 100, 0.1)';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < w; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, h);
+                ctx.stroke();
+            }
+            for (let i = 0; i < h; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(w, i);
+                ctx.stroke();
+            }
+
+            // 부지 경계
+            ctx.strokeStyle = '#ffc864';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(w * 0.15, h * 0.15, w * 0.7, h * 0.7);
+
+            // 건물 풋프린트 (원형)
+            ctx.fillStyle = 'rgba(255, 200, 100, 0.2)';
+            ctx.beginPath();
+            ctx.arc(w * 0.5, h * 0.5, w * 0.25, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.strokeStyle = '#ffc864';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(w * 0.5, h * 0.5, w * 0.25, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // 라벨
+            ctx.fillStyle = '#ffc864';
+            ctx.font = 'bold 16px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('롯데월드타워', w * 0.5, h * 0.5);
+            ctx.font = '12px sans-serif';
+            ctx.fillText('부지 배치도', w * 0.5, h * 0.85);
+        }
+
+        function drawFloorPlan(canvas) {
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+
+            ctx.fillStyle = '#0a0e27';
+            ctx.fillRect(0, 0, w, h);
+
+            // 격자
+            ctx.strokeStyle = 'rgba(255, 200, 100, 0.1)';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < w; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, h);
+                ctx.stroke();
+            }
+            for (let i = 0; i < h; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(w, i);
+                ctx.stroke();
+            }
+
+            // 기준층 평면 (원형, 중층부 기준)
+            ctx.fillStyle = 'rgba(255, 200, 100, 0.15)';
+            ctx.beginPath();
+            ctx.arc(w * 0.5, h * 0.5, w * 0.28, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.strokeStyle = '#ffc864';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.arc(w * 0.5, h * 0.5, w * 0.28, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // 내부 구조 표시
+            ctx.strokeStyle = 'rgba(255, 200, 100, 0.4)';
+            ctx.lineWidth = 1;
+            for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 6) {
+                const x1 = w * 0.5 + Math.cos(angle) * w * 0.1;
+                const y1 = h * 0.5 + Math.sin(angle) * w * 0.1;
+                const x2 = w * 0.5 + Math.cos(angle) * w * 0.28;
+                const y2 = h * 0.5 + Math.sin(angle) * w * 0.28;
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }
+
+            // 라벨
+            ctx.fillStyle = '#ffc864';
+            ctx.font = 'bold 16px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('기준층 평면도', w * 0.5, h * 0.85);
+            ctx.font = '12px sans-serif';
+            ctx.fillStyle = '#ffb366';
+            ctx.fillText('약 6,000 m² (개념 추정)', w * 0.5, h * 0.92);
+        }
+
+        function drawElevation(canvas) {
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+
+            ctx.fillStyle = '#0a0e27';
+            ctx.fillRect(0, 0, w, h);
+
+            // 격자
+            ctx.strokeStyle = 'rgba(255, 200, 100, 0.1)';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < w; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, h);
+                ctx.stroke();
+            }
+            for (let i = 0; i < h; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(w, i);
+                ctx.stroke();
+            }
+
+            // 지면선
+            ctx.strokeStyle = '#ffc864';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, h * 0.8);
+            ctx.lineTo(w, h * 0.8);
+            ctx.stroke();
+
+            // 건물 입면 (테이퍼 형태)
+            ctx.fillStyle = 'rgba(255, 200, 100, 0.15)';
+            ctx.beginPath();
+            ctx.moveTo(w * 0.3, h * 0.8);
+            ctx.lineTo(w * 0.7, h * 0.8);
+            // 곡선으로 상부로 갈수록 좁아짐
+            ctx.quadraticCurveTo(w * 0.65, h * 0.4, w * 0.5, h * 0.05);
+            ctx.quadraticCurveTo(w * 0.35, h * 0.4, w * 0.3, h * 0.8);
+            ctx.fill();
+
+            ctx.strokeStyle = '#ffc864';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(w * 0.3, h * 0.8);
+            ctx.lineTo(w * 0.7, h * 0.8);
+            ctx.quadraticCurveTo(w * 0.65, h * 0.4, w * 0.5, h * 0.05);
+            ctx.quadraticCurveTo(w * 0.35, h * 0.4, w * 0.3, h * 0.8);
+            ctx.stroke();
+
+            // 높이 표시
+            ctx.strokeStyle = 'rgba(255, 200, 100, 0.5)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([5, 5]);
+            ctx.beginPath();
+            ctx.moveTo(w * 0.15, h * 0.8);
+            ctx.lineTo(w * 0.15, h * 0.05);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            ctx.fillStyle = '#ffb366';
+            ctx.font = '12px sans-serif';
+            ctx.textAlign = 'right';
+            ctx.fillText('555m', w * 0.12, h * 0.4);
+            ctx.fillText('123층', w * 0.12, h * 0.5);
+
+            // 라벨
+            ctx.fillStyle = '#ffc864';
+            ctx.font = 'bold 16px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('입면도 (정면)', w * 0.5, h * 0.92);
+        }
+
+        function drawSection(canvas) {
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+
+            ctx.fillStyle = '#0a0e27';
+            ctx.fillRect(0, 0, w, h);
+
+            // 격자
+            ctx.strokeStyle = 'rgba(255, 200, 100, 0.1)';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < w; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, h);
+                ctx.stroke();
+            }
+            for (let i = 0; i < h; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(w, i);
+                ctx.stroke();
+            }
+
+            // 지면
+            ctx.fillStyle = 'rgba(100, 80, 60, 0.3)';
+            ctx.fillRect(0, h * 0.75, w, h * 0.25);
+
+            ctx.strokeStyle = '#ffc864';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, h * 0.75);
+            ctx.lineTo(w, h * 0.75);
+            ctx.stroke();
+
+            // 단면 (테이퍼)
+            ctx.fillStyle = 'rgba(255, 200, 100, 0.15)';
+            ctx.beginPath();
+            ctx.moveTo(w * 0.25, h * 0.75);
+            ctx.lineTo(w * 0.75, h * 0.75);
+            ctx.quadraticCurveTo(w * 0.7, h * 0.4, w * 0.5, h * 0.05);
+            ctx.quadraticCurveTo(w * 0.3, h * 0.4, w * 0.25, h * 0.75);
+            ctx.fill();
+
+            ctx.strokeStyle = '#ffc864';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(w * 0.25, h * 0.75);
+            ctx.lineTo(w * 0.75, h * 0.75);
+            ctx.quadraticCurveTo(w * 0.7, h * 0.4, w * 0.5, h * 0.05);
+            ctx.quadraticCurveTo(w * 0.3, h * 0.4, w * 0.25, h * 0.75);
+            ctx.stroke();
+
+            // 층 표시
+            ctx.strokeStyle = 'rgba(255, 200, 100, 0.3)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < 10; i++) {
+                const y = h * 0.75 - (h * 0.7 * i / 10);
+                const width = w * 0.5 - (w * 0.25 * i / 10);
+                ctx.beginPath();
+                ctx.moveTo(w * 0.5 - width / 2, y);
+                ctx.lineTo(w * 0.5 + width / 2, y);
+                ctx.stroke();
+            }
+
+            // 라벨
+            ctx.fillStyle = '#ffc864';
+            ctx.font = 'bold 16px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('수직 단면도', w * 0.5, h * 0.92);
+            ctx.font = '12px sans-serif';
+            ctx.fillStyle = '#ffb366';
+            ctx.fillText('테이퍼 형태 (위로 갈수록 좁아짐)', w * 0.5, h * 0.98);
+        }
+
+        // ============ 3D 모델 생성 ============
+
+        let scene, camera, renderer, controls;
+        let currentModel = null;
+        let currentStage = 0;
+
+        function initThreeJS() {
+            const container = document.getElementById('modelViewer');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x050a14);
+
+            camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000);
+            camera.position.set(0, 150, 200);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.autoRotate = false;
+            controls.target.set(0, 150, 0);
+            controls.update();
+
+            // 조명
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(100, 200, 100);
+            scene.add(directionalLight);
+
+            // 애니메이션 루프
+            function animate() {
+                requestAnimationFrame(animate);
+                controls.update();
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // 윈도우 리사이즈
+            window.addEventListener('resize', () => {
+                const newWidth = container.clientWidth;
+                const newHeight = container.clientHeight;
+                camera.aspect = newWidth / newHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(newWidth, newHeight);
+            });
+        }
+
+        function createTowerGeometry(stage) {
+            const group = new THREE.Group();
+
+            // 기본 파라미터
+            const baseRadius = 80;
+            const topRadius = 20;
+            const height = 555;
+            const segments = 32;
+
+            let radiusFunc, colorFunc;
+
+            if (stage === 0) {
+                // 개념 단계: 단순 원뿔
+                radiusFunc = (t) => baseRadius * (1 - t * 0.75);
+                colorFunc = () => new THREE.Color(0xff8844);
+            } else if (stage === 1) {
+                // 기본 설계: 더 부드러운 테이퍼
+                radiusFunc = (t) => baseRadius * Math.pow(1 - t, 1.2);
+                colorFunc = () => new THREE.Color(0xffc864);
+            } else if (stage === 2) {
+                // 상세 설계: 곡선 형태
+                radiusFunc = (t) => baseRadius * (1 - t * 0.8 + Math.sin(t * Math.PI) * 0.1);
+                colorFunc = () => new THREE.Color(0xffb366);
+            } else {
+                // 완성 형상: 한국 도자기 곡선 참고
+                radiusFunc = (t) => baseRadius * Math.pow(1 - t * 0.85, 1.1) * (1 + Math.sin(t * Math.PI * 2) * 0.05);
+                colorFunc = () => new THREE.Color(0xffc864);
+            }
+
+            // 메인 타워 지오메트리
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+            const indices = [];
+            const colors = [];
+
+            for (let i = 0; i <= segments; i++) {
+                const angle = (i / segments) * Math.PI * 2;
+                for (let j = 0; j <= 50; j++) {
+                    const t = j / 50;
+                    const radius = radiusFunc(t);
+                    const y = t * height;
+                    const x = Math.cos(angle) * radius;
+                    const z = Math.sin(angle) * radius;
+
+                    vertices.push(x, y, z);
+                    colors.push(...colorFunc().toArray());
+                }
+            }
+
+            // 인덱스 생성
+            for (let i = 0; i < segments; i++) {
+                for (let j = 0; j < 50; j++) {
+                    const a = i * 51 + j;
+                    const b = i * 51 + j + 1;
+                    const c = ((i + 1) % (segments + 1)) * 51 + j;
+                    const d = ((i + 1) % (segments + 1)) * 51 + j + 1;
+
+                    indices.push(a, c, b);
+                    indices.push(b, c, d);
+                }
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(vertices), 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(colors), 3));
+            geometry.setIndex(new THREE.BufferAttribute(new Uint32Array(indices), 1));
+            geometry.computeVertexNormals();
+
+            const material = new THREE.MeshPhongMaterial({
+                vertexColors: true,
+                emissive: 0x1a1a1a,
+                shininess: 100,
+                wireframe: false
+            });
+
+            const mesh = new THREE.Mesh(geometry, material);
+            group.add(mesh);
+
+            // 기초 표시
+            const baseGeometry = new THREE.CylinderGeometry(baseRadius * 1.2, baseRadius * 1.5, 20, segments);
+            const baseMaterial = new THREE.MeshPhongMaterial({ color: 0x666666 });
+            const baseMesh = new THREE.Mesh(baseGeometry, baseMaterial);
+            baseMesh.position.y = -10;
+            group.add(baseMesh);
+
+            return group;
+        }
+
+        function updateModel(stage) {
+            if (currentModel) {
+                scene.remove(currentModel);
+            }
+            currentModel = createTowerGeometry(stage);
+            scene.add(currentModel);
+            currentStage = stage;
+        }
+
+        // ============ 이벤트 리스너 ============
+
+        document.querySelectorAll('.stage-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.stage-button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const stage = parseInt(btn.dataset.stage);
+                updateModel(stage);
+            });
+        });
+
+        document.getElementById('rotateLeftBtn').addEventListener('click', () => {
+            controls.autoRotate = false;
+            camera.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), 0.1);
+            controls.update();
+        });
+
+        document.getElementById('rotateRightBtn').addEventListener('click', () => {
+            controls.autoRotate = false;
+            camera.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), -0.1);
+            controls.update();
+        });
+
+        document.getElementById('zoomInBtn').addEventListener('click', () => {
+            camera.position.multiplyScalar(0.9);
+            controls.update();
+        });
+
+        document.getElementById('zoomOutBtn').addEventListener('click', () => {
+            camera.position.multiplyScalar(1.1);
+            controls.update();
+        });
+
+        document.getElementById('resetViewBtn').addEventListener('click', () => {
+            camera.position.set(0, 150, 200);
+            controls.target.set(0, 150, 0);
+            controls.update();
+        });
+
+        // 키보드 조작
+        document.addEventListener('keydown', (e) => {
+            switch (e.key.toLowerCase()) {
+                case 'arrowleft':
+                    document.getElementById('rotateLeftBtn').click();
+                    break;
+                case 'arrowright':
+                    document.getElementById('rotateRightBtn').click();
+                    break;
+                case 'arrowup':
+                    document.getElementById('zoomInBtn').click();
+                    break;
+                case 'arrowdown':
+                    document.getElementById('zoomOutBtn').click();
+                    break;
+                case 'r':
+                    document.getElementById('resetViewBtn').click();
+                    break;
+            }
+        });
+
+        // ============ 초기화 ============
+
+        window.addEventListener('load', () => {
+            // 도면 렌더링
+            const sitePlanCanvas = document.getElementById('sitePlanCanvas');
+            const floorPlanCanvas = document.getElementById('floorPlanCanvas');
+            const elevationCanvas = document.getElementById('elevationCanvas');
+            const sectionCanvas = document.getElementById('sectionCanvas');
+
+            sitePlanCanvas.width = sitePlanCanvas.offsetWidth;
+            sitePlanCanvas.height = sitePlanCanvas.offsetHeight;
+            drawSitePlan(sitePlanCanvas);
+
+            floorPlanCanvas.width = floorPlanCanvas.offsetWidth;
+            floorPlanCanvas.height = floorPlanCanvas.offsetHeight;
+            drawFloorPlan(floorPlanCanvas);
+
+            elevationCanvas.width = elevationCanvas.offsetWidth;
+            elevationCanvas.height = elevationCanvas.offsetHeight;
+            drawElevation(elevationCanvas);
+
+            sectionCanvas.width = sectionCanvas.offsetWidth;
+            sectionCanvas.height = sectionCanvas.offsetHeight;
+            drawSection(sectionCanvas);
+
+            // 3D 초기화
+            initThreeJS();
+            updateModel(0);
+        });
+    </script>
+</body>
+</html>
+```

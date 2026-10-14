@@ -1,0 +1,1467 @@
+You are the original author, model ministral-14b, served as mistral.ministral-3-14b-instruct. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+ORIGINAL TASK BRIEF. Retain every requested feature and disclosure:
+당신은 ministral-14b 모델입니다. 실제 호출 식별자는 mistral.ministral-3-14b-instruct입니다.
+
+롯데월드타워의 건축 설계 과정을 이해할 수 있도록, 설계도면과 단계별 3D 모델 및 완성된 3D 모델을 함께 보여주는 인터랙티브 웹페이지를 직접 구현하세요.
+
+공통 기준 자료:
+- 서울의 롯데월드타워는 높이 555m, 지상 123층입니다.
+- 위로 갈수록 기준층 면적과 건물 외곽이 좁아지는 형태입니다.
+- KPF는 형태와 외관에 한국 도자기의 선을 참고했다고 설명합니다.
+- 아래 공개 자료를 참고하는 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계로 표현하지 마세요. 공개 자료에 없는 치수·단면·부재는 추정한 개념임을 구분하세요.
+- 원 설계사: https://www.kpf.com/project/lotte-world-tower
+- 구조 설계사: https://www.lera.com/lotte-world-tower
+
+보여줄 내용:
+- 배치도, 기준층 평면도, 입면도, 단면도. 도면에는 무엇을 보여주는지, 단위와 치수의 근거를 알 수 있게 하세요.
+- 설계가 발전하는 과정과 각 단계의 3D 형상.
+- 완성된 건물의 실제 3D 형상과 회전·확대/축소·시점 초기화 조작.
+- 도면, 선택한 설계 단계, 완성 모델 사이의 대응 관계.
+
+표현 스타일, 화면 구성, 도형 생성 방법, 설명 방식은 스스로 결정하세요. 참고 구현 코드나 시각적 예시는 제공하지 않습니다.
+
+실행 조건:
+- 하나의 완결된 HTML 문서만 반환하세요. 자신의 CSS와 JavaScript를 문서 안에 넣으세요.
+- 3D 실행 환경은 모든 모델에 동일합니다: Three.js 0.186.1과 OrbitControls가 전역 THREE 객체로 제공되는 로컬 스크립트 "../runtime/three-runtime.js"를 사용할 수 있습니다. 필요하면 이 스크립트를 직접 포함하세요. 직접 WebGL을 구현해도 됩니다.
+- 외부 네트워크, 외부 폰트·이미지, 서버 API 없이 실행되게 하세요. 위 출처는 텍스트 출처 링크이며 실행 중 가져오면 안 됩니다.
+- 작품은 sandbox="allow-scripts" iframe에서 실행됩니다. alert/confirm/prompt와 부모 문서 접근은 사용하지 마세요.
+- 휴대폰과 데스크톱에서 조작할 수 있게 하세요. 키보드 조작, 읽기 쉬운 글자와 대비, 움직임 감소 설정을 고려하세요.
+- 실제 모델 이름 "ministral-14b"을 화면에 표시하세요.
+- 설명문이나 코드 조각을 따로 반환하지 말고 전체 HTML을 반환하세요.
+
+
+YOUR PREVIOUS FULL RESPONSE:
+```html
+<!DOCTYPE html>
+<html lang="ko" manifest="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>롯데월드타워 설계 과정 - ministral-14b</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+            --text-light: #fff;
+            --font-main: 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            --font-mono: 'Consolas', 'Monaco', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .author {
+            font-size: 0.9rem;
+            margin-top: 10px;
+            opacity: 0.7;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 8px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+        }
+
+        label {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        select, button {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        select:focus, button:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .model-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            margin-bottom: 20px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .canvas-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .info-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background-color: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .info-card h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .dimension {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .note {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .keyboard-help {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            background-color: rgba(0,0,0,0.05);
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .keyboard-help h4 {
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        .key-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 5px;
+        }
+
+        .key-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+            }
+
+            .control-group {
+                min-width: 100%;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .model-container {
+                height: 400px;
+            }
+        }
+
+        @media (prefers-reduced-motion) {
+            * {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>롯데월드타워 설계 과정</h1>
+        <p class="subtitle">KPF 및 LERA 설계사 자료를 기반으로 재구성한 개념 모델</p>
+        <p class="author">모델: ministral-14b | mistral.ministral-3-14b-instruct</p>
+    </header>
+
+    <div class="container">
+        <section class="section">
+            <h2>설계 과정</h2>
+            <div class="controls">
+                <div class="control-group">
+                    <label for="design-stage">설계 단계 선택</label>
+                    <select id="design-stage">
+                        <option value="concept">개념 스케치 (2010)</option>
+                        <option value="early">초기 모델 (2011)</option>
+                        <option value="detailed">상세 설계 (2012)</option>
+                        <option value="final">완성 모델 (2017)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="view-type">도면 타입</label>
+                    <select id="view-type">
+                        <option value="3d">3D 모델</option>
+                        <option value="site">배치도</option>
+                        <option value="floor">기준층 평면도</option>
+                        <option value="elevation">입면도</option>
+                        <option value="section">단면도</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <button id="reset-view">시점 초기화</button>
+                </div>
+            </div>
+
+            <div class="model-container">
+                <div class="canvas-container" id="model-canvas"></div>
+            </div>
+
+            <div class="keyboard-help">
+                <h4>키보드 조작</h4>
+                <div class="key-list">
+                    <div class="key-item"><kbd>↑</kbd><span>위/아래 이동</span></div>
+                    <div class="key-item"><kbd>↓</kbd><span>위/아래 이동</span></div>
+                    <div class="key-item"><kbd>←</kbd><span>좌/우 이동</span></div>
+                    <div class="key-item"><kbd>→</kbd><span>좌/우 이동</span></div>
+                    <div class="key-item"><kbd>Shift</kbd><span>이동 속도 ↑</span></div>
+                    <div class="key-item"><kbd>Ctrl</kbd><span>이동 속도 ↓</span></div>
+                    <div class="key-item"><kbd>Alt</kbd><span>회전 속도 ↑</span></div>
+                    <div class="key-item"><kbd>Mouse Wheel</kbd><span>확대/축소</span></div>
+                    <div class="key-item"><kbd>Right Click</kbd><span>회전</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>설계 정보</h2>
+            <div class="info-panel">
+                <div class="info-card">
+                    <h3>기본 정보</h3>
+                    <p><strong>총 높이:</strong> 555m (123층)</p>
+                    <p><strong>설계사:</strong> KPF (건축), LERA (구조)</p>
+                    <p><strong>설계 기간:</strong> 2010-2017</p>
+                    <p><strong>특징:</strong> 한국 도자기 선을 참고한 외관, 위로 올라갈수록 좁아지는 형태</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>설계 과정</h3>
+                    <p>1. <strong>개념 스케치:</strong> 기본적인 타워 형태와 서울시 내 위치 개념화</p>
+                    <p>2. <strong>초기 모델:</strong> 구조적 가능성 검토와 외관 디테일 추가</p>
+                    <p>3. <strong>상세 설계:</strong> 실제 구조 계산과 법적 제약사항 반영</p>
+                    <p>4. <strong>완성 모델:</strong> 최종 구조 및 외관 완료</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>도면 설명</h3>
+                    <p><strong>배치도:</strong> 서울시 내 위치와 주변 건물과의 관계</p>
+                    <p><strong>기준층 평면도:</strong> 타워의 층별 면적 변화 (123층 기준)</p>
+                    <p><strong>입면도:</strong> 건물의 외관 프로필 (4방향)</p>
+                    <p><strong>단면도:</strong> 건물의 내부 구조와 층별 높이 변화</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>도면 상세</h2>
+            <div class="info-panel">
+                <div class="info-card">
+                    <h3>배치도 (Site Plan)</h3>
+                    <p>롯데월드타워는 서울특별시 송파구에 위치하며,</p>
+                    <p>주변에 롯데월드 어드벤처와 롯데월드 타워 Mall이 위치</p>
+                    <div class="note">
+                        <p>※ 실제 도면과는 다를 수 있으며, 개념적 표현입니다.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>기준층 평면도 (Typical Floor Plan)</h3>
+                    <p><strong>1층:</strong> 면적 1,200m² (기본 구조)</p>
+                    <p><strong>50층:</strong> 면적 950m² (중간층)</p>
+                    <p><strong>123층:</strong> 면적 400m² (최상층)</p>
+                    <p class="dimension">층별 면적 감소율: 약 0.8% per floor</p>
+                    <div class="note">
+                        <p>※ 실제 구조 설계와는 다를 수 있으며, 추산치입니다.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>입면도 (Elevation)</h3>
+                    <p>4방향 입면도 모두 유사한 곡선 형태를 가짐</p>
+                    <p><strong>최대 폭:</strong> 1층 기준 80m</p>
+                    <p><strong>최소 폭:</strong> 123층 기준 30m</p>
+                    <p class="dimension">타워 외곽 곡선 반경: 150m (개념적)</p>
+                    <div class="note">
+                        <p>※ 한국 도자기 선을 참고한 곡선 표현입니다.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>단면도 (Section)</h3>
+                    <p>내부 구조는 중앙 코어와 외벽으로 구성</p>
+                    <p><strong>코어 크기:</strong> 20m × 20m (정사각형)</p>
+                    <p><strong>외벽 두께:</strong> 0.5m (개념적)</p>
+                    <p class="dimension">층 높이: 3.8m (표준층)</p>
+                    <div class="note">
+                        <p>※ 실제 구조 설계와는 다를 수 있으며, 개념적 표현입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Three.js Runtime (Embedded)
+        (function() {
+            // Simplified Three.js runtime for this environment
+            // In a real implementation, this would be loaded from "../runtime/three-runtime.js"
+            // Here we create minimal required classes to make the demo work
+
+            // Basic THREE namespace
+            window.THREE = {
+                Object3D: function() {
+                    this.children = [];
+                    this.position = { x: 0, y: 0, z: 0 };
+                    this.rotation = { x: 0, y: 0, z: 0 };
+                    this.scale = { x: 1, y: 1, z: 1 };
+                    this.updateMatrix = function() {};
+                    this.matrix = { elements: new Float32Array(16) };
+                    this.applyMatrix4 = function(m) {
+                        // Simplified matrix application
+                        const te = this.matrix.elements;
+                        const me = m.elements;
+                        const x = this.position.x, y = this.position.y, z = this.position.z;
+                        const r = this.rotation;
+                        const s = this.scale;
+
+                        // Simplified - just apply position for this demo
+                        this.position.x = me[12] * x + me[13] * y + me[14] * z + me[15];
+                        this.position.y = me[16] * x + me[17] * y + me[18] * z + me[19];
+                        this.position.z = me[20] * x + me[21] * y + me[22] * z + me[23];
+                    };
+                },
+
+                BufferGeometry: function() {
+                    this.attributes = {};
+                    this.index = null;
+                },
+
+                BufferAttribute: function(array, itemSize) {
+                    this.array = array;
+                    this.itemSize = itemSize;
+                },
+
+                Mesh: function(geometry, material) {
+                    this.geometry = geometry;
+                    this.material = material;
+                    this.type = 'Mesh';
+                },
+
+                MeshBasicMaterial: function() {
+                    this.color = { r: 1, g: 1, b: 1 };
+                    this.wireframe = false;
+                },
+
+                Scene: function() {},
+
+                PerspectiveCamera: function(fov, aspect, near, far) {
+                    this.fov = fov;
+                    this.aspect = aspect;
+                    this.near = near;
+                    this.far = far;
+                    this.position = { x: 0, y: 0, z: 0 };
+                    this.up = { x: 0, y: 1, z: 0 };
+                    this.lookAt = function(v) {
+                        // Simplified lookAt
+                        this.position.z = -1000;
+                    };
+                },
+
+                WebGLRenderer: function() {
+                    this.domElement = document.createElement('canvas');
+                    this.setPixelRatio = function(pixelRatio) {
+                        this.domElement.style.width = '100%';
+                        this.domElement.style.height = '100%';
+                        this.domElement.width = this.domElement.clientWidth * pixelRatio;
+                        this.domElement.height = this.domElement.clientHeight * pixelRatio;
+                    };
+                    this.setSize = function(width, height) {
+                        this.domElement.width = width;
+                        this.domElement.height = height;
+                    };
+                    this.render = function(scene, camera) {
+                        const canvas = this.domElement;
+                        const ctx = canvas.getContext('2d');
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                        // Simple 2D fallback rendering for this demo
+                        // In real implementation, this would use WebGL
+                        ctx.fillStyle = 'rgba(0,0,0,0.1)';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                        // Draw grid
+                        ctx.strokeStyle = '#ccc';
+                        ctx.lineWidth = 0.5;
+                        for (let i = -10; i <= 10; i++) {
+                            ctx.beginPath();
+                            ctx.moveTo(i * canvas.width/20, 0);
+                            ctx.lineTo(i * canvas.width/20, canvas.height);
+                            ctx.stroke();
+
+                            ctx.beginPath();
+                            ctx.moveTo(0, i * canvas.height/20);
+                            ctx.lineTo(canvas.width, i * canvas.height/20);
+                            ctx.stroke();
+                        }
+
+                        // Draw axes
+                        ctx.strokeStyle = '#f00';
+                        ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        ctx.moveTo(canvas.width/2, canvas.height/2);
+                        ctx.lineTo(canvas.width/2 + 100, canvas.height/2);
+                        ctx.stroke();
+                        ctx.fillText('X', canvas.width/2 + 110, canvas.height/2 + 5);
+
+                        ctx.strokeStyle = '#0f0';
+                        ctx.beginPath();
+                        ctx.moveTo(canvas.width/2, canvas.height/2);
+                        ctx.lineTo(canvas.width/2, canvas.height/2 - 100);
+                        ctx.stroke();
+                        ctx.fillText('Y', canvas.width/2 - 5, canvas.height/2 - 110);
+
+                        ctx.strokeStyle = '#00f';
+                        ctx.beginPath();
+                        ctx.moveTo(canvas.width/2, canvas.height/2);
+                        ctx.lineTo(canvas.width/2 + 50, canvas.height/2 + 50);
+                        ctx.stroke();
+                        ctx.fillText('Z', canvas.width/2 + 60, canvas.height/2 + 60);
+                    };
+                },
+
+                Vector3: function(x, y, z) {
+                    this.x = x || 0;
+                    this.y = y || 0;
+                    this.z = z || 0;
+                },
+
+                Euler: function(x, y, z, order) {
+                    this.x = x || 0;
+                    this.y = y || 0;
+                    this.z = z || 0;
+                    this.order = order || 'XYZ';
+                },
+
+                Math: {
+                    PI: Math.PI,
+                    PI2: Math.PI * 2,
+                    sin: Math.sin,
+                    cos: Math.cos,
+                    tan: Math.tan,
+                    asin: Math.asin,
+                    acos: Math.acos,
+                    atan2: Math.atan2,
+                    radians: function(degrees) { return degrees * Math.PI / 180; },
+                    degrees: function(radians) { return radians * 180 / Math.PI; }
+                }
+            };
+
+            // OrbitControls simulation
+            window.OrbitControls = function(object, domElement) {
+                this.object = object;
+                this.domElement = domElement;
+                this.target = new THREE.Vector3(0, 0, 0);
+                this.up = THREE.Math.radians(90);
+                this.autoRotate = false;
+                this.autoRotateSpeed = 2.0;
+                this.enableDamping = true;
+                this.dampingFactor = 0.05;
+                this.enableZoom = true;
+                this.zoomSpeed = 1.0;
+                this.minDistance = 100;
+                this.maxDistance = 1000;
+                this.enablePan = true;
+                this.panSpeed = 1.0;
+                this.screenSpacePanning = false;
+                this.keyPanSpeed = 7.0;
+
+                this.rotateLeft = function(angle) {
+                    this.object.rotation.y -= angle;
+                };
+
+                this.rotateUp = function(angle) {
+                    this.object.rotation.x -= angle;
+                };
+
+                this.dollyIn = function(dollyScale) {
+                    const distance = this.object.position.distanceTo(this.target);
+                    this.object.position.lerpVectors(this.target, this.object.position, Math.max(1 - dollyScale, 0.1));
+                };
+
+                this.dollyOut = function(dollyScale) {
+                    const distance = this.object.position.distanceTo(this.target);
+                    this.object.position.lerpVectors(this.target, this.object.position, Math.min(1 - dollyScale, 0.9));
+                };
+
+                this.update = function() {
+                    if (this.autoRotate && !this.enabled) return;
+
+                    const position = this.object.position;
+                    const offset = new THREE.Vector3();
+                    offset.copy(position).sub(this.target);
+
+                    // Apply rotation
+                    const theta = new THREE.Euler(0, 0, 0, 'XYZ');
+                    theta.set(0, this.up, 0, 'XYZ');
+                    offset.applyEuler(theta);
+
+                    // Apply zoom
+                    const zoomChanged = false;
+                    if (this.enableZoom) {
+                        const dolly = this.getZoomScale();
+                        offset.multiplyScalar(dolly);
+                    }
+
+                    // Apply pan
+                    if (this.enablePan) {
+                        const panOffset = new THREE.Vector3();
+                        panOffset.copy(position).sub(this.target);
+                        panOffset.applyEuler(theta);
+
+                        this.target.add(panOffset);
+                    }
+
+                    position.copy(this.target).add(offset);
+                };
+
+                this.getZoomScale = function() {
+                    return 1;
+                };
+            };
+        })();
+
+        // Main Application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup Three.js environment
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 10000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(800, 500);
+
+            const canvasContainer = document.getElementById('model-canvas');
+            canvasContainer.appendChild(renderer.domElement);
+
+            // OrbitControls
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.screenSpacePanning = false;
+            controls.minDistance = 200;
+            controls.maxDistance = 2000;
+            controls.maxPolarAngle = Math.PI * 0.9;
+
+            // Keyboard controls
+            const keys = {
+                up: false,
+                down: false,
+                left: false,
+                right: false,
+                shift: false,
+                ctrl: false,
+                alt: false
+            };
+
+            function setupKeyboardControls() {
+                window.addEventListener('keydown', function(e) {
+                    if (e.key === 'Shift') keys.shift = true;
+                    else if (e.key === 'Control') keys.ctrl = true;
+                    else if (e.key === 'Alt') keys.alt = true;
+                    else if (e.key === 'ArrowUp') keys.up = true;
+                    else if (e.key === 'ArrowDown') keys.down = true;
+                    else if (e.key === 'ArrowLeft') keys.left = true;
+                    else if (e.key === 'ArrowRight') keys.right = true;
+                });
+
+                window.addEventListener('keyup', function(e) {
+                    if (e.key === 'Shift') keys.shift = false;
+                    else if (e.key === 'Control') keys.ctrl = false;
+                    else if (e.key === 'Alt') keys.alt = false;
+                    else if (e.key === 'ArrowUp') keys.up = false;
+                    else if (e.key === 'ArrowDown') keys.down = false;
+                    else if (e.key === 'ArrowLeft') keys.left = false;
+                    else if (e.key === 'ArrowRight') keys.right = false;
+                });
+            }
+
+            // Mouse wheel zoom
+            renderer.domElement.addEventListener('wheel', function(e) {
+                e.preventDefault();
+                const delta = e.deltaY > 0 ? -1 : 1;
+                controls.dollyOut(delta * 0.01 * (keys.shift ? 0.1 : 1));
+            }, { passive: false });
+
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+
+                // Keyboard movement
+                if (keys.up) controls.pan(new THREE.Vector3(0, 0, -1 * (keys.shift ? 0.5 : keys.ctrl ? 0.1 : 0.2)));
+                if (keys.down) controls.pan(new THREE.Vector3(0, 0, 1 * (keys.shift ? 0.5 : keys.ctrl ? 0.1 : 0.2)));
+                if (keys.left) controls.pan(new THREE.Vector3(-1 * (keys.shift ? 0.5 : keys.ctrl ? 0.1 : 0.2), 0, 0));
+                if (keys.right) controls.pan(new THREE.Vector3(1 * (keys.shift ? 0.5 : keys.ctrl ? 0.1 : 0.2), 0, 0));
+
+                // Alt key for faster rotation
+                if (keys.alt) {
+                    controls.rotateLeft(0.01);
+                }
+
+                controls.update();
+                renderer.render(scene, camera);
+            }
+
+            // Reset view button
+            document.getElementById('reset-view').addEventListener('click', function() {
+                camera.position.set(500, 500, 500);
+                camera.lookAt(0, 0, 0);
+                controls.target.set(0, 0, 0);
+                controls.update();
+            });
+
+            // Design stage selector
+            const designStageSelect = document.getElementById('design-stage');
+            const viewTypeSelect = document.getElementById('view-type');
+
+            // Create models for different stages
+            function createConceptModel() {
+                scene.children = [];
+
+                // Base platform
+                const platformGeometry = new THREE.BufferGeometry();
+                const platformVertices = new Float32Array([
+                    // Base
+                    -100, 0, -100, 100, 0, -100, 100, 0, 100, -100, 0, 100,
+                    // Top (smaller)
+                    -50, 500, -50, 50, 500, -50, 50, 500, 50, -50, 500, 50
+                ]);
+                platformGeometry.setAttribute('position', new THREE.BufferAttribute(platformVertices, 3));
+
+                const platformMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xcccccc,
+                    wireframe: true
+                });
+                const platform = new THREE.Mesh(platformGeometry, platformMaterial);
+                scene.add(platform);
+
+                // Simple tower outline
+                const towerGeometry = new THREE.BufferGeometry();
+                const towerVertices = [];
+                const segments = 12;
+                const height = 500;
+
+                for (let i = 0; i <= segments; i++) {
+                    const angle = (i / segments) * Math.PI * 2;
+                    const radius = 100 - (i / segments) * 50;
+                    towerVertices.push(
+                        radius * Math.cos(angle), 0, radius * Math.sin(angle),
+                        radius * Math.cos(angle), height, radius * Math.sin(angle)
+                    );
+                }
+
+                towerGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(towerVertices), 3));
+
+                const towerMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x666666,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.7
+                });
+                const tower = new THREE.Mesh(towerGeometry, towerMaterial);
+                scene.add(tower);
+
+                // Add some conceptual elements
+                const coreGeometry = new THREE.BufferGeometry();
+                const coreVertices = new Float32Array([
+                    -10, 0, -10, 10, 0, -10, 10, 0, 10, -10, 0, 10,
+                    -10, height, -10, 10, height, -10, 10, height, 10, -10, height, 10
+                ]);
+                coreGeometry.setAttribute('position', new THREE.BufferAttribute(coreVertices, 3));
+
+                const coreMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x333333,
+                    wireframe: true
+                });
+                const core = new THREE.Mesh(coreGeometry, coreMaterial);
+                scene.add(core);
+
+                // Position camera
+                camera.position.set(300, 300, 300);
+                camera.lookAt(0, 0, 0);
+                controls.target.set(0, 0, 0);
+            }
+
+            function createEarlyModel() {
+                scene.children = [];
+
+                // More detailed base
+                const baseGeometry = new THREE.BufferGeometry();
+                const baseVertices = new Float32Array([
+                    // Base platform
+                    -100, 0, -100, 100, 0, -100, 100, 0, 100, -100, 0, 100,
+                    // Base structure
+                    -100, 0, -100, -100, 50, -100,
+                    100, 0, -100, 100, 50, -100,
+                    100, 0, 100, 100, 50, 100,
+                    -100, 0, 100, -100, 50, 100
+                ]);
+                baseGeometry.setAttribute('position', new THREE.BufferAttribute(baseVertices, 3));
+
+                const baseMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x888888,
+                    wireframe: true
+                });
+                const base = new THREE.Mesh(baseGeometry, baseMaterial);
+                scene.add(base);
+
+                // Tower with more segments
+                const towerGeometry = new THREE.BufferGeometry();
+                const towerVertices = [];
+                const segments = 24;
+                const height = 555;
+
+                for (let i = 0; i <= segments; i++) {
+                    const progress = i / segments;
+                    const angle = (i / segments) * Math.PI * 2;
+                    const radius = 100 - (progress * progress) * 50;
+                    towerVertices.push(
+                        radius * Math.cos(angle), progress * height, radius * Math.sin(angle),
+                        radius * Math.cos(angle), (progress + 0.05) * height, radius * Math.sin(angle)
+                    );
+                }
+
+                towerGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(towerVertices), 3));
+
+                const towerMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x555555,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.8
+                });
+                const tower = new THREE.Mesh(towerGeometry, towerMaterial);
+                scene.add(tower);
+
+                // Core structure
+                const coreGeometry = new THREE.BufferGeometry();
+                const coreVertices = [];
+                for (let i = 0; i <= height; i += 10) {
+                    coreVertices.push(
+                        -15, i, -15, 15, i, -15,
+                        15, i, -15, 15, i, 15,
+                        15, i, 15, -15, i, 15,
+                        -15, i, 15, -15, i, -15
+                    );
+                }
+                coreGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(coreVertices), 3));
+
+                const coreMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x222222,
+                    wireframe: true
+                });
+                const core = new THREE.Mesh(coreGeometry, coreMaterial);
+                scene.add(core);
+
+                // Position camera
+                camera.position.set(400, 400, 400);
+                camera.lookAt(0, 0, 0);
+                controls.target.set(0, 0, 0);
+            }
+
+            function createDetailedModel() {
+                scene.children = [];
+
+                // Base with more details
+                const baseGeometry = new THREE.BufferGeometry();
+                const baseVertices = new Float32Array([
+                    // Base platform
+                    -100, 0, -100, 100, 0, -100, 100, 0, 100, -100, 0, 100,
+                    // Base structure with steps
+                    -100, 0, -100, -100, 20, -100,
+                    100, 0, -100, 100, 20, -100,
+                    100, 0, 100, 100, 20, 100,
+                    -100, 0, 100, -100, 20, 100,
+                    // Base columns
+                    -80, 0, -80, -80, 100, -80,
+                    80, 0, -80, 80, 100, -80,
+                    80, 0, 80, 80, 100, 80,
+                    -80, 0, 80, -80, 100, 80
+                ]);
+                baseGeometry.setAttribute('position', new THREE.BufferAttribute(baseVertices, 3));
+
+                const baseMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x777777,
+                    wireframe: true
+                });
+                const base = new THREE.Mesh(baseGeometry, baseMaterial);
+                scene.add(base);
+
+                // Tower with smooth curve
+                const towerGeometry = new THREE.BufferGeometry();
+                const towerVertices = [];
+                const segments = 48;
+                const height = 555;
+
+                for (let i = 0; i <= segments; i++) {
+                    const progress = i / segments;
+                    const angle = (i / segments) * Math.PI * 2;
+                    const radius = 100 - (progress * progress * 0.8) * 50;
+                    const nextProgress = Math.min(progress + 0.01, 1);
+                    const nextRadius = 100 - (nextProgress * nextProgress * 0.8) * 50;
+
+                    towerVertices.push(
+                        radius * Math.cos(angle), progress * height, radius * Math.sin(angle),
+                        nextRadius * Math.cos(angle), nextProgress * height, nextRadius * Math.sin(angle)
+                    );
+                }
+
+                towerGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(towerVertices), 3));
+
+                const towerMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x444444,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.9
+                });
+                const tower = new THREE.Mesh(towerGeometry, towerMaterial);
+                scene.add(tower);
+
+                // Core with more details
+                const coreGeometry = new THREE.BufferGeometry();
+                const coreVertices = [];
+                for (let i = 0; i <= height; i += 5) {
+                    coreVertices.push(
+                        -15, i, -15, 15, i, -15,
+                        15, i, -15, 15, i, 15,
+                        15, i, 15, -15, i, 15,
+                        -15, i, 15, -15, i, -15
+                    );
+                }
+                coreGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(coreVertices), 3));
+
+                const coreMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x111111,
+                    wireframe: true
+                });
+                const core = new THREE.Mesh(coreGeometry, coreMaterial);
+                scene.add(core);
+
+                // Add some external elements
+                const externalGeometry = new THREE.BufferGeometry();
+                const externalVertices = [];
+                for (let i = 0; i <= height; i += 20) {
+                    for (let j = 0; j < 4; j++) {
+                        const angle = (j / 4) * Math.PI * 2;
+                        const radius = 100 - (i / height * i / height) * 50;
+                        externalVertices.push(
+                            radius * Math.cos(angle), i, radius * Math.sin(angle),
+                            radius * Math.cos(angle) + 5, i, radius * Math.sin(angle) + 5
+                        );
+                    }
+                }
+                externalGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(externalVertices), 3));
+
+                const externalMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x999999,
+                    wireframe: true
+                });
+                const external = new THREE.Mesh(externalGeometry, externalMaterial);
+                scene.add(external);
+
+                // Position camera
+                camera.position.set(500, 500, 500);
+                camera.lookAt(0, 0, 0);
+                controls.target.set(0, 0, 0);
+            }
+
+            function createFinalModel() {
+                scene.children = [];
+
+                // Base with final details
+                const baseGeometry = new THREE.BufferGeometry();
+                const baseVertices = new Float32Array([
+                    // Base platform
+                    -100, 0, -100, 100, 0, -100, 100, 0, 100, -100, 0, 100,
+                    // Base structure with detailed steps
+                    -100, 0, -100, -100, 20, -100,
+                    100, 0, -100, 100, 20, -100,
+                    100, 0, 100, 100, 20, 100,
+                    -100, 0, 100, -100, 20, 100,
+                    // Base columns with details
+                    -80, 0, -80, -80, 100, -80,
+                    80, 0, -80, 80, 100, -80,
+                    80, 0, 80, 80, 100, 80,
+                    -80, 0, 80, -80, 100, 80,
+                    // Base details
+                    -90, 0, -90, -90, 5, -90,
+                    90, 0, -90, 90, 5, -90,
+                    90, 0, 90, 90, 5, 90,
+                    -90, 0, 90, -90, 5, 90
+                ]);
+                baseGeometry.setAttribute('position', new THREE.BufferAttribute(baseVertices, 3));
+
+                const baseMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x666666,
+                    wireframe: true
+                });
+                const base = new THREE.Mesh(baseGeometry, baseMaterial);
+                scene.add(base);
+
+                // Final tower with smooth curve and details
+                const towerGeometry = new THREE.BufferGeometry();
+                const towerVertices = [];
+                const segments = 96;
+                const height = 555;
+
+                for (let i = 0; i <= segments; i++) {
+                    const progress = i / segments;
+                    const angle = (i / segments) * Math.PI * 2;
+                    const radius = 100 - (progress * progress * 0.75) * 50;
+                    const nextProgress = Math.min(progress + 0.01, 1);
+                    const nextRadius = 100 - (nextProgress * nextProgress * 0.75) * 50;
+
+                    // Add some curvature variation
+                    const curveFactor = Math.sin(progress * Math.PI * 2) * 0.05;
+                    const actualRadius = radius * (1 + curveFactor);
+
+                    towerVertices.push(
+                        actualRadius * Math.cos(angle), progress * height, actualRadius * Math.sin(angle),
+                        nextRadius * Math.cos(angle), nextProgress * height, nextRadius * Math.sin(angle)
+                    );
+                }
+
+                towerGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(towerVertices), 3));
+
+                const towerMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x333333,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.95
+                });
+                const tower = new THREE.Mesh(towerGeometry, towerMaterial);
+                scene.add(tower);
+
+                // Core with final details
+                const coreGeometry = new THREE.BufferGeometry();
+                const coreVertices = [];
+                for (let i = 0; i <= height; i += 3) {
+                    coreVertices.push(
+                        -15, i, -15, 15, i, -15,
+                        15, i, -15, 15, i, 15,
+                        15, i, 15, -15, i, 15,
+                        -15, i, 15, -15, i, -15
+                    );
+                }
+                coreGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(coreVertices), 3));
+
+                const coreMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x000000,
+                    wireframe: true
+                });
+                const core = new THREE.Mesh(coreGeometry, coreMaterial);
+                scene.add(core);
+
+                // External elements with more details
+                const externalGeometry = new THREE.BufferGeometry();
+                const externalVertices = [];
+                for (let i = 0; i <= height; i += 15) {
+                    for (let j = 0; j < 8; j++) {
+                        const angle = (j / 8) * Math.PI * 2;
+                        const radius = 100 - (i / height * i / height) * 50;
+                        externalVertices.push(
+                            radius * Math.cos(angle), i, radius * Math.sin(angle),
+                            radius * Math.cos(angle) + 3, i, radius * Math.sin(angle) + 3
+                        );
+                    }
+                }
+                externalGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(externalVertices), 3));
+
+                const externalMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x888888,
+                    wireframe: true
+                });
+                const external = new THREE.Mesh(externalGeometry, externalMaterial);
+                scene.add(external);
+
+                // Add some observation deck
+                const deckGeometry = new THREE.BufferGeometry();
+                const deckVertices = new Float32Array([
+                    // Observation deck at top
+                    -20, 555, -20, 20, 555, -20,
+                    20, 555, -20, 20, 555, 20,
+                    20, 555, 20, -20, 555, 20,
+                    -20, 555, 20, -20, 555, -20,
+
+                    // Deck supports
+                    -15, 555, -15, -15, 540, -15,
+                    15, 555, -15, 15, 540, -15,
+                    15, 555, 15, 15, 540, 15,
+                    -15, 555, 15, -15, 540, 15
+                ]);
+                deckGeometry.setAttribute('position', new THREE.BufferAttribute(deckVertices, 3));
+
+                const deckMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xaaaaaa,
+                    wireframe: true
+                });
+                const deck = new THREE.Mesh(deckGeometry, deckMaterial);
+                scene.add(deck);
+
+                // Position camera
+                camera.position.set(600, 600, 600);
+                camera.lookAt(0, 0, 0);
+                controls.target.set(0, 0, 0);
+            }
+
+            // Create 2D drawings for different views
+            function createSitePlan() {
+                scene.children = [];
+
+                // Draw site plan on canvas
+                const canvas = renderer.domElement;
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw grid
+                ctx.strokeStyle = '#eee';
+                ctx.lineWidth = 1;
+                for (let i = -5; i <= 5; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(i * canvas.width/10, 0);
+                    ctx.lineTo(i * canvas.width/10, canvas.height);
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, i * canvas.height/10);
+                    ctx.lineTo(canvas.width, i * canvas.height/10);
+                    ctx.stroke();
+                }
+
+                // Draw tower position
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(canvas.width/2, canvas.height/2, 30, 0, Math.PI*2);
+                ctx.stroke();
+
+                // Draw surrounding buildings
+                ctx.fillStyle = '#ccc';
+                ctx.fillRect(canvas.width/4, canvas.height/4, 50, 30);
+                ctx.fillRect(canvas.width*3/4, canvas.height/3, 60, 40);
+
+                // Draw labels
+                ctx.fillStyle = '#333';
+                ctx.font = '14px var(--font-main)';
+                ctx.fillText('롯데월드타워', canvas.width/2 - 30, canvas.height/2 - 40);
+                ctx.fillText('롯데월드 어드벤처', canvas.width/4 + 25, canvas.height/4 + 20);
+                ctx.fillText('롯데월드 타워 Mall', canvas.width*3/4 + 30, canvas.height/3 + 30);
+
+                // Draw scale
+                ctx.strokeStyle = '#666';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2 - 100, canvas.height - 30);
+                ctx.lineTo(canvas.width/2 - 50, canvas.height - 30);
+                ctx.stroke();
+                ctx.fillText('100m', canvas.width/2 - 75, canvas.height - 20);
+
+                // Position camera for 2D view
+                camera.position.set(0, 0, 1000);
+                camera.lookAt(0, 0, 0);
+                controls.enabled = false;
+            }
+
+            function createFloorPlan() {
+                scene.children = [];
+
+                // Draw floor plan on canvas
+                const canvas = renderer.domElement;
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw grid
+                ctx.strokeStyle = '#eee';
+                ctx.lineWidth = 1;
+                for (let i = -10; i <= 10; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(i * canvas.width/20, 0);
+                    ctx.lineTo(i * canvas.width/20, canvas.height);
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, i * canvas.height/20);
+                    ctx.lineTo(canvas.width, i * canvas.height/20);
+                    ctx.stroke();
+                }
+
+                // Draw building outline
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2, canvas.height/2);
+                ctx.lineTo(canvas.width/2 + 40, canvas.height/2 - 20);
+                ctx.lineTo(canvas.width/2 + 30, canvas.height/2 - 30);
+                ctx.lineTo(canvas.width/2 + 10, canvas.height/2 - 30);
+                ctx.lineTo(canvas.width/2, canvas.height/2 - 20);
+                ctx.lineTo(canvas.width/2 - 10, canvas.height/2 - 30);
+                ctx.lineTo(canvas.width/2 - 30, canvas.height/2 - 30);
+                ctx.lineTo(canvas.width/2 - 40, canvas.height/2 - 20);
+                ctx.closePath();
+                ctx.stroke();
+
+                // Draw core
+                ctx.fillStyle = '#666';
+                ctx.fillRect(canvas.width/2 - 10, canvas.height/2 - 15, 20, 30);
+
+                // Draw labels
+                ctx.fillStyle = '#333';
+                ctx.font = '14px var(--font-main)';
+                ctx.fillText('기준층 평면도 (50층)', canvas.width/2 - 80, 20);
+                ctx.fillText('면적: 950m²', canvas.width/2 - 50, 40);
+                ctx.fillText('코어: 20m × 20m', canvas.width/2 - 50, 60);
+
+                // Draw dimensions
+                ctx.strokeStyle = '#999';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2 - 50, canvas.height/2 - 20);
+                ctx.lineTo(canvas.width/2 + 50, canvas.height/2 - 20);
+                ctx.stroke();
+                ctx.fillText('80m', canvas.width/2, canvas.height/2 - 10);
+
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2, canvas.height/2 - 40);
+                ctx.lineTo(canvas.width/2, canvas.height/2 + 10);
+                ctx.stroke();
+                ctx.fillText('30m', canvas.width/2 + 10, canvas.height/2 - 15);
+
+                // Position camera for 2D view
+                camera.position.set(0, 0, 1000);
+                camera.lookAt(0, 0, 0);
+                controls.enabled = false;
+            }
+
+            function createElevation() {
+                scene.children = [];
+
+                // Draw elevation on canvas
+                const canvas = renderer.domElement;
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw grid
+                ctx.strokeStyle = '#eee';
+                ctx.lineWidth = 1;
+                for (let i = -5; i <= 5; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(i * canvas.width/10, 0);
+                    ctx.lineTo(i * canvas.width/10, canvas.height);
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, i * canvas.height/10);
+                    ctx.lineTo(canvas.width, i * canvas.height/10);
+                    ctx.stroke();
+                }
+
+                // Draw building profile
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2, canvas.height/2);
+                ctx.bezierCurveTo(
+                    canvas.width/2 + 20, canvas.height/2 - 50,
+                    canvas.width/2 + 30, canvas.height/2 - 100,
+                    canvas.width/2, canvas.height/2 - 150
+                );
+                ctx.bezierCurveTo(
+                    canvas.width/2 - 30, canvas.height/2 - 100,
+                    canvas.width/2 - 20, canvas.height/2 - 50,
+                    canvas.width/2, canvas.height/2
+                );
+                ctx.stroke();
+
+                // Draw core
+                ctx.fillStyle = '#666';
+                ctx.fillRect(canvas.width/2 - 5, canvas.height/2 - 150, 10, 150);
+
+                // Draw labels
+                ctx.fillStyle = '#333';
+                ctx.font = '14px var(--font-main)';
+                ctx.fillText('입면도 (남향)', canvas.width/2 - 60, 20);
+                ctx.fillText('높이: 555m', canvas.width/2 - 40, 40);
+                ctx.fillText('최대 폭: 80m', canvas.width/2 - 40, 60);
+                ctx.fillText('최소 폭: 30m', canvas.width/2 - 40, 80);
+
+                // Draw dimensions
+                ctx.strokeStyle = '#999';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2 - 40, canvas.height/2);
+                ctx.lineTo(canvas.width/2 + 40, canvas.height/2);
+                ctx.stroke();
+                ctx.fillText('80m', canvas.width/2, canvas.height/2 + 10);
+
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2, canvas.height/2 - 150);
+                ctx.lineTo(canvas.width/2, canvas.height/2 + 10);
+                ctx.stroke();
+                ctx.fillText('555m', canvas.width/2 + 10, canvas.height/2 - 75);
+
+                // Position camera for 2D view
+                camera.position.set(0, 0, 1000);
+                camera.lookAt(0, 0, 0);
+                controls.enabled = false;
+            }
+
+            function createSection() {
+                scene.children = [];
+
+                // Draw section on canvas
+                const canvas = renderer.domElement;
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw grid
+                ctx.strokeStyle = '#eee';
+                ctx.lineWidth = 1;
+                for (let i = -5; i <= 5; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(i * canvas.width/10, 0);
+                    ctx.lineTo(i * canvas.width/10, canvas.height);
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, i * canvas.height/10);
+                    ctx.lineTo(canvas.width, i * canvas.height/10);
+                    ctx.stroke();
+                }
+
+                // Draw building section
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2 - 40, canvas.height/2);
+                ctx.lineTo(canvas.width/2 - 40, canvas.height/2 - 150);
+                ctx.lineTo(canvas.width/2 + 40, canvas.height/2 - 150);
+                ctx.lineTo(canvas.width/2 + 40, canvas.height/2);
+                ctx.closePath();
+                ctx.stroke();
+
+                // Draw core
+                ctx.fillStyle = '#666';
+                ctx.fillRect(canvas.width/2 - 10, canvas.height/2 - 150, 20, 150);
+
+                // Draw floors
+                ctx.strokeStyle = '#999';
+                ctx.lineWidth = 1;
+                for (let i = 0; i <= 15; i++) {
+                    const y = canvas.height/2 - (i * 10);
+                    ctx.beginPath();
+                    ctx.moveTo(canvas.width/2 - 40, y);
+                    ctx.lineTo(canvas.width/2 + 40, y);
+                    ctx.stroke();
+                }
+
+                // Draw labels
+                ctx.fillStyle = '#333';
+                ctx.font = '14px var(--font-main)';
+                ctx.fillText('단면도 (동-서)', canvas.width/2 - 60, 20);
+                ctx.fillText('층 높이: 3.8m', canvas.width/2 - 40, 40);
+                ctx.fillText('코어 크기: 20m × 20m', canvas.width/2 - 60, 60);
+                ctx.fillText('외벽 두께: 0.5m', canvas.width/2 - 40, 80);
+
+                // Draw dimensions
+                ctx.strokeStyle = '#999';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2 - 40, canvas.height/2);
+                ctx.lineTo(canvas.width/2 + 40, canvas.height/2);
+                ctx.stroke();
+                ctx.fillText('80m', canvas.width/2, canvas.height/2 + 10);
+
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2, canvas.height/2 - 150);
+                ctx.lineTo(canvas.width/2, canvas.height/2 + 10);
+                ctx.stroke();
+                ctx.fillText('555m', canvas.width/2 + 10, canvas.height/2 - 75);
+
+                // Position camera for 2D view
+                camera.position.set(0, 0, 1000);
+                camera.lookAt(0, 0, 0);
+                controls.enabled = false;
+            }
+
+            // Initialize with concept model
+            createConceptModel();
+            setupKeyboardControls();
+            animate();
+
+            // Event listeners for controls
+            designStageSelect.addEventListener('change', function() {
+                const stage = this.value;
+                const viewType = viewTypeSelect.value;
+
+                if (viewType === '3d') {
+                    if (stage === 'concept') createConceptModel();
+                    else if (stage === 'early') createEarlyModel();
+                    else if (stage === 'detailed') createDetailedModel();
+                    else if (stage === 'final') createFinalModel();
+
+                    controls.enabled = true;
+                } else {
+                    if (viewType === 'site') createSitePlan();
+                    else if (viewType === 'floor') createFloorPlan();
+                    else if (viewType === 'elevation') createElevation();
+                    else if (viewType === 'section') createSection();
+
+                    controls.enabled = false;
+                }
+            });
+
+            viewTypeSelect.addEventListener('change', function() {
+                const stage = designStageSelect.value;
+                const viewType = this.value;
+
+                if (viewType === '3d') {
+                    if (stage === 'concept') createConceptModel();
+                    else if (stage === 'early') createEarlyModel();
+                    else if (stage === 'detailed') createDetailedModel();
+                    else if (stage === 'final') createFinalModel();
+
+                    controls.enabled = true;
+                } else {
+                    if (viewType === 'site') createSitePlan();
+                    else if (viewType === 'floor') createFloorPlan();
+                    else if (viewType === 'elevation') createElevation();
+                    else if (viewType === 'section') createSection();
+
+                    controls.enabled = false;
+                }
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                const container = document.getElementById('model-canvas');
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+
+                renderer.setSize(width, height);
+            });
+        });
+    </script>
+</body>
+</html>
+```
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["docs/models/ministral-14b/lotte-tower/artwork.html:531: The simulated runtime defines window.OrbitControls but calls new THREE.OrbitControls; it throws before rendering. The bundled local runtime is never loaded. Required repair: Use ../runtime/three-runtime.js and real THREE.OrbitControls; remove the incomplete substitute runtime rather than aliasing an incompatible stub. Retest all render/control methods. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/ministral-14b/lotte-tower/artwork.html:62: Meaningful UI/diagram text is below19px at rendered size. Required repair: Make meaningful text and diagram labels at least19px on mobile/desktop. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."]
+
+Return the complete repaired HTML now.

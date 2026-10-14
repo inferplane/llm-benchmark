@@ -1,0 +1,23 @@
+{
+  "model": "glm-5.3",
+  "model_id": "us.zai.glm-5.3",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T15:26:27.331396+00:00",
+  "prompt_sha256": "75a3a62dfe78378dad58cf8394f9a7796ead1002561913f5fca99df47a0296e1",
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": "low",
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T15:26:45.040705+00:00",
+  "artwork_sha256": "67c9eb19f5f24a94250275dac483baf325d6d988b887036e7ae46dd7be5d04b2",
+  "tokens_in": 6586,
+  "tokens_out": 7190,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "5210cead-c180-4d26-8113-eea3d3814ac9"
+}

@@ -1,0 +1,146 @@
+{
+  "model": "grok-4.6",
+  "task": "whoami",
+  "requested_model_id": "xai.grok-4.6",
+  "provider": "bedrock_mantle",
+  "family": "xAI",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/grok-4.6",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "583fbefad9a241a06b53aad7e6c3fd91a46d5985c92ddeace68c36d385370f19",
+  "content_review": {
+    "model": "grok-4.6",
+    "generation": "free-expression-20261012",
+    "score": 98.5,
+    "critical": 0,
+    "warnings": 1,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 3.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/grok-4.6/artwork.html",
+        "line": 68,
+        "quote": "font-size: clamp(0.95rem, 2.4vw, 1.08rem);",
+        "problem": "Informative descriptions, instructions/help and buttons render at about13–17px, below the14pt rubric minimum.",
+        "action": "Use at least19px for informative text and control labels."
+      }
+    ],
+    "artwork_sha256": "583fbefad9a241a06b53aad7e6c3fd91a46d5985c92ddeace68c36d385370f19",
+    "model_id": "xai.grok-4.6",
+    "reported_model": "xai.grok-4.6",
+    "requested_at": "2026-10-12T09:08:24.706570+00:00",
+    "reviewed_at": "2026-10-12T09:23:37.989155+00:00",
+    "initial_prompt_sha256": "24173eac09d577a4b3fe67bb084d89d5a3a0ec4ca5b6ff6ce447905dc7e25d6a",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/grok-4.6/583fbefad9a2",
+    "browser_evidence": "/tmp/free-expression-review/grok-4.6/583fbefad9a2/browser.json",
+    "notes": [
+      "Requested/reported model xai.grok-4.6 and complete streamed response verified; exact example-free initial request contains no prior-generation HTML.",
+      "375/768/1280 fit with zero errors/external requests. Existing pulse/reset/help work; initial reduced mode is static."
+    ],
+    "review_iteration": 1
+  },
+  "prompt_sha256": "24173eac09d577a4b3fe67bb084d89d5a3a0ec4ca5b6ff6ce447905dc7e25d6a",
+  "initial_prompt_sha256": "24173eac09d577a4b3fe67bb084d89d5a3a0ec4ca5b6ff6ce447905dc7e25d6a",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 2.2,
+      "price_out": 6.6
+    },
+    "estimated_total_usd": 0.0271414,
+    "estimated_final_response_usd": 0.0271414,
+    "recorded_attempts": 3,
+    "successful_code_responses": 1,
+    "additional_attempts": 2,
+    "known_cost_attempts": 1,
+    "unknown_usage_attempts": 2,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 247,
+      "tokens_out": 4030,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": false,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:10:01.068877+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": false,
+        "estimated_cost_usd": null,
+        "request_seconds": null,
+        "record_sha256": "8be81dffc6792cc317ca8f8532edb3d89a8be1a5df4ac90e243bc7c6c9ae2a57",
+        "response_sha256": null
+      },
+      {
+        "requested_at": "2026-10-12T08:54:31.763489+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": false,
+        "estimated_cost_usd": null,
+        "request_seconds": null,
+        "record_sha256": "0ef6132989675b48caf8fff3e792f75da6e9f48da33a4bcac3db4e3fb581c35c",
+        "response_sha256": null
+      },
+      {
+        "requested_at": "2026-10-12T09:08:24.706570+00:00",
+        "status": "generated",
+        "request_id": "req_pjhgmu3eb34oltnanqulzgn4zzaq4dbvnze4n65tpdc4sdtowa4q",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0271414,
+        "request_seconds": null,
+        "record_sha256": "bfadee172049bbe4dbff5adac0f59b5776f7db7778d8067de3783ee790e50753",
+        "response_sha256": "f126020ef1bc970381422d359a695d776a4c762f08cb068905011dcacd92200f"
+      }
+    ]
+  },
+  "request_id": "req_pjhgmu3eb34oltnanqulzgn4zzaq4dbvnze4n65tpdc4sdtowa4q",
+  "response_id": "resp_gbp3hq2d75mv5pw7t6zjfhfs6v3vqwy2pq7z6miptk5zwjnstf4q",
+  "requested_at": "2026-10-12T09:08:24.706570+00:00",
+  "generated_at": "2026-10-12T09:20:08.645530+00:00",
+  "reported_model": "xai.grok-4.6",
+  "tokens_in": 247,
+  "tokens_out": 4030,
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low",
+    "context": "all_turns"
+  }
+}

@@ -1,0 +1,11 @@
+You are the original author, model kimi-k3, served as us.moonshotai.kimi-k3. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+YOUR PREVIOUS FULL RESPONSE:
+
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["Return one complete original HTML implementing all tasks from the initial brief, using only the already-provided ../runtime/three-runtime.js global window.THREE and THREE.OrbitControls. Do not load any other renderer/control script/module/CDN, and do not use named ES module imports from the stock IIFE. Your last response was rejected as incomplete or because it tried to load a different runtime. Keep the full drawings, stages, 3D controls, mobile/keyboard and reduced-motion functionality, readable labels, source basis and assumed dimensions. Choose your own visual style and geometry; no examples or host template."]
+
+The previous implementation was unreliable; implement a fresh version yourself using your own expressive concept and medium. Address the confirmed functional issues without adopting a shared visual template.
+
+Return the complete repaired HTML now.

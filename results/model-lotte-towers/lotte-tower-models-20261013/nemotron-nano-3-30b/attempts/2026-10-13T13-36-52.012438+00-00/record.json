@@ -1,0 +1,23 @@
+{
+  "model": "nemotron-nano-3-30b",
+  "model_id": "nvidia.nemotron-nano-3-30b",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T13:36:52.012438+00:00",
+  "prompt_sha256": "1a2c5a1a1de958ac48ea117be2573df14bae36baf4a339dce9daf2f74720990f",
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T13:36:55.331045+00:00",
+  "artwork_sha256": "18f46d1a3f7616093d6d70ed3267371954884bc0e7183f01606f9dec40a4acf6",
+  "tokens_in": 728,
+  "tokens_out": 956,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "a4102adc-7f21-4afd-9a0d-5c6fc07298fc"
+}

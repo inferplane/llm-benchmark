@@ -1,0 +1,208 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotte World Tower</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        #container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #panels {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .panel {
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            font-size: 19px;
+        }
+        #three-container {
+            width: 100%;
+            height: 70vh;
+            border: 1px solid #ddd;
+            margin: 20px;
+        }
+        #controls {
+            margin: 20px;
+        }
+        button {
+            font-size: 19px;
+            padding: 10px;
+            margin: 10px;
+        }
+        #model-name {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="model-name">llama-3.3-70b</div>
+    <div id="container">
+        <div id="panels">
+            <div class="panel" id="site-plan">
+                <svg width="180" height="180">
+                    <rect x="10" y="10" width="160" height="160" fill="#ccc" />
+                    <text x="50" y="50" font-size="24">Site Plan (500x500m)</text>
+                </svg>
+            </div>
+            <div class="panel" id="floor-plan">
+                <svg width="180" height="180">
+                    <rect x="10" y="10" width="80" height="80" fill="#ccc" />
+                    <rect x="100" y="10" width="80" height="80" fill="#ccc" />
+                    <text x="50" y="50" font-size="24">Floor Plan (80x80m)</text>
+                </svg>
+            </div>
+            <div class="panel" id="elevation">
+                <svg width="180" height="180">
+                    <rect x="10" y="10" width="20" height="150" fill="#ccc" />
+                    <rect x="40" y="10" width="20" height="120" fill="#ccc" />
+                    <rect x="70" y="10" width="20" height="90" fill="#ccc" />
+                    <text x="50" y="50" font-size="24">Elevation (555m)</text>
+                </svg>
+            </div>
+            <div class="panel" id="section">
+                <svg width="180" height="180">
+                    <rect x="10" y="10" width="40" height="40" fill="#ccc" />
+                    <rect x="60" y="10" width="40" height="40" fill="#ccc" />
+                    <rect x="110" y="10" width="40" height="40" fill="#ccc" />
+                    <text x="50" y="50" font-size="24">Section (123 floors)</text>
+                </svg>
+            </div>
+        </div>
+        <div id="three-container"></div>
+        <div id="controls">
+            <button id="stage-1">Stage 1</button>
+            <button id="stage-2">Stage 2</button>
+            <button id="stage-3">Stage 3</button>
+            <button id="rotate">Rotate</button>
+            <button id="zoom">Zoom</button>
+            <button id="reset">Reset</button>
+        </div>
+    </div>
+    <script src="../runtime/three-runtime.js"></script>
+    <script>
+        let scene = new THREE.Scene();
+        let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        let renderer = new THREE.WebGLRenderer({
+            antialias: true
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight * 0.7);
+        document.getElementById('three-container').appendChild(renderer.domElement);
+        let towerGeometry = new THREE.BufferGeometry();
+        let vertices = [];
+        for (let i = 0; i <= 123; i++) {
+            let width = 100 - (i / 123) * 50;
+            let height = i * 555 / 123;
+            vertices.push(-width / 2, 0, -width / 2);
+            vertices.push(width / 2, 0, -width / 2);
+            vertices.push(width / 2, 0, width / 2);
+            vertices.push(-width / 2, 0, width / 2);
+            vertices.push(-width / 2, height, -width / 2);
+            vertices.push(width / 2, height, -width / 2);
+            vertices.push(width / 2, height, width / 2);
+            vertices.push(-width / 2, height, width / 2);
+        }
+        let indices = [];
+        for (let i = 0; i < 123; i++) {
+            let base = i * 8;
+            let top = (i + 1) * 8;
+            indices.push(base, base + 1, base + 2);
+            indices.push(base, base + 2, base + 3);
+            indices.push(top, top + 1, top + 2);
+            indices.push(top, top + 2, top + 3);
+            indices.push(base, top, base + 1);
+            indices.push(top, base + 1, top + 1);
+            indices.push(base + 2, top + 2, base + 3);
+            indices.push(top + 2, base + 3, top + 3);
+        }
+        towerGeometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        towerGeometry.setIndex(indices);
+        let towerMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        let tower = new THREE.Mesh(towerGeometry, towerMaterial);
+        scene.add(tower);
+        camera.position.z = 500;
+        let orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight * 0.7);
+        });
+        document.getElementById('stage-1').addEventListener('click', () => {
+            tower.geometry.dispose();
+            tower.geometry = new THREE.BoxGeometry(100, 100, 100);
+            tower.position.y = 50;
+        });
+        document.getElementById('stage-2').addEventListener('click', () => {
+            tower.geometry.dispose();
+            tower.geometry = new THREE.BoxGeometry(80, 200, 80);
+            tower.position.y = 100;
+        });
+        document.getElementById('stage-3').addEventListener('click', () => {
+            tower.geometry.dispose();
+            tower.geometry = towerGeometry;
+            tower.position.y = 0;
+        });
+        document.getElementById('rotate').addEventListener('click', () => {
+            tower.rotation.x += 0.1;
+            tower.rotation.y += 0.1;
+        });
+        document.getElementById('zoom').addEventListener('click', () => {
+            camera.position.z -= 50;
+        });
+        document.getElementById('reset').addEventListener('click', () => {
+            camera.position.z = 500;
+            camera.position.x = 0;
+            camera.position.y = 0;
+            camera.rotation.x = 0;
+            camera.rotation.y = 0;
+            tower.rotation.x = 0;
+            tower.rotation.y = 0;
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === ' ') {
+                tower.rotation.x += 0.1;
+                tower.rotation.y += 0.1;
+            } else if (event.key === '+') {
+                camera.position.z -= 50;
+            } else if (event.key === '-') {
+                camera.position.z += 50;
+            } else if (event.key === 'r') {
+                camera.position.z = 500;
+                camera.position.x = 0;
+                camera.position.y = 0;
+                camera.rotation.x = 0;
+                camera.rotation.y = 0;
+                tower.rotation.x = 0;
+                tower.rotation.y = 0;
+            }
+        });
+    </script>
+</body>
+</html>
+```

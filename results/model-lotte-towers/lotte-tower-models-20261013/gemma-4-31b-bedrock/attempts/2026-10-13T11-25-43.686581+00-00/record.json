@@ -1,0 +1,29 @@
+{
+  "model": "gemma-4-31b-bedrock",
+  "model_id": "google.gemma-4-31b",
+  "api": "bedrock_mantle",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T11:25:43.686581+00:00",
+  "prompt_sha256": "97ab60f6a1c696688103adb6d3193f182823f876e2a1365a10d0466d3f3d3cb3",
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T11:26:31.240436+00:00",
+  "artwork_sha256": "098de7cb8a77ef7a6a14e85b786ee7799203854c73f24cef8f7e395cd1eb315e",
+  "tokens_in": 969,
+  "tokens_out": 4667,
+  "response_status": "completed",
+  "http_status": 200,
+  "reported_model": "google.gemma-4-31b",
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "medium"
+  },
+  "reasoning_tokens": 0,
+  "request_id": "req_tvbdcpqnw72ur454ae2xnbt53ythwaarazjsjmjo62fdy5subqdq",
+  "response_id": "resp_ueklmc46hhgo6tmgws4tbrm2voa3i6pdqejkebavcvjdsq427fsa"
+}

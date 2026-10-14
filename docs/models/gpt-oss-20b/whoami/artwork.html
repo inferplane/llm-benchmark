@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>gpt-oss-20b: 미디어 아트</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  :root {
+    --bg: #111;
+    --fg: #eee;
+    --accent: #ff6f61;
+    --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    margin:0;
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--fg);
+    overflow: hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
+    width:100vw;
+  }
+  h1 {
+    font-size:2rem;
+    margin:0.5rem 0;
+    text-align:center;
+  }
+  #canvas {
+    border:2px solid var(--accent);
+    border-radius:8px;
+    background:#222;
+  }
+  #info {
+    margin-top:1rem;
+    font-size:0.9rem;
+    text-align:center;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition:none !important; animation:none !important; }
+  }
+  /* 키보드 포커스 스타일 */
+  button:focus, canvas:focus {
+    outline: 3px solid var(--accent);
+  }
+</style>
+</head>
+<body>
+<h1>gpt-oss-20b</h1>
+<canvas id="canvas" width="600" height="400" tabindex="0" aria-label="인터랙티브 아트 캔버스"></canvas>
+<div id="info">
+  <p>마우스 또는 키보드(↑↓←→)로 움직이세요. <br>접근성: 키보드 조작, 화면 확대, 움직임 감소 지원.</p>
+</div>
+
+<script>
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const width = canvas.width;
+  const height = canvas.height;
+  let pos = {x: width/2, y: height/2};
+  let dir = {x:0, y:0};
+  const speed = 3;
+  const radius = 20;
+
+  function draw() {
+    ctx.clearRect(0,0,width,height);
+    // background gradient
+    const grd = ctx.createLinearGradient(0,0,width,height);
+    grd.addColorStop(0,'#111');
+    grd.addColorStop(1,'#222');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0,0,width,height);
+    // moving circle
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, radius, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(255,111,97,0.8)';
+    ctx.fill();
+    // text overlay
+    ctx.font = '20px var(--font)';
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    ctx.fillText('gpt-oss-20b', width/2, height - 30);
+  }
+
+  function update() {
+    pos.x += dir.x * speed;
+    pos.y += dir.y * speed;
+    // wrap around
+    if(pos.x < -radius) pos.x = width + radius;
+    if(pos.x > width + radius) pos.x = -radius;
+    if(pos.y < -radius) pos.y = height + radius;
+    if(pos.y > height + radius) pos.y = -radius;
+    draw();
+  }
+
+  // keyboard controls
+  document.addEventListener('keydown', e=>{
+    switch(e.key){
+      case 'ArrowUp': dir.y = -1; break;
+      case 'ArrowDown': dir.y = 1; break;
+      case 'ArrowLeft': dir.x = -1; break;
+      case 'ArrowRight': dir.x = 1; break;
+    }
+  });
+  document.addEventListener('keyup', e=>{
+    if(['ArrowUp','ArrowDown'].includes(e.key)) dir.y = 0;
+    if(['ArrowLeft','ArrowRight'].includes(e.key)) dir.x = 0;
+  });
+
+  // mouse drag
+  let dragging = false;
+  canvas.addEventListener('mousedown', e=>{
+    dragging = true;
+    pos.x = e.offsetX;
+    pos.y = e.offsetY;
+  });
+  canvas.addEventListener('mousemove', e=>{
+    if(dragging){
+      pos.x = e.offsetX;
+      pos.y = e.offsetY;
+    }
+  });
+  canvas.addEventListener('mouseup', ()=>dragging=false);
+  canvas.addEventListener('mouseleave', ()=>dragging=false);
+
+  // focus for accessibility
+  canvas.addEventListener('focus', ()=>{dir.x=0;dir.y=0;});
+
+  // animation loop
+  function loop(){ update(); requestAnimationFrame(loop); }
+  loop();
+</script>
+</body>
+</html>

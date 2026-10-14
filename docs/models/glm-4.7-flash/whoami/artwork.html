@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>GLM-4.7 Flash: Neural Core</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-color: #e0e0e0;
+            --accent-color: #00f3ff;
+            --secondary-color: #bc13fe;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none; /* UX: 텍스트 선택 방지 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            overflow: hidden; /* 스크롤 방지 */
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 접근성: 움직임 감소 설정 지원 */
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            /* Script-driven animation reduction */
+            canvas {
+                animation: none !important;
+                opacity: 0.5;
+            }
+        }
+
+        /* 접근성: 배경 대비 강화 모드 */
+        body.high-contrast {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --accent-color: #ffffff;
+            --secondary-color: #ffff00;
+        }
+
+        /* 캔버스 레이어 */
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* UI 레이어 */
+        #ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none; /* 클릭은 캔버스로 통과 */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2rem;
+        }
+
+        /* 헤더 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            pointer-events: auto;
+        }
+
+        .brand {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            border-left: 2px solid var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .model-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+            margin-top: 5px;
+        }
+
+        /* 컨트롤 패널 */
+        .controls {
+            display: flex;
+            gap: 15px;
+            pointer-events: auto;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+            padding: 8px 16px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border-radius: 4px;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* 히어로 섹션 (중앙) */
+        .hero {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: var(--accent-color);
+            font-family: var(--font-mono);
+            opacity: 0.6;
+        }
+
+        /* 키보드 가이드 - 4.5:1 대비 강화 */
+        .keyboard-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            font-size: 1rem; /* 16px -> 19px+ */
+            color: #ffffff; /* Pure white for 4.5:1+ on black */
+            font-family: var(--font-mono);
+            pointer-events: none;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8); /* Additional depth */
+        }
+
+        .key {
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* 로디 인디케이터 */
+        #loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            font-family: var(--font-mono);
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .keyboard-hint { display: none; } /* 모바일에서는 키보드 힌트 숨김 */
+            .controls { flex-direction: column; gap: 5px; }
+            .btn { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">INITIALIZING CORE...</div>
+
+    <div id="canvas-container">
+        <canvas id="gl-canvas"></canvas>
+    </div>
+
+    <div id="ui-layer">
+        <header>
+            <div>
+                <div class="brand">IDENTITY</div>
+                <div class="model-name">zai.glm-4.7-flash</div>
+            </div>
+            <div class="controls">
+                <button class="btn" id="btn-contrast">대비 강화</button>
+                <button class="btn" id="btn-reset">초기화</button>
+            </div>
+        </header>
+
+        <div class="hero">
+            <h1>NEURAL FLUX</h1>
+            <p>INTERACTIVE VISUALIZATION</p>
+        </div>
+
+        <div class="keyboard-hint">
+            <span><span class="key">W</span> <span class="key">A</span> <span class="key">S</span> <span class="key">D</span> MOVE</span>
+            <span><span class="key">SPACE</span> PULSE</span>
+            <span><span class="key">MOUSE</span> INTERACT</span>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * GLM-4.7 Flash Visualization
+         * Concept: A "Neural Core" that reacts to user input.
+         * Visuals: Particle system with flow fields and mouse interaction.
+         * Tech: Vanilla JS + HTML5 Canvas (2D Context for maximum compatibility and performance).
+         */
+
+        const canvas = document.getElementById('gl-canvas');
+        const ctx = canvas.getContext('2d', { alpha: false }); // Optimize for no transparency on base
+        const loader = document.getElementById('loader');
+        
+        // State
+        let width, height;
+        let particles = [];
+        let mouse = { x: 0, y: 0, active: false };
+        let keys = { w: false, a: false, s: false, d: false, space: false };
+        let frameCount = 0;
+        let isHighContrast = false;
+        
+        // Configuration
+        const config = {
+            particleCount: 0, // Calculated based on screen size
+            baseSpeed: 1.5,
+            connectionDistance: 100,
+            colorBase: { r: 0, g: 243, b: 255 }, // Cyan
+            colorAlt: { r: 188, g: 19, b: 254 }, // Purple
+        };
+
+        // Resize Handling
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            
+            // Adjust particle count for performance
+            const area = width * height;
+            config.particleCount = Math.floor(area / 4000); // Density control
+            
+            initParticles();
+        }
+
+        // Particle Class
+        class Particle {
+            constructor() {
+                this.reset();
+                // Randomize initial position to fill screen immediately
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * config.baseSpeed;
+                this.vy = (Math.random() - 0.5) * config.baseSpeed;
+                this.size = Math.random() * 2 + 1;
+                this.life = Math.random() * 100 + 50;
+                this.maxLife = this.life;
+                this.colorType = Math.random() > 0.5 ? 'base' : 'alt';
+            }
+
+            update() {
+                // Keyboard Movement (Global Force)
+                if (keys.w) this.vy -= 0.1;
+                if (keys.s) this.vy += 0.1;
+                if (keys.a) this.vx -= 0.1;
+                if (keys.d) this.vx += 0.1;
+
+                // Mouse Interaction (Repulsion/Attraction)
+                if (mouse.active) {
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const forceRadius = 200;
+
+                    if (dist < forceRadius) {
+                        const force = (forceRadius - dist) / forceRadius;
+                        const angle = Math.atan2(dy, dx);
+                        // Push away
+                        this.vx += Math.cos(angle) * force * 0.5;
+                        this.vy += Math.sin(angle) * force * 0.5;
+                    }
+                }
+
+                // Friction
+                this.vx *= 0.98;
+                this.vy *= 0.98;
+
+                // Minimum movement to keep scene alive
+                if (Math.abs(this.vx) < 0.2) this.vx += (Math.random() - 0.5) * 0.1;
+                if (Math.abs(this.vy) < 0.2) this.vy += (Math.random() - 0.5) * 0.1;
+
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life--;
+
+                // Screen Wrap
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+
+                // Reset if dead
+                if (this.life <= 0) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                const alpha = (this.life / this.maxLife) * (isHighContrast ? 1 : 0.8);
+                const color = this.colorType === 'base' 
+                    ? `rgba(${config.colorBase.r}, ${config.colorBase.g}, ${config.colorBase.b}, ${alpha})`
+                    : `rgba(${config.colorAlt.r}, ${config.colorAlt.g}, ${config.colorAlt.b}, ${alpha})`;
+
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < config.particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        // Draw Connections
+        function drawConnections() {
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < config.connectionDistance) {
+                        const opacity = 1 - (dist / config.connectionDistance);
+                        const color = isHighContrast 
+                            ? `rgba(255, 255, 255, ${opacity * 0.5})`
+                            : `rgba(0, 243, 255, ${opacity * 0.2})`;
+                        
+                        ctx.strokeStyle = color;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Main Animation Loop
+        function animate() {
+            // Check reduced motion preference for animation speed
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            
+            // Clear with trail effect
+            // If reduced motion, use a solid clear to avoid motion blur
+            ctx.fillStyle = isHighContrast ? 'rgba(0, 0, 0, 0.3)' : 'rgba(5, 5, 5, 0.3)';
+            ctx.fillRect(0, 0, width, height);
+
+            // Pulse Effect (Spacebar)
+            if (keys.space) {
+                ctx.fillStyle = isHighContrast ? 'rgba(255, 255, 0, 0.1)' : 'rgba(0, 243, 255, 0.1)';
+                ctx.fillRect(0, 0, width, height);
+            }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            drawConnections();
+
+            frameCount++;
+            requestAnimationFrame(animate);
+        }
+
+        // Event Listeners
+        window.addEventListener('resize', resize);
+        
+        // Mouse
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            mouse.active = true;
+        });
+        window.addEventListener('mouseleave', () => { mouse.active = false; });
+
+        // Touch (Mobile)
+        window.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            mouse.x = e.touches[0].clientX;
+            mouse.y = e.touches[0].clientY;
+            mouse.active = true;
+        }, { passive: false });
+        window.addEventListener('touchend', () => { mouse.active = false; });
+
+        // Keyboard
+        window.addEventListener('keydown', (e) => {
+            const key = e.key.toLowerCase();
+            if (keys.hasOwnProperty(key)) keys[key] = true;
+            if (e.code === 'Space') keys.space = true;
+        });
+
+        window.addEventListener('keyup', (e) => {
+            const key = e.key.toLowerCase();
+            if (keys.hasOwnProperty(key)) keys[key] = false;
+            if (e.code === 'Space') keys.space = false;
+        });
+
+        // UI Controls
+        document.getElementById('btn-contrast').addEventListener('click', () => {
+            isHighContrast = !isHighContrast;
+            document.body.classList.toggle('high-contrast');
+        });
+
+        document.getElementById('btn-reset').addEventListener('click', () => {
+            initParticles();
+        });
+
+        // Initialization
+        window.onload = () => {
+            resize();
+            loader.style.display = 'none';
+            animate();
+        };
+
+    </script>
+</body>
+</html>

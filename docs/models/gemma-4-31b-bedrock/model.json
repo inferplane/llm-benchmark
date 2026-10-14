@@ -1,0 +1,322 @@
+{
+  "model": "gemma-4-31b-bedrock",
+  "requested_model_id": "google.gemma-4-31b",
+  "family": "Google",
+  "tasks": {
+    "whoami": {
+      "model": "gemma-4-31b-bedrock",
+      "task": "whoami",
+      "requested_model_id": "google.gemma-4-31b",
+      "provider": "bedrock_mantle",
+      "family": "Google",
+      "generation": "free-expression-20261012",
+      "source_records": "results/model-self-portraits/generations/free-expression-20261012/gemma-4-31b-bedrock",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "8b2c649c4765f3b6db3966ce22854c3db126c06d63fc503e0156ec26d58ccdfa",
+      "content_review": {
+        "model": "gemma-4-31b-bedrock",
+        "generation": "free-expression-20261012",
+        "score": 96,
+        "critical": 0,
+        "warnings": 3,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 5,
+          "Accessibility": 1,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/gemma-4-31b-bedrock/artwork.html",
+            "line": 68,
+            "quote": "font-size: clamp(0.8rem, 3vw, 1.2rem);",
+            "problem": "Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px).",
+            "action": "Use at least 19px for informative text and controls while retaining the chosen composition."
+          },
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/gemma-4-31b-bedrock/artwork.html",
+            "line": 85,
+            "quote": "@media (prefers-reduced-motion: reduce) {",
+            "problem": "The operating-system reduced-motion preference does not reduce the actual continuous artwork animation; the rule only affects CSS while this motion is script-driven.",
+            "action": "Apply the reduced-motion preference to the actual animation with a meaningful reduction or still version, preserving your medium."
+          },
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/gemma-4-31b-bedrock/artwork.html",
+            "line": 69,
+            "quote": "color: var(--primary-color);",
+            "problem": "The blue model identifier is low contrast against its translucent blue panel over the dark moving field (visible in screenshots).",
+            "action": "Ensure the informative model identifier has at least 4.5:1 contrast against its actual background."
+          }
+        ],
+        "artwork_sha256": "8b2c649c4765f3b6db3966ce22854c3db126c06d63fc503e0156ec26d58ccdfa",
+        "model_id": "google.gemma-4-31b",
+        "reported_model": "google.gemma-4-31b",
+        "requested_at": "2026-10-12T08:11:50.179190+00:00",
+        "reviewed_at": "2026-10-12T08:51:09.277356+00:00",
+        "initial_prompt_sha256": "db5a72108ebe11750f8a46c065486eea8b17954e65659a8e2a9562a47cd8a9e1",
+        "exact_example_free_initial_prompt": true,
+        "original_response_containment": true,
+        "frozen_source": "/tmp/free-expression-review/gemma-4-31b-bedrock/8b2c649c4765",
+        "browser_evidence": "/tmp/free-expression-review/gemma-4-31b-bedrock/8b2c649c4765/browser.json",
+        "notes": [
+          "Browser/source evidence frozen at /tmp/free-expression-review/gemma-4-31b-bedrock/8b2c649c4765. Actual model response containment and exact example-free initial prompt verified."
+        ]
+      },
+      "prompt_sha256": "db5a72108ebe11750f8a46c065486eea8b17954e65659a8e2a9562a47cd8a9e1",
+      "initial_prompt_sha256": "db5a72108ebe11750f8a46c065486eea8b17954e65659a8e2a9562a47cd8a9e1",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "free-expression-20261012",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 0.14,
+          "price_out": 0.4
+        },
+        "estimated_total_usd": 0.00092842,
+        "estimated_final_response_usd": 0.00092842,
+        "recorded_attempts": 1,
+        "successful_code_responses": 1,
+        "additional_attempts": 0,
+        "known_cost_attempts": 1,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 243,
+          "tokens_out": 2236,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-12T08:11:50.179190+00:00",
+            "status": "generated",
+            "request_id": "req_ht55xj6bozoq4sj7uaangse4jccjz2l4gntm7eia7e5l4x6ridga",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00092842,
+            "request_seconds": null,
+            "record_sha256": "bc4e00d85b373d21b1d6ebae973bfff55fc805c69298df0ea0c293bc6c9e635d",
+            "response_sha256": "0995835e5acbb417276fa33413f4df68b7fcc4f69ee02a99ce35d4f9fd4c9ab7"
+          }
+        ]
+      },
+      "request_id": "req_ht55xj6bozoq4sj7uaangse4jccjz2l4gntm7eia7e5l4x6ridga",
+      "response_id": "resp_qi2c5ym534jym3zvbg5p5egfo2gidq6ke2ctgspa7gqjd2p3lusa",
+      "requested_at": "2026-10-12T08:11:50.179190+00:00",
+      "generated_at": "2026-10-12T08:12:16.662815+00:00",
+      "reported_model": "google.gemma-4-31b",
+      "tokens_in": 243,
+      "tokens_out": 2236,
+      "max_output_tokens": 8192,
+      "temperature": null,
+      "temperature_sent": false,
+      "reported_reasoning": {
+        "summary": null,
+        "effort": "medium"
+      }
+    },
+    "lotte-tower": {
+      "model": "gemma-4-31b-bedrock",
+      "task": "lotte-tower",
+      "requested_model_id": "google.gemma-4-31b",
+      "provider": "bedrock_mantle",
+      "family": "Google",
+      "generation": "lotte-tower-models-20261013",
+      "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock",
+      "status": "review_held",
+      "generation_status": "generated",
+      "artwork_sha256": "776ede41d637c2f1e7e6ef02694a410357ec26da2a84b5fcdf00f3625b036454",
+      "content_review": {
+        "task_requirements_complete": false,
+        "model": "gemma-4-31b-bedrock",
+        "score": 93.5,
+        "critical": 1,
+        "warnings": 1,
+        "verdict": "FAIL",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 0,
+          "Interactions": 5,
+          "Readability": 3.5,
+          "Accessibility": 5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "artwork_sha256": "776ede41d637c2f1e7e6ef02694a410357ec26da2a84b5fcdf00f3625b036454",
+        "model_id": "google.gemma-4-31b",
+        "origin_generation": "lotte-tower-models-20261013",
+        "original_response_bytes_verified": true,
+        "source": "/tmp/model-lotte-review/gemma-4-31b-bedrock/776ede41d637",
+        "browser_evidence": "/tmp/model-lotte-review/gemma-4-31b-bedrock/776ede41d637/browser.json",
+        "findings": [
+          {
+            "severity": "Critical",
+            "category": "Renders",
+            "file": "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html",
+            "line": 186,
+            "quote": "let scene, camera, renderer, controls, towerGroup;",
+            "problem": "init is called synchronously before the let scene and const container declarations initialize, causing Cannot access scene before initialization; subsequent drawing clicks find updateView undefined.",
+            "action": "Initialize declarations before calling init; bind handlers only after successful setup and test every drawing click."
+          },
+          {
+            "severity": "Warning",
+            "category": "Readability",
+            "file": "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html",
+            "line": 14,
+            "quote": "--font-size-min: 16px;",
+            "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+            "action": "Use at least19px meaningful rendered text and controls."
+          }
+        ],
+        "notes": [
+          "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+          "The local runtime and555m body/crown calculation are restored, but the actual initialization failure blocks all functionality. This is its second successful-source re-review."
+        ],
+        "reviewed_at": "2026-10-13T15:51:47.709284+00:00",
+        "re_review_number": 2,
+        "review_iteration": 3,
+        "retry_limit_reached": false,
+        "current_generation_status": "generated",
+        "active_source": true
+      },
+      "prompt_sha256": "c742b70cd16a1b987b3cee684ad3a6ee47b8cc801f9f01c57afb513b13652d4c",
+      "initial_prompt_sha256": "dcc401d065a563d83f07d7390db8ab4ce2c44a19da62b7b8753a1260ca1703d2",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "lotte-tower-models-20261013",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 0.14,
+          "price_out": 0.4
+        },
+        "estimated_total_usd": 0.00816256,
+        "estimated_final_response_usd": 0.00219318,
+        "recorded_attempts": 5,
+        "successful_code_responses": 3,
+        "additional_attempts": 4,
+        "known_cost_attempts": 5,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 6724,
+          "tokens_out": 18053,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-13T11:00:39.987962+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.00178126,
+            "request_seconds": null,
+            "record_sha256": "764e85f40ce27ead1c713c876cf50c08d1b932c23c052c0cb476fae511f23c8d",
+            "response_sha256": "8af624a1feb42fd50bde8bbbce60e583aa90ffc99d8bf7ad9b1d45d637e056b8"
+          },
+          {
+            "requested_at": "2026-10-13T11:25:43.686581+00:00",
+            "status": "generated",
+            "request_id": "req_tvbdcpqnw72ur454ae2xnbt53ythwaarazjsjmjo62fdy5subqdq",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00200246,
+            "request_seconds": null,
+            "record_sha256": "5985a946f8f10c3a7a8fd7f5b06089068609c3ca53e467594455a00b97023717",
+            "response_sha256": "8cb1639538538acb6037533b4a49d817285fc0d24a9588c9346f41f484471603"
+          },
+          {
+            "requested_at": "2026-10-13T13:39:02.778298+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.00109654,
+            "request_seconds": null,
+            "record_sha256": "6423586a02481b9101e36eef2fd1b3da20fb2bd5864aab8df8c4c6ef8e30d016",
+            "response_sha256": "a9542477ba62fe97bb171883d3ce11ba1d239d639f5d277d0281375da4719ab7"
+          },
+          {
+            "requested_at": "2026-10-13T15:00:48.753022+00:00",
+            "status": "generated",
+            "request_id": "req_3j3vz7cajswgtwzum3lo7cxermhcizc26gtwxwjpxpr3esb4dtmq",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00108912,
+            "request_seconds": null,
+            "record_sha256": "ce0ed7d73304d9d81a16b1b201d582a9739e7c1c74f2c34eb2826fa4c9660688",
+            "response_sha256": "2b1b66e5c3d573bd2594ff36cc0efa95e83ad882fe9f02a2964b1bbde82b2431"
+          },
+          {
+            "requested_at": "2026-10-13T15:27:38.608143+00:00",
+            "status": "generated",
+            "request_id": "req_g26txadysuwav5jkzjhyhmublm6yrbogzbngb4hqu5p7pu2xft4q",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00219318,
+            "request_seconds": null,
+            "record_sha256": "b7a608aed8b6dbadfe355f70d41dd938e4a21f9e6d58acb0b919001bf85f63b1",
+            "response_sha256": "87afdd430676ff08eb8490a563dd95e5e2b443720fe90921de8ccaf04a8b0775"
+          }
+        ]
+      },
+      "request_id": "req_g26txadysuwav5jkzjhyhmublm6yrbogzbngb4hqu5p7pu2xft4q",
+      "response_id": "resp_dlnc72q3cvvjamro4uqhlfy4tlmdzy4xrfymt5zqtot5wqrtdynq",
+      "requested_at": "2026-10-13T15:27:38.608143+00:00",
+      "generated_at": "2026-10-13T15:28:12.533319+00:00",
+      "reported_model": "google.gemma-4-31b",
+      "tokens_in": 3817,
+      "tokens_out": 4147,
+      "max_output_tokens": 16384,
+      "temperature": null,
+      "temperature_sent": false,
+      "bedrock_reasoning_effort": null,
+      "reported_reasoning": {
+        "summary": null,
+        "effort": "medium"
+      }
+    }
+  }
+}

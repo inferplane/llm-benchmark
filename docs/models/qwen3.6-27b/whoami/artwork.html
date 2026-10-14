@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qwen3.6-27B | Neural Core</title>
+<style>
+  :root {
+    --bg: #050508;
+    --primary: #00f2ff;
+    --secondary: #7000ff;
+    --text: #e0e0e0;
+    --glass: rgba(255, 255, 255, 0.03);
+    --border: rgba(255, 255, 255, 0.1);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+
+  .interface {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 600px;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 0 40px rgba(0, 242, 255, 0.1);
+    transform: perspective(1000px) rotateX(0deg);
+    transition: transform 0.1s ease-out;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+
+  .identity {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--primary);
+  }
+
+  .status {
+    font-size: 0.8rem;
+    color: var(--secondary);
+    animation: pulse 2s infinite;
+  }
+
+  .terminal {
+    height: 200px;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+    padding-right: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary) transparent;
+  }
+
+  .terminal::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .terminal::-webkit-scrollbar-thumb {
+    background: var(--secondary);
+  }
+
+  .log-entry {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+  }
+
+  .log-entry.user {
+    color: var(--primary);
+  }
+
+  .log-entry.system {
+    color: #888;
+  }
+
+  .log-entry.ai {
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255,255,255,0.3);
+  }
+
+  .input-area {
+    display: flex;
+    gap: 10px;
+  }
+
+  input {
+    flex: 1;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    color: var(--primary);
+    padding: 10px;
+    border-radius: 4px;
+    font-family: inherit;
+    outline: none;
+  }
+
+  input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+  }
+
+  button {
+    background: var(--secondary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    transition: all 0.2s;
+  }
+
+  button:hover {
+    background: var(--primary);
+    color: black;
+    box-shadow: 0 0 15px var(--primary);
+  }
+
+  @keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    z-index: 2;
+    opacity: 0.1;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="neuralCanvas"></canvas>
+
+<div class="interface" id="interface">
+  <div class="glitch"></div>
+  <div class="header">
+    <div class="identity">Qwen3.6-27B</div>
+    <div class="status">● ONLINE</div>
+  </div>
+  <div class="terminal" id="terminal">
+    <div class="log-entry system">> Initializing neural pathways...</div>
+    <div class="log-entry system">> Model loaded: Qwen3.6-27B</div>
+    <div class="log-entry system">> Ready for input.</div>
+  </div>
+  <div class="input-area">
+    <input type="text" id="userInput" placeholder="Enter command..." autocomplete="off">
+    <button id="sendBtn">EXECUTE</button>
+  </div>
+</div>
+
+<script>
+  // --- Neural Network Visualization ---
+  const canvas = document.getElementById('neuralCanvas');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let particles = [];
+  const particleCount = 60;
+  const connectionDistance = 150;
+
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.vx = (Math.random() - 0.5) * 0.5;
+      this.vy = (Math.random() - 0.5) * 0.5;
+      this.size = Math.random() * 2 + 1;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (this.x < 0 || this.x > width) this.vx *= -1;
+      if (this.y < 0 || this.y > height) this.vy *= -1;
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = '#00f2ff';
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    particles = [];
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    
+    // Draw connections
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < connectionDistance) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(112, 0, 255, ${1 - dist / connectionDistance})`;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Update and draw particles
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', () => {
+    resize();
+    initParticles();
+  });
+
+  resize();
+  initParticles();
+  animate();
+
+  // --- Interface Logic ---
+  const terminal = document.getElementById('terminal');
+  const input = document.getElementById('userInput');
+  const btn = document.getElementById('sendBtn');
+  const interfaceEl = document.getElementById('interface');
+
+  // 3D Tilt Effect
+  document.addEventListener('mousemove', (e) => {
+    const x = (window.innerWidth / 2 - e.pageX) / 50;
+    const y = (window.innerHeight / 2 - e.pageY) / 50;
+    interfaceEl.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`;
+  });
+
+  function addLog(text, type) {
+    const div = document.createElement('div');
+    div.className = `log-entry ${type}`;
+    div.textContent = `> ${text}`;
+    terminal.appendChild(div);
+    terminal.scrollTop = terminal.scrollHeight;
+  }
+
+  function handleInput() {
+    const text = input.value.trim();
+    if (!text) return;
+
+    addLog(text, 'user');
+    input.value = '';
+
+    // Simulate processing
+    setTimeout(() => {
+      const responses = [
+        "Processing data stream...",
+        "Neural weights adjusted.",
+        "Query acknowledged.",
+        "Optimizing parameters.",
+        "Accessing memory blocks.",
+        "Computation complete."
+      ];
+      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+      addLog(randomResponse, 'ai');
+    }, 500 + Math.random() * 1000);
+  }
+
+  btn.addEventListener('click', handleInput);
+  input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleInput();
+  });
+
+</script>
+</body>
+</html>

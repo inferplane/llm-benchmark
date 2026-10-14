@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>llama4-scout 미디어 아트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .llama4-scout {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .canvas {
+            border: 1px solid #ccc;
+        }
+        @media (max-width: 768px) {
+            .llama4-scout {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="llama4-scout">llama4-scout</h1>
+    <canvas class="canvas" id="canvas" width="400" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // 미디어 아트: 움직이는 원
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.arc(canvas.width / 2 + Math.sin(Date.now() * 0.001) * 100, canvas.height / 2 + Math.cos(Date.now() * 0.001) * 100, 50, 0, 2 * Math.PI);
+            ctx.fillStyle = '#007bff';
+            ctx.fill();
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+{
+  "model": "gpt-oss-20b",
+  "task": "whoami",
+  "requested_model_id": "openai.gpt-oss-20b-1:0",
+  "provider": "bedrock",
+  "family": "OpenAI",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/gpt-oss-20b",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "86f4efdac106050f4b01f359021d5126009e67334db2283c7f1b7a48ffadf170",
+  "content_review": {
+    "model": "gpt-oss-20b",
+    "generation": "free-expression-20261012",
+    "score": 96.5,
+    "critical": 0,
+    "warnings": 2,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 6.0,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 3.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/gpt-oss-20b/artwork.html",
+        "line": 39,
+        "quote": "font-size:0.9rem;",
+        "problem": "Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px).",
+        "action": "Use at least 19px for informative text and controls while retaining the chosen composition."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/gpt-oss-20b/artwork.html",
+        "line": 53,
+        "quote": "<canvas id=\"canvas\" width=\"600\" height=\"400\" tabindex=\"0\" aria-label=\"인터랙티브 아트 캔버스\"></canvas>",
+        "problem": "The fixed 600px canvas overflows and is horizontally clipped by the 375px hidden-overflow body.",
+        "action": "Fit the chosen canvas composition within narrow viewports."
+      }
+    ],
+    "artwork_sha256": "86f4efdac106050f4b01f359021d5126009e67334db2283c7f1b7a48ffadf170",
+    "model_id": "openai.gpt-oss-20b-1:0",
+    "reported_model": null,
+    "requested_at": "2026-10-12T08:10:52.758029+00:00",
+    "reviewed_at": "2026-10-12T08:51:09.258675+00:00",
+    "initial_prompt_sha256": "60e3059979837510e06979a883687217a7b3a6718895eea2f7be1ae343a3b2af",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/gpt-oss-20b/86f4efdac106",
+    "browser_evidence": "/tmp/free-expression-review/gpt-oss-20b/86f4efdac106/browser.json",
+    "notes": [
+      "The scene is stationary unless a user moves it; a separate automatic-motion reduction mechanism is not required.",
+      "Browser/source evidence frozen at /tmp/free-expression-review/gpt-oss-20b/86f4efdac106. Actual model response containment and exact example-free initial prompt verified."
+    ]
+  },
+  "prompt_sha256": "60e3059979837510e06979a883687217a7b3a6718895eea2f7be1ae343a3b2af",
+  "initial_prompt_sha256": "60e3059979837510e06979a883687217a7b3a6718895eea2f7be1ae343a3b2af",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.07,
+      "price_out": 0.3
+    },
+    "estimated_total_usd": 0.00036245,
+    "estimated_final_response_usd": 0.00036245,
+    "recorded_attempts": 1,
+    "successful_code_responses": 1,
+    "additional_attempts": 0,
+    "known_cost_attempts": 1,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 275,
+      "tokens_out": 1144,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:10:52.758029+00:00",
+        "status": "generated",
+        "request_id": "9505f201-e68a-4f95-9aa5-904bb7cfc386",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00036245,
+        "request_seconds": null,
+        "record_sha256": "69406f63732a669c3b39bb496d4996fd7a16c8ea7a31f6627db2711fc8768c8c",
+        "response_sha256": "cb91828f54c44d4ac6dbec9d5cf7c7bdc95e8c4e1f3b4e6b561dbd35d64e1215"
+      }
+    ]
+  },
+  "request_id": "9505f201-e68a-4f95-9aa5-904bb7cfc386",
+  "requested_at": "2026-10-12T08:10:52.758029+00:00",
+  "generated_at": "2026-10-12T08:10:56.237810+00:00",
+  "tokens_in": 275,
+  "tokens_out": 1144,
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "finish_reason": "end_turn"
+}

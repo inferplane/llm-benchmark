@@ -1,0 +1,25 @@
+{
+  "model": "llama4-scout",
+  "model_id": "us.meta.llama4-scout-17b-instruct-v1:0",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T15:00:48.804612+00:00",
+  "prompt_sha256": "04c362037e9f63af2488de38144d324b0abafa42ae64e4f25933ae5bc2964406",
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "failed",
+  "failed_at": "2026-10-13T15:00:49.238268+00:00",
+  "error": {
+    "type": "ValidationException",
+    "message": "ValidationException: provider returned ValidationException",
+    "retryable": false,
+    "http_status": 400,
+    "code": "ValidationException",
+    "request_id": "aa838adc-3de6-42c8-8051-b41fa7c30d7e"
+  },
+  "reason": "ValidationException: provider returned ValidationException"
+}

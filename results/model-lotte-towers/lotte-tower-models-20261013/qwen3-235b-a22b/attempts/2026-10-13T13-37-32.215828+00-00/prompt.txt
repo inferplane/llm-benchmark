@@ -1,0 +1,11 @@
+You are the original author, model qwen3-235b-a22b, served as qwen.qwen3-235b-a22b-2507-v1:0. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+YOUR PREVIOUS FULL RESPONSE:
+
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["docs/models/qwen3-235b-a22b/lotte-tower/artwork.html:321: drawDiagram resolves acontainerDIV byid andcalls getContext onit, even though thecanvas was appended inside; initialization throws andthe page is leftincomplete. Required repair: Pass/resolve theactual childcanvas consistently for allfour drawingroutines, then verify init andcontrols finish. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html:124: Informative labels/controls/drawing text render below19px. Required repair: Use at least19px meaningful text and controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html:226: The hidden-overflow layout is taller than theviewport andoverflows horizontally at768/375px, leaving content clipped rather than normallyscrollable. Required repair: Provide responsivecontainers andreachable intendedscrolling forbothdrawings and3D. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html:299: Camera zoom/rotation lack akeyboard-equivalent path apartfromautomaticrotation/reset. Required repair: Provide keyboard-operable camera navigation/zoom inyour chosenviewer. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."]
+
+The previous implementation was unreliable; implement a fresh version yourself using your own expressive concept and medium. Address the confirmed functional issues without adopting a shared visual template.
+
+Return the complete repaired HTML now.

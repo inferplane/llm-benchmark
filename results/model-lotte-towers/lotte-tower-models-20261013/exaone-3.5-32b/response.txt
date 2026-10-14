@@ -1,0 +1,118 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>롯데월드타워 설계 과정</title>
+    <style>
+        body, html { margin: 0; padding: 0; overflow-x: hidden; font-family: Arial, sans-serif; }
+        .container { display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .diagrams { display: flex; justify-content: space-around; width: 100%; max-width: 1200px; margin-bottom: 20px; }
+        .diagram { width: 200px; height: 200px; border: 1px solid #ccc; padding: 10px; text-align: center; }
+        .model-viewer { width: 100%; height: 600px; max-width: 800px; }
+        .controls { margin-top: 20px; }
+        .control-btn { margin: 5px; padding: 10px; font-size: 19px; cursor: pointer; }
+        .info { text-align: center; font-size: 19px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>롯데월드타워 설계 과정</h1>
+        <div class="diagrams">
+            <div class="diagram" id="site-plan">사이트 배치도 (단위: m)</div>
+            <div class="diagram" id="floor-plan">기준층 평면도 (단위: m)</div>
+            <div class="diagram" id="elevation">입면도 (단위: m)</div>
+            <div class="diagram" id="section">단면도 (단위: m)</div>
+        </div>
+        <div class="controls">
+            <button class="control-btn" onclick="rotateLeft()">◀</button>
+            <button class="control-btn" onclick="rotateRight()">▶</button>
+            <button class="control-btn" onclick="resetView()">초기화</button>
+            <button class="control-btn" onclick="zoomIn()">+</button>
+            <button class="control-btn" onclick="zoomOut()">-</button>
+        </div>
+        <div class="model-viewer" id="model-container"></div>
+        <div class="info">exaone-3.5-32b</div>
+    </div>
+
+    <script src="../runtime/three-runtime.js"></script>
+    <script>
+        // Initialize Three.js scene
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('model-container').appendChild(renderer.domElement);
+
+        // Mock 3D model setup (replace with actual geometry)
+        const geometry = new THREE.CylinderGeometry(50, 10, 500, 32, 1, true, 0, Math.PI * 2); // Simplified taper
+        const material = new THREE.MeshBasicMaterial({ color: 0x44aa88, wireframe: true });
+        const tower = new THREE.Mesh(geometry, material);
+        tower.scale.y = 0.1; // Adjust scale for visibility
+        tower.position.y = 250; // Center vertically
+        scene.add(tower);
+
+        camera.position.z = 1500; // Adjust camera distance
+
+        // Controls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.25;
+        controls.enableZoom = true;
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Render loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Keyboard controls
+        document.addEventListener('keydown', (event) => {
+            switch (event.key) {
+                case 'ArrowLeft': rotateLeft(); break;
+                case 'ArrowRight': rotateRight(); break;
+                case 'ArrowUp': zoomIn(); break;
+                case 'ArrowDown': zoomOut(); break;
+                case 'r': resetView(); break;
+            }
+        });
+
+        function rotateLeft() { controls.rotateLeft(Math.PI / 4); }
+        function rotateRight() { controls.rotateRight(Math.PI / 4); }
+        function resetView() { controls.reset(); }
+        function zoomIn() { camera.zoom += 0.1; camera.updateProjectionMatrix(); }
+        function zoomOut() { camera.zoom -= 0.1; camera.updateProjectionMatrix(); }
+
+        // Mock diagram rendering (replace with actual SVG or canvas drawing)
+        document.getElementById('site-plan').innerHTML = '<svg width="100" height="100"><rect width="100" height="100" style="fill:lightblue;" /><text x="50" y="50" text-anchor="middle" dy=".3em">사이트 배치도</text></svg>';
+        document.getElementById('floor-plan').innerHTML = '<svg width="100" height="100"><rect width="100" height="100" style="fill:lightgreen;" /><text x="50" y="50" text-anchor="middle" dy=".3em">기준층 평면도</text></svg>';
+        document.getElementById('elevation').innerHTML = '<svg width="100" height="100"><rect width="100" height="100" style="fill:lightcoral;" /><text x="50" y="50" text-anchor="middle" dy=".3em">입면도</text></svg>';
+        document.getElementById('section').innerHTML = '<svg width="100" height="100"><rect width="100" height="100" style="fill:lightyellow;" /><text x="50" y="50" text-anchor="middle" dy=".3em">단면도</text></svg>';
+
+        // Ensure responsive design
+        window.addEventListener('resize', () => {
+            const diagrams = document.querySelectorAll('.diagram');
+            const width = window.innerWidth / diagrams.length;
+            diagrams.forEach(d => {
+                d.style.width = `${width}px`;
+                d.style.height = `${width}px`;
+            });
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        window.dispatchEvent(new Event('resize'));
+    </script>
+</body>
+</html>
+```

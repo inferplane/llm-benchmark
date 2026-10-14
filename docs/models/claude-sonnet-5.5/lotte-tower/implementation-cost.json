@@ -1,0 +1,56 @@
+{
+  "kind": "api_tokens",
+  "generation": "lotte-world-tower-20261013-pilot",
+  "currency": "USD",
+  "price_source": "config.toml",
+  "price_snapshot": {
+    "price_in": 2.2,
+    "price_out": 11.0,
+    "price_cache_read": 0.11,
+    "price_cache_write": 2.75
+  },
+  "estimated_total_usd": 0.268873,
+  "estimated_final_response_usd": 0.086064,
+  "recorded_attempts": 2,
+  "successful_code_responses": 1,
+  "additional_attempts": 1,
+  "known_cost_attempts": 2,
+  "unknown_usage_attempts": 0,
+  "missing_duration_attempts": 0,
+  "total_request_seconds": null,
+  "tokens": {
+    "tokens_in": 2350,
+    "tokens_out": 23973,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "complete_request_estimate": true,
+  "excludes": [
+    "reviewer_and_coordinator_calls",
+    "historical_generations",
+    "taxes_and_discounts",
+    "requests_without_returned_usage"
+  ],
+  "attempts": [
+    {
+      "requested_at": "2026-10-13T07:08:39.314728+00:00",
+      "status": "failed",
+      "request_id": null,
+      "usage_available": true,
+      "estimated_cost_usd": 0.182809,
+      "request_seconds": null,
+      "record_sha256": "628dc7c9b178dde31daf1138e24dc114b0bd33887dce85accccf07994abdcba6",
+      "response_sha256": "997dcb90ff40c6d00af9fcad4153136d6fc227294e480906ac59ffc937933cfe"
+    },
+    {
+      "requested_at": "2026-10-13T07:16:55.963244+00:00",
+      "status": "generated",
+      "request_id": "fb7b3e77-4ede-4db0-9f1d-bd271952990c",
+      "usage_available": true,
+      "estimated_cost_usd": 0.086064,
+      "request_seconds": null,
+      "record_sha256": "a9ed7ac1a3b1d65950396ec050f36435b5d0985c31810963e6060c8c67b2ac65",
+      "response_sha256": "8561281ed1f6759e9c3e8f8e6d125fb067954619f3f10374586ff1abb4c6c717"
+    }
+  ]
+}

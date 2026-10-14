@@ -1,0 +1,296 @@
+{
+  "model": "claude-haiku-5.5",
+  "requested_model_id": "us.anthropic.claude-haiku-5-5",
+  "family": "Claude",
+  "tasks": {
+    "whoami": {
+      "model": "claude-haiku-5.5",
+      "task": "whoami",
+      "requested_model_id": "us.anthropic.claude-haiku-5-5",
+      "provider": "bedrock",
+      "family": "Claude",
+      "generation": "free-expression-20261012",
+      "source_records": "results/model-self-portraits/generations/free-expression-20261012/claude-haiku-5.5",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "57c94cf083e16cf2f2dac1d233b7dc58e26af03fa7a466beb9cb6a0264f2bd17",
+      "content_review": {
+        "model": "claude-haiku-5.5",
+        "generation": "free-expression-20261012",
+        "score": 98.5,
+        "critical": 0,
+        "warnings": 1,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 5,
+          "Accessibility": 3.5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/claude-haiku-5.5/artwork.html",
+            "line": 41,
+            "quote": "p{margin:.5rem 0;color:var(--muted);font-size:.98rem}",
+            "problem": "Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px).",
+            "action": "Use at least 19px for informative text and controls while retaining the chosen composition."
+          }
+        ],
+        "artwork_sha256": "57c94cf083e16cf2f2dac1d233b7dc58e26af03fa7a466beb9cb6a0264f2bd17",
+        "model_id": "us.anthropic.claude-haiku-5-5",
+        "reported_model": null,
+        "requested_at": "2026-10-12T08:20:15.898862+00:00",
+        "reviewed_at": "2026-10-12T08:51:09.237276+00:00",
+        "initial_prompt_sha256": "7da2aafbfbcbf914f1eb48858841eda18769352861335ab4897ce9a68156da70",
+        "exact_example_free_initial_prompt": true,
+        "original_response_containment": true,
+        "frozen_source": "/tmp/free-expression-review/claude-haiku-5.5/57c94cf083e1",
+        "browser_evidence": "/tmp/free-expression-review/claude-haiku-5.5/57c94cf083e1/browser.json",
+        "notes": [
+          "Existing pause/reset/reduction buttons and range are operative. Reduced mode meaningfully lowers motion; a fully static scene is not required.",
+          "Browser/source evidence frozen at /tmp/free-expression-review/claude-haiku-5.5/57c94cf083e1. Actual model response containment and exact example-free initial prompt verified."
+        ]
+      },
+      "prompt_sha256": "7da2aafbfbcbf914f1eb48858841eda18769352861335ab4897ce9a68156da70",
+      "initial_prompt_sha256": "7da2aafbfbcbf914f1eb48858841eda18769352861335ab4897ce9a68156da70",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "free-expression-20261012",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 0.11,
+          "price_out": 0.55,
+          "price_cache_read": 0.011,
+          "price_cache_write": 0.1375
+        },
+        "estimated_total_usd": 0.00956065,
+        "estimated_final_response_usd": 0.00501105,
+        "recorded_attempts": 2,
+        "successful_code_responses": 1,
+        "additional_attempts": 1,
+        "known_cost_attempts": 2,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 800,
+          "tokens_out": 17223,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-12T08:06:53.863825+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.0045496,
+            "request_seconds": null,
+            "record_sha256": "a43eca00e7d1572226e497564aaafb45c37d4a1c3759c1515d833c7f093a91fe",
+            "response_sha256": "9f414c5edf1a0356b2ba24b5839418d2567be15977b2c6a8fc2bd54000c86e69"
+          },
+          {
+            "requested_at": "2026-10-12T08:20:15.898862+00:00",
+            "status": "generated",
+            "request_id": "df51e7cc-888c-4ad4-a2ef-f77a6db09992",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00501105,
+            "request_seconds": null,
+            "record_sha256": "3bca2b59b93a61b06c2c87c6091c81475b19e26cba0e5deaabf55c72942e25f7",
+            "response_sha256": "32a16b0bef584f5e15d71cf67db8baa5dddbc324f8178c1021a4b21ea6ba2582"
+          }
+        ]
+      },
+      "request_id": "df51e7cc-888c-4ad4-a2ef-f77a6db09992",
+      "requested_at": "2026-10-12T08:20:15.898862+00:00",
+      "generated_at": "2026-10-12T08:20:52.690367+00:00",
+      "tokens_in": 400,
+      "tokens_out": 9031,
+      "max_output_tokens": 16384,
+      "temperature": null,
+      "temperature_sent": false,
+      "finish_reason": "end_turn"
+    },
+    "lotte-tower": {
+      "model": "claude-haiku-5.5",
+      "task": "lotte-tower",
+      "requested_model_id": "us.anthropic.claude-haiku-5-5",
+      "provider": "bedrock",
+      "family": "Claude",
+      "generation": "lotte-world-tower-20261013-pilot",
+      "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/claude-haiku-5.5",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "6fa8dd0377ec0fa0126a9c36e5ee26e90bf6081f9fadbfa5255217d6e65dd7d5",
+      "content_review": {
+        "model": "claude-haiku-5.5",
+        "score": 97.0,
+        "critical": 0,
+        "warnings": 2,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 3.5,
+          "Readability": 5,
+          "Accessibility": 3.5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "artwork_sha256": "6fa8dd0377ec0fa0126a9c36e5ee26e90bf6081f9fadbfa5255217d6e65dd7d5",
+        "model_id": "us.anthropic.claude-haiku-5-5",
+        "origin_generation": "lotte-world-tower-20261013-pilot",
+        "original_response_bytes_verified": true,
+        "source": "/tmp/model-lotte-review/claude-haiku-5.5/6fa8dd0377ec",
+        "browser_evidence": "/tmp/model-lotte-review/claude-haiku-5.5/6fa8dd0377ec/browser.json",
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/claude-haiku-5.5/lotte-tower/artwork.html",
+            "line": 16,
+            "quote": ".meta{color:var(--sub);font-size:.9rem;margin:0}",
+            "problem": "Meaningful descriptions, controls and/or drawing labels render below19px.",
+            "action": "Use at least19px readable informative text while preserving your own layout."
+          },
+          {
+            "severity": "Warning",
+            "category": "Interactions",
+            "file": "docs/models/claude-haiku-5.5/lotte-tower/artwork.html",
+            "line": 458,
+            "quote": "b.setAttribute(\"aria-pressed\",String(autoRotate));",
+            "problem": "With reduced motion enabled, the rotation button can announce rotation is on while animate() always suppresses it; the control state does not match the result.",
+            "action": "Synchronize/disable/explain the existing auto-rotation control under reduced motion."
+          }
+        ],
+        "notes": [
+          "Imported exact original pilot response, not a new billedrequest orhost-page substitute.",
+          "Real3D, fourdrawings, selectedfloor markers andstage geometry are implemented. Actual buttons/keyboardcamera andmobileflow pass; no runtimeerrors."
+        ],
+        "reviewed_at": "2026-10-13T11:57:41.116753+00:00",
+        "task_requirements_complete": true,
+        "current_generation_status": "generated",
+        "active_source": true,
+        "re_review_number": 0,
+        "review_iteration": 1,
+        "retry_limit_reached": false
+      },
+      "prompt_sha256": "9048e8532948d7fee9de8317a7af87379a430a7050ce22ff63b255161b4246d6",
+      "initial_prompt_sha256": "2ec52a187635eb6acd8abb8912029e17a3243acb8cbf5f89e90e5461bc20ae58",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "lotte-world-tower-20261013-pilot",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 0.11,
+          "price_out": 0.55,
+          "price_cache_read": 0.011,
+          "price_cache_write": 0.1375
+        },
+        "estimated_total_usd": 0.02620156,
+        "estimated_final_response_usd": 0.00792132,
+        "recorded_attempts": 3,
+        "successful_code_responses": 1,
+        "additional_attempts": 2,
+        "known_cost_attempts": 3,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 14306,
+          "tokens_out": 44778,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-13T07:08:39.310195+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.00914012,
+            "request_seconds": null,
+            "record_sha256": "acf32534a5f7875ff5aa159955cc69ad882c8947b412ff87d687e25392573bca",
+            "response_sha256": "b57d9e74f5f6952f0dee7895e74c8d045bb9ac4ecf868c886a002dcc7b4ad0cf"
+          },
+          {
+            "requested_at": "2026-10-13T07:16:55.954701+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.00914012,
+            "request_seconds": null,
+            "record_sha256": "6bcc0b51b4165f87a4facc2572d0e87c2d06bd571d48539281bd22784935efbf",
+            "response_sha256": "3b6c9f712954b9177ed0fea9c21a0463e2c2490cc268ea513ffca408c800c94d"
+          },
+          {
+            "requested_at": "2026-10-13T07:22:24.826873+00:00",
+            "status": "generated",
+            "request_id": "3d7efa72-48aa-4405-9d26-30006b9f7e09",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00792132,
+            "request_seconds": null,
+            "record_sha256": "4acc46370253834743d75b4f480bfece0a0967455ec5aed224307cc717bc9bd6",
+            "response_sha256": "5d7406e0575f4c7a7d2d2b95b1074f9a10083b3c64140e2605ccd88963b8905d"
+          }
+        ]
+      },
+      "request_id": "3d7efa72-48aa-4405-9d26-30006b9f7e09",
+      "requested_at": "2026-10-13T07:22:24.826873+00:00",
+      "generated_at": "2026-10-13T07:22:59.747414+00:00",
+      "tokens_in": 11962,
+      "tokens_out": 12010,
+      "max_output_tokens": 16384,
+      "temperature": null,
+      "temperature_sent": false,
+      "bedrock_reasoning_effort": "low",
+      "finish_reason": "end_turn",
+      "imported_history": {
+        "source_records": "results/architecture-3d/lotte-world-tower-20261013-pilot/claude-haiku-5.5",
+        "original_generation": "lotte-world-tower-20261013-pilot",
+        "original_record_sha256": "4acc46370253834743d75b4f480bfece0a0967455ec5aed224307cc717bc9bd6",
+        "import_is_not_an_additional_request": true
+      },
+      "current_response_reused": true
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "model": "llama4-maverick",
+  "task": "whoami",
+  "requested_model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+  "provider": "bedrock",
+  "family": "Meta",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/llama4-maverick",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "3e680abde450f2342ba911f5c4f68f8fa8658db6edf548e0b375bed1435994a1",
+  "content_review": {
+    "model": "llama4-maverick",
+    "generation": "free-expression-20261012",
+    "score": 98.5,
+    "critical": 0,
+    "warnings": 1,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 3.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/llama4-maverick/artwork.html",
+        "line": 36,
+        "quote": "font-size: 18px;",
+        "problem": "Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px).",
+        "action": "Use at least 19px for informative text and controls while retaining the chosen composition."
+      }
+    ],
+    "artwork_sha256": "3e680abde450f2342ba911f5c4f68f8fa8658db6edf548e0b375bed1435994a1",
+    "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+    "reported_model": null,
+    "requested_at": "2026-10-12T08:11:42.430009+00:00",
+    "reviewed_at": "2026-10-12T08:51:09.271737+00:00",
+    "initial_prompt_sha256": "f02c72d9abb99d21222f166cac4d04a9ba4f1a2cb01ac642c6931041b91f3b2b",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/llama4-maverick/3e680abde450",
+    "browser_evidence": "/tmp/free-expression-review/llama4-maverick/3e680abde450/browser.json",
+    "notes": [
+      "Reduced motion hides the moving canvas and retains the model label; no prescribed static-image substitute is required.",
+      "Browser/source evidence frozen at /tmp/free-expression-review/llama4-maverick/3e680abde450. Actual model response containment and exact example-free initial prompt verified."
+    ]
+  },
+  "prompt_sha256": "f02c72d9abb99d21222f166cac4d04a9ba4f1a2cb01ac642c6931041b91f3b2b",
+  "initial_prompt_sha256": "f02c72d9abb99d21222f166cac4d04a9ba4f1a2cb01ac642c6931041b91f3b2b",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.24,
+      "price_out": 0.97
+    },
+    "estimated_total_usd": 0.00072986,
+    "estimated_final_response_usd": 0.00072986,
+    "recorded_attempts": 1,
+    "successful_code_responses": 1,
+    "additional_attempts": 0,
+    "known_cost_attempts": 1,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 220,
+      "tokens_out": 698,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:11:42.430009+00:00",
+        "status": "generated",
+        "request_id": "6af688c6-2df9-4536-8896-ad975501528f",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00072986,
+        "request_seconds": null,
+        "record_sha256": "894e3fa21297c9963b4ca96dc243d97c1db577debed30032fb771d310573c1b8",
+        "response_sha256": "c5d31d96cba670498a6135dc8afc0492d36d4eb64abc2d9080f6e6c805d1437a"
+      }
+    ]
+  },
+  "request_id": "6af688c6-2df9-4536-8896-ad975501528f",
+  "requested_at": "2026-10-12T08:11:42.430009+00:00",
+  "generated_at": "2026-10-12T08:11:45.087819+00:00",
+  "tokens_in": 220,
+  "tokens_out": 698,
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "finish_reason": "end_turn"
+}

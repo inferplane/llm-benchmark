@@ -1,0 +1,23 @@
+{
+  "model": "nemotron-super-3-120b",
+  "model_id": "nvidia.nemotron-super-3-120b",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T13:37:20.352148+00:00",
+  "prompt_sha256": "cc1691b085cfc4453823285b92081ded006ab57bf411e686e9c331c2b8920e9e",
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T13:37:31.995778+00:00",
+  "artwork_sha256": "90940ceee4f2a2095b380c54f45a49ff434cfcc297dcccb0d5f3d0d105a00af6",
+  "tokens_in": 549,
+  "tokens_out": 1851,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "982cbb4f-4d0b-47b7-a7df-40b1fe0bdfa4"
+}

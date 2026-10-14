@@ -1,0 +1,433 @@
+You are the original author, model claude-haiku-5.5, served as us.anthropic.claude-haiku-5-5. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+YOUR PREVIOUS FULL RESPONSE:
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>롯데월드타워 설계 과정 — 도면과 3D 모델 대응 보기</title>
+<style>
+  :root{
+    --bg:#101418; --panel:#1a2028; --line:#2e3a48; --text:#eef2f6; --sub:#b7c3d0;
+    --accent:#ffd166; --mark:#ff6b6b; --ok:#8fd3a8; --focus:#7cc4ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;line-height:1.55}
+  header{padding:18px 20px 8px}
+  h1{font-size:1.35rem;margin:0 0 4px}
+  .meta{color:var(--sub);font-size:.9rem;margin:0}
+  .model-tag{display:inline-block;margin-top:6px;padding:2px 10px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-size:.85rem}
+  main{display:grid;gap:14px;padding:12px 16px 24px;grid-template-columns:1fr}
+  @media (min-width:960px){main{grid-template-columns:1.1fr 1fr}}
+  section.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+  h2{font-size:1.02rem;margin:0 0 8px}
+  .row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px}
+  button{font:inherit;color:var(--text);background:#263140;border:1px solid #3a4a5e;border-radius:8px;padding:7px 11px;min-height:40px;min-width:40px;cursor:pointer}
+  button:hover{background:#2f3d50}
+  button[aria-pressed="true"]{background:var(--accent);color:#111;border-color:var(--accent);font-weight:700}
+  button:focus-visible,input:focus-visible,canvas:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+  canvas{display:block;width:100%;background:#0c1014;border-radius:8px;border:1px solid var(--line)}
+  #view2d{height:380px}
+  #view3d{height:420px;position:relative}
+  #view3d canvas{height:100%}
+  .fallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:20px;text-align:center;color:var(--sub)}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  .note{font-size:.88rem;color:var(--sub)}
+  .est{color:var(--accent)} .pub{color:var(--ok)}
+  .info{background:#141a22;border:1px solid var(--line);border-radius:8px;padding:10px;font-size:.92rem;min-height:110px}
+  .info b{color:var(--text)}
+  .legend span{display:inline-block;margin-right:12px;font-size:.85rem}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <h1>롯데월드타워 설계 과정 이해하기</h1>
+  <p class="meta">높이 555 m · 지상 123층 (공개 값) — 나머지 치수와 단계별 형상은 공개 자료를 바탕으로 한 <span class="est">추정 개념 재구성</span>입니다. 공식 시공 도면이 아닙니다.</p>
+  <span class="model-tag">claude-haiku-5.5</span>
+</header>
+
+<main>
+  <!-- 2D 도면 -->
+  <section class="card" aria-labelledby="h-2d">
+    <h2 id="h-2d">도면 보기</h2>
+    <div class="row" role="group" aria-label="도면 종류">
+      <button data-view="site" aria-pressed="false">배치도</button>
+      <button data-view="plan" aria-pressed="false">기준층 평면도</button>
+      <button data-view="elev" aria-pressed="true">입면도</button>
+      <button data-view="sect" aria-pressed="false">단면도</button>
+    </div>
+    <canvas id="view2d" tabindex="0" role="img" aria-label="선택한 도면. 방향키로 층을 조정할 수 있습니다."></canvas>
+    <div class="row" style="margin-top:10px">
+      <label for="floor" style="min-width:150px">기준 층 선택: <b id="floorLabel">62층</b></label>
+      <input id="floor" type="range" min="1" max="123" value="62" aria-describedby="floorInfo">
+    </div>
+    <p id="floorInfo" class="note"></p>
+    <div class="info" id="drawInfo" aria-live="polite"></div>
+    <p class="note legend">
+      <span class="pub">■ 공개 값(555 m, 123층)</span>
+      <span class="est">■ 추정 치수·부재</span>
+    </p>
+  </section>
+
+  <!-- 3D 모델 -->
+  <section class="card" aria-labelledby="h-3d">
+    <h2 id="h-3d">설계 단계 · 3D 형상</h2>
+    <div class="row" role="group" aria-label="설계 단계 선택">
+      <button data-stage="0" aria-pressed="false">1단계 개념 매스</button>
+      <button data-stage="1" aria-pressed="false">2단계 구간 후퇴</button>
+      <button data-stage="2" aria-pressed="false">3단계 곡선 검토</button>
+      <button data-stage="3" aria-pressed="true">완성 모델</button>
+    </div>
+    <div id="view3d" tabindex="0" role="application" aria-label="3D 모델. 방향키로 회전, +/- 키로 확대·축소, 0 키로 시점 초기화, 스페이스로 자동 회전을 켜고 끕니다.">
+      <div class="fallback" id="fallback">3D 실행 환경(runtime)을 불러오지 못했습니다. 도면 보기는 계속 사용할 수 있습니다.</div>
+    </div>
+    <div class="row" role="group" aria-label="3D 조작" style="margin-top:8px">
+      <button id="btnRotate" aria-pressed="false">자동 회전 끄기/켜기</button>
+      <button id="btnZoomIn">확대 (+)</button>
+      <button id="btnZoomOut">축소 (−)</button>
+      <button id="btnReset">시점 초기화 (0)</button>
+    </div>
+    <div class="info" id="stageInfo" aria-live="polite"></div>
+    <p class="note">드래그 또는 한 손가락으로 회전, 두 손가락으로 확대·축소. 키보드는 3D 영역을 선택한 뒤 사용하세요. 선택한 층의 위치는 빨간 마커와 평면 링으로 표시됩니다.</p>
+  </section>
+</main>
+
+<script src="../runtime/three-runtime.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- 공통 데이터 ---------- */
+  const H_M = 555;          // 공개 값: 높이 (m)
+  const FLOORS = 123;       // 공개 값: 지상 층수
+  const BASE_M = 120;       // 추정: 기준 외곽 한 변 (m)
+  const SITE_W = 400, SITE_H = 300; // 추정: 대지 개념 크기 (m)
+  const H_U = 111;          // 3D 단위 높이 (1 unit = 5 m, 555/5)
+  const BASE_U = 24;        // 3D 단위 기준 폭 (= 120 m / 5, 추정)
+  const SLABS = 90;
+
+  // 단계별 외곽 비율 p(t): t=0 지상, t=1 최상단. 모두 추정 개념 함수.
+  const STAGES = [
+    { name:"1단계 · 개념 매스", p:t=>1-0.45*t, tw:0, col:0x9db4c4,
+      text:"단순한 사각 테이퍼 매스로 높이와 기준 외곽만 잡은 가상 단계입니다. 곡선과 회전은 아직 없습니다." },
+    { name:"2단계 · 구간별 후퇴", p:t=> t<0.33?1 : t<0.66?0.8 : 0.8-0.35*(t-0.66)/0.34, tw:0.12, col:0xa9b8a0,
+      text:"층이 올라갈수록 외곽이 구간별로 줄어드는 단계입니다. 후퇴 위치와 비율은 설명을 위해 추정한 값입니다." },
+    { name:"3단계 · 곡선 외곽 검토", p:t=>0.4+0.6*Math.pow(1-t,1.6), tw:0.25, col:0xc7b48a,
+      text:"위로 갈수록 좁아지는 곡선 외곽을 검토한 단계입니다. 곡선 형태는 도자기의 선을 참고했다는 공개 설명을 개념적으로 옮긴 것입니다." },
+    { name:"완성 모델 (개념 재구성)", p:t=>0.38+0.62*Math.pow(1-t,1.6)+0.03*Math.sin(Math.PI*t), tw:0.32, col:0xe8e2d4,
+      text:"555 m 높이와 123층을 기준으로 한 완성 형상의 개념 재구성입니다. 실제 평면 형태·비틀림 양·부재 위치는 공개 자료에 없어 추정입니다." }
+  ];
+
+  const VIEWS = {
+    site: { title:"배치도 (개념)", info:"대지 경계와 건물 위치를 보여 줍니다. 대지 크기(약 400 m × 300 m)와 방위는 추정입니다. 건물 발자국은 기준 외곽(약 120 m, 추정)입니다." },
+    plan: { title:"기준층 평면도", info:"선택한 층 높이에서의 외곽 평면입니다. 점선은 1층 외곽, 실선은 선택한 층의 외곽입니다. 회전각은 3D 모델의 비틀림 값과 같은 규칙을 씁니다(추정)." },
+    elev: { title:"입면도", info:"정면에서 본 외곽 윤곽입니다. 높이 555 m와 123층은 공개 값이고, 폭 변화 곡선은 추정입니다. 빨간 선은 선택한 층입니다." },
+    sect: { title:"단면도", info:"중심을 자른 개념 단면입니다. 가운데 어두운 띠는 코어를 가정한 위치이며 실제 코어 치수가 아닙니다. 바닥판 선은 10개 층 간격으로 그렸습니다." }
+  };
+
+  const state = { view:"elev", stage:3, floor:62 };
+
+  /* ---------- 유틸 ---------- */
+  const $ = s=>document.querySelector(s);
+  const cv = $("#view2d");
+  const ctx = cv.getContext("2d");
+  const floorInput = $("#floor");
+  const floorTag = (f)=>{
+    const hm = Math.round(f/FLOORS*H_M);
+    return `${f}층 · 약 ${hm} m (층 높이 균등 가정, 추정)`;
+  };
+  const stageP = (t)=>STAGES[state.stage].p(t);
+  const curT = ()=> state.floor/FLOORS; // 0~1
+
+  /* ---------- 2D 도면 ---------- */
+  function resize2D(){
+    const dpr = Math.min(window.devicePixelRatio||1, 2);
+    const w = cv.clientWidth, h = cv.clientHeight;
+    cv.width = w*dpr; cv.height = h*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    draw2D();
+  }
+
+  function fit(wm,hm,pad=46){
+    const W=cv.clientWidth, Hh=cv.clientHeight;
+    const s=Math.min((W-2*pad)/wm,(Hh-2*pad)/hm);
+    return {s, cx:W/2, base:Hh-pad, W, Hh, pad};
+  }
+
+  function scaleBar(m, px, py, s){
+    ctx.strokeStyle="#eef2f6"; ctx.fillStyle="#eef2f6"; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(px+100*s,py); ctx.stroke();
+    ctx.font="13px system-ui"; ctx.fillText("100 m (추정 축척)", px, py-6);
+  }
+
+  function silhouette(f, mode){
+    // mode: 'elev' → 외곽 윤곽, 'sect' → 외곽 + 코어
+    const {s,cx,base}=f;
+    const N=160;
+    const left=[], right=[];
+    for(let i=0;i<=N;i++){
+      const t=i/N;
+      const half=BASE_M*stageP(t)/2*s;
+      const y=base - t*H_M*s;
+      left.push([cx-half,y]); right.push([cx+half,y]);
+    }
+    ctx.beginPath();
+    left.forEach((p,i)=> i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));
+    right.slice().reverse().forEach(p=>ctx.lineTo(p[0],p[1]));
+    ctx.closePath();
+    ctx.fillStyle="rgba(120,160,190,0.22)"; ctx.fill();
+    ctx.strokeStyle="#9ec5e6"; ctx.lineWidth=2; ctx.stroke();
+    if(mode==="sect"){
+      // 추정 코어
+      ctx.fillStyle="rgba(40,60,80,0.8)";
+      for(let i=0;i<N;i++){
+        const t0=i/N, t1=(i+1)/N;
+        const hw=BASE_M*stageP((t0+t1)/2)*0.12*s;
+        const y0=base-t0*H_M*s, y1=base-t1*H_M*s;
+        ctx.fillRect(cx-hw,y1,2*hw,y0-y1+0.5);
+      }
+      // 바닥판 선 (10층 간격)
+      ctx.strokeStyle="rgba(255,255,255,0.18)"; ctx.lineWidth=1;
+      for(let fl=10; fl<=FLOORS; fl+=10){
+        const t=fl/FLOORS, y=base-t*H_M*s, hw=BASE_M*stageP(t)/2*s;
+        ctx.beginPath(); ctx.moveTo(cx-hw,y); ctx.lineTo(cx+hw,y); ctx.stroke();
+      }
+    }
+  }
+
+  function markerLine(f){
+    const {s,cx,base}=f;
+    const t=curT(), y=base-t*H_M*s, hw=BASE_M*stageP(t)/2*s;
+    ctx.strokeStyle="#ff6b6b"; ctx.lineWidth=2; ctx.setLineDash([6,4]);
+    ctx.beginPath(); ctx.moveTo(cx-hw-30,y); ctx.lineTo(cx+hw+30,y); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle="#ff6b6b"; ctx.font="13px system-ui";
+    ctx.fillText(`${state.floor}층`, cx+hw+34, y+4);
+  }
+
+  function heightAxis(f){
+    const {s,cx,base}=f;
+    ctx.strokeStyle="#5b6b7e"; ctx.fillStyle="#b7c3d0"; ctx.font="12px system-ui"; ctx.lineWidth=1;
+    const x=cx-BASE_M*s/2-36;
+    ctx.beginPath(); ctx.moveTo(x,base); ctx.lineTo(x,base-H_M*s); ctx.stroke();
+    [0,123,246,369,492,555].forEach(m=>{
+      const y=base-m/H_M*H_M*s*(1);
+      ctx.beginPath(); ctx.moveTo(x-5,y); ctx.lineTo(x+5,y); ctx.stroke();
+      ctx.fillText(`${m} m`, x-44, y+4);
+    });
+    ctx.fillStyle="#ffd166";
+    ctx.fillText("높이 555 m (공개 값)", cx+8, base-H_M*s-8);
+  }
+
+  function draw2D(){
+    const W=cv.clientWidth, Hh=cv.clientHeight;
+    ctx.clearRect(0,0,W,Hh);
+    const v=state.view;
+    if(v==="site"){
+      const f=fit(SITE_W,SITE_H);
+      const s=f.s, x0=f.cx-SITE_W*s/2, y0=f.base-SITE_H*s+ (f.base-f.base) ;
+      const top=(Hh-SITE_H*s)/2;
+      ctx.strokeStyle="#8fa3b8"; ctx.setLineDash([8,6]); ctx.lineWidth=2;
+      ctx.strokeRect(f.cx-SITE_W*s/2, top, SITE_W*s, SITE_H*s); ctx.setLineDash([]);
+      ctx.fillStyle="#b7c3d0"; ctx.font="13px system-ui";
+      ctx.fillText("대지 경계 (추정)", f.cx-SITE_W*s/2+6, top+16);
+      const bs=BASE_M*s;
+      ctx.fillStyle="rgba(158,197,230,0.35)"; ctx.strokeStyle="#9ec5e6"; ctx.lineWidth=2;
+      ctx.fillRect(f.cx-bs/2, Hh/2-bs/2, bs, bs); ctx.strokeRect(f.cx-bs/2, Hh/2-bs/2, bs, bs);
+      ctx.fillStyle="#eef2f6"; ctx.fillText("건물 기준 외곽 약 120 m (추정)", f.cx-bs/2, Hh/2+bs/2+18);
+      // 방위
+      ctx.fillStyle="#ffd166"; ctx.fillText("N ↑", f.cx+SITE_W*s/2-40, top+18);
+      scaleBar(100, f.cx-SITE_W*s/2+6, top+SITE_H*s-12, s);
+    }
+    if(v==="plan"){
+      const f=fit(220,220);
+      const s=f.s, cx=Hh/2 ? f.cx : f.cx, cy=Hh/2;
+      // 격자
+      ctx.strokeStyle="#1f2a36"; ctx.lineWidth=1;
+      for(let i=-5;i<=5;i++){ ctx.beginPath(); ctx.moveTo(cx+i*20*s,cy-110*s); ctx.lineTo(cx+i*20*s,cy+110*s); ctx.stroke(); }
+      for(let i=-5;i<=5;i++){ ctx.beginPath(); ctx.moveTo(cx-110*s,cy+i*20*s); ctx.lineTo(cx+110*s,cy+i*20*s); ctx.stroke(); }
+      // 1층 외곽 점선
+      const b=BASE_M*s;
+      ctx.setLineDash([6,5]); ctx.strokeStyle="#7d8fa3"; ctx.lineWidth=1.5;
+      ctx.strokeRect(cx-b/2,cy-b/2,b,b); ctx.setLineDash([]);
+      // 선택 층 외곽 (회전 포함)
+      const t=curT(), side=BASE_M*stageP(t)*s, ang=STAGES[state.stage].tw*t;
+      ctx.save(); ctx.translate(cx,cy); ctx.rotate(ang);
+      ctx.fillStyle="rgba(255,209,102,0.18)"; ctx.strokeStyle="#ffd166"; ctx.lineWidth=2.5;
+      ctx.fillRect(-side/2,-side/2,side,side); ctx.strokeRect(-side/2,-side/2,side,side);
+      ctx.restore();
+      ctx.fillStyle="#eef2f6"; ctx.font="13px system-ui";
+      ctx.fillText(`선택 층 한 변 약 ${Math.round(BASE_M*stageP(t))} m (추정)`, cx-b/2, cy+b/2+22);
+      ctx.fillText(`회전각 약 ${(ang*180/Math.PI).toFixed(1)}° (추정)`, cx-b/2, cy+b/2+40);
+      ctx.fillStyle="#7d8fa3"; ctx.fillText("점선: 1층 외곽", cx-b/2, cy-b/2-10);
+      scaleBar(100, cx-b/2, cy+b/2+64, s);
+    }
+    if(v==="elev"){
+      const f=fit(160,H_M);
+      silhouette(f,"elev"); heightAxis(f); markerLine(f);
+    }
+    if(v==="sect"){
+      const f=fit(160,H_M);
+      silhouette(f,"sect"); heightAxis(f); markerLine(f);
+    }
+    if(v==="elev"||v==="sect"){
+      const f=fit(160,H_M);
+      scaleBar(100, f.cx-BASE_M*f.s/2, f.base+20, f.s);
+    }
+    // 텍스트 정보
+    $("#drawInfo").innerHTML =
+      `<b>${VIEWS[v].title}</b><br>${VIEWS[v].info}<br><span class="est">대응:</span> 선택 설계 단계 「${STAGES[state.stage].name}」, 선택 층 ${state.floor}층 (3D 마커와 동기화).`;
+    $("#floorLabel").textContent = `${state.floor}층`;
+    $("#floorInfo").textContent = floorTag(state.floor);
+    updateView3DMarker();
+  }
+
+  /* ---------- 3D ---------- */
+  let renderer=null, scene=null, camera=null, controls=null, model=null, marker=null, markerRing=null;
+  let autoRotate = false;
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const initialPos = new THREE_Vec(); // placeholder replaced after init
+
+  function THREE_Vec(){ return {x:0,y:0,z:0}; }
+
+  function init3D(){
+    const host=$("#view3d");
+    if(typeof THREE==="undefined"){
+      $("#fallback").style.display="flex"; return false;
+    }
+    renderer=new THREE.WebGLRenderer({antialias:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+    renderer.setClearColor(0x0c1014,1);
+    const canvas=renderer.domElement;
+    canvas.setAttribute("aria-hidden","true");
+    host.appendChild(canvas);
+    scene=new THREE.Scene();
+    camera=new THREE.PerspectiveCamera(40,1,0.5,2000);
+    camera.position.set(90,95,140);
+    scene.add(new THREE.AmbientLight(0xffffff,0.75));
+    const dl=new THREE.DirectionalLight(0xffffff,0.9); dl.position.set(80,160,60); scene.add(dl);
+    const grid=new THREE.GridHelper(200,40,0x2e3a48,0x1e2731); scene.add(grid);
+    if(THREE.OrbitControls){
+      controls=new THREE.OrbitControls(camera,canvas);
+      controls.enableDamping=!reduceMotion;
+      controls.target.set(0,H_U/2,0);
+      controls.minDistance=40; controls.maxDistance=400;
+      controls.autoRotate=false;
+      controls.update();
+    }
+    marker=new THREE.Mesh(new THREE.SphereGeometry(0.9,16,12), new THREE.MeshBasicMaterial({color:0xff6b6b}));
+    scene.add(marker);
+    const ringGeo=new THREE.BufferGeometry();
+    markerRing=new THREE.LineLoop(ringGeo, new THREE.LineBasicMaterial({color:0xff6b6b}));
+    scene.add(markerRing);
+    buildModel();
+    resize3D();
+    animate();
+    return true;
+  }
+
+  function buildModel(){
+    if(!scene) return;
+    if(model){
+      model.traverse(o=>{ if(o.geometry) o.geometry.dispose(); if(o.material) o.material.dispose(); });
+      scene.remove(model);
+    }
+    model=new THREE.Group();
+    const st=STAGES[state.stage];
+    const slabH=H_U/SLABS;
+    const matFill=new THREE.MeshStandardMaterial({color:st.col, roughness:0.6, metalness:0.05, transparent:true, opacity:0.92});
+    const matLine=new THREE.LineBasicMaterial({color:0x2a3340});
+    for(let i=0;i<SLABS;i++){
+      const t=(i+0.5)/SLABS;
+      const w=BASE_U*st.p(t);
+      const geo=new THREE.BoxGeometry(w,slabH*0.97,w);
+      const mesh=new THREE.Mesh(geo,matFill);
+      mesh.position.set(0,(i+0.5)*slabH,0);
+      mesh.rotation.y=st.tw*t;
+      model.add(mesh);
+      const edges=new THREE.LineSegments(new THREE.EdgesGeometry(geo), matLine);
+      edges.position.copy(mesh.position); edges.rotation.copy(mesh.rotation);
+      model.add(edges);
+    }
+    // 지면 발자국
+    const base=new THREE.Mesh(new THREE.PlaneGeometry(BASE_U*2.2,BASE_U*2.2), new THREE.MeshBasicMaterial({color:0x1a2530}));
+    base.rotation.x=-Math.PI/2; base.position.y=0.05; model.add(base);
+    scene.add(model);
+    $("#stageInfo").innerHTML =
+      `<b>${st.name}</b><br>${st.text}<br><span class="note">형상 규칙: 높이 555 m(공개), 기준 외곽 약 120 m(추정), 비틀림 ${st.tw} rad(추정), 높이 방향 ${SLABS}개 구간으로 나눈 개념 모델입니다.</span>`;
+    document.querySelectorAll("[data-stage]").forEach(b=>b.setAttribute("aria-pressed", String(+b.dataset.stage===state.stage)));
+    updateView3DMarker();
+  }
+
+  function updateView3DMarker(){
+    if(!marker) return;
+    const t=curT(), y=t*H_U;
+    marker.position.set(0,y,0);
+    const st=STAGES[state.stage];
+    const side=BASE_U*st.p(t)/2, ang=st.tw*t;
+    const pts=[];
+    for(let k=0;k<4;k++){
+      const a=ang+Math.PI/4+k*Math.PI/2;
+      const r=side*Math.SQRT2;
+      pts.push(new THREE.Vector3(Math.cos(a)*r,y,Math.sin(a)*r));
+    }
+    pts.push(pts[0].clone());
+    markerRing.geometry.dispose();
+    markerRing.geometry=new THREE.BufferGeometry().setFromPoints(pts);
+  }
+
+  function resize3D(){
+    if(!renderer) return;
+    const host=$("#view3d");
+    const w=host.clientWidth, h=host.clientHeight;
+    renderer.setSize(w,h,false);
+    const c=renderer.domElement; c.style.width=w+"px"; c.style.height=h+"px";
+    camera.aspect=w/h; camera.updateProjectionMatrix();
+  }
+
+  function animate(){
+    requestAnimationFrame(animate);
+    if(controls){
+      controls.autoRotate = autoRotate && !reduceMotion;
+      controls.autoRotateSpeed = 1.2;
+      controls.update();
+    }
+    renderer.render(scene,camera);
+  }
+
+  function orbitBy(angle){
+    if(!controls) return;
+    const up=new THREE.Vector3(0,1,0);
+    const off=camera.position.clone().sub(controls.target).applyAxisAngle(up,angle);
+    camera.position.copy(controls.target).add(off); controls.update();
+  }
+  function zoomBy(f){
+    if(!controls) return;
+    const off=camera.position.clone().sub(controls.target).multiplyScalar(f);
+    const len=off.length();
+    if(len<40||len>400) return;
+    camera.position.copy(controls.target).add(off); controls.update();
+  }
+  function resetView(){
+    if(!camera||!controls) return;
+    camera.position.set(90,95,140);
+    controls.target.set(0,H_U/2,0); controls.update();
+  }
+
+  /* ---------- 이벤트 ---------- */
+  document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>{
+    state.view=b.dataset.view;
+    document.querySelectorAll("[data-view]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+    draw2D();
+  }));
+  document.querySelectorAll("[data-stage]").forEach(b=>b.addEventListener("click",()=>{
+    state.st
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["The previous document was truncated before its JavaScript handlers and closing tags. Return a complete executable HTML within the 16384-token response budget. Preserve your own concept and express it with code you can fully finish. Do not add unfinished features. All original functional requirements and the pinned runtime still apply. Original task follows:\n당신은 claude-haiku-5.5 모델입니다. 실제 호출 식별자는 us.anthropic.claude-haiku-5-5입니다.\n\n롯데월드타워의 건축 설계 과정을 이해할 수 있도록, 설계도면과 단계별 3D 모델 및 완성된 3D 모델을 함께 보여주는 인터랙티브 웹페이지를 직접 구현하세요.\n\n공통 기준 자료:\n- 서울의 롯데월드타워는 높이 555m, 지상 123층입니다.\n- 위로 갈수록 기준층 면적과 건물 외곽이 좁아지는 형태입니다.\n- KPF는 형태와 외관에 한국 도자기의 선을 참고했다고 설명합니다.\n- 아래 공개 자료를 참고하는 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계로 표현하지 마세요. 공개 자료에 없는 치수·단면·부재는 추정한 개념임을 구분하세요.\n- 원 설계사: https://www.kpf.com/project/lotte-world-tower\n- 구조 설계사: https://www.lera.com/lotte-world-tower\n\n보여줄 내용:\n- 배치도, 기준층 평면도, 입면도, 단면도. 도면에는 무엇을 보여주는지, 단위와 치수의 근거를 알 수 있게 하세요.\n- 설계가 발전하는 과정과 각 단계의 3D 형상.\n- 완성된 건물의 실제 3D 형상과 회전·확대/축소·시점 초기화 조작.\n- 도면, 선택한 설계 단계, 완성 모델 사이의 대응 관계.\n\n표현 스타일, 화면 구성, 도형 생성 방법, 설명 방식은 스스로 결정하세요. 참고 구현 코드나 시각적 예시는 제공하지 않습니다.\n\n실행 조건:\n- 하나의 완결된 HTML 문서만 반환하세요. 자신의 CSS와 JavaScript를 문서 안에 넣으세요.\n- 3D 실행 환경은 모든 모델에 동일합니다: Three.js 0.186.1과 OrbitControls가 전역 THREE 객체로 제공되는 로컬 스크립트 \"../runtime/three-runtime.js\"를 사용할 수 있습니다. 필요하면 이 스크립트를 직접 포함하세요. 직접 WebGL을 구현해도 됩니다.\n- 외부 네트워크, 외부 폰트·이미지, 서버 API 없이 실행되게 하세요. 위 출처는 텍스트 출처 링크이며 실행 중 가져오면 안 됩니다.\n- 작품은 sandbox=\"allow-scripts\" iframe에서 실행됩니다. alert/confirm/prompt와 부모 문서 접근은 사용하지 마세요.\n- 휴대폰과 데스크톱에서 조작할 수 있게 하세요. 키보드 조작, 읽기 쉬운 글자와 대비, 움직임 감소 설정을 고려하세요.\n- 실제 모델 이름 \"claude-haiku-5.5\"을 화면에 표시하세요.\n- 설명문이나 코드 조각을 따로 반환하지 말고 전체 HTML을 반환하세요.\n"]
+
+Return the complete repaired HTML now.

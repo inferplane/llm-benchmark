@@ -1,0 +1,140 @@
+{
+  "model": "nemotron-super-3-120b",
+  "task": "whoami",
+  "requested_model_id": "nvidia.nemotron-super-3-120b",
+  "provider": "bedrock",
+  "family": "NVIDIA",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/nemotron-super-3-120b",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "cbfa99bb30134b8d7006703f2114fb44430e240a37b8c5dd9e4b260d7d3cc472",
+  "content_review": {
+    "model": "nemotron-super-3-120b",
+    "generation": "free-expression-20261012",
+    "score": 96.5,
+    "critical": 0,
+    "warnings": 2,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 6.0,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 3.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/nemotron-super-3-120b/artwork.html",
+        "line": 137,
+        "quote": "font-size: 1rem;",
+        "problem": "Some informative descriptions, labels or control text still render below 19px.",
+        "action": "Use at least 19px for informative text and controls."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/nemotron-super-3-120b/artwork.html",
+        "line": 91,
+        "quote": "height: 400px;",
+        "problem": "At375px the flex layout still collapses the artwork canvas to zero height (backing309×0 and CSS309×0). The document now scrolls and its heading is reachable.",
+        "action": "Preserve a usable nonzero canvas height within the mobile document."
+      }
+    ],
+    "artwork_sha256": "cbfa99bb30134b8d7006703f2114fb44430e240a37b8c5dd9e4b260d7d3cc472",
+    "model_id": "nvidia.nemotron-super-3-120b",
+    "reported_model": null,
+    "requested_at": "2026-10-12T08:52:57.422238+00:00",
+    "reviewed_at": "2026-10-12T08:58:35.177429+00:00",
+    "initial_prompt_sha256": "10a7d34e8f04ad1207d5402ef1280b2d1ecd9c6a7eee18dbb8983d975ba438e5",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/nemotron-super-3-120b/cbfa99bb3013",
+    "browser_evidence": "/tmp/free-expression-review/nemotron-super-3-120b/cbfa99bb3013/browser.json",
+    "notes": [
+      "First re-review of the actual original-author correction. Source/prompt/response fidelity rechecked; no coordinator artwork edits.",
+      "Accessibility control is now a real keyboard-operable button with actual high-contrast and CSS-motion styles. OS reduced mode stops particle movement.",
+      "PASS does not mean defect-free: mobile zero-height canvas is retained as a concrete layout warning; no raw code exemption or manual correction was made."
+    ],
+    "review_iteration": 2
+  },
+  "prompt_sha256": "e63f783b89789850dffb3dd2b0e563ff6ce8b29c349d6f87c07c6eaa04448958",
+  "initial_prompt_sha256": "10a7d34e8f04ad1207d5402ef1280b2d1ecd9c6a7eee18dbb8983d975ba438e5",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.15,
+      "price_out": 0.65
+    },
+    "estimated_total_usd": 0.00726685,
+    "estimated_final_response_usd": 0.00417495,
+    "recorded_attempts": 2,
+    "successful_code_responses": 2,
+    "additional_attempts": 1,
+    "known_cost_attempts": 2,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 5433,
+      "tokens_out": 9926,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:11:11.062430+00:00",
+        "status": "generated",
+        "request_id": "762242fa-e55a-47c0-8252-b2eb9b33c81b",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0030919,
+        "request_seconds": null,
+        "record_sha256": "d7404a0cdf86e8fd35985a0969c3298b740fb9ecde50443797d30ebe5ee194f7",
+        "response_sha256": "57c31d498ca48d344fb375dcc6e1d19de85a061e27b0d3b3644563a84d62f5ea"
+      },
+      {
+        "requested_at": "2026-10-12T08:52:57.422238+00:00",
+        "status": "generated",
+        "request_id": "ab320177-0fa4-40df-95e8-e1aea094219a",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00417495,
+        "request_seconds": null,
+        "record_sha256": "c7ca9543f5535cdec97b1239438ea3d5a9e74154846a7fb1bb0673db10ddf1c1",
+        "response_sha256": "fd383c81bafa7897421079d966e918cb658a59898ff03989d79d05044f8f41db"
+      }
+    ]
+  },
+  "request_id": "ab320177-0fa4-40df-95e8-e1aea094219a",
+  "requested_at": "2026-10-12T08:52:57.422238+00:00",
+  "generated_at": "2026-10-12T08:53:33.033619+00:00",
+  "tokens_in": 5200,
+  "tokens_out": 5223,
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "finish_reason": "end_turn"
+}

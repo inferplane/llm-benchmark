@@ -32,16 +32,21 @@ async function main() {
     await route.fulfill({ status: 200, headers, body: fs.readFileSync(item.file) });
   });
   await context.routeWebSocket("**/*", socket => socket.close());
-  const catalog = JSON.parse(fs.readFileSync(path.join(root, "docs/models/catalog.json"), "utf8"));
+  const catalog = JSON.parse(fs.readFileSync(path.join(root, "docs/models/catalog.json"), "utf8"))
+    .map(item => item.tasks
+      ? { ...item.tasks.whoami, route: `models/${item.model}/whoami/` }
+      : { ...item, route: `models/${item.model}/` });
   const selected = process.argv[2] ? new Set(process.argv[2].split(",")) : null;
   const results = [], feedback = {};
   for (const model of catalog.filter(item => item.status === "generated" && (!selected || selected.has(item.model)))) {
     if (!/^[a-z0-9][a-z0-9.-]*$/.test(model.model)) throw new Error("Unsafe model path");
-    allowed.set(`${base}models/${model.model}/`, { file: path.join(root, "docs/models", model.model, "index.html"), type: "text/html" });
-    allowed.set(`${base}models/${model.model}/artwork.html`, { file: path.join(root, "docs/models", model.model, "artwork.html"), type: "text/html", artwork: true });
+    const directory = path.join(root, "docs", model.route);
+    const modelBase = base + model.route;
+    allowed.set(modelBase, { file: path.join(directory, "index.html"), type: "text/html" });
+    allowed.set(`${modelBase}artwork.html`, { file: path.join(directory, "artwork.html"), type: "text/html", artwork: true });
     for (const name of ["prompt.txt", "initial-prompt.txt", "implementation-cost.json"]) {
-      const file = path.join(root, "docs/models", model.model, name);
-      if (fs.existsSync(file)) allowed.set(`${base}models/${model.model}/${name}`, { file, type: name.endsWith(".json") ? "application/json" : "text/plain" });
+      const file = path.join(directory, name);
+      if (fs.existsSync(file)) allowed.set(`${modelBase}${name}`, { file, type: name.endsWith(".json") ? "application/json" : "text/plain" });
     }
     const page = await context.newPage();
     const errors = [], warnings = [], network = [];
@@ -52,9 +57,8 @@ async function main() {
     page.on("request", request => {
       if (!allowed.has(request.url()) && !request.url().startsWith("data:") && !request.url().startsWith("blob:")) network.push(request.url());
     });
-    const response = await page.goto(`${base}models/${model.model}/`, { waitUntil: "load" });
+    const response = await page.goto(modelBase, { waitUntil: "load" });
     await page.waitForTimeout(700);
-    const directory = path.join(root, "docs/models", model.model);
     await page.screenshot({ path: path.join(directory, "preview.jpg"), type: "jpeg", quality: 75 });
     const promptButton = page.locator("[data-open-prompts]");
     if (await promptButton.count()) {
@@ -179,11 +183,9 @@ async function main() {
     if (errors.length) feedback[model.model] = result.errors;
     console.log(`${errors.length ? "ISSUES" : warnings.length ? "WARN" : "PASS"} ${model.model}: ${[...new Set([...errors, ...warnings])].join("; ") || "iframe, text, controls, mobile, no script errors"}`);
     await page.close();
-    allowed.delete(`${base}models/${model.model}/`);
-    allowed.delete(`${base}models/${model.model}/artwork.html`);
-    allowed.delete(`${base}models/${model.model}/prompt.txt`);
-    allowed.delete(`${base}models/${model.model}/initial-prompt.txt`);
-    allowed.delete(`${base}models/${model.model}/implementation-cost.json`);
+    for (const url of [...allowed.keys()]) {
+      if (url.startsWith(modelBase)) allowed.delete(url);
+    }
   }
   await browser.close();
   const validation = path.join(root, "validation/self-portraits");

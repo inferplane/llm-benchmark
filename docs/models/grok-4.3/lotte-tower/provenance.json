@@ -1,0 +1,166 @@
+{
+  "model": "grok-4.3",
+  "task": "lotte-tower",
+  "requested_model_id": "xai.grok-4.3",
+  "provider": "bedrock_mantle",
+  "family": "xAI",
+  "generation": "lotte-tower-models-20261013",
+  "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/grok-4.3",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "2327445d2c0ca3e7a272336773aad75f154b207e622c076f86efab09bd964552",
+  "content_review": {
+    "task_requirements_complete": true,
+    "model": "grok-4.3",
+    "score": 96.5,
+    "critical": 0,
+    "warnings": 2,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 6.0,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 3.5,
+      "Accessibility": 5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "artwork_sha256": "2327445d2c0ca3e7a272336773aad75f154b207e622c076f86efab09bd964552",
+    "model_id": "xai.grok-4.3",
+    "origin_generation": "lotte-tower-models-20261013",
+    "original_response_bytes_verified": true,
+    "source": "/tmp/model-lotte-review/grok-4.3/2327445d2c0c",
+    "browser_evidence": "/tmp/model-lotte-review/grok-4.3/2327445d2c0c/browser.json",
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/grok-4.3/lotte-tower/artwork.html",
+        "line": 24,
+        "quote": ".disclosure { font-size:16px; color:#888; margin-top:20px; }",
+        "problem": "Disclosure text remains16px, and diagram annotations can scale below19px.",
+        "action": "Keep meaningful text/annotations at least19px rendered size."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/grok-4.3/lotte-tower/artwork.html",
+        "line": 182,
+        "quote": "const cx = c.width/2, cy = 520;",
+        "problem": "Stage projection places its positive520-unit base below the usable600px stage frame; parts of the intermediate forms are cropped.",
+        "action": "Fit the full intermediate geometry within its stage viewport while preserving the projection style."
+      }
+    ],
+    "notes": [
+      "Third re-review/iteration4 of the original author repair. Exact response bytes, original model identity and successful runtime were verified.",
+      "Both final and intermediate states now use realx/y/z geometry and actualx/y rotation. Four drawing views, keyboard/touch/pointer orbit, zoom and reset are implemented; browser0errors, responsive page has no horizontal overflow.",
+      "Custom Canvas perspective projection is accepted as actual3D; WebGL is not required. Schematic drawing quality is not treated as a missing feature."
+    ],
+    "reviewed_at": "2026-10-13T15:48:21.361352+00:00",
+    "re_review_number": 3,
+    "review_iteration": 4,
+    "retry_limit_reached": false,
+    "current_generation_status": "generated",
+    "active_source": true
+  },
+  "prompt_sha256": "c0d4e295e88d8044c8f218f800290b24879f3122d87a5a464f59ec533de68f23",
+  "initial_prompt_sha256": "4c98cd118e48d9cf845dd78b43c35d0e78b53083fcfaabedaaedff7889f5bb53",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "lotte-tower-models-20261013",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 1.25,
+      "price_out": 2.5
+    },
+    "estimated_total_usd": 0.0541075,
+    "estimated_final_response_usd": 0.02272625,
+    "recorded_attempts": 4,
+    "successful_code_responses": 4,
+    "additional_attempts": 3,
+    "known_cost_attempts": 4,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 7468,
+      "tokens_out": 17909,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-13T10:58:26.629398+00:00",
+        "status": "generated",
+        "request_id": "req_x3ho2edzbownczg324up64whbnxy7qfbu6hnn4nkzyw7kfuteyka",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0100025,
+        "request_seconds": null,
+        "record_sha256": "66abf1cc1ce5a14c16bc605bfd4823c8acd3b17ef8793e16986b5bd26b249e99",
+        "response_sha256": "34f4a55f6d640fa81af8a00fb8e8a6b408481088486cd039ac93818e244ad2a0"
+      },
+      {
+        "requested_at": "2026-10-13T13:37:00.148025+00:00",
+        "status": "generated",
+        "request_id": "req_5czbhm4e4emdocwn3ch7v254ydvyhjgk2lggnxifmmc2ioogzgha",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00807875,
+        "request_seconds": null,
+        "record_sha256": "c7003f431600c8b888b8e199d9ed47b5d3545a35b3df2c0f7dcfcedd0ed53032",
+        "response_sha256": "04838b96c9434e8f5403bf05ef6357535187746a2d4cb4066fca5b6d2f02ed5c"
+      },
+      {
+        "requested_at": "2026-10-13T15:05:36.082634+00:00",
+        "status": "generated",
+        "request_id": "req_ljb5p6kzfig6xjb7gtqt3lrrjohvw42gjvtefwrpjidt2yghjucq",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0133,
+        "request_seconds": null,
+        "record_sha256": "7c45135c8bd43434846eae0eab433497a59df7a55b20ae02e4692f8de983fd6b",
+        "response_sha256": "06073cd76b52a9e1ab843a03e684c2921a65232995925b24bd60247e9204a3b2"
+      },
+      {
+        "requested_at": "2026-10-13T15:26:27.309589+00:00",
+        "status": "generated",
+        "request_id": "req_f736dkqehic2244zpglejm3uon7lcjmnn7iqneukhto2ivwsjv2q",
+        "usage_available": true,
+        "estimated_cost_usd": 0.02272625,
+        "request_seconds": null,
+        "record_sha256": "1ee8f7f1bea8bb9cc3f14b9303c28fb8889b91a4f8749604262d3bcf42cd8997",
+        "response_sha256": "092c4f0c67e00df1a6c6d218b42580518c49db22e6c6f63fbde6f5b41e047c44"
+      }
+    ]
+  },
+  "request_id": "req_f736dkqehic2244zpglejm3uon7lcjmnn7iqneukhto2ivwsjv2q",
+  "response_id": "resp_jvcuclartov6zswwwmfkquzc7d65jrfunla3iv4isntwcfts23sa",
+  "requested_at": "2026-10-13T15:26:27.309589+00:00",
+  "generated_at": "2026-10-13T15:26:57.087692+00:00",
+  "reported_model": "xai.grok-4.3",
+  "tokens_in": 4979,
+  "tokens_out": 6601,
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low"
+  }
+}

@@ -1,0 +1,269 @@
+{
+  "model": "gpt-6-astra",
+  "requested_model_id": "openai.gpt-6-astra",
+  "family": "OpenAI",
+  "tasks": {
+    "whoami": {
+      "model": "gpt-6-astra",
+      "task": "whoami",
+      "requested_model_id": "openai.gpt-6-astra",
+      "provider": "bedrock_mantle",
+      "family": "OpenAI",
+      "generation": "free-expression-20261012",
+      "source_records": "results/model-self-portraits/generations/free-expression-20261012/gpt-6-astra",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "3b90d95d673705edde1e35185a3e988a9a31483012868cfd03523fc22318cb9f",
+      "content_review": {
+        "model": "gpt-6-astra",
+        "generation": "free-expression-20261012",
+        "score": 98.5,
+        "critical": 0,
+        "warnings": 1,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 5,
+          "Accessibility": 3.5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/gpt-6-astra/artwork.html",
+            "line": 48,
+            "quote": ".eyebrow, .index { font-family: ui-monospace, monospace; font-size: .8rem; letter-spacing: .12em; color: var(--mint); }",
+            "problem": "Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px).",
+            "action": "Use at least 19px for informative text and controls while retaining the chosen composition."
+          }
+        ],
+        "artwork_sha256": "3b90d95d673705edde1e35185a3e988a9a31483012868cfd03523fc22318cb9f",
+        "model_id": "openai.gpt-6-astra",
+        "reported_model": "openai.gpt-6-astra",
+        "requested_at": "2026-10-12T08:09:45.088479+00:00",
+        "reviewed_at": "2026-10-12T08:51:09.249035+00:00",
+        "initial_prompt_sha256": "1a327ba3722820334521863fbe743de14963878b501fc791e32714aefbffadaf",
+        "exact_example_free_initial_prompt": true,
+        "original_response_containment": true,
+        "frozen_source": "/tmp/free-expression-review/gpt-6-astra/3b90d95d6737",
+        "browser_evidence": "/tmp/free-expression-review/gpt-6-astra/3b90d95d6737/browser.json",
+        "notes": [
+          "Existing controls, slider, static reduced mode and single-loop lifecycle pass. Scrollable layout is permitted.",
+          "Browser/source evidence frozen at /tmp/free-expression-review/gpt-6-astra/3b90d95d6737. Actual model response containment and exact example-free initial prompt verified."
+        ]
+      },
+      "prompt_sha256": "1a327ba3722820334521863fbe743de14963878b501fc791e32714aefbffadaf",
+      "initial_prompt_sha256": "1a327ba3722820334521863fbe743de14963878b501fc791e32714aefbffadaf",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "free-expression-20261012",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 11.0,
+          "price_out": 55.0,
+          "price_cache_read": 1.1,
+          "price_cache_write": 13.75
+        },
+        "estimated_total_usd": 0.243067,
+        "estimated_final_response_usd": 0.243067,
+        "recorded_attempts": 1,
+        "successful_code_responses": 1,
+        "additional_attempts": 0,
+        "known_cost_attempts": 1,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 207,
+          "tokens_out": 4378,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-12T08:09:45.088479+00:00",
+            "status": "generated",
+            "request_id": "req_qhdj4zh3qgyctadtikoejunq7dtovzeo5ctdnxdtc4pke63jy75q",
+            "usage_available": true,
+            "estimated_cost_usd": 0.243067,
+            "request_seconds": null,
+            "record_sha256": "243ee87be8603ce3e75ccce5f3862ce08feb4773bb7b732675c66b2d002b8b48",
+            "response_sha256": "b207e824a12434943052a9c739726f17ccaed6fc4d7500363daed8662b1bc2fc"
+          }
+        ]
+      },
+      "request_id": "req_qhdj4zh3qgyctadtikoejunq7dtovzeo5ctdnxdtc4pke63jy75q",
+      "response_id": "resp_z2jovtqoojyqct4fzgsvrlm7i4gq4neqhc4p46hwnp4an5xfc2fa",
+      "requested_at": "2026-10-12T08:09:45.088479+00:00",
+      "generated_at": "2026-10-12T08:10:38.514559+00:00",
+      "reported_model": "openai.gpt-6-astra",
+      "tokens_in": 207,
+      "tokens_out": 4378,
+      "max_output_tokens": 8192,
+      "temperature": null,
+      "temperature_sent": false,
+      "reported_reasoning": {
+        "summary": null,
+        "effort": "low",
+        "context": "all_turns"
+      }
+    },
+    "lotte-tower": {
+      "model": "gpt-6-astra",
+      "task": "lotte-tower",
+      "requested_model_id": "openai.gpt-6-astra",
+      "provider": "bedrock_mantle",
+      "family": "OpenAI",
+      "generation": "lotte-world-tower-20261013-pilot",
+      "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-6-astra",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "1a63c36d8a5afe4350b75081558d423aacde800e05b98e2a443f68d934e6ee44",
+      "content_review": {
+        "model": "gpt-6-astra",
+        "score": 98.5,
+        "critical": 0,
+        "warnings": 1,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 5,
+          "Accessibility": 3.5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "artwork_sha256": "1a63c36d8a5afe4350b75081558d423aacde800e05b98e2a443f68d934e6ee44",
+        "model_id": "openai.gpt-6-astra",
+        "origin_generation": "lotte-world-tower-20261013-pilot",
+        "original_response_bytes_verified": true,
+        "source": "/tmp/model-lotte-review/gpt-6-astra/1a63c36d8a5a",
+        "browser_evidence": "/tmp/model-lotte-review/gpt-6-astra/1a63c36d8a5a/browser.json",
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/gpt-6-astra/lotte-tower/artwork.html",
+            "line": 9,
+            "quote": "*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.65 system-ui,-apple-system,\"Segoe UI\",sans-serif}button,input{font:inherit}button,a,input{touch-action:manipulation}button{cursor",
+            "problem": "Meaningful descriptions, controls and/or drawing labels render below19px.",
+            "action": "Use at least19px readable informative text while preserving your own layout."
+          }
+        ],
+        "notes": [
+          "Imported exactoriginal. Fouractual drawingviews, stage geometry, selectedfloor markings andtwo3D views are coherentlyimplemented with explicitassumptions.",
+          "Pointerdrag, keyboardcamera, reset/zoom buttons andresponsiveflow pass. No automaticmotion is imposed; event-driven rendering is valid."
+        ],
+        "reviewed_at": "2026-10-13T11:57:41.122358+00:00",
+        "task_requirements_complete": true,
+        "current_generation_status": "generated",
+        "active_source": true,
+        "re_review_number": 0,
+        "review_iteration": 1,
+        "retry_limit_reached": false
+      },
+      "prompt_sha256": "564429496f03eac6c098ec27baf90795f7c32a0098b12da87ed52cc7ba0c88bf",
+      "initial_prompt_sha256": "564429496f03eac6c098ec27baf90795f7c32a0098b12da87ed52cc7ba0c88bf",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "lotte-world-tower-20261013-pilot",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 11.0,
+          "price_out": 55.0,
+          "price_cache_read": 1.1,
+          "price_cache_write": 13.75
+        },
+        "estimated_total_usd": 0.554488,
+        "estimated_final_response_usd": 0.554488,
+        "recorded_attempts": 1,
+        "successful_code_responses": 1,
+        "additional_attempts": 0,
+        "known_cost_attempts": 1,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 653,
+          "tokens_out": 9951,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-13T07:12:02.378877+00:00",
+            "status": "generated",
+            "request_id": "req_epjfrc5et6cq662dbuvnr6dgyqqxm5h3v7i3s522hkgctgwt6ipa",
+            "usage_available": true,
+            "estimated_cost_usd": 0.554488,
+            "request_seconds": null,
+            "record_sha256": "901aa798e335913eddcdb5b04eb8bcd822f7c5eba4004f0f1e90dadad114c167",
+            "response_sha256": "6f95d5ec205267209fe62b01a2c3949deed9b4b9929eb4a543a17912457363a9"
+          }
+        ]
+      },
+      "request_id": "req_epjfrc5et6cq662dbuvnr6dgyqqxm5h3v7i3s522hkgctgwt6ipa",
+      "response_id": "resp_azulsqle5yn3kbl6ooczx4b5mrkeghsigbloqvsd5tzwe5nndcbq",
+      "requested_at": "2026-10-13T07:12:02.378877+00:00",
+      "generated_at": "2026-10-13T07:13:56.440449+00:00",
+      "reported_model": "openai.gpt-6-astra",
+      "tokens_in": 653,
+      "tokens_out": 9951,
+      "max_output_tokens": 16384,
+      "temperature": null,
+      "temperature_sent": false,
+      "bedrock_reasoning_effort": null,
+      "reported_reasoning": {
+        "summary": null,
+        "effort": "low",
+        "context": "all_turns"
+      },
+      "imported_history": {
+        "source_records": "results/architecture-3d/lotte-world-tower-20261013-pilot/gpt-6-astra",
+        "original_generation": "lotte-world-tower-20261013-pilot",
+        "original_record_sha256": "901aa798e335913eddcdb5b04eb8bcd822f7c5eba4004f0f1e90dadad114c167",
+        "import_is_not_an_additional_request": true
+      },
+      "current_response_reused": true
+    }
+  }
+}

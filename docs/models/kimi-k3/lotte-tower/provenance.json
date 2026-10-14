@@ -1,0 +1,184 @@
+{
+  "model": "kimi-k3",
+  "task": "lotte-tower",
+  "requested_model_id": "us.moonshotai.kimi-k3",
+  "provider": "bedrock",
+  "family": "Moonshot AI",
+  "generation": "lotte-tower-models-20261013",
+  "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/kimi-k3",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "f6b3e5f9e477e077d685e4116106995497494ec9175c138732e1920da3bbe730",
+  "content_review": {
+    "task_requirements_complete": true,
+    "model": "kimi-k3",
+    "score": 96.5,
+    "critical": 0,
+    "warnings": 2,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 6.0,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 3.5,
+      "Accessibility": 5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "artwork_sha256": "f6b3e5f9e477e077d685e4116106995497494ec9175c138732e1920da3bbe730",
+    "model_id": "us.moonshotai.kimi-k3",
+    "origin_generation": "lotte-tower-models-20261013",
+    "original_response_bytes_verified": true,
+    "source": "/tmp/model-lotte-review/kimi-k3/f6b3e5f9e477",
+    "browser_evidence": "/tmp/model-lotte-review/kimi-k3/f6b3e5f9e477/browser.json",
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/kimi-k3/lotte-tower/artwork.html",
+        "line": 45,
+        "quote": ".dt{fill:#e8b96f;font-size:15px}",
+        "problem": "SVG dimension/label text uses15–16px, below the19px review minimum.",
+        "action": "Increase meaningful rendered diagram labels to19px or provide equivalent readable annotations."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/kimi-k3/lotte-tower/artwork.html",
+        "line": 17,
+        "quote": "main{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px}",
+        "problem": "At375px the drawing panel/tab row extends beyond the viewport; the fourth tab and right diagram content are clipped from the initial width.",
+        "action": "Allow grid children/drawing regions to shrink or use deliberately accessible scrolling without clipped controls/content."
+      }
+    ],
+    "notes": [
+      "First re-review/iteration2; syntax defect and missing final initialization are fixed in the actual model response.",
+      "Four real SVG drawings, five distinct3D development stages plus completed model, linked drawing/stage selections, actual drag/wheel, native zoom/reset and focused keyboard controls are implemented and execute without console errors.",
+      "Reduced-motion suppresses automatic camera rotation; source/reference/assumption disclosures remain explicit. Actual current requested/reported model identity and response bytes match.",
+      "Exact SHA f6b3e5f9e477e077d685e4116106995497494ec9175c138732e1920da3bbe730. Mobile warning visually confirmed in view-375.jpg."
+    ],
+    "reviewed_at": "2026-10-13T15:27:23.151411+00:00",
+    "re_review_number": 1,
+    "review_iteration": 2,
+    "retry_limit_reached": false,
+    "current_generation_status": "generated",
+    "active_source": true
+  },
+  "prompt_sha256": "86601c42831c0925832403fca1f1d1c3a539a2dbb8e02089c9080a06e20ef3cf",
+  "initial_prompt_sha256": "0ece4219c771682b34d93b64e7179807c671098aa2a05c805f92693d7da61129",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "lotte-tower-models-20261013",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 3.3,
+      "price_out": 16.5,
+      "price_cache_read": 0.33,
+      "price_cache_write": 4.125
+    },
+    "estimated_total_usd": 1.582764975,
+    "estimated_final_response_usd": 0.263474475,
+    "recorded_attempts": 6,
+    "successful_code_responses": 2,
+    "additional_attempts": 5,
+    "known_cost_attempts": 6,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 42,
+      "tokens_out": 92481,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 13743
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-13T10:55:33.196502+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.27414585,
+        "request_seconds": null,
+        "record_sha256": "ec50d162939e2da17f001a51008251f2913fdfc97fc019a136b0cef375224702",
+        "response_sha256": "88b66cdd3595a220cd367895c9381b7e2e695e33daa405f0fc44a6c21ab72d45"
+      },
+      {
+        "requested_at": "2026-10-13T11:24:16.170098+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.2752926,
+        "request_seconds": null,
+        "record_sha256": "edff36eab1e7efd4333242e694358dac9f40fe33872f462bc04556d447889409",
+        "response_sha256": "9d7ce98540f1a2f946de209967956036a7a93ad5bf4d5c1ce64e9abfc3a59b2d"
+      },
+      {
+        "requested_at": "2026-10-13T15:00:48.804616+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.271864725,
+        "request_seconds": null,
+        "record_sha256": "5605a18133efa1ed8eef9b3509ce8f926d7c6687ad6105e6f7cb975697aeb7a9",
+        "response_sha256": "1a2743387758d368ea343cad4d251615c5fe3e1a7a97fe71b2afbd37616cf48a"
+      },
+      {
+        "requested_at": "2026-10-13T15:04:22.683131+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.2753916,
+        "request_seconds": null,
+        "record_sha256": "b9370ddbf1260051b3d8162b3958e402780f9555018ba67d95feb02aa16a344c",
+        "response_sha256": "38ec9a736bbfdc4d7658227d9df41cf25e57b65903323f7ac7c1034a42404ec4"
+      },
+      {
+        "requested_at": "2026-10-13T15:08:47.274852+00:00",
+        "status": "generated",
+        "request_id": "05af094b-232d-4f73-9d3b-1047916a0166",
+        "usage_available": true,
+        "estimated_cost_usd": 0.222595725,
+        "request_seconds": null,
+        "record_sha256": "285bf96be699089efdf311af21911941610510643e47363ddd059c5d18ee12bd",
+        "response_sha256": "ee2124616d46cdf4b6f5554f1c1d838928c6f752852242bd7ffc2b5310cf7dfa"
+      },
+      {
+        "requested_at": "2026-10-13T15:20:26.322947+00:00",
+        "status": "generated",
+        "request_id": "01a0fcc2-0dc3-4baf-81dd-bf060506bc6f",
+        "usage_available": true,
+        "estimated_cost_usd": 0.263474475,
+        "request_seconds": null,
+        "record_sha256": "89400e6991514076f6d797393c1b5e7a0ef56d90b2345e8276161ed16ca26aed",
+        "response_sha256": "c17acceaa921ac5d1660efb749f00729842bebecaedb3a3fb1e7204999b0714c"
+      }
+    ]
+  },
+  "request_id": "01a0fcc2-0dc3-4baf-81dd-bf060506bc6f",
+  "requested_at": "2026-10-13T15:20:26.322947+00:00",
+  "generated_at": "2026-10-13T15:22:10.332064+00:00",
+  "tokens_in": 7,
+  "tokens_out": 13758,
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": "low",
+  "finish_reason": "end_turn"
+}

@@ -1,0 +1,23 @@
+{
+  "model": "llama4-maverick",
+  "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T13:37:26.247446+00:00",
+  "prompt_sha256": "3bae344c556447b4fabd799b5e99d529302ed199363e57e1108afac5305bbca1",
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T13:37:31.574163+00:00",
+  "artwork_sha256": "88dd2cea1678b31a4923fa1fc69668a8a246524012e7a2696b1eec1e1c3fcc3b",
+  "tokens_in": 612,
+  "tokens_out": 1640,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "85ac0ea4-5bce-491b-a063-a907fa63488c"
+}

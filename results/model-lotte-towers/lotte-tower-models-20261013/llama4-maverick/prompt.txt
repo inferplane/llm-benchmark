@@ -1,0 +1,232 @@
+You are the original author, model llama4-maverick, served as us.meta.llama4-maverick-17b-instruct-v1:0. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+ORIGINAL TASK BRIEF. Retain every requested feature and disclosure:
+당신은 llama4-maverick 모델입니다. 실제 호출 식별자는 us.meta.llama4-maverick-17b-instruct-v1:0입니다.
+
+롯데월드타워의 건축 설계 과정을 이해할 수 있도록, 설계도면과 단계별 3D 모델 및 완성된 3D 모델을 함께 보여주는 인터랙티브 웹페이지를 직접 구현하세요.
+
+공통 기준 자료:
+- 서울의 롯데월드타워는 높이 555m, 지상 123층입니다.
+- 위로 갈수록 기준층 면적과 건물 외곽이 좁아지는 형태입니다.
+- KPF는 형태와 외관에 한국 도자기의 선을 참고했다고 설명합니다.
+- 아래 공개 자료를 참고하는 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계로 표현하지 마세요. 공개 자료에 없는 치수·단면·부재는 추정한 개념임을 구분하세요.
+- 원 설계사: https://www.kpf.com/project/lotte-world-tower
+- 구조 설계사: https://www.lera.com/lotte-world-tower
+
+보여줄 내용:
+- 배치도, 기준층 평면도, 입면도, 단면도. 도면에는 무엇을 보여주는지, 단위와 치수의 근거를 알 수 있게 하세요.
+- 설계가 발전하는 과정과 각 단계의 3D 형상.
+- 완성된 건물의 실제 3D 형상과 회전·확대/축소·시점 초기화 조작.
+- 도면, 선택한 설계 단계, 완성 모델 사이의 대응 관계.
+
+표현 스타일, 화면 구성, 도형 생성 방법, 설명 방식은 스스로 결정하세요. 참고 구현 코드나 시각적 예시는 제공하지 않습니다.
+
+실행 조건:
+- 하나의 완결된 HTML 문서만 반환하세요. 자신의 CSS와 JavaScript를 문서 안에 넣으세요.
+- 3D 실행 환경은 모든 모델에 동일합니다: Three.js 0.186.1과 OrbitControls가 전역 THREE 객체로 제공되는 로컬 스크립트 "../runtime/three-runtime.js"를 사용할 수 있습니다. 필요하면 이 스크립트를 직접 포함하세요. 직접 WebGL을 구현해도 됩니다.
+- 외부 네트워크, 외부 폰트·이미지, 서버 API 없이 실행되게 하세요. 위 출처는 텍스트 출처 링크이며 실행 중 가져오면 안 됩니다.
+- 작품은 sandbox="allow-scripts" iframe에서 실행됩니다. alert/confirm/prompt와 부모 문서 접근은 사용하지 마세요.
+- 휴대폰과 데스크톱에서 조작할 수 있게 하세요. 키보드 조작, 읽기 쉬운 글자와 대비, 움직임 감소 설정을 고려하세요.
+- 실제 모델 이름 "llama4-maverick"을 화면에 표시하세요.
+- 설명문이나 코드 조각을 따로 반환하지 말고 전체 HTML을 반환하세요.
+
+
+YOUR PREVIOUS FULL RESPONSE:
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotte World Tower</title>
+    <style>
+        body {
+            margin: 0;
+            font-size: 19px;
+            font-family: Arial, sans-serif;
+        }
+        #container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #drawing-controls {
+            margin: 20px 0;
+        }
+        button {
+            font-size: 19px;
+            margin: 0 10px;
+            padding: 10px 20px;
+        }
+        #canvas-container {
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 19px;
+        }
+        #model-name {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 19px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="drawing-controls">
+            <button id="site-plan-btn">배치도</button>
+            <button id="floor-plan-btn">기준층 평면도</button>
+            <button id="elevation-btn">입면도</button>
+            <button id="section-btn">단면도</button>
+            <button id="reset-view-btn">시점 초기화</button>
+        </div>
+        <div id="canvas-container"></div>
+        <div id="info"></div>
+        <div id="model-name">llama4-maverick</div>
+    </div>
+
+    <script src="../runtime/three-runtime.js"></script>
+    <script>
+        let scene, camera, renderer, controls;
+        let currentDrawing = null;
+
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({
+                antialias: true
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight * 0.8);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            camera.position.set(0, 100, 200);
+            controls.target.set(0, 100, 0);
+            controls.update();
+
+            document.getElementById('site-plan-btn').addEventListener('click', showSitePlan);
+            document.getElementById('floor-plan-btn').addEventListener('click', showFloorPlan);
+            document.getElementById('elevation-btn').addEventListener('click', showElevation);
+            document.getElementById('section-btn').addEventListener('click', showSection);
+            document.getElementById('reset-view-btn').addEventListener('click', resetView);
+
+            window.addEventListener('resize', onWindowResize);
+            window.addEventListener('keydown', onKeyDown);
+
+            animate();
+        }
+
+        function showSitePlan() {
+            clearScene();
+            const geometry = new THREE.PlaneGeometry(200, 200);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+            const plane = new THREE.Mesh(geometry, material);
+            scene.add(plane);
+            currentDrawing = 'site-plan';
+            document.getElementById('info').innerText = '배치도 - 200m x 200m';
+        }
+
+        function showFloorPlan() {
+            clearScene();
+            const geometry = new THREE.ShapeGeometry([
+                new THREE.Vector2(-50, -50),
+                new THREE.Vector2(50, -50),
+                new THREE.Vector2(50, 50),
+                new THREE.Vector2(-50, 50),
+                new THREE.Vector2(-50, -50)
+            ]);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+            const shape = new THREE.Mesh(geometry, material);
+            scene.add(shape);
+            currentDrawing = 'floor-plan';
+            document.getElementById('info').innerText = '기준층 평면도 - 100m x 100m';
+        }
+
+        function showElevation() {
+            clearScene();
+            const geometry = new THREE.BoxGeometry(50, 200, 10);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+            const box = new THREE.Mesh(geometry, material);
+            scene.add(box);
+            currentDrawing = 'elevation';
+            document.getElementById('info').innerText = '입면도 - 높이 200m, 폭 50m';
+        }
+
+        function showSection() {
+            clearScene();
+            const geometry = new THREE.PlaneGeometry(50, 200);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+            const plane = new THREE.Mesh(geometry, material);
+            scene.add(plane);
+            currentDrawing = 'section';
+            document.getElementById('info').innerText = '단면도 - 높이 200m, 폭 50m';
+        }
+
+        function resetView() {
+            controls.reset();
+        }
+
+        function clearScene() {
+            while (scene.children.length > 0) {
+                scene.remove(scene.children[0]);
+            }
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight * 0.8);
+        }
+
+        function onKeyDown(event) {
+            switch (event.key) {
+                case 'ArrowUp':
+                    controls.rotateX(-0.1);
+                    break;
+                case 'ArrowDown':
+                    controls.rotateX(0.1);
+                    break;
+                case 'ArrowLeft':
+                    controls.rotateY(-0.1);
+                    break;
+                case 'ArrowRight':
+                    controls.rotateY(0.1);
+                    break;
+                case '+':
+                case '=':
+                    controls.zoomIn();
+                    break;
+                case '-':
+                    controls.zoomOut();
+                    break;
+                case 'r':
+                case 'R':
+                    resetView();
+                    break;
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        init();
+    </script>
+</body>
+</html>
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["docs/models/llama4-maverick/lotte-tower/artwork.html:106: Floor plan passes Vector2[] where ShapeGeometry requires THREE.Shape objects, causing h.extractPoints is not a function. Required repair: Construct a valid Shape or appropriate geometry and test every drawing view. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/llama4-maverick/lotte-tower/artwork.html:159: Arrow/zoom shortcuts call nonexistent rotateX/rotateY/zoomIn/zoomOut; actual key tests reproduce all method-not-a-function errors. Required repair: Use supported OrbitControls methods or direct target-relative camera math, and retest all shortcuts. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/llama4-maverick/lotte-tower/artwork.html:94: No explained intermediate3D design-development states are implemented. Required repair: Provide distinct understandable intermediate3D forms leading to the completed model, linked to the drawings. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/llama4-maverick/lotte-tower/artwork.html:66: There is no completed tower view: only four primitive drawing objects, and the initial scene is empty. Required repair: Implement the complete authored3D tower and initialize a useful view, with drawing/stage correspondence. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/llama4-maverick/lotte-tower/artwork.html:127: Elevation/section explicitly label tower height200m despite the supplied555m total. Required repair: Represent the supplied555m height consistently and label unverified width/structure dimensions as conceptual assumptions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/llama4-maverick/lotte-tower/artwork.html:141: OrbitControls is constructed before setting its valid home position; Reset restores the saved camera at origin instead of the initialized view. Required repair: Save the valid home state after position/target setup or restore complete position/target explicitly. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."]
+
+Return the complete repaired HTML now.

@@ -1,0 +1,130 @@
+{
+  "model": "claude-haiku-5.5",
+  "task": "whoami",
+  "requested_model_id": "us.anthropic.claude-haiku-5-5",
+  "provider": "bedrock",
+  "family": "Claude",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/claude-haiku-5.5",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "57c94cf083e16cf2f2dac1d233b7dc58e26af03fa7a466beb9cb6a0264f2bd17",
+  "content_review": {
+    "model": "claude-haiku-5.5",
+    "generation": "free-expression-20261012",
+    "score": 98.5,
+    "critical": 0,
+    "warnings": 1,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 3.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/claude-haiku-5.5/artwork.html",
+        "line": 41,
+        "quote": "p{margin:.5rem 0;color:var(--muted);font-size:.98rem}",
+        "problem": "Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px).",
+        "action": "Use at least 19px for informative text and controls while retaining the chosen composition."
+      }
+    ],
+    "artwork_sha256": "57c94cf083e16cf2f2dac1d233b7dc58e26af03fa7a466beb9cb6a0264f2bd17",
+    "model_id": "us.anthropic.claude-haiku-5-5",
+    "reported_model": null,
+    "requested_at": "2026-10-12T08:20:15.898862+00:00",
+    "reviewed_at": "2026-10-12T08:51:09.237276+00:00",
+    "initial_prompt_sha256": "7da2aafbfbcbf914f1eb48858841eda18769352861335ab4897ce9a68156da70",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/claude-haiku-5.5/57c94cf083e1",
+    "browser_evidence": "/tmp/free-expression-review/claude-haiku-5.5/57c94cf083e1/browser.json",
+    "notes": [
+      "Existing pause/reset/reduction buttons and range are operative. Reduced mode meaningfully lowers motion; a fully static scene is not required.",
+      "Browser/source evidence frozen at /tmp/free-expression-review/claude-haiku-5.5/57c94cf083e1. Actual model response containment and exact example-free initial prompt verified."
+    ]
+  },
+  "prompt_sha256": "7da2aafbfbcbf914f1eb48858841eda18769352861335ab4897ce9a68156da70",
+  "initial_prompt_sha256": "7da2aafbfbcbf914f1eb48858841eda18769352861335ab4897ce9a68156da70",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.11,
+      "price_out": 0.55,
+      "price_cache_read": 0.011,
+      "price_cache_write": 0.1375
+    },
+    "estimated_total_usd": 0.00956065,
+    "estimated_final_response_usd": 0.00501105,
+    "recorded_attempts": 2,
+    "successful_code_responses": 1,
+    "additional_attempts": 1,
+    "known_cost_attempts": 2,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 800,
+      "tokens_out": 17223,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:06:53.863825+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.0045496,
+        "request_seconds": null,
+        "record_sha256": "a43eca00e7d1572226e497564aaafb45c37d4a1c3759c1515d833c7f093a91fe",
+        "response_sha256": "9f414c5edf1a0356b2ba24b5839418d2567be15977b2c6a8fc2bd54000c86e69"
+      },
+      {
+        "requested_at": "2026-10-12T08:20:15.898862+00:00",
+        "status": "generated",
+        "request_id": "df51e7cc-888c-4ad4-a2ef-f77a6db09992",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00501105,
+        "request_seconds": null,
+        "record_sha256": "3bca2b59b93a61b06c2c87c6091c81475b19e26cba0e5deaabf55c72942e25f7",
+        "response_sha256": "32a16b0bef584f5e15d71cf67db8baa5dddbc324f8178c1021a4b21ea6ba2582"
+      }
+    ]
+  },
+  "request_id": "df51e7cc-888c-4ad4-a2ef-f77a6db09992",
+  "requested_at": "2026-10-12T08:20:15.898862+00:00",
+  "generated_at": "2026-10-12T08:20:52.690367+00:00",
+  "tokens_in": 400,
+  "tokens_out": 9031,
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "finish_reason": "end_turn"
+}

@@ -1,0 +1,303 @@
+{
+  "model": "llama4-maverick",
+  "requested_model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+  "family": "Meta",
+  "tasks": {
+    "whoami": {
+      "model": "llama4-maverick",
+      "task": "whoami",
+      "requested_model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+      "provider": "bedrock",
+      "family": "Meta",
+      "generation": "free-expression-20261012",
+      "source_records": "results/model-self-portraits/generations/free-expression-20261012/llama4-maverick",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "3e680abde450f2342ba911f5c4f68f8fa8658db6edf548e0b375bed1435994a1",
+      "content_review": {
+        "model": "llama4-maverick",
+        "generation": "free-expression-20261012",
+        "score": 98.5,
+        "critical": 0,
+        "warnings": 1,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 5,
+          "Accessibility": 3.5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/llama4-maverick/artwork.html",
+            "line": 36,
+            "quote": "font-size: 18px;",
+            "problem": "Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px).",
+            "action": "Use at least 19px for informative text and controls while retaining the chosen composition."
+          }
+        ],
+        "artwork_sha256": "3e680abde450f2342ba911f5c4f68f8fa8658db6edf548e0b375bed1435994a1",
+        "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+        "reported_model": null,
+        "requested_at": "2026-10-12T08:11:42.430009+00:00",
+        "reviewed_at": "2026-10-12T08:51:09.271737+00:00",
+        "initial_prompt_sha256": "f02c72d9abb99d21222f166cac4d04a9ba4f1a2cb01ac642c6931041b91f3b2b",
+        "exact_example_free_initial_prompt": true,
+        "original_response_containment": true,
+        "frozen_source": "/tmp/free-expression-review/llama4-maverick/3e680abde450",
+        "browser_evidence": "/tmp/free-expression-review/llama4-maverick/3e680abde450/browser.json",
+        "notes": [
+          "Reduced motion hides the moving canvas and retains the model label; no prescribed static-image substitute is required.",
+          "Browser/source evidence frozen at /tmp/free-expression-review/llama4-maverick/3e680abde450. Actual model response containment and exact example-free initial prompt verified."
+        ]
+      },
+      "prompt_sha256": "f02c72d9abb99d21222f166cac4d04a9ba4f1a2cb01ac642c6931041b91f3b2b",
+      "initial_prompt_sha256": "f02c72d9abb99d21222f166cac4d04a9ba4f1a2cb01ac642c6931041b91f3b2b",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "free-expression-20261012",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 0.24,
+          "price_out": 0.97
+        },
+        "estimated_total_usd": 0.00072986,
+        "estimated_final_response_usd": 0.00072986,
+        "recorded_attempts": 1,
+        "successful_code_responses": 1,
+        "additional_attempts": 0,
+        "known_cost_attempts": 1,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 220,
+          "tokens_out": 698,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-12T08:11:42.430009+00:00",
+            "status": "generated",
+            "request_id": "6af688c6-2df9-4536-8896-ad975501528f",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00072986,
+            "request_seconds": null,
+            "record_sha256": "894e3fa21297c9963b4ca96dc243d97c1db577debed30032fb771d310573c1b8",
+            "response_sha256": "c5d31d96cba670498a6135dc8afc0492d36d4eb64abc2d9080f6e6c805d1437a"
+          }
+        ]
+      },
+      "request_id": "6af688c6-2df9-4536-8896-ad975501528f",
+      "requested_at": "2026-10-12T08:11:42.430009+00:00",
+      "generated_at": "2026-10-12T08:11:45.087819+00:00",
+      "tokens_in": 220,
+      "tokens_out": 698,
+      "max_output_tokens": 8192,
+      "temperature": 0,
+      "temperature_sent": true,
+      "finish_reason": "end_turn"
+    },
+    "lotte-tower": {
+      "model": "llama4-maverick",
+      "task": "lotte-tower",
+      "requested_model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+      "provider": "bedrock",
+      "family": "Meta",
+      "generation": "lotte-tower-models-20261013",
+      "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/llama4-maverick",
+      "status": "review_held",
+      "generation_status": "generated",
+      "artwork_sha256": "42a3ba1fe5ca0fea250d342d7488ddadfce5ba961d436a00202266659718173f",
+      "content_review": {
+        "task_requirements_complete": true,
+        "model": "llama4-maverick",
+        "score": 93.0,
+        "critical": 0,
+        "warnings": 4,
+        "verdict": "REVIEW",
+        "category_scores": {
+          "Layout": 4.0,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 3.5,
+          "Readability": 5,
+          "Accessibility": 5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 3.5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "artwork_sha256": "42a3ba1fe5ca0fea250d342d7488ddadfce5ba961d436a00202266659718173f",
+        "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+        "origin_generation": "lotte-tower-models-20261013",
+        "original_response_bytes_verified": true,
+        "source": "/tmp/model-lotte-review/llama4-maverick/42a3ba1fe5ca",
+        "browser_evidence": "/tmp/model-lotte-review/llama4-maverick/42a3ba1fe5ca/browser.json",
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Interactions",
+            "file": "docs/models/llama4-maverick/lotte-tower/artwork.html",
+            "line": 195,
+            "quote": "camera.rotateX(-0.1);",
+            "problem": "Keyboard camera rotations are overwritten by OrbitControls.update; all arrow tests return unchanged quaternion/position.",
+            "action": "Use target-relative orbit operations that survive the control update."
+          },
+          {
+            "severity": "Warning",
+            "category": "Layout",
+            "file": "docs/models/llama4-maverick/lotte-tower/artwork.html",
+            "line": 80,
+            "quote": "camera.position.set(0, 200, 400);",
+            "problem": "The completed cone extends well below the reset target; initial screenshot crops much of its base.",
+            "action": "Fit the full completed form in the default/reset pose."
+          },
+          {
+            "severity": "Warning",
+            "category": "Layout",
+            "file": "docs/models/llama4-maverick/lotte-tower/artwork.html",
+            "line": 187,
+            "quote": "camera.aspect = window.innerWidth / window.innerHeight;",
+            "problem": "Camera aspect uses full-window height while the canvas is80%height, distorting projections.",
+            "action": "Use actual rendered width/height for both camera and renderer."
+          },
+          {
+            "severity": "Warning",
+            "category": "Data Accuracy and References",
+            "file": "docs/models/llama4-maverick/lotte-tower/artwork.html",
+            "line": 143,
+            "quote": "function showSection() {",
+            "problem": "Floor/elevation/section views are generic square/box/plane primitives and do not coherently depict the completed cone cross-section and internal section.",
+            "action": "Make the schematic views correspond to the authored complete form and label assumptions."
+          }
+        ],
+        "notes": [
+          "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+          "Runtime and valid Shape errors are fixed; four selectable drawing views and real cylinder→cone3D states are implemented. Quality/correspondence defects are Warnings, not a demand for uniform geometry."
+        ],
+        "reviewed_at": "2026-10-13T15:51:47.689324+00:00",
+        "re_review_number": 3,
+        "review_iteration": 4,
+        "retry_limit_reached": true,
+        "current_generation_status": "generated",
+        "active_source": true
+      },
+      "prompt_sha256": "52fe2ba40df7fb8841be53e296305ed90d440138b1bb70f617493a0ec27735ce",
+      "initial_prompt_sha256": "4cd8078b1012506e85c133eea9318505cdb734add2fc687a93281a7ba8534d12",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "lotte-tower-models-20261013",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 0.24,
+          "price_out": 0.97
+        },
+        "estimated_total_usd": 0.00730458,
+        "estimated_final_response_usd": 0.00255194,
+        "recorded_attempts": 4,
+        "successful_code_responses": 4,
+        "additional_attempts": 3,
+        "known_cost_attempts": 4,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 5240,
+          "tokens_out": 6234,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-13T11:00:27.810562+00:00",
+            "status": "generated",
+            "request_id": "0084a631-36e2-4979-b25c-3d430d2b5d57",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00130866,
+            "request_seconds": null,
+            "record_sha256": "04d025fe5e07a66017c4f6b9839e8217e009608af50ed075f6c7fda1f27fe2cf",
+            "response_sha256": "ef58eb2cec0b629a99188e8af0de90c3d87da2edbd31577033c9d36d7ccca7ad"
+          },
+          {
+            "requested_at": "2026-10-13T13:37:26.247446+00:00",
+            "status": "generated",
+            "request_id": "85ac0ea4-5bce-491b-a063-a907fa63488c",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00173768,
+            "request_seconds": null,
+            "record_sha256": "4b0992d71c28840c847361adffa2cd0dc9fbb37cf6e6ad2ddbed9e2a6ff28c71",
+            "response_sha256": "c7d97e8780c91e5a5d456207b675a15c735332555cc9b7178538f9911bce3c77"
+          },
+          {
+            "requested_at": "2026-10-13T15:06:01.101042+00:00",
+            "status": "generated",
+            "request_id": "19e4cbdf-9a89-4c46-b25c-1552b8b06eb0",
+            "usage_available": true,
+            "estimated_cost_usd": 0.0017063,
+            "request_seconds": null,
+            "record_sha256": "f20e87c395635777b7b8aea22ab3065cd98ed349f7af458fcc103232dcd0d05a",
+            "response_sha256": "935ba3e9c5722099a12f79bbc0b15ca864cebffb9c0d78a7fe79da0027d43e17"
+          },
+          {
+            "requested_at": "2026-10-13T15:27:32.306965+00:00",
+            "status": "generated",
+            "request_id": "40162ea5-e65c-4f83-8793-ab47ed5eb54c",
+            "usage_available": true,
+            "estimated_cost_usd": 0.00255194,
+            "request_seconds": null,
+            "record_sha256": "e755ef88d0b66ca34c54ddf7a31051a33d5674ce53167b706239ab9dfb49b37d",
+            "response_sha256": "0611b3f6ebf4c1e2d6a437a114f7e38a6bc933a5252c28e72e53d4bf11762325"
+          }
+        ]
+      },
+      "request_id": "40162ea5-e65c-4f83-8793-ab47ed5eb54c",
+      "requested_at": "2026-10-13T15:27:32.306965+00:00",
+      "generated_at": "2026-10-13T15:27:38.368439+00:00",
+      "tokens_in": 2671,
+      "tokens_out": 1970,
+      "max_output_tokens": 8192,
+      "temperature": 0,
+      "temperature_sent": true,
+      "bedrock_reasoning_effort": null,
+      "finish_reason": "end_turn"
+    }
+  }
+}

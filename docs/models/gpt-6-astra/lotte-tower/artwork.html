@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>gpt-6-astra · 롯데월드타워 형태 연구</title>
+<style>
+:root{--paper:#f4f3ed;--ink:#18342f;--muted:#61726c;--line:#ced4c9;--green:#245f4c;--accent:#bc612d;--white:#fffef9}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}button,input{font:inherit}button,a,input{touch-action:manipulation}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:4px}a{color:inherit;text-underline-offset:4px}header{padding:20px 4vw;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:15px}.brand{font-size:14px;font-weight:750;letter-spacing:.08em}.brand span{font-weight:400;color:var(--muted);margin-left:14px}.model{font:12px ui-monospace,monospace;padding:6px 11px;border:1px solid var(--line);border-radius:30px;white-space:nowrap}main{max-width:1600px;margin:auto;padding:36px 4vw}h1{font-size:clamp(30px,4vw,53px);line-height:1.2;letter-spacing:-.055em;margin:12px 0 18px;font-weight:650}h2{font-size:21px;letter-spacing:-.03em;margin:0}h3{font-size:17px;margin:0}.eyebrow{font:11px ui-monospace,monospace;letter-spacing:.12em;color:var(--green)}.intro{display:grid;grid-template-columns:1.7fr 1fr;gap:40px;align-items:end}.intro p{max-width:650px;color:var(--muted);margin:0}.facts{display:flex;justify-content:flex-end;gap:36px}.fact strong{font-size:37px;font-weight:500;line-height:1.2;display:block}.fact small{font-size:14px}.fact span{font-size:12px;color:var(--muted)}.notice{margin:26px 0 30px;padding:12px 16px;border-left:3px solid var(--accent);background:#ece9df;font-size:13px}.notice b{color:#844522}.section-head{display:flex;justify-content:space-between;align-items:baseline;gap:15px;margin-bottom:15px}.section-head p{margin:0;color:var(--muted);font-size:12px}.workflow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px}.step{border:1px solid var(--line);background:transparent;text-align:left;padding:15px;color:var(--ink);border-radius:3px}.step .num{font:12px ui-monospace,monospace;color:var(--muted);display:block;margin-bottom:7px}.step b{font-size:15px;display:block}.step small{font-size:12px;color:var(--muted)}.step[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#fff}.step[aria-pressed=true] small,.step[aria-pressed=true] .num{color:#cee2d6}.stage-info{display:grid;grid-template-columns:1fr 2fr;gap:25px;margin:18px 0;padding:0 2px;min-height:62px}.stage-info p{margin:0;font-size:14px;color:var(--muted)}.view-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.view{position:relative;background:#e6eae2;border:1px solid var(--line);border-radius:4px;overflow:hidden}.view.complete{background:#dce4de}.view-top{position:absolute;top:17px;left:18px;right:18px;display:flex;align-items:center;justify-content:space-between;z-index:1;pointer-events:none}.view-top strong{font-size:13px}.pill{font:10px ui-monospace,monospace;letter-spacing:.04em;border:1px solid #98ada0;border-radius:20px;padding:3px 8px;background:#eaf0e5d9}.canvas-host{width:100%;height:470px;touch-action:none}.canvas-host canvas{display:block;width:100%;height:100%}.view-tools{position:absolute;bottom:15px;left:15px;right:15px;display:flex;justify-content:space-between;align-items:center;gap:10px}.tool-group{display:flex;gap:4px}.tool{border:1px solid #b2bfb3;background:#f7f8f1ed;color:var(--ink);min-width:35px;min-height:34px;padding:4px 9px;font-size:12px;border-radius:3px}.tool:hover{background:#fff}.floor-tag{font:12px ui-monospace,monospace;background:#fff8e8e8;color:#934614;padding:5px 8px}.help{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:15px;margin:10px 0 32px}.swatch{display:inline-block;width:16px;height:2px;background:var(--accent);vertical-align:middle;margin-right:6px}.drawing-layout{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(255px,1fr);border:1px solid var(--line);background:var(--white);border-radius:4px;overflow:hidden}.drawing-main{min-width:0}.tabs{display:flex;border-bottom:1px solid var(--line);padding:0 15px;gap:12px}.tab{padding:15px 12px;background:transparent;border:0;border-bottom:3px solid transparent;font-size:13px;color:var(--muted)}.tab[aria-selected=true]{color:var(--green);border-bottom-color:var(--green);font-weight:700}.sheet{padding:8px 16px 0;background-image:radial-gradient(#c6cfc4 0.65px,transparent 0.65px);background-size:18px 18px}.sheet svg{display:block;width:100%;height:350px}.drawing-caption{border-top:1px solid var(--line);padding:12px 18px;display:flex;gap:15px;justify-content:space-between;font-size:12px;color:var(--muted)}.drawing-caption strong{color:var(--ink);font:12px ui-monospace,monospace;white-space:nowrap}.sidebar{padding:23px;border-left:1px solid var(--line);background:#eff1e9}.sidebar h3{font-size:16px;margin-bottom:7px}.sidebar p{font-size:13px;color:var(--muted);margin:0 0 18px}.level{display:flex;justify-content:space-between;align-items:baseline;margin-top:20px}.level output{font:27px ui-monospace,monospace;color:var(--accent)}input[type=range]{width:100%;accent-color:var(--accent);margin:16px 0 0;min-height:28px}.range-label{display:flex;justify-content:space-between;font:11px ui-monospace,monospace;color:var(--muted);margin-bottom:18px}.metrics{display:grid;grid-template-columns:1fr 1fr;border-block:1px solid var(--line);padding:14px 0;margin:16px 0;gap:12px}.metrics b{display:block;font:21px ui-monospace,monospace}.metrics span{font-size:11px;color:var(--muted)}.link-note{font-size:12px!important;margin-bottom:0!important}.sources{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;border-top:1px solid var(--line);margin-top:36px;padding-top:22px}.sources h3{font-size:13px;margin-bottom:7px}.sources p{font-size:12px;color:var(--muted);margin:0}.sources a{display:inline-block;margin-top:8px;font-size:12px}footer{display:flex;justify-content:space-between;padding:22px 4vw;border-top:1px solid var(--line);font:11px ui-monospace,monospace;color:var(--muted);gap:15px;margin-top:25px}.fallback{padding:80px 25px;font-size:14px}.error{color:#8d3b22} 
+@media(min-width:1400px){.canvas-host{height:540px}}
+@media(max-width:760px){header{padding:15px 5vw}.brand span{display:none}main{padding:26px 5vw}.intro{grid-template-columns:1fr;gap:23px}.facts{justify-content:flex-start;gap:34px}.fact strong{font-size:29px}.workflow{grid-template-columns:1fr 1fr}.step{padding:12px}.stage-info{grid-template-columns:1fr;gap:8px}.view-grid{gap:12px;grid-template-columns:1fr}.canvas-host{height:410px}.drawing-layout{grid-template-columns:1fr}.sidebar{border-left:0;border-top:1px solid var(--line);padding:20px}.sheet{padding-inline:3px}.sheet svg{height:310px}.tabs{gap:0;padding:0 5px;justify-content:space-around}.tab{padding:13px 8px}.sources{grid-template-columns:1fr;gap:20px}.help{display:block}.help span{display:block;margin-bottom:5px}.section-head{align-items:start}.section-head p{text-align:right;max-width:140px}.drawing-caption{display:block}.drawing-caption strong{display:block;margin-bottom:5px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header><div class="brand">FORM / SEOUL <span>건축을 읽는 인터랙티브 아틀라스</span></div><div class="model">gpt-6-astra</div></header>
+<main>
+<section class="intro">
+<div><div class="eyebrow">ARCHITECTURE STUDY — 01 / JAMSIL, SEOUL</div><h1>하늘로 좁아지는 선,<br>롯데월드타워</h1><p>평면의 윤곽이 수직으로 쌓이고, 도자기를 닮은 곡선이 도시의 실루엣이 됩니다. 도면과 입체를 오가며 형태가 만들어지는 원리를 살펴보세요.</p></div>
+<div class="facts"><div class="fact"><strong>555<small> m</small></strong><span>공개된 건물 높이</span></div><div class="fact"><strong>123<small> F</small></strong><span>지상 층수</span></div><div class="fact"><strong>KPF</strong><span>원 설계사</span></div></div>
+</section>
+<div class="notice"><b>설명용 개념 재구성</b> · 아래 단계는 실제 설계 이력이 아닌 학습용 분해입니다. 완성 모델도 공개된 형태를 해석한 근사 모델이며, 공식 시공 도면·정밀 실측 모델·검증된 구조 설계가 아닙니다.</div>
+
+<section aria-labelledby="process-title">
+<div class="section-head"><h2 id="process-title">01 — 형태의 발전</h2><p>단계를 선택하면 왼쪽 입체와 도면이 함께 바뀝니다.</p></div>
+<div class="workflow" role="group" aria-label="개념 설계 단계">
+<button class="step" data-stage="0" aria-pressed="false"><span class="num">01 / ENVELOPE</span><b>수직 매스</b><small>높이와 초기 외곽 설정</small></button>
+<button class="step" data-stage="1" aria-pressed="false"><span class="num">02 / TAPER</span><b>곡선과 테이퍼</b><small>위로 갈수록 좁아지는 평면</small></button>
+<button class="step" data-stage="2" aria-pressed="false"><span class="num">03 / ORGANIZE</span><b>내부의 조직</b><small>코어와 층판 개념 살펴보기</small></button>
+<button class="step" data-stage="3" aria-pressed="true"><span class="num">04 / ARTICULATE</span><b>외피와 정상부</b><small>수직선과 열린 크라운</small></button>
+</div>
+<div class="stage-info" aria-live="polite"><h3 id="stage-title"></h3><p id="stage-desc"></p></div>
+<div class="view-grid">
+<div class="view"><div class="view-top"><strong id="left-title">선택 단계</strong><span class="pill">CONCEPT MODEL</span></div><div id="stage-view" class="canvas-host" tabindex="0" role="region" aria-label="선택 단계 3D. 방향키로 회전, 더하기 빼기로 확대 축소, R로 초기화"></div><div class="view-tools"><span class="floor-tag">선택 단면 · <span class="floor-number">61</span>F</span><div class="tool-group"><button class="tool" data-view="0" data-action="in" aria-label="단계 모델 확대">＋</button><button class="tool" data-view="0" data-action="out" aria-label="단계 모델 축소">−</button><button class="tool" data-view="0" data-action="reset">시점 초기화</button></div></div></div>
+<div class="view complete"><div class="view-top"><strong>완성 형태 · 외관 근사</strong><span class="pill">REFERENCE FORM</span></div><div id="final-view" class="canvas-host" tabindex="0" role="region" aria-label="완성 3D 모델. 방향키로 회전, 더하기 빼기로 확대 축소, R로 초기화"></div><div class="view-tools"><span class="floor-tag">동일 단면 · <span class="floor-number">61</span>F</span><div class="tool-group"><button class="tool" data-view="1" data-action="in" aria-label="완성 모델 확대">＋</button><button class="tool" data-view="1" data-action="out" aria-label="완성 모델 축소">−</button><button class="tool" data-view="1" data-action="reset">시점 초기화</button></div></div></div>
+</div>
+<div class="help"><span>드래그: 회전 · 휠 / 두 손가락: 확대·축소 · 키보드: 방향키, + / −, R</span><span><i class="swatch"></i>주황색 = 도면과 두 입체의 동일 높이</span></div>
+</section>
+
+<section aria-labelledby="drawing-title">
+<div class="section-head"><h2 id="drawing-title">02 — 입체를 도면으로 읽기</h2><p>단위 m · 모든 도면은 개념도</p></div>
+<div class="drawing-layout">
+<div class="drawing-main">
+<div class="tabs" role="tablist" aria-label="도면 유형">
+<button class="tab" id="tab-site" role="tab" aria-selected="false" aria-controls="drawing-panel" data-tab="site" tabindex="-1">배치도</button>
+<button class="tab" id="tab-plan" role="tab" aria-selected="true" aria-controls="drawing-panel" data-tab="plan">기준층 평면</button>
+<button class="tab" id="tab-elevation" role="tab" aria-selected="false" aria-controls="drawing-panel" data-tab="elevation" tabindex="-1">입면도</button>
+<button class="tab" id="tab-section" role="tab" aria-selected="false" aria-controls="drawing-panel" data-tab="section" tabindex="-1">단면도</button>
+</div>
+<div id="drawing-panel" role="tabpanel" aria-labelledby="tab-plan" tabindex="0"><div class="sheet"><svg id="drawing" viewBox="0 0 660 350" role="img" aria-labelledby="svg-title svg-desc"></svg></div></div>
+<div class="drawing-caption"><strong id="drawing-code"></strong><span id="drawing-note"></span></div>
+</div>
+<aside class="sidebar">
+<div class="eyebrow">LINKED SECTION</div><h3>하나의 높이, 세 가지 시선</h3><p>층을 움직여 평면 크기의 변화를 관찰하세요. 선택 높이는 단계 모델과 완성 모델에 동시에 표시됩니다.</p>
+<div class="level"><label for="floor">살펴볼 층</label><output id="floor-output" for="floor">61F</output></div>
+<input id="floor" type="range" min="1" max="123" step="1" value="61" aria-label="살펴볼 층">
+<div class="range-label"><span>1F · BASE</span><span>123F · TOP</span></div>
+<div class="metrics"><div><b id="width-value"></b><span>선택 단계 외곽 폭 · 추정 m</span></div><div><b id="height-value"></b><span>선택 단면 높이 · 추정 m</span></div></div>
+<p class="link-note" id="relation-note"></p>
+<p class="link-note" style="margin-top:12px">높이 매핑: 1~123층을 0~510m에 균등 배치한 학습용 가정입니다. 510~555m는 정상부 표현 구간입니다. 실제 층고·층별 용도·정상부 치수와 다릅니다.</p>
+</aside>
+</div>
+</section>
+
+<section class="sources" aria-label="자료와 모델의 한계">
+<div><h3>01 / 공개 자료에서 가져온 것</h3><p>높이 555m, 지상 123층, 상승하며 좁아지는 외곽. KPF가 설명하는 한국 도자기의 선을 형태 해석의 출발점으로 삼았습니다.</p><a href="https://www.kpf.com/project/lotte-world-tower" target="_blank" rel="noopener noreferrer">KPF · Lotte World Tower ↗</a></div>
+<div><h3>02 / 구조는 원리만 표현</h3><p>구조 설계사 LERA의 프로젝트 자료를 참고 출처로 제시합니다. 표시된 중앙 코어와 층판은 공간을 이해하기 위한 도식이며 실제 구조 부재·배근·아웃리거를 재현하지 않습니다.</p><a href="https://www.lera.com/lotte-world-tower" target="_blank" rel="noopener noreferrer">LERA · Lotte World Tower ↗</a></div>
+<div><h3>03 / 이 모델에서 가정한 것</h3><p>기단 폭 76m, 둥근 사각 평면, 테이퍼 함수, 22m 코어, 층 간격, 외피 분할, 정상부 틈은 모두 추정입니다. 배치도의 대지·도로·저층부는 주변 관계를 설명하는 도식으로 지적·측량 정보가 아닙니다. 출처 링크는 실행 중 불러오지 않습니다.</p></div>
+</section>
+</main>
+<footer><span>FORM / SEOUL — CONCEPTUAL RECONSTRUCTION</span><span>gpt-6-astra · 3D + DRAWING STUDY</span></footer>
+<script src="../runtime/three-runtime.js"></script>
+<script>
+(function(){
+'use strict';
+let stage=3, floor=61, tab='plan';
+const $=s=>document.querySelector(s);
+const descriptions=[
+['01 · 높이를 세우다','555m 높이의 균일한 매스에서 출발합니다. 둥근 사각형은 평면을 설명하기 위한 가정입니다. 오른쪽 완성 형상과 비교해 테이퍼가 주는 차이를 살펴보세요.'],
+['02 · 외곽을 좁히다','위로 올라갈수록 평면을 줄여 부드러운 곡선을 만듭니다. KPF가 언급한 한국 도자기의 선을 수학적 테이퍼로 해석한 것으로, 실제 외곽 좌표를 복제한 것은 아닙니다.'],
+['03 · 안쪽을 조직하다','외피를 걷어 내고 중앙 코어와 층판의 관계를 보여줍니다. 코어 크기와 층판은 추정이며, 화면에서는 가독성을 위해 약 6층 간격으로 층판을 표시합니다.'],
+['04 · 수직선을 완성하다','가늘게 이어지는 외피선과 갈라져 열린 정상부로 실루엣을 마무리합니다. 실제 건물을 연상시키는 개념 형상이며 외피 패널과 정상부 상세는 단순화했습니다.']
+];
+function height(){return (floor-1)/122*510}
+function radius(y,s){if(s===0)return 38;let t=Math.min(1,y/555);return 38*(1-.31*t-.45*t*t)}
+function point(a,r){return [r*Math.sign(Math.cos(a))*Math.pow(Math.abs(Math.cos(a)),.64),r*Math.sign(Math.sin(a))*Math.pow(Math.abs(Math.sin(a)),.64)]}
+function outline2(cx,cy,r,scl=1){let d='';for(let i=0;i<=96;i++){let p=point(i/96*Math.PI*2,r);d+=(i?'L':'M')+(cx+p[0]*scl).toFixed(2)+','+(cy+p[1]*scl).toFixed(2)}return d+'Z'}
+const viewers=[];
+let ready=false;
+try{
+if(!window.THREE)throw Error('런타임을 불러올 수 없습니다.');
+const T=THREE;
+function meshGeo(s){
+const pos=[],idx=[],n=96,rows=74;
+for(let j=0;j<=rows;j++){const base=j/rows*555;for(let i=0;i<=n;i++){let a=i/n*Math.PI*2,y=base;if(s===3&&base>510){const k=(base-510)/45; y-=18*Math.pow(Math.abs(Math.sin(a)),10)*k;}let p=point(a,radius(base,s));pos.push(p[0],y,p[1]);}}
+for(let j=0;j<rows;j++)for(let i=0;i<n;i++){if(s===3&&j/rows*555>514 && (i===23||i===24||i===71||i===72))continue;let a=j*(n+1)+i,b=a+n+1;idx.push(a,b,a+1,b,b+1,a+1)}
+let g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();return g;
+}
+function line(points,color,opacity=1){let g=new T.BufferGeometry().setFromPoints(points);return new T.Line(g,new T.LineBasicMaterial({color,transparent:opacity<1,opacity}));}
+function ring(y,s,col,opacity=1){let pts=[];for(let i=0;i<=96;i++){let p=point(i/96*2*Math.PI,radius(y,s)+.35);pts.push(new T.Vector3(p[0],y,p[1]))}return line(pts,col,opacity)}
+function floorMesh(y,s,mat){let sh=new T.Shape();for(let i=0;i<=64;i++){let p=point(i/64*Math.PI*2,radius(y,s));if(!i)sh.moveTo(p[0],p[1]);else sh.lineTo(p[0],p[1]);}let m=new T.Mesh(new T.ShapeGeometry(sh),mat);m.rotation.x=-Math.PI/2;m.position.y=y;return m}
+function build(s){
+let g=new T.Group();
+if(s!==2){let mat=new T.MeshStandardMaterial({color:s===0?0xadbca8:s===1?0x91b3ac:0x789e9b,roughness:.34,metalness:.35,side:T.DoubleSide});g.add(new T.Mesh(meshGeo(s),mat));if(s<3)g.add(floorMesh(555,s,new T.MeshStandardMaterial({color:0xb5c9bf,side:T.DoubleSide})))}
+if(s===2){
+const core=new T.Mesh(new T.BoxGeometry(22,510,22),new T.MeshStandardMaterial({color:0xc3996c,roughness:.8}));core.position.y=255;g.add(core);
+let m=new T.MeshStandardMaterial({color:0xb4c8b9,side:T.DoubleSide,roughness:.7});
+for(let f=0;f<=122;f+=6){let y=f/122*510;g.add(floorMesh(y,2,m));g.add(ring(y,2,0x688578,.7))}
+}
+let count=s===3?64:s===2?8:12;
+for(let i=0;i<count;i++){
+let a=i/count*2*Math.PI,pts=[];
+if(s===3&&(i===16||i===48))continue;
+for(let j=0;j<=90;j++){let y=j/90*555,r=radius(y,s)+.13,p=point(a,r);if(s===3&&y>510)y-=18*Math.pow(Math.abs(Math.sin(a)),10)*(y-510)/45;pts.push(new T.Vector3(p[0],y,p[1]))}
+g.add(line(pts,s===3?0xd3e0d5:0x53746a,s===3?.78:.42));
+}
+if(s===3)for(let f=1;f<=123;f+=2)g.add(ring((f-1)/122*510,s,0x4d7671,.45));
+g.add(ring(0,s,0x496659));return g;
+}
+function dispose(g){g.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){if(Array.isArray(o.material))o.material.forEach(m=>m.dispose());else o.material.dispose();}})}
+function create(host,s,index){
+let scene=new T.Scene();scene.background=new T.Color(index?0xdce4de:0xe6eae2);
+let camera=new T.PerspectiveCamera(36,1,1,5000);
+let renderer=new T.WebGLRenderer({antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));host.appendChild(renderer.domElement);
+renderer.outputColorSpace=T.SRGBColorSpace;
+scene.add(new T.HemisphereLight(0xffffff,0x667568,2.8));
+let sun=new T.DirectionalLight(0xfff4da,3.2);sun.position.set(300,550,400);scene.add(sun);
+let back=new T.DirectionalLight(0xc9e1ee,1.7);back.position.set(-200,300,-200);scene.add(back);
+let ground=new T.Mesh(new T.PlaneGeometry(650,650),new T.MeshStandardMaterial({color:index?0xd2dcd2:0xdce2d6,roughness:1}));ground.rotation.x=-Math.PI/2;ground.position.y=-2;scene.add(ground);
+let grid=new T.GridHelper(500,20,0xb4c2b5,0xc5cfc2);grid.position.y=-1;scene.add(grid);
+let base=new T.Mesh(new T.BoxGeometry(145,4,120),new T.MeshStandardMaterial({color:0xb7c5b7}));base.position.y=-2;scene.add(base);
+const Controls=T.OrbitControls||window.OrbitControls;
+if(!Controls)throw Error('OrbitControls를 찾을 수 없습니다.');
+let controls=new Controls(camera,renderer.domElement);controls.enableDamping=false;controls.enablePan=false;controls.minDistance=220;controls.maxDistance=1800;controls.maxPolarAngle=Math.PI*.49;controls.target.set(0,260,0);
+let v={host,scene,camera,renderer,controls,s,group:build(s),marker:null};scene.add(v.group);
+v.draw=()=>renderer.render(scene,camera);
+v.reset=()=>{camera.position.set(710,445,850);controls.target.set(0,265,0);controls.update();v.draw()};
+v.resize=()=>{let w=host.clientWidth,h=host.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();v.draw()};
+v.updateMarker=()=>{if(v.marker){scene.remove(v.marker);dispose(v.marker)}v.marker=new T.Group();let y=height();v.marker.add(ring(y,v.s,0xbd5c25));let plane=floorMesh(y+.1,v.s,new T.MeshBasicMaterial({color:0xe89b46,transparent:true,opacity:.33,side:T.DoubleSide,depthTest:false}));v.marker.add(plane);scene.add(v.marker);v.draw()};
+v.setStage=s=>{scene.remove(v.group);dispose(v.group);v.s=s;v.group=build(s);scene.add(v.group);v.updateMarker()};
+v.zoom=k=>{camera.position.sub(controls.target).multiplyScalar(k).clampLength(controls.minDistance,controls.maxDistance).add(controls.target);controls.update();v.draw()};
+controls.addEventListener('change',v.draw);
+host.addEventListener('keydown',e=>{let keys=['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','+','=','-','r','R'];if(!keys.includes(e.key))return;e.preventDefault();if(e.key==='r'||e.key==='R')return v.reset();if(e.key==='+'||e.key==='=')return v.zoom(.85);if(e.key==='-')return v.zoom(1.18);let off=camera.position.clone().sub(controls.target),sp=new T.Spherical().setFromVector3(off);if(e.key==='ArrowLeft')sp.theta-=.12;if(e.key==='ArrowRight')sp.theta+=.12;if(e.key==='ArrowUp')sp.phi=Math.max(.12,sp.phi-.09);if(e.key==='ArrowDown')sp.phi=Math.min(Math.PI*.49,sp.phi+.09);camera.position.copy(controls.target).add(new T.Vector3().setFromSpherical(sp));controls.update();v.draw()});
+new ResizeObserver(v.resize).observe(host);v.reset();v.resize();v.updateMarker();return v;
+}
+viewers.push(create($('#stage-view'),stage,0));viewers.push(create($('#final-view'),3,1));ready=true;
+}catch(e){document.querySelectorAll('.canvas-host').forEach(h=>{h.innerHTML='<div class="fallback error">3D 环境을 시작할 수 없습니다.<br>로컬 Three.js 런타임과 WebGL 지원을 확인하세요.<br>아래 도면과 단계 설명은 계속 사용할 수 있습니다.</div>'.replace('环境','환경')});}
+document.querySelectorAll('[data-action]').forEach(b=>b.addEventListener('click',()=>{let v=viewers[+b.dataset.view];if(!ready||!v)return;if(b.dataset.action==='reset')v.reset();else v.zoom(b.dataset.action==='in'?.85:1.18)}));
+
+function text(x,y,t,opt=''){return '<text x="'+x+'" y="'+y+'" '+opt+'>'+t+'</text>'}
+function path(d,opt=''){return '<path d="'+d+'" '+opt+'/>'}
+function dim(x1,y1,x2,y2,label){return '<g stroke="#78867a" stroke-width=".8"><path d="M'+x1+','+(y1-6)+'v12 M'+x2+','+(y2-6)+'v12 M'+x1+','+y1+'L'+x2+','+y2+'"/></g>'+text((x1+x2)/2,(y1+y2)/2-8,label,'text-anchor="middle" fill="#61726c"')}
+function draw(){
+let y=height(),r=radius(y,stage),rf=radius(y,3),w=2*r,body='',title='',desc='',code='',note='';
+const orange='#bc612d';
+if(tab==='plan'){
+title=floor+'층 개념 평면';desc='선택 단계 외곽, 완성 외곽, 중앙 코어와 절단선의 비교';code='A–102 / PLAN';
+note='실선: 선택 단계 · 점선: 완성 외곽 · 코어 22 × 22m는 추정';
+let sc=2.5,cx=320,cy=177;
+body+=path(outline2(cx,cy,38,sc),'fill="none" stroke="#b7c2b5" stroke-dasharray="3 5"');
+body+=path(outline2(cx,cy,r,sc),'fill="#dce8df" fill-opacity=".85" stroke="#245f4c" stroke-width="2"');
+body+=path(outline2(cx,cy,rf,sc),'fill="none" stroke="#bc612d" stroke-width="1.4" stroke-dasharray="5 4"');
+if(stage>=2)body+='<rect x="'+(cx-27.5)+'" y="'+(cy-27.5)+'" width="55" height="55" fill="#d6bea0" stroke="#8f724e"/>'+text(cx,cy+4,'코어','text-anchor="middle" font-size="11"');
+body+=path('M180,177H460 M320,55V302','fill="none" stroke="#819184" stroke-dasharray="9 4 2 4" stroke-width=".8"');
+body+=dim(cx-r*sc,58,cx+r*sc,58,'약 '+w.toFixed(1)+' m · 추정');
+body+=text(475,177,'A — A′','fill="#bc612d"')+text(475,196,'개념 단면선','fill="#61726c" font-size="11"');
+body+=text(34,40,floor+'F / +'+y.toFixed(1)+' m','fill="#bc612d"');
+body+=text(34,313,'외곽·코어 치수는 추정 / 실제 실 배치 생략','font-size="11" fill="#61726c"');
+body+=path('M530,295h50 M530,291v8 M580,291v8','stroke="#18342f"')+text(555,316,'20 m','text-anchor="middle" font-size="11"');
+}else if(tab==='site'){
+title='타워와 주변 저층부의 개념 배치';desc='실제 지도 대신 타워, 연결 저층부, 접근 공간의 관계를 나타냅니다';code='A–101 / SITE';note='도로·대지·방향은 도식입니다. 지적 경계·실제 방위·축척을 의미하지 않습니다.';
+body+='<rect x="125" y="46" width="420" height="230" rx="8" fill="#eef0e7" stroke="#a9b7a7" stroke-dasharray="5 5"/><path d="M75,302H585 M82,30V290" stroke="#d9ded5" stroke-width="24"/><rect x="350" y="91" width="157" height="119" rx="14" fill="#d8dfd0" stroke="#8a9d87"/>';
+body+=path(outline2(265,157,38,1.6),'fill="#c3d6ca" stroke="#245f4c" stroke-width="2"');
+body+=path(outline2(265,157,r,1.6),'fill="none" stroke="#bc612d" stroke-width="1.8"');
+body+=text(265,155,'TOWER','text-anchor="middle" font-size="12"')+text(265,174,'555 m','text-anchor="middle" font-size="11"')+text(430,145,'연결 저층부','text-anchor="middle"')+text(430,165,'범위·형상 추정','text-anchor="middle" font-size="11" fill="#61726c"');
+body+=dim(204.2,242,325.8,242,'기단 폭 약 76 m');
+body+=text(356,316,'접근 도로 · 관계만 표시','font-size="11"')+text(145,69,'개념 대지 경계','font-size="11" fill="#61726c"');
+body+=text(34,30,'NOT TO SCALE','font-size="10" fill="#61726c"')+text(145,270,'주황선: 선택 높이의 수평 투영','fill="#bc612d" font-size="11"');
+}else{
+let section=tab==='section';title=section?'A–A′ 개념 단면':'타워 개념 입면';desc=section?'중앙 코어, 대표 층판, 선택 단면 높이를 표현합니다':'선택 단계와 완성 외곽의 높이 및 곡선 비교';code=section?'A–104 / SECTION':'A–103 / ELEVATION';note=section?'코어·층판은 추정. 약 6층마다 표시 / 실제 구조 상세 아님':'555m는 공개 높이 / 가로 치수·외피선·크라운은 추정';
+let sc=.48,cx=321,base=305;
+function profile(s){let d='M'+(cx-radius(0,s)*sc)+','+base;for(let j=0;j<=60;j++){let h=j/60*555;d+='L'+(cx-radius(h,s)*sc)+','+(base-h*sc)}d+='L'+(cx+radius(555,s)*sc)+','+(base-555*sc);for(let j=60;j>=0;j--){let h=j/60*555;d+='L'+(cx+radius(h,s)*sc)+','+(base-h*sc)}return d+'Z'}
+body+=path(profile(stage),'fill="'+(section?'#edf0e5':'#d5e2da')+'" stroke="#245f4c" stroke-width="1.4"');
+body+=path(profile(3),'fill="none" stroke="#bc612d" stroke-dasharray="4 3" stroke-width=".9"');
+if(section){
+if(stage>=2)body+='<rect x="'+(cx-11*sc)+'" y="'+(base-510*sc)+'" width="'+22*sc+'" height="'+510*sc+'" fill="#d6bea0" stroke="#987a56" stroke-width=".7"/>';
+for(let f=0;f<=122;f+=6){let h=f/122*510,rr=radius(h,stage)*sc;body+=path('M'+(cx-rr)+','+(base-h*sc)+'H'+(cx+rr),'stroke="#799184" stroke-width=".7"');}
+}else{
+for(let k=-3;k<=3;k++){let d='';for(let j=0;j<=55;j++){let h=j/55*555;d+=(j?'L':'M')+(cx+radius(h,stage)*sc*k/4)+','+(base-h*sc)}body+=path(d,'fill="none" stroke="#6f9487" stroke-width=".6"')}
+}
+body+=path('M230,305H420','stroke="#546f60" stroke-width="1.2"');
+body+=path('M211,38.6V305 M206,38.6H216 M206,305H216','stroke="#61726c" stroke-width=".8"');
+body+=text(198,175,'555 m · 공개 높이','transform="rotate(-90 198 175)" text-anchor="middle" fill="#61726c"');
+body+=path('M245,'+(base-y*sc)+'H412','stroke="#bc612d" stroke-width="1.5"')+text(425,base-y*sc+4,floor+'F · +'+y.toFixed(1)+' m','fill="#bc612d"');
+body+=text(425,43,'정상부 555 m','font-size="11"')+text(425,62,'정상부 형상 단순화','font-size="10" fill="#61726c"');
+body+=text(425,309,'±0.0 m','font-size="11"');
+body+=text(34,30,section?'A — A′ / CORE + FLOORS':'ENVELOPE / SILHOUETTE','font-size="10" fill="#61726c"');
+body+=dim(cx-38*sc,333,cx+38*sc,333,'약 76 m');
+if(section)body+=text(40,270,stage>=2?'황갈색: 추정 코어':'초기 매스: 코어 미설정','font-size="11" fill="#8f724e"');
+}
+$('#drawing').innerHTML='<title id="svg-title">'+title+'</title><desc id="svg-desc">'+desc+'</desc><g font-family="system-ui, sans-serif" font-size="12" fill="#18342f" stroke-linejoin="round">'+body+'</g>';
+$('#drawing-code').textContent=code;$('#drawing-note').textContent=note;
+$('#floor-output').textContent=floor+'F';document.querySelectorAll('.floor-number').forEach(n=>n.textContent=floor);
+$('#width-value').textContent=w.toFixed(1);$('#height-value').textContent=y.toFixed(1);
+$('#relation-note').textContent=stage===0?'01단계는 모든 높이에서 폭이 76m로 같습니다. 완성 모델의 주황색 단면은 위로 갈수록 작아집니다.':'현재 단계와 완성 모델은 같은 테이퍼 외곽을 공유합니다. 도면의 주황 표시와 두 모델의 단면이 같은 높이에 대응합니다.';
+}
+function updateStage(s){stage=s;document.querySelectorAll('.step').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.stage===s));$('#stage-title').textContent=descriptions[s][0];$('#stage-desc').textContent=descriptions[s][1];$('#left-title').textContent='선택 단계 · '+descriptions[s][0];if(ready)viewers[0].setStage(s);draw()}
+document.querySelectorAll('.step').forEach(b=>b.addEventListener('click',()=>updateStage(+b.dataset.stage)));
+$('#floor').addEventListener('input',e=>{floor=+e.target.value;draw();if(ready)viewers.forEach(v=>v.updateMarker())});
+const tabs=[...document.querySelectorAll('.tab')];
+function selectTab(b){tab=b.dataset.tab;tabs.forEach(t=>{let selected=t===b;t.setAttribute('aria-selected',selected);t.tabIndex=selected?0:-1});$('#drawing-panel').setAttribute('aria-labelledby',b.id);draw()}
+tabs.forEach((b,i)=>{b.addEventListener('click',()=>selectTab(b));b.addEventListener('keydown',e=>{let n;if(e.key==='ArrowRight')n=(i+1)%4;else if(e.key==='ArrowLeft')n=(i+3)%4;else if(e.key==='Home')n=0;else if(e.key==='End')n=3;else return;e.preventDefault();tabs[n].focus();selectTab(tabs[n])})});
+updateStage(stage);
+})();
+</script>
+</body>
+</html>

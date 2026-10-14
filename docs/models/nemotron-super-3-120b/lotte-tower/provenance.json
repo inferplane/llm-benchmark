@@ -1,0 +1,179 @@
+{
+  "model": "nemotron-super-3-120b",
+  "task": "lotte-tower",
+  "requested_model_id": "nvidia.nemotron-super-3-120b",
+  "provider": "bedrock",
+  "family": "NVIDIA",
+  "generation": "lotte-tower-models-20261013",
+  "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b",
+  "status": "review_held",
+  "generation_status": "generated",
+  "artwork_sha256": "a082bfe8a3bc35572b99259148f702cbb30a9ebad83da087812b308d06bc4982",
+  "content_review": {
+    "task_requirements_complete": false,
+    "model": "nemotron-super-3-120b",
+    "score": 95.5,
+    "critical": 0,
+    "warnings": 3,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 3.5,
+      "Readability": 3.5,
+      "Accessibility": 3.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "artwork_sha256": "a082bfe8a3bc35572b99259148f702cbb30a9ebad83da087812b308d06bc4982",
+    "model_id": "nvidia.nemotron-super-3-120b",
+    "origin_generation": "lotte-tower-models-20261013",
+    "original_response_bytes_verified": true,
+    "source": "/tmp/model-lotte-review/nemotron-super-3-120b/a082bfe8a3bc",
+    "browser_evidence": "/tmp/model-lotte-review/nemotron-super-3-120b/a082bfe8a3bc/browser.json",
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html",
+        "line": 11,
+        "quote": "header p { font-size: 1rem; opacity: 0.9; }",
+        "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+        "action": "Use at least19px meaningful rendered text and controls."
+      },
+      {
+        "severity": "Warning",
+        "category": "Interactions",
+        "file": "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html",
+        "line": 255,
+        "quote": "const stage = parseInt(button.getAttribute('data-stage').replace(/[^0-9]/g, '')) - 1;",
+        "problem": "Stage attributes are words(concept/massing/taper/facade/final), but code removes all nondigits then parses them, givingNaN. Every click creates the default100-unit form; only descriptions change.",
+        "action": "Map stage names to the actual numeric states so each advertised3D stage differs."
+      },
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html",
+        "line": 282,
+        "quote": "if (e.key === 'Escape') {",
+        "problem": "Keyboard only resets; there is no keyboard orbit or zoom equivalent.",
+        "action": "Provide keyboard-accessible camera operations."
+      }
+    ],
+    "notes": [
+      "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+      "The genuine local renderer and four schematic SVG drawing views now operate. Task remains incomplete because advertised3D development states never select their corresponding geometry."
+    ],
+    "reviewed_at": "2026-10-13T15:51:47.659169+00:00",
+    "re_review_number": 3,
+    "review_iteration": 4,
+    "retry_limit_reached": true,
+    "current_generation_status": "generated",
+    "active_source": true
+  },
+  "prompt_sha256": "f423b009a11a20fbb6668257b21e026ae4d5a9d7ee22d1140101fdc3870370f8",
+  "initial_prompt_sha256": "851f44272c4c70abbd82dde2167ab06310451f58942c86fab1b56c6220d9382b",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "lotte-tower-models-20261013",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.15,
+      "price_out": 0.65
+    },
+    "estimated_total_usd": 0.0165079,
+    "estimated_final_response_usd": 0.00380235,
+    "recorded_attempts": 5,
+    "successful_code_responses": 4,
+    "additional_attempts": 4,
+    "known_cost_attempts": 5,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 8501,
+      "tokens_out": 23435,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-13T10:59:55.383553+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.00542575,
+        "request_seconds": null,
+        "record_sha256": "46d01fce58df7130d8b69297240f039c699368525149459d1a4b17af566c3b71",
+        "response_sha256": "e19766ec9f43b4d54971ed21f5ea184e55cf20ef95069eae46b81edc2b912e2a"
+      },
+      {
+        "requested_at": "2026-10-13T11:25:06.224549+00:00",
+        "status": "generated",
+        "request_id": "18fd0fa7-4da4-44c7-b7ca-e5ef6f0cd871",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00331615,
+        "request_seconds": null,
+        "record_sha256": "f8cf9ed840fe4ece856eb885f6b19108e483088bf53e16b0aa6430449f3b9732",
+        "response_sha256": "14c115f3c00e55e8758b950356ed5448a29f0bad28430ced3548ff3c1e8923a5"
+      },
+      {
+        "requested_at": "2026-10-13T13:37:20.352148+00:00",
+        "status": "generated",
+        "request_id": "982cbb4f-4d0b-47b7-a7df-40b1fe0bdfa4",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0012855,
+        "request_seconds": null,
+        "record_sha256": "f7089aec3c41aabde650abc3625bbc36a20a7d43ed4d30664e2afa6f0a8e5a4d",
+        "response_sha256": "979e3b7825992094e0a893656359bc86e8e34ab9d04ce3199488b5b21a50b86f"
+      },
+      {
+        "requested_at": "2026-10-13T15:05:47.155285+00:00",
+        "status": "generated",
+        "request_id": "78411285-0e71-41f6-b53e-526924b2ca84",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00267815,
+        "request_seconds": null,
+        "record_sha256": "c35857dc34e30081373c856b87df592d67e2eb4627e178c97be4940791c3c625",
+        "response_sha256": "2b7f13b20be3f4c728be87ce6d36d6314e8c58dc5cfd317ff10e4c46df74048b"
+      },
+      {
+        "requested_at": "2026-10-13T15:27:03.925625+00:00",
+        "status": "generated",
+        "request_id": "9286f397-0f39-4286-a56d-75504dad906a",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00380235,
+        "request_seconds": null,
+        "record_sha256": "31fcf258d390e8d2328fc1a20f4063c0f26d843588dba0979a337a02c342af3c",
+        "response_sha256": "efc5d9749458345e72151ad5d000953a4ab89fabe7535b58e86b1f89227fa739"
+      }
+    ]
+  },
+  "request_id": "9286f397-0f39-4286-a56d-75504dad906a",
+  "requested_at": "2026-10-13T15:27:03.925625+00:00",
+  "generated_at": "2026-10-13T15:27:32.955574+00:00",
+  "tokens_in": 4952,
+  "tokens_out": 4707,
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "finish_reason": "end_turn"
+}

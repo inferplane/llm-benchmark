@@ -1,0 +1,137 @@
+{
+  "model": "llama-3.3-70b",
+  "task": "whoami",
+  "requested_model_id": "meta-llama/Llama-3.3-70B-Instruct",
+  "provider": "vllm",
+  "family": "Meta",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/llama-3.3-70b",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "49269d4ef0b38055b7116e6dcb95de272bfd1098757c6a759ad86be198426718",
+  "content_review": {
+    "model": "llama-3.3-70b",
+    "generation": "free-expression-20261012",
+    "score": 96.0,
+    "critical": 0,
+    "warnings": 3,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 3.5,
+      "Readability": 5,
+      "Accessibility": 2.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/llama-3.3-70b/artwork.html",
+        "line": 30,
+        "quote": "font-size: 18px;",
+        "problem": "The informative description uses18px text,below the rubric minimum.",
+        "action": "Make informative text large enough to read."
+      },
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/llama-3.3-70b/artwork.html",
+        "line": 82,
+        "quote": "function animate() {",
+        "problem": "Continuous motion ignores the configured reduced-motion preference.",
+        "action": "Honor that preference with a reduced or still form of your chosen artwork."
+      },
+      {
+        "severity": "Warning",
+        "category": "Interactions",
+        "file": "docs/models/llama-3.3-70b/artwork.html",
+        "line": 111,
+        "quote": "mouse.x = e.clientX - canvas.offsetLeft;",
+        "problem": "The advertised cursor halo is displaced after responsive resizing because CSS and backing-canvas coordinates differ; measured pointer217.5,443.9 versus painted89.9,382.5.",
+        "action": "Keep pointer/touch mapping consistent with the actual displayed canvas size."
+      }
+    ],
+    "artwork_sha256": "49269d4ef0b38055b7116e6dcb95de272bfd1098757c6a759ad86be198426718",
+    "model_id": "meta-llama/Llama-3.3-70B-Instruct",
+    "reported_model": "meta-llama/Llama-3.3-70B-Instruct",
+    "requested_at": "2026-10-12T08:15:20.185336+00:00",
+    "reviewed_at": "2026-10-12T08:36:31.416712+00:00",
+    "initial_prompt_sha256": "d26cbe7316870360c6a76d09f58cc66c78c1d15c0e5c91084fa593cbdd32928d",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/llama-3.3-70b/49269d4ef0b3",
+    "browser_evidence": "/tmp/free-expression-review/llama-3.3-70b/49269d4ef0b3/browser.json",
+    "notes": [
+      "The autonomous field and decorative pointer halo are the model’s chosen expression; no extra scenes,poetry or buttons are demanded.",
+      "No script/network errors or document overflow at375/768/1280px.",
+      "Secure-origin Playwright service-worker injection was removed after identifying it as a harness artifact,not model code."
+    ]
+  },
+  "prompt_sha256": "d26cbe7316870360c6a76d09f58cc66c78c1d15c0e5c91084fa593cbdd32928d",
+  "initial_prompt_sha256": "d26cbe7316870360c6a76d09f58cc66c78c1d15c0e5c91084fa593cbdd32928d",
+  "implementation_cost": {
+    "kind": "gpu_request_time",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "gpu_hourly_usd": 16.416
+    },
+    "estimated_total_usd": 0.34316246712,
+    "estimated_final_response_usd": 0.34316246712,
+    "recorded_attempts": 1,
+    "successful_code_responses": 1,
+    "additional_attempts": 0,
+    "known_cost_attempts": 1,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": 75.254927,
+    "tokens": {
+      "tokens_in": 254,
+      "tokens_out": 978,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "GPU_model_loading_and_idle_time",
+      "other_infrastructure"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:15:20.185336+00:00",
+        "status": "generated",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.34316246712,
+        "request_seconds": 75.254927,
+        "record_sha256": "653903b458a64139cf49686c84c054577087dcce9cfa2ffe217451e02dac2e7e",
+        "response_sha256": "37b8ee656018f220a4808c2686e18061ee1b0233892be9f7b354baa03569fa4e"
+      }
+    ]
+  },
+  "requested_at": "2026-10-12T08:15:20.185336+00:00",
+  "generated_at": "2026-10-12T08:16:35.440263+00:00",
+  "reported_model": "meta-llama/Llama-3.3-70B-Instruct",
+  "tokens_in": 254,
+  "tokens_out": 978,
+  "max_output_tokens": 6144,
+  "temperature": 0,
+  "temperature_sent": true,
+  "finish_reason": "stop"
+}

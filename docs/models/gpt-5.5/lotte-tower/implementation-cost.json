@@ -1,0 +1,64 @@
+{
+  "kind": "api_tokens",
+  "generation": "lotte-tower-models-20261013",
+  "currency": "USD",
+  "price_source": "config.toml",
+  "price_snapshot": {
+    "price_in": 5.0,
+    "price_out": 30.0
+  },
+  "estimated_total_usd": 0.580975,
+  "estimated_final_response_usd": 0.214035,
+  "recorded_attempts": 3,
+  "successful_code_responses": 3,
+  "additional_attempts": 2,
+  "known_cost_attempts": 3,
+  "unknown_usage_attempts": 0,
+  "missing_duration_attempts": 0,
+  "total_request_seconds": null,
+  "tokens": {
+    "tokens_in": 2381,
+    "tokens_out": 18969,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "complete_request_estimate": true,
+  "excludes": [
+    "reviewer_and_coordinator_calls",
+    "historical_generations",
+    "taxes_and_discounts",
+    "requests_without_returned_usage"
+  ],
+  "attempts": [
+    {
+      "requested_at": "2026-10-13T10:57:00.725990+00:00",
+      "status": "generated",
+      "request_id": "req_n5ro6rbdtt2s55cphjvoqh4cg4eyehsoepjbf3x3jyjlt365i3jq",
+      "usage_available": true,
+      "estimated_cost_usd": 0.189865,
+      "request_seconds": null,
+      "record_sha256": "8535c2b7e3f80ce90f9b374feb08678aeb247352ae27c55dd2d70a654290181b",
+      "response_sha256": "018322d26140809936a03f7a1aadd15984582ea48ba8484232ac91371c15c2cc"
+    },
+    {
+      "requested_at": "2026-10-13T13:38:00.040067+00:00",
+      "status": "generated",
+      "request_id": "req_pfnrfhirw6jldbubcf2zmw2zccwwexcznco5cthatv6nchoq6iva",
+      "usage_available": true,
+      "estimated_cost_usd": 0.177075,
+      "request_seconds": null,
+      "record_sha256": "db77e5c3684552974441d2d1d428d2800e104ba62184a5a87226c4a77115c88d",
+      "response_sha256": "f323865145ad8f99bd0c70368a6c24c1933357c0a68420874d10841ea9140ed0"
+    },
+    {
+      "requested_at": "2026-10-13T15:07:00.478919+00:00",
+      "status": "generated",
+      "request_id": "req_7o7ovfigpcee4nuzrmugs5k5apvrxxudiu3c2k5irrzdlnvl6h2a",
+      "usage_available": true,
+      "estimated_cost_usd": 0.214035,
+      "request_seconds": null,
+      "record_sha256": "ca837b5bcc770c0225c193261140c1b37d4a85e4a0f687208c17e09c47a16a95",
+      "response_sha256": "d31c49efa6135f5e9abdec77ea976bd0aeda1595654037e3864885b5507baa73"
+    }
+  ]
+}

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>롯데월드타워 설계 과정</title>
+<style>
+  body { margin:0; font-family:Arial,Helvetica,sans-serif; background:#111; color:#eee; }
+  #container { width:100vw; height:100vh; display:flex; flex-direction:column; }
+  #info { padding:1rem; background:#222; flex-shrink:0; }
+  #info h2 { margin:0 0 .5rem; font-size:1.2rem; }
+  #info p { margin:0; font-size:1rem; line-height:1.4; }
+  #viewer { flex:1; overflow:hidden; }
+  canvas { display:block; width:100%; height:100%; }
+  .label { font-size:19px; color:#fff; margin-bottom:4px; }
+  .label span { color:#ff0; }
+  button.reset { position:absolute; top:1rem; right:1rem; padding:.5rem 1rem; background:#006; border:none; color:#fff; cursor:pointer; }
+</style>
+</head>
+<body>
+<div id="container">
+  <div id="info">
+    <h2>롯데월드타워 설계 과정</h2>
+    <p>이 페이지는 설계 도면, 단계별 3D 모델, 완성된 3D 모델을 모두 보여줍니다.</p>
+    <p>※ 모든 치수·단면은 공개 자료를 기반으로 한 추정치이며, 실제 설계와는 다를 수 있습니다.</p>
+    <button class="reset">뷰 초기화</button>
+  </div>
+  <div id="viewer"></div>
+</div>
+
+<script src="../runtime/three-runtime.js"></script>
+<script>
+  // -------------------------------------------------
+  // 기본 Three.js 설정
+  // -------------------------------------------------
+  const canvas = document.createElement('canvas');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x111111);
+  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 2000);
+  camera.position.set(0, 150, 300);
+  camera.lookAt(0, 0, 0);
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.07;
+  controls.enablePan = false;
+  controls.enableZoom = true;
+  controls.enableRotate = true;
+  controls.autoRotate = false;
+  controls.target.set(0, 0, 0);
+  // -------------------------------------------------
+  // 조작성 강화
+  // -------------------------------------------------
+  const viewerDiv = document.getElementById('viewer');
+  viewerDiv.appendChild(renderer.domElement);
+  renderer.domElement.tabIndex = 0;
+  renderer.domElement.focus();
+  // 키보드 조작 (위치, 줌, 회전)
+  const keyHandler = (e) => {
+    switch(e.key) {
+      case 'ArrowUp':    camera.position.y += 10; break;
+      case 'ArrowDown':  camera.position.y -= 10; break;
+      case 'ArrowLeft':  camera.position.x -= 10; break;
+      case 'ArrowRight': camera.position.x += 10; break;
+      case '+': case '=': camera.position.z -= 10; break;
+      case '-': case '_': camera.position.z += 10; break;
+      case 'r': case 'R': controls.reset(); break;
+    }
+  };
+  renderer.domElement.addEventListener('keydown', keyHandler);
+  // -------------------------------------------------
+  // 조명
+  // -------------------------------------------------
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
+  scene.add(hemiLight);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  dirLight.position.set(5, 10, 7);
+  scene.add(dirLight);
+  // -------------------------------------------------
+  // 도면 텍스처 (Canvas 기반)
+  // -------------------------------------------------
+  const makeCanvas = (w, h) => {
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#222';
+    ctx.fillRect(0,0,w,h);
+    ctx.font = '19px Arial';
+    ctx.fillStyle = '#fff';
+    return c;
+  };
+  const sitePlanCanvas = makeCanvas(256, 256);
+  const floorPlanCanvas = makeCanvas(256, 256);
+  const elevationCanvas = makeCanvas(256, 256);
+  const sectionCanvas = makeCanvas(256, 256);
+  // 텍스처 로드
+  const texLoader = new THREE.TextureLoader();
+  const siteTex = texLoader.load(sitePlanCanvas);
+  const floorTex = texLoader.load(floorPlanCanvas);
+  const elevTex = texLoader.load(elevationCanvas);
+  const secTex = texLoader.load(sectionCanvas);
+  // -------------------------------------------------
+  // 도면 표시 (평면도, 입면도, 단면도, 현장 계획도)
+  // -------------------------------------------------
+  const viewPlanes = [
+    {name:'현장 계획도', tex:siteTex,   width:256, height:256, x: -120, y: 80,  size:1.2},
+    {name:'기준층 평면도', tex:floorTex, width:256, height:256, x:-120, y:-80, size:1.2},
+    {name:'입면도',       tex:elevTex,  width:256, height:256, x: 120, y: 80, size:1.2},
+    {name:'단면도',       tex:secTex,   width:256, height:256, x: 120, y:-80, size:1.2}
+  ];
+  const labelStyle = {fontSize:'19px', color:'#fff'};
+  viewPlanes.forEach(v => {
+    const plane = new THREE.PlaneGeometry(v.width, v.height);
+    const mat = new THREE.MeshBasicMaterial({map:v.tex, transparent:true});
+    const mesh = new THREE.Mesh(plane, mat);
+    mesh.position.set(v.x, v.y, 0);
+    mesh.scale.set(v.size, v.size, 1);
+    scene.add(mesh);
+    // 라벨
+    const labelCanvas = makeCanvas(v.width, 30);
+    const ctx = labelCanvas.getContext('2d');
+    ctx.fillStyle = '#ff0';
+    ctx.font = '19px Arial';
+    ctx.fillText(v.name, 5, 20);
+    const labelTex = new THREE.CanvasTexture(labelCanvas);
+    const labelMat = new THREE.SpriteMaterial({map:labelTex, transparent:true});
+    const label = new THREE.Sprite(labelMat);
+    label.position.set(v.x, v.y+15, -0.1);
+    label.scale.set(0.8,0.8,1);
+    scene.add(label);
+  });
+  // -------------------------------------------------
+  // 간단한 기하학 모델 (축소된 타워)
+  // -------------------------------------------------
+  const towerGroup = new THREE.Group();
+  const makeTower = () => {
+    const group = new THREE.Group();
+    const mat = new THREE.MeshStandardMaterial({color:0x222222});
+    // 베이스 (원형)
+    const baseGeo = new THREE.CylinderGeometry(30,30,30,12,1);
+    const base = new THREE.Mesh(baseGeo, mat);
+    base.position.y = -15;
+    group.add(base);
+    // 경사진 단계 (5단)
+    const steps = 5;
+    for(let i=0;i<steps;i++){
+      const scale = 0.85 - i*0.15;
+      const geo = new THREE.CylinderGeometry(30*scale,30*scale,30,12,1);
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.y = -15 + i*30;
+      mesh.rotation.z = Math.PI/4;
+      group.add(mesh);
+    }
+    // 정점 (가느다란)
+    const tipGeo = new THREE.ConeGeometry(10,40,8);
+    const tip = new THREE.Mesh(tipGeo, mat);
+    tip.position.y = 25;
+    tip.rotation.z = Math.PI/4;
+    group.add(tip);
+    return group;
+  };
+  const tower = makeTower();
+  towerGroup.add(tower);
+  scene.add(towerGroup);
+  // -------------------------------------------------
+  // 단계별 3D 모델 (초기, 중간, 최종)
+  // -------------------------------------------------
+  const stages = [
+    {name:'초기 형태', group:new THREE.Group()},
+    {name:'중간 형태', group:new THREE.Group()},
+    {name:'완성 형태', group:new THREE.Group()}
+  ];
+  stages.forEach(stage => {
+    // 초기 형태: 큰 원통형 베이스
+    const baseGeo = new THREE.CylinderGeometry(35,35,70,12,1);
+    const base = new THREE.Mesh(baseGeo, new THREE.MeshStandardMaterial({color:0x333333}));
+    base.position.y = -35;
+    stage.group.add(base);
+    // 중간 형태: 베이스에 단계 추가
+    const stepCount = 3;
+    for(let i=0;i<stepCount;i++){
+      const scale = 0.8 - i*0.2;
+      const geo = new THREE.CylinderGeometry(35*scale,35*scale,70,12,1);
+      const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({color:0x444444}));
+      mesh.position.y = -35 + i*70;
+      mesh.rotation.z = Math.PI/4;
+      stage.group.add(mesh);
+    }
+    // 완성 형태: 정점 추가
+    const tipGeo = new THREE.ConeGeometry(12,80,8);
+    const tip = new THREE.Mesh(tipGeo, new THREE.MeshStandardMaterial({color:0x555555}));
+    tip.position.y = 45;
+    tip.rotation.z = Math.PI/4;
+    stage.group.add(tip);
+    scene.add(stage.group);
+  });
+  // -------------------------------------------------
+  // 뷰 리셋 버튼
+  // -------------------------------------------------
+  const resetBtn = document.querySelector('.reset');
+  resetBtn.addEventListener('click', () => {
+    controls.reset();
+    camera.position.set(0, 150, 300);
+    camera.lookAt(0, 0, 0);
+  });
+  // -------------------------------------------------
+  // 애니메이션 루프
+  // -------------------------------------------------
+  const animate = () => {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+  };
+  animate();
+  // -------------------------------------------------
+  // 반응형 처리
+  // -------------------------------------------------
+  window.addEventListener('resize', () => {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w/h;
+    camera.updateProjectionMatrix();
+  });
+</script>
+</body>
+</html>

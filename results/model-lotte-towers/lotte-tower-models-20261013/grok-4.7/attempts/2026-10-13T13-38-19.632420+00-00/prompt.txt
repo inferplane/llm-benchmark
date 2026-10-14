@@ -1,0 +1,11 @@
+You are the original author, model grok-4.7, served as us.xai.grok-4.7. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+YOUR PREVIOUS FULL RESPONSE:
+
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["docs/models/grok-4.7/lotte-tower/artwork.html:13: Informative controls, descriptions and diagram annotations include text below the 19px review minimum. Required repair: Use at least 19px meaningful text at rendered size while preserving the composition. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/grok-4.7/lotte-tower/artwork.html:158: Initial/reset view clips the upper part of the completed tower. Required repair: Fit the complete authored model in the home/reset view on desktop and mobile. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/grok-4.7/lotte-tower/artwork.html:126: The lathe adds a crown to H+70 above the H=555 body, producing a 625-unit model while the elevation says entire height 555m. Required repair: Keep the complete 3D model and elevation at the same stated total height including the crown. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/grok-4.7/lotte-tower/artwork.html:272: Under reduced-motion, ArrowRight changes camera position but leaves its quaternion unchanged; controls.update is skipped, so the advertised orbit no longer aims at the tower. Required repair: Update camera orientation/controls after every keyboard camera change even when damping or motion is disabled. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."]
+
+The previous implementation was unreliable; implement a fresh version yourself using your own expressive concept and medium. Address the confirmed functional issues without adopting a shared visual template.
+
+Return the complete repaired HTML now.

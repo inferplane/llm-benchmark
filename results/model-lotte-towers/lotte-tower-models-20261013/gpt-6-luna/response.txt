@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101714">
+<title>롯데월드타워 — 설계의 형태</title>
+<style>
+:root{color-scheme:dark;--bg:#101714;--panel:#18211d;--panel2:#202b25;--line:#34443b;--text:#f1f2e9;--muted:#adb8ad;--gold:#d5b875;--mint:#93b9a1;--red:#efaa83}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+button{font:inherit;color:inherit}
+a{color:#e4ca8c}
+header{padding:20px clamp(18px,4vw,56px) 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:16px}
+.kicker,.eyebrow{color:var(--gold);font-size:.76rem;font-weight:750;letter-spacing:.13em;text-transform:uppercase}
+h1{font-size:clamp(1.45rem,3vw,2.35rem);line-height:1.15;margin:5px 0 0;letter-spacing:-.04em}
+.brand{font-size:.82rem;color:var(--muted);text-align:right}
+main{max-width:1540px;margin:auto;padding:20px clamp(14px,3vw,40px) 36px}
+.intro{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;margin-bottom:18px}
+.intro p{max-width:850px;color:var(--muted);margin:6px 0 0}
+.badge{border:1px solid #77663f;color:#e4ca8c;border-radius:999px;padding:7px 12px;font-size:.8rem;white-space:nowrap}
+.workspace{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(380px,.96fr);gap:16px;align-items:stretch}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.panel-head{padding:14px 17px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.panel-head h2{font-size:1rem;margin:0}
+.panel-head small{color:var(--muted)}
+.drawing-wrap{padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.drawing{min-width:0;background:#f1eee5;border-radius:9px;color:#28312c;padding:10px;position:relative}
+.drawing h3{font-size:.81rem;margin:0 0 2px}
+.drawing .caption{font-size:.68rem;color:#586159;margin-bottom:5px}
+.drawing svg{display:block;width:100%;height:158px}
+.drawing svg text{font-family:system-ui,sans-serif}
+.drawing .focus{outline:2px solid var(--gold);outline-offset:2px}
+.legend{font-size:.74rem;color:var(--muted);padding:0 16px 14px}
+.viewer{display:flex;flex-direction:column;min-height:610px}
+.scene{position:relative;flex:1;min-height:460px;background:radial-gradient(ellipse at 50% 43%,#29352e 0,#18221d 48%,#111814 100%);overflow:hidden}
+#view{width:100%;height:100%;display:block;touch-action:none}
+.scene-label{position:absolute;left:15px;top:14px;pointer-events:none}
+.scene-label strong{display:block;font-size:.95rem}
+.scene-label span{color:var(--muted);font-size:.77rem}
+.controls{position:absolute;right:12px;top:12px;display:flex;gap:6px}
+.controls button,.stage-button,.step-nav button{background:#202b25;border:1px solid #4b5a50;border-radius:8px;padding:7px 10px;cursor:pointer}
+.controls button:hover,.stage-button:hover,.step-nav button:hover{border-color:var(--gold);color:#f5d993}
+.controls button{font-size:.79rem}
+.viewer-foot{padding:14px 16px 15px}
+.stage-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.stage-name{font-size:1.05rem;font-weight:750}
+.stage-count{font-size:.78rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--gold);margin:12px 0 8px}
+.stage-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.stage-button{font-size:.78rem;text-align:center;padding:8px 5px}
+.stage-button[aria-pressed=true]{background:#54482e;border-color:var(--gold);color:#ffe4a4}
+.stage-description{min-height:42px;color:var(--muted);font-size:.84rem;margin:11px 0 0}
+.step-nav{display:flex;justify-content:space-between;gap:8px;margin-top:10px}
+.step-nav button{font-size:.8rem}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.fact{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.fact b{display:block;font-size:1.08rem;color:#f2d58f}
+.fact span{font-size:.77rem;color:var(--muted)}
+.notes{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:16px}
+.note{padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.note h2{font-size:.98rem;margin:0 0 8px}
+.note p,.note li{font-size:.84rem;color:var(--muted)}
+.note p{margin:7px 0}
+.note ul{padding-left:19px;margin:7px 0}
+.sources{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:.82rem}
+.status{position:absolute;bottom:12px;left:14px;color:#c6d1c7;font-size:.72rem;pointer-events:none}
+@media(max-width:900px){.workspace{grid-template-columns:1fr}.viewer{min-height:600px}.scene{min-height:430px}}
+@media(max-width:560px){header{align-items:flex-start}.brand{font-size:.72rem}.intro{display:block}.badge{display:inline-block;margin-top:10px}.drawing-wrap{gap:8px;padding:10px}.drawing{padding:8px}.drawing svg{height:135px}.viewer{min-height:550px}.scene{min-height:380px}.stage-buttons{grid-template-columns:repeat(2,1fr)}.facts{gap:7px}.fact{padding:10px}.notes{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div><div class="kicker">형태를 읽는 건축 스터디</div><h1>롯데월드타워 <span style="color:var(--gold)">— 설계의 형태</span></h1></div>
+  <div class="brand">개념 재구성 · 인터랙티브 모델<br>gpt-6-luna</div>
+</header>
+<main>
+  <section class="intro">
+    <p>도면의 선에서 매스의 발전, 그리고 완성된 타워까지. 왼쪽 도면과 오른쪽 3D 형상을 함께 살펴보세요. 단계 버튼이나 슬라이더를 바꾸면 모델과 도면의 강조 표시가 함께 바뀝니다.</p>
+    <span class="badge">설명용 개념 모델 · 비공식</span>
+  </section>
+
+  <section class="workspace" aria-label="도면과 인터랙티브 3D 모델">
+    <section class="panel" aria-labelledby="drawings-title">
+      <div class="panel-head"><h2 id="drawings-title">도면 읽기</h2><small>선택 단계에 맞춰 강조</small></div>
+      <div class="drawing-wrap">
+        <article class="drawing" id="draw-site">
+          <h3>01 · 배치도</h3><div class="caption">개념 배치 · 방향·거리 비례는 실제 측량값이 아님</div>
+          <svg viewBox="0 0 300 180" role="img" aria-label="롯데월드타워 개념 배치도">
+            <rect x="5" y="5" width="290" height="170" fill="#f1eee5" stroke="#9ca49b"/>
+            <path d="M20 145L280 38M20 160L280 53" stroke="#aab2a9" stroke-width="9"/>
+            <path d="M38 19L247 162M51 12L260 155" stroke="#d0d3ca" stroke-width="7"/>
+            <path d="M28 87H272M90 15V165M213 15V165" stroke="#c4c9c1" stroke-width="1" stroke-dasharray="4 4"/>
+            <ellipse cx="151" cy="88" rx="46" ry="33" fill="#e6dfcd" stroke="#82734e" stroke-width="1.5"/>
+            <path d="M151 63C167 68 174 82 170 96C166 109 156 113 151 114C143 110 133 100 132 88C131 76 139 67 151 63Z" fill="#aa8d55" stroke="#4d493d" stroke-width="2"/>
+            <circle cx="151" cy="88" r="3" fill="#fff"/>
+            <text x="156" y="85" font-size="9" fill="#fff">타워</text>
+            <text x="20" y="31" font-size="9" fill="#364039">북 ↑</text>
+            <text x="34" y="132" font-size="8" fill="#566159">주변 도시 조직</text>
+            <text x="187" y="116" font-size="8" fill="#566159">개념적 대지 영역</text>
+            <path d="M254 143h26M254 140v6M280 140v6" stroke="#475249"/>
+            <text x="255" y="157" font-size="8" fill="#566159">축척 미표시</text>
+          </svg>
+        </article>
+        <article class="drawing" id="draw-plan">
+          <h3>02 · 기준층 평면도</h3><div class="caption">개념 평면 · 공개 자료에 없는 치수는 추정하지 않음</div>
+          <svg viewBox="0 0 300 180" role="img" aria-label="중심 코어와 외곽 형상을 나타낸 개념 기준층 평면도">
+            <rect x="5" y="5" width="290" height="170" fill="#f1eee5"/>
+            <path d="M150 24C176 31 195 50 204 77C211 101 195 130 174 146C164 153 155 157 150 158C140 155 127 147 117 137C99 119 88 99 94 77C101 51 125 30 150 24Z" fill="#e4dac1" stroke="#544e40" stroke-width="2"/>
+            <path d="M150 54C169 59 180 71 181 89C182 107 167 124 150 130C133 124 118 107 119 89C120 71 132 59 150 54Z" fill="#97a69a" stroke="#455148" stroke-width="1.5"/>
+            <path d="M149 64v57M127 91h45" stroke="#f5f3e9" stroke-width="1" stroke-dasharray="3 2"/>
+            <path d="M94 90H57M181 91h65" stroke="#566159" stroke-width="1"/>
+            <text x="12" y="84" font-size="8" fill="#364039">외곽선</text>
+            <text x="217" y="82" font-size="8" fill="#364039">중심 코어</text>
+            <text x="217" y="94" font-size="8" fill="#667068">(개념)</text>
+            <text x="107" y="169" font-size="8" fill="#566159">층별 외곽은 위로 갈수록 축소</text>
+          </svg>
+        </article>
+        <article class="drawing" id="draw-elev">
+          <h3>03 · 입면도</h3><div class="caption">공개된 총높이·층수 기준 · 비례는 개념 표현</div>
+          <svg viewBox="0 0 300 180" role="img" aria-label="555미터, 지상 123층의 테이퍼형 개념 입면도">
+            <rect x="5" y="5" width="290" height="170" fill="#f1eee5"/>
+            <path d="M128 158C127 138 125 117 120 99C115 78 116 56 126 39C132 28 139 20 150 13C161 20 168 28 174 39C184 56 185 78 180 99C175 117 173 138 172 158Z" fill="#d8c69a" stroke="#504a3d" stroke-width="2"/>
+            <path d="M122 104Q150 99 178 104M124 126Q150 122 176 126M127 147Q150 144 173 147" fill="none" stroke="#8c7952" stroke-width="1"/>
+            <path d="M109 158H191M150 13V158" stroke="#7f887e" stroke-width=".7" stroke-dasharray="3 3"/>
+            <path d="M203 13V158M199 13h8M199 158h8" stroke="#475249"/>
+            <text x="211" y="89" font-size="10" fill="#364039">555 m</text>
+            <path d="M95 13V158M92 13h6M92 158h6" stroke="#475249"/>
+            <text x="69" y="90" font-size="9" fill="#364039" transform="rotate(-90 69 90)">지상 123층</text>
+            <text x="112" y="172" font-size="8" fill="#566159">정면 개념도</text>
+          </svg>
+        </article>
+        <article class="drawing" id="draw-section">
+          <h3>04 · 단면도</h3><div class="caption">공개 개요 기반 · 내부 구성·구조 부재는 검증된 설계 아님</div>
+          <svg viewBox="0 0 300 180" role="img" aria-label="중심부와 위로 좁아지는 외곽을 나타낸 개념 단면도">
+            <rect x="5" y="5" width="290" height="170" fill="#f1eee5"/>
+            <path d="M126 158C126 137 122 115 118 95C114 75 117 53 128 36C134 27 141 20 150 13C159 20 166 27 172 36C183 53 186 75 182 95C178 115 174 137 174 158Z" fill="#e6dcc4" stroke="#554e41" stroke-width="2"/>
+            <path d="M140 157V42Q150 32 160 42V157Z" fill="#9ca99c" stroke="#59655b" stroke-width="1"/>
+            <path d="M130 66H170M126 89H174M127 112H173M131 135H169" stroke="#957d4d" stroke-width="1"/>
+            <path d="M108 158H192" stroke="#475249" stroke-width="1.5"/>
+            <path d="M192 77h49M192 112h49" stroke="#667068" stroke-width=".7"/>
+            <text x="196" y="71" font-size="8" fill="#364039">상부 매스</text>
+            <text x="196" y="106" font-size="8" fill="#364039">중심부</text>
+            <text x="109" y="171" font-size="8" fill="#566159">단면 개념 · 치수 미제공</text>
+          </svg>
+        </article>
+      </div>
+      <div class="legend">도면은 원 설계·구조 도면이 아니라 공개 개요를 바탕으로 다시 그린 개념도입니다. 표기된 치수는 공개된 건물 높이뿐이며, 나머지는 축척·치수 근거가 없습니다.</div>
+    </section>
+
+    <section class="panel viewer" aria-labelledby="model-title">
+      <div class="panel-head"><h2 id="model-title">형태 발전 · 3D 모델</h2><small>드래그 회전 · 휠/핀치 확대</small></div>
+      <div class="scene" id="scene">
+        <canvas id="view" aria-label="회전 및 확대할 수 있는 롯데월드타워 개념 3D 모델"></canvas>
+        <div class="scene-label"><strong id="sceneTitle">완성 형태</strong><span id="sceneSubtitle">공개된 외관 개요를 바탕으로 한 개념 모델</span></div>
+        <div class="controls"><button id="resetView" type="button" title="시점 초기화">시점 초기화</button><button id="zoomIn" type="button" aria-label="확대">＋</button><button id="zoomOut" type="button" aria-label="축소">－</button></div>
+        <div class="status">마우스 드래그 / 터치 드래그 · 휠 또는 핀치로 확대 · 키보드: 화살표 회전, + / − 확대</div>
+      </div>
+      <div class="viewer-foot">
+        <div class="stage-row"><span class="stage-name" id="stageName">완성 형태</span><span class="stage-count" id="stageCount">4 / 4</span></div>
+        <input id="stageRange" type="range" min="0" max="3" value="3" step="1" aria-label="설계 단계 선택">
+        <div class="stage-buttons" role="group" aria-label="설계 단계">
+          <button class="stage-button" data-stage="0" aria-pressed="false">1 · 대지와 배치</button>
+          <button class="stage-button" data-stage="1" aria-pressed="false">2 · 기본 매스</button>
+          <button class="stage-button" data-stage="2" aria-pressed="false">3 · 테이퍼와 선</button>
+          <button class="stage-button" data-stage="3" aria-pressed="true">4 · 완성 형태</button>
+        </div>
+        <p class="stage-description" id="stageDescription">555m·지상 123층의 공개 개요를 기준으로 만든 완성 외관 개념입니다. 부드러운 곡선과 위로 갈수록 가늘어지는 실루엣을 살펴보세요.</p>
+        <div class="step-nav"><button id="prevStage" type="button">← 이전 단계</button><button id="nextStage" type="button">다음 단계 →</button></div>
+      </div>
+    </section>
+  </section>
+
+  <section class="facts" aria-label="공개된 기준 정보">
+    <div class="fact"><b>555 m</b><span>롯데월드타워 높이 · 공개 기준</span></div>
+    <div class="fact"><b>지상 123층</b><span>공개된 건물 층수</span></div>
+    <div class="fact"><b>위로 갈수록 좁아지는 형태</b><span>기준층 면적과 외곽의 점진적 축소</span></div>
+  </section>
+  <section class="notes">
+    <article class="note"><h2>형태를 이렇게 읽어보세요</h2>
+      <p>단계 1은 타워와 주변 맥락을 단순한 배치로, 단계 2는 중심부와 덩어리의 관계를, 단계 3은 위로 좁아지는 실루엣과 외관의 흐름을 보여줍니다. 완성 단계에서는 외곽의 세로선을 더해 유리 외피의 인상을 표현했습니다.</p>
+      <p>KPF는 타워의 형태와 외관에서 한국 도자기의 선을 참고했다고 설명합니다. 여기의 매스·평면·단면과 모델은 그 공개 설명을 이해하기 위한 시각화이며, 실제 설계의 상세 형상을 재현한다고 주장하지 않습니다.</p>
+    </article>
+    <article class="note"><h2>자료의 범위와 한계</h2>
+      <ul><li>공개 기준: 높이 555m, 지상 123층, 위로 갈수록 좁아지는 형태.</li><li>공개 자료로 확인되지 않은 치수, 층별 구성, 코어·부재·구조 시스템의 세부는 개념적으로 그리거나 생략했습니다.</li><li>공식 시공 도면, 검증된 구조 설계 또는 정확한 실측 모델이 아닙니다. 도면의 축척과 비례도 설명을 위한 것입니다.</li></ul>
+      <div class="sources"><a href="https://www.kpf.com/project/lotte-world-tower" target="_blank" rel="noopener noreferrer">원 설계사 KPF — 롯데월드타워</a><a href="https://www.lera.com/lotte-world-tower" target="_blank" rel="noopener noreferrer">구조 설계사 LERA — 롯데월드타워</a></div>
+    </article>
+  </section>
+</main>
+<script src="../runtime/three-runtime.js"></script>
+<script>
+(()=> {
+  const stageNames=["대지와 배치","기본 매스","테이퍼와 선","완성 형태"];
+  const stageText=[
+    "대지 안에서 타워의 위치와 주변 맥락을 읽는 출발점입니다. 이 단계의 표시는 개념 배치이며 실제 대지 경계·방향·치수를 나타내지 않습니다.",
+    "타워를 단순한 수직 매스로 놓고 중심부와 외곽의 관계를 살펴봅니다. 내부 코어는 이해를 돕는 추정 개념으로 실제 도면이 아닙니다.",
+    "위로 갈수록 좁아지는 외곽과 완만한 곡선을 더해 타워의 기본 실루엣을 만듭니다. 공개되지 않은 세부 치수는 추정하지 않습니다.",
+    "555m·지상 123층의 공개 개요를 기준으로 만든 완성 외관 개념입니다. 부드러운 곡선과 위로 갈수록 가늘어지는 실루엣을 살펴보세요."
+  ];
+  const range=document.getElementById("stageRange");
+  let stage=3;
+  const drawingIds=["draw-site","draw-plan","draw-elev","draw-section"];
+  function setStage(n){
+    stage=Math.max(0,Math.min(3,n));range.value=stage;
+    document.getElementById("stageName").textContent=stageNames[stage];
+    document.getElementById("stageCount").textContent=(stage+1)+" / 4";
+    document.getElementById("stageDescription").textContent=stageText[stage];
+    document.getElementById("sceneTitle").textContent=stageNames[stage];
+    document.getElementById("sceneSubtitle").textContent=stage===3?"공개된 외관 개요를 바탕으로 한 개념 모델":"설계 발전 과정 · 설명용 개념 형상";
+    document.querySelectorAll(".stage-button").forEach((b,i)=>b.setAttribute("aria-pressed",String(i===stage)));
+    drawingIds.forEach((id,i)=>document.getElementById(id).classList.toggle("focus",i===stage));
+    if(window.updateTower)window.updateTower(stage);
+  }
+  range.addEventListener("input",()=>setStage(+range.value));
+  document.querySelectorAll(".stage-button").forEach(b=>b.addEventListener("click",()=>setStage(+b.dataset.stage)));
+  document.getElementById("prevStage").addEventListener("click",()=>setStage(stage-1));
+  document.getElementById("nextStage").addEventListener("click",()=>setStage(stage+1));
+
+  const canvas=document.getElementById("view"), host=document.getElementById("scene");
+  if(!window.THREE){canvas.setAttribute("aria-label","3D 실행 환경을 사용할 수 없습니다. 도면과 설명은 계속 확인할 수 있습니다.");return}
+  const T=THREE, scene=new T.Scene();scene.background=new T.Color(0x151e19);
+  const camera=new T.PerspectiveCamera(36,1,.1,3000);camera.position.set(390,310,610);
+  const renderer=new T.WebGLRenderer({canvas,antialias:true,alpha:false});
+  renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
+  renderer.outputColorSpace=T.SRGBColorSpace;
+  renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;
+  scene.add(new T.HemisphereLight(0xcbd9d0,0x293129,2.0));
+  const key=new T.DirectionalLight(0xffe9c1,3.0);key.position.set(-260,420,240);scene.add(key);
+  const fill=new T.DirectionalLight(0x9bb5c3,1.7);fill.position.set(300,220,-220);scene.add(fill);
+  const ground=new T.Mesh(new T.CircleGeometry(150,64),new T.MeshStandardMaterial({color:0x202a24,roughness:.92}));
+  ground.rotation.x=-Math.PI/2;ground.position.y=-2;scene.add(ground);
+  const grid=new T.GridHelper(300,30,0x536257,0x34443a);grid.position.y=-1.8;scene.add(grid);
+  const root=new T.Group();scene.add(root);
+  const building=new T.Group();root.add(building);
+  const goldMat=new T.MeshStandardMaterial({color:0xb5a071,roughness:.42,metalness:.24});
+  const glassMat=new T.MeshStandardMaterial({color:0x83a99b,roughness:.23,metalness:.35,transparent:true,opacity:.78});
+  const coreMat=new T.MeshStandardMaterial({color:0xc9b987,roughness:.65});
+  const siteMat=new T.MeshStandardMaterial({color:0x586b5a,roughness:.82});
+  function createTower(){
+    while(building.children.length)building.remove(building.children[0]);
+    if(stage===0){
+      const base=new T.Mesh(new T.CylinderGeometry(55,67,5,48),siteMat);base.position.y=1;building.add(base);
+      const footprint=new T.Mesh(new T.CylinderGeometry(13,17,18,32),goldMat);footprint.position.y=13;building.add(footprint);
+      for(let i=0;i<8;i++){const a=i*Math.PI/4;const b=new T.Mesh(new T.BoxGeometry(10,2,7),new T.MeshStandardMaterial({color:0x71806d}));b.position.set(Math.cos(a)*39,4,Math.sin(a)*39);b.rotation.y=-a;building.add(b)}
+      return;
+    }
+    const H=stage===1?250:stage===2?330:370;
+    const levels=stage===1?12:stage===2?18:24, segments=48;
+    const positions=[],indices=[];
+    function radius(y){let t=y/H;return (stage===1?40:54)*(1-.46*t+.035*Math.sin(t*Math.PI));}
+    for(let j=0;j<=levels;j++){
+      const t=j/levels,y=t*H,r=radius(y),twist=(stage>=2?.10*t:0);
+      for(let i=0;i<=segments;i++){
+        const a=i/segments*Math.PI*2+twist;
+        const power=stage>=2?2.25:2;
+        const c=Math.sign(Math.cos(a))*Math.pow(Math.abs(Math.cos(a)),2/power);
+        const s=Math.sign(Math.sin(a))*Math.pow(Math.abs(Math.sin(a)),2/power);
+        positions.push(c*r,y,s*r);
+      }
+    }
+    for(let j=0;j<levels;j++)for(let i=0;i<segments;i++){let a=j*(segments+1)+i,b=a+segments+1;indices.push(a,b,a+1,b,b+1,a+1)}
+    const geo=new T.BufferGeometry();geo.setAttribute("position",new T.Float32BufferAttribute(positions,3));geo.setIndex(indices);geo.computeVertexNormals();
+    const shell=new T.Mesh(geo,new T.MeshStandardMaterial({color:stage>=3?0x9db8ad:0xb6a578,roughness:stage>=3?.24:.46,metalness:.2,side:T.DoubleSide}));building.add(shell);
+    if(stage===1||stage===2){
+      const core=new T.Mesh(new T.CylinderGeometry(13,17,H*.98,12),coreMat);core.position.y=H/2;building.add(core);
+    }
+    if(stage>=2){
+      const lines=stage===2?8:16;
+      for(let k=0;k<lines;k++){
+        const a=k/lines*Math.PI*2, pts=[];
+        for(let j=0;j<=20;j++){const t=j/20,y=t*H,r=radius(y)+.35;pts.push(new T.Vector3(Math.cos(a+.1*t)*r,y,Math.sin(a+.1*t)*r))}
+        const curve=new T.CatmullRomCurve3(pts);
+        const line=new T.Mesh(new T.TubeGeometry(curve,40,stage===3?.52:.68,5,false),new T.MeshStandardMaterial({color:stage===3?0xd7c58f:0xe0c78d,roughness:.3,metalness:.3}));
+        building.add(line);
+      }
+    }
+    const base=new T.Mesh(new T.CylinderGeometry(58,62,3,48),siteMat);base.position.y=1;building.add(base);
+    building.position.y=0;
+  }
+  window.updateTower=createTower;createTower();
+  let controls;
+  if(T.OrbitControls){controls=new T.OrbitControls(camera,renderer.domElement);controls.target.set(0,175,0);controls.enableDamping=true;controls.dampingFactor=.07;controls.minDistance=220;controls.maxDistance=1150;controls.maxPolarAngle=Math.PI*.88}
+  else {
+    let down=false,x=0,y=0,theta=Math.atan2(camera.position.x,camera.position.z),phi=Math.acos(camera.position.y/camera.position.length()),dist=camera.position.length();
+    function place(){phi=Math.max(.12,Math.min(2.8,phi));camera.position.set(dist*Math.sin(phi)*Math.sin(theta),dist*Math.cos(phi),dist*Math.sin(phi)*Math.cos(theta));camera.lookAt(0,175,0)}
+    canvas.addEventListener("pointerdown",e=>{down=true;x=e.clientX;y=e.clientY;canvas.setPointerCapture(e.pointerId)});
+    canvas.addEventListener("pointermove",e=>{if(!down)return;theta-=(e.clientX-x)*.006;phi+=(e.clientY-y)*.006;x=e.clientX;y=e.clientY;place()});
+    canvas.addEventListener("pointerup",()=>down=false);
+    canvas.addEventListener("wheel",e=>{dist=Math.max(220,Math.min(1150,dist*Math.exp(e.deltaY*.001)));place()},{passive:true});
+    canvas.addEventListener("keydown",e=>{if(e.key==="ArrowLeft")theta-=.08;if(e.key==="ArrowRight")theta+=.08;if(e.key==="ArrowUp")phi-=.06;if(e.key==="ArrowDown")phi+=.06;if(e.key==="+"||e.key==="=")dist*=.9;if(e.key==="-")dist*=1.1;place()});
+  }
+  function resize(){const r=host.getBoundingClientRect();renderer.setSize(Math.max(1,r.width),Math.max(1,r.height),false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix()}
+  new ResizeObserver(resize).observe(host);resize();
+  function animate(){requestAnimationFrame(animate);if(controls)controls.update();renderer.render(scene,camera)}animate();
+  document.getElementById("resetView").addEventListener("click",()=>{camera.position.set(390,310,610);if(controls){controls.target.set(0,175,0);controls.update()}else camera.lookAt(0,175,0)});
+  document.getElementById("zoomIn").addEventListener("click",()=>{if(controls)controls.dollyIn(1.2);else camera.position.multiplyScalar(.88);if(controls)controls.update()});
+  document.getElementById("zoomOut").addEventListener("click",()=>{if(controls)controls.dollyOut(1.2);else camera.position.multiplyScalar(1.14);if(controls)controls.update()});
+  canvas.tabIndex=0;canvas.addEventListener("keydown",e=>{if(!controls)return;const step=.09;if(e.key==="ArrowLeft")controls.rotateLeft(step);else if(e.key==="ArrowRight")controls.rotateLeft(-step);else if(e.key==="ArrowUp")controls.rotateUp(step);else if(e.key==="ArrowDown")controls.rotateUp(-step);else if(e.key==="+"||e.key==="=")controls.dollyIn(1.15);else if(e.key==="-")controls.dollyOut(1.15);else return;e.preventDefault();controls.update()});
+  setStage(3);
+})();
+</script>
+</body>
+</html>

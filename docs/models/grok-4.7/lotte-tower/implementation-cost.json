@@ -1,0 +1,66 @@
+{
+  "kind": "api_tokens",
+  "generation": "lotte-tower-models-20261013",
+  "currency": "USD",
+  "price_source": "config.toml",
+  "price_snapshot": {
+    "price_in": 3.3,
+    "price_out": 12.65,
+    "price_cache_read": 0.825,
+    "price_cache_write": 4.125
+  },
+  "estimated_total_usd": 0.1668304,
+  "estimated_final_response_usd": 0.0588533,
+  "recorded_attempts": 3,
+  "successful_code_responses": 3,
+  "additional_attempts": 2,
+  "known_cost_attempts": 3,
+  "unknown_usage_attempts": 0,
+  "missing_duration_attempts": 0,
+  "total_request_seconds": null,
+  "tokens": {
+    "tokens_in": 2684,
+    "tokens_out": 12488,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "complete_request_estimate": true,
+  "excludes": [
+    "reviewer_and_coordinator_calls",
+    "historical_generations",
+    "taxes_and_discounts",
+    "requests_without_returned_usage"
+  ],
+  "attempts": [
+    {
+      "requested_at": "2026-10-13T10:58:40.118444+00:00",
+      "status": "generated",
+      "request_id": "a9f0e78e-d829-49f6-8b4b-170e848bb97f",
+      "usage_available": true,
+      "estimated_cost_usd": 0.0711733,
+      "request_seconds": null,
+      "record_sha256": "368dc5969614f3c6e96b8028a5d79c77397e4481b34d44f8e9298dcab15e6946",
+      "response_sha256": "e651f405778eb5964aba1a1b9cd1bc858e24249ae763f8c002722c614da295de"
+    },
+    {
+      "requested_at": "2026-10-13T13:38:19.632420+00:00",
+      "status": "generated",
+      "request_id": "3b6e44f1-573d-4940-8c5b-65017ecd86cf",
+      "usage_available": true,
+      "estimated_cost_usd": 0.0368038,
+      "request_seconds": null,
+      "record_sha256": "a6aa962d4da9bcfba7d1eff16f628ac5ed7ccab7df0e6933bd2e7b54a2861769",
+      "response_sha256": "2b940ab39e48634a0f654b84e09da16e6fed8e0df2da9131fdb8ee55fc4c9895"
+    },
+    {
+      "requested_at": "2026-10-13T15:07:42.225858+00:00",
+      "status": "generated",
+      "request_id": "f10e363d-923b-47f3-b38e-91024531031b",
+      "usage_available": true,
+      "estimated_cost_usd": 0.0588533,
+      "request_seconds": null,
+      "record_sha256": "37ab8d4b045be7adda093b93cf858ab73b0ac4f0ff44ae92a0e2ecac14d7d32a",
+      "response_sha256": "dfcbd356d6f8548419407919e3a95a51267a0e407d99f4178bee45025ef40e04"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "model": "nova-micro",
+  "model_id": "us.amazon.nova-micro-v1:0",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T15:05:58.405913+00:00",
+  "prompt_sha256": "c6ff2e2815633295287b20e03603122ebfcc3b11570017ee5ef64d5b6da1e76e",
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T15:06:01.900627+00:00",
+  "artwork_sha256": "60399749b58cac44ef91629000ba71e22d89b97f2845593f433edb0a82a551f5",
+  "tokens_in": 2037,
+  "tokens_out": 1358,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "61403d67-b289-41a8-9874-d56cf4a10792"
+}

@@ -1,0 +1,66 @@
+{
+  "kind": "api_tokens",
+  "generation": "free-expression-20261012",
+  "currency": "USD",
+  "price_source": "config.toml",
+  "price_snapshot": {
+    "price_in": 4.4,
+    "price_out": 22.0,
+    "price_cache_read": 0.22,
+    "price_cache_write": 5.5
+  },
+  "estimated_total_usd": 0.7090908,
+  "estimated_final_response_usd": 0.2543112,
+  "recorded_attempts": 3,
+  "successful_code_responses": 2,
+  "additional_attempts": 2,
+  "known_cost_attempts": 3,
+  "unknown_usage_attempts": 0,
+  "missing_duration_attempts": 0,
+  "total_request_seconds": null,
+  "tokens": {
+    "tokens_in": 10387,
+    "tokens_out": 30154,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "complete_request_estimate": true,
+  "excludes": [
+    "reviewer_and_coordinator_calls",
+    "historical_generations",
+    "taxes_and_discounts",
+    "requests_without_returned_usage"
+  ],
+  "attempts": [
+    {
+      "requested_at": "2026-10-12T08:07:33.749466+00:00",
+      "status": "failed",
+      "request_id": null,
+      "usage_available": true,
+      "estimated_cost_usd": 0.1819708,
+      "request_seconds": null,
+      "record_sha256": "838a4d75a1264144b03c8477eefde593ea658fae0112ac3317015302f6f22e27",
+      "response_sha256": "9f0a45a1b8c63cfd4ef2954f87303123f2f6bc51d7b2375d2adcbea8a6b8179c"
+    },
+    {
+      "requested_at": "2026-10-12T08:20:15.905830+00:00",
+      "status": "generated",
+      "request_id": "570a6ff0-e3b6-4bf8-ab77-a20762796868",
+      "usage_available": true,
+      "estimated_cost_usd": 0.2728088,
+      "request_seconds": null,
+      "record_sha256": "e336a06eb8d7e7b2509c664620959efb567bfacea4d0ac9de8367da4150a0161",
+      "response_sha256": "5f9b42a0279c409e58ee71238896cc5364a5ee0fc25d6363f8273c55d5e56a78"
+    },
+    {
+      "requested_at": "2026-10-12T08:52:10.101486+00:00",
+      "status": "generated",
+      "request_id": "6ac3167c-67a3-4ffb-aad0-5c596d8455bd",
+      "usage_available": true,
+      "estimated_cost_usd": 0.2543112,
+      "request_seconds": null,
+      "record_sha256": "9eac8ac9293c1ea14338b85e0d3781868b52f11e28236cd2662fb22c850e9a7f",
+      "response_sha256": "9e269c7fc1eec9094d78e063017ee91b0e7446c7f21135fb4fef1bd8707a4335"
+    }
+  ]
+}

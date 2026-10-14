@@ -1,0 +1,131 @@
+{
+  "model": "ministral-14b",
+  "task": "whoami",
+  "requested_model_id": "mistral.ministral-3-14b-instruct",
+  "provider": "bedrock",
+  "family": "Mistral",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/ministral-14b",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "2ce70527453e4faef2d224eb27ccb47dae40bcae5b7923a34ad6628311d0fad8",
+  "content_review": {
+    "model": "ministral-14b",
+    "generation": "free-expression-20261012",
+    "score": 98.5,
+    "critical": 0,
+    "warnings": 1,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 3.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/ministral-14b/artwork.html",
+        "line": 671,
+        "quote": "document.addEventListener('keydown', (e) => {",
+        "problem": "Enter on the focused 신경망 확장 button is intercepted by the global handler and resets the network; measured scale remains0.96 instead of expanding.",
+        "action": "Let native focused buttons receive Enter/Space activation; scope global shortcuts to an appropriate artwork context."
+      }
+    ],
+    "artwork_sha256": "2ce70527453e4faef2d224eb27ccb47dae40bcae5b7923a34ad6628311d0fad8",
+    "model_id": "mistral.ministral-3-14b-instruct",
+    "reported_model": null,
+    "requested_at": "2026-10-12T08:52:57.479752+00:00",
+    "reviewed_at": "2026-10-12T08:58:43.208803+00:00",
+    "initial_prompt_sha256": "a3760c8edf3344aaeb4aab7176219fa5075482e2a1f0f11bcd7c5cf24534bc61",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/ministral-14b/2ce70527453e",
+    "browser_evidence": "/tmp/free-expression-review/ministral-14b/2ce70527453e/browser.json",
+    "notes": [
+      "First re-review of the actual original-author correction. Source/prompt/response fidelity rechecked; no coordinator artwork edits.",
+      "Initialization and resize no longer throw. Actual reset/randomize/expand/contract and node/audio interactions run without errors; local audio context is running after a user click.",
+      "Zoom is allowed and informative fonts meet19px."
+    ],
+    "review_iteration": 2
+  },
+  "prompt_sha256": "46d48593453bab23a1b28f9f4fc48e414f1dfd7b1a91b0dcf1b7cae232d513db",
+  "initial_prompt_sha256": "a3760c8edf3344aaeb4aab7176219fa5075482e2a1f0f11bcd7c5cf24534bc61",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.2,
+      "price_out": 0.2
+    },
+    "estimated_total_usd": 0.0036718,
+    "estimated_final_response_usd": 0.0023982,
+    "recorded_attempts": 2,
+    "successful_code_responses": 2,
+    "additional_attempts": 1,
+    "known_cost_attempts": 2,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 6738,
+      "tokens_out": 11621,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:11:18.049082+00:00",
+        "status": "generated",
+        "request_id": "309ebb67-8dc3-400c-8219-abececd66ba8",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0012736,
+        "request_seconds": null,
+        "record_sha256": "d6af09ece45649d9eaf711bee2a633dad5ab22779a01156db22815ed9c5fce67",
+        "response_sha256": "eeb14d7fa740a21cf4d3a3ee9752eb2e5ac6c13369edb5a87e5b09d4e635387e"
+      },
+      {
+        "requested_at": "2026-10-12T08:52:57.479752+00:00",
+        "status": "generated",
+        "request_id": "53c94b4c-8f5d-4bd5-8a97-d21bce8ccfe7",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0023982,
+        "request_seconds": null,
+        "record_sha256": "cc3d9ca5a9b327fe2f12df7d7cd44876398da43d8054f1102820fbca2c87b60b",
+        "response_sha256": "37dd194ebb18e39b266a281824e2dbc5c1dc6aeb8bf31414466960084f2363cd"
+      }
+    ]
+  },
+  "request_id": "53c94b4c-8f5d-4bd5-8a97-d21bce8ccfe7",
+  "requested_at": "2026-10-12T08:52:57.479752+00:00",
+  "generated_at": "2026-10-12T08:53:26.850981+00:00",
+  "tokens_in": 6529,
+  "tokens_out": 5462,
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "finish_reason": "end_turn"
+}

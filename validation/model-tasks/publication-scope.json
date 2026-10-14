@@ -1,0 +1,42 @@
+{
+  "user_instruction": "배포 (2026-10-14); publish reviewed originals and status-only pages for held/failed outcomes.",
+  "model_count": 40,
+  "task_route_count": 80,
+  "counts": {
+    "whoami": {
+      "generated": 38,
+      "not_generative": 1,
+      "unavailable": 1
+    },
+    "lotte-tower": {
+      "generated": 19,
+      "review_held": 17,
+      "not_generative": 1,
+      "failed": 2,
+      "unavailable": 1
+    }
+  },
+  "only_current_source_matched_pass_artworks_served": true,
+  "held_failed_raw_code_physically_removed": [
+    "docs/models/nova-pro/lotte-tower/artwork.html",
+    "docs/models/nova-lite/lotte-tower/artwork.html",
+    "docs/models/nova-micro/lotte-tower/artwork.html",
+    "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
+    "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+    "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
+    "docs/models/gpt-oss-120b/lotte-tower/artwork.html",
+    "docs/models/qwen3-32b/lotte-tower/artwork.html",
+    "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html",
+    "docs/models/llama4-scout/lotte-tower/artwork.html",
+    "docs/models/ministral-14b/lotte-tower/artwork.html",
+    "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html",
+    "docs/models/llama4-maverick/lotte-tower/artwork.html",
+    "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+    "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html",
+    "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+    "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+    "docs/models/exaone-3.5-32b/lotte-tower/artwork.html"
+  ],
+  "whoami_sources_unchanged": true,
+  "lotte_source_generation": "lotte-tower-models-20261013"
+}

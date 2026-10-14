@@ -1,0 +1,158 @@
+{
+  "model": "claude-sonnet-5.5",
+  "task": "lotte-tower",
+  "requested_model_id": "us.anthropic.claude-sonnet-5-5",
+  "provider": "bedrock",
+  "family": "Claude",
+  "generation": "lotte-world-tower-20261013-pilot",
+  "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/claude-sonnet-5.5",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "c32619e9452fed1799a24cdae0fd1009ceb37a84980a68a1a090338d0eb49b96",
+  "content_review": {
+    "model": "claude-sonnet-5.5",
+    "score": 95.0,
+    "critical": 0,
+    "warnings": 3,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 6.0,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 3.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 3.5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "artwork_sha256": "c32619e9452fed1799a24cdae0fd1009ceb37a84980a68a1a090338d0eb49b96",
+    "model_id": "us.anthropic.claude-sonnet-5-5",
+    "origin_generation": "lotte-world-tower-20261013-pilot",
+    "original_response_bytes_verified": true,
+    "source": "/tmp/model-lotte-review/claude-sonnet-5.5/c32619e9452f",
+    "browser_evidence": "/tmp/model-lotte-review/claude-sonnet-5.5/c32619e9452f/browser.json",
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/claude-sonnet-5.5/lotte-tower/artwork.html",
+        "line": 13,
+        "quote": "header p{margin:4px 0 0;color:var(--mu);font-size:13px}",
+        "problem": "Meaningful descriptions, controls and/or drawing labels render below19px.",
+        "action": "Use at least19px readable informative text while preserving your own layout."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/claude-sonnet-5.5/lotte-tower/artwork.html",
+        "line": 170,
+        "quote": "function home(c,o){c.position.set(520,330,520);o.target.set(0,H/2,0);o.update()}",
+        "problem": "The initial/reset camera clips the top of the completed555-unit tower rather than framing the whole building.",
+        "action": "Choose a home pose/distance that shows the completedconcept within its viewport."
+      },
+      {
+        "severity": "Warning",
+        "category": "Data Accuracy and References",
+        "file": "docs/models/claude-sonnet-5.5/lotte-tower/artwork.html",
+        "line": 76,
+        "quote": "<span class=\"est\">노란/주황 표시 치수는 추정 개념값</span>입니다. 공개 확인값: 높이 555m, 123층. 층고 약 4.5m(555÷123)는 단순 평균 환산이며 실제 층고가 아닙니다. 하단 폭 약 70m·상단 약 20m, 코어, 아웃리거 위치, 곡선은 이해를 돕는 가정입니다.",
+        "problem": "The caption estimates topwidth20m, but rad(1)=16 produces32m diameter in the actual finalshape and its linked views.",
+        "action": "Keep your assumed dimension labels consistent with your own geometry; no officialdimension is required."
+      }
+    ],
+    "notes": [
+      "Imported exact original response. Fiveactualgeometry stages, fourdrawings andcamera controls execute without consoleerrors.",
+      "Conceptual geometry quality is recorded as a content warning, not a modelbenchmark score."
+    ],
+    "reviewed_at": "2026-10-13T11:57:41.118610+00:00",
+    "task_requirements_complete": true,
+    "current_generation_status": "generated",
+    "active_source": true,
+    "re_review_number": 0,
+    "review_iteration": 1,
+    "retry_limit_reached": false
+  },
+  "prompt_sha256": "83e484221a474ab0fa52a5c39dbcfcdc204c72aa3ccbfaeb823997e0f732859e",
+  "initial_prompt_sha256": "83e484221a474ab0fa52a5c39dbcfcdc204c72aa3ccbfaeb823997e0f732859e",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "lotte-world-tower-20261013-pilot",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 2.2,
+      "price_out": 11.0,
+      "price_cache_read": 0.11,
+      "price_cache_write": 2.75
+    },
+    "estimated_total_usd": 0.268873,
+    "estimated_final_response_usd": 0.086064,
+    "recorded_attempts": 2,
+    "successful_code_responses": 1,
+    "additional_attempts": 1,
+    "known_cost_attempts": 2,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 2350,
+      "tokens_out": 23973,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-13T07:08:39.314728+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.182809,
+        "request_seconds": null,
+        "record_sha256": "628dc7c9b178dde31daf1138e24dc114b0bd33887dce85accccf07994abdcba6",
+        "response_sha256": "997dcb90ff40c6d00af9fcad4153136d6fc227294e480906ac59ffc937933cfe"
+      },
+      {
+        "requested_at": "2026-10-13T07:16:55.963244+00:00",
+        "status": "generated",
+        "request_id": "fb7b3e77-4ede-4db0-9f1d-bd271952990c",
+        "usage_available": true,
+        "estimated_cost_usd": 0.086064,
+        "request_seconds": null,
+        "record_sha256": "a9ed7ac1a3b1d65950396ec050f36435b5d0985c31810963e6060c8c67b2ac65",
+        "response_sha256": "8561281ed1f6759e9c3e8f8e6d125fb067954619f3f10374586ff1abb4c6c717"
+      }
+    ]
+  },
+  "request_id": "fb7b3e77-4ede-4db0-9f1d-bd271952990c",
+  "requested_at": "2026-10-13T07:16:55.963244+00:00",
+  "generated_at": "2026-10-13T07:17:45.773221+00:00",
+  "tokens_in": 1175,
+  "tokens_out": 7589,
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": "low",
+  "finish_reason": "end_turn",
+  "imported_history": {
+    "source_records": "results/architecture-3d/lotte-world-tower-20261013-pilot/claude-sonnet-5.5",
+    "original_generation": "lotte-world-tower-20261013-pilot",
+    "original_record_sha256": "a9ed7ac1a3b1d65950396ec050f36435b5d0985c31810963e6060c8c67b2ac65",
+    "import_is_not_an_additional_request": true
+  },
+  "current_response_reused": true
+}

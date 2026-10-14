@@ -1,0 +1,23 @@
+{
+  "model": "qwen3-235b-a22b",
+  "model_id": "qwen.qwen3-235b-a22b-2507-v1:0",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T15:06:10.476840+00:00",
+  "prompt_sha256": "5acab02cc600a6f7c3d75a4f5d1eb5f9515ed2c5f47a4e4d9080900f413c6b6c",
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T15:07:49.114203+00:00",
+  "artwork_sha256": "6959e107da531c6dfb42510106bde0a16bcc94c2a471e48fbc38128ac875f93c",
+  "tokens_in": 1428,
+  "tokens_out": 4817,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "e1dd2226-817f-4090-971f-34a9b01a5222"
+}

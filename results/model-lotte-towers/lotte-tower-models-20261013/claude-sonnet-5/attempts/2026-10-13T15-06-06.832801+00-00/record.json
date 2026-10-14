@@ -1,0 +1,23 @@
+{
+  "model": "claude-sonnet-5",
+  "model_id": "us.anthropic.claude-sonnet-5",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T15:06:06.832801+00:00",
+  "prompt_sha256": "9520a506f7609c677a6ca2fa99cabbdd3dfefdb5d9413402b2888d06f39a6e9d",
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": "low",
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T15:07:41.921707+00:00",
+  "artwork_sha256": "3e1d73cc628cb9afa8e884c7f39e84b8833ef8a6b11fd1bf0837e292188e472b",
+  "tokens_in": 1966,
+  "tokens_out": 10920,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "finish_reason": "end_turn",
+  "request_id": "8102e1a0-c2bc-4f17-9384-99faa6ad4092"
+}

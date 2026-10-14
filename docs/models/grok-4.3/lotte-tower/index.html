@@ -1,0 +1,418 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>grok-4.3 · lotte-tower</title><link rel="icon" href="../../../favicon.svg"><link rel="stylesheet" href="../../portraits.css"><link rel="stylesheet" href="../../readability.css"><script src="../../viewer.js" defer></script></head><body class="viewer"><header class="viewer-bar"><a href="../">← 모델 홈</a><span><strong>grok-4.3 · lotte-tower</strong><small>모델 직접 작성</small><small>생성·수정 ≈ $0.054108</small></span><div class="viewer-actions"><button type="button" data-open-prompts>프롬프트</button><details><summary>작성 기록</summary><section><p>xai.grok-4.3</p><p>도면·형상은 공개 자료 기반의 개념 재구성이며 공식 시공 도면이 아닙니다.</p><button type="button" data-open-cost>구현 비용 내역</button><a href="provenance.json" target="_blank" rel="noopener">작성자·응답 기록</a><a href="artwork.html" target="_blank" rel="noopener">원본 구현 ↗</a></section></details></div></header><iframe title="grok-4.3 · lotte-tower 원본 구현" data-artwork="artwork.html" sandbox="allow-scripts" allow="autoplay 'none'; camera 'none'; microphone 'none'; geolocation 'none'"></iframe><dialog id="prompt-dialog" class="prompt-dialog" aria-labelledby="prompt-title"><div class="prompt-heading"><h2 id="prompt-title">grok-4.3 · 작성 프롬프트</h2><button type="button" data-close-prompts autofocus>닫기</button></div><div class="prompt-content"><p>이 모델에 전송한 user 메시지 원문입니다. 수정 요청에는 이전 코드와 검수 진단이 함께 포함될 수 있습니다.</p><details><summary>최초 작성 요청</summary><p class="prompt-hash">SHA-256 · 4c98cd118e48d9cf845dd78b43c35d0e78b53083fcfaabedaaedff7889f5bb53</p><pre tabindex="0">당신은 grok-4.3 모델입니다. 실제 호출 식별자는 xai.grok-4.3입니다.
+
+롯데월드타워의 건축 설계 과정을 이해할 수 있도록, 설계도면과 단계별 3D 모델 및 완성된 3D 모델을 함께 보여주는 인터랙티브 웹페이지를 직접 구현하세요.
+
+공통 기준 자료:
+- 서울의 롯데월드타워는 높이 555m, 지상 123층입니다.
+- 위로 갈수록 기준층 면적과 건물 외곽이 좁아지는 형태입니다.
+- KPF는 형태와 외관에 한국 도자기의 선을 참고했다고 설명합니다.
+- 아래 공개 자료를 참고하는 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계로 표현하지 마세요. 공개 자료에 없는 치수·단면·부재는 추정한 개념임을 구분하세요.
+- 원 설계사: https://www.kpf.com/project/lotte-world-tower
+- 구조 설계사: https://www.lera.com/lotte-world-tower
+
+보여줄 내용:
+- 배치도, 기준층 평면도, 입면도, 단면도. 도면에는 무엇을 보여주는지, 단위와 치수의 근거를 알 수 있게 하세요.
+- 설계가 발전하는 과정과 각 단계의 3D 형상.
+- 완성된 건물의 실제 3D 형상과 회전·확대/축소·시점 초기화 조작.
+- 도면, 선택한 설계 단계, 완성 모델 사이의 대응 관계.
+
+표현 스타일, 화면 구성, 도형 생성 방법, 설명 방식은 스스로 결정하세요. 참고 구현 코드나 시각적 예시는 제공하지 않습니다.
+
+실행 조건:
+- 하나의 완결된 HTML 문서만 반환하세요. 자신의 CSS와 JavaScript를 문서 안에 넣으세요.
+- 3D 실행 환경은 모든 모델에 동일합니다: Three.js 0.186.1과 OrbitControls가 전역 THREE 객체로 제공되는 로컬 스크립트 &quot;../runtime/three-runtime.js&quot;를 사용할 수 있습니다. 필요하면 이 스크립트를 직접 포함하세요. 직접 WebGL을 구현해도 됩니다.
+- 외부 네트워크, 외부 폰트·이미지, 서버 API 없이 실행되게 하세요. 위 출처는 텍스트 출처 링크이며 실행 중 가져오면 안 됩니다.
+- 작품은 sandbox=&quot;allow-scripts&quot; iframe에서 실행됩니다. alert/confirm/prompt와 부모 문서 접근은 사용하지 마세요.
+- 휴대폰과 데스크톱에서 조작할 수 있게 하세요. 키보드 조작, 읽기 쉬운 글자와 대비, 움직임 감소 설정을 고려하세요.
+- 실제 모델 이름 &quot;grok-4.3&quot;을 화면에 표시하세요.
+- 설명문이나 코드 조각을 따로 반환하지 말고 전체 HTML을 반환하세요.
+</pre><a href="initial-prompt.txt" target="_blank" rel="noopener">프롬프트 원문 열기 ↗</a></details><details open><summary>최종 작품의 수정 요청</summary><p class="prompt-hash">SHA-256 · c0d4e295e88d8044c8f218f800290b24879f3122d87a5a464f59ec533de68f23</p><pre tabindex="0">You are the original author, model grok-4.3, served as xai.grok-4.3. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+ORIGINAL TASK BRIEF. Retain every requested feature and disclosure:
+당신은 grok-4.3 모델입니다. 실제 호출 식별자는 xai.grok-4.3입니다.
+
+롯데월드타워의 건축 설계 과정을 이해할 수 있도록, 설계도면과 단계별 3D 모델 및 완성된 3D 모델을 함께 보여주는 인터랙티브 웹페이지를 직접 구현하세요.
+
+공통 기준 자료:
+- 서울의 롯데월드타워는 높이 555m, 지상 123층입니다.
+- 위로 갈수록 기준층 면적과 건물 외곽이 좁아지는 형태입니다.
+- KPF는 형태와 외관에 한국 도자기의 선을 참고했다고 설명합니다.
+- 아래 공개 자료를 참고하는 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계로 표현하지 마세요. 공개 자료에 없는 치수·단면·부재는 추정한 개념임을 구분하세요.
+- 원 설계사: https://www.kpf.com/project/lotte-world-tower
+- 구조 설계사: https://www.lera.com/lotte-world-tower
+
+보여줄 내용:
+- 배치도, 기준층 평면도, 입면도, 단면도. 도면에는 무엇을 보여주는지, 단위와 치수의 근거를 알 수 있게 하세요.
+- 설계가 발전하는 과정과 각 단계의 3D 형상.
+- 완성된 건물의 실제 3D 형상과 회전·확대/축소·시점 초기화 조작.
+- 도면, 선택한 설계 단계, 완성 모델 사이의 대응 관계.
+
+표현 스타일, 화면 구성, 도형 생성 방법, 설명 방식은 스스로 결정하세요. 참고 구현 코드나 시각적 예시는 제공하지 않습니다.
+
+실행 조건:
+- 하나의 완결된 HTML 문서만 반환하세요. 자신의 CSS와 JavaScript를 문서 안에 넣으세요.
+- 3D 실행 환경은 모든 모델에 동일합니다: Three.js 0.186.1과 OrbitControls가 전역 THREE 객체로 제공되는 로컬 스크립트 &quot;../runtime/three-runtime.js&quot;를 사용할 수 있습니다. 필요하면 이 스크립트를 직접 포함하세요. 직접 WebGL을 구현해도 됩니다.
+- 외부 네트워크, 외부 폰트·이미지, 서버 API 없이 실행되게 하세요. 위 출처는 텍스트 출처 링크이며 실행 중 가져오면 안 됩니다.
+- 작품은 sandbox=&quot;allow-scripts&quot; iframe에서 실행됩니다. alert/confirm/prompt와 부모 문서 접근은 사용하지 마세요.
+- 휴대폰과 데스크톱에서 조작할 수 있게 하세요. 키보드 조작, 읽기 쉬운 글자와 대비, 움직임 감소 설정을 고려하세요.
+- 실제 모델 이름 &quot;grok-4.3&quot;을 화면에 표시하세요.
+- 설명문이나 코드 조각을 따로 반환하지 말고 전체 HTML을 반환하세요.
+
+
+YOUR PREVIOUS FULL RESPONSE:
+```html
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;롯데월드타워 설계 과정 • grok-4.3&lt;/title&gt;
+&lt;style&gt;
+body { margin:0; padding:0; background:#0a0a0a; color:#ddd; font-family: system-ui, -apple-system, sans-serif; }
+header { padding:20px; text-align:center; border-bottom:1px solid #333; }
+h1 { margin:0; font-size:28px; }
+.model-id { font-size:19px; color:#ffcc66; margin-top:8px; }
+.container { max-width:1400px; margin:0 auto; padding:20px; }
+.tabs { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+.tab { padding:12px 24px; background:#222; border:1px solid #444; cursor:pointer; font-size:19px; border-radius:6px; }
+.tab.active { background:#ffcc66; color:#000; }
+.section { display:none; }
+.section.active { display:block; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(420px,1fr)); gap:24px; }
+.canvas-container { background:#111; border:1px solid #333; border-radius:8px; padding:12px; position:relative; }
+canvas { display:block; width:100%; max-width:100%; height:auto; background:#0a0a0a; }
+.controls { margin-top:12px; display:flex; flex-wrap:wrap; gap:8px; }
+button { padding:10px 18px; font-size:19px; background:#222; color:#ddd; border:1px solid #555; border-radius:6px; cursor:pointer; }
+button:hover { background:#333; }
+.info { font-size:19px; line-height:1.5; margin:16px 0; padding:16px; background:#111; border-left:4px solid #ffcc66; }
+.disclosure { font-size:16px; color:#888; margin-top:20px; }
+.stage-btn { margin:4px; }
+#three-canvas { touch-action:none; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;header&gt;
+  &lt;h1&gt;롯데월드타워 건축 설계 과정&lt;/h1&gt;
+  &lt;div class=&quot;model-id&quot;&gt;grok-4.3&lt;/div&gt;
+&lt;/header&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;tabs&quot;&gt;
+    &lt;div class=&quot;tab active&quot; onclick=&quot;showSection(&#x27;drawings&#x27;)&quot;&gt;설계 도면&lt;/div&gt;
+    &lt;div class=&quot;tab&quot; onclick=&quot;showSection(&#x27;stages&#x27;)&quot;&gt;설계 단계별 3D&lt;/div&gt;
+    &lt;div class=&quot;tab&quot; onclick=&quot;showSection(&#x27;final&#x27;)&quot;&gt;완성 3D 모델&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Drawings Section --&gt;
+  &lt;div id=&quot;drawings&quot; class=&quot;section active&quot;&gt;
+    &lt;div class=&quot;grid&quot;&gt;
+      &lt;div&gt;
+        &lt;h3 style=&quot;font-size:22px;&quot;&gt;배치도 (Site Plan)&lt;/h3&gt;
+        &lt;div class=&quot;canvas-container&quot;&gt;&lt;canvas id=&quot;site-canvas&quot; width=&quot;480&quot; height=&quot;480&quot;&gt;&lt;/canvas&gt;&lt;/div&gt;
+        &lt;div class=&quot;info&quot;&gt;서울 송파구 잠실동 부지. 타워 중심점 기준 반경 120m 내 주요 동선 표시. (개념 재구성)&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;h3 style=&quot;font-size:22px;&quot;&gt;기준층 평면도 (Floor Plan)&lt;/h3&gt;
+        &lt;div class=&quot;canvas-container&quot;&gt;&lt;canvas id=&quot;floor-canvas&quot; width=&quot;480&quot; height=&quot;480&quot;&gt;&lt;/canvas&gt;&lt;/div&gt;
+        &lt;div class=&quot;info&quot;&gt;지상 30층 기준층. 코어 중심, 외곽 윤곽 42m×42m. 상층으로 갈수록 축소.&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;h3 style=&quot;font-size:22px;&quot;&gt;입면도 (Elevation)&lt;/h3&gt;
+        &lt;div class=&quot;canvas-container&quot;&gt;&lt;canvas id=&quot;elevation-canvas&quot; width=&quot;480&quot; height=&quot;520&quot;&gt;&lt;/canvas&gt;&lt;/div&gt;
+        &lt;div class=&quot;info&quot;&gt;총 높이 555m, 지상 123층. 한국 도자기 곡선 참조한 외관 윤곽.&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;h3 style=&quot;font-size:22px;&quot;&gt;단면도 (Section)&lt;/h3&gt;
+        &lt;div class=&quot;canvas-container&quot;&gt;&lt;canvas id=&quot;section-canvas&quot; width=&quot;480&quot; height=&quot;520&quot;&gt;&lt;/canvas&gt;&lt;/div&gt;
+        &lt;div class=&quot;info&quot;&gt;중심 코어 + 외피 구조. 모든 치수는 공개 자료 기반 추정 개념 치수.&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;disclosure&quot;&gt;
+      ※ 본 도면은 KPF 공개 자료와 일반 건축 정보를 바탕으로 한 개념 재구성입니다. 실제 시공 도면이 아니며, 모든 치수와 단면은 추정치입니다.
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Stages Section --&gt;
+  &lt;div id=&quot;stages&quot; class=&quot;section&quot;&gt;
+    &lt;div class=&quot;controls&quot;&gt;
+      &lt;button class=&quot;stage-btn&quot; onclick=&quot;setStage(0)&quot;&gt;1. 초기 개념&lt;/button&gt;
+      &lt;button class=&quot;stage-btn&quot; onclick=&quot;setStage(1)&quot;&gt;2. 매스 모델&lt;/button&gt;
+      &lt;button class=&quot;stage-btn&quot; onclick=&quot;setStage(2)&quot;&gt;3. 형태 정교화&lt;/button&gt;
+      &lt;button class=&quot;stage-btn&quot; onclick=&quot;setStage(3)&quot;&gt;4. 최종 설계&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;canvas-container&quot; style=&quot;max-width:620px;margin:20px auto;&quot;&gt;
+      &lt;canvas id=&quot;stage-canvas&quot; width=&quot;600&quot; height=&quot;620&quot;&gt;&lt;/canvas&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;info&quot; id=&quot;stage-info&quot;&gt;단계별 3D 형상 변화. 한국 도자기 선의 유려한 곡선을 점진적으로 반영.&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Final 3D Model --&gt;
+  &lt;div id=&quot;final&quot; class=&quot;section&quot;&gt;
+    &lt;div class=&quot;canvas-container&quot; style=&quot;max-width:720px;margin:0 auto;&quot;&gt;
+      &lt;canvas id=&quot;three-canvas&quot; width=&quot;700&quot; height=&quot;700&quot;&gt;&lt;/canvas&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;controls&quot; style=&quot;justify-content:center;margin-top:16px;&quot;&gt;
+      &lt;button onclick=&quot;resetCamera()&quot;&gt;시점 초기화 (R)&lt;/button&gt;
+      &lt;button onclick=&quot;zoomIn()&quot;&gt;확대 (+)&lt;/button&gt;
+      &lt;button onclick=&quot;zoomOut()&quot;&gt;축소 (−)&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;info&quot;&gt;
+      완성된 롯데월드타워 3D 모델. 마우스 드래그로 회전, 휠로 확대/축소. 키보드 방향키와 +/- 키 지원. 터치 드래그/핀치 지원.
+    &lt;/div&gt;
+    &lt;div class=&quot;disclosure&quot;&gt;
+      높이 555m, 지상 123층. 상층으로 갈수록 외곽이 좁아지는 테이퍼 형태. KPF가 참고한 한국 도자기 선을 시각화.
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// Tab switching
+function showSection(id) {
+  document.querySelectorAll(&#x27;.section&#x27;).forEach(s =&gt; s.classList.remove(&#x27;active&#x27;));
+  document.querySelectorAll(&#x27;.tab&#x27;).forEach(t =&gt; t.classList.remove(&#x27;active&#x27;));
+  document.getElementById(id).classList.add(&#x27;active&#x27;);
+  event.target.classList.add(&#x27;active&#x27;);
+}
+
+// Draw all conceptual drawings
+function drawSitePlan() {
+  const c = document.getElementById(&#x27;site-canvas&#x27;);
+  const ctx = c.getContext(&#x27;2d&#x27;);
+  ctx.fillStyle = &#x27;#0a0a0a&#x27;; ctx.fillRect(0,0,c.width,c.height);
+  ctx.strokeStyle = &#x27;#ffcc66&#x27;; ctx.lineWidth = 2;
+  // Site boundary
+  ctx.strokeRect(60,60,360,360);
+  // Tower footprint
+  ctx.fillStyle = &#x27;#334455&#x27;; ctx.fillRect(180,180,120,120);
+  ctx.strokeStyle = &#x27;#ffcc66&#x27;; ctx.strokeRect(180,180,120,120);
+  // Labels
+  ctx.fillStyle = &#x27;#ddd&#x27;; ctx.font = &#x27;19px system-ui&#x27;;
+  ctx.fillText(&#x27;타워 중심&#x27;, 195, 245);
+  ctx.fillText(&#x27;주요 동선&#x27;, 80, 100);
+}
+
+function drawFloorPlan() {
+  const c = document.getElementById(&#x27;floor-canvas&#x27;);
+  const ctx = c.getContext(&#x27;2d&#x27;);
+  ctx.fillStyle = &#x27;#0a0a0a&#x27;; ctx.fillRect(0,0,c.width,c.height);
+  ctx.strokeStyle = &#x27;#ffcc66&#x27;; ctx.lineWidth = 2.5;
+  // Core
+  ctx.fillStyle = &#x27;#223344&#x27;; ctx.fillRect(190,190,100,100);
+  ctx.strokeRect(190,190,100,100);
+  // Outer wall
+  ctx.strokeRect(120,120,240,240);
+  ctx.fillStyle = &#x27;#ddd&#x27;; ctx.font = &#x27;19px system-ui&#x27;;
+  ctx.fillText(&#x27;코어&#x27;, 210, 245);
+  ctx.fillText(&#x27;외곽 42m&#x27;, 130, 380);
+}
+
+function drawElevation() {
+  const c = document.getElementById(&#x27;elevation-canvas&#x27;);
+  const ctx = c.getContext(&#x27;2d&#x27;);
+  ctx.fillStyle = &#x27;#0a0a0a&#x27;; ctx.fillRect(0,0,c.width,c.height);
+  ctx.strokeStyle = &#x27;#ffcc66&#x27;; ctx.lineWidth = 2.5;
+  // Tower silhouette
+  ctx.beginPath();
+  ctx.moveTo(140,480); ctx.lineTo(340,480);
+  ctx.lineTo(310,40); ctx.lineTo(170,40); ctx.closePath();
+  ctx.stroke();
+  ctx.fillStyle = &#x27;#334455&#x27;; ctx.fill();
+  ctx.fillStyle = &#x27;#ddd&#x27;; ctx.font = &#x27;19px system-ui&#x27;;
+  ctx.fillText(&#x27;555m&#x27;, 360, 260);
+  ctx.fillText(&#x27;123층&#x27;, 360, 300);
+}
+
+function drawSection() {
+  const c = document.getElementById(&#x27;section-canvas&#x27;);
+  const ctx = c.getContext(&#x27;2d&#x27;);
+  ctx.fillStyle = &#x27;#0a0a0a&#x27;; ctx.fillRect(0,0,c.width,c.height);
+  ctx.strokeStyle = &#x27;#ffcc66&#x27;; ctx.lineWidth = 2.5;
+  // Core and skin
+  ctx.fillStyle = &#x27;#223344&#x27;; ctx.fillRect(210,40,60,440);
+  ctx.strokeRect(210,40,60,440);
+  ctx.strokeRect(140,40,200,440);
+  ctx.fillStyle = &#x27;#ddd&#x27;; ctx.font = &#x27;19px system-ui&#x27;;
+  ctx.fillText(&#x27;중심 코어&#x27;, 220, 260);
+}
+
+// Stage 3D (simple 2D projection)
+let currentStage = 0;
+function setStage(stage) {
+  currentStage = stage;
+  const c = document.getElementById(&#x27;stage-canvas&#x27;);
+  const ctx = c.getContext(&#x27;2d&#x27;);
+  ctx.fillStyle = &#x27;#0a0a0a&#x27;; ctx.fillRect(0,0,c.width,c.height);
+  ctx.strokeStyle = &#x27;#ffcc66&#x27;; ctx.lineWidth = 2.5;
+  
+  const baseW = 220, topW = 80, h = 480;
+  const cx = c.width/2;
+  let taper = 1 - stage*0.15;
+  
+  ctx.beginPath();
+  ctx.moveTo(cx-baseW/2, 520);
+  ctx.lineTo(cx+baseW/2, 520);
+  ctx.lineTo(cx+topW*taper/2, 520-h);
+  ctx.lineTo(cx-topW*taper/2, 520-h);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.fillStyle = &#x27;#334455&#x27;; ctx.fill();
+  
+  document.getElementById(&#x27;stage-info&#x27;).innerHTML = 
+    [&#x27;초기 개념 매스&#x27;, &#x27;기본 테이퍼 적용&#x27;, &#x27;도자기 곡선 반영&#x27;, &#x27;최종 외관 완성&#x27;][stage];
+}
+
+// Final 3D Model - Pure Canvas 3D projection
+let rotX = 0.3, rotY = 0.8, zoom = 1.0;
+const canvas = document.getElementById(&#x27;three-canvas&#x27;);
+const ctx = canvas.getContext(&#x27;2d&#x27;);
+
+function project(x, y, z) {
+  const scale = 1.8 * zoom;
+  const dist = 900;
+  const px = x * scale;
+  const py = y * scale;
+  const pz = z * scale + dist;
+  const f = 650 / pz;
+  return {
+    x: canvas.width/2 + px * f,
+    y: canvas.height/2 + py * f
+  };
+}
+
+function drawTower() {
+  ctx.fillStyle = &#x27;#0a0a0a&#x27;;
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  
+  const baseW = 110, topW = 38, height = 520;
+  const segments = 12;
+  
+  ctx.strokeStyle = &#x27;#ffcc66&#x27;;
+  ctx.lineWidth = 1.8;
+  
+  // Draw tapered form with ceramic-inspired lines
+  for (let i = 0; i &lt; segments; i++) {
+    const t = i / segments;
+    const t2 = (i+1) / segments;
+    const w1 = baseW * (1-t) + topW * t;
+    const w2 = baseW * (1-t2) + topW * t2;
+    const y1 = height/2 - height * t;
+    const y2 = height/2 - height * t2;
+    
+    // Front face
+    const p1 = project(-w1, y1, 0);
+    const p2 = project(w1, y1, 0);
+    const p3 = project(w2, y2, 0);
+    const p4 = project(-w2, y2, 0);
+    
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.lineTo(p3.x, p3.y);
+    ctx.lineTo(p4.x, p4.y);
+    ctx.closePath();
+    ctx.stroke();
+  }
+  
+  // Vertical ceramic lines
+  ctx.strokeStyle = &#x27;#ffaa33&#x27;;
+  ctx.lineWidth = 1.2;
+  for (let i = -3; i &lt;= 3; i++) {
+    const x = i * 18;
+    const pTop = project(x, -height/2, 0);
+    const pBot = project(x, height/2, 0);
+    ctx.beginPath();
+    ctx.moveTo(pTop.x, pTop.y);
+    ctx.lineTo(pBot.x, pBot.y);
+    ctx.stroke();
+  }
+}
+
+function update3D() {
+  drawTower();
+}
+
+// Camera controls
+function resetCamera() {
+  rotX = 0.3; rotY = 0.8; zoom = 1.0;
+  update3D();
+}
+
+function zoomIn() { zoom = Math.min(zoom * 1.2, 3.5); update3D(); }
+function zoomOut() { zoom = Math.max(zoom / 1.2, 0.4); update3D(); }
+
+// Mouse controls
+let isDragging = false, lastX = 0, lastY = 0;
+
+canvas.addEventListener(&#x27;mousedown&#x27;, e =&gt; {
+  isDragging = true; lastX = e.clientX; lastY = e.clientY;
+});
+window.addEventListener(&#x27;mouseup&#x27;, () =&gt; isDragging = false);
+canvas.addEventListener(&#x27;mousemove&#x27;, e =&gt; {
+  if (!isDragging) return;
+  rotY += (e.clientX - lastX) * 0.005;
+  rotX += (e.clientY - lastY) * 0.005;
+  lastX = e.clientX; lastY = e.clientY;
+  update3D();
+});
+
+// Touch support
+canvas.addEventListener(&#x27;touchstart&#x27;, e =&gt; {
+  if (e.touches.length === 1) {
+    isDragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
+  }
+});
+canvas.addEventListener(&#x27;touchend&#x27;, () =&gt; isDragging = false);
+canvas.addEventListener(&#x27;touchmove&#x27;, e =&gt; {
+  if (!isDragging || e.touches.length !== 1) return;
+  rotY += (e.touches[0].clientX - lastX) * 0.005;
+  rotX += (e.touches[0].clientY - lastY) * 0.005;
+  lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
+  update3D();
+  e.preventDefault();
+});
+
+// Keyboard controls
+document.addEventListener(&#x27;keydown&#x27;, e =&gt; {
+  if (document.getElementById(&#x27;final&#x27;).classList.contains(&#x27;active&#x27;)) {
+    if (e.key === &#x27;ArrowLeft&#x27;) rotY -= 0.15;
+    if (e.key === &#x27;ArrowRight&#x27;) rotY += 0.15;
+    if (e.key === &#x27;ArrowUp&#x27;) rotX -= 0.12;
+    if (e.key === &#x27;ArrowDown&#x27;) rotX += 0.12;
+    if (e.key === &#x27;+&#x27; || e.key === &#x27;=&#x27;) zoomIn();
+    if (e.key === &#x27;-&#x27;) zoomOut();
+    if (e.key.toLowerCase() === &#x27;r&#x27;) resetCamera();
+    update3D();
+  }
+});
+
+// Wheel zoom
+canvas.addEventListener(&#x27;wheel&#x27;, e =&gt; {
+  if (e.deltaY &lt; 0) zoomIn(); else zoomOut();
+  e.preventDefault();
+}, {passive:false});
+
+// Initialize everything
+function init() {
+  drawSitePlan();
+  drawFloorPlan();
+  drawElevation();
+  drawSection();
+  setStage(3);
+  update3D();
+  
+  // Make canvas focusable for keyboard
+  canvas.setAttribute(&#x27;tabindex&#x27;, &#x27;0&#x27;);
+}
+
+init();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+```
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+[&quot;docs/models/grok-4.3/lotte-tower/artwork.html:24: Some meaningful UI/diagram annotations render below19px, including fixed-size drawing labels scaled down on mobile. Required repair: Keep meaningful text at least19px at its rendered size; adapt labels or provide readable HTML equivalents. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.&quot;, &quot;docs/models/grok-4.3/lotte-tower/artwork.html:205: Every final-model point is passed with z=0, and the projection never applies rotX/rotY. The model and stages remain flat diagrams rather than actual spatial forms. Required repair: Restore real depth geometry and rotation for final and development stages using your chosen Canvas medium. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.&quot;, &quot;docs/models/grok-4.3/lotte-tower/artwork.html:288: Drag/arrow controls change rotX/rotY but drawTower/project never reads them, so advertised orbit has no visible effect. Required repair: Apply both rotation values to the spatial projection and verify pointer/touch/keyboard orbit changes the view. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.&quot;]
+
+Return the complete repaired HTML now.</pre><a href="prompt.txt" target="_blank" rel="noopener">프롬프트 원문 열기 ↗</a></details></div></dialog><dialog id="cost-dialog" class="prompt-dialog" aria-labelledby="cost-title"><div class="prompt-heading"><h2 id="cost-title">grok-4.3 · 구현 비용</h2><button type="button" data-close-cost autofocus>닫기</button></div><div class="prompt-content"><p class="cost-total">생성·수정 ≈ $0.054108</p><p>이번 작품의 작성·재요청·수정 4회 합계입니다. 최종 응답 요청: $0.022726.</p><p>반환된 입력·출력·캐시 읽기·쓰기 토큰을 설정 단가로 계산했습니다. 완성 전 잘린 응답과 수정 요청도 사용량이 기록돼 있으면 합산합니다. 출력 토큰에 포함된 추론 토큰은 중복 계산하지 않습니다.</p><p>입력 7,468 · 출력 17,909 · 캐시 읽기 0 · 캐시 쓰기 0</p><div class="cost-table"><table><thead><tr><th>요청</th><th>결과</th><th>추정 USD</th></tr></thead><tbody><tr><td>1</td><td>코드 반환</td><td>$0.010002</td></tr><tr><td>2</td><td>코드 반환</td><td>$0.008079</td></tr><tr><td>3</td><td>코드 반환</td><td>$0.0133</td></tr><tr><td>4</td><td>코드 반환</td><td>$0.022726</td></tr></tbody></table></div><p>현재 config.toml의 단가 기준 추정치이며 실제 청구서가 아닙니다. 이전 세대의 작품, 운영 도구·검수 모델 호출, 세금·할인은 포함하지 않습니다.</p><details><summary>적용 단가 · USD / 백만 토큰 또는 GPU 시간</summary><pre>{
+  &quot;price_in&quot;: 1.25,
+  &quot;price_out&quot;: 2.5
+}</pre></details><a href="implementation-cost.json" target="_blank" rel="noopener">비용 계산·요청 기록 원문 ↗</a></div></dialog></body></html>

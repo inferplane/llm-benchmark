@@ -1,0 +1,23 @@
+{
+  "model": "kimi-k3",
+  "model_id": "us.moonshotai.kimi-k3",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T15:20:26.322947+00:00",
+  "prompt_sha256": "86601c42831c0925832403fca1f1d1c3a539a2dbb8e02089c9080a06e20ef3cf",
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": "low",
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T15:22:10.332064+00:00",
+  "artwork_sha256": "f6b3e5f9e477e077d685e4116106995497494ec9175c138732e1920da3bbe730",
+  "tokens_in": 7,
+  "tokens_out": 13758,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 8835,
+  "finish_reason": "end_turn",
+  "request_id": "01a0fcc2-0dc3-4baf-81dd-bf060506bc6f"
+}

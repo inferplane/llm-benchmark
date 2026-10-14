@@ -1,0 +1,21 @@
+{
+  "model": "llama-3.1-8b",
+  "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+  "api": "openai",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T15:30:57.389845+00:00",
+  "prompt_sha256": "a8579dd0ee4b74fc146f255c9d15286d8ad84bc8167d3e1a49c8569bc7d551d8",
+  "max_output_tokens": 6144,
+  "temperature": 0.3,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T15:32:16.915973+00:00",
+  "artwork_sha256": "f9103664455b965a5d880e8465ad5bbc0df33e310b7fe4cbb745b5d867e2996b",
+  "tokens_in": 719,
+  "tokens_out": 1321,
+  "finish_reason": "stop",
+  "reported_model": "meta-llama/Llama-3.1-8B-Instruct"
+}

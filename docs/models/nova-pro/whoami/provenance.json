@@ -1,0 +1,127 @@
+{
+  "model": "nova-pro",
+  "task": "whoami",
+  "requested_model_id": "us.amazon.nova-pro-v1:0",
+  "provider": "bedrock",
+  "family": "Amazon Nova",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/nova-pro",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "af5c41aaf9458a45836ea605e178b28061bd636a8effed4e604ad33d670ec945",
+  "content_review": {
+    "model": "nova-pro",
+    "generation": "free-expression-20261012",
+    "score": 97.5,
+    "critical": 0,
+    "warnings": 2,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 2.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/nova-pro/artwork.html",
+        "line": 41,
+        "quote": "<p>당신의 지식과 상상력을 넘어서는 경험을 제공합니다.</p>",
+        "problem": "The descriptive paragraph inherits a 16px default font.",
+        "action": "Use at least 19px for the informative paragraph."
+      },
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/nova-pro/artwork.html",
+        "line": 26,
+        "quote": "animation: glow 2s infinite alternate;",
+        "problem": "The recurring glow animation remains active under the OS reduced-motion preference; Escape does stop it when manually pressed.",
+        "action": "Respect the reduced-motion preference with a still or meaningfully reduced version of the chosen glow."
+      }
+    ],
+    "artwork_sha256": "af5c41aaf9458a45836ea605e178b28061bd636a8effed4e604ad33d670ec945",
+    "model_id": "us.amazon.nova-pro-v1:0",
+    "reported_model": null,
+    "requested_at": "2026-10-12T08:08:00.377609+00:00",
+    "reviewed_at": "2026-10-12T08:46:03.455206+00:00",
+    "initial_prompt_sha256": "d8197a19ce63f6faf449fe2fde7daed474c6016e58a5f8b88b49d1d9a8844c5d",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/nova-pro/af5c41aaf945",
+    "browser_evidence": "/tmp/free-expression-review/nova-pro/af5c41aaf945/browser.json",
+    "notes": [
+      "Self-chosen typographic artwork is valid; no canvas, scene switch or extra controls required.",
+      "Escape stop tested; zero browser errors and horizontal overflow at all three widths."
+    ]
+  },
+  "prompt_sha256": "d8197a19ce63f6faf449fe2fde7daed474c6016e58a5f8b88b49d1d9a8844c5d",
+  "initial_prompt_sha256": "d8197a19ce63f6faf449fe2fde7daed474c6016e58a5f8b88b49d1d9a8844c5d",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.8,
+      "price_out": 3.2
+    },
+    "estimated_total_usd": 0.002044,
+    "estimated_final_response_usd": 0.002044,
+    "recorded_attempts": 1,
+    "successful_code_responses": 1,
+    "additional_attempts": 0,
+    "known_cost_attempts": 1,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 391,
+      "tokens_out": 541,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:08:00.377609+00:00",
+        "status": "generated",
+        "request_id": "a820746b-390c-4631-a009-c89a79c7adbb",
+        "usage_available": true,
+        "estimated_cost_usd": 0.002044,
+        "request_seconds": null,
+        "record_sha256": "889364cfc5be827fe5bf3df496ad70b033b543eedf4314f607d29c308c6f6043",
+        "response_sha256": "fe1417c58349ec2d0fcd801cda8c6d248fd2e0c9a8c4ba0bdb5f1632dd906d17"
+      }
+    ]
+  },
+  "request_id": "a820746b-390c-4631-a009-c89a79c7adbb",
+  "requested_at": "2026-10-12T08:08:00.377609+00:00",
+  "generated_at": "2026-10-12T08:08:04.381623+00:00",
+  "tokens_in": 391,
+  "tokens_out": 541,
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "finish_reason": "end_turn"
+}

@@ -1,0 +1,321 @@
+{
+  "model": "nova-pro",
+  "requested_model_id": "us.amazon.nova-pro-v1:0",
+  "family": "Amazon Nova",
+  "tasks": {
+    "whoami": {
+      "model": "nova-pro",
+      "task": "whoami",
+      "requested_model_id": "us.amazon.nova-pro-v1:0",
+      "provider": "bedrock",
+      "family": "Amazon Nova",
+      "generation": "free-expression-20261012",
+      "source_records": "results/model-self-portraits/generations/free-expression-20261012/nova-pro",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "af5c41aaf9458a45836ea605e178b28061bd636a8effed4e604ad33d670ec945",
+      "content_review": {
+        "model": "nova-pro",
+        "generation": "free-expression-20261012",
+        "score": 97.5,
+        "critical": 0,
+        "warnings": 2,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 5,
+          "Accessibility": 2.5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/nova-pro/artwork.html",
+            "line": 41,
+            "quote": "<p>당신의 지식과 상상력을 넘어서는 경험을 제공합니다.</p>",
+            "problem": "The descriptive paragraph inherits a 16px default font.",
+            "action": "Use at least 19px for the informative paragraph."
+          },
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/nova-pro/artwork.html",
+            "line": 26,
+            "quote": "animation: glow 2s infinite alternate;",
+            "problem": "The recurring glow animation remains active under the OS reduced-motion preference; Escape does stop it when manually pressed.",
+            "action": "Respect the reduced-motion preference with a still or meaningfully reduced version of the chosen glow."
+          }
+        ],
+        "artwork_sha256": "af5c41aaf9458a45836ea605e178b28061bd636a8effed4e604ad33d670ec945",
+        "model_id": "us.amazon.nova-pro-v1:0",
+        "reported_model": null,
+        "requested_at": "2026-10-12T08:08:00.377609+00:00",
+        "reviewed_at": "2026-10-12T08:46:03.455206+00:00",
+        "initial_prompt_sha256": "d8197a19ce63f6faf449fe2fde7daed474c6016e58a5f8b88b49d1d9a8844c5d",
+        "exact_example_free_initial_prompt": true,
+        "original_response_containment": true,
+        "frozen_source": "/tmp/free-expression-review/nova-pro/af5c41aaf945",
+        "browser_evidence": "/tmp/free-expression-review/nova-pro/af5c41aaf945/browser.json",
+        "notes": [
+          "Self-chosen typographic artwork is valid; no canvas, scene switch or extra controls required.",
+          "Escape stop tested; zero browser errors and horizontal overflow at all three widths."
+        ]
+      },
+      "prompt_sha256": "d8197a19ce63f6faf449fe2fde7daed474c6016e58a5f8b88b49d1d9a8844c5d",
+      "initial_prompt_sha256": "d8197a19ce63f6faf449fe2fde7daed474c6016e58a5f8b88b49d1d9a8844c5d",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "free-expression-20261012",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 0.8,
+          "price_out": 3.2
+        },
+        "estimated_total_usd": 0.002044,
+        "estimated_final_response_usd": 0.002044,
+        "recorded_attempts": 1,
+        "successful_code_responses": 1,
+        "additional_attempts": 0,
+        "known_cost_attempts": 1,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 391,
+          "tokens_out": 541,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-12T08:08:00.377609+00:00",
+            "status": "generated",
+            "request_id": "a820746b-390c-4631-a009-c89a79c7adbb",
+            "usage_available": true,
+            "estimated_cost_usd": 0.002044,
+            "request_seconds": null,
+            "record_sha256": "889364cfc5be827fe5bf3df496ad70b033b543eedf4314f607d29c308c6f6043",
+            "response_sha256": "fe1417c58349ec2d0fcd801cda8c6d248fd2e0c9a8c4ba0bdb5f1632dd906d17"
+          }
+        ]
+      },
+      "request_id": "a820746b-390c-4631-a009-c89a79c7adbb",
+      "requested_at": "2026-10-12T08:08:00.377609+00:00",
+      "generated_at": "2026-10-12T08:08:04.381623+00:00",
+      "tokens_in": 391,
+      "tokens_out": 541,
+      "max_output_tokens": 8192,
+      "temperature": 0,
+      "temperature_sent": true,
+      "finish_reason": "end_turn"
+    },
+    "lotte-tower": {
+      "model": "nova-pro",
+      "task": "lotte-tower",
+      "requested_model_id": "us.amazon.nova-pro-v1:0",
+      "provider": "bedrock",
+      "family": "Amazon Nova",
+      "generation": "lotte-tower-models-20261013",
+      "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/nova-pro",
+      "status": "review_held",
+      "generation_status": "generated",
+      "artwork_sha256": "f0f629b16c95906ac13780be02ff5ee6e2bb4af51458403689780b692aae373a",
+      "content_review": {
+        "task_requirements_complete": false,
+        "model": "nova-pro",
+        "score": 94.0,
+        "critical": 0,
+        "warnings": 4,
+        "verdict": "REVIEW",
+        "category_scores": {
+          "Layout": 6.0,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 5,
+          "Accessibility": 5,
+          "Structural Completeness": 2.5,
+          "Data Accuracy and References": 3.5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "artwork_sha256": "f0f629b16c95906ac13780be02ff5ee6e2bb4af51458403689780b692aae373a",
+        "model_id": "us.amazon.nova-pro-v1:0",
+        "origin_generation": "lotte-tower-models-20261013",
+        "original_response_bytes_verified": true,
+        "source": "/tmp/model-lotte-review/nova-pro/f0f629b16c95",
+        "browser_evidence": "/tmp/model-lotte-review/nova-pro/f0f629b16c95/browser.json",
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Structural Completeness",
+            "file": "docs/models/nova-pro/lotte-tower/artwork.html",
+            "line": 46,
+            "quote": "// Placeholder for actual diagram drawing",
+            "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
+            "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+          },
+          {
+            "severity": "Warning",
+            "category": "Structural Completeness",
+            "file": "docs/models/nova-pro/lotte-tower/artwork.html",
+            "line": 63,
+            "quote": "const geometry = new THREE.CylinderGeometry(5, 2.5, 55, 40);",
+            "problem": "No explained intermediate3D development states are implemented.",
+            "action": "Provide distinct explained3D forms leading to completion and link them to the drawings."
+          },
+          {
+            "severity": "Warning",
+            "category": "Data Accuracy and References",
+            "file": "docs/models/nova-pro/lotte-tower/artwork.html",
+            "line": 63,
+            "quote": "const geometry = new THREE.CylinderGeometry(5, 2.5, 55, 40);",
+            "problem": "Top radius5 is larger than bottom2.5: the tower widens upward, contrary to the supplied form.",
+            "action": "Use coherent upward narrowing and matching drawings."
+          },
+          {
+            "severity": "Warning",
+            "category": "Layout",
+            "file": "docs/models/nova-pro/lotte-tower/artwork.html",
+            "line": 58,
+            "quote": "camera = new THREE.PerspectiveCamera(75, modelContainer.offsetWidth / modelContainer.offsetHeight, 0.1, 1000);",
+            "problem": "Inner#model still has zero height; browser confirms a0px-high renderer and invalid aspect, despite the outer600px region.",
+            "action": "Give the actual host usable responsive dimensions and derive camera/render size from them."
+          }
+        ],
+        "notes": [
+          "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions."
+        ],
+        "reviewed_at": "2026-10-13T15:51:47.581686+00:00",
+        "re_review_number": 3,
+        "review_iteration": 4,
+        "retry_limit_reached": true,
+        "current_generation_status": "generated",
+        "active_source": true
+      },
+      "prompt_sha256": "3b85c233604a0643d8271d93ffb22a11a24162282f8249bef51a9a84b2069631",
+      "initial_prompt_sha256": "67609c31aee694da17312db3bd0b6477742bf5f3c810b73ba4fd31182f6b2e5e",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "lotte-tower-models-20261013",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 0.8,
+          "price_out": 3.2
+        },
+        "estimated_total_usd": 0.0188344,
+        "estimated_final_response_usd": 0.0060144,
+        "recorded_attempts": 5,
+        "successful_code_responses": 4,
+        "additional_attempts": 4,
+        "known_cost_attempts": 4,
+        "unknown_usage_attempts": 1,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 6535,
+          "tokens_out": 4252,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": false,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-13T10:55:26.887506+00:00",
+            "status": "generated",
+            "request_id": "83aa5622-2244-4efb-8b8c-71c23b9df2b0",
+            "usage_available": true,
+            "estimated_cost_usd": 0.0047584,
+            "request_seconds": null,
+            "record_sha256": "02178541ba24dbc36f08520d7c279327c481d426765a3ded33b947f4e738939e",
+            "response_sha256": "c1413e62292f8703d34050be411f525b13bb0683f89ec61441f8e87312a8586a"
+          },
+          {
+            "requested_at": "2026-10-13T13:36:55.572019+00:00",
+            "status": "generated",
+            "request_id": "97dfbb67-7739-4cf4-adae-599f29f5ba16",
+            "usage_available": true,
+            "estimated_cost_usd": 0.002636,
+            "request_seconds": null,
+            "record_sha256": "6ff32e6b3e3910fe5a7688fefac8842fb45037841beb0e742fd0a9af1bee799e",
+            "response_sha256": "f5a25a79aed6585da7b71ab2f3106657290d9967125b1568a513fff862ca5e59"
+          },
+          {
+            "requested_at": "2026-10-13T15:05:31.762691+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": false,
+            "estimated_cost_usd": null,
+            "request_seconds": null,
+            "record_sha256": "f025e94df31c97f3e9388613485bc331ef68236fe7ccce2bf960c7b3fd427ce8",
+            "response_sha256": null
+          },
+          {
+            "requested_at": "2026-10-13T15:05:58.414764+00:00",
+            "status": "generated",
+            "request_id": "e6856e4d-6afb-4136-8a4a-5ea0212317fb",
+            "usage_available": true,
+            "estimated_cost_usd": 0.0054256,
+            "request_seconds": null,
+            "record_sha256": "9da69bbb0b202ee6a8f4fc372b4eb5c91e9e65a63112a11b4f9c3394f213b0a8",
+            "response_sha256": "ada6b4a2257ee1eef9600013823438594787f31f3430b07af6988493db8467c1"
+          },
+          {
+            "requested_at": "2026-10-13T15:26:27.347927+00:00",
+            "status": "generated",
+            "request_id": "c5177f98-c023-43aa-a21c-d8c4fe9c90c5",
+            "usage_available": true,
+            "estimated_cost_usd": 0.0060144,
+            "request_seconds": null,
+            "record_sha256": "f5798f2c3f2c5d303d7b9ef33c7dff0835937835c4df4c78f6fd469e52785aeb",
+            "response_sha256": "636521feebf28db48ca06246dc968e5aaa0772dd726c06bb0fd4e50f221da7aa"
+          }
+        ]
+      },
+      "request_id": "c5177f98-c023-43aa-a21c-d8c4fe9c90c5",
+      "requested_at": "2026-10-13T15:26:27.347927+00:00",
+      "generated_at": "2026-10-13T15:26:42.890319+00:00",
+      "tokens_in": 3010,
+      "tokens_out": 1127,
+      "max_output_tokens": 8192,
+      "temperature": 0,
+      "temperature_sent": true,
+      "bedrock_reasoning_effort": null,
+      "finish_reason": "end_turn"
+    }
+  }
+}

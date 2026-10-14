@@ -1,0 +1,279 @@
+{
+  "model": "grok-4.7",
+  "requested_model_id": "us.xai.grok-4.7",
+  "family": "xAI",
+  "tasks": {
+    "whoami": {
+      "model": "grok-4.7",
+      "task": "whoami",
+      "requested_model_id": "us.xai.grok-4.7",
+      "provider": "bedrock",
+      "family": "xAI",
+      "generation": "free-expression-20261012",
+      "source_records": "results/model-self-portraits/generations/free-expression-20261012/grok-4.7",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "8b94d11f0ad17a5df982787b5f813f32cbe49842a009998f88228c252f4b8a5e",
+      "content_review": {
+        "model": "grok-4.7",
+        "generation": "free-expression-20261012",
+        "score": 98.5,
+        "critical": 0,
+        "warnings": 1,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 8,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 5,
+          "Accessibility": 3.5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/grok-4.7/artwork.html",
+            "line": 19,
+            "quote": "p { margin:.3rem 0 0; color:var(--dim); font-size:clamp(.85rem,2vw,1rem); max-width:36ch; }",
+            "problem": "Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px).",
+            "action": "Use at least 19px for informative text and controls while retaining the chosen composition."
+          }
+        ],
+        "artwork_sha256": "8b94d11f0ad17a5df982787b5f813f32cbe49842a009998f88228c252f4b8a5e",
+        "model_id": "us.xai.grok-4.7",
+        "reported_model": null,
+        "requested_at": "2026-10-12T08:10:12.401468+00:00",
+        "reviewed_at": "2026-10-12T08:51:09.251178+00:00",
+        "initial_prompt_sha256": "8ccfc4c2a9879b142d5b7c8a6731c8b8d778aa321a91d70fe545ea0407b4269b",
+        "exact_example_free_initial_prompt": true,
+        "original_response_containment": true,
+        "frozen_source": "/tmp/free-expression-review/grok-4.7/8b94d11f0ad1",
+        "browser_evidence": "/tmp/free-expression-review/grok-4.7/8b94d11f0ad1/browser.json",
+        "notes": [
+          "Existing burst/keyboard actions execute; reduced-motion hides the moving field and retains text. That alternative composition is not treated as a mandatory-static-image failure.",
+          "Browser/source evidence frozen at /tmp/free-expression-review/grok-4.7/8b94d11f0ad1. Actual model response containment and exact example-free initial prompt verified."
+        ]
+      },
+      "prompt_sha256": "8ccfc4c2a9879b142d5b7c8a6731c8b8d778aa321a91d70fe545ea0407b4269b",
+      "initial_prompt_sha256": "8ccfc4c2a9879b142d5b7c8a6731c8b8d778aa321a91d70fe545ea0407b4269b",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "free-expression-20261012",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 3.3,
+          "price_out": 12.65,
+          "price_cache_read": 0.825,
+          "price_cache_write": 4.125
+        },
+        "estimated_total_usd": 0.02089725,
+        "estimated_final_response_usd": 0.02089725,
+        "recorded_attempts": 1,
+        "successful_code_responses": 1,
+        "additional_attempts": 0,
+        "known_cost_attempts": 1,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 249,
+          "tokens_out": 1587,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-12T08:10:12.401468+00:00",
+            "status": "generated",
+            "request_id": "d14fdf4a-7685-465b-923d-ea07301c985f",
+            "usage_available": true,
+            "estimated_cost_usd": 0.02089725,
+            "request_seconds": null,
+            "record_sha256": "5fe2c5444cf50453bafd2dbf7c05395db8747671465b73441ad4b04416ffdb9e",
+            "response_sha256": "fd394d2f993f7422991f3c8076fca9744ffb9e402b40e07484272312932a4f74"
+          }
+        ]
+      },
+      "request_id": "d14fdf4a-7685-465b-923d-ea07301c985f",
+      "requested_at": "2026-10-12T08:10:12.401468+00:00",
+      "generated_at": "2026-10-12T08:10:33.252861+00:00",
+      "tokens_in": 249,
+      "tokens_out": 1587,
+      "max_output_tokens": 8192,
+      "temperature": null,
+      "temperature_sent": false,
+      "finish_reason": "end_turn"
+    },
+    "lotte-tower": {
+      "model": "grok-4.7",
+      "task": "lotte-tower",
+      "requested_model_id": "us.xai.grok-4.7",
+      "provider": "bedrock",
+      "family": "xAI",
+      "generation": "lotte-tower-models-20261013",
+      "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/grok-4.7",
+      "status": "generated",
+      "generation_status": "generated",
+      "artwork_sha256": "7be742b78f02b19dc517d29f5f964e6a3b6560c6b381a23ddf4b64d46d8c7f7c",
+      "content_review": {
+        "task_requirements_complete": true,
+        "model": "grok-4.7",
+        "score": 96.5,
+        "critical": 0,
+        "warnings": 2,
+        "verdict": "PASS",
+        "category_scores": {
+          "Layout": 6.0,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 5,
+          "Interactions": 5,
+          "Readability": 3.5,
+          "Accessibility": 5,
+          "Structural Completeness": 5,
+          "Data Accuracy and References": 5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "artwork_sha256": "7be742b78f02b19dc517d29f5f964e6a3b6560c6b381a23ddf4b64d46d8c7f7c",
+        "model_id": "us.xai.grok-4.7",
+        "origin_generation": "lotte-tower-models-20261013",
+        "original_response_bytes_verified": true,
+        "source": "/tmp/model-lotte-review/grok-4.7/7be742b78f02",
+        "browser_evidence": "/tmp/model-lotte-review/grok-4.7/7be742b78f02/browser.json",
+        "findings": [
+          {
+            "severity": "Warning",
+            "category": "Readability",
+            "file": "docs/models/grok-4.7/lotte-tower/artwork.html",
+            "line": 99,
+            "quote": "ctx.strokeStyle='#2c3a4a';ctx.fillStyle='#1a2430';ctx.lineWidth=1.5;ctx.font='19px Georgia, serif';",
+            "problem": "Some meaningful UI/diagram annotations render below19px, including fixed-size drawing labels scaled down on mobile.",
+            "action": "Keep meaningful text at least19px at its rendered size; adapt labels or provide readable HTML equivalents."
+          },
+          {
+            "severity": "Warning",
+            "category": "Layout",
+            "file": "docs/models/grok-4.7/lotte-tower/artwork.html",
+            "line": 157,
+            "quote": "var dist=H*1.35;",
+            "problem": "Reset camera distance with38°vertical field does not contain the555-high completed model; the extremes are cropped.",
+            "action": "Fit complete geometry to the actual canvas bounds in the default/reset pose."
+          }
+        ],
+        "notes": [
+          "Second re-review of revised source (iteration3) with full original brief restored. Actual response bytes/model identity matched, offline375/768/1440 tested; no source edits.",
+          "Four diagrams and actual staged lathe model restored; source profile matches diagram curve and total555m. Reduced-mode keyboard updates orientation correctly; all native controls execute."
+        ],
+        "reviewed_at": "2026-10-13T15:16:55.112840+00:00",
+        "re_review_number": 2,
+        "review_iteration": 3,
+        "retry_limit_reached": false,
+        "current_generation_status": "generated",
+        "active_source": true
+      },
+      "prompt_sha256": "930363eb5c4a52fbc1a5e19a7c1b19b8bc433ee2ddc7a6d42ffd688886db120b",
+      "initial_prompt_sha256": "a68d95b5aa9fee9b223da0f6cd2af364b43ebfe37cbb7560d14da6a3245e3fb0",
+      "implementation_cost": {
+        "kind": "api_tokens",
+        "generation": "lotte-tower-models-20261013",
+        "currency": "USD",
+        "price_source": "config.toml",
+        "price_snapshot": {
+          "price_in": 3.3,
+          "price_out": 12.65,
+          "price_cache_read": 0.825,
+          "price_cache_write": 4.125
+        },
+        "estimated_total_usd": 0.1668304,
+        "estimated_final_response_usd": 0.0588533,
+        "recorded_attempts": 3,
+        "successful_code_responses": 3,
+        "additional_attempts": 2,
+        "known_cost_attempts": 3,
+        "unknown_usage_attempts": 0,
+        "missing_duration_attempts": 0,
+        "total_request_seconds": null,
+        "tokens": {
+          "tokens_in": 2684,
+          "tokens_out": 12488,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "complete_request_estimate": true,
+        "excludes": [
+          "reviewer_and_coordinator_calls",
+          "historical_generations",
+          "taxes_and_discounts",
+          "requests_without_returned_usage"
+        ],
+        "attempts": [
+          {
+            "requested_at": "2026-10-13T10:58:40.118444+00:00",
+            "status": "generated",
+            "request_id": "a9f0e78e-d829-49f6-8b4b-170e848bb97f",
+            "usage_available": true,
+            "estimated_cost_usd": 0.0711733,
+            "request_seconds": null,
+            "record_sha256": "368dc5969614f3c6e96b8028a5d79c77397e4481b34d44f8e9298dcab15e6946",
+            "response_sha256": "e651f405778eb5964aba1a1b9cd1bc858e24249ae763f8c002722c614da295de"
+          },
+          {
+            "requested_at": "2026-10-13T13:38:19.632420+00:00",
+            "status": "generated",
+            "request_id": "3b6e44f1-573d-4940-8c5b-65017ecd86cf",
+            "usage_available": true,
+            "estimated_cost_usd": 0.0368038,
+            "request_seconds": null,
+            "record_sha256": "a6aa962d4da9bcfba7d1eff16f628ac5ed7ccab7df0e6933bd2e7b54a2861769",
+            "response_sha256": "2b940ab39e48634a0f654b84e09da16e6fed8e0df2da9131fdb8ee55fc4c9895"
+          },
+          {
+            "requested_at": "2026-10-13T15:07:42.225858+00:00",
+            "status": "generated",
+            "request_id": "f10e363d-923b-47f3-b38e-91024531031b",
+            "usage_available": true,
+            "estimated_cost_usd": 0.0588533,
+            "request_seconds": null,
+            "record_sha256": "37ab8d4b045be7adda093b93cf858ab73b0ac4f0ff44ae92a0e2ecac14d7d32a",
+            "response_sha256": "dfcbd356d6f8548419407919e3a95a51267a0e407d99f4178bee45025ef40e04"
+          }
+        ]
+      },
+      "request_id": "f10e363d-923b-47f3-b38e-91024531031b",
+      "requested_at": "2026-10-13T15:07:42.225858+00:00",
+      "generated_at": "2026-10-13T15:08:17.016710+00:00",
+      "tokens_in": 1397,
+      "tokens_out": 4288,
+      "max_output_tokens": 16384,
+      "temperature": null,
+      "temperature_sent": false,
+      "bedrock_reasoning_effort": "low",
+      "finish_reason": "end_turn"
+    }
+  }
+}

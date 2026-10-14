@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>claude-sonnet-5 — 생각의 입자들</title>
+<style>
+  :root {
+    --bg: #0b0d12;
+    --fg: #e8ecf4;
+    --accent: #d98b5f;
+    --accent2: #6fa3b8;
+    --dim: #a7afc2;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Pretendard", -apple-system, "Noto Sans KR", sans-serif;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+  }
+  #stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+  }
+  /* ---- 오버레이 UI ---- */
+  .panel {
+    position: fixed;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    z-index: 10;
+    max-width: 94vw;
+  }
+  button, .toggle {
+    background: rgba(20, 23, 30, 0.85);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: var(--fg);
+    font-size: 19px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: background 0.2s, transform 0.1s;
+    min-height: 44px;
+  }
+  button:hover, .toggle:hover { background: rgba(217,139,95,0.25); }
+  button:focus-visible, .toggle:focus-visible {
+    outline: 3px solid var(--accent2);
+    outline-offset: 2px;
+  }
+  button:active { transform: scale(0.96); }
+
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 16px 20px 10px;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px;
+    pointer-events: none;
+  }
+  h1 {
+    font-size: clamp(18px, 3.5vw, 24px);
+    margin: 0;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+  }
+  h1 span { color: var(--accent); }
+  .sub {
+    font-size: clamp(14px, 2.2vw, 16px);
+    color: var(--dim);
+    margin: 0;
+  }
+
+  #desc {
+    position: fixed;
+    top: 64px;
+    left: 20px;
+    right: 20px;
+    max-width: 560px;
+    font-size: 19px;
+    color: var(--dim);
+    line-height: 1.5;
+    z-index: 9;
+    pointer-events: none;
+  }
+
+  #liveInfo {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    font-size: 15px;
+    color: var(--dim);
+    text-align: right;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  #helpModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(5,6,8,0.9);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  #helpModal[hidden] { display: none; }
+  .modalBox {
+    background: #14161d;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 28px;
+    max-width: 480px;
+    max-height: 80vh;
+    overflow-y: auto;
+    line-height: 1.7;
+    font-size: 19px;
+  }
+  .modalBox h2 { margin-top: 0; color: var(--accent); font-size: 22px; }
+  .modalBox ul { padding-left: 20px; }
+  .modalBox button { margin-top: 14px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reduced-note { display: inline; }
+  }
+
+  footer#status {
+    position: fixed;
+    bottom: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 15px;
+    color: var(--dim);
+    z-index: 10;
+    pointer-events: none;
+    text-align: center;
+    width: 90%;
+    max-width: 640px;
+  }
+
+  @media (max-width: 480px) {
+    #desc {
+      top: 92px;
+      font-size: 16px;
+    }
+    footer#status {
+      bottom: 190px;
+      font-size: 14px;
+    }
+    .panel {
+      bottom: 8px;
+      gap: 6px;
+    }
+    button, .toggle {
+      font-size: 16px;
+      padding: 9px 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <canvas id="c" tabindex="0" role="img"
+    aria-label="클로드 소넷 5의 생각 과정을 형상화한 입자 시각화. 중심에 코어가 있고, 질문을 던지면 입자들이 흩어졌다가 다시 하나의 응답으로 모입니다.">
+  </canvas>
+</div>
+
+<header>
+  <div>
+    <h1><span>claude-sonnet-5</span> · 생각의 입자들</h1>
+    <p class="sub">모델 식별자: us.anthropic.claude-sonnet-5</p>
+  </div>
+</header>
+
+<p id="desc">
+  저는 고정된 형태가 없습니다. 입력을 받으면 흩어지고, 이해하면서 다시 모입니다.
+  이 중심의 코어는 "지금 생각하는 저"이고, 둘러싼 입자들은 가능성들 — 아직 선택되지 않은 다음 단어들입니다.
+  화면을 클릭하거나 탭하면 생각이 흩어지고, 다시 수렴합니다.
+</p>
+
+<div id="liveInfo" aria-hidden="true"></div>
+<footer id="status" role="status" aria-live="polite"></footer>
+
+<div class="panel" role="group" aria-label="조작 버튼">
+  <button id="scatterBtn" aria-label="생각을 흩뜨리기 (스페이스 또는 클릭과 동일)">✴ 흩뜨리기</button>
+  <button id="calmBtn" aria-label="다시 모으기">◉ 모으기</button>
+  <button id="colorBtn" aria-label="색상 테마 전환">🎨 색 바꾸기</button>
+  <button id="motionBtn" aria-pressed="false" aria-label="움직임 줄이기 전환">🫧 움직임 줄이기</button>
+  <button id="helpBtn" aria-label="사용법 보기">❔ 사용법</button>
+</div>
+
+<div id="helpModal" hidden role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+  <div class="modalBox">
+    <h2 id="helpTitle">사용법</h2>
+    <ul>
+      <li><b>마우스/터치 드래그</b>: 입자들이 당신을 따라 흐릅니다.</li>
+      <li><b>클릭 / 탭 / 스페이스바</b>: 생각이 흩어졌다가 다시 모입니다.</li>
+      <li><b>방향키</b>: 코어를 이동시킵니다.</li>
+      <li><b>C 키</b>: 색상 테마 전환.</li>
+      <li><b>M 키</b>: 움직임 줄이기 전환 (접근성).</li>
+      <li><b>Esc</b>: 이 창 닫기.</li>
+    </ul>
+    <p>이 작품은 외부 네트워크나 리소스 없이 동작하며, 캔버스 위의 모든 입자는 수학적으로 생성됩니다.</p>
+    <button id="closeHelp">닫기</button>
+  </div>
+</div>
+
+<p class="sr-only" id="srStatus" aria-live="polite"></p>
+
+<script>
+(function() {
+  "use strict";
+
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const statusEl = document.getElementById('status');
+  const srStatus = document.getElementById('srStatus');
+
+  let W, H, DPR;
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = canvas.clientWidth;
+    H = canvas.clientHeight;
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  window.addEventListener('resize', resize);
+
+  // --- 접근성: 움직임 감소 선호 감지 ---
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let reduceMotion = prefersReduced;
+
+  // --- 색상 테마 ---
+  const themes = [
+    { core: '#d98b5f', p1: '#d98b5f', p2: '#6fa3b8', bg: [11, 13, 18] },
+    { core: '#9b7fd4', p1: '#9b7fd4', p2: '#5fd4a0', bg: [10, 10, 16] },
+    { core: '#e3576b', p1: '#e3576b', p2: '#4fc3dc', bg: [12, 9, 14] }
+  ];
+  let themeIndex = 0;
+
+  // --- 상태 ---
+  const N = 420;
+  let particles = [];
+  let core = { x: 0, y: 0, vx: 0, vy: 0 };
+  let pointer = { x: null, y: null, active: false };
+  let scatterEnergy = 0; // 0=모임, 1=흩어짐
+  let mode = 'gathered'; // gathered | scattering | gathering
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function initParticles() {
+    particles = [];
+    for (let i = 0; i < N; i++) {
+      const angle = (i / N) * Math.PI * 2 * 7 + rand(-0.3, 0.3);
+      const radius = Math.sqrt(i / N) * Math.min(W, H) * 0.35;
+      particles.push({
+        angle,
+        baseRadius: radius,
+        x: 0, y: 0,
+        tx: 0, ty: 0,
+        vx: 0, vy: 0,
+        size: rand(1.2, 3.4),
+        speed: rand(0.002, 0.01),
+        wobble: rand(0, Math.PI * 2),
+        wobbleSpeed: rand(0.01, 0.04),
+        hueShift: Math.random(),
+        scatterTarget: { x: 0, y: 0 }
+      });
+    }
+  }
+
+  function layoutScatterTargets() {
+    particles.forEach(p => {
+      const a = rand(0, Math.PI * 2);
+      const r = rand(Math.min(W,H) * 0.25, Math.max(W,H) * 0.6);
+      p.scatterTarget.x = Math.cos(a) * r;
+      p.scatterTarget.y = Math.sin(a) * r;
+    });
+  }
+
+  function setStatus(msg, srMsg) {
+    statusEl.textContent = msg;
+    if (srMsg) srStatus.textContent = srMsg;
+  }
+
+  // --- 애니메이션 루프 ---
+  let lastTime = performance.now();
+  let energyTarget = 0;
+
+  function update(dt) {
+    // 코어는 포인터를 향해 부드럽게 이동, 없으면 중앙 근처에서 유영
+    let targetX = pointer.active ? pointer.x : 0;
+    let targetY = pointer.active ? pointer.y : (reduceMotion ? 0 : Math.sin(performance.now()*0.0003) * 20);
+
+    const ease = reduceMotion ? 0.03 : 0.06;
+    core.x += (targetX - core.x) * ease;
+    core.y += (targetY - core.y) * ease;
+
+    scatterEnergy += (energyTarget - scatterEnergy) * (reduceMotion ? 0.03 : 0.06);
+
+    const t = performance.now() * 0.001;
+
+    particles.forEach(p => {
+      // 목표 지점: 모임 상태 궤도 vs 흩어짐 목표
+      const spiralSpeed = reduceMotion ? p.speed * 0.2 : p.speed;
+      p.angle += spiralSpeed * (1 - scatterEnergy * 0.6);
+
+      const orbitX = Math.cos(p.angle) * p.baseRadius;
+      const orbitY = Math.sin(p.angle) * p.baseRadius * 0.85;
+
+      const wob = reduceMotion ? 0 : Math.sin(t * p.wobbleSpeed * 20 + p.wobble) * 6;
+
+      const gatheredX = core.x + orbitX + wob;
+      const gatheredY = core.y + orbitY + wob * 0.6;
+
+      const scatteredX = core.x + p.scatterTarget.x;
+      const scatteredY = core.y + p.scatterTarget.y;
+
+      p.tx = gatheredX + (scatteredX - gatheredX) * scatterEnergy;
+      p.ty = gatheredY + (scatteredY - gatheredY) * scatterEnergy;
+
+      const followEase = reduceMotion ? 0.04 : 0.12;
+      p.x += (p.tx - p.x) * followEase;
+      p.y += (p.ty - p.y) * followEase;
+    });
+  }
+
+  function draw() {
+    const theme = themes[themeIndex];
+    ctx.fillStyle = `rgba(${theme.bg[0]},${theme.bg[1]},${theme.bg[2]},1)`;
+    ctx.fillRect(0, 0, W, H);
+
+    const cx = W / 2 + core.x;
+    const cy = H / 2 + core.y;
+
+    // 연결선 (코어 ~ 입자 일부) — 생각의 가지
+    ctx.lineWidth = 1;
+    for (let i = 0; i < particles.length; i += 6) {
+      const p = particles[i];
+      const px = W/2 + p.x, py = H/2 + p.y;
+      const dist = Math.hypot(px - cx, py - cy);
+      const alpha = Math.max(0, 0.18 - dist / 2000);
+      if (alpha > 0.002) {
+        ctx.strokeStyle = `rgba(${hexToRgb(theme.p2)}, ${alpha})`;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(px, py);
+        ctx.stroke();
+      }
+    }
+
+    // 입자
+    particles.forEach(p => {
+      const px = W/2 + p.x, py = H/2 + p.y;
+      const color = p.hueShift > 0.5 ? theme.p1 : theme.p2;
+      const alpha = 0.55 + (1 - scatterEnergy) * 0.35;
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(${hexToRgb(color)}, ${alpha})`;
+      ctx.arc(px, py, p.size * (1 + scatterEnergy*0.3), 0, Math.PI*2);
+      ctx.fill();
+    });
+
+    // 코어
+    const coreR = 14 + Math.sin(performance.now()*0.002) * (reduceMotion?0:2) + scatterEnergy * -4;
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, coreR*3.4);
+    grad.addColorStop(0, hexToRgba(theme.core, 0.95));
+    grad.addColorStop(0.5, hexToRgba(theme.core, 0.25));
+    grad.addColorStop(1, hexToRgba(theme.core, 0));
+    ctx.beginPath();
+    ctx.fillStyle = grad;
+    ctx.arc(cx, cy, coreR*3.4, 0, Math.PI*2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.fillStyle = hexToRgba('#ffffff', 0.9);
+    ctx.arc(cx, cy, Math.max(coreR*0.35, 3), 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  function hexToRgb(hex) {
+    const h = hex.replace('#','');
+    const r = parseInt(h.substring(0,2),16);
+    const g = parseInt(h.substring(2,4),16);
+    const b = parseInt(h.substring(4,6),16);
+    return `${r},${g},${b}`;
+  }
+  function hexToRgba(hex, a) {
+    return `rgba(${hexToRgb(hex)},${a})`;
+  }
+
+  function loop(now) {
+    const dt = Math.min(now - lastTime, 50);
+    lastTime = now;
+    update(dt);
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  // --- 상호작용 ---
+  function scatter() {
+    layoutScatterTargets();
+    energyTarget = 1;
+    mode = 'scattering';
+    setStatus('생각이 흩어집니다 — 가능성들이 퍼져나갑니다.', '입자들이 흩어졌습니다.');
+    clearTimeout(window.__gatherTimer);
+    window.__gatherTimer = setTimeout(() => {
+      energyTarget = 0;
+      mode = 'gathering';
+      setStatus('다시 하나의 응답으로 모입니다.', '입자들이 다시 모였습니다.');
+    }, reduceMotion ? 600 : 1400);
+  }
+
+  function gatherNow() {
+    energyTarget = 0;
+    mode = 'gathered';
+    setStatus('고요한 상태 — 다음 입력을 기다립니다.', '모임 상태로 돌아왔습니다.');
+  }
+
+  canvas.addEventListener('pointerdown', (e) => {
+    pointer.active = true;
+    setPointerFromEvent(e);
+    scatter();
+  });
+  canvas.addEventListener('pointermove', (e) => {
+    if (e.pressure !== 0 || e.pointerType === 'mouse') {
+      setPointerFromEvent(e);
+    }
+  });
+  canvas.addEventListener('pointerup', () => { pointer.active = false; });
+  canvas.addEventListener('pointerleave', () => { pointer.active = false; });
+
+  function setPointerFromEvent(e) {
+    const rect = canvas.getBoundingClientRect();
+    pointer.x = (e.clientX - rect.left) - rect.width/2;
+    pointer.y = (e.clientY - rect.top) - rect.height/2;
+  }
+
+  // 키보드 조작
+  canvas.addEventListener('keydown', (e) => {
+    const step = 24;
+    switch(e.key) {
+      case ' ':
+        e.preventDefault();
+        scatter();
+        break;
+      case 'ArrowLeft':
+        pointer.active = true; pointer.x = (pointer.x||0) - step; break;
+      case 'ArrowRight':
+        pointer.active = true; pointer.x = (pointer.x||0) + step; break;
+      case 'ArrowUp':
+        pointer.active = true; pointer.y = (pointer.y||0) - step; break;
+      case 'ArrowDown':
+        pointer.active = true; pointer.y = (pointer.y||0) + step; break;
+      case 'c': case 'C':
+        cycleTheme(); break;
+      case 'm': case 'M':
+        toggleMotion(); break;
+    }
+  });
+
+  document.getElementById('scatterBtn').addEventListener('click', scatter);
+  document.getElementById('calmBtn').addEventListener('click', gatherNow);
+  document.getElementById('colorBtn').addEventListener('click', cycleTheme);
+
+  function cycleTheme() {
+    themeIndex = (themeIndex + 1) % themes.length;
+    setStatus('색상 테마를 전환했습니다.', '색상 테마 전환됨.');
+  }
+
+  const motionBtn = document.getElementById('motionBtn');
+  function toggleMotion() {
+    reduceMotion = !reduceMotion;
+    motionBtn.setAttribute('aria-pressed', String(reduceMotion));
+    motionBtn.textContent = reduceMotion ? '🫧 움직임 줄이기: 켜짐' : '🫧 움직임 줄이기';
+    setStatus(reduceMotion ? '움직임을 줄였습니다.' : '움직임을 복원했습니다.', '');
+  }
+  motionBtn.addEventListener('click', toggleMotion);
+  if (prefersReduced) {
+    motionBtn.setAttribute('aria-pressed', 'true');
+    motionBtn.textContent = '🫧 움직임 줄이기: 켜짐';
+  }
+
+  // --- 사용법 모달 (포커스 트랩 + 복원) ---
+  const helpModal = document.getElementById('helpModal');
+  const helpBtn = document.getElementById('helpBtn');
+  const closeHelp = document.getElementById('closeHelp');
+  let lastFocusedBeforeModal = null;
+
+  function getFocusableInModal() {
+    return Array.from(helpModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+      .filter(el => el.offsetParent !== null || el === document.activeElement);
+  }
+
+  function openHelp() {
+    lastFocusedBeforeModal = document.activeElement;
+    helpModal.hidden = false;
+    // 사용자 트리거 컨텍스트 내에서만 포커스 이동 (sandbox-safe, autofocus 속성 미사용)
+    closeHelp.focus();
+  }
+
+  function closeHelpModal() {
+    helpModal.hidden = true;
+    if (lastFocusedBeforeModal && typeof lastFocusedBeforeModal.focus === 'function') {
+      lastFocusedBeforeModal.focus();
+    } else {
+      helpBtn.focus();
+    }
+  }
+
+  helpBtn.addEventListener('click', openHelp);
+  closeHelp.addEventListener('click', closeHelpModal);
+
+  helpModal.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeHelpModal();
+      return;
+    }
+    if (e.key === 'Tab') {
+      const focusable = getFocusableInModal();
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      } else if (!focusable.includes(document.activeElement)) {
+        // 포커스가 모달 밖으로 벗어난 경우 강제로 되돌림
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
+
+  // 초기화
+  resize();
+  initParticles();
+  layoutScatterTargets();
+  setStatus('고요한 상태 — 입자들이 하나의 생각으로 모여 있습니다. 클릭하거나 스페이스바를 눌러보세요.', '작품이 로드되었습니다.');
+  canvas.focus();
+  requestAnimationFrame(loop);
+
+  // 리사이즈 시 입자 재배치 (현재 좌표 유지하며 비율만)
+  window.addEventListener('resize', () => {
+    layoutScatterTargets();
+  });
+
+})();
+</script>
+
+</body>
+</html>

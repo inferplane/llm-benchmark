@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotte World Tower</title>
+    <style>
+        body {
+            margin: 0;
+            font-size: 19px;
+            font-family: Arial, sans-serif;
+        }
+        #container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #drawing-controls {
+            margin: 20px 0;
+        }
+        button {
+            font-size: 19px;
+            margin: 0 10px;
+            padding: 10px 20px;
+        }
+        #canvas-container {
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 19px;
+        }
+        #model-name {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 19px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="drawing-controls">
+            <button id="site-plan-btn">배치도</button>
+            <button id="floor-plan-btn">기준층 평면도</button>
+            <button id="elevation-btn">입면도</button>
+            <button id="section-btn">단면도</button>
+            <button id="stage1-btn">설계 단계 1</button>
+            <button id="stage2-btn">설계 단계 2</button>
+            <button id="stage3-btn">완성된 모델</button>
+            <button id="reset-view-btn">시점 초기화</button>
+        </div>
+        <div id="canvas-container"></div>
+        <div id="info"></div>
+        <div id="model-name">llama4-maverick</div>
+    </div>
+
+    <script>
+        let scene, camera, renderer, controls;
+        let currentDrawing = null;
+
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({
+                antialias: true
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight * 0.8);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            camera.position.set(0, 200, 400);
+            controls.target.set(0, 200, 0);
+            controls.update();
+
+            const initialCameraPosition = camera.position.clone();
+            const initialControlsTarget = controls.target.clone();
+
+            document.getElementById('site-plan-btn').addEventListener('click', showSitePlan);
+            document.getElementById('floor-plan-btn').addEventListener('click', showFloorPlan);
+            document.getElementById('elevation-btn').addEventListener('click', showElevation);
+            document.getElementById('section-btn').addEventListener('click', showSection);
+            document.getElementById('stage1-btn').addEventListener('click', showStage1);
+            document.getElementById('stage2-btn').addEventListener('click', showStage2);
+            document.getElementById('stage3-btn').addEventListener('click', showStage3);
+            document.getElementById('reset-view-btn').addEventListener('click', () => {
+                camera.position.copy(initialCameraPosition);
+                controls.target.copy(initialControlsTarget);
+                controls.update();
+            });
+
+            window.addEventListener('resize', onWindowResize);
+            window.addEventListener('keydown', onKeyDown);
+
+            showStage3();
+            animate();
+        }
+
+        function showSitePlan() {
+            clearScene();
+            const geometry = new THREE.PlaneGeometry(200, 200);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+            const plane = new THREE.Mesh(geometry, material);
+            scene.add(plane);
+            currentDrawing = 'site-plan';
+            document.getElementById('info').innerText = '배치도 - 200m x 200m';
+        }
+
+        function showFloorPlan() {
+            clearScene();
+            const shape = new THREE.Shape();
+            shape.moveTo(-50, -50);
+            shape.lineTo(50, -50);
+            shape.lineTo(50, 50);
+            shape.lineTo(-50, 50);
+            shape.lineTo(-50, -50);
+            const geometry = new THREE.ShapeGeometry(shape);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+            currentDrawing = 'floor-plan';
+            document.getElementById('info').innerText = '기준층 평면도 - 100m x 100m';
+        }
+
+        function showElevation() {
+            clearScene();
+            const geometry = new THREE.BoxGeometry(50, 555, 10);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+            const box = new THREE.Mesh(geometry, material);
+            scene.add(box);
+            currentDrawing = 'elevation';
+            document.getElementById('info').innerText = '입면도 - 높이 555m, 폭 50m (개념적 표현)';
+        }
+
+        function showSection() {
+            clearScene();
+            const geometry = new THREE.PlaneGeometry(50, 555);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+            const plane = new THREE.Mesh(geometry, material);
+            scene.add(plane);
+            currentDrawing = 'section';
+            document.getElementById('info').innerText = '단면도 - 높이 555m, 폭 50m (개념적 표현)';
+        }
+
+        function showStage1() {
+            clearScene();
+            const geometry = new THREE.CylinderGeometry(50, 50, 555, 32);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+            const cylinder = new THREE.Mesh(geometry, material);
+            scene.add(cylinder);
+            document.getElementById('info').innerText = '설계 단계 1: 초기 원통형 형태';
+        }
+
+        function showStage2() {
+            clearScene();
+            const geometry = new THREE.ConeGeometry(50, 555, 32);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+            const cone = new THREE.Mesh(geometry, material);
+            scene.add(cone);
+            document.getElementById('info').innerText = '설계 단계 2: 원뿔형태로의 변형';
+        }
+
+        function showStage3() {
+            clearScene();
+            const geometry = new THREE.ConeGeometry(50, 555, 32);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+            const cone = new THREE.Mesh(geometry, material);
+            scene.add(cone);
+            document.getElementById('info').innerText = '완성된 모델: 롯데월드타워';
+        }
+
+        function clearScene() {
+            while (scene.children.length > 0) {
+                scene.remove(scene.children[0]);
+            }
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight * 0.8);
+        }
+
+        function onKeyDown(event) {
+            switch (event.key) {
+                case 'ArrowUp':
+                    camera.rotateX(-0.1);
+                    break;
+                case 'ArrowDown':
+                    camera.rotateX(0.1);
+                    break;
+                case 'ArrowLeft':
+                    camera.rotateOnWorldAxis(new THREE.Vector3(0, 1, 0), -0.1);
+                    break;
+                case 'ArrowRight':
+                    camera.rotateOnWorldAxis(new THREE.Vector3(0, 1, 0), 0.1);
+                    break;
+                case '+':
+                case '=':
+                    camera.zoom = 2;
+                    camera.position.z -= 10;
+                    break;
+                case '-':
+                    camera.position.z += 10;
+                    break;
+                case 'r':
+                case 'R':
+                    camera.position.set(0, 200, 400);
+                    controls.target.set(0, 200, 0);
+                    controls.update();
+                    break;
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        const script = document.createElement('script');
+        script.src = '../runtime/three-runtime.js';
+        document.head.appendChild(script);
+        script.onload = init;
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+{
+  "model": "qwen3-32b",
+  "task": "whoami",
+  "requested_model_id": "qwen.qwen3-32b-v1:0",
+  "provider": "bedrock",
+  "family": "Qwen",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/qwen3-32b",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "dc1be4dfe2475ed3403d4436dedf92b7c7f25b7146c478feaa09f0d579051084",
+  "content_review": {
+    "model": "qwen3-32b",
+    "generation": "free-expression-20261012",
+    "score": 96.0,
+    "critical": 0,
+    "warnings": 3,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 3.5,
+      "Readability": 5,
+      "Accessibility": 2.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/qwen3-32b/artwork.html",
+        "line": 84,
+        "quote": "font-size: 1rem;",
+        "problem": "Meaningful labels, instructions or descriptions render below the rubric minimum of 14pt (about 19px).",
+        "action": "Use at least 19px for informative text and controls while retaining the chosen composition."
+      },
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/qwen3-32b/artwork.html",
+        "line": 79,
+        "quote": "color: white;",
+        "problem": "White text on the #58a6ff motion button has insufficient contrast (about 2.5:1).",
+        "action": "Use a foreground/background pair with at least 4.5:1 contrast."
+      },
+      {
+        "severity": "Warning",
+        "category": "Interactions",
+        "file": "docs/models/qwen3-32b/artwork.html",
+        "line": 120,
+        "quote": "function toggleMotion() {",
+        "problem": "The motion toggle changes a body class, but no CSS or running handler responds to that class; the animated pseudo-element continues unchanged.",
+        "action": "Wire the existing motion toggle to the actual pseudo-element animation."
+      }
+    ],
+    "artwork_sha256": "dc1be4dfe2475ed3403d4436dedf92b7c7f25b7146c478feaa09f0d579051084",
+    "model_id": "qwen.qwen3-32b-v1:0",
+    "reported_model": null,
+    "requested_at": "2026-10-12T08:11:09.103892+00:00",
+    "reviewed_at": "2026-10-12T08:51:09.263689+00:00",
+    "initial_prompt_sha256": "4a171fe9315a5135b5a1ac014b614d41b2a6320291e9c1d646accde2a4d480dd",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/qwen3-32b/dc1be4dfe247",
+    "browser_evidence": "/tmp/free-expression-review/qwen3-32b/dc1be4dfe247/browser.json",
+    "notes": [
+      "Browser/source evidence frozen at /tmp/free-expression-review/qwen3-32b/dc1be4dfe247. Actual model response containment and exact example-free initial prompt verified."
+    ]
+  },
+  "prompt_sha256": "4a171fe9315a5135b5a1ac014b614d41b2a6320291e9c1d646accde2a4d480dd",
+  "initial_prompt_sha256": "4a171fe9315a5135b5a1ac014b614d41b2a6320291e9c1d646accde2a4d480dd",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.15,
+      "price_out": 0.6
+    },
+    "estimated_total_usd": 0.00085995,
+    "estimated_final_response_usd": 0.00085995,
+    "recorded_attempts": 1,
+    "successful_code_responses": 1,
+    "additional_attempts": 0,
+    "known_cost_attempts": 1,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 249,
+      "tokens_out": 1371,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:11:09.103892+00:00",
+        "status": "generated",
+        "request_id": "274aab21-e947-42cb-8dd0-6c24f195199a",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00085995,
+        "request_seconds": null,
+        "record_sha256": "499cf24bc8ea4b9bad34100c26a8e1cb8714100271ff9492a5a32124ca99b72f",
+        "response_sha256": "918e1062d62978f82d9b0a9786a19c7d83c0dada1194b2d00f11081b85d052ad"
+      }
+    ]
+  },
+  "request_id": "274aab21-e947-42cb-8dd0-6c24f195199a",
+  "requested_at": "2026-10-12T08:11:09.103892+00:00",
+  "generated_at": "2026-10-12T08:11:23.135593+00:00",
+  "tokens_in": 249,
+  "tokens_out": 1371,
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "finish_reason": "end_turn"
+}

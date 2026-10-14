@@ -1,0 +1,22 @@
+{
+  "model": "claude-haiku-5.5",
+  "model_id": "us.anthropic.claude-haiku-5-5",
+  "api": "bedrock",
+  "generation": "lotte-world-tower-20261013-pilot",
+  "requested_at": "2026-10-13T07:08:39.310195+00:00",
+  "prompt_sha256": "2ec52a187635eb6acd8abb8912029e17a3243acb8cbf5f89e90e5461bc20ae58",
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "failed",
+  "failed_at": "2026-10-13T07:10:06.740566+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Model response is not a complete HTML document"
+}

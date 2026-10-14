@@ -1,0 +1,29 @@
+{
+  "model": "grok-4.3",
+  "model_id": "xai.grok-4.3",
+  "api": "bedrock_mantle",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T15:05:36.082634+00:00",
+  "prompt_sha256": "26684a56b6f6427171a9088a1579df0941bf555be9379f9bb731f190cc7fb320",
+  "max_output_tokens": 16384,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "generated",
+  "generated_at": "2026-10-13T15:05:57.124405+00:00",
+  "artwork_sha256": "2e89a7041fc1dbad41ba0d2605e3472d2073f52b622f2728ee22c461e27d6fec",
+  "tokens_in": 1292,
+  "tokens_out": 4674,
+  "response_status": "completed",
+  "http_status": 200,
+  "reported_model": "xai.grok-4.3",
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low"
+  },
+  "reasoning_tokens": 758,
+  "request_id": "req_ljb5p6kzfig6xjb7gtqt3lrrjohvw42gjvtefwrpjidt2yghjucq",
+  "response_id": "resp_owrjfxxukcgptfhqymtnovm762vrdzlbho5267maea5at4jbg5oa"
+}

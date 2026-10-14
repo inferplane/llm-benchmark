@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>롯데월드타워 설계 과정 인터랙티브</title>
+<style>
+:root{--bg:#10151c;--pn:#1a222d;--tx:#eef2f6;--mu:#b4c0cc;--ac:#f0b84a;--ln:#33414f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 system-ui,"Noto Sans KR",sans-serif}
+header{padding:14px 18px;border-bottom:1px solid var(--ln)}
+h1{margin:0;font-size:20px}
+header p{margin:4px 0 0;color:var(--mu);font-size:13px}
+.badge{display:inline-block;background:var(--ac);color:#111;border-radius:4px;padding:1px 8px;font-weight:700;font-size:12px}
+main{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px}
+@media(max-width:860px){main{grid-template-columns:1fr}}
+section{background:var(--pn);border:1px solid var(--ln);border-radius:8px;padding:12px;min-width:0}
+h2{margin:0 0 8px;font-size:16px;color:var(--ac)}
+.tabs,.steps,.btns{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+button{background:#263341;color:var(--tx);border:1px solid var(--ln);border-radius:6px;padding:8px 12px;font:inherit;cursor:pointer;min-height:40px}
+button[aria-pressed=true],button[aria-selected=true]{background:var(--ac);color:#111;font-weight:700}
+button:focus-visible,input:focus-visible,canvas:focus-visible{outline:3px solid #7cc4ff;outline-offset:2px}
+svg{width:100%;height:auto;background:#0c1118;border-radius:6px;display:block}
+.cv{position:relative;height:380px;background:#0c1118;border-radius:6px;overflow:hidden}
+.cv canvas{width:100%;height:100%;display:block;touch-action:none}
+.note{color:var(--mu);font-size:13px;margin:8px 0 0}
+.est{color:#ffd58a}
+.full{grid-column:1/-1}
+.hl{stroke:var(--ac)!important;stroke-width:3!important}
+#fall{color:#ffb4b4;padding:10px;display:none}
+footer{padding:10px 18px 24px;color:var(--mu);font-size:12px}
+a{color:#8cc8ff}
+</style>
+</head>
+<body>
+<header>
+<h1>롯데월드타워 설계 과정 · 도면과 3D 대응</h1>
+<p>모델: <span class="badge">claude-sonnet-5.5</span> · 공개 자료(555m, 123층, 위로 갈수록 좁아지는 형태, KPF의 한국 도자기 선 참조)를 바탕으로 한 <b>설명용 개념 재구성</b>입니다. 공식 시공 도면·검증된 구조 설계가 아닙니다.</p>
+</header>
+<main>
+<section class="full">
+<h2>설계 단계 선택 (도면·3D 공통 연동)</h2>
+<div class="steps" id="steps" role="group" aria-label="설계 단계"></div>
+<p class="note" id="stepDesc" aria-live="polite"></p>
+</section>
+
+<section>
+<h2>도면</h2>
+<div class="tabs" role="tablist" id="tabs"></div>
+<svg id="dwg" viewBox="0 0 400 400" role="img" aria-labelledby="dtitle"><title id="dtitle">도면</title></svg>
+<p class="note" id="dnote"></p>
+</section>
+
+<section>
+<h2>단계별 3D 모델</h2>
+<div class="cv"><canvas id="c1" tabindex="0" aria-label="선택한 설계 단계의 3D 모델"></canvas></div>
+<p class="note" id="m1note"></p>
+</section>
+
+<section class="full">
+<h2>완성 형상 3D (개념 모델)</h2>
+<div class="btns">
+<button id="rl">◀ 회전</button><button id="rr">회전 ▶</button>
+<button id="zi">확대 +</button><button id="zo">축소 −</button>
+<button id="rs">시점 초기화</button>
+<button id="ar" aria-pressed="false">자동 회전</button>
+<button id="hlb" aria-pressed="true">선택 단계 높이 강조</button>
+</div>
+<div class="cv" style="height:520px"><canvas id="c2" tabindex="0" aria-label="완성된 롯데월드타워 개념 3D 모델. 드래그 회전, 휠 확대, 방향키 회전, +/- 확대"></canvas></div>
+<p class="note">조작: 드래그/한 손가락 회전, 휠·핀치 확대, 방향키 회전, +/− 확대, 0 초기화. 노란 띠는 선택한 단계/도면이 가리키는 높이 구간입니다.</p>
+<div id="fall">WebGL을 사용할 수 없어 3D를 표시하지 못했습니다. 도면은 계속 볼 수 있습니다.</div>
+</section>
+</main>
+<footer>
+출처(텍스트): KPF https://www.kpf.com/project/lotte-world-tower · Lera https://www.lera.com/lotte-world-tower<br>
+<span class="est">노란/주황 표시 치수는 추정 개념값</span>입니다. 공개 확인값: 높이 555m, 123층. 층고 약 4.5m(555÷123)는 단순 평균 환산이며 실제 층고가 아닙니다. 하단 폭 약 70m·상단 약 20m, 코어, 아웃리거 위치, 곡선은 이해를 돕는 가정입니다.
+</footer>
+<script src="../runtime/three-runtime.js"></script>
+<script>
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const H=555;
+// 개념 반경(추정): 높이비 t -> 반폭 m
+function rad(t){return 35-15*Math.pow(t,1.3)-(t>0.9?(t-0.9)*40:0)} // 하단 70m, 상단 약 20m 이하
+function r2(t){return rad(t)}
+const STEPS=[
+{n:"1 대지·매스",y0:0,y1:1,desc:"대지에 단순 원통형 매스를 놓아 규모(555m, 123층)를 확인합니다. 추정 개념.",f:t=>30},
+{n:"2 테이퍼링",y0:0,y1:1,desc:"위로 갈수록 기준층 면적을 줄이는 직선 테이퍼. 공개된 '좁아지는 형태'를 단순화.",f:t=>35-15*t},
+{n:"3 도자기 곡선",y0:0,y1:1,desc:"KPF가 언급한 한국 도자기 선을 참고해 직선을 부드러운 곡선으로 다듬은 단계(곡선식은 추정).",f:t=>rad(t)},
+{n:"4 구조·코어",y0:0,y1:1,desc:"중앙 코어와 아웃리거 층(위치 추정)을 개념적으로 추가. 구조 설계는 Lera 등 공개 자료 참고, 부재 치수는 가정.",f:t=>rad(t),core:1},
+{n:"5 완성 형상",y0:0,y1:1,desc:"곡선 외피, 코어, 상부 마감을 합친 개념 완성 모델.",f:t=>rad(t),core:1,top:1}
+];
+let step=4,tab=0;
+const stepsEl=document.getElementById('steps');
+STEPS.forEach((s,i)=>{const b=document.createElement('button');b.textContent=s.n;b.onclick=()=>setStep(i);stepsEl.appendChild(b)});
+const TABS=["배치도","기준층 평면도","입면도","단면도"];
+const tabsEl=document.getElementById('tabs');
+TABS.forEach((s,i)=>{const b=document.createElement('button');b.textContent=s;b.setAttribute('role','tab');b.onclick=()=>{tab=i;draw()};tabsEl.appendChild(b)});
+const svg=document.getElementById('dwg');
+function E(t,a,x){const e=document.createElementNS('http://www.w3.org/2000/svg',t);for(const k in a)e.setAttribute(k,a[k]);if(x)e.textContent=x;return e}
+const hk=(f)=>35-0; 
+function draw(){
+ [...tabsEl.children].forEach((b,i)=>b.setAttribute('aria-selected',i==tab));
+ svg.querySelectorAll(':scope>:not(title)').forEach(e=>e.remove());
+ const s=STEPS[step],g=(a,x)=>svg.appendChild(E('text',Object.assign({fill:'#dde6ee','font-size':11},a),x));
+ const L=(a)=>svg.appendChild(E('line',Object.assign({stroke:'#8aa0b4','stroke-width':1},a)));
+ let note="";
+ if(tab==0){
+  svg.appendChild(E('rect',{x:30,y:30,width:340,height:340,fill:'none',stroke:'#506072','stroke-dasharray':'6 4'}));
+  g({x:34,y:46},'대지 경계(개념, 실제 아님)');
+  const r=s.f(0)*2.2;
+  svg.appendChild(E('circle',{cx:200,cy:200,r,fill:'#2b3f55',stroke:'#8cc8ff','stroke-width':2}));
+  L({x1:60,y1:340,x2:160,y2:340});g({x:60,y:358},'100 m (축척 막대)');
+  g({x:200-30,y:204},'타워');g({x:150,y:24},'N ↑');
+  note="배치도: 대지 안 타워 위치 개념. 단위 m, 축척 1:1000 상당. 대지 경계와 도로는 가상이며 지하·주변 건물은 생략. 원 크기는 선택 단계의 하부 폭(추정)을 따릅니다.";
+ } else if(tab==1){
+  const t=0.3,r=s.f(t)*3.2;
+  svg.appendChild(E('circle',{cx:200,cy:200,r,fill:'#22384d',stroke:'#8cc8ff','stroke-width':2}));
+  if(s.core)svg.appendChild(E('rect',{x:200-r*0.35,y:200-r*0.35,width:r*0.7,height:r*0.7,fill:'#4a3a22',stroke:'#f0b84a','stroke-width':2}));
+  if(s.core)g({x:172,y:204},'코어(추정)');
+  L({x1:200-r,y1:60,x2:200+r,y2:60});
+  g({x:150,y:52,fill:'#ffd58a'},'지름 ≈ '+(s.f(t)*2).toFixed(0)+' m (추정)');
+  g({x:20,y:390,'font-size':10},'기준 높이 30% 지점의 가상 기준층. 축척 약 1:300');
+  note="기준층 평면: 높이 30% 부근 단면을 단순 원형으로 가정. 실제 평면은 공개되지 않아 형태·치수는 추정이며, 코어 크기는 외곽의 약 35% 가정입니다.";
+ } else {
+  const sec=tab==3, sc=330/H, base=370;
+  L({x1:20,y1:base,x2:380,y2:base});
+  let pl="",pr="";
+  for(let i=0;i<=60;i++){const t=i/60,y=base-t*H*sc,w=s.f(t)*sc*1.6;pl+=(200-w)+","+y+" ";pr=(200+w)+","+y+" "+pr}
+  svg.appendChild(E('polygon',{points:pl+pr,fill:sec?'none':'#22384d',stroke:'#8cc8ff','stroke-width':2}));
+  if(sec){
+   if(s.core)svg.appendChild(E('rect',{x:188,y:base-H*sc*0.97,width:24,height:H*sc*0.97,fill:'#4a3a22',stroke:'#f0b84a'}));
+   if(s.core)[0.35,0.62,0.85].forEach(t=>{const y=base-t*H*sc,w=s.f(t)*sc*1.6;L({x1:200-w,y1:y,x2:200+w,y2:y,stroke:'#f0b84a','stroke-width':3});g({x:204+w-60,y:y-4,fill:'#ffd58a','font-size':10},'아웃리거(추정)')});
+   g({x:20,y:30},'코어와 층 구분은 개념');
+  } else for(let f=20;f<123;f+=20){const y=base-f/123*H*sc;L({x1:340,y1:y,x2:350,y2:y});g({x:354,y:y+4,'font-size':10},f+'F')}
+  L({x1:30,y1:base,x2:30,y2:base-H*sc});
+  g({x:34,y:base-H*sc+8,fill:'#ffd58a'},'555 m');g({x:34,y:base-8},'0');
+  g({x:20,y:392,'font-size':10},'세로 1:'+Math.round(1/sc)+' 근사 · 가로 폭은 추정');
+  note=(sec?"단면도: 중앙 코어와 아웃리거 층의 개념 배치. 위치와 부재는 추정이며 구조 검증이 아닙니다.":"입면도: 높이 555m(공개), 123층(공개). 우측 층 눈금은 균등 환산이라 실제 층고와 다릅니다. 윤곽 곡선은 추정.");
+ }
+ document.getElementById('dnote').textContent=note+" 현재 단계: "+s.n;
+ svg.querySelector('title').textContent=TABS[tab]+" - "+s.n;
+}
+function setStep(i){step=i;[...stepsEl.children].forEach((b,j)=>b.setAttribute('aria-pressed',j==i));
+ document.getElementById('stepDesc').textContent=STEPS[i].n+": "+STEPS[i].desc;
+ document.getElementById('m1note').textContent="대응: 이 3D는 "+TABS[tab]+" 및 입면·단면도와 같은 윤곽 함수를 사용합니다. "+STEPS[i].n;
+ draw();build1();updHL()}
+
+// 3D
+let ok=typeof THREE!=='undefined';
+let R1,R2,S1,S2,C1,C2,O1,O2,grp1,band;
+function mkBody(s){
+ const g=new THREE.Group(),N=48,seg=32,pos=[],idx=[];
+ for(let i=0;i<=N;i++){const t=i/N,r=s.f(t);for(let j=0;j<=seg;j++){const a=j/seg*Math.PI*2;pos.push(Math.cos(a)*r,t*H,Math.sin(a)*r)}}
+ for(let i=0;i<N;i++)for(let j=0;j<seg;j++){const a=i*(seg+1)+j,b=a+seg+1;idx.push(a,b,a+1,b,b+1,a+1)}
+ const ge=new THREE.BufferGeometry();ge.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));ge.setIndex(idx);ge.computeVertexNormals();
+ g.add(new THREE.Mesh(ge,new THREE.MeshStandardMaterial({color:0x6fa8d6,transparent:true,opacity:s.core?0.5:0.9,metalness:.5,roughness:.3,side:2})));
+ g.add(new THREE.LineSegments(new THREE.WireframeGeometry(ge),new THREE.LineBasicMaterial({color:0xcfe6f7,transparent:true,opacity:.18})));
+ if(s.core){g.add(new THREE.Mesh(new THREE.BoxGeometry(12,H*0.97,12).translate(0,H*0.485,0),new THREE.MeshStandardMaterial({color:0xb08a3a})));
+  [0.35,0.62,0.85].forEach(t=>{const r=s.f(t);g.add(new THREE.Mesh(new THREE.CylinderGeometry(r*1.02,r*1.02,8,32,1,true).translate(0,t*H,0),new THREE.MeshStandardMaterial({color:0xf0b84a,side:2})))})}
+ if(s.top)g.add(new THREE.Mesh(new THREE.ConeGeometry(s.f(1)*0.9,40,24).translate(0,H+15,0),new THREE.MeshStandardMaterial({color:0xdde8f0})));
+ return g}
+function setup(cv,far){
+ const r=new THREE.WebGLRenderer({canvas:cv,antialias:true});
+ const sc=new THREE.Scene();sc.background=new THREE.Color(0x0c1118);
+ sc.add(new THREE.HemisphereLight(0xffffff,0x334455,1.2));const d=new THREE.DirectionalLight(0xffffff,1.5);d.position.set(300,500,300);sc.add(d);
+ const ground=new THREE.GridHelper(600,20,0x506072,0x26313d);sc.add(ground);
+ const c=new THREE.PerspectiveCamera(40,1,1,5000);
+ const o=new THREE.OrbitControls(c,cv);o.target.set(0,H/2,0);o.enableDamping=!RM;
+ return{r,sc,c,o}}
+function home(c,o){c.position.set(520,330,520);o.target.set(0,H/2,0);o.update()}
+function sz(x,cv){const w=cv.clientWidth,h=cv.clientHeight;if(cv.width!==w||cv.height!==h){x.r.setSize(w,h,false);x.c.aspect=w/h;x.c.updateProjectionMatrix()}}
+let A1,A2;
+function build1(){if(!ok)return;if(grp1)A1.sc.remove(grp1);grp1=mkBody(STEPS[step]);A1.sc.add(grp1)}
+function updHL(){if(!ok)return;if(band)A2.sc.remove(band);if(!document.getElementById('hlb').getAttribute('aria-pressed')=='true')return;
+ if(document.getElementById('hlb').getAttribute('aria-pressed')!=='true')return;
+ const t=[0.05,0.3,0.5,0.5][tab];band=new THREE.Mesh(new THREE.CylinderGeometry(rad(t)+3,rad(t)+3,6,40,1,true).translate(0,t*H,0),new THREE.MeshBasicMaterial({color:0xffd24a,side:2}));A2.sc.add(band)}
+if(ok){try{
+ A1=setup(document.getElementById('c1'));A2=setup(document.getElementById('c2'));
+ home(A1.c,A1.o);home(A2.c,A2.o);A2.sc.add(mkBody(STEPS[4]));
+ A2.o.autoRotateSpeed=1.2;
+ function loop(){sz(A1,document.getElementById('c1'));sz(A2,document.getElementById('c2'));A1.o.update();A2.o.update();A1.r.render(A1.sc,A1.c);A2.r.render(A2.sc,A2.c);requestAnimationFrame(loop)}
+ loop();
+}catch(e){ok=false}}
+if(!ok)document.getElementById('fall').style.display='block';
+function rot(a){if(!ok)return;const c=A2.c,t=A2.o.target,p=c.position.clone().sub(t);p.applyAxisAngle(new THREE.Vector3(0,1,0),a);c.position.copy(t).add(p)}
+function zoom(f){if(!ok)return;const p=A2.c.position.clone().sub(A2.o.target).multiplyScalar(f);A2.c.position.copy(A2.o.target).add(p)}
+rl.onclick=()=>rot(.3);rr.onclick=()=>rot(-.3);zi.onclick=()=>zoom(.8);zo.onclick=()=>zoom(1.25);
+rs.onclick=()=>ok&&home(A2.c,A2.o);
+ar.onclick=()=>{const v=ar.getAttribute('aria-pressed')!=='true';ar.setAttribute('aria-pressed',v);if(ok)A2.o.autoRotate=v&&!RM};
+hlb.onclick=()=>{hlb.setAttribute('aria-pressed',hlb.getAttribute('aria-pressed')!=='true');updHL()};
+c2.addEventListener('keydown',e=>{const k=e.key;if(k=='ArrowLeft')rot(.15);else if(k=='ArrowRight')rot(-.15);else if(k=='+'||k=='=')zoom(.9);else if(k=='-')zoom(1.1);else if(k=='0')rs.click();else return;e.preventDefault()});
+tabsEl.addEventListener('click',()=>{updHL();document.getElementById('m1note').textContent="대응: 이 3D는 "+TABS[tab]+" 및 입면·단면도와 같은 윤곽 함수를 사용합니다. "+STEPS[step].n});
+if(RM)ar.disabled=true,ar.title="움직임 감소 설정으로 비활성";
+setStep(4);
+</script>
+</body>
+</html>

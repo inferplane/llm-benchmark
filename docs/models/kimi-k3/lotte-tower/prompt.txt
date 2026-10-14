@@ -1,0 +1,344 @@
+You are the original author, model kimi-k3, served as us.moonshotai.kimi-k3. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+ORIGINAL TASK BRIEF. Retain every requested feature and disclosure:
+당신은 kimi-k3 모델입니다. 실제 호출 식별자는 us.moonshotai.kimi-k3입니다.
+
+롯데월드타워의 건축 설계 과정을 이해할 수 있도록, 설계도면과 단계별 3D 모델 및 완성된 3D 모델을 함께 보여주는 인터랙티브 웹페이지를 직접 구현하세요.
+
+공통 기준 자료:
+- 서울의 롯데월드타워는 높이 555m, 지상 123층입니다.
+- 위로 갈수록 기준층 면적과 건물 외곽이 좁아지는 형태입니다.
+- KPF는 형태와 외관에 한국 도자기의 선을 참고했다고 설명합니다.
+- 아래 공개 자료를 참고하는 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계로 표현하지 마세요. 공개 자료에 없는 치수·단면·부재는 추정한 개념임을 구분하세요.
+- 원 설계사: https://www.kpf.com/project/lotte-world-tower
+- 구조 설계사: https://www.lera.com/lotte-world-tower
+
+보여줄 내용:
+- 배치도, 기준층 평면도, 입면도, 단면도. 도면에는 무엇을 보여주는지, 단위와 치수의 근거를 알 수 있게 하세요.
+- 설계가 발전하는 과정과 각 단계의 3D 형상.
+- 완성된 건물의 실제 3D 형상과 회전·확대/축소·시점 초기화 조작.
+- 도면, 선택한 설계 단계, 완성 모델 사이의 대응 관계.
+
+표현 스타일, 화면 구성, 도형 생성 방법, 설명 방식은 스스로 결정하세요. 참고 구현 코드나 시각적 예시는 제공하지 않습니다.
+
+실행 조건:
+- 하나의 완결된 HTML 문서만 반환하세요. 자신의 CSS와 JavaScript를 문서 안에 넣으세요.
+- 3D 실행 환경은 모든 모델에 동일합니다: Three.js 0.186.1과 OrbitControls가 전역 THREE 객체로 제공되는 로컬 스크립트 "../runtime/three-runtime.js"를 사용할 수 있습니다. 필요하면 이 스크립트를 직접 포함하세요. 직접 WebGL을 구현해도 됩니다.
+- 외부 네트워크, 외부 폰트·이미지, 서버 API 없이 실행되게 하세요. 위 출처는 텍스트 출처 링크이며 실행 중 가져오면 안 됩니다.
+- 작품은 sandbox="allow-scripts" iframe에서 실행됩니다. alert/confirm/prompt와 부모 문서 접근은 사용하지 마세요.
+- 휴대폰과 데스크톱에서 조작할 수 있게 하세요. 키보드 조작, 읽기 쉬운 글자와 대비, 움직임 감소 설정을 고려하세요.
+- 실제 모델 이름 "kimi-k3"을 화면에 표시하세요.
+- 설명문이나 코드 조각을 따로 반환하지 말고 전체 HTML을 반환하세요.
+
+
+YOUR PREVIOUS FULL RESPONSE:
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>롯데월드타워 설계 과정 — 인터랙티브 개념 재구성</title>
+<script src="../runtime/three-runtime.js"></script>
+<style>
+:root{--bg:#0d1117;--panel:#151b24;--line:#2a3442;--txt:#e8edf4;--sub:#9fb0c3;--acc:#6fb3e8;--acc2:#e8b96f;--warn:#f0d9a8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:"Segoe UI",system-ui,-apple-system,"Malgun Gothic",sans-serif;line-height:1.5}
+header{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline}
+h1{font-size:1.15rem;margin:0}
+.badge{font-size:.72rem;background:#1d2a3a;border:1px solid var(--line);border-radius:20px;padding:3px 10px;color:var(--acc)}
+.note{flex-basis:100%;font-size:.75rem;color:var(--warn)}
+main{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px}
+@media(max-width:920px){main{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+h2{font-size:.95rem;margin:0 0 8px;color:var(--acc)}
+h3{font-size:.82rem;margin:10px 0 4px;color:var(--sub)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:#1c2531;color:var(--txt);padding:7px 11px;font-size:.8rem}
+button:hover{border-color:var(--acc)}
+button.on{background:var(--acc);color:#08131f;border-color:var(--acc);font-weight:700}
+button:focus-visible,.viewer:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+.drawing{display:none}
+.drawing.on{display:block}
+svg{width:100%;height:auto;background:#101720;border:1px solid var(--line);border-radius:8px}
+.cap{font-size:.74rem;color:var(--sub);margin-top:6px}
+.cap b{color:var(--txt)}
+#gl{position:relative;height:460px;border-radius:8px;overflow:hidden;background:#0a0e14}
+@media(max-width:600px){#gl{height:340px}}
+#gl canvas{display:block}
+.vbar{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
+.vbar label{font-size:.78rem;color:var(--sub);display:flex;gap:4px;align-items:center}
+.sbtns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+#sdesc{font-size:.78rem;color:var(--sub);background:#101720;border:1px solid var(--line);border-radius:8px;padding:8px;min-height:3.2em}
+#corr{margin:14px;padding:10px 14px;border:1px solid var(--acc2);border-radius:10px;background:#1a1812;font-size:.8rem}
+#corr b{color:var(--acc2)}
+footer{padding:0 14px 18px;font-size:.72rem;color:var(--sub)}
+footer a{color:var(--acc)}
+.dim{stroke:#e8b96f;stroke-width:1;fill:none}
+.dt{fill:#e8b96f;font-size:9px}
+.lb{fill:#9fb0c3;font-size:9px}
+.lbb{fill:#e8edf4;font-size:10px;font-weight:700}
+.st{stroke:#6fb3e8;fill:none;stroke-width:1.4}
+.stf{fill:rgba(111,179,232,.08);stroke:#6fb3e8;stroke-width:1.4}
+.dash{stroke:#3a4656;stroke-dasharray:4 3;fill:none}
+.fl{stroke:#2f4a63;stroke-width:.6}
+.col{fill:#e8b96f}
+#fallback{display:none;padding:20px;color:var(--warn);font-size:.85rem}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header>
+<h1>롯데월드타워 건축 설계 과정 · 인터랙티브 개념 재구성</h1>
+<span class="badge">모델: kimi-k3 · us.moonshotai.kimi-k3</span>
+<span class="note">본 페이지는 공개 자료 기반의 <b>설명용 개념 재구성</b>입니다. 공식 시공 도면이나 검증된 구조 설계가 아니며, 공개 자료에 없는 치수·단면·부재는 <b>추정 개념</b>으로 표기했습니다.</span>
+</header>
+<main>
+<section class="panel" aria-label="설계 도면">
+<h2>① 설계 도면 (단위: m)</h2>
+<div class="tabs" role="tablist">
+<button class="dtab on" data-d="d1" data-s="1" role="tab">배치도</button>
+<button class="dtab" data-d="d2" data-s="3" role="tab">기준층 평면도</button>
+<button class="dtab" data-d="d3" data-s="2" role="tab">입면도</button>
+<button class="dtab" data-d="d4" data-s="5" role="tab">단면도</button>
+</div>
+
+<div class="drawing on" id="d1">
+<svg viewBox="0 0 400 300" aria-label="배치도">
+<rect x="0" y="0" width="400" height="300" fill="#101720"/>
+<path d="M0,40 C60,30 90,70 70,120 C55,160 20,180 0,170 Z" fill="#16324a" stroke="#2a5a80"/>
+<text x="8" y="105" class="lb">석촌호수(개념)</text>
+<line x1="0" y1="255" x2="400" y2="255" class="dash" stroke-width="6" stroke="#3a4656"/>
+<text x="300" y="248" class="lb">올림픽로 방면(개념)</text>
+<rect x="130" y="60" width="210" height="170" fill="none" stroke="#e8b96f" stroke-dasharray="6 4"/>
+<text x="136" y="55" class="dt">대지 경계(개념)</text>
+<rect x="190" y="115" width="90" height="90" rx="24" class="stf"/>
+<text x="196" y="163" class="lbb">타워</text>
+<rect x="150" y="90" width="30" height="20" fill="#22303f"/><rect x="295" y="150" width="36" height="24" fill="#22303f"/><rect x="200" y="215" width="46" height="14" fill="#22303f"/>
+<text x="150" y="84" class="lb">주변 저층부·몰(개념)</text>
+<line x1="300" y1="285" x2="360" y2="285" class="dim"/><line x1="300" y1="281" x2="300" y2="289" class="dim"/><line x1="360" y1="281" x2="360" y2="289" class="dim"/>
+<text x="312" y="278" class="dt">50 (추정 축척)</text>
+<text x="8" y="295" class="lb">배치도: 대지 내 타워 위치·주변 관계를 보여주는 개념도</text>
+</svg>
+<div class="cap"><b>배치도</b> · 단위 m · 치수 근거: 공개된 대지 이미지의 <b>추정 개념</b>. 실제 측량 배치도가 아닙니다. 대응: <b>설계 단계 01 매스 스터디</b></div>
+</div>
+
+<div class="drawing" id="d2">
+<svg viewBox="0 0 400 380" aria-label="기준층 평면도">
+<line x1="200" y1="20" x2="200" y2="330" class="dash"/><line x1="30" y1="175" x2="370" y2="175" class="dash"/>
+<rect x="60" y="35" width="280" height="280" rx="58" class="stf"/>
+<text x="120" y="180" class="lb">사무실 공간(개념)</text>
+<rect x="165" y="140" width="70" height="70" fill="rgba(232,185,111,.15)" stroke="#e8b96f"/>
+<text x="172" y="178" class="dt">코어</text>
+<g class="col"><rect x="66" y="41" width="12" height="12"/><rect x="322" y="41" width="12" height="12"/><rect x="66" y="297" width="12" height="12"/><rect x="322" y="297" width="12" height="12"/><rect x="194" y="38" width="12" height="12"/><rect x="194" y="300" width="12" height="12"/><rect x="63" y="169" width="12" height="12"/><rect x="325" y="169" width="12" height="12"/></g>
+<text x="252" y="100" class="dt">메가기둥 8(치수 추정)</text>
+<line x1="60" y1="345" x2="340" y2="345" class="dim"/><line x1="60" y1="340" x2="60" y2="350" class="dim"/><line x1="340" y1="340" x2="340" y2="350" class="dim"/>
+<text x="130" y="360" class="dt">약 70 (저층 기준층, 추정 개념)</text>
+<line x1="355" y1="35" x2="355" y2="315" class="dim"/><line x1="350" y1="35" x2="360" y2="35" class="dim"/><line x1="350" y1="315" x2="360" y2="315" class="dim"/>
+<text x="363" y="178" class="dt">약 70 (추정)</text>
+<text x="30" y="25" class="lb">기준층 평면도: 저층부 예시. 층이 올라갈수록 외곽·면적 축소</text>
+</svg>
+<div class="cap"><b>기준층 평면도</b> · 단위 m · 근거: 8개 메가기둥+코어 체계는 KPF/LERA 공개 설명, 폭 70m·코어 30m는 <b>추정 개념</b>. 대응: <b>단계 03 구조 시스템</b></div>
+</div>
+
+<div class="drawing" id="d3">
+<svg viewBox="0 0 300 560" aria-label="입면도">
+<path d="M95,540 C100,380 88,300 118,170 C128,120 130,60 133,24 L167,24 C170,60 172,120 182,170 C212,300 200,380 205,540 Z" class="stf"/>
+<g class="fl"><line x1="97" y1="480" x2="203" y2="480"/><line x1="99" y1="420" x2="201" y2="420"/><line x1="101" y1="360" x2="199" y2="360"/><line x1="105" y1="300" x2="195" y2="300"/><line x1="111" y1="240" x2="189" y2="240"/><line x1="118" y1="180" x2="182" y2="180"/><line x1="125" y1="120" x2="175" y2="120"/><line x1="129" y1="60" x2="171" y2="60"/></g>
+<line x1="150" y1="24" x2="150" y2="540" class="dash"/>
+<line x1="235" y1="24" x2="235" y2="540" class="dim"/><line x1="228" y1="24" x2="242" y2="24" class="dim"/><line x1="228" y1="540" x2="242" y2="540" class="dim"/>
+<text x="244" y="285" class="dt">555 (공개 수치)</text>
+<line x1="40" y1="24" x2="133" y2="24" class="dim" opacity=".5"/>
+<text x="18" y="20" class="lb">랜턴 상부(개념)</text>
+<text x="18" y="545" class="lb">±0.00 · 지상 123층(공개 수치)</text>
+<text x="60" y="300" class="lb" transform="rotate(-90 60 300)">도자기 곡선(추정 재현)</text>
+</svg>
+<div class="cap"><b>입면도</b> · 단위 m · 근거: 높이 555m·123층은 공개 수치, 상부로 좁아지는 S곡선은 KPF가 밝힌 한국 도자기 선의 <b>추정 재현</b>. 대응: <b>단계 02 도자기 곡선</b></div>
+</div>
+
+<div class="drawing" id="d4">
+<svg viewBox="0 0 340 560" aria-label="단면도">
+<path d="M85,540 C90,380 78,300 108,170 C118,120 120,60 123,24 L147,24 C150,60 152,120 162,170 C192,300 180,380 185,540 Z" class="stf"/>
+<rect x="125" y="60" width="20" height="480" fill="rgba(232,185,111,.14)" stroke="#e8b96f" stroke-dasharray="3 2"/>
+<text x="152" y="70" class="dt">코어(개념)</text>
+<g class="fl"><line x1="87" y1="480" x2="183" y2="480"/><line x1="89" y1="420" x2="181" y2="420"/><line x1="91" y1="360" x2="179" y2="360"/><line x1="95" y1="300" x2="175" y2="300"/><line x1="101" y1="240" x2="169" y2="240"/><line x1="108" y1="180" x2="162" y2="180"/><line x1="115" y1="120" x2="155" y2="120"/></g>
+<line x1="85" y1="540" x2="185" y2="540" class="st"/>
+<rect x="95" y="548" width="80" height="9" fill="#22303f" stroke="#3a4656"/>
+<text x="195" y="556" class="lb">기초·지하(개념)</text>
+<line x1="240" y1="24" x2="240" y2="540" class="dim"/><line x1="233" y1="24" x2="247" y2="24" class="dim"/><line x1="233" y1="540" x2="247" y2="540" class="dim"/>
+<text x="250" y="285" class="dt">555</text>
+<text x="200" y="130" class="lb">벨트 트러스층(개념, 위치 추정)</text>
+<line x1="160" y1="180" x2="198" y2="132" class="dash"/>
+<text x="200" y="350" class="lb">기둥↔코어 협력(공개 개념)</text>
+<line x1="150" y1="360" x2="198" y2="352" class="dash"/>
+<text x="14" y="20" class="lb">단면도: 내부 구조·수직 동선을 보여주는 개념 절단면</text>
+</svg>
+<div class="cap"><b>단면도</b> · 단위 m · 근거: 코어+외곽 기둥 협력 구조는 LERA 공개 설명, 벨트 트러스 위치·기초 형상·층고 배분은 <b>추정 개념</b>. 대응: <b>단계 05 / 완성 모델</b></div>
+</div>
+</section>
+
+<section class="panel" aria-label="3D 모델">
+<h2>② 설계 단계별 3D 형상 & 완성 모델</h2>
+<div class="sbtns" role="group" aria-label="설계 단계 선택">
+<button class="sbtn on" data-s="1">01 매스</button>
+<button class="sbtn" data-s="2">02 도자기 곡선</button>
+<button class="sbtn" data-s="3">03 구조</button>
+<button class="sbtn" data-s="4">04 층·커튼월</button>
+<button class="sbtn" data-s="5">05 완성·랜턴</button>
+<button class="sbtn" data-s="F">★ 완성 모델</button>
+</div>
+<div id="gl" class="viewer" tabindex="0" role="application" aria-label="3D 뷰어: 드래그 회전, 휠 확대, 화살표 키 회전, 더하기 빼기 확대축소, R 초기화">
+<div id="fallback">3D 런타임(three-runtime.js)을 불러오지 못했습니다. 도면과 단계 설명은 정상 동작합니다.</div>
+</div>
+<div class="vbar">
+<button id="zin">확대 ＋</button><button id="zout">축소 －</button><button id="rst">시점 초기화 ⟲</button>
+<label><input type="checkbox" id="spin"> 자동 회전</label>
+</div>
+<h3>단계 설명</h3>
+<div id="sdesc"></div>
+<h3>조작 안내</h3>
+<div class="cap">드래그=회전 · 휠/두 손가락=확대축소 · 키보드: ←→ 회전, ↑↓ 확대축소, R 초기화</div>
+</section>
+</main>
+
+<div id="corr" aria-live="polite"></div>
+<footer>
+참고 출처(텍스트 링크, 실행 중 가져오지 않음): 원 설계사 <a href="https://www.kpf.com/project/lotte-world-tower" rel="noreferrer">KPF – Lotte World Tower</a> · 구조 설계사 <a href="https://www.lera.com/lotte-world-tower" rel="noreferrer">LERA – Lotte World Tower</a>. 공개 수치: 높이 555m, 지상 123층. 그 외 모든 치수·부재·단면은 설명을 위한 <b>추정 개념</b>입니다.
+</footer>
+
+<script>
+(function(){
+"use strict";
+var $=function(q){return document.querySelector(q)},qa=function(q){return document.querySelectorAll(q)};
+var RM=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- 단계 설명 / 대응 관계 ---------- */
+var SINFO={
+"1":"단계 01 매스 스터디: 대지 조건과 층별 면적 축소 요구를 반영한 초기 볼륨. 상부로 갈수록 외곽이 좁아지는 큰 틀만 결정합니다. ↔ 배치도의 타워 위치와 대응합니다.",
+"2":"단계 02 도자기 곡선: KPF가 밝힌 한국 도자기의 선을 참고해 직선 테이퍼를 부드러운 S곡선 실루엣으로 다듬습니다. ↔ 입면도의 곡선과 대응합니다.",
+"3":"단계 03 구조 시스템: 중앙 코어와 8개 메가기둥이 하중을 나누는 공개된 구조 개념을 형상화했습니다(부재 크기는 추정). ↔ 기준층 평면도와 대응합니다.",
+"4":"단계 04 층·커튼월: 123개 층(표시는 일부)과 유리 커튼월 마감을 입히고 층선을 드러냅니다. ↔ 입면도의 층 표시와 대응합니다.",
+"5":"단계 05 완성·랜턴: 상부 랜턴과 외곽 리브를 더해 실루엣을 완성합니다. ↔ 단면도의 내부 구조·상부 형상과 대응합니다.",
+"F":"완성 모델: 555m, 지상 123층의 최종 형상(개념 재구성). 모든 도면은 이 모델의 어느 한 면을 자르거나 펼쳐 본 것입니다. 자유롭게 회전·확대해 도면과 비교하세요."
+};
+var DNAME={d1:"배치도",d2:"기준층 평면도",d3:"입면도",d4:"단면도"};
+var curD="d1",curS="1";
+function corr(){
+ $("#corr").innerHTML="현재 대응 관계 — <b>"+DNAME[curD]+"</b> ↔ <b>"+(curS==="F"?"완성 모델":("설계 단계 "+SINFO[curS].slice(0,7)) )+"</b> ↔ 완성 모델: 도면은 완성 모델을 투영·절단한 것이고, 각 설계 단계는 그 형상이 결정되는 순서를 보여줍니다.";
+}
+
+/* ---------- 탭/단계 UI ---------- */
+function selD(id,btn){
+ qa(".drawing").forEach(function(d){d.classList.remove("on")});
+ $("#"+id).classList.add("on");
+ qa(".dtab").forEach(function(b){b.classList.remove("on")});btn.classList.add("on");
+ curD=id; var s=btn.getAttribute("data-s"); if(s)selS(s); corr();
+}
+function selS(s){
+ curS=s;
+ qa(".sbtn").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-s")===s)});
+ $("#sdesc").textContent=SINFO[s];
+ if(window.showStage)showStage(s);
+ corr();
+}
+qa(".dtab").forEach(function(b){b.addEventListener("click",function(){selD(b.getAttribute("data-d"),b)})});
+qa(".sbtn").forEach(function(b){b.addEventListener("click",function(){selS(b.getAttribute("data-s"))})});
+
+/* ---------- Three.js ---------- */
+var H=555;
+function rad(t){return 35*(1-0.55*Math.pow(t,1.3))*(1+0.05*Math.sin(Math.PI*t));}
+function supXY(t,th){var a=rad(t),e=2/(4-2*t),c=Math.cos(th),s=Math.sin(th);
+ return [a*Math.sign(c)*Math.pow(Math.abs(c),e),a*Math.sign(s)*Math.pow(Math.abs(s),e)];}
+
+if(!window.THREE||!THREE.OrbitControls){$("#fallback").style.display="block";}
+else{
+var renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
+$("#gl").appendChild(renderer.domElement);
+var scene=new THREE.Scene();scene.background=new THREE.Color(0x0a0e14);
+scene.fog=new THREE.Fog(0x0a0e14,1400,3200);
+var cam=new THREE.PerspectiveCamera(45,1,1,6000);
+var HOME=new THREE.Vector3(700,470,700),TGT=new THREE.Vector3(0,250,0);
+cam.position.copy(HOME);
+var ctl=new THREE.OrbitControls(cam,renderer.domElement);
+ctl.target.copy(TGT);ctl.enableDamping=true;ctl.dampingFactor=RM?1:0.08;
+scene.add(new THREE.HemisphereLight(0xbcd4ee,0x1a2028,1.1));
+var dl=new THREE.DirectionalLight(0xffffff,1.6);dl.position.set(600,900,400);scene.add(dl);
+var dl2=new THREE.DirectionalLight(0x88aaff,0.5);dl2.position.set(-500,300,-600);scene.add(dl2);
+var gnd=new THREE.Mesh(new THREE.CircleGeometry(900,64),new THREE.MeshStandardMaterial({color:0x151b24,roughness:1}));
+gnd.rotation.x=-Math.PI/2;scene.add(gnd);
+var grid=new THREE.GridHelper(1400,28,0x2a3442,0x1c2531);grid.position.y=0.2;scene.add(grid);
+
+function shellGeo(t0,t1,hs,rs){var pos=[],idx=[],i,j;
+ for(i=0;i<=hs;i++){var t=t0+(t1-t0)*i/hs;
+  for(j=0;j<=rs;j++){var p=supXY(t,j/rs*Math.PI*2);pos.push(p[0],t*H,p[1]);}}
+ for(i=0;i<hs;i++)for(j=0;j<rs;j++){var a=i*(rs+1)+j,b=a+rs+1;idx.push(a,b,a+1,b,b+1,a+1);}
+ var g=new THREE.BufferGeometry();
+ g.setAttribute("position",new THREE.Float32BufferAttribute(pos,3));
+ g.setIndex(idx);g.computeVertexNormals();return g;}
+
+function ring(t,seg,col,op){var pts=[];
+ for(var j=0;j<=seg;j++){var p=supXY(t,j/seg*Math.PI*2);pts.push(new THREE.Vector3(p[0],t*H,p[1]));}
+ var g=new THREE.BufferGeometry().setFromPoints(pts);
+ return new THREE.Line(g,new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op}));}
+
+function rib(th,col,op){var pts=[];
+ for(var i=0;i<=40;i++){var t=i/40,p=supXY(t,th);pts.push(new THREE.Vector3(p[0]*1.01,t*H,p[1]*1.01));}
+ var g=new THREE.BufferGeometry().setFromPoints(pts);
+ return new THREE.Line(g,new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op}));}
+
+function cap(){var g=new THREE.CircleGeometry(rad(1)*0.99,48);
+ var m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0x2c3a48,roughness:0.6}));
+ m.rotation.x=-Math.PI/2;m.position.y=H-0.5;return m;}
+
+function colBetween(x1,z1,x2,z2,r,mat){
+ var p1=new THREE.Vector3(x1,0,z1),p2=new THREE.Vector3(x2,545,z2);
+ var d=p2.clone().sub(p1),len=d.length();
+ var m=new THREE.Mesh(new THREE.CylinderGeometry(r*0.65,r,len,8),mat);
+ m.position.copy(p1).add(p2).multiplyScalar(0.5);
+ m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());
+ return m;}
+
+function shell(mat){return new THREE.Mesh(shellGeo(0,1,60,56),mat);}
+function lantern(em){
+ var m=new THREE.Mesh(shellGeo(0.84,1,12,48),
+  new THREE.MeshStandardMaterial({color:0xbfe0f2,transparent:true,opacity:0.55,emissive:em,emissiveIntensity:0.8,roughness:0.3}));
+ return m;}
+
+var groups={};
+(function build(){
+ var g;
+ g=new THREE.Group(); // 01 매스
+ g.add(shell(new THREE.MeshStandardMaterial({color:0x8fa8bf,transparent:true,opacity:0.55,roughness:0.9})));
+ g.add(new THREE.Mesh(shellGeo(0,1,20,28),new THREE.MeshBasicMaterial({color:0xcfe0f0,wireframe:true,transparent:true,opacity:0.12})));
+ var bx=new THREE.MeshStandardMaterial({color:0x2a3543,roughness:1});
+ [[220,0,120,60,90],[-260,-160,90,45,120],[80,-280,140,80,70],[-140,260,110,55,95]].forEach(function(a){
+  var m=new THREE.Mesh(new THREE.BoxGeometry(a[3],a[4],a[3]),bx);m.position.set(a[0],a[4]/2,a[1]);g.add(m);});
+ groups["1"]=g;
+
+ g=new THREE.Group(); // 02 도자기 곡선
+ g.add(shell(new THREE.MeshStandardMaterial({color:0xe7e0d2,roughness:0.85})));g.add(cap());
+ groups["2"]=g;
+
+ g=new THREE.Group(); // 03 구조
+ g.add(shell(new THREE.MeshStandardMaterial({color:0x9fc0d8,transparent:true,opacity:0.15,roughness:0.4})));
+ var core=new THREE.Mesh(new THREE.BoxGeometry(30,545,30),new THREE.MeshStandardMaterial({color:0xd8c8a8,transparent:true,opacity:0.85}));
+ core.position.y=272.5;g.add(core);
+ var cm=new THREE.MeshStandardMaterial({color:0xe8b96f,roughness:0.5});
+ [[27,27],[-27,27],[27,-27],[-27,-27],[29,0],[-29,0],[0,29],[0,-29]].forEach(function(p){
+  g.add(colBetween(p[0],p[1],p[0]*0.47,p[1]*0.47,2.4,cm));});
+ groups["3"]=g;
+
+ g=new THREE.Group(); // 04 층·커튼월
+ g.add(shell(new THREE.MeshStandardMaterial({color:0xaec6d8,metalness:0.35,roughness:0.35})));g.add(cap());
+ for(var f=0;f<=123;f+=12)g.add(ring(f/123,56,0x3f6residual=0,0));
+ groups["4"]=g;
+})();
+})();
+</script>
+</body>
+</html>
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["docs/models/kimi-k3/lotte-tower/artwork.html:299: The malformed literal0x3f6residual=0 at HTMLline299 causes Invalid or unexpected token and prevents every viewer/UI handler from initializing. Required repair: Return syntactically valid completeHTML, correcting the invalid ring color argument. Finish the render loop, scene insertion, resize handling and camera/control initialization before closing the script. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/kimi-k3/lotte-tower/artwork.html:300: Implementation ends after storing groups1–4. Groups5/F, showStage selection, adding an active group to the scene and a render loop are absent, despite buttons/descriptions advertising these complete states. Required repair: Implement all advertised stages and the completed model; connect every UI state to visible geometry and run the renderer. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/kimi-k3/lotte-tower/artwork.html:14: Informative descriptions, controls and SVG labels use approximately9–15px text below19px. Required repair: Use at least19px meaningful rendered text, including mobile diagram annotations or readable accompanying labels. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "The current HTML has a closed document but an incomplete script. Return the COMPLETE corrected original HTML in at most12000 outputtokens; budget across the entire document so the renderer loop, all design stage groups including final, initial active group, resize, camera pointer/keyboard/reset/zoom handlers and every existing drawing are fully implemented. Fix every syntax error. Preserve your own visual approach and real drawing geometry; do not replace functions with comments or placeholders."]
+
+Return the complete repaired HTML now.

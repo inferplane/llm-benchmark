@@ -1,0 +1,383 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>nemotron-super-3-120b · lotte-tower</title><link rel="icon" href="../../../favicon.svg"><link rel="stylesheet" href="../../portraits.css"><link rel="stylesheet" href="../../readability.css"><script src="../../viewer.js" defer></script></head><body class="viewer"><header class="viewer-bar"><a href="../">← 모델 홈</a><span><strong>nemotron-super-3-120b · lotte-tower</strong><small>검수 보류</small><small>생성·수정 ≈ $0.016508</small></span><div class="viewer-actions"><button type="button" data-open-prompts>프롬프트</button><details><summary>작성 기록</summary><section><p>nvidia.nemotron-super-3-120b</p><p>도면·형상은 공개 자료 기반의 개념 재구성이며 공식 시공 도면이 아닙니다.</p><button type="button" data-open-cost>구현 비용 내역</button><a href="provenance.json" target="_blank" rel="noopener">작성자·응답 기록</a></section></details></div></header><main class="unavailable"><h1>nemotron-super-3-120b</h1><h2>롯데월드타워를 모델링하다.</h2><p>검수 보류</p><p>작성 모델의 원본 또는 독립 검수를 기다리고 있습니다.</p></main><dialog id="prompt-dialog" class="prompt-dialog" aria-labelledby="prompt-title"><div class="prompt-heading"><h2 id="prompt-title">nemotron-super-3-120b · 작성 프롬프트</h2><button type="button" data-close-prompts autofocus>닫기</button></div><div class="prompt-content"><p>이 모델에 전송한 user 메시지 원문입니다. 수정 요청에는 이전 코드와 검수 진단이 함께 포함될 수 있습니다.</p><details><summary>최초 작성 요청</summary><p class="prompt-hash">SHA-256 · 851f44272c4c70abbd82dde2167ab06310451f58942c86fab1b56c6220d9382b</p><pre tabindex="0">당신은 nemotron-super-3-120b 모델입니다. 실제 호출 식별자는 nvidia.nemotron-super-3-120b입니다.
+
+롯데월드타워의 건축 설계 과정을 이해할 수 있도록, 설계도면과 단계별 3D 모델 및 완성된 3D 모델을 함께 보여주는 인터랙티브 웹페이지를 직접 구현하세요.
+
+공통 기준 자료:
+- 서울의 롯데월드타워는 높이 555m, 지상 123층입니다.
+- 위로 갈수록 기준층 면적과 건물 외곽이 좁아지는 형태입니다.
+- KPF는 형태와 외관에 한국 도자기의 선을 참고했다고 설명합니다.
+- 아래 공개 자료를 참고하는 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계로 표현하지 마세요. 공개 자료에 없는 치수·단면·부재는 추정한 개념임을 구분하세요.
+- 원 설계사: https://www.kpf.com/project/lotte-world-tower
+- 구조 설계사: https://www.lera.com/lotte-world-tower
+
+보여줄 내용:
+- 배치도, 기준층 평면도, 입면도, 단면도. 도면에는 무엇을 보여주는지, 단위와 치수의 근거를 알 수 있게 하세요.
+- 설계가 발전하는 과정과 각 단계의 3D 형상.
+- 완성된 건물의 실제 3D 형상과 회전·확대/축소·시점 초기화 조작.
+- 도면, 선택한 설계 단계, 완성 모델 사이의 대응 관계.
+
+표현 스타일, 화면 구성, 도형 생성 방법, 설명 방식은 스스로 결정하세요. 참고 구현 코드나 시각적 예시는 제공하지 않습니다.
+
+실행 조건:
+- 하나의 완결된 HTML 문서만 반환하세요. 자신의 CSS와 JavaScript를 문서 안에 넣으세요.
+- 3D 실행 환경은 모든 모델에 동일합니다: Three.js 0.186.1과 OrbitControls가 전역 THREE 객체로 제공되는 로컬 스크립트 &quot;../runtime/three-runtime.js&quot;를 사용할 수 있습니다. 필요하면 이 스크립트를 직접 포함하세요. 직접 WebGL을 구현해도 됩니다.
+- 외부 네트워크, 외부 폰트·이미지, 서버 API 없이 실행되게 하세요. 위 출처는 텍스트 출처 링크이며 실행 중 가져오면 안 됩니다.
+- 작품은 sandbox=&quot;allow-scripts&quot; iframe에서 실행됩니다. alert/confirm/prompt와 부모 문서 접근은 사용하지 마세요.
+- 휴대폰과 데스크톱에서 조작할 수 있게 하세요. 키보드 조작, 읽기 쉬운 글자와 대비, 움직임 감소 설정을 고려하세요.
+- 실제 모델 이름 &quot;nemotron-super-3-120b&quot;을 화면에 표시하세요.
+- 설명문이나 코드 조각을 따로 반환하지 말고 전체 HTML을 반환하세요.
+</pre><a href="initial-prompt.txt" target="_blank" rel="noopener">프롬프트 원문 열기 ↗</a></details><details open><summary>최종 작품의 수정 요청</summary><p class="prompt-hash">SHA-256 · f423b009a11a20fbb6668257b21e026ae4d5a9d7ee22d1140101fdc3870370f8</p><pre tabindex="0">You are the original author, model nemotron-super-3-120b, served as nvidia.nemotron-super-3-120b. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+ORIGINAL TASK BRIEF. Retain every requested feature and disclosure:
+당신은 nemotron-super-3-120b 모델입니다. 실제 호출 식별자는 nvidia.nemotron-super-3-120b입니다.
+
+롯데월드타워의 건축 설계 과정을 이해할 수 있도록, 설계도면과 단계별 3D 모델 및 완성된 3D 모델을 함께 보여주는 인터랙티브 웹페이지를 직접 구현하세요.
+
+공통 기준 자료:
+- 서울의 롯데월드타워는 높이 555m, 지상 123층입니다.
+- 위로 갈수록 기준층 면적과 건물 외곽이 좁아지는 형태입니다.
+- KPF는 형태와 외관에 한국 도자기의 선을 참고했다고 설명합니다.
+- 아래 공개 자료를 참고하는 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계로 표현하지 마세요. 공개 자료에 없는 치수·단면·부재는 추정한 개념임을 구분하세요.
+- 원 설계사: https://www.kpf.com/project/lotte-world-tower
+- 구조 설계사: https://www.lera.com/lotte-world-tower
+
+보여줄 내용:
+- 배치도, 기준층 평면도, 입면도, 단면도. 도면에는 무엇을 보여주는지, 단위와 치수의 근거를 알 수 있게 하세요.
+- 설계가 발전하는 과정과 각 단계의 3D 형상.
+- 완성된 건물의 실제 3D 형상과 회전·확대/축소·시점 초기화 조작.
+- 도면, 선택한 설계 단계, 완성 모델 사이의 대응 관계.
+
+표현 스타일, 화면 구성, 도형 생성 방법, 설명 방식은 스스로 결정하세요. 참고 구현 코드나 시각적 예시는 제공하지 않습니다.
+
+실행 조건:
+- 하나의 완결된 HTML 문서만 반환하세요. 자신의 CSS와 JavaScript를 문서 안에 넣으세요.
+- 3D 실행 환경은 모든 모델에 동일합니다: Three.js 0.186.1과 OrbitControls가 전역 THREE 객체로 제공되는 로컬 스크립트 &quot;../runtime/three-runtime.js&quot;를 사용할 수 있습니다. 필요하면 이 스크립트를 직접 포함하세요. 직접 WebGL을 구현해도 됩니다.
+- 외부 네트워크, 외부 폰트·이미지, 서버 API 없이 실행되게 하세요. 위 출처는 텍스트 출처 링크이며 실행 중 가져오면 안 됩니다.
+- 작품은 sandbox=&quot;allow-scripts&quot; iframe에서 실행됩니다. alert/confirm/prompt와 부모 문서 접근은 사용하지 마세요.
+- 휴대폰과 데스크톱에서 조작할 수 있게 하세요. 키보드 조작, 읽기 쉬운 글자와 대비, 움직임 감소 설정을 고려하세요.
+- 실제 모델 이름 &quot;nemotron-super-3-120b&quot;을 화면에 표시하세요.
+- 설명문이나 코드 조각을 따로 반환하지 말고 전체 HTML을 반환하세요.
+
+
+YOUR PREVIOUS FULL RESPONSE:
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;롯데월드타워 설계 과정 - nemotron-super-3-120b&lt;/title&gt;
+&lt;style&gt;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #f8f9fa; color: #222; line-height: 1.6; }
+  header { background: #1a1a1a; color: white; padding: 1rem; text-align: center; }
+  header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  header p { font-size: 1rem; opacity: 0.9; }
+  .container { display: flex; height: calc(100vh - 4rem); gap: 1rem; padding: 1rem; }
+  .sidebar { width: 280px; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; }
+  .tab-button { background: #e9ecef; border: none; padding: 1rem; font-size: 1.1rem; cursor: pointer; transition: background 0.2s; }
+  .tab-button.active, .tab-button:hover { background: #007bff; color: white; }
+  .tab-button:focus { outline: 2px solid #0056b3; }
+  .tab-content { flex: 1; overflow-y: auto; padding: 1rem; }
+  .drawing-view { height: 200px; border: 1px solid #dee2e6; border-radius: 4px; margin-bottom: 1rem; background: white; display: flex; align-items: center; justify-content: center; color: #666; font-size: 1.2rem; }
+  .info-text { font-size: 1rem; margin-bottom: 0.5rem; }
+  .disclaimer { font-size: 0.9rem; color: #666; font-style: italic; }
+  .stage-btn { display: block; width: 100%; padding: 0.75rem; margin: 0.5rem 0; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; font-size: 1rem; cursor: pointer; text-align: left; }
+  .stage-btn.active, .stage-btn:hover { background: #e9ecef; }
+  .stage-btn:focus { outline: 2px solid #0056b3; }
+  .stage-info { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee; }
+  .stage-info h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+  .stage-info p { font-size: 0.95rem; }
+  #modelContainer { flex: 1; background: #000; position: relative; }
+  #resetView { position: absolute; top: 1rem; right: 1rem; padding: 0.5rem 1rem; background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; }
+  #resetView:focus { outline: 2px solid #007bff; }
+  .model-label { position: absolute; bottom: 1rem; left: 1rem; background: rgba(0,0,0,0.7); color: white; padding: 0.5rem 1rem; border-radius: 4px; font-size: 1rem; }
+  @media (max-width: 768px) {
+    .container { flex-direction: column; }
+    .sidebar { width: 100%; height: 200px; }
+    .tab-button { padding: 0.75rem; font-size: 1rem; }
+    .drawing-view { height: 150px; }
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;header&gt;
+  &lt;h1&gt;롯데월드타워 설계 과정&lt;/h1&gt;
+  &lt;p&gt;KPF가 한국 도자기 선에서 영감을 받아 설계한 tapered 구조&lt;/p&gt;
+&lt;/header&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;sidebar&quot;&gt;
+    &lt;div class=&quot;tab-buttons&quot;&gt;
+      &lt;button class=&quot;tab-button active&quot; data-tab=&quot;drawings&quot;&gt;도면 보기&lt;/button&gt;
+      &lt;button class=&quot;tab-button&quot; data-tab=&quot;stages&quot;&gt;설계 단계&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tab-content&quot; id=&quot;drawingsTab&quot;&gt;
+      &lt;div class=&quot;info-text&quot;&gt;&lt;strong&gt;배치도&lt;/strong&gt; - 타워 위치 및 주변 환경 (단위: m)&lt;/div&gt;
+      &lt;div class=&quot;drawing-view&quot; id=&quot;sitePlan&quot;&gt;배치도 개념도&lt;/div&gt;
+      &lt;div class=&quot;info-text&quot;&gt;&lt;strong&gt;기준층 평면도&lt;/strong&gt; - 위로 갈수록 좁아지는 평면 형태&lt;/div&gt;
+      &lt;div class=&quot;drawing-view&quot; id=&quot;floorPlan&quot;&gt;평면도 개념도&lt;/div&gt;
+      &lt;div class=&quot;info-text&quot;&gt;&lt;strong&gt;입면도&lt;/strong&gt; - 한국 도자기 선을 반영한 곡선 외관&lt;/div&gt;
+      &lt;div class=&quot;drawing-view&quot; id=&quot;elevation&quot;&gt;입면도 개념도&lt;/div&gt;
+      &lt;div class=&quot;info-text&quot;&gt;&lt;strong&gt;단면도&lt;/strong&gt; - 내부 구조 및 코어 배치&lt;/div&gt;
+      &lt;div class=&quot;drawing-view&quot; id=&quot;section&quot;&gt;단면도 개념도&lt;/div&gt;
+      &lt;p class=&quot;disclaimer&quot;&gt;※ 모든 도면은 공개 자료 기반 개념 재구성이며, 실제 치수 및 구조는 추정치입니다.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tab-content&quot; id=&quot;stagesTab&quot; style=&quot;display:none;&quot;&gt;
+      &lt;div class=&quot;info-text&quot;&gt;&lt;strong&gt;설계 발전 과정&lt;/strong&gt;&lt;/div&gt;
+      &lt;button class=&quot;stage-btn active&quot; data-stage=&quot;concept&quot;&gt;1. 초기 개념 형태&lt;/button&gt;
+      &lt;button class=&quot;stage-btn&quot; data-stage=&quot;massing&quot;&gt;2. 질량 연구&lt;/button&gt;
+      &lt;button class=&quot;stage-btn&quot; data-stage=&quot;taper&quot;&gt;3. 테이퍼 적용&lt;/button&gt;
+      &lt;button class=&quot;stage-btn&quot; data-stage=&quot;facade&quot;&gt;4. 외관 세부화&lt;/button&gt;
+      &lt;button class=&quot;stage-btn&quot; data-stage=&quot;final&quot;&gt;5. 최종 모델&lt;/button&gt;
+      &lt;div class=&quot;stage-info&quot; id=&quot;stageInfo&quot;&gt;
+        &lt;h3&gt;초기 개념 형태&lt;/h3&gt;
+        &lt;p&gt;한국 전통 도자기의 유려한 선에서 영감을 받은 기본 질량 개념. 위로 갈수록 자연스럽게 좁아지는 실루엣을 탐색.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;modelContainer&quot;&gt;
+    &lt;div id=&quot;resetView&quot;&gt;뷰 초기화&lt;/div&gt;
+    &lt;div class=&quot;model-label&quot;&gt;nemotron-super-3-120b&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// Three.js 0.186.1 runtime - simplified but functional version for this context
+const THREE = {
+  // Core
+  Scene: function() { this.children = []; this.background = new THREE.Color(0x111111); },
+  PerspectiveCamera: function(fov, aspect, near, far) {
+    this.fov = fov; this.aspect = aspect; this.near = near; this.far = far;
+    this.updateProjectionMatrix = function() {};
+    this.position = new THREE.Vector3(0, 100, 200);
+    this.lookAt = function() {};
+  },
+  WebGLRenderer: function(params) {
+    this.domElement = document.createElement(&#x27;canvas&#x27;);
+    this.setSize = function(w, h) {
+      this.domElement.width = w;
+      this.domElement.height = h;
+    };
+    this.setClearColor = function(color) {};
+    this.render = function(scene, camera) {};
+  },
+  // Math
+  Vector3: function(x, y, z) {
+    this.x = x || 0; this.y = y || 0; this.z = z || 0;
+    this.set = function(x, y, z) { this.x = x; this.y = y; this.z = z; return this; };
+    this.clone = function() { return new THREE.Vector3(this.x, this.y, this.z); };
+  },
+  Color: function(color) {
+    if (typeof color === &#x27;number&#x27;) {
+      this.r = (color &gt;&gt; 16 &amp; 255) / 255;
+      this.g = (color &gt;&gt; 8 &amp; 255) / 255;
+      this.b = (color &amp; 255) / 255;
+    } else {
+      this.r = 0; this.g = 0; this.b = 0;
+    }
+    this.set = function(color) { if (typeof color === &#x27;number&#x27;) { this.r = (color &gt;&gt; 16 &amp; 255) / 255; this.g = (color &gt;&gt; 8 &amp; 255) / 255; this.b = (color &amp; 255) / 255; } return this; };
+  },
+  // Geometry
+  BoxGeometry: function(w, h, d) { this.width = w; this.height = h; this.depth = d; },
+  CylinderGeometry: function(radiusTop, radiusBottom, height, radialSegments) {
+    this.radiusTop = radiusTop; this.radiusBottom = radiusBottom; this.height = height;
+  },
+  MeshBasicMaterial: function(params) { this.color = params &amp;&amp; params.color ? new THREE.Color(params.color) : new THREE.Color(0xffffff); this.wireframe = !!params.wireframe; },
+  MeshLambertMaterial: function(params) { this.color = params &amp;&amp; params.color ? new THREE.Color(params.color) : new THREE.Color(0xffffff); },
+  Mesh: function(geometry, material) {
+    this.geometry = geometry;
+    this.material = material;
+    this.position = new THREE.Vector3();
+    this.rotation = new THREE.Vector3();
+    this.scale = new THREE.Vector3(1, 1, 1);
+  },
+  // Light
+  AmbientLight: function(color, intensity) { this.color = new THREE.Color(color); this.intensity = intensity || 1; },
+  DirectionalLight: function(color, intensity) { this.color = new THREE.Color(color); this.intensity = intensity || 1; this.position = new THREE.Vector3(); },
+  // Controls (simplified)
+  OrbitControls: function(camera, domElement) {
+    this.enabled = true;
+    this.update = function() {};
+    this.dispose = function() {};
+  }
+};
+
+// Initialize Three.js scene
+let scene, camera, renderer, controls, towerMesh;
+const modelContainer = document.getElementById(&#x27;modelContainer&#x27;);
+const resetViewBtn = document.getElementById(&#x27;resetView&#x27;);
+
+function initThreeJS() {
+  scene = new THREE.Scene();
+  
+  const aspect = modelContainer.clientWidth / modelContainer.clientHeight;
+  camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 1000);
+  camera.position.set(150, 150, 200);
+  
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
+  modelContainer.appendChild(renderer.domElement);
+  
+  // Lights
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+  scene.add(ambientLight);
+  
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  dirLight.position.set(50, 100, 75);
+  scene.add(dirLight);
+  
+  // Controls
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  
+  // Create initial tower
+  createTower(0); // Concept stage
+  
+  animate();
+}
+
+function createTower(stage) {
+  // Remove existing tower
+  if (towerMesh) {
+    scene.remove(towerMesh);
+    towerMesh.geometry.dispose();
+    towerMesh.material.dispose();
+  }
+  
+  // Tower parameters based on stage
+  let height, bottomRadius, topRadius, segments;
+  
+  switch(stage) {
+    case 0: // concept
+      height = 100;
+      bottomRadius = 20;
+      topRadius = 15;
+      segments = 8;
+      break;
+    case 1: // massing
+      height = 120;
+      bottomRadius = 25;
+      topRadius = 18;
+      segments = 12;
+      break;
+    case 2: // taper
+      height = 140;
+      bottomRadius = 28;
+      topRadius = 12;
+      segments = 16;
+      break;
+    case 3: // facade
+      height = 150;
+      bottomRadius = 30;
+      topRadius = 10;
+      segments = 24;
+      break;
+    case 4: // final
+      height = 155; // scaled for view
+      bottomRadius = 32;
+      topRadius = 8;
+      segments = 32;
+      break;
+    default:
+      height = 100;
+      bottomRadius = 20;
+      topRadius = 15;
+      segments = 8;
+  }
+  
+  const geometry = new THREE.CylinderGeometry(topRadius, bottomRadius, height, segments);
+  const material = new THREE.MeshLambertMaterial({ 
+    color: 0x88ccff,
+    wireframe: stage &lt; 3 ? true : false
+  });
+  
+  towerMesh = new THREE.Mesh(geometry, material);
+  towerMesh.position.y = height / 2;
+  scene.add(towerMesh);
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+function onWindowResize() {
+  const aspect = modelContainer.clientWidth / modelContainer.clientHeight;
+  camera.aspect = aspect;
+  camera.updateProjectionMatrix();
+  renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
+}
+
+// Event Listeners
+document.querySelectorAll(&#x27;.tab-button&#x27;).forEach(button =&gt; {
+  button.addEventListener(&#x27;click&#x27;, () =&gt; {
+    document.querySelectorAll(&#x27;.tab-button&#x27;).forEach(b =&gt; b.classList.remove(&#x27;active&#x27;));
+    button.classList.add(&#x27;active&#x27;);
+    
+    document.querySelectorAll(&#x27;.tab-content&#x27;).forEach(tab =&gt; tab.style.display = &#x27;none&#x27;);
+    const tabId = button.getAttribute(&#x27;data-tab&#x27;) + &#x27;Tab&#x27;;
+    document.getElementById(tabId).style.display = &#x27;block&#x27;;
+  });
+});
+
+document.querySelectorAll(&#x27;.stage-btn&#x27;).forEach(button =&gt; {
+  button.addEventListener(&#x27;click&#x27;, () =&gt; {
+    document.querySelectorAll(&#x27;.stage-btn&#x27;).forEach(b =&gt; b.classList.remove(&#x27;active&#x27;));
+    button.classList.add(&#x27;active&#x27;);
+    
+    const stage = parseInt(button.getAttribute(&#x27;data-stage&#x27;).replace(/[^0-9]/g, &#x27;&#x27;)) - 1;
+    createTower(stage);
+    
+    // Update stage info
+    const stageInfo = {
+      concept: &#x27;초기 개념 형태\n한국 전통 도자기의 유려한 선에서 영감을 받은 기본 질량 개념.&#x27;,
+      massing: &#x27;질량 연구\n전체 비율과 기반 형태를 정교화.&#x27;,
+      taper: &#x27;테이퍼 적용\n위로 갈수록 급격히 좁아지는 형태 적용.&#x27;,
+      facade: &#x27;외관 세부화\n한국 도자기 선을 반영한 표면 처리.&#x27;,
+      final: &#x27;최종 모델\n완성된 tapered 타워 형태.&#x27;
+    };
+    
+    const stageKey = button.getAttribute(&#x27;data-stage&#x27;);
+    document.getElementById(&#x27;stageInfo&#x27;).innerHTML = `
+      &lt;h3&gt;${stageInfo[stageKey].split(&#x27;\n&#x27;)[0]}&lt;/h3&gt;
+      &lt;p&gt;${stageInfo[stageKey].split(&#x27;\n&#x27;)[1]}&lt;/p&gt;
+    `;
+  });
+});
+
+resetViewBtn.addEventListener(&#x27;click&#x27;, () =&gt; {
+  camera.position.set(150, 150, 200);
+  controls.update();
+});
+
+// Keyboard accessibility
+document.addEventListener(&#x27;keydown&#x27;, (e) =&gt; {
+  if (e.key === &#x27;Escape&#x27;) {
+    resetViewBtn.click();
+  }
+});
+
+// Handle focus indicators
+document.querySelectorAll(&#x27;button, .stage-btn&#x27;).forEach(el =&gt; {
+  el.addEventListener(&#x27;focus&#x27;, () =&gt; {
+    el.style.outline = &#x27;2px solid #0056b3&#x27;;
+  });
+  el.addEventListener(&#x27;blur&#x27;, () =&gt; {
+    el.style.outline = &#x27;none&#x27;;
+  });
+});
+
+// Initialize
+window.addEventListener(&#x27;load&#x27;, initThreeJS);
+window.addEventListener(&#x27;resize&#x27;, onWindowResize);
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+[&quot;docs/models/nemotron-super-3-120b/lotte-tower/artwork.html:83: The page replaces Three with an incomplete stub: Scene lacks add/remove and renderer.render is empty. Browser raises scene.add is not a function and scene.remove is not a function. Required repair: Use the provided actual local runtime, remove the incomplete stub, and verify rendering/stage controls without exceptions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.&quot;, &quot;docs/models/nemotron-super-3-120b/lotte-tower/artwork.html:11: Meaningful UI/diagram text is below19px at rendered size. Required repair: Make meaningful text and diagram labels at least19px on mobile/desktop. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.&quot;, &quot;docs/models/nemotron-super-3-120b/lotte-tower/artwork.html:18: The four requested drawings are absent, labels/placeholders, or unlabelled scene planes instead of meaningful site/floor/elevation/section diagrams. Required repair: Draw four readable diagrams with units/assumption labels and correspondence to the model; a name/rectangle alone does not show the requested content. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.&quot;]
+
+Return the complete repaired HTML now.</pre><a href="prompt.txt" target="_blank" rel="noopener">프롬프트 원문 열기 ↗</a></details></div></dialog><dialog id="cost-dialog" class="prompt-dialog" aria-labelledby="cost-title"><div class="prompt-heading"><h2 id="cost-title">nemotron-super-3-120b · 구현 비용</h2><button type="button" data-close-cost autofocus>닫기</button></div><div class="prompt-content"><p class="cost-total">생성·수정 ≈ $0.016508</p><p>이번 작품의 작성·재요청·수정 5회 합계입니다. 최종 응답 요청: $0.003802.</p><p>반환된 입력·출력·캐시 읽기·쓰기 토큰을 설정 단가로 계산했습니다. 완성 전 잘린 응답과 수정 요청도 사용량이 기록돼 있으면 합산합니다. 출력 토큰에 포함된 추론 토큰은 중복 계산하지 않습니다.</p><p>입력 8,501 · 출력 23,435 · 캐시 읽기 0 · 캐시 쓰기 0</p><div class="cost-table"><table><thead><tr><th>요청</th><th>결과</th><th>추정 USD</th></tr></thead><tbody><tr><td>1</td><td>미완성·실패</td><td>$0.005426</td></tr><tr><td>2</td><td>코드 반환</td><td>$0.003316</td></tr><tr><td>3</td><td>코드 반환</td><td>$0.001285</td></tr><tr><td>4</td><td>코드 반환</td><td>$0.002678</td></tr><tr><td>5</td><td>코드 반환</td><td>$0.003802</td></tr></tbody></table></div><p>현재 config.toml의 단가 기준 추정치이며 실제 청구서가 아닙니다. 이전 세대의 작품, 운영 도구·검수 모델 호출, 세금·할인은 포함하지 않습니다.</p><details><summary>적용 단가 · USD / 백만 토큰 또는 GPU 시간</summary><pre>{
+  &quot;price_in&quot;: 0.15,
+  &quot;price_out&quot;: 0.65
+}</pre></details><a href="implementation-cost.json" target="_blank" rel="noopener">비용 계산·요청 기록 원문 ↗</a></div></dialog></body></html>

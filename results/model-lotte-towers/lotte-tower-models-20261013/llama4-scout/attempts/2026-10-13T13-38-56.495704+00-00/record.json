@@ -1,0 +1,22 @@
+{
+  "model": "llama4-scout",
+  "model_id": "us.meta.llama4-scout-17b-instruct-v1:0",
+  "api": "bedrock",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-10-13T13:38:56.495704+00:00",
+  "prompt_sha256": "f070b77a5001643b6a4e5715ece0b2a181ae0badb15be51226a33db22ec21e01",
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": false,
+  "status": "failed",
+  "failed_at": "2026-10-13T13:39:02.146804+00:00",
+  "error": {
+    "type": "ValueError",
+    "message": "ValueError during model request",
+    "retryable": false
+  },
+  "reason": "Only the pinned local Three.js runtime is permitted"
+}

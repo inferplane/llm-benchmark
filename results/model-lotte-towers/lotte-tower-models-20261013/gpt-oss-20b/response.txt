@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>롯데월드타워 설계 과정</title>
+<style>
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f0f0f0;color:#222}
+header{background:#004b8d;color:#fff;padding:10px 20px;font-size:22px;display:flex;justify-content:space-between;align-items:center}
+header span{font-size:18px}
+#content{display:flex;flex-direction:column;gap:20px;padding:20px}
+@media(min-width:600px){#content{flex-direction:row}}
+#drawings{flex:1 1 300px;display:flex;flex-direction:column;gap:10px}
+.drawing{border:1px solid #ccc;background:#fff;padding:10px;flex:1 1 200px;overflow:auto}
+.drawing h3{font-size:20px;margin:0 0 5px}
+.drawing svg{width:100%;height:auto}
+#viewer{flex:2 1 500px;position:relative;background:#000;min-height:300px}
+#viewer canvas{display:block;width:100%;height:100%}
+#controls{position:absolute;top:10px;right:10px;display:flex;gap:10px}
+button{font-size:19px;padding:5px 10px;background:#fff;border:1px solid #888;border-radius:4px;cursor:pointer}
+button:hover{background:#e0e0e0}
+#info{position:absolute;bottom:10px;left:10px;color:#fff;font-size:18px;background:rgba(0,0,0,0.5);padding:5px 10px;border-radius:4px}
+</style>
+</head>
+<body>
+<header>
+<span>롯데월드타워 설계 과정</span>
+<span id="modelName">gpt-oss-20b</span>
+</header>
+<div id="content">
+<div id="drawings">
+<div class="drawing">
+<h3>배치도 (Site Plan)</h3>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<rect x="10" y="10" width="180" height="180" fill="#e0e0e0" stroke="#888" stroke-width="2"/>
+<text x="100" y="30" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#444">서울 시내</text>
+<text x="100" y="50" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#444">롯데월드타워 부지</text>
+<text x="100" y="70" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#444">공개 자료 기반</text>
+</svg>
+</div>
+<div class="drawing">
+<h3>기준층 평면도 (Floor Plan)</h3>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<rect x="20" y="20" width="160" height="160" fill="#f5f5f5" stroke="#888" stroke-width="2"/>
+<rect x="60" y="60" width="80" height="80" fill="#c0c0c0" stroke="#555" stroke-width="1"/>
+<text x="100" y="190" text-anchor="middle" font-size="18" fill="#444">기준층 평면도 (공개 자료 기반)</text>
+</svg>
+</div>
+<div class="drawing">
+<h3>입면도 (Elevation)</h3>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<rect x="10" y="10" width="180" height="180" fill="#e0e0e0" stroke="#888" stroke-width="2"/>
+<polygon points="100,20 120,180 80,180" fill="#c0c0c0" stroke="#555" stroke-width="1"/>
+<text x="100" y="190" text-anchor="middle" font-size="18" fill="#444">입면도 (공개 자료 기반)</text>
+</svg>
+</div>
+<div class="drawing">
+<h3>단면도 (Section)</h3>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<rect x="10" y="10" width="180" height="180" fill="#e0e0e0" stroke="#888" stroke-width="2"/>
+<rect x="90" y="20" width="20" height="160" fill="#c0c0c0" stroke="#555" stroke-width="1"/>
+<text x="100" y="190" text-anchor="middle" font-size="18" fill="#444">단면도 (공개 자료 기반)</text>
+</svg>
+</div>
+</div>
+<div id="viewer">
+<canvas id="threeCanvas"></canvas>
+<div id="controls">
+<button id="resetBtn">Reset View</button>
+<button id="stagePrev">◀︎</button>
+<button id="stageNext">▶︎</button>
+</div>
+<div id="info">현재 단계: <span id="stageLabel">완성 모델</span></div>
+</div>
+</div>
+<script src="../runtime/three-runtime.js"></script>
+<script>
+const stages = [
+{label:'기본형', height:200, radiusTop:30, radiusBottom:50},
+{label:'중간형', height:350, radiusTop:20, radiusBottom:40},
+{label:'상단형', height:500, radiusTop:10, radiusBottom:30},
+{label:'완성 모델', height:555, radiusTop:5, radiusBottom:25}
+];
+let currentStage = 3;
+const stageLabel = document.getElementById('stageLabel');
+const resetBtn = document.getElementById('resetBtn');
+const stagePrev = document.getElementById('stagePrev');
+const stageNext = document.getElementById('stageNext');
+const canvas = document.getElementById('threeCanvas');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+const container = document.getElementById('viewer');
+function resize(){
+const width = container.clientWidth;
+const height = container.clientHeight;
+renderer.setSize(width, height);
+camera.aspect = width / height;
+camera.updateProjectionMatrix();
+}
+resize();
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, container.clientWidth/container.clientHeight, 0.1, 2000);
+camera.position.set(0, -400, 300);
+const controls = new THREE.OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.enablePan = false;
+controls.minDistance = 200;
+controls.maxDistance = 1000;
+const light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(0, -1, 1);
+scene.add(light);
+const ambient = new THREE.AmbientLight(0x404040);
+scene.add(ambient);
+let tower;
+function createTower(stage){
+if(tower){scene.remove(tower);}
+const geom = new THREE.CylinderGeometry(stage.radiusTop, stage.radiusBottom, stage.height, 64, 1, true);
+const mat = new THREE.MeshPhongMaterial({color:0x8888ff, flatShading:true});
+tower = new THREE.Mesh(geom, mat);
+tower.position.y = stage.height/2;
+scene.add(tower);
+}
+function updateStage(){
+stageLabel.textContent = stages[currentStage].label;
+createTower(stages[currentStage]);
+}
+stagePrev.onclick = () =>{currentStage=Math.max(0,currentStage-1);updateStage();};
+stageNext.onclick = () =>{currentStage=Math.min(stages.length-1,currentStage+1);updateStage();};
+resetBtn.onclick = () =>{controls.reset();};
+window.addEventListener('resize',resize);
+window.addEventListener('keydown',(e)=>{
+if(e.key==='ArrowLeft'){stagePrev.click();}
+if(e.key==='ArrowRight'){stageNext.click();}
+if(e.key==='r'||e.key==='R'){resetBtn.click();}
+if(e.key==='w'){controls.target.y+=10;controls.update();}
+if(e.key==='s'){controls.target.y-=10;controls.update();}
+if(e.key==='a'){controls.target.x-=10;controls.update();}
+if(e.key==='d'){controls.target.x+=10;controls.update();}
+if(e.key==='q'){controls.target.z+=10;controls.update();}
+if(e.key==='e'){controls.target.z-=10;controls.update();}
+});
+updateStage();
+function animate(){requestAnimationFrame(animate);controls.update();renderer.render(scene,camera);}
+animate();
+</script>
+</body>
+</html>

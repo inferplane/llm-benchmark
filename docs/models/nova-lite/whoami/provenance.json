@@ -1,0 +1,126 @@
+{
+  "model": "nova-lite",
+  "task": "whoami",
+  "requested_model_id": "us.amazon.nova-lite-v1:0",
+  "provider": "bedrock",
+  "family": "Amazon Nova",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/nova-lite",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "41a47b47a8640723a9651730651be61ec7afcd2595278d43f887725e1979b528",
+  "content_review": {
+    "model": "nova-lite",
+    "generation": "free-expression-20261012",
+    "score": 96.5,
+    "critical": 0,
+    "warnings": 2,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 6.0,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 3.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/nova-lite/artwork.html",
+        "line": 58,
+        "quote": "<canvas id=\"novaCanvas\" width=\"600\" height=\"400\"></canvas>",
+        "problem": "The fixed 600px canvas and padded width:100% container overflow the 375px and 768px viewers.",
+        "action": "Fit the chosen static composition and container within narrow viewports without horizontal overflow."
+      },
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/nova-lite/artwork.html",
+        "line": 48,
+        "quote": "font-size: 1rem;",
+        "problem": "The mobile description is reduced to 16px.",
+        "action": "Keep informative mobile text at least 19px."
+      }
+    ],
+    "artwork_sha256": "41a47b47a8640723a9651730651be61ec7afcd2595278d43f887725e1979b528",
+    "model_id": "us.amazon.nova-lite-v1:0",
+    "reported_model": null,
+    "requested_at": "2026-10-12T08:08:30.276791+00:00",
+    "reviewed_at": "2026-10-12T08:46:03.456399+00:00",
+    "initial_prompt_sha256": "b1a094f96ff2903be89d6ba3dbc87937877764d1c908649a93d106ed61f6b9f2",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/nova-lite/41a47b47a864",
+    "browser_evidence": "/tmp/free-expression-review/nova-lite/41a47b47a864/browser.json",
+    "notes": [
+      "Static artwork is valid; reduced-motion and extra interactions are not required for this static composition."
+    ]
+  },
+  "prompt_sha256": "b1a094f96ff2903be89d6ba3dbc87937877764d1c908649a93d106ed61f6b9f2",
+  "initial_prompt_sha256": "b1a094f96ff2903be89d6ba3dbc87937877764d1c908649a93d106ed61f6b9f2",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 0.06,
+      "price_out": 0.24
+    },
+    "estimated_total_usd": 0.00020778,
+    "estimated_final_response_usd": 0.00020778,
+    "recorded_attempts": 1,
+    "successful_code_responses": 1,
+    "additional_attempts": 0,
+    "known_cost_attempts": 1,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 391,
+      "tokens_out": 768,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:08:30.276791+00:00",
+        "status": "generated",
+        "request_id": "86b4aed6-b48a-4b62-827b-7ce8c6bc363c",
+        "usage_available": true,
+        "estimated_cost_usd": 0.00020778,
+        "request_seconds": null,
+        "record_sha256": "0149b9e304112d2465044423195289c7282002543a37f735ce4b786b484f2623",
+        "response_sha256": "8efb3fc90c8278409e724e8a635154179008a265cc76b393647dc4dbb85819a0"
+      }
+    ]
+  },
+  "request_id": "86b4aed6-b48a-4b62-827b-7ce8c6bc363c",
+  "requested_at": "2026-10-12T08:08:30.276791+00:00",
+  "generated_at": "2026-10-12T08:08:33.805754+00:00",
+  "tokens_in": 391,
+  "tokens_out": 768,
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "finish_reason": "end_turn"
+}

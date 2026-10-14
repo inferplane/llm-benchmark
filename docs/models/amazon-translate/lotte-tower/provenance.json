@@ -1,0 +1,21 @@
+{
+  "model": "amazon-translate",
+  "task": "lotte-tower",
+  "requested_model_id": "aws.translate.text",
+  "provider": "translate",
+  "family": "Amazon Translate",
+  "generation": "lotte-tower-models-20261013",
+  "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/amazon-translate",
+  "status": "not_generative",
+  "generation_status": "not_generative",
+  "artwork_sha256": null,
+  "content_review": null,
+  "prompt_sha256": null,
+  "initial_prompt_sha256": null,
+  "implementation_cost": {
+    "kind": "not_measured",
+    "generation": "lotte-tower-models-20261013",
+    "estimated_total_usd": null,
+    "recorded_attempts": 0
+  }
+}

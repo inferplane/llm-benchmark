@@ -1,0 +1,612 @@
+You are the original author, model glm-4.7-flash, served as zai.glm-4.7-flash. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+
+ORIGINAL TASK BRIEF. Retain every requested feature and disclosure:
+당신은 glm-4.7-flash 모델입니다. 실제 호출 식별자는 zai.glm-4.7-flash입니다.
+
+롯데월드타워의 건축 설계 과정을 이해할 수 있도록, 설계도면과 단계별 3D 모델 및 완성된 3D 모델을 함께 보여주는 인터랙티브 웹페이지를 직접 구현하세요.
+
+공통 기준 자료:
+- 서울의 롯데월드타워는 높이 555m, 지상 123층입니다.
+- 위로 갈수록 기준층 면적과 건물 외곽이 좁아지는 형태입니다.
+- KPF는 형태와 외관에 한국 도자기의 선을 참고했다고 설명합니다.
+- 아래 공개 자료를 참고하는 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계로 표현하지 마세요. 공개 자료에 없는 치수·단면·부재는 추정한 개념임을 구분하세요.
+- 원 설계사: https://www.kpf.com/project/lotte-world-tower
+- 구조 설계사: https://www.lera.com/lotte-world-tower
+
+보여줄 내용:
+- 배치도, 기준층 평면도, 입면도, 단면도. 도면에는 무엇을 보여주는지, 단위와 치수의 근거를 알 수 있게 하세요.
+- 설계가 발전하는 과정과 각 단계의 3D 형상.
+- 완성된 건물의 실제 3D 형상과 회전·확대/축소·시점 초기화 조작.
+- 도면, 선택한 설계 단계, 완성 모델 사이의 대응 관계.
+
+표현 스타일, 화면 구성, 도형 생성 방법, 설명 방식은 스스로 결정하세요. 참고 구현 코드나 시각적 예시는 제공하지 않습니다.
+
+실행 조건:
+- 하나의 완결된 HTML 문서만 반환하세요. 자신의 CSS와 JavaScript를 문서 안에 넣으세요.
+- 3D 실행 환경은 모든 모델에 동일합니다: Three.js 0.186.1과 OrbitControls가 전역 THREE 객체로 제공되는 로컬 스크립트 "../runtime/three-runtime.js"를 사용할 수 있습니다. 필요하면 이 스크립트를 직접 포함하세요. 직접 WebGL을 구현해도 됩니다.
+- 외부 네트워크, 외부 폰트·이미지, 서버 API 없이 실행되게 하세요. 위 출처는 텍스트 출처 링크이며 실행 중 가져오면 안 됩니다.
+- 작품은 sandbox="allow-scripts" iframe에서 실행됩니다. alert/confirm/prompt와 부모 문서 접근은 사용하지 마세요.
+- 휴대폰과 데스크톱에서 조작할 수 있게 하세요. 키보드 조작, 읽기 쉬운 글자와 대비, 움직임 감소 설정을 고려하세요.
+- 실제 모델 이름 "glm-4.7-flash"을 화면에 표시하세요.
+- 설명문이나 코드 조각을 따로 반환하지 말고 전체 HTML을 반환하세요.
+
+
+YOUR PREVIOUS FULL RESPONSE:
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>롯데월드타워: 설계와 형상의 발전</title>
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --panel-bg: rgba(31, 40, 51, 0.85);
+            --text-main: #c5c6c7;
+            --accent: #66fcf1;
+            --accent-dim: #45a29e;
+            --font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        * { box-sizing: border-box; touch-action: none; user-select: none; }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* 3D Canvas */
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* UI Overlay */
+        #ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none; /* Let clicks pass through to canvas where needed */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            pointer-events: auto;
+            background: var(--panel-bg);
+            padding: 15px 25px;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent);
+            backdrop-filter: blur(5px);
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            margin: 0 0 5px 0;
+            font-size: 24px;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .model-badge {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 12px;
+            background: rgba(102, 252, 241, 0.1);
+            color: var(--accent);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Controls Area */
+        .controls-area {
+            pointer-events: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-end;
+        }
+
+        .stage-selector {
+            background: var(--panel-bg);
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            background: transparent;
+            border: 1px solid var(--accent-dim);
+            color: var(--text-main);
+            padding: 10px 20px;
+            font-size: 19px; /* FIX: 19px minimum */
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--font-family);
+            min-width: 120px;
+        }
+
+        button:hover, button.active {
+            background: var(--accent);
+            color: var(--bg-color);
+            border-color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Info Panel */
+        #info-panel {
+            pointer-events: auto;
+            background: var(--panel-bg);
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 350px;
+            backdrop-filter: blur(5px);
+            border-top: 3px solid var(--accent);
+            margin-top: 20px;
+            transition: opacity 0.3s;
+        }
+
+        #info-title {
+            font-size: 20px;
+            color: var(--accent);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        #info-content {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .disclaimer {
+            font-size: 12px;
+            color: #888;
+            margin-top: 10px;
+            font-style: italic;
+            border-top: 1px solid #444;
+            padding-top: 5px;
+        }
+
+        /* Keyboard Controls Hint */
+        .keyboard-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.4);
+            pointer-events: none;
+        }
+
+        /* Loading */
+        #loader {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-color);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.5s;
+        }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 5px solid var(--accent-dim);
+            border-top: 5px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <p style="margin-top: 20px; color: var(--accent);">GLM-4.7-FLASH Rendering...</p>
+    </div>
+
+    <!-- 3D Scene Container -->
+    <div id="canvas-container"></div>
+
+    <!-- UI Overlay -->
+    <div id="ui-layer">
+        <header>
+            <h1>롯데월드타워</h1>
+            <p class="subtitle">설계도면과 형상의 발전 과정</p>
+            <span class="model-badge">zai.glm-4.7-flash</span>
+        </header>
+
+        <div class="controls-area">
+            <div class="stage-selector">
+                <button id="btn-site" class="active" onclick="app.setStage('site')">배치도</button>
+                <button id="btn-plan" onclick="app.setStage('plan')">기준층 평면도</button>
+                <button id="btn-elev" onclick="app.setStage('elevation')">입면도</button>
+                <button id="btn-section" onclick="app.setStage('section')">단면도</button>
+                <button id="btn-model" onclick="app.setStage('model')">완성 모델</button>
+            </div>
+        </div>
+
+        <div id="info-panel">
+            <h3 id="info-title">배치도</h3>
+            <div id="info-content">
+                서울 송파구 올림픽공로 300번길 300.<br>
+                지상 123층, 높이 555m.<br>
+                롯데월드타워는 서울의 지표면을 기준으로 배치되었습니다.
+            </div>
+            <div class="disclaimer">
+                * 치수 및 단면은 공개 자료를 기반으로 한 개념 재구성이며, 실제 시공 도면과 다를 수 있습니다.
+            </div>
+        </div>
+
+        <div class="keyboard-hint">
+            [WASD] 회전 | [Q/E] 확대/축소 | [R] 초기화
+        </div>
+    </div>
+
+    <!-- 
+      FIX: Use the provided local runtime script as requested.
+      This script provides THREE and OrbitControls globally.
+    -->
+    <script src="../runtime/three-runtime.js"></script>
+
+    <script>
+        /**
+         * zai.glm-4.7-flash
+         * Interactive Lotte World Tower Visualization
+         * 
+         * Architecture:
+         * 1. State Management: Handles the current stage (Site, Plan, Elev, Section, Model).
+         * 2. Scene Graph: A single scene with multiple camera positions and object groups.
+         * 3. Procedural Generation: Generates the tower geometry based on the "taper" logic.
+         * 4. Interaction: Keyboard and UI event listeners.
+         */
+
+        const CONFIG = {
+            towerHeight: 555, // meters
+            floors: 123,
+            baseRadius: 45,   // meters
+            topRadius: 12,    // meters
+            colors: {
+                glass: 0x88ccff,
+                structure: 0x333333,
+                ground: 0x1a1a1a,
+                grid: 0x444444
+            }
+        };
+
+        class LotteApp {
+            constructor() {
+                this.container = document.getElementById('canvas-container');
+                this.scene = null;
+                this.camera = null;
+                this.renderer = null;
+                this.controls = null;
+                
+                // Objects
+                this.towerGroup = new THREE.Group();
+                this.groundPlane = null;
+                this.gridHelper = null;
+                this.raycaster = new THREE.Raycaster();
+                this.mouse = new THREE.Vector2();
+
+                // State
+                this.currentStage = 'site';
+                this.isAnimating = false;
+                this.targetCameraPos = new THREE.Vector3();
+                this.targetLookAt = new THREE.Vector3(0, 50, 0);
+
+                this.init();
+            }
+
+            init() {
+                // 1. Scene Setup
+                this.scene = new THREE.Scene();
+                this.scene.background = new THREE.Color(CONFIG.colors.ground);
+                this.scene.fog = new THREE.FogExp2(CONFIG.colors.ground, 0.002);
+
+                // 2. Camera
+                this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
+                this.camera.position.set(200, 150, 200);
+
+                // 3. Renderer
+                this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                this.renderer.shadowMap.enabled = true;
+                this.container.appendChild(this.renderer.domElement);
+
+                // 4. Controls (OrbitControls from runtime)
+                if (typeof THREE !== 'undefined' && THREE.OrbitControls) {
+                    this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+                    this.controls.enableDamping = true;
+                    this.controls.dampingFactor = 0.05;
+                    this.controls.maxPolarAngle = Math.PI / 2 - 0.05; // Don't go below ground
+                    this.controls.minDistance = 50;
+                    this.controls.maxDistance = 800;
+                }
+
+                // 5. Lighting
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+                this.scene.add(ambientLight);
+
+                const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+                dirLight.position.set(100, 200, 100);
+                dirLight.castShadow = true;
+                dirLight.shadow.mapSize.width = 2048;
+                dirLight.shadow.mapSize.height = 2048;
+                this.scene.add(dirLight);
+
+                const spotLight = new THREE.SpotLight(CONFIG.colors.glass, 1);
+                spotLight.position.set(-100, 300, -100);
+                spotLight.lookAt(0, 100, 0);
+                this.scene.add(spotLight);
+
+                // 6. Build World
+                this.createEnvironment();
+                this.createTower();
+                this.createDesignStages();
+
+                // 7. Event Listeners
+                window.addEventListener('resize', () => this.onWindowResize(), false);
+                document.addEventListener('keydown', (e) => this.onKeyDown(e), false);
+
+                // Remove Loader
+                setTimeout(() => {
+                    document.getElementById('loader').style.opacity = '0';
+                    setTimeout(() => document.getElementById('loader').remove(), 500);
+                }, 1000);
+
+                // Start Loop
+                this.animate();
+            }
+
+            createEnvironment() {
+                // Ground
+                const geometry = new THREE.PlaneGeometry(2000, 2000);
+                const material = new THREE.MeshStandardMaterial({ 
+                    color: CONFIG.colors.ground,
+                    roughness: 0.8
+                });
+                this.groundPlane = new THREE.Mesh(geometry, material);
+                this.groundPlane.rotation.x = -Math.PI / 2;
+                this.groundPlane.receiveShadow = true;
+                this.scene.add(this.groundPlane);
+
+                // Grid
+                this.gridHelper = new THREE.GridHelper(2000, 100, CONFIG.colors.accent, CONFIG.colors.grid);
+                this.gridHelper.position.y = 0.1;
+                this.scene.add(this.gridHelper);
+            }
+
+            // Procedural Tower Generation
+            createTower() {
+                // We create a custom geometry to represent the taper
+                // Using a CylinderGeometry with radial segments for the "porcelain" look
+                const segments = 32;
+                const heightSegments = 60; // Detail level
+                
+                // Create a custom shape for the profile
+                const shape = new THREE.Shape();
+                const h = CONFIG.towerHeight;
+                const rBase = CONFIG.baseRadius;
+                const rTop = CONFIG.topRadius;
+                
+                // Quadratic Bezier curve for smooth taper
+                shape.moveTo(-rBase, 0);
+                shape.quadraticCurveTo(0, h * 0.3, -rTop, h);
+                shape.lineTo(rTop, h);
+                shape.quadraticCurveTo(0, h * 0.3, rBase, 0);
+                shape.lineTo(-rBase, 0);
+
+                const extrudeSettings = {
+                    steps: heightSegments,
+                    depth: 1, // Thickness
+                    bevelEnabled: true,
+                    bevelThickness: 0.5,
+                    bevelSize: 0.5,
+                    bevelSegments: 2
+                };
+
+                const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+                geometry.center(); // Center the geometry vertically
+
+                // Material: Glassy, reflective
+                const material = new THREE.MeshPhysicalMaterial({
+                    color: CONFIG.colors.glass,
+                    metalness: 0.1,
+                    roughness: 0.1,
+                    transmission: 0.6, // Glass-like
+                    thickness: 1.0,
+                    clearcoat: 1.0,
+                    clearcoatRoughness: 0.1
+                });
+
+                this.towerMesh = new THREE.Mesh(geometry, material);
+                this.towerMesh.castShadow = true;
+                this.towerMesh.receiveShadow = true;
+                
+                // Add a structural core (visual only)
+                const coreGeo = new THREE.CylinderGeometry(5, 5, CONFIG.towerHeight, 8);
+                const coreMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.5 });
+                const core = new THREE.Mesh(coreGeo, coreMat);
+                core.position.y = CONFIG.towerHeight / 2;
+                this.towerMesh.add(core);
+
+                this.towerGroup.add(this.towerMesh);
+                this.scene.add(this.towerGroup);
+            }
+
+            // Create visual markers for design stages
+            createDesignStages() {
+                // 1. Site Plan Marker (Top View)
+                const siteRing = new THREE.RingGeometry(CONFIG.baseRadius + 5, CONFIG.baseRadius + 10, 64);
+                const siteMat = new THREE.MeshBasicMaterial({ color: CONFIG.colors.accent, side: THREE.DoubleSide, transparent: true, opacity: 0.5 });
+                const siteMesh = new THREE.Mesh(siteRing, siteMat);
+                siteMesh.rotation.x = -Math.PI / 2;
+                siteMesh.position.y = 0.5;
+                siteMesh.userData = { type: 'site' };
+                this.towerGroup.add(siteMesh);
+
+                // 2. Floor Plan Marker (Top View)
+                const floorRing = new THREE.RingGeometry(CONFIG.topRadius, CONFIG.topRadius + 2, 32);
+                const floorMat = new THREE.MeshBasicMaterial({ color: 0xffaa00, side: THREE.DoubleSide, transparent: true, opacity: 0.5 });
+                const floorMesh = new THREE.Mesh(floorRing, floorMat);
+                floorMesh.rotation.x = -Math.PI / 2;
+                floorMesh.position.y = CONFIG.towerHeight;
+                floorMesh.userData = { type: 'plan' };
+                this.towerGroup.add(floorMesh);
+
+                // 3. Elevation Marker (Front View)
+                const elevLine = new THREE.Line(
+                    new THREE.BufferGeometry().setFromPoints([
+                        new THREE.Vector3(0, 0, 0),
+                        new THREE.Vector3(0, CONFIG.towerHeight, 0)
+                    ]),
+                    new THREE.LineBasicMaterial({ color: 0xffaa00, linewidth: 2 })
+                );
+                elevLine.userData = { type: 'elevation' };
+                this.towerGroup.add(elevLine);
+
+                // 4. Section Marker (Side View)
+                const sectionLine = new THREE.Line(
+                    new THREE.BufferGeometry().setFromPoints([
+                        new THREE.Vector3(-CONFIG.baseRadius, 0, 0),
+                        new THREE.Vector3(CONFIG.baseRadius, 0, 0)
+                    ]),
+                    new THREE.LineBasicMaterial({ color: 0xffaa00, linewidth: 2 })
+                );
+                sectionLine.userData = { type: 'section' };
+                this.towerGroup.add(sectionLine);
+            }
+
+            setStage(stage) {
+                this.currentStage = stage;
+                
+                // Update UI Buttons
+                document.querySelectorAll('.stage-selector button').forEach(btn => btn.classList.remove('active'));
+                document.getElementById(`btn-${stage}`).classList.add('active');
+
+                // Update Text
+                const title = document.getElementById('info-title');
+                const content = document.getElementById('info-content');
+                
+                switch(stage) {
+                    case 'site':
+                        title.innerText = "배치도";
+                        content.innerHTML = `서울 송파구 올림픽공로 300번길 300.<br>지상 123층, 높이 555m.<br>롯데월드타워는 서울의 지표면을 기준으로 배치되었습니다.`;
+                        this.targetCameraPos.set(300, 100, 300);
+                        this.targetLookAt.set(0, 50, 0);
+                        break;
+                    case 'plan':
+                        title.innerText = "기준층 평면도";
+                        content.innerHTML = `지상 1층(기준층)의 평면 형상.<br>한국 도자기의 선을 참고한 형태.<br>기준층 면적이 위로 갈수록 좁아지는 형태입니다.`;
+                        this.targetCameraPos.set(0, 600, 0); // Top down
+                        this.targetLookAt.set(0, 0, 0);
+                        break;
+                    case 'elevation':
+                        title.innerText = "입면도";
+                        content.innerHTML = `북측 입면.<br>도자기의 곡선을 따른 외관.<br>555m 높이의 측면 형상.`;
+                        this.targetCameraPos.set(0, 100, 500);
+                        this.targetLookAt.set(0, 277, 0);
+                        break;
+                    case 'section':
+                        title.innerText = "단면도";
+                        content.innerHTML = `서울 방향 단면.<br>기둥의 배치와 지진에 대한 고려.<br>최대 555m 높이의 구조적 안정성.`;
+                        this.targetCameraPos.set(500, 100, 0);
+                        this.targetLookAt.set(0, 277, 0);
+                        break;
+                    case 'model':
+                        title.innerText = "완성 모델";
+                        content.innerHTML = `3D 형상의 전체 표현.<br>조작: 마우스 드래그(회전), 휠(확대/축소).<br>키보드: [WASD] 회전, [Q/E] 줌, [R] 초기화.`;
+                        this.targetCameraPos.set(200, 150, 200);
+                        this.targetLookAt.set(0, 50, 0);
+                        break;
+                }
+            }
+
+            onKeyDown(event) {
+                const step = 10;
+                const zoomStep = 20;
+                
+                // FIX: Keyboard controls for camera
+                switch(event.key.toLowerCase()) {
+                    case 'w': this.targetCameraPos.z -= step; break;
+                    case 's': this.targetCameraPos.z += step; break;
+                    case 'a': this.targetCameraPos.x -= step; break;
+                    case 'd': this.targetCameraPos.x += step; break;
+                    case 'q': this.targetCameraPos.y += zoomStep; break;
+                    case 'e': this.targetCameraPos.y -= zoomStep; break;
+                    case 'r': 
+                        this.setStage('site'); 
+                        break;
+                }
+            }
+
+            onWindowResize() {
+                this.camera.aspect = window.innerWidth / window.innerHeight;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+
+            animate() {
+                requestAnimationFrame(() => this.animate());
+
+                // Smooth Camera Transition
+                this.camera.position.lerp(this.targetCameraPos, 0.05);
+                this.controls.target.lerp(this.targetLookAt, 0.05);
+                this.controls.update();
+
+                // Subtle rotation for the "Model" stage if idle
+                if (this.currentStage === 'model' && this.controls.getAzimuthalAngle() % (Math.PI * 2) < 0.01) {
+                    // Optional: Auto rotate if user isn't interacting? 
+                    // Better to let user control, but we can rotate the tower slightly for effect
+                    // this.towerGroup.rotation.y += 0.001;
+                }
+
+                this.renderer.render(this.scene, this.camera);
+            }
+        }
+
+        // Initialize App
+        const app = new LotteApp();
+
+    </script>
+</body>
+</html>
+```
+
+MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
+["docs/models/glm-4.7-flash/lotte-tower/artwork.html:482: Elevation invokes setStage(elevation), but its button is btn-elev; the null lookup throws on classList and aborts the view switch. Required repair: Use a consistent button-ID/stage mapping and test every view button. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/glm-4.7-flash/lotte-tower/artwork.html:82: Meaningful UI/diagram text is below19px at rendered size. Required repair: Make meaningful text and diagram labels at least19px on mobile/desktop. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/glm-4.7-flash/lotte-tower/artwork.html:436: The four requested drawings are absent, labels/placeholders, or unlabelled scene planes instead of meaningful site/floor/elevation/section diagrams. Required repair: Draw four readable diagrams with units/assumption labels and correspondence to the model; a name/rectangle alone does not show the requested content. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/glm-4.7-flash/lotte-tower/artwork.html:477: No explained intermediate3D design-development states are implemented. Required repair: Provide distinct understandable intermediate3D forms leading to the completed model, linked to the drawings. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."]
+
+Return the complete repaired HTML now.

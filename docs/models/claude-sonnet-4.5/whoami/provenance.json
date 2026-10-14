@@ -1,0 +1,129 @@
+{
+  "model": "claude-sonnet-4.5",
+  "task": "whoami",
+  "requested_model_id": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "provider": "bedrock",
+  "family": "Claude",
+  "generation": "free-expression-20261012",
+  "source_records": "results/model-self-portraits/generations/free-expression-20261012/claude-sonnet-4.5",
+  "status": "generated",
+  "generation_status": "generated",
+  "artwork_sha256": "9fb61412e4456e1fa4e87be3ce41c9022c1b0b0c935b1eb7ef877a34b3cccf6e",
+  "content_review": {
+    "model": "claude-sonnet-4.5",
+    "generation": "free-expression-20261012",
+    "score": 97.5,
+    "critical": 0,
+    "warnings": 2,
+    "verdict": "PASS",
+    "category_scores": {
+      "Layout": 8,
+      "Terminology": 8,
+      "No Hallucination": 12,
+      "Language Consistency": 8,
+      "No Sensitive Data": 12,
+      "Content-Type Quality": 2,
+      "Icon Usage": 5,
+      "Renders": 5,
+      "Interactions": 5,
+      "Readability": 5,
+      "Accessibility": 2.5,
+      "Structural Completeness": 5,
+      "Data Accuracy and References": 5,
+      "Legal Compliance": 5,
+      "Message Clarity": 5,
+      "Duplication and Gaps": 5
+    },
+    "findings": [
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/claude-sonnet-4.5/artwork.html",
+        "line": 80,
+        "quote": "font-size: 1rem;",
+        "problem": "Buttons and informative guidance/counters render at 12–16px.",
+        "action": "Use at least 19px for meaningful labels and guidance."
+      },
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/claude-sonnet-4.5/artwork.html",
+        "line": 118,
+        "quote": "opacity: 0.4;",
+        "problem": "The fixed keyboard instruction is composited at opacity 0.4 on a near-black background and falls below 4.5:1 contrast.",
+        "action": "Increase the contrast of meaningful keyboard guidance to 4.5:1."
+      }
+    ],
+    "artwork_sha256": "9fb61412e4456e1fa4e87be3ce41c9022c1b0b0c935b1eb7ef877a34b3cccf6e",
+    "model_id": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+    "reported_model": null,
+    "requested_at": "2026-10-12T08:06:53.857335+00:00",
+    "reviewed_at": "2026-10-12T08:46:03.454096+00:00",
+    "initial_prompt_sha256": "aed9657e54ff5a32851ea29336b604faa398d1a5f66ec402008c22ab1ffa5dbb",
+    "exact_example_free_initial_prompt": true,
+    "original_response_containment": true,
+    "frozen_source": "/tmp/free-expression-review/claude-sonnet-4.5/9fb61412e445",
+    "browser_evidence": "/tmp/free-expression-review/claude-sonnet-4.5/9fb61412e445/browser.json",
+    "notes": [
+      "Wave/add/clear/pause and supplied keyboard shortcuts work; initial reduced-motion state is paused.",
+      "Vertical scrolling is permitted and is not a layout defect."
+    ]
+  },
+  "prompt_sha256": "aed9657e54ff5a32851ea29336b604faa398d1a5f66ec402008c22ab1ffa5dbb",
+  "initial_prompt_sha256": "aed9657e54ff5a32851ea29336b604faa398d1a5f66ec402008c22ab1ffa5dbb",
+  "implementation_cost": {
+    "kind": "api_tokens",
+    "generation": "free-expression-20261012",
+    "currency": "USD",
+    "price_source": "config.toml",
+    "price_snapshot": {
+      "price_in": 3.3,
+      "price_out": 16.5,
+      "price_cache_read": 0.33,
+      "price_cache_write": 4.125
+    },
+    "estimated_total_usd": 0.0656139,
+    "estimated_final_response_usd": 0.0656139,
+    "recorded_attempts": 1,
+    "successful_code_responses": 1,
+    "additional_attempts": 0,
+    "known_cost_attempts": 1,
+    "unknown_usage_attempts": 0,
+    "missing_duration_attempts": 0,
+    "total_request_seconds": null,
+    "tokens": {
+      "tokens_in": 388,
+      "tokens_out": 3899,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "complete_request_estimate": true,
+    "excludes": [
+      "reviewer_and_coordinator_calls",
+      "historical_generations",
+      "taxes_and_discounts",
+      "requests_without_returned_usage"
+    ],
+    "attempts": [
+      {
+        "requested_at": "2026-10-12T08:06:53.857335+00:00",
+        "status": "generated",
+        "request_id": "34a1efdc-a53c-407a-b373-92b11197bb18",
+        "usage_available": true,
+        "estimated_cost_usd": 0.0656139,
+        "request_seconds": null,
+        "record_sha256": "171e58b04fc6c92daffbd4a44bb905579c41f5f48477b474b27d727bdaf0c74d",
+        "response_sha256": "c326d3476f7e2e31aa806c462423b65b3f99b40caf3094a8518b059004eb58f7"
+      }
+    ]
+  },
+  "request_id": "34a1efdc-a53c-407a-b373-92b11197bb18",
+  "requested_at": "2026-10-12T08:06:53.857335+00:00",
+  "generated_at": "2026-10-12T08:07:33.735907+00:00",
+  "tokens_in": 388,
+  "tokens_out": 3899,
+  "max_output_tokens": 8192,
+  "temperature": 0,
+  "temperature_sent": true,
+  "finish_reason": "end_turn"
+}

@@ -17,8 +17,10 @@ from tools.generate_lotte_towers import RECORDS as LOTTE_RECORDS, RUNTIME
 
 MODELS = ROOT / "docs/models"
 WHOAMI_RECORDS = ROOT / "results/model-self-portraits/generations/free-expression-20261012"
-LABELS = {"generated": "모델 직접 작성", "pending": "작성 대기", "failed": "생성 실패",
-          "unavailable": "실행 불가", "not_generative": "코드 생성 없음", "review_held": "검수 보류"}
+LABELS = {"generated": "모델 직접 작성", "pending": "작성 대기", "failed": "실패 · 생성 실패",
+          "unavailable": "실행 불가", "not_generative": "코드 생성 없음",
+          "review_failed": "실패 · 검수 실패", "task_failed": "실패 · 필수 기능 미충족",
+          "review_required": "수정 필요", "review_pending": "검수 대기"}
 TASKS = {"whoami": ("나는, 이런 모델입니다.", "각 모델이 직접 표현한 미디어아트 자기소개"),
          "lotte-tower": ("롯데월드타워를 모델링하다.", "각 모델이 직접 작성한 도면·설계 과정·완성 3D")}
 
@@ -54,6 +56,17 @@ def request_conditions(model, directory, record):
     }
 
 
+def rejected_status(record, review, task):
+    """Distinguish an evidenced failure from a pending or repairable review."""
+    if not review or review.get("artwork_sha256") != record.get("artwork_sha256"):
+        return "review_pending"
+    if review.get("verdict") == "FAIL" or review.get("critical", 0) > 0:
+        return "review_failed"
+    if task == "lotte-tower" and review.get("task_requirements_complete") is False:
+        return "task_failed"
+    return "review_required"
+
+
 def status_panel(name, task, status, record, review):
     """Explain the current publication state using matching review evidence."""
     esc = ui.escape
@@ -61,9 +74,14 @@ def status_panel(name, task, status, record, review):
     details = ""
     if status == "failed":
         message = "최신 요청에서 완결된 HTML을 생성하지 못했습니다. 공개할 수 있는 최신 구현이 없습니다."
-    elif status == "review_held":
+    elif status in {"review_failed", "task_failed", "review_required", "review_pending"}:
         if review and review.get("artwork_sha256") == record.get("artwork_sha256"):
-            message = "모델의 구현은 생성됐지만 독립 검수의 공개 기준을 충족하지 못해 보류했습니다."
+            message = {
+                "review_failed": "모델이 작성한 구현은 독립 검수에서 실패했습니다. 실패한 결과는 공개하지 않습니다.",
+                "task_failed": "모델이 필수 기능을 구현하지 못해 작업에 실패했습니다. 품질 검수 점수와 별개로 실패한 결과입니다.",
+                "review_required": "모델의 구현은 생성됐지만 공개 기준을 충족하려면 수정이 필요합니다.",
+                "review_pending": "모델의 구현은 생성됐습니다. 독립 검수 결과를 기다리고 있습니다.",
+            }[status]
             findings = review.get("findings", [])
             if any(
                 row.get("severity") == "Critical" and "THREE.Geometry" in row.get("quote", "")
@@ -127,7 +145,7 @@ def task_page(model, task, reviews):
             and review.get("artwork_sha256") == record["artwork_sha256"]
             and (task != "lotte-tower" or review.get("task_requirements_complete") is True)
         ):
-            status = "review_held"
+            status = rejected_status(record, review, task)
         if artifact.exists():
             assert sha(artifact) == record["artwork_sha256"], name
         elif status == "generated":
@@ -303,6 +321,27 @@ def main(argv=None):
     ui.write_json(MODELS / "aliases.json", aliases)
     shutil.copy2(ROOT / "tools/lotte_tower_prompt.txt", MODELS / "lotte-tower-initial-prompt.txt")
     families = sorted({entry["family"] for entry in entries})
+    lotte_entries = [entry for entry in entries if entry["tasks"]["lotte-tower"]["status"] != "not_generative"]
+    failures = [entry for entry in lotte_entries if entry["tasks"]["lotte-tower"]["status"] in
+                {"failed", "review_failed", "task_failed"}]
+    ready_count = sum(entry["tasks"]["lotte-tower"]["status"] == "generated" for entry in lotte_entries)
+    repair_count = sum(entry["tasks"]["lotte-tower"]["status"] == "review_required" for entry in lotte_entries)
+    pending_count = sum(entry["tasks"]["lotte-tower"]["status"] in {"pending", "review_pending"} for entry in lotte_entries)
+    unavailable_count = sum(entry["tasks"]["lotte-tower"]["status"] == "unavailable" for entry in lotte_entries)
+    outcome_summary = (
+        '<section class="task-outcomes" aria-label="롯데타워 구현 결과">'
+        f'<p>롯데타워 {len(lotte_entries)}개 모델 · 성공 {ready_count}개 · 실패 {len(failures)}개 · '
+        f'수정 필요 {repair_count}개 · 대기 {pending_count}개 · 실행 불가 {unavailable_count}개.</p>'
+        '<p>생성 실패, 검수 실패, 필수 기능 미충족은 실패로 분류합니다. 실패한 결과의 프롬프트·비용·원인은 기록에 남깁니다.</p>'
+        + (
+            '<details><summary>실패 모델과 원인 보기</summary><ul>'
+            + "".join(
+                f'<li><a href="{ui.escape(entry["model"])}/lotte-tower/">{ui.escape(entry["model"])}</a>'
+                f' · {ui.escape(LABELS[entry["tasks"]["lotte-tower"]["status"]])}</li>'
+                for entry in failures
+            ) + '</ul></details>' if failures else ""
+        ) + '</section>'
+    )
     filters = '<button type="button" data-family="all" class="active" aria-pressed="true">전체</button>' + "".join(
         f'<button type="button" data-family="{ui.escape(value)}" aria-pressed="false">{ui.escape(value)}</button>'
         for value in families
@@ -317,6 +356,7 @@ def main(argv=None):
         '<div>롯데타워의 최초 요청 본문은 공통입니다. 최종본에는 모델별 추가 수정과 서로 다른 출력 한도가 적용됐습니다.'
         ' 최초 결과·수정본의 조건은 각 페이지의 작성 기록에서 확인하세요. '
         '<a href="lotte-tower-initial-prompt.txt">공통 최초 프롬프트 ↗</a></div></section>'
+        + outcome_summary +
         '<section class="toolbar"><label class="search"><span>모델 검색</span><input id="search" type="search" '
         'placeholder="모델 이름 검색" autocomplete="off"></label><div class="filters" aria-label="모델 계열 필터">'
         + filters + '</div></section><section class="portrait-grid">'

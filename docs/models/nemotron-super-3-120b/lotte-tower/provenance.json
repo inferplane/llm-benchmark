@@ -6,7 +6,7 @@
   "family": "NVIDIA",
   "generation": "lotte-tower-models-20261013",
   "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b",
-  "status": "review_held",
+  "status": "task_failed",
   "generation_status": "generated",
   "artwork_sha256": "a082bfe8a3bc35572b99259148f702cbb30a9ebad83da087812b308d06bc4982",
   "content_review": {

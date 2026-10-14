@@ -6,7 +6,7 @@
   "family": "Amazon Nova",
   "generation": "lotte-tower-models-20261013",
   "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/nova-micro",
-  "status": "review_held",
+  "status": "review_failed",
   "generation_status": "generated",
   "artwork_sha256": "5ebb6caba2c5f794c672836f213201676aa9a67a66ac2df64c9eb3e9fb7b4e7b",
   "content_review": {

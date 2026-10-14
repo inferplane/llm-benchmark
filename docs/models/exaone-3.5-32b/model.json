@@ -151,7 +151,7 @@
       "family": "LG AI Research",
       "generation": "lotte-tower-models-20261013",
       "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b",
-      "status": "review_held",
+      "status": "review_failed",
       "generation_status": "generated",
       "artwork_sha256": "f810c39e19a7a8d6197f01194885f925449bb9bd6303710d59ed96219c2c096c",
       "content_review": {

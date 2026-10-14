@@ -137,7 +137,7 @@
       "family": "Meta",
       "generation": "lotte-tower-models-20261013",
       "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/llama4-scout",
-      "status": "review_held",
+      "status": "review_required",
       "generation_status": "generated",
       "artwork_sha256": "a3b57bbea3622ba0ef514355fceb37db14506babefa82f0ed1501cb684731362",
       "content_review": {

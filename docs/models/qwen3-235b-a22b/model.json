@@ -156,7 +156,7 @@
       "family": "Qwen",
       "generation": "lotte-tower-models-20261013",
       "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b",
-      "status": "review_held",
+      "status": "review_failed",
       "generation_status": "generated",
       "artwork_sha256": "c361b11bdb85a58a3b14f046b484551db13809f92c864e4aad9d2934d8bda05c",
       "content_review": {

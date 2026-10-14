@@ -9,6 +9,9 @@
 .placeholder span, .placeholder strong { font-size: 19px; }
 .caption small, .caption h2, .status { font-size: 19px; overflow-wrap: anywhere; }
 .catalog > footer { font-size: 19px; }
+.task-outcomes { border-top: 1px solid #46503b; padding: 16px 0 24px; font-size: 19px; overflow-wrap: anywhere; }
+.task-outcomes summary { cursor: pointer; color: #d7eb98; }
+.task-outcomes a { color: #d7eb98; text-decoration: underline; }
 .viewer-bar { display: grid; grid-template-columns: auto minmax(0,1fr) auto; font-size: 19px; gap: 16px; min-height: 64px; }
 .viewer-bar > span { justify-self: center; flex-wrap: wrap; justify-content: center; }
 .viewer-bar strong, .viewer-bar small { font-size: 19px; white-space: normal; text-align: center; }

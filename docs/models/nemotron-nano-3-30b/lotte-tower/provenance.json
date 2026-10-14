@@ -6,7 +6,7 @@
   "family": "NVIDIA",
   "generation": "lotte-tower-models-20261013",
   "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b",
-  "status": "review_held",
+  "status": "review_failed",
   "generation_status": "generated",
   "artwork_sha256": "acc83a509b386bdc4f2335c08d3b474566d8e4e1ea9a5e146bd0428d16b15786",
   "content_review": {

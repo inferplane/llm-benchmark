@@ -150,7 +150,7 @@
       "family": "Meta",
       "generation": "lotte-tower-models-20261013",
       "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b",
-      "status": "review_held",
+      "status": "review_failed",
       "generation_status": "generated",
       "artwork_sha256": "c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1",
       "content_review": {

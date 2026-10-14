@@ -2333,7 +2333,7 @@
         "family": "Amazon Nova",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/nova-pro",
-        "status": "review_held",
+        "status": "task_failed",
         "generation_status": "generated",
         "artwork_sha256": "f0f629b16c95906ac13780be02ff5ee6e2bb4af51458403689780b692aae373a",
         "content_review": {
@@ -3029,7 +3029,7 @@
         "family": "Amazon Nova",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/nova-lite",
-        "status": "review_held",
+        "status": "review_failed",
         "generation_status": "generated",
         "artwork_sha256": "57e9c8515fbc8dc91f51f718b15f31855b3db1034103037986a261c1d0924f5f",
         "content_review": {
@@ -6419,7 +6419,7 @@
         "family": "Amazon Nova",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/nova-micro",
-        "status": "review_held",
+        "status": "review_failed",
         "generation_status": "generated",
         "artwork_sha256": "5ebb6caba2c5f794c672836f213201676aa9a67a66ac2df64c9eb3e9fb7b4e7b",
         "content_review": {
@@ -6768,7 +6768,7 @@
         "family": "NVIDIA",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b",
-        "status": "review_held",
+        "status": "review_failed",
         "generation_status": "generated",
         "artwork_sha256": "acc83a509b386bdc4f2335c08d3b474566d8e4e1ea9a5e146bd0428d16b15786",
         "content_review": {
@@ -7094,7 +7094,7 @@
         "family": "Z.AI",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash",
-        "status": "review_held",
+        "status": "task_failed",
         "generation_status": "generated",
         "artwork_sha256": "9586dab8a74cc49794579f440ff4b948d1e1a89b58fd306b98d584276e8c38a0",
         "content_review": {
@@ -7737,7 +7737,7 @@
         "family": "OpenAI",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b",
-        "status": "review_held",
+        "status": "review_failed",
         "generation_status": "generated",
         "artwork_sha256": "5ee00c024bdde7e10751fe50cf8f6e87d3c7bcc8035d71a4a72a8085c0c62d0c",
         "content_review": {
@@ -8067,7 +8067,7 @@
         "family": "OpenAI",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b",
-        "status": "review_held",
+        "status": "review_failed",
         "generation_status": "generated",
         "artwork_sha256": "662f89790a2a605ec2222566ead92b12357a9f7992fddc1add1ecf63f13d412f",
         "content_review": {
@@ -8389,7 +8389,7 @@
         "family": "Qwen",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b",
-        "status": "review_held",
+        "status": "review_failed",
         "generation_status": "generated",
         "artwork_sha256": "129863275742c51e3d06f0af0960d7a1997c40b3874e217eab2e499d3596c50f",
         "content_review": {
@@ -8725,7 +8725,7 @@
         "family": "NVIDIA",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b",
-        "status": "review_held",
+        "status": "task_failed",
         "generation_status": "generated",
         "artwork_sha256": "a082bfe8a3bc35572b99259148f702cbb30a9ebad83da087812b308d06bc4982",
         "content_review": {
@@ -9048,7 +9048,7 @@
         "family": "Meta",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/llama4-scout",
-        "status": "review_held",
+        "status": "review_required",
         "generation_status": "generated",
         "artwork_sha256": "a3b57bbea3622ba0ef514355fceb37db14506babefa82f0ed1501cb684731362",
         "content_review": {
@@ -9713,7 +9713,7 @@
         "family": "Qwen",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b",
-        "status": "review_held",
+        "status": "review_failed",
         "generation_status": "generated",
         "artwork_sha256": "c361b11bdb85a58a3b14f046b484551db13809f92c864e4aad9d2934d8bda05c",
         "content_review": {
@@ -10009,7 +10009,7 @@
         "family": "Meta",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/llama4-maverick",
-        "status": "review_held",
+        "status": "review_required",
         "generation_status": "generated",
         "artwork_sha256": "42a3ba1fe5ca0fea250d342d7488ddadfce5ba961d436a00202266659718173f",
         "content_review": {
@@ -10323,7 +10323,7 @@
         "family": "Meta",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock",
-        "status": "review_held",
+        "status": "review_failed",
         "generation_status": "generated",
         "artwork_sha256": "e67818ea849c028c22f5335f3a765d43a209a64804c2a516d35ac385f7de3052",
         "content_review": {
@@ -10668,7 +10668,7 @@
         "family": "Google",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock",
-        "status": "review_held",
+        "status": "review_required",
         "generation_status": "generated",
         "artwork_sha256": "ad75231b7bb555c041dd03249f343c31fdda9b79b2700e5d6cdcbf7652d64827",
         "content_review": {
@@ -11036,7 +11036,7 @@
         "family": "Meta",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b",
-        "status": "review_held",
+        "status": "review_failed",
         "generation_status": "generated",
         "artwork_sha256": "c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1",
         "content_review": {
@@ -11387,7 +11387,7 @@
         "family": "Meta",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b",
-        "status": "review_held",
+        "status": "task_failed",
         "generation_status": "generated",
         "artwork_sha256": "a061dc832b7e06ecc97d03568baf5cf3098bd89829dd61f1eb9d721a9c914a94",
         "content_review": {
@@ -12043,7 +12043,7 @@
         "family": "LG AI Research",
         "generation": "lotte-tower-models-20261013",
         "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b",
-        "status": "review_held",
+        "status": "review_failed",
         "generation_status": "generated",
         "artwork_sha256": "f810c39e19a7a8d6197f01194885f925449bb9bd6303710d59ed96219c2c096c",
         "content_review": {

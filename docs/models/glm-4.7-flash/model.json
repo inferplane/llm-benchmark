@@ -150,7 +150,7 @@
       "family": "Z.AI",
       "generation": "lotte-tower-models-20261013",
       "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash",
-      "status": "review_held",
+      "status": "task_failed",
       "generation_status": "generated",
       "artwork_sha256": "9586dab8a74cc49794579f440ff4b948d1e1a89b58fd306b98d584276e8c38a0",
       "content_review": {

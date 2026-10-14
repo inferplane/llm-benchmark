@@ -138,7 +138,7 @@
       "family": "Amazon Nova",
       "generation": "lotte-tower-models-20261013",
       "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/nova-pro",
-      "status": "review_held",
+      "status": "task_failed",
       "generation_status": "generated",
       "artwork_sha256": "f0f629b16c95906ac13780be02ff5ee6e2bb4af51458403689780b692aae373a",
       "content_review": {

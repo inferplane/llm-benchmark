@@ -6,7 +6,7 @@
   "family": "Google",
   "generation": "lotte-tower-models-20261013",
   "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock",
-  "status": "review_held",
+  "status": "review_required",
   "generation_status": "generated",
   "artwork_sha256": "ad75231b7bb555c041dd03249f343c31fdda9b79b2700e5d6cdcbf7652d64827",
   "content_review": {

@@ -129,7 +129,7 @@
       "family": "Meta",
       "generation": "lotte-tower-models-20261013",
       "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock",
-      "status": "review_held",
+      "status": "review_failed",
       "generation_status": "generated",
       "artwork_sha256": "e67818ea849c028c22f5335f3a765d43a209a64804c2a516d35ac385f7de3052",
       "content_review": {

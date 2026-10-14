@@ -6,7 +6,7 @@
   "family": "OpenAI",
   "generation": "lotte-tower-models-20261013",
   "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b",
-  "status": "review_held",
+  "status": "review_failed",
   "generation_status": "generated",
   "artwork_sha256": "5ee00c024bdde7e10751fe50cf8f6e87d3c7bcc8035d71a4a72a8085c0c62d0c",
   "content_review": {

@@ -6,7 +6,7 @@
   "family": "Meta",
   "generation": "lotte-tower-models-20261013",
   "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/llama4-maverick",
-  "status": "review_held",
+  "status": "review_required",
   "generation_status": "generated",
   "artwork_sha256": "42a3ba1fe5ca0fea250d342d7488ddadfce5ba961d436a00202266659718173f",
   "content_review": {

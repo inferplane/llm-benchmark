@@ -1,0 +1,13 @@
+[
+  {
+    "alias": "gemma-4-31b",
+    "target_model": "gemma-4-31b-bedrock",
+    "requested_model_id": "google.gemma-4-31b",
+    "provider": "bedrock_mantle",
+    "redirects": {
+      "home": "../gemma-4-31b-bedrock/",
+      "whoami": "../../gemma-4-31b-bedrock/whoami/",
+      "lotte-tower": "../../gemma-4-31b-bedrock/lotte-tower/"
+    }
+  }
+]

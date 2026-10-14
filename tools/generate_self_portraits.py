@@ -120,22 +120,38 @@ def recorded_prompts(name: str, record: dict) -> list[dict]:
     ]
 
 
-def prompt_dialog(prompts: list[dict], name: str) -> str:
+def prompt_dialog(prompts: list[dict], name: str, *, initial_first: bool = False) -> str:
     if not prompts:
         return ""
+    def label(index: int, item: dict) -> str:
+        if not initial_first:
+            return item["label"]
+        if index == 0:
+            return "공통 최초 요청 · 한국어"
+        language = "영어" if item["text"].lstrip().startswith("You are ") else "원문"
+        return f"최신 개별 수정 요청 · {language}"
+
+    open_index = 0 if initial_first else len(prompts) - 1
     sections = "".join(
-        f'<details{" open" if index == len(prompts) - 1 else ""}><summary>{escape(item["label"])}</summary>'
+        f'<details{" open" if index == open_index else ""}><summary>{escape(label(index, item))}</summary>'
         f'<p class="prompt-hash">SHA-256 · {escape(item["sha256"])}</p>'
         f'<pre tabindex="0">{escape(item["text"])}</pre>'
         f'<a href="{escape(item["file"])}" target="_blank" rel="noopener">프롬프트 원문 열기 ↗</a></details>'
         for index, item in enumerate(prompts)
     )
+    explanation = (
+        "모델명·호출 ID를 제외한 최초 요청 본문은 모든 모델에 동일하게 보냈습니다. "
+        "아래는 실제 전송한 원문입니다. 추가 수정이 있으면 최신 개별 요청을 따로 표시합니다. "
+        "수정 요청에는 이전 코드와 모델별 오류 진단이 포함될 수 있습니다."
+        if initial_first else
+        "이 모델에 전송한 user 메시지 원문입니다. "
+        "수정 요청에는 이전 코드와 검수 진단이 함께 포함될 수 있습니다."
+    )
     return (
         '<dialog id="prompt-dialog" class="prompt-dialog" aria-labelledby="prompt-title">'
         f'<div class="prompt-heading"><h2 id="prompt-title">{escape(name)} · 작성 프롬프트</h2>'
         '<button type="button" data-close-prompts autofocus>닫기</button></div>'
-        '<div class="prompt-content"><p>이 모델에 전송한 user 메시지 원문입니다. '
-        '수정 요청에는 이전 코드와 검수 진단이 함께 포함될 수 있습니다.</p>'
+        f'<div class="prompt-content"><p>{explanation}</p>'
         f'{sections}</div></dialog>'
     )
 

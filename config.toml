@@ -599,6 +599,7 @@ extra_vllm_args = ["--quantization=fp8"]
 #     reasons.
 concurrency = 32
 enabled = false
+page_alias = "gemma-4-31b-bedrock"
 
 [[models]]
 name = "qwen3.6-27b"

@@ -47,7 +47,7 @@ Two current generation failures: native Qwen3.6 returned output-budget-truncated
 | qwen3-235b-a22b | 93.5 | 1 | 1 | FAIL | False | 3 | True | c361b11bdb85a58a3b14f046b484551db13809f92c864e4aad9d2934d8bda05c |
 | llama4-maverick | 93.0 | 0 | 4 | REVIEW | True | 3 | True | 42a3ba1fe5ca0fea250d342d7488ddadfce5ba961d436a00202266659718173f |
 | llama-3.3-70b-bedrock | 88.5 | 1 | 4 | FAIL | False | 3 | True | e67818ea849c028c22f5335f3a765d43a209a64804c2a516d35ac385f7de3052 |
-| gemma-4-31b-bedrock | 93.5 | 1 | 1 | FAIL | False | 2 | True | 776ede41d637c2f1e7e6ef02694a410357ec26da2a84b5fcdf00f3625b036454 |
+| gemma-4-31b-bedrock | 93.0 | 0 | 4 | REVIEW | True | 3 | True | ad75231b7bb555c041dd03249f343c31fdda9b79b2700e5d6cdcbf7652d64827 |
 | exaone-3.5-32b | 87.5 | 1 | 5 | FAIL | False | 3 | True | f810c39e19a7a8d6197f01194885f925449bb9bd6303710d59ed96219c2c096c |
 
 ## Current-generation failures (not assigned artifact scores)
@@ -373,13 +373,13 @@ Explicit review procedure: `/home/atomoh/.codex/plugins/cache/oh-my-cloud-skills
 - Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.
 - Real canvas constructor is fixed. Four identical5×5PNG placeholders remain, not actual drawings.
 
-## gemma-4-31b-bedrock — FAIL, task complete=False
+## gemma-4-31b-bedrock — REVIEW, task complete=True
 
-- Critical / Renders: `docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:186` — init is called synchronously before the let scene and const container declarations initialize, causing Cannot access scene before initialization; subsequent drawing clicks find updateView undefined. Action: Initialize declarations before calling init; bind handlers only after successful setup and test every drawing click.
-- Warning / Readability: `docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:14` — Meaningful UI/diagram text remains below19px rendered size. Action: Use at least19px meaningful rendered text and controls.
-- Evidence: `/tmp/model-lotte-review/gemma-4-31b-bedrock/776ede41d637/browser.json`
-- Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.
-- The local runtime and555m body/crown calculation are restored, but the actual initialization failure blocks all functionality. This is its second successful-source re-review.
+- Warning / Readability: `docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:86` — Diagram labels, model information and keyboard hints remain16px; the SVG555m annotation renders below19px. Action: Use at least19px meaningful rendered text, including diagram labels/annotations or readable equivalents.
+- Warning / Accessibility: `docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:136` — The four focusable diagramDIVs have onclick only. Actual Enter/Space tests leave the camera unchanged, while clicking changes it. Action: Use native buttons or implement Enter/Space activation consistently for all four diagram controls.
+- Warning / Layout: `docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:262` — The initial/reset camera crops the crown of the555-high model; the1280px screenshot shows the upper tower outside the view. Action: Fit the whole model in its initial/reset pose while preserving your own visual treatment.
+- Warning / Layout: `docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:108` — At375px the tall nearly full-width overlay panel covers the3D model and its pointer surface. Scrolling the panel does not expose a usable model area. Action: Adapt or collapse/reflow your own mobile controls so the3D model is visible and directly operable alongside accessible controls.
+- Current authorized repair episode:2026-10-14; see `gemma-bedrock-review.json/.md` for exact source/browser/fairness evidence.
 
 ## exaone-3.5-32b — FAIL, task complete=False
 

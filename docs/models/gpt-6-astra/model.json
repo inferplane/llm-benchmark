@@ -257,6 +257,17 @@
         "effort": "low",
         "context": "all_turns"
       },
+      "request_conditions": {
+        "initial_prompt_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+        "initial_max_output_tokens": 16384,
+        "latest_max_output_tokens": 16384,
+        "initial_temperature": null,
+        "latest_temperature": null,
+        "initial_reasoning_effort": null,
+        "recorded_requests": 1,
+        "followup_requests": 0,
+        "final_outputs_are_controlled_one_shot_comparison": false
+      },
       "imported_history": {
         "source_records": "results/architecture-3d/lotte-world-tower-20261013-pilot/gpt-6-astra",
         "original_generation": "lotte-world-tower-20261013-pilot",

@@ -2450,66 +2450,92 @@
       "active_source": true
     },
     {
-      "task_requirements_complete": false,
       "model": "gemma-4-31b-bedrock",
-      "score": 93.5,
-      "critical": 1,
-      "warnings": 1,
-      "verdict": "FAIL",
+      "score": 93.0,
+      "critical": 0,
+      "warnings": 4,
+      "verdict": "REVIEW",
       "category_scores": {
-        "Layout": 8,
+        "Layout": 4.0,
         "Terminology": 8,
         "No Hallucination": 12,
         "Language Consistency": 8,
         "No Sensitive Data": 12,
         "Content-Type Quality": 2,
         "Icon Usage": 5,
-        "Renders": 0,
+        "Renders": 5,
         "Interactions": 5,
         "Readability": 3.5,
-        "Accessibility": 5,
+        "Accessibility": 3.5,
         "Structural Completeness": 5,
         "Data Accuracy and References": 5,
         "Legal Compliance": 5,
         "Message Clarity": 5,
         "Duplication and Gaps": 5
       },
-      "artwork_sha256": "776ede41d637c2f1e7e6ef02694a410357ec26da2a84b5fcdf00f3625b036454",
+      "artwork_sha256": "ad75231b7bb555c041dd03249f343c31fdda9b79b2700e5d6cdcbf7652d64827",
       "model_id": "google.gemma-4-31b",
+      "reported_model": "google.gemma-4-31b",
       "origin_generation": "lotte-tower-models-20261013",
       "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/gemma-4-31b-bedrock/776ede41d637",
-      "browser_evidence": "/tmp/model-lotte-review/gemma-4-31b-bedrock/776ede41d637/browser.json",
+      "source": "/tmp/model-lotte-review/gemma-4-31b-bedrock/ad75231b7bb5",
+      "browser_evidence": "/tmp/model-lotte-review/gemma-4-31b-bedrock/ad75231b7bb5/browser.json",
+      "additional_browser_evidence": "/tmp/model-lotte-review/gemma-4-31b-bedrock/ad75231b7bb5/browser-targeted-gemma.json",
       "findings": [
-        {
-          "severity": "Critical",
-          "category": "Renders",
-          "file": "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html",
-          "line": 186,
-          "quote": "let scene, camera, renderer, controls, towerGroup;",
-          "problem": "init is called synchronously before the let scene and const container declarations initialize, causing Cannot access scene before initialization; subsequent drawing clicks find updateView undefined.",
-          "action": "Initialize declarations before calling init; bind handlers only after successful setup and test every drawing click."
-        },
         {
           "severity": "Warning",
           "category": "Readability",
           "file": "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html",
-          "line": 14,
-          "quote": "--font-size-min: 16px;",
-          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
-          "action": "Use at least19px meaningful rendered text and controls."
+          "line": 86,
+          "quote": "font-size: 16px; color: var(--accent);",
+          "problem": "Diagram labels, model information and keyboard hints remain16px; the SVG555m annotation renders below19px.",
+          "action": "Use at least19px meaningful rendered text, including diagram labels/annotations or readable equivalents."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html",
+          "line": 136,
+          "quote": "<div class=\"diag-box\" id=\"diag-site\" role=\"button\" tabindex=\"0\" onclick=\"window.updateView('site')\">",
+          "problem": "The four focusable diagramDIVs have onclick only. Actual Enter/Space tests leave the camera unchanged, while clicking changes it.",
+          "action": "Use native buttons or implement Enter/Space activation consistently for all four diagram controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html",
+          "line": 262,
+          "quote": "camera.position.set(300, 300, 600);",
+          "problem": "The initial/reset camera crops the crown of the555-high model; the1280px screenshot shows the upper tower outside the view.",
+          "action": "Fit the whole model in its initial/reset pose while preserving your own visual treatment."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html",
+          "line": 108,
+          "quote": "@media (max-width: 600px) {",
+          "problem": "At375px the tall nearly full-width overlay panel covers the3D model and its pointer surface. Scrolling the panel does not expose a usable model area.",
+          "action": "Adapt or collapse/reflow your own mobile controls so the3D model is visible and directly operable alongside accessible controls."
         }
       ],
-      "notes": [
-        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
-        "The local runtime and555m body/crown calculation are restored, but the actual initialization failure blocks all functionality. This is its second successful-source re-review."
-      ],
-      "reviewed_at": "2026-10-13T15:51:47.709284+00:00",
-      "re_review_number": 2,
-      "review_iteration": 3,
-      "retry_limit_reached": false,
+      "task_requirements_complete": true,
+      "active_source": true,
       "current_generation_status": "generated",
-      "active_source": true
+      "reviewed_at": "2026-10-14T06:51:24.076854+00:00",
+      "review_authorization": "New explicit user-authorized2026-10-14 Gemma working-page repair episode. Further narrow same-author correction is within this renewed request.",
+      "episode_review_iteration": 1,
+      "episode_re_review_number": 0,
+      "retry_limit_reached": false,
+      "notes": [
+        "Previous initialization/global-updateView exceptions are fixed. Real3D bounds are[-38,0,-38]..[38,555,38]; all four diagram clicks and four stage geometries execute without errors.",
+        "Global camera rotation/zoom and R/reset work. Default scene is static under reduced-motion. Tested375/768/1280 with zero script/resource errors.",
+        "Required drawing/stage/complete-model features are present; four quality/accessibility warnings keep the content gate at REVIEW. No author/source edits or paid calls by reviewer.",
+        "The first targeted probe encountered a transient iframe navigation race; explicit scene-readiness retry completed successfully and is the controlling evidence."
+      ],
+      "historical_re_review_number": 3,
+      "re_review_number": 3,
+      "review_iteration": 4
     },
     {
       "task_requirements_complete": false,
@@ -8491,6 +8517,68 @@
         "One render loop and scene lighting are restored, but far-plane clipping hides the model. browser-keyboard.json confirms the directional exception. One further same-author correction/re-review remains before the limit."
       ],
       "reviewed_at": "2026-10-13T16:54:20.252345+00:00",
+      "re_review_number": 2,
+      "review_iteration": 3,
+      "retry_limit_reached": false,
+      "current_generation_status": "generated",
+      "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "gemma-4-31b-bedrock",
+      "score": 93.5,
+      "critical": 1,
+      "warnings": 1,
+      "verdict": "FAIL",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 0,
+        "Interactions": 5,
+        "Readability": 3.5,
+        "Accessibility": 5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "776ede41d637c2f1e7e6ef02694a410357ec26da2a84b5fcdf00f3625b036454",
+      "model_id": "google.gemma-4-31b",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/gemma-4-31b-bedrock/776ede41d637",
+      "browser_evidence": "/tmp/model-lotte-review/gemma-4-31b-bedrock/776ede41d637/browser.json",
+      "findings": [
+        {
+          "severity": "Critical",
+          "category": "Renders",
+          "file": "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html",
+          "line": 186,
+          "quote": "let scene, camera, renderer, controls, towerGroup;",
+          "problem": "init is called synchronously before the let scene and const container declarations initialize, causing Cannot access scene before initialization; subsequent drawing clicks find updateView undefined.",
+          "action": "Initialize declarations before calling init; bind handlers only after successful setup and test every drawing click."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html",
+          "line": 14,
+          "quote": "--font-size-min: 16px;",
+          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+          "action": "Use at least19px meaningful rendered text and controls."
+        }
+      ],
+      "notes": [
+        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+        "The local runtime and555m body/crown calculation are restored, but the actual initialization failure blocks all functionality. This is its second successful-source re-review."
+      ],
+      "reviewed_at": "2026-10-13T15:51:47.709284+00:00",
       "re_review_number": 2,
       "review_iteration": 3,
       "retry_limit_reached": false,

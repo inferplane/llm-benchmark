@@ -1,4 +1,4 @@
-You are the original author, model gemma-4-31b-bedrock, served as google.gemma-4-31b. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+You are the original author, model gemma-4-31b-bedrock, served as google.gemma-4-31b. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external network or dependencies except local assets explicitly permitted by the original task. 
 
 ORIGINAL TASK BRIEF. Retain every requested feature and disclosure:
 당신은 gemma-4-31b-bedrock 모델입니다. 실제 호출 식별자는 google.gemma-4-31b입니다.
@@ -33,19 +33,19 @@ ORIGINAL TASK BRIEF. Retain every requested feature and disclosure:
 
 YOUR PREVIOUS FULL RESPONSE:
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lotte World Tower - Architectural Study</title>
+    <title>Lotte World Tower - Architectural Process Study</title>
     <style>
         :root {
             --bg-color: #0a0a0c;
-            --panel-bg: rgba(20, 20, 25, 0.85);
+            --panel-bg: rgba(20, 20, 25, 0.9);
             --accent: #00d4ff;
             --text-main: #e0e0e0;
             --text-dim: #a0a0a0;
-            --font-size-min: 19px;
+            --font-size-min: 16px;
         }
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
@@ -60,7 +60,7 @@ YOUR PREVIOUS FULL RESPONSE:
             position: absolute; z-index: 10;
             pointer-events: none;
             display: flex; flex-direction: column;
-            gap: 20px; padding: 20px;
+            gap: 15px; padding: 20px;
             box-sizing: border-box;
             width: 100%; height: 100%;
         }
@@ -69,52 +69,73 @@ YOUR PREVIOUS FULL RESPONSE:
             background: var(--panel-bg);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            padding: 20px;
-            max-width: 320px;
+            border-radius: 12px;
+            padding: 15px;
+            max-width: 360px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        h1 { font-size: 24px; margin: 0 0 10px 0; color: var(--accent); }
-        p { font-size: var(--font-size-min); line-height: 1.4; margin: 0 0 15px 0; color: var(--text-dim); }
+        h1 { font-size: 20px; margin: 0 0 8px 0; color: var(--accent); }
+        p { font-size: 14px; line-height: 1.4; margin: 0 0 12px 0; color: var(--text-dim); }
         
         .controls-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 8px;
+            margin-bottom: 15px;
         }
         button {
             background: #2a2a32;
             color: white;
             border: 1px solid var(--accent);
-            padding: 10px;
-            font-size: var(--font-size-min);
+            padding: 8px;
+            font-size: 14px;
             cursor: pointer;
             border-radius: 4px;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
         button:hover { background: var(--accent); color: #000; }
-        button:focus { outline: 3px solid white; }
+        button.active { background: var(--accent); color: #000; font-weight: bold; }
+
+        .diagram-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .diag-box {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid #444;
+            height: 100px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .diag-box:hover { border-color: var(--accent); }
+        .diag-box span {
+            position: absolute; bottom: 2px; left: 5px;
+            font-size: 11px; color: var(--accent);
+        }
+        .diag-svg { width: 100%; height: 100%; }
+
+        .model-info {
+            font-size: 12px;
+            color: var(--text-dim);
+            border-top: 1px solid #333;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
 
         .accessibility-hint {
             position: absolute; bottom: 20px; right: 20px;
-            font-size: var(--font-size-min);
+            font-size: 13px;
             color: var(--text-dim);
             text-align: right;
             pointer-events: none;
         }
 
         @media (max-width: 600px) {
-            .ui-overlay {
-                padding: 10px;
-                justify-content: flex-end; /* Push panels to bottom for better visibility */
-            }
-            .panel {
-                max-width: calc(100% - 20px);
-                margin-bottom: 20px;
-            }
-            .controls-grid {
-                grid-template-columns: 1fr;
-            }
+            .ui-overlay { padding: 10px; justify-content: flex-start; overflow-y: auto; }
+            .panel { max-width: calc(100% - 20px); }
         }
     </style>
 </head>
@@ -123,38 +144,89 @@ YOUR PREVIOUS FULL RESPONSE:
     
     <div class="ui-overlay">
         <div class="panel">
-            <h1>Lotte World Tower</h1>
-            <p>A study of the tapered, sleek geometry of the 555m Seoul landmark.</p>
+            <h1>롯데월드타워 설계 연구</h1>
+            <p>건축 설계 과정 및 3D 형상 분석 (Conceptual Study)</p>
+            
             <div class="controls-grid">
-                <button id="btn-reset" title="Reset Camera">Reset View</button>
-                <button id="btn-zoom-in" title="Zoom In">+</button>
-                <button id="btn-zoom-out" title="Zoom Out">−</button>
-                <button id="btn-rotate" title="Rotate Orbit">Rotate</button>
+                <button id="btn-step1">Step 1: 매스</button>
+                <button id="btn-step2">Step 2: 테이퍼링</button>
+                <button id="btn-step3">Step 3: 분할</button>
+                <button id="btn-step4" class="active">Step 4: 최종</button>
+            </div>
+
+            <div class="controls-grid">
+                <button id="btn-reset">시점 초기화</button>
+                <button id="btn-rotate">회전</button>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diag-box" onclick="updateView('site')">
+                    <svg class="diag-svg" viewBox="0 0 50 50">
+                        <rect x="5" y="5" width="40" height="40" fill="none" stroke="#666" />
+                        <circle cx="25" cy="25" r="4" fill="var(--accent)" />
+                        <line x1="0" y1="0" x2="10" y2="10" stroke="#444" />
+                    </svg>
+                    <span>배치도 (Site)</span>
+                </div>
+                <div class="diag-box" onclick="updateView('floor')">
+                    <svg class="diag-svg" viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r="15" fill="none" stroke="#666" />
+                        <path d="M25 10 L25 40 M10 25 L40 25" stroke="#444" />
+                        <circle cx="25" cy="25" r="2" fill="var(--accent)" />
+                    </svg>
+                    <span>기준층 평면 (Plan)</span>
+                </div>
+                <div class="diag-box" onclick="updateView('ele')">
+                    <svg class="diag-svg" viewBox="0 0 50 50">
+                        <path d="M20 45 L22 5 L28 5 L30 45 Z" fill="none" stroke="#666" />
+                        <line x1="32" y1="5" x2="32" y2="45" stroke="var(--accent)" />
+                        <text x="33" y="25" fill="var(--accent)" font-size="4">555m</text>
+                    </svg>
+                    <span>입면도 (Elevation)</span>
+                </div>
+                <div class="diag-box" onclick="updateView('sec')">
+                    <svg class="diag-svg" viewBox="0 0 50 50">
+                        <path d="M20 45 L22 5 L28 5 L30 45 Z" fill="none" stroke="#666" />
+                        <line x1="22" y1="20" x2="28" y2="20" stroke="var(--accent)" />
+                        <line x1="22" y1="35" x2="28" y2="35" stroke="var(--accent)" />
+                    </svg>
+                    <span>단면도 (Section)</span>
+                </div>
+            </div>
+
+            <div class="model-info">
+                <strong>Model:</strong> gemma-4-31b-bedrock<br>
+                <strong>Note:</strong> 공개 자료 기반 추정 수치 사용.
             </div>
         </div>
     </div>
 
     <div class="accessibility-hint">
-        Keyboard: [R] Reset | [+/-] Zoom | [Arrow Keys] Orbit
+        [R] 초기화 | [+/-] 확대/축소 | [← →] 회전
     </div>
 
+    <script src="../runtime/three-runtime.js"></script>
     <script>
         (function() {
             if (!window.THREE) {
-                console.error("THREE.js runtime missing.");
-                return;
+                const script = document.createElement('script');
+                script.src = "../runtime/three-runtime.js";
+                script.onload = init;
+                document.head.appendChild(script);
+            } else {
+                init();
             }
 
-            let scene, camera, renderer, controls, tower;
+            let scene, camera, renderer, controls, towerGroup;
             const container = document.getElementById('canvas-container');
 
             function init() {
                 scene = new THREE.Scene();
-                scene.background = new THREE.Color(0x050507);
-                scene.fog = new THREE.FogExp2(0x050507, 0.002);
+                scene.background = new THREE.Color(0x0a0a0c);
+                scene.fog = new THREE.FogExp2(0x0a0a0c, 0.0015);
 
                 camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-                camera.position.set(200, 150, 400);
+                camera.position.set(300, 300, 600);
 
                 renderer = new THREE.WebGLRenderer({ antialias: true });
                 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -163,58 +235,86 @@ YOUR PREVIOUS FULL RESPONSE:
 
                 controls = new THREE.OrbitControls(camera, renderer.domElement);
                 controls.enableDamping = true;
-                controls.dampingFactor = 0.05;
-                controls.screenSpacePanning = false;
+                controls.target.set(0, 200, 0);
 
                 const ambientLight = new THREE.AmbientLight(0x404040, 2);
                 scene.add(ambientLight);
 
-                const sunLight = new THREE.DirectionalLight(0xffffff, 1.2);
-                sunLight.position.set(100, 500, 100);
+                const sunLight = new THREE.DirectionalLight(0xffffff, 1.5);
+                sunLight.position.set(200, 500, 200);
                 scene.add(sunLight);
 
                 const blueLight = new THREE.PointLight(0x00d4ff, 1);
-                blueLight.position.set(-100, 100, -100);
+                blueLight.position.set(-200, 200, -200);
                 scene.add(blueLight);
 
-                createTower();
-                createGround();
+                towerGroup = new THREE.Group();
+                scene.add(towerGroup);
 
+                createGround();
+                setDesignStep(4); // Default to final
+                
                 window.addEventListener('resize', onWindowResize);
                 setupInputs();
                 animate();
             }
 
-            function createTower() {
-                // Simplified tapering geometry for Lotte Tower
-                const geometry = new THREE.CylinderGeometry(15, 35, 555, 32); 
-                const material = new THREE.MeshStandardMaterial({
-                    color: 0xcccccc,
-                    metalness: 0.9,
-                    roughness: 0.1,
-                    transparent: true,
-                    opacity: 0.9
-                });
-                tower = new THREE.Mesh(geometry, material);
-                tower.position.y = 555 / 2;
-                scene.add(tower);
-
-                // Add a "crown" effect
-                const crownGeo = new THREE.CylinderGeometry(2, 5, 40, 32);
-                const crown = new THREE.Mesh(crownGeo, material);
-                crown.position.y = 555 + 20;
-                scene.add(crown);
-            }
-
             function createGround() {
-                const grid = new THREE.GridHelper(2000, 40, 0x222222, 0x111111);
+                const grid = new THREE.GridHelper(2000, 40, 0x333333, 0x222222);
                 scene.add(grid);
-                
                 const planeGeo = new THREE.PlaneGeometry(2000, 2000);
                 const planeMat = new THREE.MeshStandardMaterial({ color: 0x08080a });
                 const plane = new THREE.Mesh(planeGeo, planeMat);
                 plane.rotation.x = -Math.PI / 2;
                 scene.add(plane);
+            }
+
+            function setDesignStep(step) {
+                towerGroup.clear();
+                const material = new THREE.MeshStandardMaterial({
+                    color: 0xcccccc,
+                    metalness: 0.8,
+                    roughness: 0.2,
+                    transparent: true,
+                    opacity: 0.8
+                });
+
+                const TOTAL_HEIGHT = 555;
+
+                if (step === 1) { // Massing
+                    const geo = new THREE.BoxGeometry(60, TOTAL_HEIGHT, 60);
+                    const mesh = new THREE.Mesh(geo, material);
+                    mesh.position.y = TOTAL_HEIGHT / 2;
+                    towerGroup.add(mesh);
+                } else if (step === 2) { // Tapering
+                    const geo = new THREE.CylinderGeometry(15, 40, TOTAL_HEIGHT, 32);
+                    const mesh = new THREE.Mesh(geo, material);
+                    mesh.position.y = TOTAL_HEIGHT / 2;
+                    towerGroup.add(mesh);
+                } else if (step === 3) { // Segmented/Split
+                    for(let i=0; i<3; i++) {
+                        const h = TOTAL_HEIGHT / 3;
+                        const geo = new THREE.CylinderGeometry(15 + (25-15)*(2-i/3), 15 + (25-15)*(3-i/3), h, 32);
+                        const mesh = new THREE.Mesh(geo, material);
+                        mesh.position.y = (h/2) + (i * h);
+                        towerGroup.add(mesh);
+                    }
+                } else { // Final
+                    // Body
+                    const bodyGeo = new THREE.CylinderGeometry(12, 38, 510, 32);
+                    const body = new THREE.Mesh(bodyGeo, material);
+                    body.position.y = 510 / 2;
+                    towerGroup.add(body);
+
+                    // Crown (integrating into total 555m)
+                    const crownGeo = new THREE.CylinderGeometry(0, 12, 45, 32);
+                    const crown = new THREE.Mesh(crownGeo, material);
+                    crown.position.y = 510 + (45/2);
+                    towerGroup.add(crown);
+                }
+
+                document.querySelectorAll('.controls-grid button').forEach(btn => btn.classList.remove('active'));
+                document.getElementById('btn-step' + step).classList.add('active');
             }
 
             function onWindowResize() {
@@ -225,61 +325,71 @@ YOUR PREVIOUS FULL RESPONSE:
 
             function setupInputs() {
                 const resetView = () => {
-                    camera.position.set(200, 150, 400);
+                    camera.position.set(300, 300, 600);
                     controls.target.set(0, 200, 0);
                     controls.update();
                 };
 
-                const zoomIn = () => {
-                    camera.position.multiplyScalar(0.9);
-                    controls.update();
-                };
-
-                const zoomOut = () => {
-                    camera.position.multiplyScalar(1.1);
-                    controls.update();
-                };
-
-                const rotateCam = () => {
-                    const currentPos = camera.position.clone();
-                    const angle = Math.PI / 12;
-                    const x = currentPos.x * Math.cos(angle) - currentPos.z * Math.sin(angle);
-                    const z = currentPos.x * Math.sin(angle) + currentPos.z * Math.cos(angle);
-                    camera.position.set(x, currentPos.y, z);
+                const rotateCam = (angle) => {
+                    const pos = camera.position.clone();
+                    const x = pos.x * Math.cos(angle) - pos.z * Math.sin(angle);
+                    const z = pos.x * Math.sin(angle) + pos.z * Math.cos(angle);
+                    camera.position.set(x, pos.y, z);
                     controls.update();
                 };
 
                 document.getElementById('btn-reset').addEventListener('click', resetView);
-                document.getElementById('btn-zoom-in').addEventListener('click', zoomIn);
-                document.getElementById('btn-zoom-out').addEventListener('click', zoomOut);
-                document.getElementById('btn-rotate').addEventListener('click', rotateCam);
+                document.getElementById('btn-rotate').addEventListener('click', () => rotateCam(Math.PI / 12));
+                
+                document.getElementById('btn-step1').addEventListener('click', () => setDesignStep(1));
+                document.getElementById('btn-step2').addEventListener('click', () => setDesignStep(2));
+                document.getElementById('btn-step3').addEventListener('click', () => setDesignStep(3));
+                document.getElementById('btn-step4').addEventListener('click', () => setDesignStep(4));
 
                 window.addEventListener('keydown', (e) => {
                     switch(e.key.toLowerCase()) {
                         case 'r': resetView(); break;
-                        case '+': zoomIn(); break;
-                        case '-': zoomOut(); break;
-                        case 'arrowleft': 
-                            rotateCam( -Math.PI/12 ); break;
-                        case 'arrowright': 
-                            rotateCam( Math.PI/12 ); break;
+                        case '+': camera.position.multiplyScalar(0.9); break;
+                        case '-': camera.position.multiplyScalar(1.1); break;
+                        case 'arrowleft': rotateCam(-Math.PI/12); break;
+                        case 'arrowright': rotateCam(Math.PI/12); break;
                     }
                 });
             }
+
+            window.updateView = function(type) {
+                switch(type) {
+                    case 'site': 
+                        camera.position.set(0, 800, 0); 
+                        controls.target.set(0, 0, 0); 
+                        break;
+                    case 'floor': 
+                        camera.position.set(0, 100, 0); 
+                        controls.target.set(0, 100, 0); 
+                        break;
+                    case 'ele': 
+                        camera.position.set(600, 200, 0); 
+                        controls.target.set(0, 200, 0); 
+                        break;
+                    case 'sec': 
+                        camera.position.set(0, 200, 600); 
+                        controls.target.set(0, 200, 0); 
+                        break;
+                }
+                controls.update();
+            };
 
             function animate() {
                 requestAnimationFrame(animate);
                 controls.update();
                 renderer.render(scene, camera);
             }
-
-            init();
         })();
     </script>
 </body>
 </html>
 
 MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
-["docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:110: No local runtime script is included; the page logs THREE.js runtime missing and exits before any rendering. Required repair: Load ../runtime/three-runtime.js before initialization and verify the full scene/controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:154: The four requested drawings are absent, labels/placeholders, or unlabelled scene planes instead of meaningful site/floor/elevation/section diagrams. Required repair: Draw four readable diagrams with units/assumption labels and correspondence to the model; a name/rectangle alone does not show the requested content. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:154: No explained intermediate3D design-development states are implemented. Required repair: Provide distinct understandable intermediate3D forms leading to the completed model, linked to the drawings. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:171: A40-unit crown is added above the555-unit body, making595 total while the page claims555m. Required repair: Include crown within the total555m and make corresponding diagrams agree. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:209: ArrowLeft/Right pass opposite arguments, but rotateCam ignores its argument and always turns+PI/12. Required repair: Accept/use the requested signed angle so left and right perform opposite orbit operations. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."]
+["docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:186: init is called synchronously before the let scene and const container declarations initialize, causing Cannot access scene before initialization; subsequent drawing clicks find updateView undefined. Required repair: Initialize declarations before calling init; bind handlers only after successful setup and test every drawing click. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:14: Meaningful UI/diagram text remains below19px rendered size. Required repair: Use at least19px meaningful rendered text and controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "Preserve your own current design and implement the complete original Lotte Tower brief. Initialize all let/const bindings and DOM/container references BEFORE synchronously invoking init; assign updateView and register handlers before any user interaction can call them.", "In your existing floor-view handler camera.position and controls.target are both (0,100,0), giving zero camera distance. Use a usable distinct camera/target and ensure every drawing selection, rotation, zoom and reset leaves the 3D model visible. Zoom relative to the controls target and update controls after keyboard input.", "Ensure the whole555m concept remains framed, the123-floor public basis and conceptual/assumed dimensions are explained, all four drawing buttons are keyboard accessible, and the larger readable controls/diagrams fit narrow screens with usable scrolling or your own panel design.", "Return ONLY your entire complete corrected HTML with the permitted local ../runtime/three-runtime.js. Keep your own expressive design; no host implementation or shared geometry template is provided."]
 
 Return the complete repaired HTML now.

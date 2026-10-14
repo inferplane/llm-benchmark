@@ -31,6 +31,29 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def request_conditions(model, directory, record):
+    attempts = []
+    for path in (directory / "attempts").glob("*/record.json"):
+        row = read(path)
+        attempts.append((row.get("requested_at", ""), path, row))
+    if not attempts:
+        return None
+    _, first_path, first = min(attempts, key=lambda item: item[0])
+    text = first_path.with_name("prompt.txt").read_text()
+    normalized = text.replace(model["model_id"], "{model_id}").replace(model["name"], "{name}")
+    return {
+        "initial_prompt_normalized_sha256": hashlib.sha256(normalized.encode()).hexdigest(),
+        "initial_max_output_tokens": first.get("max_output_tokens"),
+        "latest_max_output_tokens": record.get("max_output_tokens"),
+        "initial_temperature": first.get("temperature"),
+        "latest_temperature": record.get("temperature"),
+        "initial_reasoning_effort": first.get("bedrock_reasoning_effort"),
+        "recorded_requests": len(attempts),
+        "followup_requests": max(0, len(attempts) - 1),
+        "final_outputs_are_controlled_one_shot_comparison": False,
+    }
+
+
 def task_page(model, task, reviews):
     name = model["name"]
     directory = MODELS / name / task
@@ -52,7 +75,6 @@ def task_page(model, task, reviews):
     artifact = directory / "artwork.html"
     review = reviews.get(name) if reviews is not None else None
     if status == "generated":
-        assert artifact.exists() and sha(artifact) == record["artwork_sha256"], name
         if reviews is not None and not (
             review and review.get("verdict") == "PASS" and review.get("score", 0) >= 85
             and review.get("critical") == 0 and review.get("warnings", 999) <= 3
@@ -60,6 +82,10 @@ def task_page(model, task, reviews):
             and (task != "lotte-tower" or review.get("task_requirements_complete") is True)
         ):
             status = "review_held"
+        if artifact.exists():
+            assert sha(artifact) == record["artwork_sha256"], name
+        elif status == "generated":
+            raise AssertionError(f"Approved original is missing: {name}/{task}")
     ui.RECORDS = records
     prompts = ui.recorded_prompts(name, record)
     active = {row["file"] for row in prompts}
@@ -85,6 +111,9 @@ def task_page(model, task, reviews):
             "tokens_in", "tokens_out", "max_output_tokens", "temperature", "temperature_sent",
             "bedrock_reasoning_effort", "reported_reasoning", "finish_reason") if key in record},
     }
+    conditions = request_conditions(model, records / name, record) if task == "lotte-tower" else None
+    if conditions:
+        provenance["request_conditions"] = conditions
     imported = records / name / "import-provenance.json"
     if imported.exists():
         history = read(imported)
@@ -112,6 +141,14 @@ def task_page(model, task, reviews):
     )
     fee = '<button type="button" data-open-cost>구현 비용 내역</button>' if cost["kind"] != "not_measured" else ""
     original = '<a href="artwork.html" target="_blank" rel="noopener">원본 구현 ↗</a>' if status == "generated" else ""
+    condition_note = (
+        f'<p>최초 출력 한도: {conditions["initial_max_output_tokens"]:,} 토큰 · '
+        f'최신 요청 한도: {conditions["latest_max_output_tokens"]:,} 토큰 · '
+        f'추가 요청: {conditions["followup_requests"]}회.<br>'
+        '최초 요청 본문은 공통이며, 이후 수정 요청과 출력 한도는 모델별로 다릅니다. '
+        '최종본은 동일 조건의 일회성 성능 비교 결과로 해석할 수 없습니다.</p>'
+        if conditions else ""
+    )
     directory.joinpath("index.html").write_text(
         '<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         f'<title>{esc(name)} · {esc(task)}</title><link rel="icon" href="../../../favicon.svg">'
@@ -120,9 +157,10 @@ def task_page(model, task, reviews):
         f'<a href="../">← 모델 홈</a><span><strong>{esc(name)} · {esc(task)}</strong>'
         f'<small>{esc(LABELS.get(status, status))}</small><small>{esc(ui.cost_summary(cost))}</small></span>'
         '<div class="viewer-actions">' + ('<button type="button" data-open-prompts>프롬프트</button>' if prompts else "")
-        + f'<details><summary>작성 기록</summary><section><p>{esc(model["model_id"])}</p><p>{note}</p>'
+        + f'<details><summary>작성 기록</summary><section><p>{esc(model["model_id"])}</p><p>{note}</p>{condition_note}'
         + fee + f'<a href="provenance.json" target="_blank" rel="noopener">작성자·응답 기록</a>{original}'
-        + '</section></details></div></header>' + panel + ui.prompt_dialog(prompts, name)
+        + '</section></details></div></header>' + panel
+        + ui.prompt_dialog(prompts, name, initial_first=task == "lotte-tower")
         + ui.cost_dialog(cost, name) + '</body></html>'
     )
     return provenance
@@ -155,6 +193,39 @@ def model_home(model, tasks):
     )
 
 
+def model_alias(model, target):
+    """Preserve old URLs while directing visitors to the configured model."""
+    assert not model.get("enabled", True), "Only inactive entries can be page aliases"
+    assert target.get("enabled", True) and target["api"] in {"bedrock", "bedrock_mantle"}
+    name = model["name"]
+    redirects = {}
+    for task in ("", *TASKS):
+        directory = MODELS / name / task
+        directory.mkdir(parents=True, exist_ok=True)
+        relative = ("../" if not task else "../../") + target["name"] + "/"
+        if task:
+            relative += task + "/"
+        esc = ui.escape
+        directory.joinpath("index.html").write_text(
+            '<!doctype html><html lang="ko"><head><meta charset="utf-8">'
+            '<meta name="viewport" content="width=device-width,initial-scale=1">'
+            f'<meta http-equiv="refresh" content="0;url={esc(relative)}">'
+            f'<title>{esc(target["name"])} · Bedrock</title>'
+            '<style>body{margin:0;padding:32px;background:#111310;color:#ece8de;'
+            'font:19px/1.7 system-ui,sans-serif}a{color:#d7eb98}</style></head><body>'
+            '<p>Gemma의 Bedrock 결과 페이지로 이동합니다.</p>'
+            f'<a href="{esc(relative)}">{esc(target["name"])} 결과 보기</a></body></html>'
+        )
+        redirects[task or "home"] = relative
+    entry = {
+        "alias": name, "target_model": target["name"],
+        "requested_model_id": target["model_id"], "provider": target["api"],
+        "redirects": redirects,
+    }
+    ui.write_json(MODELS / name / "model.json", entry)
+    return entry
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--lotte-review")
@@ -162,8 +233,12 @@ def main(argv=None):
     cfg = run.load_config()
     whoami = {row["model"]: row for row in read(ROOT / "validation/self-portraits/free-expression-review.json")["artifacts"]}
     lotte = {row["model"]: row for row in read(Path(args.lotte_review))["artifacts"]} if args.lotte_review else None
-    entries, cards = [], []
+    entries, cards, aliases = [], [], []
+    configured = {model["name"]: model for model in cfg["models"]}
     for model in cfg["models"]:
+        if model.get("page_alias"):
+            aliases.append(model_alias(model, configured[model["page_alias"]]))
+            continue
         tasks = {task: task_page(model, task, whoami if task == "whoami" else lotte) for task in TASKS}
         model_home(model, tasks)
         entry = {"model": model["name"], "requested_model_id": model["model_id"], "family": ui.family(model), "tasks": tasks}
@@ -181,6 +256,8 @@ def main(argv=None):
                      f'<h2>{esc(model["name"])}</h2><p>WHOAMI · {esc(LABELS.get(tasks["whoami"]["status"], tasks["whoami"]["status"]))}</p>'
                      f'<p>LOTTE TOWER · {esc(LABELS.get(tasks["lotte-tower"]["status"], tasks["lotte-tower"]["status"]))}</p></div></a>')
     ui.write_json(MODELS / "catalog.json", entries)
+    ui.write_json(MODELS / "aliases.json", aliases)
+    shutil.copy2(ROOT / "tools/lotte_tower_prompt.txt", MODELS / "lotte-tower-initial-prompt.txt")
     families = sorted({entry["family"] for entry in entries})
     filters = '<button type="button" data-family="all" class="active" aria-pressed="true">전체</button>' + "".join(
         f'<button type="button" data-family="{ui.escape(value)}" aria-pressed="false">{ui.escape(value)}</button>'
@@ -192,13 +269,17 @@ def main(argv=None):
         '<link rel="stylesheet" href="readability.css"><script src="catalog.js" defer></script></head><body class="catalog"><header><a href="../">LLM BENCHMARK</a>'
         '<span>EACH MODEL’S OWN IMPLEMENTATION</span></header><main><section class="intro"><p>MODEL / EXPERIENCE</p>'
         '<h1>하나의 모델,<br>두 개의 화면.</h1><div>모델을 선택하고 WHOAMI 자기소개와 LOTTE TOWER 3D 모델링을 확인하세요.'
-        '<br>각 모델의 원본 코드·프롬프트·작성 비용을 항목별로 분리했습니다.</div></section>'
+        '<br>각 모델의 원본 코드·프롬프트·작성 비용을 항목별로 분리했습니다.</div>'
+        '<div>롯데타워의 최초 요청 본문은 공통입니다. 최종본에는 모델별 추가 수정과 서로 다른 출력 한도가 적용됐습니다.'
+        ' 최초 결과·수정본의 조건은 각 페이지의 작성 기록에서 확인하세요. '
+        '<a href="lotte-tower-initial-prompt.txt">공통 최초 프롬프트 ↗</a></div></section>'
         '<section class="toolbar"><label class="search"><span>모델 검색</span><input id="search" type="search" '
         'placeholder="모델 이름 검색" autocomplete="off"></label><div class="filters" aria-label="모델 계열 필터">'
         + filters + '</div></section><section class="portrait-grid">'
         + "".join(cards) + '</section><p id="empty" hidden>검색 조건에 맞는 모델이 없습니다.</p></main></body></html>'
     )
-    print("Model/task pages built:", len(entries), "models,", len(TASKS), "tasks")
+    print("Model/task pages built:", len(entries), "models,", len(TASKS), "tasks;",
+          len(aliases), "compatibility aliases")
 
 
 if __name__ == "__main__":

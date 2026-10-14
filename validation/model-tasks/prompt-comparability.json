@@ -1,0 +1,390 @@
+{
+  "initial_prompt_groups": {
+    "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e": [
+      "claude-haiku-4.5",
+      "claude-sonnet-4.5",
+      "claude-sonnet-5",
+      "claude-haiku-5.5",
+      "claude-sonnet-5.5",
+      "claude-opus-5.5",
+      "claude-fable-5.1",
+      "nova-pro",
+      "kimi-k3",
+      "nova-lite",
+      "gpt-5.4",
+      "gpt-5.5",
+      "gpt-5.6-terra",
+      "gpt-5.6-luna",
+      "gpt-6-luna",
+      "gpt-6-astra",
+      "gpt-6.1-sol",
+      "grok-4.3",
+      "grok-4.6",
+      "grok-4.7",
+      "nova-micro",
+      "nemotron-nano-3-30b",
+      "glm-4.7-flash",
+      "glm-5.3",
+      "gpt-oss-20b",
+      "gpt-oss-120b",
+      "qwen3-32b",
+      "nemotron-super-3-120b",
+      "llama4-scout",
+      "ministral-14b",
+      "qwen3-235b-a22b",
+      "llama4-maverick",
+      "llama-3.3-70b-bedrock",
+      "gemma-4-31b-bedrock",
+      "llama-3.1-8b",
+      "llama-3.3-70b",
+      "qwen3.6-27b",
+      "exaone-3.5-32b"
+    ]
+  },
+  "models": [
+    {
+      "model": "claude-haiku-4.5",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/claude-haiku-4.5/attempts/2026-10-13T10-54-09.280549+00-00/prompt.txt"
+    },
+    {
+      "model": "claude-sonnet-4.5",
+      "attempts": 2,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/claude-sonnet-4.5/attempts/2026-10-13T10-54-09.276709+00-00/prompt.txt"
+    },
+    {
+      "model": "claude-sonnet-5",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": null,
+      "initial_effort": "low",
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/claude-sonnet-5/attempts/2026-10-13T10-54-09.273636+00-00/prompt.txt"
+    },
+    {
+      "model": "claude-haiku-5.5",
+      "attempts": 3,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": null,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/claude-haiku-5.5/attempts/2026-10-13T07-08-39.310195+00-00/prompt.txt"
+    },
+    {
+      "model": "claude-sonnet-5.5",
+      "attempts": 2,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": null,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/claude-sonnet-5.5/attempts/2026-10-13T07-08-39.314728+00-00/prompt.txt"
+    },
+    {
+      "model": "claude-opus-5.5",
+      "attempts": 6,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": null,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/claude-opus-5.5/attempts/2026-10-13T07-10-07.084225+00-00/prompt.txt"
+    },
+    {
+      "model": "claude-fable-5.1",
+      "attempts": 2,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": null,
+      "initial_effort": "low",
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/claude-fable-5.1/attempts/2026-10-13T10-54-48.192160+00-00/prompt.txt"
+    },
+    {
+      "model": "nova-pro",
+      "attempts": 5,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/attempts/2026-10-13T10-55-26.887506+00-00/prompt.txt"
+    },
+    {
+      "model": "kimi-k3",
+      "attempts": 6,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": null,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/kimi-k3/attempts/2026-10-13T10-55-33.196502+00-00/prompt.txt"
+    },
+    {
+      "model": "nova-lite",
+      "attempts": 5,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/attempts/2026-10-13T10-55-39.143797+00-00/prompt.txt"
+    },
+    {
+      "model": "gpt-5.4",
+      "attempts": 1,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-5.4/attempts/2026-10-13T10-55-46.797053+00-00/prompt.txt"
+    },
+    {
+      "model": "gpt-5.5",
+      "attempts": 3,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": null,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-5.5/attempts/2026-10-13T10-57-00.725990+00-00/prompt.txt"
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "attempts": 3,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": null,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-5.6-terra/attempts/2026-10-13T10-57-49.973302+00-00/prompt.txt"
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": null,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-5.6-luna/attempts/2026-10-13T10-57-50.412588+00-00/prompt.txt"
+    },
+    {
+      "model": "gpt-6-luna",
+      "attempts": 1,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": null,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-6-luna/attempts/2026-10-13T07-11-08.676367+00-00/prompt.txt"
+    },
+    {
+      "model": "gpt-6-astra",
+      "attempts": 1,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": null,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-6-astra/attempts/2026-10-13T07-12-02.378877+00-00/prompt.txt"
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "attempts": 1,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": null,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-6.1-sol/attempts/2026-10-13T07-13-56.446467+00-00/prompt.txt"
+    },
+    {
+      "model": "grok-4.3",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/grok-4.3/attempts/2026-10-13T10-58-26.629398+00-00/prompt.txt"
+    },
+    {
+      "model": "grok-4.6",
+      "attempts": 1,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/grok-4.6/attempts/2026-10-13T10-58-31.225968+00-00/prompt.txt"
+    },
+    {
+      "model": "grok-4.7",
+      "attempts": 3,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": null,
+      "initial_effort": "low",
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/grok-4.7/attempts/2026-10-13T10-58-40.118444+00-00/prompt.txt"
+    },
+    {
+      "model": "nova-micro",
+      "attempts": 5,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/attempts/2026-10-13T10-58-52.827191+00-00/prompt.txt"
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/attempts/2026-10-13T10-58-55.920702+00-00/prompt.txt"
+    },
+    {
+      "model": "glm-4.7-flash",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/attempts/2026-10-13T10-59-02.893696+00-00/prompt.txt"
+    },
+    {
+      "model": "glm-5.3",
+      "attempts": 5,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 16384,
+      "initial_temperature": 0,
+      "initial_effort": "low",
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/glm-5.3/attempts/2026-10-13T10-59-36.843496+00-00/prompt.txt"
+    },
+    {
+      "model": "gpt-oss-20b",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": "low",
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/attempts/2026-10-13T10-59-39.440347+00-00/prompt.txt"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": "low",
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/attempts/2026-10-13T10-59-49.472573+00-00/prompt.txt"
+    },
+    {
+      "model": "qwen3-32b",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/attempts/2026-10-13T10-59-53.310140+00-00/prompt.txt"
+    },
+    {
+      "model": "nemotron-super-3-120b",
+      "attempts": 5,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/attempts/2026-10-13T10-59-55.383553+00-00/prompt.txt"
+    },
+    {
+      "model": "llama4-scout",
+      "attempts": 5,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/llama4-scout/attempts/2026-10-13T11-00-06.786146+00-00/prompt.txt"
+    },
+    {
+      "model": "ministral-14b",
+      "attempts": 5,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/attempts/2026-10-13T11-00-11.141328+00-00/prompt.txt"
+    },
+    {
+      "model": "qwen3-235b-a22b",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/attempts/2026-10-13T11-00-12.402447+00-00/prompt.txt"
+    },
+    {
+      "model": "llama4-maverick",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/llama4-maverick/attempts/2026-10-13T11-00-27.810562+00-00/prompt.txt"
+    },
+    {
+      "model": "llama-3.3-70b-bedrock",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": 0,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/attempts/2026-10-13T11-00-33.369856+00-00/prompt.txt"
+    },
+    {
+      "model": "gemma-4-31b-bedrock",
+      "attempts": 6,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 8192,
+      "initial_temperature": null,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/attempts/2026-10-13T11-00-39.987962+00-00/prompt.txt"
+    },
+    {
+      "model": "llama-3.1-8b",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 6144,
+      "initial_temperature": 0.3,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/attempts/2026-10-13T15-30-57.389845+00-00/prompt.txt"
+    },
+    {
+      "model": "llama-3.3-70b",
+      "attempts": 7,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 6144,
+      "initial_temperature": 0.3,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/attempts/2026-10-13T11-04-31.629238+00-00/prompt.txt"
+    },
+    {
+      "model": "qwen3.6-27b",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 6144,
+      "initial_temperature": 0.3,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/attempts/2026-10-13T15-55-51.471356+00-00/prompt.txt"
+    },
+    {
+      "model": "exaone-3.5-32b",
+      "attempts": 4,
+      "initial_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+      "initial_cap": 6144,
+      "initial_temperature": 0.3,
+      "initial_effort": null,
+      "first_prompt": "results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/attempts/2026-10-13T16-27-48.307472+00-00/prompt.txt"
+    }
+  ],
+  "normalization": "Replace complete configuredmodel_id before modelname to avoid substring collisions.",
+  "conclusion": "Initial task text identity-normalized comparison; model-specific repair feedback and different output caps prevent controlled one-shot comparison of final outputs."
+}

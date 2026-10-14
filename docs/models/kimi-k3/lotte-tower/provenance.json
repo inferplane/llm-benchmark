@@ -180,5 +180,16 @@
   "temperature": null,
   "temperature_sent": false,
   "bedrock_reasoning_effort": "low",
-  "finish_reason": "end_turn"
+  "finish_reason": "end_turn",
+  "request_conditions": {
+    "initial_prompt_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+    "initial_max_output_tokens": 16384,
+    "latest_max_output_tokens": 16384,
+    "initial_temperature": null,
+    "latest_temperature": null,
+    "initial_reasoning_effort": null,
+    "recorded_requests": 6,
+    "followup_requests": 5,
+    "final_outputs_are_controlled_one_shot_comparison": false
+  }
 }

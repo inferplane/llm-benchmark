@@ -35,6 +35,12 @@
 .prompt-content pre { white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; font: 19px/1.65 ui-monospace, monospace; }
 .prompt-content a { display: inline-block; margin-top: 16px; color: #d7eb98; text-decoration: underline; }
 .unavailable { font-size: 19px; }
+.review-status { flex: 1; min-height: 0; width: 100%; max-width: 760px; margin: 0 auto; overflow-y: auto; overflow-wrap: anywhere; text-align: left; }
+.review-status a { color: #d7eb98; text-decoration: underline; }
+.review-findings { border-top: 1px solid #46503b; margin: 24px 0; padding-top: 16px; }
+.review-findings summary { cursor: pointer; color: #d7eb98; }
+.review-findings ul { padding-left: 24px; }
+.review-findings li + li { margin-top: 20px; }
 .implementation-cost { color: #d7eb98; overflow-wrap: anywhere; white-space: normal; margin: 6px 0; }
 .viewer-actions section button { font: inherit; color: #ece8de; background: #22291c; border: 1px solid #84935e; border-radius: 6px; padding: 8px 12px; min-height: 44px; cursor: pointer; }
 .cost-total { font-size: 24px; color: #d7eb98; }

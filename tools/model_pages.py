@@ -54,6 +54,52 @@ def request_conditions(model, directory, record):
     }
 
 
+def status_panel(name, task, status, record, review):
+    """Explain the current publication state using matching review evidence."""
+    esc = ui.escape
+    message = record.get("reason", "작성 모델의 원본 또는 독립 검수를 기다리고 있습니다.")
+    details = ""
+    if status == "failed":
+        message = "최신 요청에서 완결된 HTML을 생성하지 못했습니다. 공개할 수 있는 최신 구현이 없습니다."
+    elif status == "review_held":
+        if review and review.get("artwork_sha256") == record.get("artwork_sha256"):
+            message = "모델의 구현은 생성됐지만 독립 검수의 공개 기준을 충족하지 못해 보류했습니다."
+            findings = review.get("findings", [])
+            if any(
+                row.get("severity") == "Critical" and "THREE.Geometry" in row.get("quote", "")
+                for row in findings
+            ):
+                message += " 제공된 3D 실행 환경에서 지원하지 않는 THREE.Geometry를 사용해 화면 초기화에 실패했습니다."
+            verdicts = {"FAIL": "실패", "REVIEW": "수정 필요", "PASS": "통과"}
+            verdict = verdicts.get(review.get("verdict"), review.get("verdict", "미확인"))
+            verdict_label = "품질 검수" if review.get("verdict") == "PASS" else "검수 결과"
+            details = (
+                f'<p>{verdict_label}: {esc(verdict)} · 치명적 문제 {esc(review.get("critical", 0))}개 · '
+                f'경고 {esc(review.get("warnings", 0))}개.</p>'
+            )
+            if task == "lotte-tower" and review.get("task_requirements_complete") is False:
+                details += "<p>도면·설계 과정·완성 3D의 필수 요구사항도 충족하지 못했습니다.</p>"
+            if findings:
+                severity = {"Critical": "치명적 문제", "Warning": "경고", "Suggestion": "개선 제안"}
+                details += (
+                    '<details class="review-findings"><summary>검수 지적 사항 원문</summary>'
+                    '<p>실제 검수 기록의 원문입니다. 각 항목은 현재 생성된 코드에 대한 지적입니다.</p><ul>'
+                    + "".join(
+                        f'<li><strong>{esc(severity.get(row.get("severity"), row.get("severity", "")))}</strong>'
+                        f'<p lang="en">{esc(row.get("problem", ""))}</p></li>'
+                        for row in findings
+                    )
+                    + "</ul></details>"
+                )
+            details += '<p>프롬프트와 비용은 상단에서, 전체 검수 기록은 <a href="provenance.json">작성 기록 원문</a>에서 확인할 수 있습니다.</p>'
+        else:
+            message = "모델의 구현은 생성됐습니다. 현재 원본과 일치하는 독립 검수 결과를 기다리고 있습니다."
+    return (
+        f'<main class="unavailable review-status"><h1>{esc(name)}</h1><h2>{esc(TASKS[task][0])}</h2>'
+        f'<p>{esc(LABELS.get(status, status))}</p><p>{esc(message)}</p>{details}</main>'
+    )
+
+
 def task_page(model, task, reviews):
     name = model["name"]
     directory = MODELS / name / task
@@ -129,9 +175,7 @@ def task_page(model, task, reviews):
         f'<iframe title="{esc(name)} · {esc(task)} 원본 구현" data-artwork="artwork.html" sandbox="allow-scripts" '
         'allow="autoplay \'none\'; camera \'none\'; microphone \'none\'; geolocation \'none\'"></iframe>'
         if status == "generated" else
-        f'<main class="unavailable"><h1>{esc(name)}</h1><h2>{esc(TASKS[task][0])}</h2>'
-        f'<p>{esc(LABELS.get(status, status))}</p>'
-        f'<p>{esc(record.get("reason", "작성 모델의 원본 또는 독립 검수를 기다리고 있습니다."))}</p></main>'
+        status_panel(name, task, status, record, review)
     )
     note = (
         "도면·형상은 공개 자료 기반의 개념 재구성이며 공식 시공 도면이 아닙니다."

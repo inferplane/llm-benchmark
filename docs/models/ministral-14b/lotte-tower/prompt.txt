@@ -1,6 +1,7 @@
-You are the original author, model ministral-14b, served as mistral.ministral-3-14b-instruct. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+당신은 원 작성 모델 ministral-14b이며, 실제 호출 ID는 mistral.ministral-3-14b-instruct입니다.
+자신이 작성한 롯데타워 구현의 실패를 수정하세요. 표현 방식과 시각적 구성은 스스로 결정하세요. 다른 모델의 코드나 참고 구현은 제공하지 않습니다. 모든 필수 기능을 구현한 완결된 HTML 문서 하나만 반환하세요.
 
-ORIGINAL TASK BRIEF. Retain every requested feature and disclosure:
+최초 공통 요청 — 기능과 출처·추정 구분을 모두 유지하세요:
 당신은 ministral-14b 모델입니다. 실제 호출 식별자는 mistral.ministral-3-14b-instruct입니다.
 
 롯데월드타워의 건축 설계 과정을 이해할 수 있도록, 설계도면과 단계별 3D 모델 및 완성된 3D 모델을 함께 보여주는 인터랙티브 웹페이지를 직접 구현하세요.
@@ -31,10 +32,10 @@ ORIGINAL TASK BRIEF. Retain every requested feature and disclosure:
 - 설명문이나 코드 조각을 따로 반환하지 말고 전체 HTML을 반환하세요.
 
 
-YOUR PREVIOUS FULL RESPONSE:
+이 모델의 이전 응답 원문:
 ```html
 <!DOCTYPE html>
-<html lang="ko" manifest="">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -211,6 +212,7 @@ YOUR PREVIOUS FULL RESPONSE:
             font-family: var(--font-mono);
             color: var(--accent);
             font-weight: bold;
+            font-size: 1rem;
         }
 
         .note {
@@ -231,6 +233,7 @@ YOUR PREVIOUS FULL RESPONSE:
         .keyboard-help h4 {
             margin-bottom: 5px;
             color: var(--primary);
+            font-size: 1rem;
         }
 
         .key-list {
@@ -243,6 +246,14 @@ YOUR PREVIOUS FULL RESPONSE:
             display: flex;
             align-items: center;
             gap: 5px;
+        }
+
+        .key-item kbd {
+            font-size: 0.9rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
         }
 
         @media (max-width: 768px) {
@@ -265,12 +276,45 @@ YOUR PREVIOUS FULL RESPONSE:
             .model-container {
                 height: 400px;
             }
+
+            .info-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .info-card p {
+                font-size: 0.9rem;
+            }
+
+            .dimension {
+                font-size: 0.95rem;
+            }
         }
 
         @media (prefers-reduced-motion) {
             * {
                 transition: none !important;
             }
+        }
+
+        /* Text size adjustments for better readability */
+        .info-card h3 {
+            font-size: 1.3rem;
+        }
+
+        .info-card p {
+            font-size: 1rem;
+        }
+
+        .keyboard-help p {
+            font-size: 1rem;
+        }
+
+        .key-list {
+            font-size: 1rem;
+        }
+
+        .key-item span {
+            font-size: 1rem;
         }
     </style>
 </head>
@@ -406,237 +450,10 @@ YOUR PREVIOUS FULL RESPONSE:
         </section>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.186.1/examples/js/controls/OrbitControls.js"></script>
+
     <script>
-        // Three.js Runtime (Embedded)
-        (function() {
-            // Simplified Three.js runtime for this environment
-            // In a real implementation, this would be loaded from "../runtime/three-runtime.js"
-            // Here we create minimal required classes to make the demo work
-
-            // Basic THREE namespace
-            window.THREE = {
-                Object3D: function() {
-                    this.children = [];
-                    this.position = { x: 0, y: 0, z: 0 };
-                    this.rotation = { x: 0, y: 0, z: 0 };
-                    this.scale = { x: 1, y: 1, z: 1 };
-                    this.updateMatrix = function() {};
-                    this.matrix = { elements: new Float32Array(16) };
-                    this.applyMatrix4 = function(m) {
-                        // Simplified matrix application
-                        const te = this.matrix.elements;
-                        const me = m.elements;
-                        const x = this.position.x, y = this.position.y, z = this.position.z;
-                        const r = this.rotation;
-                        const s = this.scale;
-
-                        // Simplified - just apply position for this demo
-                        this.position.x = me[12] * x + me[13] * y + me[14] * z + me[15];
-                        this.position.y = me[16] * x + me[17] * y + me[18] * z + me[19];
-                        this.position.z = me[20] * x + me[21] * y + me[22] * z + me[23];
-                    };
-                },
-
-                BufferGeometry: function() {
-                    this.attributes = {};
-                    this.index = null;
-                },
-
-                BufferAttribute: function(array, itemSize) {
-                    this.array = array;
-                    this.itemSize = itemSize;
-                },
-
-                Mesh: function(geometry, material) {
-                    this.geometry = geometry;
-                    this.material = material;
-                    this.type = 'Mesh';
-                },
-
-                MeshBasicMaterial: function() {
-                    this.color = { r: 1, g: 1, b: 1 };
-                    this.wireframe = false;
-                },
-
-                Scene: function() {},
-
-                PerspectiveCamera: function(fov, aspect, near, far) {
-                    this.fov = fov;
-                    this.aspect = aspect;
-                    this.near = near;
-                    this.far = far;
-                    this.position = { x: 0, y: 0, z: 0 };
-                    this.up = { x: 0, y: 1, z: 0 };
-                    this.lookAt = function(v) {
-                        // Simplified lookAt
-                        this.position.z = -1000;
-                    };
-                },
-
-                WebGLRenderer: function() {
-                    this.domElement = document.createElement('canvas');
-                    this.setPixelRatio = function(pixelRatio) {
-                        this.domElement.style.width = '100%';
-                        this.domElement.style.height = '100%';
-                        this.domElement.width = this.domElement.clientWidth * pixelRatio;
-                        this.domElement.height = this.domElement.clientHeight * pixelRatio;
-                    };
-                    this.setSize = function(width, height) {
-                        this.domElement.width = width;
-                        this.domElement.height = height;
-                    };
-                    this.render = function(scene, camera) {
-                        const canvas = this.domElement;
-                        const ctx = canvas.getContext('2d');
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                        // Simple 2D fallback rendering for this demo
-                        // In real implementation, this would use WebGL
-                        ctx.fillStyle = 'rgba(0,0,0,0.1)';
-                        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                        // Draw grid
-                        ctx.strokeStyle = '#ccc';
-                        ctx.lineWidth = 0.5;
-                        for (let i = -10; i <= 10; i++) {
-                            ctx.beginPath();
-                            ctx.moveTo(i * canvas.width/20, 0);
-                            ctx.lineTo(i * canvas.width/20, canvas.height);
-                            ctx.stroke();
-
-                            ctx.beginPath();
-                            ctx.moveTo(0, i * canvas.height/20);
-                            ctx.lineTo(canvas.width, i * canvas.height/20);
-                            ctx.stroke();
-                        }
-
-                        // Draw axes
-                        ctx.strokeStyle = '#f00';
-                        ctx.lineWidth = 2;
-                        ctx.beginPath();
-                        ctx.moveTo(canvas.width/2, canvas.height/2);
-                        ctx.lineTo(canvas.width/2 + 100, canvas.height/2);
-                        ctx.stroke();
-                        ctx.fillText('X', canvas.width/2 + 110, canvas.height/2 + 5);
-
-                        ctx.strokeStyle = '#0f0';
-                        ctx.beginPath();
-                        ctx.moveTo(canvas.width/2, canvas.height/2);
-                        ctx.lineTo(canvas.width/2, canvas.height/2 - 100);
-                        ctx.stroke();
-                        ctx.fillText('Y', canvas.width/2 - 5, canvas.height/2 - 110);
-
-                        ctx.strokeStyle = '#00f';
-                        ctx.beginPath();
-                        ctx.moveTo(canvas.width/2, canvas.height/2);
-                        ctx.lineTo(canvas.width/2 + 50, canvas.height/2 + 50);
-                        ctx.stroke();
-                        ctx.fillText('Z', canvas.width/2 + 60, canvas.height/2 + 60);
-                    };
-                },
-
-                Vector3: function(x, y, z) {
-                    this.x = x || 0;
-                    this.y = y || 0;
-                    this.z = z || 0;
-                },
-
-                Euler: function(x, y, z, order) {
-                    this.x = x || 0;
-                    this.y = y || 0;
-                    this.z = z || 0;
-                    this.order = order || 'XYZ';
-                },
-
-                Math: {
-                    PI: Math.PI,
-                    PI2: Math.PI * 2,
-                    sin: Math.sin,
-                    cos: Math.cos,
-                    tan: Math.tan,
-                    asin: Math.asin,
-                    acos: Math.acos,
-                    atan2: Math.atan2,
-                    radians: function(degrees) { return degrees * Math.PI / 180; },
-                    degrees: function(radians) { return radians * 180 / Math.PI; }
-                }
-            };
-
-            // OrbitControls simulation
-            window.OrbitControls = function(object, domElement) {
-                this.object = object;
-                this.domElement = domElement;
-                this.target = new THREE.Vector3(0, 0, 0);
-                this.up = THREE.Math.radians(90);
-                this.autoRotate = false;
-                this.autoRotateSpeed = 2.0;
-                this.enableDamping = true;
-                this.dampingFactor = 0.05;
-                this.enableZoom = true;
-                this.zoomSpeed = 1.0;
-                this.minDistance = 100;
-                this.maxDistance = 1000;
-                this.enablePan = true;
-                this.panSpeed = 1.0;
-                this.screenSpacePanning = false;
-                this.keyPanSpeed = 7.0;
-
-                this.rotateLeft = function(angle) {
-                    this.object.rotation.y -= angle;
-                };
-
-                this.rotateUp = function(angle) {
-                    this.object.rotation.x -= angle;
-                };
-
-                this.dollyIn = function(dollyScale) {
-                    const distance = this.object.position.distanceTo(this.target);
-                    this.object.position.lerpVectors(this.target, this.object.position, Math.max(1 - dollyScale, 0.1));
-                };
-
-                this.dollyOut = function(dollyScale) {
-                    const distance = this.object.position.distanceTo(this.target);
-                    this.object.position.lerpVectors(this.target, this.object.position, Math.min(1 - dollyScale, 0.9));
-                };
-
-                this.update = function() {
-                    if (this.autoRotate && !this.enabled) return;
-
-                    const position = this.object.position;
-                    const offset = new THREE.Vector3();
-                    offset.copy(position).sub(this.target);
-
-                    // Apply rotation
-                    const theta = new THREE.Euler(0, 0, 0, 'XYZ');
-                    theta.set(0, this.up, 0, 'XYZ');
-                    offset.applyEuler(theta);
-
-                    // Apply zoom
-                    const zoomChanged = false;
-                    if (this.enableZoom) {
-                        const dolly = this.getZoomScale();
-                        offset.multiplyScalar(dolly);
-                    }
-
-                    // Apply pan
-                    if (this.enablePan) {
-                        const panOffset = new THREE.Vector3();
-                        panOffset.copy(position).sub(this.target);
-                        panOffset.applyEuler(theta);
-
-                        this.target.add(panOffset);
-                    }
-
-                    position.copy(this.target).add(offset);
-                };
-
-                this.getZoomScale = function() {
-                    return 1;
-                };
-            };
-        })();
-
-        // Main Application
         document.addEventListener('DOMContentLoaded', function() {
             // Setup Three.js environment
             const scene = new THREE.Scene();
@@ -723,10 +540,6 @@ YOUR PREVIOUS FULL RESPONSE:
                 controls.target.set(0, 0, 0);
                 controls.update();
             });
-
-            // Design stage selector
-            const designStageSelect = document.getElementById('design-stage');
-            const viewTypeSelect = document.getElementById('view-type');
 
             // Create models for different stages
             function createConceptModel() {
@@ -1155,7 +968,7 @@ YOUR PREVIOUS FULL RESPONSE:
 
                 // Draw labels
                 ctx.fillStyle = '#333';
-                ctx.font = '14px var(--font-main)';
+                ctx.font = '16px var(--font-main)';
                 ctx.fillText('롯데월드타워', canvas.width/2 - 30, canvas.height/2 - 40);
                 ctx.fillText('롯데월드 어드벤처', canvas.width/4 + 25, canvas.height/4 + 20);
                 ctx.fillText('롯데월드 타워 Mall', canvas.width*3/4 + 30, canvas.height/3 + 30);
@@ -1219,7 +1032,7 @@ YOUR PREVIOUS FULL RESPONSE:
 
                 // Draw labels
                 ctx.fillStyle = '#333';
-                ctx.font = '14px var(--font-main)';
+                ctx.font = '16px var(--font-main)';
                 ctx.fillText('기준층 평면도 (50층)', canvas.width/2 - 80, 20);
                 ctx.fillText('면적: 950m²', canvas.width/2 - 50, 40);
                 ctx.fillText('코어: 20m × 20m', canvas.width/2 - 50, 60);
@@ -1291,7 +1104,7 @@ YOUR PREVIOUS FULL RESPONSE:
 
                 // Draw labels
                 ctx.fillStyle = '#333';
-                ctx.font = '14px var(--font-main)';
+                ctx.font = '16px var(--font-main)';
                 ctx.fillText('입면도 (남향)', canvas.width/2 - 60, 20);
                 ctx.fillText('높이: 555m', canvas.width/2 - 40, 40);
                 ctx.fillText('최대 폭: 80m', canvas.width/2 - 40, 60);
@@ -1369,7 +1182,7 @@ YOUR PREVIOUS FULL RESPONSE:
 
                 // Draw labels
                 ctx.fillStyle = '#333';
-                ctx.font = '14px var(--font-main)';
+                ctx.font = '16px var(--font-main)';
                 ctx.fillText('단면도 (동-서)', canvas.width/2 - 60, 20);
                 ctx.fillText('층 높이: 3.8m', canvas.width/2 - 40, 40);
                 ctx.fillText('코어 크기: 20m × 20m', canvas.width/2 - 60, 60);
@@ -1402,6 +1215,9 @@ YOUR PREVIOUS FULL RESPONSE:
             animate();
 
             // Event listeners for controls
+            const designStageSelect = document.getElementById('design-stage');
+            const viewTypeSelect = document.getElementById('view-type');
+
             designStageSelect.addEventListener('change', function() {
                 const stage = this.value;
                 const viewType = viewTypeSelect.value;
@@ -1461,7 +1277,7 @@ YOUR PREVIOUS FULL RESPONSE:
 </html>
 ```
 
-MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
-["docs/models/ministral-14b/lotte-tower/artwork.html:531: The simulated runtime defines window.OrbitControls but calls new THREE.OrbitControls; it throws before rendering. The bundled local runtime is never loaded. Required repair: Use ../runtime/three-runtime.js and real THREE.OrbitControls; remove the incomplete substitute runtime rather than aliasing an incompatible stub. Retest all render/control methods. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/ministral-14b/lotte-tower/artwork.html:62: Meaningful UI/diagram text is below19px at rendered size. Required repair: Make meaningful text and diagram labels at least19px on mobile/desktop. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."]
+실패 기록과 필수 수정 사항 — 아래 항목을 모두 해결하세요:
+{"재시도": {"회차": "lotte-tower-retry-20261015", "실패 상태": "failed", "기존 실패 사유": "Only the pinned local Three.js runtime is permitted", "기존 원본 SHA": null, "직전 완결 원본 검수 SHA": "95efdcf9dcb9f0fa1bf80555aefd9281515431cb189b665aa8a6e1d87f2f45dd"}, "이전 독립 검수 지적 원문": [{"severity": "Critical", "category": "Renders", "file": "docs/models/ministral-14b/lotte-tower/artwork.html", "line": 531, "quote": "window.OrbitControls = function(object, domElement) {", "problem": "The simulated runtime defines window.OrbitControls but calls new THREE.OrbitControls; it throws before rendering. The bundled local runtime is never loaded.", "action": "Use ../runtime/three-runtime.js and real THREE.OrbitControls; remove the incomplete substitute runtime rather than aliasing an incompatible stub. Retest all render/control methods."}, {"severity": "Warning", "category": "Readability", "file": "docs/models/ministral-14b/lotte-tower/artwork.html", "line": 62, "quote": "font-size: 0.9rem;", "problem": "Meaningful UI/diagram text is below19px at rendered size.", "action": "Make meaningful text and diagram labels at least19px on mobile/desktop."}], "공통 기능 확인": ["배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.", "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.", "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.", "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.", "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.", "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."]}
 
-Return the complete repaired HTML now.
+설명이나 코드 조각 없이, 닫는 태그까지 포함한 전체 HTML을 반환하세요.

@@ -140,12 +140,18 @@
       "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/nova-micro",
       "status": "review_failed",
       "generation_status": "generated",
-      "artwork_sha256": "5ebb6caba2c5f794c672836f213201676aa9a67a66ac2df64c9eb3e9fb7b4e7b",
+      "artwork_sha256": "0104441e0f0ec27688add9cf9ec4e5e11eb6a896439a69c48e6990d5504f1a1f",
       "content_review": {
-        "task_requirements_complete": false,
         "model": "nova-micro",
+        "model_id": "us.amazon.nova-micro-v1:0",
+        "requested_at": "2026-10-15T00:15:51.647075+00:00",
+        "retry_episode": "lotte-tower-retry-20261015",
+        "review_iteration_in_episode": 1,
+        "current_generation_status": "generated",
+        "active_source": true,
+        "artwork_sha256": "0104441e0f0ec27688add9cf9ec4e5e11eb6a896439a69c48e6990d5504f1a1f",
         "score": 88.5,
-        "critical": 1,
+        "critical": 2,
         "warnings": 4,
         "verdict": "FAIL",
         "category_scores": {
@@ -166,70 +172,74 @@
           "Message Clarity": 5,
           "Duplication and Gaps": 5
         },
-        "artwork_sha256": "5ebb6caba2c5f794c672836f213201676aa9a67a66ac2df64c9eb3e9fb7b4e7b",
-        "model_id": "us.amazon.nova-micro-v1:0",
-        "origin_generation": "lotte-tower-models-20261013",
+        "task_requirements_complete": false,
+        "publication_approved": false,
         "original_response_bytes_verified": true,
-        "source": "/tmp/model-lotte-review/nova-micro/5ebb6caba2c5",
-        "browser_evidence": "/tmp/model-lotte-review/nova-micro/5ebb6caba2c5/browser.json",
+        "config_identity_verified": true,
+        "source": "/tmp/lotte-retry-20261015/nova-micro/0104441e0f0e",
+        "browser_evidence": "/tmp/lotte-retry-20261015/nova-micro/0104441e0f0e/browser.json",
+        "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
         "findings": [
           {
             "severity": "Critical",
             "category": "Renders",
             "file": "docs/models/nova-micro/lotte-tower/artwork.html",
-            "line": 76,
-            "quote": "<img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAQCAYAAADNo+9XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AEKDR0Iu3JyDAA==\" alt=\"Site Plan\">",
-            "problem": "All four images use the same incomplete PNG data URI; browser reports ERR_INVALID_URL and no drawings load.",
-            "action": "Render actual inline drawings or valid complete embedded assets."
+            "line": 77,
+            "quote": "<img src=\"site-plan.png\" alt=\"Site Plan\" title=\"Site Plan (Scale: 1:5000)\">",
+            "problem": "All four drawings reference nonexistent PNG files. Browser logs blocked missing-asset requests and displays broken images.",
+            "action": "Return complete inline or valid embedded drawings."
+          },
+          {
+            "severity": "Critical",
+            "category": "Renders",
+            "file": "docs/models/nova-micro/lotte-tower/artwork.html",
+            "line": 151,
+            "quote": "const towerGeometry = new THREE.Geometry();",
+            "problem": "Browser throws THREE.Geometry is not a constructor before the scene is initialized. Face3 is also unavailable in the pinned runtime.",
+            "action": "Use supported BufferGeometry construction and verify startup."
           },
           {
             "severity": "Warning",
             "category": "Structural Completeness",
             "file": "docs/models/nova-micro/lotte-tower/artwork.html",
-            "line": 141,
-            "quote": "function createStage(name) {",
-            "problem": "No explained intermediate3D development states are implemented.",
-            "action": "Provide distinct explained3D forms leading to completion and link them to the drawings."
-          },
-          {
-            "severity": "Warning",
-            "category": "Data Accuracy and References",
-            "file": "docs/models/nova-micro/lotte-tower/artwork.html",
-            "line": 142,
-            "quote": "const geometry = new THREE.BoxGeometry(1, 1, 1);",
-            "problem": "All named stage/final meshes remain identical unit cubes; only one is shown, not the required tapered tower.",
-            "action": "Build meaningful development forms and coherent completed tower geometry."
+            "line": 137,
+            "quote": "scene.add(models[2]);",
+            "problem": "The stage/final slots remain empty; only models[2], a0.5-unit cube, would be added. The completed tower models[3] is never mounted, and no stage selection or correspondence exists.",
+            "action": "Display the intended distinct intermediate forms and completed tower with working stage selection and correspondence."
           },
           {
             "severity": "Warning",
             "category": "Layout",
             "file": "docs/models/nova-micro/lotte-tower/artwork.html",
-            "line": 20,
-            "quote": ".header {",
-            "problem": "The100%-width header adds horizontal padding, and unwrapped rows overflow at all tested widths. Model/stage slots remain poorly sized.",
-            "action": "Fit header/rows with responsive sizing and preserve normal scrolling."
+            "line": 21,
+            "quote": "width: 100%;",
+            "problem": "The padded100%-width header and unwrapped drawing/control rows overflow at1280/768/375; mobile headings overlap and controls extend off screen.",
+            "action": "Fit responsive rows/header while retaining accessible scrollable content."
           },
           {
             "severity": "Warning",
             "category": "Readability",
             "file": "docs/models/nova-micro/lotte-tower/artwork.html",
-            "line": 48,
-            "quote": ".control-button {",
-            "problem": "Meaningful UI/diagram text remains below19px rendered size.",
-            "action": "Use at least19px meaningful rendered text and controls."
+            "line": 27,
+            "quote": ".description {",
+            "problem": "Explanatory text and model identity remain16px.",
+            "action": "Use at least19px meaningful rendered text."
+          },
+          {
+            "severity": "Warning",
+            "category": "Data Accuracy and References",
+            "file": "docs/models/nova-micro/lotte-tower/artwork.html",
+            "line": 77,
+            "quote": "<img src=\"site-plan.png\" alt=\"Site Plan\" title=\"Site Plan (Scale: 1:5000)\">",
+            "problem": "The drawing scales and invented geometry dimensions lack the required conceptual/not-official disclosure or source attribution.",
+            "action": "Identify inferred dimensions/scales and public references explicitly."
           }
         ],
-        "notes": [
-          "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions."
-        ],
-        "reviewed_at": "2026-10-13T15:51:47.601288+00:00",
-        "re_review_number": 3,
-        "review_iteration": 4,
-        "retry_limit_reached": true,
-        "current_generation_status": "generated",
-        "active_source": true
+        "notes": [],
+        "reviewed_at": "2026-10-15T00:20:27.668626+00:00",
+        "episode_review_iteration": 1
       },
-      "prompt_sha256": "8d37098c298d3bb26ce6d809277b2db8fda62371f85c465a58afc621152fd0b6",
+      "prompt_sha256": "bfb88ad803de1e49328b9b1f89601daf15b25f23123b0965b1a2a66df251acad",
       "initial_prompt_sha256": "8fde699e56b39d393458df1071f35c32cb9a6d3d25a9372d451bb81dacd12967",
       "implementation_cost": {
         "kind": "api_tokens",
@@ -240,18 +250,18 @@
           "price_in": 0.035,
           "price_out": 0.14
         },
-        "estimated_total_usd": 0.00097545,
-        "estimated_final_response_usd": 0.000339605,
-        "recorded_attempts": 5,
-        "successful_code_responses": 4,
-        "additional_attempts": 4,
-        "known_cost_attempts": 4,
+        "estimated_total_usd": 0.001388345,
+        "estimated_final_response_usd": 0.000412895,
+        "recorded_attempts": 6,
+        "successful_code_responses": 5,
+        "additional_attempts": 5,
+        "known_cost_attempts": 5,
         "unknown_usage_attempts": 1,
         "missing_duration_attempts": 0,
         "total_request_seconds": null,
         "tokens": {
-          "tokens_in": 7118,
-          "tokens_out": 5188,
+          "tokens_in": 11639,
+          "tokens_out": 7007,
           "cache_read_tokens": 0,
           "cache_write_tokens": 0
         },
@@ -312,19 +322,30 @@
             "request_seconds": null,
             "record_sha256": "b589a9c3b50f1648933fcd7a3b5ea7c55ed3cdf577fe8a7358e1adc53b32e5e2",
             "response_sha256": "df0501c2b88a7496a2cdd2829127fb42e7e66d60e39ee3cb84b468833643cb18"
+          },
+          {
+            "requested_at": "2026-10-15T00:15:51.647075+00:00",
+            "status": "generated",
+            "request_id": "005675df-8d4c-471e-a07e-83675789675c",
+            "usage_available": true,
+            "estimated_cost_usd": 0.000412895,
+            "request_seconds": null,
+            "record_sha256": "12f2d3c2de57c9cf11a1a1827725741c9b278febe1bbf17d4e0fece904369fa6",
+            "response_sha256": "adf3481f1004e82c607fd8d6e167d2047fc370b6719bfd35b695bba5d0bee59e"
           }
         ]
       },
-      "request_id": "d81c4452-fea1-41f1-8de0-9fe16c247362",
-      "requested_at": "2026-10-13T15:26:45.339294+00:00",
-      "generated_at": "2026-10-13T15:26:49.321354+00:00",
-      "tokens_in": 3171,
-      "tokens_out": 1633,
+      "request_id": "005675df-8d4c-471e-a07e-83675789675c",
+      "requested_at": "2026-10-15T00:15:51.647075+00:00",
+      "generated_at": "2026-10-15T00:15:55.880059+00:00",
+      "tokens_in": 4521,
+      "tokens_out": 1819,
       "max_output_tokens": 8192,
       "temperature": 0,
       "temperature_sent": true,
       "bedrock_reasoning_effort": null,
       "finish_reason": "end_turn",
+      "retry_episode": "lotte-tower-retry-20261015",
       "request_conditions": {
         "initial_prompt_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
         "initial_max_output_tokens": 8192,
@@ -332,8 +353,8 @@
         "initial_temperature": 0,
         "latest_temperature": 0,
         "initial_reasoning_effort": null,
-        "recorded_requests": 5,
-        "followup_requests": 4,
+        "recorded_requests": 6,
+        "followup_requests": 5,
         "final_outputs_are_controlled_one_shot_comparison": false
       }
     }

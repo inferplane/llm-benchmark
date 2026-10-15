@@ -1,0 +1,22 @@
+[
+  {
+    "model": "llama-3.1-8b",
+    "startup_seconds": 420.7501419649925,
+    "active_seconds": 543.9921989829745
+  },
+  {
+    "model": "llama-3.3-70b",
+    "startup_seconds": 570.7082219329895,
+    "active_seconds": 656.5611418909975
+  },
+  {
+    "model": "qwen3.6-27b",
+    "startup_seconds": 752.7518292969908,
+    "active_seconds": 983.4332129739923
+  },
+  {
+    "model": "exaone-3.5-32b",
+    "startup_seconds": 872.6100385130267,
+    "active_seconds": 1013.1791420090012
+  }
+]

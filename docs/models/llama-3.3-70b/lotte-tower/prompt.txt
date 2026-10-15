@@ -1,6 +1,7 @@
-You are the original author, model llama-3.3-70b, served as meta-llama/Llama-3.3-70B-Instruct. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+당신은 원 작성 모델 llama-3.3-70b이며, 실제 호출 ID는 meta-llama/Llama-3.3-70B-Instruct입니다.
+자신이 작성한 롯데타워 구현의 실패를 수정하세요. 표현 방식과 시각적 구성은 스스로 결정하세요. 다른 모델의 코드나 참고 구현은 제공하지 않습니다. 모든 필수 기능을 구현한 완결된 HTML 문서 하나만 반환하세요.
 
-ORIGINAL TASK BRIEF. Retain every requested feature and disclosure:
+최초 공통 요청 — 기능과 출처·추정 구분을 모두 유지하세요:
 당신은 llama-3.3-70b 모델입니다. 실제 호출 식별자는 meta-llama/Llama-3.3-70B-Instruct입니다.
 
 롯데월드타워의 건축 설계 과정을 이해할 수 있도록, 설계도면과 단계별 3D 모델 및 완성된 3D 모델을 함께 보여주는 인터랙티브 웹페이지를 직접 구현하세요.
@@ -31,154 +32,10 @@ ORIGINAL TASK BRIEF. Retain every requested feature and disclosure:
 - 설명문이나 코드 조각을 따로 반환하지 말고 전체 HTML을 반환하세요.
 
 
-YOUR PREVIOUS FULL RESPONSE:
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lotte World Tower</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-        #container {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        #panels {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .panel {
-            width: 200px;
-            height: 200px;
-            margin: 10px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 10px;
-            font-size: 19px;
-        }
-        #three-container {
-            width: 600px;
-            height: 400px;
-            border: 1px solid #ddd;
-            margin: 20px;
-        }
-        #controls {
-            margin: 20px;
-        }
-        button {
-            font-size: 19px;
-            padding: 10px;
-            margin: 10px;
-        }
-        #model-name {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 24px;
-        }
-    </style>
-</head>
-<body>
-    <div id="model-name">llama-3.3-70b</div>
-    <div id="container">
-        <div id="panels">
-            <div class="panel" id="site-plan">
-                <svg width="180" height="180">
-                    <rect x="10" y="10" width="160" height="160" fill="#ccc" />
-                    <text x="50" y="50" font-size="24">Site Plan</text>
-                </svg>
-            </div>
-            <div class="panel" id="floor-plan">
-                <svg width="180" height="180">
-                    <rect x="10" y="10" width="160" height="160" fill="#ccc" />
-                    <text x="50" y="50" font-size="24">Floor Plan</text>
-                </svg>
-            </div>
-            <div class="panel" id="elevation">
-                <svg width="180" height="180">
-                    <rect x="10" y="10" width="160" height="160" fill="#ccc" />
-                    <text x="50" y="50" font-size="24">Elevation</text>
-                </svg>
-            </div>
-            <div class="panel" id="section">
-                <svg width="180" height="180">
-                    <rect x="10" y="10" width="160" height="160" fill="#ccc" />
-                    <text x="50" y="50" font-size="24">Section</text>
-                </svg>
-            </div>
-        </div>
-        <div id="three-container"></div>
-        <div id="controls">
-            <button id="rotate">Rotate</button>
-            <button id="zoom">Zoom</button>
-            <button id="reset">Reset</button>
-        </div>
-    </div>
-    <script src="../runtime/three-runtime.js"></script>
-    <script>
-        let scene = new THREE.Scene();
-        let camera = new THREE.PerspectiveCamera(75, 600 / 400, 0.1, 1000);
-        let renderer = new THREE.WebGLRenderer({
-            canvas: document.createElement('canvas'),
-            antialias: true
-        });
-        renderer.setSize(600, 400);
-        document.getElementById('three-container').appendChild(renderer.domElement);
-        let towerGeometry = new THREE.BoxGeometry(100, 555, 100);
-        let towerMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        let tower = new THREE.Mesh(towerGeometry, towerMaterial);
-        scene.add(tower);
-        camera.position.z = 500;
-        let orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
-        function animate() {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-        }
-        animate();
-        document.getElementById('rotate').addEventListener('click', () => {
-            tower.rotation.x += 0.1;
-            tower.rotation.y += 0.1;
-        });
-        document.getElementById('zoom').addEventListener('click', () => {
-            camera.position.z -= 50;
-        });
-        document.getElementById('reset').addEventListener('click', () => {
-            camera.position.z = 500;
-            tower.rotation.x = 0;
-            tower.rotation.y = 0;
-        });
-        document.addEventListener('keydown', (event) => {
-            if (event.key === ' ') {
-                tower.rotation.x += 0.1;
-                tower.rotation.y += 0.1;
-            } else if (event.key === '+') {
-                camera.position.z -= 50;
-            } else if (event.key === '-') {
-                camera.position.z += 50;
-            } else if (event.key === 'r') {
-                camera.position.z = 500;
-                tower.rotation.x = 0;
-                tower.rotation.y = 0;
-            }
-        });
-    </script>
-</body>
-</html>
-```
+이 모델의 이전 응답 원문:
+이번 요청에서는 이전 코드를 포함하지 않습니다. 원 작성 모델이 직접 다시 구현하세요.
 
-MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
-["Replace the four identical labeled blank rectangles with actual distinct site, floor-plan, elevation and section drawing geometry, dimensions and assumptions.", "Add selectable real intermediate3D design stages, linked to the drawings.", "Replace the untapered100x555x100 box with your own coherent upward-narrowing tower envelope; preserve the public555m/123-floor basis and disclose assumed widths.", "Replace the fixed600px viewer with container-responsive sizing, camera projection updates and a resize handler that fits375px without clipping.", "Reset must restore full cameraXYZ, orientation and target after dragging, then update controls. Zoom must change distance relative to the current target, not just worldz. Keep actual pointer and keyboard operation.", "Preserve your own rendering concept and implement all features fully in a complete HTML under3500 outputtokens. No empty placeholders, duplicate boilerplate or TODOs."]
+실패 기록과 필수 수정 사항 — 아래 항목을 모두 해결하세요:
+{"이전 검수 수정 사항": [{"severity": "Warning", "action": "Build valid surface indices that use successive elevated rings; verify the referenced mesh has a real nonzero vertical extent and matches its drawings."}, {"severity": "Warning", "action": "Render four meaningful distinct diagrams tied to the authored spatial model and stages."}, {"severity": "Warning", "action": "Label unsupported dimensions as assumptions, keeping555m/123floors distinct as supplied public facts."}, {"severity": "Warning", "action": "Use content-sized responsive/scrollable layout and fit diagram annotations inside their rendered bounds."}, {"severity": "Warning", "action": "Calculate camera aspect from the actual rendered width/height used by renderer.setSize."}, {"severity": "Warning", "action": "Zoom along the target-relative camera vector and update controls. Restore the full home camera/target on reset, including after panning."}], "필수 구현": ["배치·기준층 평면·입면·단면 도면 4종, 단위·개념 추정의 근거를 실제로 표시하세요.", "서로 다른 설계 단계별 3D와 전체 완성 타워를 구현하고, 도면 선택·단계와 연결하세요.", "초기 시점에 전체 형상이 보이며 회전·줌·초기화를 포인터와 키보드로 조작할 수 있어야 합니다.", "허용된 로컬 전역 THREE 런타임만 사용하세요. 글자·버튼은 19px 이상이며 휴대폰에서 접근 가능해야 합니다.", "표현은 스스로 결정하세요. 간결한 코드로 출력 한도 안에 완결된 HTML을 작성하세요."]}
 
-Return the complete repaired HTML now.
+설명이나 코드 조각 없이, 닫는 태그까지 포함한 전체 HTML을 반환하세요.

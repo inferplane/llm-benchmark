@@ -93,6 +93,9 @@ def main():
     parser.add_argument("--temperature", type=float)
     parser.add_argument("--feedback")
     parser.add_argument("--fresh-repair", action="store_true")
+    parser.add_argument("--repair-language", choices=("ko", "en"), default="ko")
+    parser.add_argument("--retry-episode")
+    parser.add_argument("--native-port", type=int, help="isolated loopback forwarding for this task")
     args = parser.parse_args()
     cfg = run.load_config()
     initialize(cfg["models"])
@@ -111,10 +114,18 @@ def main():
         parser.error("Unsafe output budget")
     if args.temperature is not None and any(not model.get("base_url") for model in wanted):
         parser.error("Sampling override is for self-hosted artwork only")
+    if args.retry_episode and not re.fullmatch(r"[a-z0-9][a-z0-9.-]*", args.retry_episode):
+        parser.error("Unsafe retry episode")
+    if args.native_port is not None and (
+        not 1024 <= args.native_port <= 65535 or any(not model.get("base_url") for model in wanted)
+    ):
+        parser.error("Native forwarding port requires self-hosted models and a non-privileged port")
     feedback = json.loads(Path(args.feedback).read_text()) if args.feedback else {}
     prepared = []
     for model in wanted:
         options = dict(model)
+        if args.native_port is not None:
+            options["base_url"] = f"http://127.0.0.1:{args.native_port}/v1"
         if model["name"] in LOW_EFFORT_CLAUDE or model["name"] == "kimi-k3":
             options["_art_effort"] = "low"
         if model["name"] == "grok-4.6":
@@ -124,6 +135,10 @@ def main():
         if model["name"] in feedback:
             options["_feedback"] = feedback[model["name"]]
             options["_fresh_repair"] = args.fresh_repair
+            options["_feedback_language"] = args.repair_language
+        if args.retry_episode:
+            options["_retry_episode"] = args.retry_episode
+            options["request_max_attempts"] = 1
         prepared.append(options)
     collector.OUTPUT = MODELS
     collector.ARTIFACT_SUBDIR = "lotte-tower"
@@ -141,7 +156,8 @@ def main():
         # Native authors run one at a time. Refresh their local viewer before
         # the waiting independent reviewer opens it; publication stays gated.
         from tools import model_pages
-        model_pages.main([])
+        review = ROOT / "validation/model-tasks/lotte-review.json"
+        model_pages.main(["--lotte-review", str(review)])
 
 
 if __name__ == "__main__":

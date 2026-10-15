@@ -1,0 +1,8 @@
+[
+  {
+    "model": "qwen3.6-27b",
+    "inference_requested": false,
+    "reason": "Diagnostic exec timeout on terminating previous-model pod; monitor fixed and remaining queue resumed.",
+    "observed_cache_kib_before_interruption": 54285440
+  }
+]

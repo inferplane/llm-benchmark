@@ -929,14 +929,20 @@
       "active_source": true
     },
     {
-      "task_requirements_complete": false,
       "model": "llama-3.3-70b",
-      "score": 90.5,
+      "model_id": "meta-llama/Llama-3.3-70B-Instruct",
+      "requested_at": "2026-10-15T00:37:02.622609+00:00",
+      "retry_episode": "lotte-tower-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "4ee86be21b6aafdb2766fbbb851baae57f2a0903ae3a9cc6f401d74191782a8f",
+      "score": 88.5,
       "critical": 0,
-      "warnings": 6,
+      "warnings": 8,
       "verdict": "REVIEW",
       "category_scores": {
-        "Layout": 4.0,
+        "Layout": 6.0,
         "Terminology": 8,
         "No Hallucination": 12,
         "Language Consistency": 8,
@@ -945,87 +951,100 @@
         "Icon Usage": 5,
         "Renders": 5,
         "Interactions": 3.5,
-        "Readability": 5,
-        "Accessibility": 5,
+        "Readability": 3.5,
+        "Accessibility": 2.5,
         "Structural Completeness": 2.5,
         "Data Accuracy and References": 3.5,
         "Legal Compliance": 5,
         "Message Clarity": 5,
         "Duplication and Gaps": 5
       },
-      "artwork_sha256": "a061dc832b7e06ecc97d03568baf5cf3098bd89829dd61f1eb9d721a9c914a94",
-      "model_id": "meta-llama/Llama-3.3-70B-Instruct",
-      "origin_generation": "lotte-tower-models-20261013",
+      "task_requirements_complete": false,
+      "publication_approved": false,
       "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/llama-3.3-70b/a061dc832b7e",
-      "browser_evidence": "/tmp/model-lotte-review/llama-3.3-70b/a061dc832b7e/browser.json",
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-retry-20261015/llama-3.3-70b/4ee86be21b6a",
+      "browser_evidence": "/tmp/lotte-retry-20261015/llama-3.3-70b/4ee86be21b6a/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
       "findings": [
         {
           "severity": "Warning",
           "category": "Structural Completeness",
           "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
-          "line": 129,
-          "quote": "indices.push(base, base + 1, base + 2);",
-          "problem": "Every referenced vertex index has offset0–3 in an8-vertex block, and all those vertices have y=0. The height-bearing vertices4–7 are never indexed, so the completed model is a flat ground mesh, not the required555m tower.",
-          "action": "Build valid surface indices that use successive elevated rings; verify the referenced mesh has a real nonzero vertical extent and matches its drawings."
+          "line": 60,
+          "quote": "<div id=\"diagrams\">",
+          "problem": "The four drawing panels contain only text; no actual site, floor, elevation or section drawing is rendered.",
+          "action": "Implement four meaningful drawings corresponding to the authored model."
         },
         {
           "severity": "Warning",
           "category": "Structural Completeness",
           "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
-          "line": 62,
-          "quote": "<div class=\"panel\" id=\"site-plan\">",
-          "problem": "The diagram package remains generic rectangles: elevation is three separate bars and section is three squares, with no coherent tower/site/floor/section geometry.",
-          "action": "Render four meaningful distinct diagrams tied to the authored spatial model and stages."
+          "line": 111,
+          "quote": "model = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ color: 0x00ff00 }));",
+          "problem": "Only one fixed mesh exists; no design-development stages, stage selector or explanations are implemented.",
+          "action": "Implement distinct explained intermediate forms and their correspondence with drawings and completion."
         },
         {
           "severity": "Warning",
           "category": "Data Accuracy and References",
           "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
-          "line": 65,
-          "quote": "<text x=\"50\" y=\"50\" font-size=\"24\">Site Plan (500x500m)</text>",
-          "problem": "New site500×500m and floor80×80m dimensions are presented without identifying them as unverified conceptual assumptions.",
-          "action": "Label unsupported dimensions as assumptions, keeping555m/123floors distinct as supplied public facts."
-        },
-        {
-          "severity": "Warning",
-          "category": "Layout",
-          "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
-          "line": 16,
-          "quote": "height: 100vh;",
-          "problem": "The vertically centered fixed-height container is shorter than its mobile contents; panels extend above the reachable start and labels overflow their180pxSVG frames.",
-          "action": "Use content-sized responsive/scrollable layout and fit diagram annotations inside their rendered bounds."
-        },
-        {
-          "severity": "Warning",
-          "category": "Layout",
-          "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
-          "line": 151,
-          "quote": "camera.aspect = window.innerWidth / window.innerHeight;",
-          "problem": "Camera aspect uses full window height while the rendered canvas is70%window height, distorting the projection at every viewport.",
-          "action": "Calculate camera aspect from the actual rendered width/height used by renderer.setSize."
+          "line": 111,
+          "quote": "model = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ color: 0x00ff00 }));",
+          "problem": "The complete3D model is a1×1×1cube, unrelated to the described555m upward-narrowing tower or stated footprint.",
+          "action": "Create a coherent conceptual tower linked to the labelled dimensions and facts."
         },
         {
           "severity": "Warning",
           "category": "Interactions",
           "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
-          "line": 175,
-          "quote": "camera.position.z -= 50;",
-          "problem": "Zoom still changes world z after arbitrary orbit, rather than camera-to-target distance, without synchronizing controls; view direction can shift away from the object.",
-          "action": "Zoom along the target-relative camera vector and update controls. Restore the full home camera/target on reset, including after panning."
+          "line": 127,
+          "quote": "controls.reset();",
+          "problem": "Reset restores OrbitControls state saved at camera origin before initial positioning. Browser confirms reset moves camera to(0,0,0), inside the cube, rather than restoring the initial(0,0,5)view.",
+          "action": "Save a valid home camera/target after setup and restore that state."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+          "line": 106,
+          "quote": "renderer.setSize(window.innerWidth, window.innerHeight);",
+          "problem": "Renderer size is the initial full viewport with no resize handler, despite a500px host. At375px it remains1440px wide; fixed centered100vh content also pushes upper panels off the reachable top.",
+          "action": "Size the renderer from its responsive host and preserve reachable normal scrolling."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+          "line": 63,
+          "quote": "<p>단위: m</p>",
+          "problem": "Informative dimension/assumption text is16px.",
+          "action": "Use at least19px meaningful rendered text."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+          "line": 47,
+          "quote": "background-color: #4CAF50;",
+          "problem": "White text on#4CAF50 buttons has about2.78:1 contrast, below4.5:1.",
+          "action": "Choose accessible foreground/background contrast."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+          "line": 109,
+          "quote": "controls = new THREE.OrbitControls(camera, renderer.domElement);",
+          "problem": "OrbitControls supports pointer orbit, but the page provides no keyboard orbit handler or orbit buttons; only reset and zoom buttons are present.",
+          "action": "Provide keyboard-accessible camera orbit equivalents."
         }
       ],
       "notes": [
-        "Third re-review/iteration4. SHAa061dc832b7e06ecc97d03568baf5cf3098bd89829dd61f1eb9d721a9c914a94; browser0script errors, localWebGL executes, stage buttons change geometry.",
-        "All final index references select only y=0 vertices; this is a concrete mesh-generation defect, not an aesthetic judgment.",
-        "Three-re-review limit reached. Do not automatically request further same-author paid repair; user decision required. Task remains incomplete and publication gate closed for this model."
+        "Actual configured native identity and exact original response bytes verified. A layout-ready private iframe probe excluded a test-wrapper zero-size startup race before grading. RealWebGL pointer drag/wheel work; no runtime errors. Full requested task remains incomplete."
       ],
-      "reviewed_at": "2026-10-13T15:23:30.883120+00:00",
-      "re_review_number": 3,
-      "review_iteration": 4,
-      "retry_limit_reached": true,
-      "current_generation_status": "generated",
-      "active_source": true
+      "reviewed_at": "2026-10-15T00:41:57.297091+00:00",
+      "episode_review_iteration": 1
     },
     {
       "task_requirements_complete": false,
@@ -1087,7 +1106,8 @@
       "review_iteration": 3,
       "retry_limit_reached": false,
       "current_generation_status": "failed",
-      "active_source": false
+      "active_source": false,
+      "no_current_artifact_grade": true
     },
     {
       "task_requirements_complete": true,
@@ -1154,14 +1174,20 @@
       "active_source": true
     },
     {
-      "task_requirements_complete": false,
       "model": "llama-3.1-8b",
-      "score": 88.0,
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "requested_at": "2026-10-15T00:25:28.013791+00:00",
+      "retry_episode": "lotte-tower-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "1e508a5673e2d09bba5a2fe6da312dbf766c5050e6000845e075483a46f09048",
+      "score": 86.0,
       "critical": 1,
-      "warnings": 5,
+      "warnings": 6,
       "verdict": "FAIL",
       "category_scores": {
-        "Layout": 8,
+        "Layout": 6.0,
         "Terminology": 8,
         "No Hallucination": 12,
         "Language Consistency": 8,
@@ -1169,87 +1195,92 @@
         "Content-Type Quality": 2,
         "Icon Usage": 5,
         "Renders": 0,
-        "Interactions": 3.5,
+        "Interactions": 5,
         "Readability": 3.5,
-        "Accessibility": 5,
+        "Accessibility": 3.5,
         "Structural Completeness": 2.5,
         "Data Accuracy and References": 3.5,
         "Legal Compliance": 5,
         "Message Clarity": 5,
         "Duplication and Gaps": 5
       },
-      "artwork_sha256": "c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1",
-      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
-      "origin_generation": "lotte-tower-models-20261013",
+      "task_requirements_complete": false,
+      "publication_approved": false,
       "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/llama-3.1-8b/c32057471d5a",
-      "browser_evidence": "/tmp/model-lotte-review/llama-3.1-8b/c32057471d5a/browser.json",
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-retry-20261015/llama-3.1-8b/1e508a5673e2",
+      "browser_evidence": "/tmp/lotte-retry-20261015/llama-3.1-8b/1e508a5673e2/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
       "findings": [
         {
           "severity": "Critical",
           "category": "Renders",
           "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
-          "line": 81,
-          "quote": "const diagram1 = new THREE.CanvasRenderer();",
-          "problem": "The pinned runtime has no CanvasRenderer; construction throws THREE.CanvasRenderer is not a constructor before controls or animation initialize.",
-          "action": "Use supported local rendering APIs and real2Dcanvas contexts for diagrams, initialize actual scene geometry before rendering, and verify all controls."
+          "line": 128,
+          "quote": "const controls = new THREE.OrbitControls(camera, threeCanvas);",
+          "problem": "The script declares const controls twice (lines110and128). Browser throws Identifier controls has already been declared before any diagram or WebGL initialization; all controls are inactive.",
+          "action": "Remove the duplicate binding in an author-produced correction and verify full initialization."
         },
         {
           "severity": "Warning",
           "category": "Structural Completeness",
           "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
-          "line": 113,
-          "quote": "diagram1.render(scene, camera);",
-          "problem": "All four drawing renderers are intended to render the identical scene/camera, with no distinct site/floor/elevation/section drawing content; inner canvases appended inside canvas elements would remain fallback content.",
-          "action": "Render four meaningful distinct diagram views directly into their visible canvases or SVG, with labels/units/model correspondence."
+          "line": 133,
+          "quote": "function drawLayoutDiagram() {",
+          "problem": "All four diagram routines repeat the same grey rectangle and two axis lines; no actual site/floor/elevation/section content or dimensional correspondence is implemented.",
+          "action": "Create meaningful distinct diagrams tied to the authored tower concept."
         },
         {
           "severity": "Warning",
           "category": "Structural Completeness",
           "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
-          "line": 158,
-          "quote": "switch (stage) {",
-          "problem": "The four states swap a cylinder, plane and two offset cubes rather than showing an explained3D development process leading to the completed tower.",
-          "action": "Implement actual intermediate tower forms and a completed stage with understandable explanations."
+          "line": 213,
+          "quote": "function draw3DModel() {",
+          "problem": "No design-development stages, stage selector or explanations are implemented.",
+          "action": "Implement distinct explained intermediate3D forms and their drawing/model correspondence."
         },
         {
           "severity": "Warning",
           "category": "Data Accuracy and References",
           "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
-          "line": 188,
-          "quote": "const geometry = new THREE.CylinderGeometry(50, 50, 500, 32);",
-          "problem": "The purported tower remains an untapered500-unit cylinder, inconsistent with the supplied upward-narrowing555m form.",
-          "action": "Build the coherent authored tapering tower at a stated555m scale and align diagrams."
+          "line": 214,
+          "quote": "const geometry = new THREE.BoxGeometry(10, 10, 10);",
+          "problem": "The entire model routine creates a10×10×10cube rather than a555m upward-narrowing tower. The required public facts, sources and conceptual/nonofficial disclosure are absent.",
+          "action": "Represent the requested conceptual tower and identify known facts, assumptions and public sources."
         },
         {
           "severity": "Warning",
-          "category": "Interactions",
+          "category": "Layout",
           "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
-          "line": 133,
-          "quote": "camera.position.copy(cameraPosition);",
-          "problem": "Every camera handler calls updateScene, which immediately restores fixed cameraPosition/lookAt, undoing Zoom/Orbit/Tilt/Pointer changes.",
-          "action": "Keep camera state separate from geometry updates; apply actual target-relative camera operations and reset only on explicit reset."
+          "line": 15,
+          "quote": "height: 100vh;",
+          "problem": "The fixed-height centered container pushes upper drawings above the page top; fixed800px canvas and overlapping drawing captions/absolute controls prevent a usable mobile layout.",
+          "action": "Use responsive renderer sizing and reachable scrollable layout without clipped/overlapping content."
         },
         {
           "severity": "Warning",
           "category": "Readability",
           "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
-          "line": 14,
-          "quote": "#controls {",
-          "problem": "Native buttons retain the browser default~13px font despite19px body/control-container text.",
-          "action": "Explicitly set button and other meaningful control text to at least19px."
+          "line": 139,
+          "quote": "ctx.font = '14px Arial';",
+          "problem": "Diagram text is14px and visible drawing captions/units default to16px.",
+          "action": "Use at least19px meaningful rendered text."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+          "line": 48,
+          "quote": "background-color: #4CAF50;",
+          "problem": "White button text on#4CAF50 has contrast about2.78:1, below4.5:1.",
+          "action": "Choose foreground/background colors meeting4.5:1 contrast."
         }
       ],
       "notes": [
-        "Third re-review/iteration4. ExactSHA c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1. Browser reproduces unsupported CanvasRenderer constructor failure.",
-        "Three-re-review limit reached, task incomplete. Stop automatic paid repair for this native model and require a bundled user decision. Raw author bytes remain untouched."
+        "Fresh actual native model identity and exact response bytes match the episode. No author HTML was edited; the original itself fails parsing. No additional paid retry is authorized by this review."
       ],
-      "reviewed_at": "2026-10-13T15:43:11.362278+00:00",
-      "re_review_number": 3,
-      "review_iteration": 4,
-      "retry_limit_reached": true,
-      "current_generation_status": "generated",
-      "active_source": true
+      "reviewed_at": "2026-10-15T00:29:22.887705+00:00",
+      "episode_review_iteration": 1
     },
     {
       "task_requirements_complete": true,
@@ -1432,11 +1463,17 @@
       "active_source": true
     },
     {
-      "task_requirements_complete": false,
       "model": "nova-pro",
-      "score": 94.0,
+      "model_id": "us.amazon.nova-pro-v1:0",
+      "requested_at": "2026-10-15T00:15:31.900973+00:00",
+      "retry_episode": "lotte-tower-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "c4ab0fb76210f0f72d164273662a93fbb8a19be70bf9b5166340f525a5e663c9",
+      "score": 92.5,
       "critical": 0,
-      "warnings": 4,
+      "warnings": 5,
       "verdict": "REVIEW",
       "category_scores": {
         "Layout": 6.0,
@@ -1450,72 +1487,82 @@
         "Interactions": 5,
         "Readability": 5,
         "Accessibility": 5,
-        "Structural Completeness": 2.5,
+        "Structural Completeness": 1,
         "Data Accuracy and References": 3.5,
         "Legal Compliance": 5,
         "Message Clarity": 5,
         "Duplication and Gaps": 5
       },
-      "artwork_sha256": "f0f629b16c95906ac13780be02ff5ee6e2bb4af51458403689780b692aae373a",
-      "model_id": "us.amazon.nova-pro-v1:0",
-      "origin_generation": "lotte-tower-models-20261013",
+      "task_requirements_complete": false,
+      "publication_approved": false,
       "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/nova-pro/f0f629b16c95",
-      "browser_evidence": "/tmp/model-lotte-review/nova-pro/f0f629b16c95/browser.json",
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-retry-20261015/nova-pro/c4ab0fb76210",
+      "browser_evidence": "/tmp/lotte-retry-20261015/nova-pro/c4ab0fb76210/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
       "findings": [
         {
           "severity": "Warning",
-          "category": "Structural Completeness",
+          "category": "Layout",
           "file": "docs/models/nova-pro/lotte-tower/artwork.html",
-          "line": 46,
-          "quote": "// Placeholder for actual diagram drawing",
-          "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
-          "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+          "line": 62,
+          "quote": "camera = new THREE.PerspectiveCamera(75, modelContainer.offsetWidth / modelContainer.offsetHeight, 0.1, 1000);",
+          "problem": "The actual #model host has zero height, so the renderer is 0px high and no3D model is visible at all three widths.",
+          "action": "Size the actual renderer host and camera aspect from usable responsive dimensions."
         },
         {
           "severity": "Warning",
           "category": "Structural Completeness",
           "file": "docs/models/nova-pro/lotte-tower/artwork.html",
-          "line": 63,
-          "quote": "const geometry = new THREE.CylinderGeometry(5, 2.5, 55, 40);",
-          "problem": "No explained intermediate3D development states are implemented.",
-          "action": "Provide distinct explained3D forms leading to completion and link them to the drawings."
+          "line": 48,
+          "quote": "// Placeholder for actual diagram drawing",
+          "problem": "All four requested drawings remain the same empty rectangle with a title, explicitly marked Placeholder in source.",
+          "action": "Draw meaningful site, floor, elevation and section geometry corresponding to the tower."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/nova-pro/lotte-tower/artwork.html",
+          "line": 67,
+          "quote": "const geometry = new THREE.CylinderGeometry(2.5, 1.25, 55, 40);",
+          "problem": "No selectable or explained intermediate3D design-development states are implemented.",
+          "action": "Implement distinct explained development forms and drawing/model correspondence."
         },
         {
           "severity": "Warning",
           "category": "Data Accuracy and References",
           "file": "docs/models/nova-pro/lotte-tower/artwork.html",
-          "line": 63,
-          "quote": "const geometry = new THREE.CylinderGeometry(5, 2.5, 55, 40);",
-          "problem": "Top radius5 is larger than bottom2.5: the tower widens upward, contrary to the supplied form.",
-          "action": "Use coherent upward narrowing and matching drawings."
+          "line": 67,
+          "quote": "const geometry = new THREE.CylinderGeometry(2.5, 1.25, 55, 40);",
+          "problem": "CylinderGeometry(topRadius2.5,bottomRadius1.25,height55) widens upward; it contradicts the supplied taper and has no stated scale to555m.",
+          "action": "Use an upward-narrowing form with consistent dimensions or an explicit scale."
         },
         {
           "severity": "Warning",
-          "category": "Layout",
+          "category": "Structural Completeness",
           "file": "docs/models/nova-pro/lotte-tower/artwork.html",
-          "line": 58,
-          "quote": "camera = new THREE.PerspectiveCamera(75, modelContainer.offsetWidth / modelContainer.offsetHeight, 0.1, 1000);",
-          "problem": "Inner#model still has zero height; browser confirms a0px-high renderer and invalid aspect, despite the outer600px region.",
-          "action": "Give the actual host usable responsive dimensions and derive camera/render size from them."
+          "line": 19,
+          "quote": "<body>",
+          "problem": "The requested model identity nova-pro is absent from visible content.",
+          "action": "Show the actual model name in the authored page."
         }
       ],
-      "notes": [
-        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions."
-      ],
-      "reviewed_at": "2026-10-13T15:51:47.581686+00:00",
-      "re_review_number": 3,
-      "review_iteration": 4,
-      "retry_limit_reached": true,
-      "current_generation_status": "generated",
-      "active_source": true
+      "notes": [],
+      "reviewed_at": "2026-10-15T00:20:27.667143+00:00",
+      "episode_review_iteration": 1
     },
     {
-      "task_requirements_complete": false,
       "model": "nova-lite",
-      "score": 88.5,
+      "model_id": "us.amazon.nova-lite-v1:0",
+      "requested_at": "2026-10-15T00:15:40.327028+00:00",
+      "retry_episode": "lotte-tower-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "1783c15d7336fbc5601ae271b0ce874fb5a9d5bb4d19a4785533f1ecaf2e9b30",
+      "score": 87.5,
       "critical": 1,
-      "warnings": 4,
+      "warnings": 5,
       "verdict": "FAIL",
       "category_scores": {
         "Layout": 6.0,
@@ -1529,54 +1576,64 @@
         "Interactions": 5,
         "Readability": 3.5,
         "Accessibility": 5,
-        "Structural Completeness": 3.5,
+        "Structural Completeness": 2.5,
         "Data Accuracy and References": 3.5,
         "Legal Compliance": 5,
         "Message Clarity": 5,
         "Duplication and Gaps": 5
       },
-      "artwork_sha256": "57e9c8515fbc8dc91f51f718b15f31855b3db1034103037986a261c1d0924f5f",
-      "model_id": "us.amazon.nova-lite-v1:0",
-      "origin_generation": "lotte-tower-models-20261013",
+      "task_requirements_complete": false,
+      "publication_approved": false,
       "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/nova-lite/57e9c8515fbc",
-      "browser_evidence": "/tmp/model-lotte-review/nova-lite/57e9c8515fbc/browser.json",
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-retry-20261015/nova-lite/1783c15d7336",
+      "browser_evidence": "/tmp/lotte-retry-20261015/nova-lite/1783c15d7336/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
       "findings": [
         {
           "severity": "Critical",
           "category": "Renders",
           "file": "docs/models/nova-lite/lotte-tower/artwork.html",
-          "line": 161,
-          "quote": "const geometry = new THREE.Geometry();",
-          "problem": "THREE.Geometry (and Face3 below) were removed from the pinned runtime; constructor throws before model initialization.",
-          "action": "Use supported BufferGeometry and valid indices."
+          "line": 208,
+          "quote": "offset += 8;",
+          "problem": "Browser initialization throws Assignment to constant variable because offset is const. Geometry construction also passes Vector3 objects as numeric position values and a plainArray to BufferAttribute.",
+          "action": "Use mutable indices and supported numeric/typed buffer attributes; confirm error-free initialization."
         },
         {
           "severity": "Warning",
           "category": "Structural Completeness",
           "file": "docs/models/nova-lite/lotte-tower/artwork.html",
-          "line": 160,
-          "quote": "function createTowerGeometry() {",
-          "problem": "No explained intermediate3D development states are implemented.",
-          "action": "Provide distinct explained3D forms leading to completion and link them to the drawings."
+          "line": 109,
+          "quote": "drawGrid(sitePlanCtx, canvasWidth, canvasHeight, 20);",
+          "problem": "All four drawings are only identical grids with headings; no site/floor/elevation/section geometry exists.",
+          "action": "Implement actual distinct drawings with corresponding tower content."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/nova-lite/lotte-tower/artwork.html",
+          "line": 220,
+          "quote": "const tower = createTowerGeometry();",
+          "problem": "Only a single final geometry function exists; no explained design-development stages or stage/drawing correspondence.",
+          "action": "Implement the requested intermediate forms and meaningful selection correspondence."
         },
         {
           "severity": "Warning",
           "category": "Data Accuracy and References",
           "file": "docs/models/nova-lite/lotte-tower/artwork.html",
-          "line": 198,
-          "quote": "geometry.faces = geometry.faces.concat(faces);",
-          "problem": "Each new level appends faces indexed0–7 without an offset, so only the first ring would be referenced even after replacing the obsolete API.",
-          "action": "Index successive elevated rings correctly and verify actual mesh bounds at the stated555m total."
+          "line": 162,
+          "quote": "const height = 555;",
+          "problem": "Invented50m/10m widths and drawings have no visible units, source references or conceptual/not-official disclosure.",
+          "action": "Label assumptions, units and the provided public sources without presenting inferred dimensions as official."
         },
         {
           "severity": "Warning",
           "category": "Layout",
           "file": "docs/models/nova-lite/lotte-tower/artwork.html",
-          "line": 158,
-          "quote": "camera.position.z = 5;",
-          "problem": "The intended555m geometry starts with camera only5units away and no useful target/home fit.",
-          "action": "Fit the complete authored tower and update aspect from the actual viewport."
+          "line": 38,
+          "quote": "height: 100%;",
+          "problem": "height:100% stretches each stacked drawing to its parent height, producing severely distorted grids and headings.",
+          "action": "Preserve a usable drawing aspect ratio and scrollable responsive layout."
         },
         {
           "severity": "Warning",
@@ -1584,25 +1641,25 @@
           "file": "docs/models/nova-lite/lotte-tower/artwork.html",
           "line": 107,
           "quote": "sitePlanCtx.font = '24px Arial';",
-          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
-          "action": "Use at least19px meaningful rendered text and controls."
+          "problem": "The24px canvas labels shrink below19px at the375px viewport.",
+          "action": "Keep actual rendered informative labels at least19px."
         }
       ],
-      "notes": [
-        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions."
-      ],
-      "reviewed_at": "2026-10-13T15:51:47.591315+00:00",
-      "re_review_number": 3,
-      "review_iteration": 4,
-      "retry_limit_reached": true,
-      "current_generation_status": "generated",
-      "active_source": true
+      "notes": [],
+      "reviewed_at": "2026-10-15T00:20:27.667866+00:00",
+      "episode_review_iteration": 1
     },
     {
-      "task_requirements_complete": false,
       "model": "nova-micro",
+      "model_id": "us.amazon.nova-micro-v1:0",
+      "requested_at": "2026-10-15T00:15:51.647075+00:00",
+      "retry_episode": "lotte-tower-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "0104441e0f0ec27688add9cf9ec4e5e11eb6a896439a69c48e6990d5504f1a1f",
       "score": 88.5,
-      "critical": 1,
+      "critical": 2,
       "warnings": 4,
       "verdict": "FAIL",
       "category_scores": {
@@ -1623,118 +1680,147 @@
         "Message Clarity": 5,
         "Duplication and Gaps": 5
       },
-      "artwork_sha256": "5ebb6caba2c5f794c672836f213201676aa9a67a66ac2df64c9eb3e9fb7b4e7b",
-      "model_id": "us.amazon.nova-micro-v1:0",
-      "origin_generation": "lotte-tower-models-20261013",
+      "task_requirements_complete": false,
+      "publication_approved": false,
       "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/nova-micro/5ebb6caba2c5",
-      "browser_evidence": "/tmp/model-lotte-review/nova-micro/5ebb6caba2c5/browser.json",
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-retry-20261015/nova-micro/0104441e0f0e",
+      "browser_evidence": "/tmp/lotte-retry-20261015/nova-micro/0104441e0f0e/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
       "findings": [
         {
           "severity": "Critical",
           "category": "Renders",
           "file": "docs/models/nova-micro/lotte-tower/artwork.html",
-          "line": 76,
-          "quote": "<img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAQCAYAAADNo+9XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AEKDR0Iu3JyDAA==\" alt=\"Site Plan\">",
-          "problem": "All four images use the same incomplete PNG data URI; browser reports ERR_INVALID_URL and no drawings load.",
-          "action": "Render actual inline drawings or valid complete embedded assets."
+          "line": 77,
+          "quote": "<img src=\"site-plan.png\" alt=\"Site Plan\" title=\"Site Plan (Scale: 1:5000)\">",
+          "problem": "All four drawings reference nonexistent PNG files. Browser logs blocked missing-asset requests and displays broken images.",
+          "action": "Return complete inline or valid embedded drawings."
+        },
+        {
+          "severity": "Critical",
+          "category": "Renders",
+          "file": "docs/models/nova-micro/lotte-tower/artwork.html",
+          "line": 151,
+          "quote": "const towerGeometry = new THREE.Geometry();",
+          "problem": "Browser throws THREE.Geometry is not a constructor before the scene is initialized. Face3 is also unavailable in the pinned runtime.",
+          "action": "Use supported BufferGeometry construction and verify startup."
         },
         {
           "severity": "Warning",
           "category": "Structural Completeness",
           "file": "docs/models/nova-micro/lotte-tower/artwork.html",
-          "line": 141,
-          "quote": "function createStage(name) {",
-          "problem": "No explained intermediate3D development states are implemented.",
-          "action": "Provide distinct explained3D forms leading to completion and link them to the drawings."
-        },
-        {
-          "severity": "Warning",
-          "category": "Data Accuracy and References",
-          "file": "docs/models/nova-micro/lotte-tower/artwork.html",
-          "line": 142,
-          "quote": "const geometry = new THREE.BoxGeometry(1, 1, 1);",
-          "problem": "All named stage/final meshes remain identical unit cubes; only one is shown, not the required tapered tower.",
-          "action": "Build meaningful development forms and coherent completed tower geometry."
+          "line": 137,
+          "quote": "scene.add(models[2]);",
+          "problem": "The stage/final slots remain empty; only models[2], a0.5-unit cube, would be added. The completed tower models[3] is never mounted, and no stage selection or correspondence exists.",
+          "action": "Display the intended distinct intermediate forms and completed tower with working stage selection and correspondence."
         },
         {
           "severity": "Warning",
           "category": "Layout",
           "file": "docs/models/nova-micro/lotte-tower/artwork.html",
-          "line": 20,
-          "quote": ".header {",
-          "problem": "The100%-width header adds horizontal padding, and unwrapped rows overflow at all tested widths. Model/stage slots remain poorly sized.",
-          "action": "Fit header/rows with responsive sizing and preserve normal scrolling."
+          "line": 21,
+          "quote": "width: 100%;",
+          "problem": "The padded100%-width header and unwrapped drawing/control rows overflow at1280/768/375; mobile headings overlap and controls extend off screen.",
+          "action": "Fit responsive rows/header while retaining accessible scrollable content."
         },
         {
           "severity": "Warning",
           "category": "Readability",
           "file": "docs/models/nova-micro/lotte-tower/artwork.html",
-          "line": 48,
-          "quote": ".control-button {",
-          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
-          "action": "Use at least19px meaningful rendered text and controls."
+          "line": 27,
+          "quote": ".description {",
+          "problem": "Explanatory text and model identity remain16px.",
+          "action": "Use at least19px meaningful rendered text."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/nova-micro/lotte-tower/artwork.html",
+          "line": 77,
+          "quote": "<img src=\"site-plan.png\" alt=\"Site Plan\" title=\"Site Plan (Scale: 1:5000)\">",
+          "problem": "The drawing scales and invented geometry dimensions lack the required conceptual/not-official disclosure or source attribution.",
+          "action": "Identify inferred dimensions/scales and public references explicitly."
         }
       ],
-      "notes": [
-        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions."
-      ],
-      "reviewed_at": "2026-10-13T15:51:47.601288+00:00",
-      "re_review_number": 3,
-      "review_iteration": 4,
-      "retry_limit_reached": true,
-      "current_generation_status": "generated",
-      "active_source": true
+      "notes": [],
+      "reviewed_at": "2026-10-15T00:20:27.668626+00:00",
+      "episode_review_iteration": 1
     },
     {
-      "task_requirements_complete": false,
       "model": "nemotron-nano-3-30b",
-      "score": 92.0,
-      "critical": 1,
-      "warnings": 2,
-      "verdict": "FAIL",
+      "model_id": "nvidia.nemotron-nano-3-30b",
+      "requested_at": "2026-10-15T00:15:55.883204+00:00",
+      "retry_episode": "lotte-tower-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "780aeeaca918fa3f9741543bbef13be669bcd3412b96f44c0ede61772e2c2226",
+      "score": 91.0,
+      "critical": 0,
+      "warnings": 6,
+      "verdict": "REVIEW",
       "category_scores": {
-        "Layout": 8,
+        "Layout": 6.0,
         "Terminology": 8,
         "No Hallucination": 12,
         "Language Consistency": 8,
         "No Sensitive Data": 12,
         "Content-Type Quality": 2,
         "Icon Usage": 5,
-        "Renders": 0,
+        "Renders": 5,
         "Interactions": 5,
         "Readability": 3.5,
         "Accessibility": 5,
-        "Structural Completeness": 3.5,
-        "Data Accuracy and References": 5,
+        "Structural Completeness": 1,
+        "Data Accuracy and References": 3.5,
         "Legal Compliance": 5,
         "Message Clarity": 5,
         "Duplication and Gaps": 5
       },
-      "artwork_sha256": "acc83a509b386bdc4f2335c08d3b474566d8e4e1ea9a5e146bd0428d16b15786",
-      "model_id": "nvidia.nemotron-nano-3-30b",
-      "origin_generation": "lotte-tower-models-20261013",
+      "task_requirements_complete": false,
+      "publication_approved": false,
       "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/nemotron-nano-3-30b/acc83a509b38",
-      "browser_evidence": "/tmp/model-lotte-review/nemotron-nano-3-30b/acc83a509b38/browser.json",
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-retry-20261015/nemotron-nano-3-30b/780aeeaca918",
+      "browser_evidence": "/tmp/lotte-retry-20261015/nemotron-nano-3-30b/780aeeaca918/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
       "findings": [
         {
-          "severity": "Critical",
-          "category": "Renders",
+          "severity": "Warning",
+          "category": "Structural Completeness",
           "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
-          "line": 99,
-          "quote": "const siteTex = texLoader.load(sitePlanCanvas);",
-          "problem": "TextureLoader still receives canvases as URLs, attempting missing[object HTMLCanvasElement] image requests.",
-          "action": "Use CanvasTexture with real drawn contents."
+          "line": 83,
+          "quote": "const makeCanvas = (w, h, title, unit, assumption) => {",
+          "problem": "The four drawing textures contain only headings and assumption text; no actual diagram strokes are drawn.",
+          "action": "Render meaningful site/floor/elevation/section diagrams."
         },
         {
           "severity": "Warning",
           "category": "Structural Completeness",
           "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
-          "line": 93,
-          "quote": "const sitePlanCanvas = makeCanvas(256, 256);",
-          "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
-          "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+          "line": 138,
+          "quote": "stages.forEach(stage => {",
+          "problem": "Each of the three stage groups is built identically and displayed at the same coordinates; no stage selector, development explanation or drawing correspondence exists.",
+          "action": "Implement distinct explained development states and correspondence."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
+          "line": 181,
+          "quote": "mesh.rotation.z = Math.PI/4;",
+          "problem": "The final model uses separately tilted cylinders and an overlapping cone; its measured height isabout165units and no scale explains the stated555m. It does not form a coherent vertical upward-narrowing tower.",
+          "action": "Create a coherent conceptual tower and disclose a consistent scale linking drawings and final model."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
+          "line": 42,
+          "quote": "camera.position.set(0, 150, 300);",
+          "problem": "The initial camera clips the top of the assembly and the large drawing planes/text at desktop and mobile sizes.",
+          "action": "Fit the full assembly and all drawings or provide separately reachable diagram views."
         },
         {
           "severity": "Warning",
@@ -1742,24 +1828,390 @@
           "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
           "line": 11,
           "quote": "#info p { margin:0; font-size:1rem; line-height:1.4; }",
-          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
-          "action": "Use at least19px meaningful rendered text and controls."
+          "problem": "Body explanations use16px and reset control defaults to about13px; texture text is also clipped.",
+          "action": "Provide readable19px explanatory text/controls and fully visible diagram labels."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
+          "line": 20,
+          "quote": "<div id=\"container\">",
+          "problem": "The actual model name nemotron-nano-3-30b is not displayed.",
+          "action": "Show the actual model identity."
+        }
+      ],
+      "notes": [],
+      "reviewed_at": "2026-10-15T00:20:27.669730+00:00",
+      "episode_review_iteration": 1
+    },
+    {
+      "model": "glm-4.7-flash",
+      "model_id": "zai.glm-4.7-flash",
+      "requested_at": "2026-10-15T00:16:16.953617+00:00",
+      "retry_episode": "lotte-tower-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "01555b144c524e716b23e8b4b582cafb729bd8ca1a2d689d96382bc16571e0fd",
+      "score": 89.0,
+      "critical": 0,
+      "warnings": 7,
+      "verdict": "REVIEW",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 3.5,
+        "Interactions": 3.5,
+        "Readability": 3.5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 3.5,
+        "Data Accuracy and References": 3.5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "task_requirements_complete": false,
+      "publication_approved": false,
+      "original_response_bytes_verified": true,
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-retry-20261015/glm-4.7-flash/01555b144c52",
+      "browser_evidence": "/tmp/lotte-retry-20261015/glm-4.7-flash/01555b144c52/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+          "line": 583,
+          "quote": "setStage(stage) {",
+          "problem": "The selectable states are drawing/camera views of a single fixed tower, not intermediate3D design-development forms.",
+          "action": "Add explained distinct developmental geometry and link it to the drawings."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+          "line": 408,
+          "quote": "const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);",
+          "problem": "The555m facade is a roughly2m-deep extrusion centered across negative/positiveY while its555m core spans0–555; diagrams extend toY832.5. The floor plan is an elevation profile, and the section has no corresponding internal section.",
+          "action": "Align the actual tower/core bounds and represent coherent horizontal floor and vertical section drawings."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+          "line": 634,
+          "quote": "this.targetCameraPos.set(200, 150, 200);",
+          "problem": "The initial and completed-model camera positions crop the full height; the mobile overlays occupy the available central viewing area.",
+          "action": "Fit the complete geometry and keep a usable mobile model view with accessible panels."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+          "line": 74,
+          "quote": "font-size: 16px;",
+          "problem": "Informative subtitle/body/disclaimer/model badge/hints use12–16px.",
+          "action": "Use at least19px for informative rendered text."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+          "line": 5,
+          "quote": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">",
+          "problem": "user-scalable=no plus global touch-action:none prevents normal zoom access to small text.",
+          "action": "Allow user zoom and scope touch-action restrictions to the actual camera surface."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+          "line": 589,
+          "quote": "const activeBtn = document.getElementById(`btn-${stage}`);",
+          "problem": "The elevation stage key is elevation but its button ID is btn-elev; selecting elevation leaves no active button. Browser confirms empty active-button list.",
+          "action": "Keep the stage-to-button mapping consistent."
+        },
+        {
+          "severity": "Warning",
+          "category": "Renders",
+          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+          "line": 441,
+          "quote": "const siteMat = new THREE.MeshBasicMaterial({ color: CONFIG.colors.accent, side: THREE.DoubleSide, transparent: true, opacity: 0.5 });",
+          "problem": "Browser warns THREE.Material: parameter color has value of undefined; CONFIG.colors.accent is never defined.",
+          "action": "Use defined material colors and clear actual runtime warnings."
+        }
+      ],
+      "notes": [],
+      "reviewed_at": "2026-10-15T00:20:27.670906+00:00",
+      "episode_review_iteration": 1
+    },
+    {
+      "model": "gpt-oss-20b",
+      "model_id": "openai.gpt-oss-20b-1:0",
+      "requested_at": "2026-10-15T00:16:45.002785+00:00",
+      "retry_episode": "lotte-tower-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "dbed87a3231bb0b53ac91e6c729b336075cfedae9db5c90891778e3c0049263f",
+      "score": 92.0,
+      "critical": 0,
+      "warnings": 5,
+      "verdict": "REVIEW",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 3.5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 3.5,
+        "Data Accuracy and References": 3.5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "task_requirements_complete": false,
+      "publication_approved": false,
+      "original_response_bytes_verified": true,
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-retry-20261015/gpt-oss-20b/dbed87a3231b",
+      "browser_evidence": "/tmp/lotte-retry-20261015/gpt-oss-20b/dbed87a3231b/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
+          "line": 45,
+          "quote": "<text x=\"100\" y=\"190\" text-anchor=\"middle\" font-size=\"18\" fill=\"#444\">기준층 평면도 (공개 자료 기반)</text>",
+          "problem": "The floor drawing is square with a square core, while final3D is a circular open cone; supplied123floors, units, assumed dimensions and not-official disclosure are absent.",
+          "action": "Make the diagrams correspond to the chosen concept and label scale/assumptions/public facts."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
+          "line": 113,
+          "quote": "function updateStage(){",
+          "problem": "Stage controls change the cone dimensions but provide only names, no development explanation or drawing/model linkage.",
+          "action": "Explain each development state and provide meaningful correspondence with drawings."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
+          "line": 16,
+          "quote": "#viewer{flex:2 1 500px;position:relative;background:#000;min-height:300px}",
+          "problem": "The desktop side-by-side layout horizontally overflows at768px; the initial camera is below the tower and targets its base rather than a fitted whole-tower view.",
+          "action": "Fit columns at tablet width and provide an initial/reset camera framing the complete tower."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
+          "line": 21,
+          "quote": "#info{position:absolute;bottom:10px;left:10px;color:#fff;font-size:18px;background:rgba(0,0,0,0.5);padding:5px 10px;border-radius:4px}",
+          "problem": "The stage information is18px and some SVG text clips beyond the viewBox.",
+          "action": "Use readable19px informative text and keep diagram labels inside the visible bounds."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
+          "line": 132,
+          "quote": "window.addEventListener('keydown',e=>{",
+          "problem": "Keyboard handlers alter only stage/reset or controls.target; there is no keyboard zoom/camera-orbit implementation equivalent to pointer drag and wheel.",
+          "action": "Provide operable keyboard equivalents for camera orbit and zoom."
+        }
+      ],
+      "notes": [],
+      "reviewed_at": "2026-10-15T00:20:27.672143+00:00",
+      "episode_review_iteration": 1
+    },
+    {
+      "model": "gpt-oss-120b",
+      "model_id": "openai.gpt-oss-120b-1:0",
+      "requested_at": "2026-10-15T00:17:02.644082+00:00",
+      "retry_episode": "lotte-tower-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "24b4a47fb628819c562d60c4c5862dcb52b6b017dd24512f0b43619ae45bea2d",
+      "score": 95.0,
+      "critical": 0,
+      "warnings": 3,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 3.5,
+        "Accessibility": 5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 3.5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "task_requirements_complete": false,
+      "publication_approved": false,
+      "original_response_bytes_verified": true,
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-retry-20261015/gpt-oss-120b/24b4a47fb628",
+      "browser_evidence": "/tmp/lotte-retry-20261015/gpt-oss-120b/24b4a47fb628/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/gpt-oss-120b/lotte-tower/artwork.html",
+          "line": 17,
+          "quote": "#content{flex:1;display:flex;flex-direction:column;position:relative;}",
+          "problem": "The fixed intrinsic canvas width prevents the flex content from shrinking: after resize to375px the WebGL canvas remains1163px wide and the sidebar collapses to17px. Drawings, stage controls and reset are inaccessible outside the clipped main region.",
+          "action": "Allow both flex panels/render canvas to shrink and provide a usable mobile stacked layout; verify all controls at each width."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/gpt-oss-120b/lotte-tower/artwork.html",
+          "line": 15,
+          "quote": ".navBtn{background:#e0e0e0;border:none;padding:0.5rem 0.6rem;margin:0.2rem 0;width:100%;text-align:left;font-size:1rem;cursor:pointer;}",
+          "problem": "Meaningful navigation/info/reset text is16px and SVG dimensions use12px.",
+          "action": "Use at least19px rendered informative text and diagram dimensions."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/gpt-oss-120b/lotte-tower/artwork.html",
+          "line": 44,
+          "quote": "<rect x=\"20\" y=\"20\" width=\"160\" height=\"110\" fill=\"#e0f7fa\" stroke=\"#006064\"/>",
+          "problem": "The floor drawing is a30×30 rectangular footprint, but the completed mesh is a circular60m-diameter base; the section drawing has no internal section corresponding to that model.",
+          "action": "Keep the chosen conceptual footprint/scale and internal section consistent between drawings and3D."
         }
       ],
       "notes": [
-        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
-        "Two tower variants now exist, but drawings remain blank textures and the confirmed texture-loading error persists."
+        "Three distinct stage geometries, matching drawing highlight, pointer camera and all tested keyboard directions/zoom now work without errors. Quality score reachesPASS, but essential mobile drawing/control access fails, so task_requirements_complete=false and publication remains disallowed."
       ],
-      "reviewed_at": "2026-10-13T15:51:47.610861+00:00",
-      "re_review_number": 3,
-      "review_iteration": 4,
-      "retry_limit_reached": true,
-      "current_generation_status": "generated",
-      "active_source": true
+      "reviewed_at": "2026-10-15T00:23:36.671454+00:00",
+      "episode_review_iteration": 1
     },
     {
+      "model": "qwen3-32b",
+      "model_id": "qwen.qwen3-32b-v1:0",
+      "requested_at": "2026-10-15T00:17:36.708690+00:00",
+      "retry_episode": "lotte-tower-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "8c22602d376d7dcae5e2a56a56f8bf5bbac1bd82fd0e61201ee8456b08f5f63e",
+      "score": 92.0,
+      "critical": 0,
+      "warnings": 5,
+      "verdict": "REVIEW",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 3.5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 3.5,
+        "Data Accuracy and References": 3.5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
       "task_requirements_complete": false,
-      "model": "glm-4.7-flash",
+      "publication_approved": false,
+      "original_response_bytes_verified": true,
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-retry-20261015/qwen3-32b/8c22602d376d",
+      "browser_evidence": "/tmp/lotte-retry-20261015/qwen3-32b/8c22602d376d/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+          "line": 233,
+          "quote": "function updateDrawing() {",
+          "problem": "All four drawing selections produce text only; no site/floor/elevation/section drawing is rendered.",
+          "action": "Render actual corresponding diagrams with dimensions/assumptions."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+          "line": 172,
+          "quote": "new THREE.CylinderGeometry(baseRadiusBottom, baseRadiusTop, baseHeight, 32),",
+          "problem": "CylinderGeometry receives bottom radius as top radius throughout; the100-unit tower widens upward despite the555m upward-tapering description.",
+          "action": "Use correct top/bottom radii and an explicitly consistent scale."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+          "line": 73,
+          "quote": "font-size: 16px;",
+          "problem": "The assumption labels remain16px.",
+          "action": "Keep informative labels at least19px."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+          "line": 53,
+          "quote": "position: absolute;",
+          "problem": "At375px the fixed-position drawing panel overlaps the stage selector and reset control, hiding/intercepting their content.",
+          "action": "Provide responsive nonoverlapping panels and reachable controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+          "line": 143,
+          "quote": "window.addEventListener('resize', onWindowResize, false);",
+          "problem": "No keyboard camera orbit/zoom handlers or focusable camera controls exist; real arrow/+/- probes do not change the camera.",
+          "action": "Provide keyboard-operable camera orbit and zoom equivalents."
+        }
+      ],
+      "notes": [],
+      "reviewed_at": "2026-10-15T00:23:36.673219+00:00",
+      "episode_review_iteration": 1
+    },
+    {
+      "model": "nemotron-super-3-120b",
+      "model_id": "nvidia.nemotron-super-3-120b",
+      "requested_at": "2026-10-15T00:18:03.241269+00:00",
+      "retry_episode": "lotte-tower-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "26352ce6d3d607e691d1232b9d9fe0cf1d12ca5dfc66664f5b666ce2bfdcf160",
       "score": 93.5,
       "critical": 0,
       "warnings": 4,
@@ -1776,367 +2228,62 @@
         "Interactions": 3.5,
         "Readability": 3.5,
         "Accessibility": 5,
-        "Structural Completeness": 3.5,
-        "Data Accuracy and References": 5,
-        "Legal Compliance": 5,
-        "Message Clarity": 5,
-        "Duplication and Gaps": 5
-      },
-      "artwork_sha256": "9586dab8a74cc49794579f440ff4b948d1e1a89b58fd306b98d584276e8c38a0",
-      "model_id": "zai.glm-4.7-flash",
-      "origin_generation": "lotte-tower-models-20261013",
-      "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/glm-4.7-flash/9586dab8a74c",
-      "browser_evidence": "/tmp/model-lotte-review/glm-4.7-flash/9586dab8a74c/browser.json",
-      "findings": [
-        {
-          "severity": "Warning",
-          "category": "Readability",
-          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
-          "line": 82,
-          "quote": "font-size: 12px;",
-          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
-          "action": "Use at least19px meaningful rendered text and controls."
-        },
-        {
-          "severity": "Warning",
-          "category": "Structural Completeness",
-          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
-          "line": 582,
-          "quote": "setStage(stage) {",
-          "problem": "No explained intermediate3D development states are implemented.",
-          "action": "Provide distinct explained3D forms leading to completion and link them to the drawings."
-        },
-        {
-          "severity": "Warning",
-          "category": "Layout",
-          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
-          "line": 305,
-          "quote": "this.camera.position.set(200, 150, 200);",
-          "problem": "Default/full-model target and distance do not contain the555-high shape; the view is concentrated near the base.",
-          "action": "Fit the complete form in its model/home pose."
-        },
-        {
-          "severity": "Warning",
-          "category": "Interactions",
-          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
-          "line": 666,
-          "quote": "this.camera.position.lerp(this.targetCameraPos, 0.05);",
-          "problem": "Every frame pulls the camera back toward a programmed pose, undoing free OrbitControls movement after input.",
-          "action": "Apply transition interpolation only during explicit transitions and preserve user orbit afterward."
-        }
-      ],
-      "notes": [
-        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
-        "Elevation-button null exception is fixed and actual schematic diagram geometry was added. Buttons still select drawing/camera modes over one unchanged tower, not intermediate design forms."
-      ],
-      "reviewed_at": "2026-10-13T15:51:47.620652+00:00",
-      "re_review_number": 3,
-      "review_iteration": 4,
-      "retry_limit_reached": true,
-      "current_generation_status": "generated",
-      "active_source": true
-    },
-    {
-      "task_requirements_complete": false,
-      "model": "gpt-oss-20b",
-      "score": 90.0,
-      "critical": 1,
-      "warnings": 3,
-      "verdict": "FAIL",
-      "category_scores": {
-        "Layout": 6.0,
-        "Terminology": 8,
-        "No Hallucination": 12,
-        "Language Consistency": 8,
-        "No Sensitive Data": 12,
-        "Content-Type Quality": 2,
-        "Icon Usage": 5,
-        "Renders": 0,
-        "Interactions": 5,
-        "Readability": 3.5,
-        "Accessibility": 3.5,
-        "Structural Completeness": 5,
-        "Data Accuracy and References": 5,
-        "Legal Compliance": 5,
-        "Message Clarity": 5,
-        "Duplication and Gaps": 5
-      },
-      "artwork_sha256": "5ee00c024bdde7e10751fe50cf8f6e87d3c7bcc8035d71a4a72a8085c0c62d0c",
-      "model_id": "openai.gpt-oss-20b-1:0",
-      "origin_generation": "lotte-tower-models-20261013",
-      "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/gpt-oss-20b/5ee00c024bdd",
-      "browser_evidence": "/tmp/model-lotte-review/gpt-oss-20b/5ee00c024bdd/browser.json",
-      "findings": [
-        {
-          "severity": "Critical",
-          "category": "Renders",
-          "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
-          "line": 98,
-          "quote": "resize();",
-          "problem": "resize runs before const camera initialization and accesses it, causing Cannot access camera before initialization.",
-          "action": "Initialize camera before the first resize call; retain correct host-based dimensions."
-        },
-        {
-          "severity": "Warning",
-          "category": "Readability",
-          "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
-          "line": 9,
-          "quote": "header span{font-size:18px}",
-          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
-          "action": "Use at least19px meaningful rendered text and controls."
-        },
-        {
-          "severity": "Warning",
-          "category": "Layout",
-          "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
-          "line": 16,
-          "quote": "#viewer{flex:2 1 500px;position:relative;background:#000;min-height:300px}",
-          "problem": "Viewer layout continues to overflow768/375; the minimum/flex dimensions cannot fit the narrow page.",
-          "action": "Allow viewer and drawing children to shrink/reflow without clipping."
-        },
-        {
-          "severity": "Warning",
-          "category": "Accessibility",
-          "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
-          "line": 134,
-          "quote": "if(e.key==='w'){controls.target.y+=10;controls.update();}",
-          "problem": "Keyboard shortcuts move the target, but provide no actual orbit or zoom equivalent.",
-          "action": "Provide working keyboard orbit/zoom with correct camera-to-target state."
-        }
-      ],
-      "notes": [
-        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions."
-      ],
-      "reviewed_at": "2026-10-13T15:51:47.630195+00:00",
-      "re_review_number": 3,
-      "review_iteration": 4,
-      "retry_limit_reached": true,
-      "current_generation_status": "generated",
-      "active_source": true
-    },
-    {
-      "task_requirements_complete": false,
-      "model": "gpt-oss-120b",
-      "score": 92.0,
-      "critical": 1,
-      "warnings": 2,
-      "verdict": "FAIL",
-      "category_scores": {
-        "Layout": 8,
-        "Terminology": 8,
-        "No Hallucination": 12,
-        "Language Consistency": 8,
-        "No Sensitive Data": 12,
-        "Content-Type Quality": 2,
-        "Icon Usage": 5,
-        "Renders": 0,
-        "Interactions": 5,
-        "Readability": 3.5,
-        "Accessibility": 5,
         "Structural Completeness": 5,
         "Data Accuracy and References": 3.5,
         "Legal Compliance": 5,
         "Message Clarity": 5,
         "Duplication and Gaps": 5
       },
-      "artwork_sha256": "662f89790a2a605ec2222566ead92b12357a9f7992fddc1add1ecf63f13d412f",
-      "model_id": "openai.gpt-oss-120b-1:0",
-      "origin_generation": "lotte-tower-models-20261013",
-      "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/gpt-oss-120b/662f89790a2a",
-      "browser_evidence": "/tmp/model-lotte-review/gpt-oss-120b/662f89790a2a/browser.json",
-      "findings": [
-        {
-          "severity": "Critical",
-          "category": "Renders",
-          "file": "docs/models/gpt-oss-120b/lotte-tower/artwork.html",
-          "line": 175,
-          "quote": "case 'ArrowDown': controls.rotateDown(0.05); controls.update(); break;",
-          "problem": "ArrowDown/Right call nonexistent rotateDown/rotateRight; real keyboard tests reproduce both method-not-a-function errors.",
-          "action": "Use signed rotateUp/rotateLeft calls or supported camera math and test all directions."
-        },
-        {
-          "severity": "Warning",
-          "category": "Readability",
-          "file": "docs/models/gpt-oss-120b/lotte-tower/artwork.html",
-          "line": 13,
-          "quote": ".navBtn{background:#e0e0e0;border:none;padding:0.4rem 0.6rem;margin:0.2rem 0;cursor:pointer;font-size:1rem;width:100%;text-align:left;}",
-          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
-          "action": "Use at least19px meaningful rendered text and controls."
-        },
-        {
-          "severity": "Warning",
-          "category": "Data Accuracy and References",
-          "file": "docs/models/gpt-oss-120b/lotte-tower/artwork.html",
-          "line": 111,
-          "quote": "const geo = new THREE.CylinderGeometry(bottomR, topR, height, 32, 1, true);",
-          "problem": "Top/bottom radii remain reversed: completed upright geometry widens upward, inconsistent with its description/drawings.",
-          "action": "Correct radius order and keep drawing/model taper coherent."
-        }
-      ],
-      "notes": [
-        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
-        "Upright orientation and keyboard zoom direction are fixed. browser-keyboard.json verifies the remaining directional exceptions."
-      ],
-      "reviewed_at": "2026-10-13T15:51:47.639723+00:00",
-      "re_review_number": 3,
-      "review_iteration": 4,
-      "retry_limit_reached": true,
-      "current_generation_status": "generated",
-      "active_source": true
-    },
-    {
       "task_requirements_complete": false,
-      "model": "qwen3-32b",
-      "score": 90.5,
-      "critical": 1,
-      "warnings": 3,
-      "verdict": "FAIL",
-      "category_scores": {
-        "Layout": 8,
-        "Terminology": 8,
-        "No Hallucination": 12,
-        "Language Consistency": 8,
-        "No Sensitive Data": 12,
-        "Content-Type Quality": 2,
-        "Icon Usage": 5,
-        "Renders": 0,
-        "Interactions": 5,
-        "Readability": 3.5,
-        "Accessibility": 5,
-        "Structural Completeness": 3.5,
-        "Data Accuracy and References": 3.5,
-        "Legal Compliance": 5,
-        "Message Clarity": 5,
-        "Duplication and Gaps": 5
-      },
-      "artwork_sha256": "129863275742c51e3d06f0af0960d7a1997c40b3874e217eab2e499d3596c50f",
-      "model_id": "qwen.qwen3-32b-v1:0",
-      "origin_generation": "lotte-tower-models-20261013",
+      "publication_approved": false,
       "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/qwen3-32b/129863275742",
-      "browser_evidence": "/tmp/model-lotte-review/qwen3-32b/129863275742/browser.json",
-      "findings": [
-        {
-          "severity": "Critical",
-          "category": "Renders",
-          "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
-          "line": 108,
-          "quote": "if (typeof THREE === 'undefined') {",
-          "problem": "The local runtime script was omitted; initialization logs runtime not loaded then throws on THREE.Scene.",
-          "action": "Load ../runtime/three-runtime.js before initialization and verify actual rendering."
-        },
-        {
-          "severity": "Warning",
-          "category": "Structural Completeness",
-          "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
-          "line": 260,
-          "quote": "function updateDrawing() {",
-          "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
-          "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
-        },
-        {
-          "severity": "Warning",
-          "category": "Readability",
-          "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
-          "line": 73,
-          "quote": "font-size: 14px;",
-          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
-          "action": "Use at least19px meaningful rendered text and controls."
-        },
-        {
-          "severity": "Warning",
-          "category": "Data Accuracy and References",
-          "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
-          "line": 189,
-          "quote": "new THREE.CylinderGeometry(baseRadiusBottom, baseRadiusTop, baseHeight, 32),",
-          "problem": "Cylinder radius order is still reversed, contradicting the upward-tapering description.",
-          "action": "Use correct top/bottom radii throughout all stages."
-        }
-      ],
-      "notes": [
-        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
-        "This is its second successful-source re-review, not a fabricated third; earlier failed API responses were not rendered artifacts. New drawing choices currently show prose only."
-      ],
-      "reviewed_at": "2026-10-13T15:51:47.649370+00:00",
-      "re_review_number": 2,
-      "review_iteration": 3,
-      "retry_limit_reached": false,
-      "current_generation_status": "generated",
-      "active_source": true
-    },
-    {
-      "task_requirements_complete": false,
-      "model": "nemotron-super-3-120b",
-      "score": 95.5,
-      "critical": 0,
-      "warnings": 3,
-      "verdict": "PASS",
-      "category_scores": {
-        "Layout": 8,
-        "Terminology": 8,
-        "No Hallucination": 12,
-        "Language Consistency": 8,
-        "No Sensitive Data": 12,
-        "Content-Type Quality": 2,
-        "Icon Usage": 5,
-        "Renders": 5,
-        "Interactions": 3.5,
-        "Readability": 3.5,
-        "Accessibility": 3.5,
-        "Structural Completeness": 5,
-        "Data Accuracy and References": 5,
-        "Legal Compliance": 5,
-        "Message Clarity": 5,
-        "Duplication and Gaps": 5
-      },
-      "artwork_sha256": "a082bfe8a3bc35572b99259148f702cbb30a9ebad83da087812b308d06bc4982",
-      "model_id": "nvidia.nemotron-super-3-120b",
-      "origin_generation": "lotte-tower-models-20261013",
-      "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/nemotron-super-3-120b/a082bfe8a3bc",
-      "browser_evidence": "/tmp/model-lotte-review/nemotron-super-3-120b/a082bfe8a3bc/browser.json",
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-retry-20261015/nemotron-super-3-120b/26352ce6d3d6",
+      "browser_evidence": "/tmp/lotte-retry-20261015/nemotron-super-3-120b/26352ce6d3d6/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
       "findings": [
         {
           "severity": "Warning",
           "category": "Readability",
           "file": "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html",
-          "line": 11,
-          "quote": "header p { font-size: 1rem; opacity: 0.9; }",
-          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
-          "action": "Use at least19px meaningful rendered text and controls."
+          "line": 31,
+          "quote": "@media (max-width: 768px) {",
+          "problem": "Mobile controls/body text are18.4px, explanations16.8px; SVG dimensions and disclaimer remain smaller than19px.",
+          "action": "Keep informative rendered text and controls at least19px."
         },
         {
           "severity": "Warning",
           "category": "Interactions",
           "file": "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html",
-          "line": 255,
-          "quote": "const stage = parseInt(button.getAttribute('data-stage').replace(/[^0-9]/g, '')) - 1;",
-          "problem": "Stage attributes are words(concept/massing/taper/facade/final), but code removes all nondigits then parses them, givingNaN. Every click creates the default100-unit form; only descriptions change.",
-          "action": "Map stage names to the actual numeric states so each advertised3D stage differs."
+          "line": 316,
+          "quote": "controls.dollyOut(1.1);",
+          "problem": "The minus key calls dollyOut(1.1), making the camera move closer just like plus; measured camera distance decreases for both.",
+          "action": "Reverse the minus scale/direction and verify + zooms in while - zooms out."
         },
         {
           "severity": "Warning",
-          "category": "Accessibility",
+          "category": "Layout",
           "file": "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html",
-          "line": 282,
-          "quote": "if (e.key === 'Escape') {",
-          "problem": "Keyboard only resets; there is no keyboard orbit or zoom equivalent.",
-          "action": "Provide keyboard-accessible camera operations."
+          "line": 12,
+          "quote": ".container { display: flex; height: calc(100vh - 4rem); gap: 1rem; padding: 1rem; }",
+          "problem": "On narrowing to375px, the tall intrinsic renderer consumes the flex column and the sidebar collapses out of view; drawings and stage choices are no longer reachable. Final-stage geometry can also extend above the current camera view.",
+          "action": "Resize from a genuinely shrinkable viewport and preserve the full sidebar/3D area on mobile; fit/reset the selected complete form."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html",
+          "line": 89,
+          "quote": "<path d=\"M50,150 C70,100 130,100 150,150 L150,50 C130,80 70,80 50,50 Z\" fill=\"#e9ecef\" stroke=\"#dee2e6\" stroke-width=\"1\"/>",
+          "problem": "The elevation/section drawings do not match the model: the elevation curves inward at both ends and the section is a square plan, while3D is an upright circular taper. No scale links the155-unit final height to555m.",
+          "action": "Align the diagrams with the authored conceptual geometry and disclose the drawing/model scale."
         }
       ],
       "notes": [
-        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
-        "The genuine local renderer and four schematic SVG drawing views now operate. Task remains incomplete because advertised3D development states never select their corresponding geometry."
+        "The previous word-to-number stage mapping bug is fixed: all five real stage geometries change. Keyboard orbit works. Mobile required controls remain inaccessible, so full-task approval is withheld."
       ],
-      "reviewed_at": "2026-10-13T15:51:47.659169+00:00",
-      "re_review_number": 3,
-      "review_iteration": 4,
-      "retry_limit_reached": true,
-      "current_generation_status": "generated",
-      "active_source": true
+      "reviewed_at": "2026-10-15T00:23:36.674930+00:00",
+      "episode_review_iteration": 1
     },
     {
       "task_requirements_complete": true,
@@ -2219,66 +2366,120 @@
       "active_source": true
     },
     {
-      "task_requirements_complete": false,
       "model": "qwen3-235b-a22b",
-      "score": 93.5,
-      "critical": 1,
-      "warnings": 1,
-      "verdict": "FAIL",
+      "model_id": "qwen.qwen3-235b-a22b-2507-v1:0",
+      "requested_at": "2026-10-15T00:19:11.757718+00:00",
+      "retry_episode": "lotte-tower-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "9057956d9ce2925d83db90d97cc221c0356959914c033e0f0aa5c8d8a83a18f0",
+      "score": 87.5,
+      "critical": 0,
+      "warnings": 8,
+      "verdict": "REVIEW",
       "category_scores": {
-        "Layout": 8,
+        "Layout": 4.0,
         "Terminology": 8,
         "No Hallucination": 12,
         "Language Consistency": 8,
         "No Sensitive Data": 12,
         "Content-Type Quality": 2,
         "Icon Usage": 5,
-        "Renders": 0,
-        "Interactions": 5,
+        "Renders": 5,
+        "Interactions": 3.5,
         "Readability": 3.5,
-        "Accessibility": 5,
-        "Structural Completeness": 5,
-        "Data Accuracy and References": 5,
+        "Accessibility": 2.5,
+        "Structural Completeness": 3.5,
+        "Data Accuracy and References": 3.5,
         "Legal Compliance": 5,
         "Message Clarity": 5,
         "Duplication and Gaps": 5
       },
-      "artwork_sha256": "c361b11bdb85a58a3b14f046b484551db13809f92c864e4aad9d2934d8bda05c",
-      "model_id": "qwen.qwen3-235b-a22b-2507-v1:0",
-      "origin_generation": "lotte-tower-models-20261013",
+      "task_requirements_complete": false,
+      "publication_approved": false,
       "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/qwen3-235b-a22b/c361b11bdb85",
-      "browser_evidence": "/tmp/model-lotte-review/qwen3-235b-a22b/c361b11bdb85/browser.json",
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-retry-20261015/qwen3-235b-a22b/9057956d9ce2",
+      "browser_evidence": "/tmp/lotte-retry-20261015/qwen3-235b-a22b/9057956d9ce2/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
       "findings": [
         {
-          "severity": "Critical",
-          "category": "Renders",
+          "severity": "Warning",
+          "category": "Interactions",
           "file": "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html",
-          "line": 449,
-          "quote": "const quat = new Quaternion().setFromEuler(new Euler(0, 0, 0, 'XYZ'));",
-          "problem": "The custom Quaternion class lacks setFromEuler, but OrbitControls construction calls it, causing the observed method-not-a-function error.",
-          "action": "Complete the custom spatial runtime consistently or use the supplied local runtime; verify initialization and all camera operations."
+          "line": 326,
+          "quote": "drawDiagram(currentStage);",
+          "problem": "drawDiagram runs before init3D→resize resets the canvas dimensions, clearing it. The initial view and every resize leave the drawing blank until a drawing is selected again.",
+          "action": "Redraw the selected diagram after initialization/resizing."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html",
+          "line": 313,
+          "quote": "const y = (geo.height / 2) - (i + 0.5) * segmentHeight;",
+          "problem": "Segment size decreases as itsY position decreases, so the final tower is widest at its top and narrows downward, opposite the brief and drawing description.",
+          "action": "Place smaller sections higher so geometry and diagrams both narrow upward."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html",
+          "line": 295,
+          "quote": "controls.reset();",
+          "problem": "Camera/OrbitControls are reset from the origin before a fitted view is saved. Initial and reset views look nearly vertically through the model fromY100, rather than showing the complete tower.",
+          "action": "Set and save a fitted whole-tower camera/target before enabling reset."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html",
+          "line": 256,
+          "quote": "const coreH = 400 * scale;",
+          "problem": "The section top is drawn at centerY-400*scale, above the300px canvas; elevation top/bottom also exceed the drawing bounds.",
+          "action": "Fit complete diagram extents and labels inside the canvas."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html",
+          "line": 145,
+          "quote": "<div class=\"stage-item active\" data-stage=\"plan\">기준층 평면도</div>",
+          "problem": "Drawing selectors are click-only DIVs without tabindex/keyboard handlers, so keyboard users cannot choose the four diagrams.",
+          "action": "Use native buttons or implement focus and Enter/Space activation."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html",
+          "line": 5,
+          "quote": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\" />",
+          "problem": "user-scalable=no prevents normal viewport zoom.",
+          "action": "Allow user zoom."
         },
         {
           "severity": "Warning",
           "category": "Readability",
           "file": "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html",
-          "line": 130,
-          "quote": "font-size: 16px;",
-          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
-          "action": "Use at least19px meaningful rendered text and controls."
+          "line": 241,
+          "quote": "ctx.font = '17px sans-serif';",
+          "problem": "Informative units/floor-count labels are17px.",
+          "action": "Keep meaningful canvas text at least19px."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html",
+          "line": 338,
+          "quote": "updateModel(currentStage === 'plan' ? 'initial' : currentStage === 'elevation' ? 'mid' : 'final');",
+          "problem": "Diagram choices silently select initial/mid/final geometry, but the user is never shown design-stage names or development explanations.",
+          "action": "Explain the actual3D development states and their relationship to the selected drawings."
         }
       ],
-      "notes": [
-        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
-        "The earlier escaped-template syntax issue is fixed. This source now attempts custom WebGL; it is not rejected for choosing that medium, but the actual constructor exception prevents verified operation."
-      ],
-      "reviewed_at": "2026-10-13T15:51:47.679297+00:00",
-      "re_review_number": 3,
-      "review_iteration": 4,
-      "retry_limit_reached": true,
-      "current_generation_status": "generated",
-      "active_source": true
+      "notes": [],
+      "reviewed_at": "2026-10-15T00:23:36.676787+00:00",
+      "episode_review_iteration": 1
     },
     {
       "task_requirements_complete": true,
@@ -2361,12 +2562,18 @@
       "active_source": true
     },
     {
-      "task_requirements_complete": false,
       "model": "llama-3.3-70b-bedrock",
-      "score": 88.5,
-      "critical": 1,
+      "model_id": "us.meta.llama3-3-70b-instruct-v1:0",
+      "requested_at": "2026-10-15T00:20:17.292588+00:00",
+      "retry_episode": "lotte-tower-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "87df1d376345d8a9d4e900a6e7d7abe3eb38d7ebe039ff7e00037ca92da6a0b0",
+      "score": 94.0,
+      "critical": 0,
       "warnings": 4,
-      "verdict": "FAIL",
+      "verdict": "REVIEW",
       "category_scores": {
         "Layout": 6.0,
         "Terminology": 8,
@@ -2375,40 +2582,32 @@
         "No Sensitive Data": 12,
         "Content-Type Quality": 2,
         "Icon Usage": 5,
-        "Renders": 0,
-        "Interactions": 3.5,
+        "Renders": 5,
+        "Interactions": 5,
         "Readability": 5,
         "Accessibility": 5,
-        "Structural Completeness": 3.5,
+        "Structural Completeness": 2.5,
         "Data Accuracy and References": 3.5,
         "Legal Compliance": 5,
         "Message Clarity": 5,
         "Duplication and Gaps": 5
       },
-      "artwork_sha256": "e67818ea849c028c22f5335f3a765d43a209a64804c2a516d35ac385f7de3052",
-      "model_id": "us.meta.llama3-3-70b-instruct-v1:0",
-      "origin_generation": "lotte-tower-models-20261013",
+      "task_requirements_complete": false,
+      "publication_approved": false,
       "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/llama-3.3-70b-bedrock/e67818ea849c",
-      "browser_evidence": "/tmp/model-lotte-review/llama-3.3-70b-bedrock/e67818ea849c/browser.json",
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-retry-20261015/llama-3.3-70b-bedrock/87df1d376345",
+      "browser_evidence": "/tmp/lotte-retry-20261015/llama-3.3-70b-bedrock/87df1d376345/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
       "findings": [
-        {
-          "severity": "Critical",
-          "category": "Renders",
-          "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
-          "line": 135,
-          "quote": "case 'ArrowDown':",
-          "problem": "Down/Right invoke nonexistent rotateDown/rotateRight; actual keyboard tests throw for both directions.",
-          "action": "Use signed supported rotateUp/rotateLeft operations."
-        },
         {
           "severity": "Warning",
           "category": "Structural Completeness",
           "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
           "line": 57,
           "quote": "<img id=\"site-plan\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==\">",
-          "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
-          "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+          "problem": "All four requested drawings are the same5×5 red placeholder PNG, with no real site/floor/elevation/section content or labels.",
+          "action": "Return four meaningful inline drawings with dimensions and corresponding tower content."
         },
         {
           "severity": "Warning",
@@ -2416,38 +2615,31 @@
           "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
           "line": 76,
           "quote": "const geometry = new THREE.CylinderGeometry(radius, radius / 2, height, 64);",
-          "problem": "All frusta widen upward, and final height is400 with no555m scale correspondence.",
-          "action": "Use coherent upward-narrowing stages and a consistent555m completed representation."
+          "problem": "CylinderGeometry(radius,radius/2,...) makes every stage wider at the top; the final400-unit form has no scale linking it to555m/123floors. No conceptual/source disclosure is visible.",
+          "action": "Correct upward taper and disclose scale, known facts, assumptions and public sources."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+          "line": 119,
+          "quote": "document.getElementById('prev-stage').addEventListener('click', () => {",
+          "problem": "Stage buttons swap geometry but never display the stage name/explanation or its relation to the drawings.",
+          "action": "Show and explain each selected developmental state and its diagram correspondence."
         },
         {
           "severity": "Warning",
           "category": "Layout",
           "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
-          "line": 149,
-          "quote": "camera.aspect = window.innerWidth / window.innerHeight;",
-          "problem": "Camera aspect uses full-window height while renderer uses80%height.",
-          "action": "Derive aspect from the actual renderer dimensions."
-        },
-        {
-          "severity": "Warning",
-          "category": "Interactions",
-          "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
-          "line": 109,
-          "quote": "document.getElementById('reset-view').addEventListener('click', () => {",
-          "problem": "Reset only sets camera.z, preserving prior orbit x/y/target, so it does not restore a valid home view.",
-          "action": "Restore complete home position/target/orientation."
+          "line": 16,
+          "quote": "height: 100vh;",
+          "problem": "The fixed100vh centered flex container contains a large renderer plus controls and four200px images; mobile content exceeds its height and pushes the renderer above the reachable page top.",
+          "action": "Use responsive sizing/normal scrolling so the complete model and controls remain reachable."
         }
       ],
-      "notes": [
-        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
-        "Real canvas constructor is fixed. Four identical5×5PNG placeholders remain, not actual drawings."
-      ],
-      "reviewed_at": "2026-10-13T15:51:47.699283+00:00",
-      "re_review_number": 3,
-      "review_iteration": 4,
-      "retry_limit_reached": true,
-      "current_generation_status": "generated",
-      "active_source": true
+      "notes": [],
+      "reviewed_at": "2026-10-15T00:23:36.678752+00:00",
+      "episode_review_iteration": 1
     },
     {
       "model": "gemma-4-31b-bedrock",
@@ -2538,12 +2730,18 @@
       "review_iteration": 4
     },
     {
-      "task_requirements_complete": false,
       "model": "exaone-3.5-32b",
-      "score": 87.5,
-      "critical": 1,
-      "warnings": 5,
-      "verdict": "FAIL",
+      "model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
+      "requested_at": "2026-10-15T01:20:59.209579+00:00",
+      "retry_episode": "lotte-tower-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "aa8d496ba480b48951e1846316dbfe274144cf2c99f3042f458640f433f8dcd3",
+      "score": 88.5,
+      "critical": 0,
+      "warnings": 8,
+      "verdict": "REVIEW",
       "category_scores": {
         "Layout": 6.0,
         "Terminology": 8,
@@ -2552,98 +2750,107 @@
         "No Sensitive Data": 12,
         "Content-Type Quality": 2,
         "Icon Usage": 5,
-        "Renders": 0,
-        "Interactions": 5,
+        "Renders": 5,
+        "Interactions": 2.5,
         "Readability": 3.5,
-        "Accessibility": 5,
+        "Accessibility": 3.5,
         "Structural Completeness": 2.5,
         "Data Accuracy and References": 3.5,
         "Legal Compliance": 5,
         "Message Clarity": 5,
         "Duplication and Gaps": 5
       },
-      "artwork_sha256": "f810c39e19a7a8d6197f01194885f925449bb9bd6303710d59ed96219c2c096c",
-      "model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
-      "origin_generation": "lotte-tower-models-20261013",
+      "task_requirements_complete": false,
+      "publication_approved": false,
       "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/exaone-3.5-32b/f810c39e19a7",
-      "browser_evidence": "/tmp/model-lotte-review/exaone-3.5-32b/f810c39e19a7/browser.json",
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-retry-20261015/exaone-3.5-32b/aa8d496ba480",
+      "browser_evidence": "/tmp/lotte-retry-20261015/exaone-3.5-32b/aa8d496ba480/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
       "findings": [
         {
-          "severity": "Critical",
-          "category": "Renders",
+          "severity": "Warning",
+          "category": "Structural Completeness",
           "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
-          "line": 90,
-          "quote": "function rotateRight() { controls.rotateRight(Math.PI / 4); }",
-          "problem": "The right-arrow button/shortcut still calls nonexistent controls.rotateRight; browser reproduces the exception.",
-          "action": "Use the supported signed rotateLeft operation or correct target-relative camera math."
+          "line": 49,
+          "quote": "<select id=\"viewSelector\">",
+          "problem": "Only three text-based drawing views are offered; the required reference-floor plan is absent and no actual drawing geometry is rendered.",
+          "action": "Provide four meaningful site/floor/elevation/section drawings linked to the model."
         },
         {
           "severity": "Warning",
           "category": "Structural Completeness",
           "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
-          "line": 95,
-          "quote": "// Mock diagram rendering (replace with actual SVG or canvas drawing)",
-          "problem": "All four diagrams are explicitly mock colored rectangles with titles, not meaningful site/floor/elevation/section content.",
-          "action": "Provide real schematic drawings with units/assumptions and model correspondence."
-        },
-        {
-          "severity": "Warning",
-          "category": "Structural Completeness",
-          "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
-          "line": 47,
-          "quote": "// Mock 3D model setup (replace with actual geometry)",
-          "problem": "All design-stage selection/progression was removed; only one static mock frustum remains.",
-          "action": "Restore explained intermediate3D forms and a completed state linked to drawings."
+          "line": 114,
+          "quote": "case '3D_stage1':",
+          "problem": "The development states only change horizontal scale of the same flat mesh, with no stage explanations or meaningful design progression.",
+          "action": "Implement and explain distinct developmental3D forms and drawing correspondence."
         },
         {
           "severity": "Warning",
           "category": "Data Accuracy and References",
           "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
-          "line": 48,
-          "quote": "const geometry = new THREE.CylinderGeometry(50, 10, 500, 32, 1, true, 0, Math.PI * 2); // Simplified taper",
-          "problem": "Top radius50 exceeds bottom10, so the model widens upward, contrary to the supplied tower form.",
-          "action": "Use a coherent upward-narrowing form with stated scale and corresponding diagrams."
+          "line": 77,
+          "quote": "const geometry = new THREE.CylinderGeometry(100, 10, 1000, 32, 1, true, 0, Math.PI * 2);",
+          "problem": "CylinderGeometry top radius100/bottom10 widens upward, and scaling its1000-unit height by0.01 produces a10-unit-high disk rather than the555m narrowing tower.",
+          "action": "Use a coherent conceptual tower with correct upward taper and an explicit consistent dimensional scale."
         },
         {
           "severity": "Warning",
           "category": "Layout",
           "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
-          "line": 44,
-          "quote": "renderer.setSize(window.innerWidth, window.innerHeight);",
-          "problem": "The full-window canvas is inserted inside a max800px×600px host, overflowing its region; diagram widths plus padding exceed mobile width while overflow-x:hidden clips them.",
-          "action": "Use actual host dimensions and responsive diagram wrapping without clipped content."
+          "line": 69,
+          "quote": "camera.position.set(0, 0, 1500); // 초기 카메라 위치 설정",
+          "problem": "The initial camera is1500units from the origin but far clipping is1000, so the model is outside the visible range. The initial screenshot is blank.",
+          "action": "Fit a visible whole-model camera and clipping range."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+          "line": 91,
+          "quote": "document.body.innerHTML += '<div style=\"position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; text-align: center; background: white; padding: 20px; border-radius: 10px;\">\\",
+          "problem": "Selecting any drawing replaces document.body through innerHTML+=. Browser confirms the active WebGL canvas becomes detached(canvasIndex -1); the replacement select loses its change listener and later selections do nothing.",
+          "action": "Update a dedicated diagram panel without replacing the canvas/control nodes or losing listeners."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+          "line": 135,
+          "quote": "controls.reset();",
+          "problem": "Reset restores the OrbitControls state captured at camera origin; browser confirms camera(0,0,0), not the intended home view.",
+          "action": "Save and restore a valid initial camera/target after setup."
         },
         {
           "severity": "Warning",
           "category": "Readability",
           "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
-          "line": 8,
-          "quote": "body, html { margin: 0; padding: 0; overflow-x: hidden; font-family: Arial, sans-serif; }",
-          "problem": "Body and SVG diagram labels remain default16px, below19px, despite19px buttons.",
-          "action": "Set all meaningful rendered text and diagram labels to at least19px."
+          "line": 92,
+          "quote": "<h4>배치도 (추정)</h4>\\",
+          "problem": "Drawing explanations and units use default16px text.",
+          "action": "Use at least19px meaningful rendered text."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+          "line": 68,
+          "quote": "const controls = new THREE.OrbitControls(camera, renderer.domElement);",
+          "problem": "Only a view selector/reset button is keyboard-operable; no keyboard camera orbit or zoom equivalents exist.",
+          "action": "Provide accessible keyboard orbit and zoom controls."
         }
       ],
       "notes": [
-        "Third re-review/iteration4. ExactSHA f810c39e19a7a8d6197f01194885f925449bb9bd6303710d59ed96219c2c096c. Current original response bytes/configured native identity verified.",
-        "Far-plane clipping and missing reset are fixed, but a real directional exception and missing required drawing/stage content remain.",
-        "Three-re-review limit reached: stop further automatic EXAONE paid repairs and hand the unresolved scope to the user. Publication remains closed for this source."
+        "Actual configured native identity, fresh retry episode and exact response bytes verified. All view options and reset tested in a layout-ready private sandbox at375/768/1280. WebGL exists and noJSerrors occur, but the required interactive tower task fails."
       ],
-      "reviewed_at": "2026-10-13T17:10:27.790848+00:00",
-      "re_review_number": 3,
-      "review_iteration": 4,
-      "retry_limit_reached": true,
-      "current_generation_status": "generated",
-      "active_source": true
+      "reviewed_at": "2026-10-15T01:24:55.209030+00:00",
+      "episode_review_iteration": 1
     }
   ],
   "release_review_complete": false,
-  "summary": {
-    "PASS": 20,
-    "REVIEW": 5,
-    "FAIL": 11
-  },
-  "reviewed_at": "2026-10-13T17:24:43.163215+00:00",
+  "summary": "Latest-source per-model content reviews; prior grades remain in history.",
+  "reviewed_at": "2026-10-15T01:25:15.803689+00:00",
   "history": [
     {
       "model": "claude-haiku-4.5",
@@ -8584,30 +8791,1244 @@
       "retry_limit_reached": false,
       "current_generation_status": "generated",
       "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "nova-pro",
+      "score": 94.0,
+      "critical": 0,
+      "warnings": 4,
+      "verdict": "REVIEW",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 5,
+        "Structural Completeness": 2.5,
+        "Data Accuracy and References": 3.5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "f0f629b16c95906ac13780be02ff5ee6e2bb4af51458403689780b692aae373a",
+      "model_id": "us.amazon.nova-pro-v1:0",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/nova-pro/f0f629b16c95",
+      "browser_evidence": "/tmp/model-lotte-review/nova-pro/f0f629b16c95/browser.json",
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/nova-pro/lotte-tower/artwork.html",
+          "line": 46,
+          "quote": "// Placeholder for actual diagram drawing",
+          "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
+          "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/nova-pro/lotte-tower/artwork.html",
+          "line": 63,
+          "quote": "const geometry = new THREE.CylinderGeometry(5, 2.5, 55, 40);",
+          "problem": "No explained intermediate3D development states are implemented.",
+          "action": "Provide distinct explained3D forms leading to completion and link them to the drawings."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/nova-pro/lotte-tower/artwork.html",
+          "line": 63,
+          "quote": "const geometry = new THREE.CylinderGeometry(5, 2.5, 55, 40);",
+          "problem": "Top radius5 is larger than bottom2.5: the tower widens upward, contrary to the supplied form.",
+          "action": "Use coherent upward narrowing and matching drawings."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/nova-pro/lotte-tower/artwork.html",
+          "line": 58,
+          "quote": "camera = new THREE.PerspectiveCamera(75, modelContainer.offsetWidth / modelContainer.offsetHeight, 0.1, 1000);",
+          "problem": "Inner#model still has zero height; browser confirms a0px-high renderer and invalid aspect, despite the outer600px region.",
+          "action": "Give the actual host usable responsive dimensions and derive camera/render size from them."
+        }
+      ],
+      "notes": [
+        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions."
+      ],
+      "reviewed_at": "2026-10-13T15:51:47.581686+00:00",
+      "re_review_number": 3,
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "current_generation_status": "generated",
+      "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "nova-lite",
+      "score": 88.5,
+      "critical": 1,
+      "warnings": 4,
+      "verdict": "FAIL",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 0,
+        "Interactions": 5,
+        "Readability": 3.5,
+        "Accessibility": 5,
+        "Structural Completeness": 3.5,
+        "Data Accuracy and References": 3.5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "57e9c8515fbc8dc91f51f718b15f31855b3db1034103037986a261c1d0924f5f",
+      "model_id": "us.amazon.nova-lite-v1:0",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/nova-lite/57e9c8515fbc",
+      "browser_evidence": "/tmp/model-lotte-review/nova-lite/57e9c8515fbc/browser.json",
+      "findings": [
+        {
+          "severity": "Critical",
+          "category": "Renders",
+          "file": "docs/models/nova-lite/lotte-tower/artwork.html",
+          "line": 161,
+          "quote": "const geometry = new THREE.Geometry();",
+          "problem": "THREE.Geometry (and Face3 below) were removed from the pinned runtime; constructor throws before model initialization.",
+          "action": "Use supported BufferGeometry and valid indices."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/nova-lite/lotte-tower/artwork.html",
+          "line": 160,
+          "quote": "function createTowerGeometry() {",
+          "problem": "No explained intermediate3D development states are implemented.",
+          "action": "Provide distinct explained3D forms leading to completion and link them to the drawings."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/nova-lite/lotte-tower/artwork.html",
+          "line": 198,
+          "quote": "geometry.faces = geometry.faces.concat(faces);",
+          "problem": "Each new level appends faces indexed0–7 without an offset, so only the first ring would be referenced even after replacing the obsolete API.",
+          "action": "Index successive elevated rings correctly and verify actual mesh bounds at the stated555m total."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/nova-lite/lotte-tower/artwork.html",
+          "line": 158,
+          "quote": "camera.position.z = 5;",
+          "problem": "The intended555m geometry starts with camera only5units away and no useful target/home fit.",
+          "action": "Fit the complete authored tower and update aspect from the actual viewport."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/nova-lite/lotte-tower/artwork.html",
+          "line": 107,
+          "quote": "sitePlanCtx.font = '24px Arial';",
+          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+          "action": "Use at least19px meaningful rendered text and controls."
+        }
+      ],
+      "notes": [
+        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions."
+      ],
+      "reviewed_at": "2026-10-13T15:51:47.591315+00:00",
+      "re_review_number": 3,
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "current_generation_status": "generated",
+      "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "nova-micro",
+      "score": 88.5,
+      "critical": 1,
+      "warnings": 4,
+      "verdict": "FAIL",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 0,
+        "Interactions": 5,
+        "Readability": 3.5,
+        "Accessibility": 5,
+        "Structural Completeness": 3.5,
+        "Data Accuracy and References": 3.5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "5ebb6caba2c5f794c672836f213201676aa9a67a66ac2df64c9eb3e9fb7b4e7b",
+      "model_id": "us.amazon.nova-micro-v1:0",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/nova-micro/5ebb6caba2c5",
+      "browser_evidence": "/tmp/model-lotte-review/nova-micro/5ebb6caba2c5/browser.json",
+      "findings": [
+        {
+          "severity": "Critical",
+          "category": "Renders",
+          "file": "docs/models/nova-micro/lotte-tower/artwork.html",
+          "line": 76,
+          "quote": "<img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAQCAYAAADNo+9XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AEKDR0Iu3JyDAA==\" alt=\"Site Plan\">",
+          "problem": "All four images use the same incomplete PNG data URI; browser reports ERR_INVALID_URL and no drawings load.",
+          "action": "Render actual inline drawings or valid complete embedded assets."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/nova-micro/lotte-tower/artwork.html",
+          "line": 141,
+          "quote": "function createStage(name) {",
+          "problem": "No explained intermediate3D development states are implemented.",
+          "action": "Provide distinct explained3D forms leading to completion and link them to the drawings."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/nova-micro/lotte-tower/artwork.html",
+          "line": 142,
+          "quote": "const geometry = new THREE.BoxGeometry(1, 1, 1);",
+          "problem": "All named stage/final meshes remain identical unit cubes; only one is shown, not the required tapered tower.",
+          "action": "Build meaningful development forms and coherent completed tower geometry."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/nova-micro/lotte-tower/artwork.html",
+          "line": 20,
+          "quote": ".header {",
+          "problem": "The100%-width header adds horizontal padding, and unwrapped rows overflow at all tested widths. Model/stage slots remain poorly sized.",
+          "action": "Fit header/rows with responsive sizing and preserve normal scrolling."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/nova-micro/lotte-tower/artwork.html",
+          "line": 48,
+          "quote": ".control-button {",
+          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+          "action": "Use at least19px meaningful rendered text and controls."
+        }
+      ],
+      "notes": [
+        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions."
+      ],
+      "reviewed_at": "2026-10-13T15:51:47.601288+00:00",
+      "re_review_number": 3,
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "current_generation_status": "generated",
+      "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "nemotron-nano-3-30b",
+      "score": 92.0,
+      "critical": 1,
+      "warnings": 2,
+      "verdict": "FAIL",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 0,
+        "Interactions": 5,
+        "Readability": 3.5,
+        "Accessibility": 5,
+        "Structural Completeness": 3.5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "acc83a509b386bdc4f2335c08d3b474566d8e4e1ea9a5e146bd0428d16b15786",
+      "model_id": "nvidia.nemotron-nano-3-30b",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/nemotron-nano-3-30b/acc83a509b38",
+      "browser_evidence": "/tmp/model-lotte-review/nemotron-nano-3-30b/acc83a509b38/browser.json",
+      "findings": [
+        {
+          "severity": "Critical",
+          "category": "Renders",
+          "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
+          "line": 99,
+          "quote": "const siteTex = texLoader.load(sitePlanCanvas);",
+          "problem": "TextureLoader still receives canvases as URLs, attempting missing[object HTMLCanvasElement] image requests.",
+          "action": "Use CanvasTexture with real drawn contents."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
+          "line": 93,
+          "quote": "const sitePlanCanvas = makeCanvas(256, 256);",
+          "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
+          "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
+          "line": 11,
+          "quote": "#info p { margin:0; font-size:1rem; line-height:1.4; }",
+          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+          "action": "Use at least19px meaningful rendered text and controls."
+        }
+      ],
+      "notes": [
+        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+        "Two tower variants now exist, but drawings remain blank textures and the confirmed texture-loading error persists."
+      ],
+      "reviewed_at": "2026-10-13T15:51:47.610861+00:00",
+      "re_review_number": 3,
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "current_generation_status": "generated",
+      "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "glm-4.7-flash",
+      "score": 93.5,
+      "critical": 0,
+      "warnings": 4,
+      "verdict": "REVIEW",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 3.5,
+        "Readability": 3.5,
+        "Accessibility": 5,
+        "Structural Completeness": 3.5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "9586dab8a74cc49794579f440ff4b948d1e1a89b58fd306b98d584276e8c38a0",
+      "model_id": "zai.glm-4.7-flash",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/glm-4.7-flash/9586dab8a74c",
+      "browser_evidence": "/tmp/model-lotte-review/glm-4.7-flash/9586dab8a74c/browser.json",
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+          "line": 82,
+          "quote": "font-size: 12px;",
+          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+          "action": "Use at least19px meaningful rendered text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+          "line": 582,
+          "quote": "setStage(stage) {",
+          "problem": "No explained intermediate3D development states are implemented.",
+          "action": "Provide distinct explained3D forms leading to completion and link them to the drawings."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+          "line": 305,
+          "quote": "this.camera.position.set(200, 150, 200);",
+          "problem": "Default/full-model target and distance do not contain the555-high shape; the view is concentrated near the base.",
+          "action": "Fit the complete form in its model/home pose."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+          "line": 666,
+          "quote": "this.camera.position.lerp(this.targetCameraPos, 0.05);",
+          "problem": "Every frame pulls the camera back toward a programmed pose, undoing free OrbitControls movement after input.",
+          "action": "Apply transition interpolation only during explicit transitions and preserve user orbit afterward."
+        }
+      ],
+      "notes": [
+        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+        "Elevation-button null exception is fixed and actual schematic diagram geometry was added. Buttons still select drawing/camera modes over one unchanged tower, not intermediate design forms."
+      ],
+      "reviewed_at": "2026-10-13T15:51:47.620652+00:00",
+      "re_review_number": 3,
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "current_generation_status": "generated",
+      "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "gpt-oss-20b",
+      "score": 90.0,
+      "critical": 1,
+      "warnings": 3,
+      "verdict": "FAIL",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 0,
+        "Interactions": 5,
+        "Readability": 3.5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "5ee00c024bdde7e10751fe50cf8f6e87d3c7bcc8035d71a4a72a8085c0c62d0c",
+      "model_id": "openai.gpt-oss-20b-1:0",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/gpt-oss-20b/5ee00c024bdd",
+      "browser_evidence": "/tmp/model-lotte-review/gpt-oss-20b/5ee00c024bdd/browser.json",
+      "findings": [
+        {
+          "severity": "Critical",
+          "category": "Renders",
+          "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
+          "line": 98,
+          "quote": "resize();",
+          "problem": "resize runs before const camera initialization and accesses it, causing Cannot access camera before initialization.",
+          "action": "Initialize camera before the first resize call; retain correct host-based dimensions."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
+          "line": 9,
+          "quote": "header span{font-size:18px}",
+          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+          "action": "Use at least19px meaningful rendered text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
+          "line": 16,
+          "quote": "#viewer{flex:2 1 500px;position:relative;background:#000;min-height:300px}",
+          "problem": "Viewer layout continues to overflow768/375; the minimum/flex dimensions cannot fit the narrow page.",
+          "action": "Allow viewer and drawing children to shrink/reflow without clipping."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
+          "line": 134,
+          "quote": "if(e.key==='w'){controls.target.y+=10;controls.update();}",
+          "problem": "Keyboard shortcuts move the target, but provide no actual orbit or zoom equivalent.",
+          "action": "Provide working keyboard orbit/zoom with correct camera-to-target state."
+        }
+      ],
+      "notes": [
+        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions."
+      ],
+      "reviewed_at": "2026-10-13T15:51:47.630195+00:00",
+      "re_review_number": 3,
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "current_generation_status": "generated",
+      "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "gpt-oss-120b",
+      "score": 92.0,
+      "critical": 1,
+      "warnings": 2,
+      "verdict": "FAIL",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 0,
+        "Interactions": 5,
+        "Readability": 3.5,
+        "Accessibility": 5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 3.5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "662f89790a2a605ec2222566ead92b12357a9f7992fddc1add1ecf63f13d412f",
+      "model_id": "openai.gpt-oss-120b-1:0",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/gpt-oss-120b/662f89790a2a",
+      "browser_evidence": "/tmp/model-lotte-review/gpt-oss-120b/662f89790a2a/browser.json",
+      "findings": [
+        {
+          "severity": "Critical",
+          "category": "Renders",
+          "file": "docs/models/gpt-oss-120b/lotte-tower/artwork.html",
+          "line": 175,
+          "quote": "case 'ArrowDown': controls.rotateDown(0.05); controls.update(); break;",
+          "problem": "ArrowDown/Right call nonexistent rotateDown/rotateRight; real keyboard tests reproduce both method-not-a-function errors.",
+          "action": "Use signed rotateUp/rotateLeft calls or supported camera math and test all directions."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/gpt-oss-120b/lotte-tower/artwork.html",
+          "line": 13,
+          "quote": ".navBtn{background:#e0e0e0;border:none;padding:0.4rem 0.6rem;margin:0.2rem 0;cursor:pointer;font-size:1rem;width:100%;text-align:left;}",
+          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+          "action": "Use at least19px meaningful rendered text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/gpt-oss-120b/lotte-tower/artwork.html",
+          "line": 111,
+          "quote": "const geo = new THREE.CylinderGeometry(bottomR, topR, height, 32, 1, true);",
+          "problem": "Top/bottom radii remain reversed: completed upright geometry widens upward, inconsistent with its description/drawings.",
+          "action": "Correct radius order and keep drawing/model taper coherent."
+        }
+      ],
+      "notes": [
+        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+        "Upright orientation and keyboard zoom direction are fixed. browser-keyboard.json verifies the remaining directional exceptions."
+      ],
+      "reviewed_at": "2026-10-13T15:51:47.639723+00:00",
+      "re_review_number": 3,
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "current_generation_status": "generated",
+      "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "qwen3-32b",
+      "score": 90.5,
+      "critical": 1,
+      "warnings": 3,
+      "verdict": "FAIL",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 0,
+        "Interactions": 5,
+        "Readability": 3.5,
+        "Accessibility": 5,
+        "Structural Completeness": 3.5,
+        "Data Accuracy and References": 3.5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "129863275742c51e3d06f0af0960d7a1997c40b3874e217eab2e499d3596c50f",
+      "model_id": "qwen.qwen3-32b-v1:0",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/qwen3-32b/129863275742",
+      "browser_evidence": "/tmp/model-lotte-review/qwen3-32b/129863275742/browser.json",
+      "findings": [
+        {
+          "severity": "Critical",
+          "category": "Renders",
+          "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+          "line": 108,
+          "quote": "if (typeof THREE === 'undefined') {",
+          "problem": "The local runtime script was omitted; initialization logs runtime not loaded then throws on THREE.Scene.",
+          "action": "Load ../runtime/three-runtime.js before initialization and verify actual rendering."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+          "line": 260,
+          "quote": "function updateDrawing() {",
+          "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
+          "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+          "line": 73,
+          "quote": "font-size: 14px;",
+          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+          "action": "Use at least19px meaningful rendered text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+          "line": 189,
+          "quote": "new THREE.CylinderGeometry(baseRadiusBottom, baseRadiusTop, baseHeight, 32),",
+          "problem": "Cylinder radius order is still reversed, contradicting the upward-tapering description.",
+          "action": "Use correct top/bottom radii throughout all stages."
+        }
+      ],
+      "notes": [
+        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+        "This is its second successful-source re-review, not a fabricated third; earlier failed API responses were not rendered artifacts. New drawing choices currently show prose only."
+      ],
+      "reviewed_at": "2026-10-13T15:51:47.649370+00:00",
+      "re_review_number": 2,
+      "review_iteration": 3,
+      "retry_limit_reached": false,
+      "current_generation_status": "generated",
+      "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "nemotron-super-3-120b",
+      "score": 95.5,
+      "critical": 0,
+      "warnings": 3,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 3.5,
+        "Readability": 3.5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "a082bfe8a3bc35572b99259148f702cbb30a9ebad83da087812b308d06bc4982",
+      "model_id": "nvidia.nemotron-super-3-120b",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/nemotron-super-3-120b/a082bfe8a3bc",
+      "browser_evidence": "/tmp/model-lotte-review/nemotron-super-3-120b/a082bfe8a3bc/browser.json",
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html",
+          "line": 11,
+          "quote": "header p { font-size: 1rem; opacity: 0.9; }",
+          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+          "action": "Use at least19px meaningful rendered text and controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html",
+          "line": 255,
+          "quote": "const stage = parseInt(button.getAttribute('data-stage').replace(/[^0-9]/g, '')) - 1;",
+          "problem": "Stage attributes are words(concept/massing/taper/facade/final), but code removes all nondigits then parses them, givingNaN. Every click creates the default100-unit form; only descriptions change.",
+          "action": "Map stage names to the actual numeric states so each advertised3D stage differs."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html",
+          "line": 282,
+          "quote": "if (e.key === 'Escape') {",
+          "problem": "Keyboard only resets; there is no keyboard orbit or zoom equivalent.",
+          "action": "Provide keyboard-accessible camera operations."
+        }
+      ],
+      "notes": [
+        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+        "The genuine local renderer and four schematic SVG drawing views now operate. Task remains incomplete because advertised3D development states never select their corresponding geometry."
+      ],
+      "reviewed_at": "2026-10-13T15:51:47.659169+00:00",
+      "re_review_number": 3,
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "current_generation_status": "generated",
+      "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "ministral-14b",
+      "score": 93.5,
+      "critical": 1,
+      "warnings": 1,
+      "verdict": "FAIL",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 0,
+        "Interactions": 5,
+        "Readability": 3.5,
+        "Accessibility": 5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "95efdcf9dcb9f0fa1bf80555aefd9281515431cb189b665aa8a6e1d87f2f45dd",
+      "model_id": "mistral.ministral-3-14b-instruct",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/ministral-14b/95efdcf9dcb9",
+      "browser_evidence": "/tmp/model-lotte-review/ministral-14b/95efdcf9dcb9/browser.json",
+      "findings": [
+        {
+          "severity": "Critical",
+          "category": "Renders",
+          "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+          "line": 531,
+          "quote": "window.OrbitControls = function(object, domElement) {",
+          "problem": "The simulated runtime defines window.OrbitControls but calls new THREE.OrbitControls; it throws before rendering. The bundled local runtime is never loaded.",
+          "action": "Use ../runtime/three-runtime.js and real THREE.OrbitControls; remove the incomplete substitute runtime rather than aliasing an incompatible stub. Retest all render/control methods."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+          "line": 62,
+          "quote": "font-size: 0.9rem;",
+          "problem": "Meaningful UI/diagram text is below19px at rendered size.",
+          "action": "Make meaningful text and diagram labels at least19px on mobile/desktop."
+        }
+      ],
+      "notes": [
+        "Current stable original bytes and actual model identity verified; isolated browser375/768/1440 and source review. Re-review number is computed from previously reviewed successful source revisions, not failed/truncated API attempts.",
+        "The long source includes real drawing/stage intentions, but they cannot be called verified complete while actual rendering fails."
+      ],
+      "reviewed_at": "2026-10-13T15:25:04.103646+00:00",
+      "re_review_number": 2,
+      "review_iteration": 3,
+      "retry_limit_reached": false,
+      "current_generation_status": "failed",
+      "active_source": false
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "qwen3-235b-a22b",
+      "score": 93.5,
+      "critical": 1,
+      "warnings": 1,
+      "verdict": "FAIL",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 0,
+        "Interactions": 5,
+        "Readability": 3.5,
+        "Accessibility": 5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "c361b11bdb85a58a3b14f046b484551db13809f92c864e4aad9d2934d8bda05c",
+      "model_id": "qwen.qwen3-235b-a22b-2507-v1:0",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/qwen3-235b-a22b/c361b11bdb85",
+      "browser_evidence": "/tmp/model-lotte-review/qwen3-235b-a22b/c361b11bdb85/browser.json",
+      "findings": [
+        {
+          "severity": "Critical",
+          "category": "Renders",
+          "file": "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html",
+          "line": 449,
+          "quote": "const quat = new Quaternion().setFromEuler(new Euler(0, 0, 0, 'XYZ'));",
+          "problem": "The custom Quaternion class lacks setFromEuler, but OrbitControls construction calls it, causing the observed method-not-a-function error.",
+          "action": "Complete the custom spatial runtime consistently or use the supplied local runtime; verify initialization and all camera operations."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html",
+          "line": 130,
+          "quote": "font-size: 16px;",
+          "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+          "action": "Use at least19px meaningful rendered text and controls."
+        }
+      ],
+      "notes": [
+        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+        "The earlier escaped-template syntax issue is fixed. This source now attempts custom WebGL; it is not rejected for choosing that medium, but the actual constructor exception prevents verified operation."
+      ],
+      "reviewed_at": "2026-10-13T15:51:47.679297+00:00",
+      "re_review_number": 3,
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "current_generation_status": "generated",
+      "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "llama-3.3-70b-bedrock",
+      "score": 88.5,
+      "critical": 1,
+      "warnings": 4,
+      "verdict": "FAIL",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 0,
+        "Interactions": 3.5,
+        "Readability": 5,
+        "Accessibility": 5,
+        "Structural Completeness": 3.5,
+        "Data Accuracy and References": 3.5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "e67818ea849c028c22f5335f3a765d43a209a64804c2a516d35ac385f7de3052",
+      "model_id": "us.meta.llama3-3-70b-instruct-v1:0",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/llama-3.3-70b-bedrock/e67818ea849c",
+      "browser_evidence": "/tmp/model-lotte-review/llama-3.3-70b-bedrock/e67818ea849c/browser.json",
+      "findings": [
+        {
+          "severity": "Critical",
+          "category": "Renders",
+          "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+          "line": 135,
+          "quote": "case 'ArrowDown':",
+          "problem": "Down/Right invoke nonexistent rotateDown/rotateRight; actual keyboard tests throw for both directions.",
+          "action": "Use signed supported rotateUp/rotateLeft operations."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+          "line": 57,
+          "quote": "<img id=\"site-plan\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==\">",
+          "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
+          "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+          "line": 76,
+          "quote": "const geometry = new THREE.CylinderGeometry(radius, radius / 2, height, 64);",
+          "problem": "All frusta widen upward, and final height is400 with no555m scale correspondence.",
+          "action": "Use coherent upward-narrowing stages and a consistent555m completed representation."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+          "line": 149,
+          "quote": "camera.aspect = window.innerWidth / window.innerHeight;",
+          "problem": "Camera aspect uses full-window height while renderer uses80%height.",
+          "action": "Derive aspect from the actual renderer dimensions."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+          "line": 109,
+          "quote": "document.getElementById('reset-view').addEventListener('click', () => {",
+          "problem": "Reset only sets camera.z, preserving prior orbit x/y/target, so it does not restore a valid home view.",
+          "action": "Restore complete home position/target/orientation."
+        }
+      ],
+      "notes": [
+        "Final managed correction source frozen; raw response bytes/configured identity verified, offline browser375/768/1440 tested. No source edits. Re-review count records actual independently reviewed successful source revisions.",
+        "Real canvas constructor is fixed. Four identical5×5PNG placeholders remain, not actual drawings."
+      ],
+      "reviewed_at": "2026-10-13T15:51:47.699283+00:00",
+      "re_review_number": 3,
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "current_generation_status": "generated",
+      "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "llama-3.1-8b",
+      "score": 88.0,
+      "critical": 1,
+      "warnings": 5,
+      "verdict": "FAIL",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 0,
+        "Interactions": 3.5,
+        "Readability": 3.5,
+        "Accessibility": 5,
+        "Structural Completeness": 2.5,
+        "Data Accuracy and References": 3.5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/llama-3.1-8b/c32057471d5a",
+      "browser_evidence": "/tmp/model-lotte-review/llama-3.1-8b/c32057471d5a/browser.json",
+      "findings": [
+        {
+          "severity": "Critical",
+          "category": "Renders",
+          "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+          "line": 81,
+          "quote": "const diagram1 = new THREE.CanvasRenderer();",
+          "problem": "The pinned runtime has no CanvasRenderer; construction throws THREE.CanvasRenderer is not a constructor before controls or animation initialize.",
+          "action": "Use supported local rendering APIs and real2Dcanvas contexts for diagrams, initialize actual scene geometry before rendering, and verify all controls."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+          "line": 113,
+          "quote": "diagram1.render(scene, camera);",
+          "problem": "All four drawing renderers are intended to render the identical scene/camera, with no distinct site/floor/elevation/section drawing content; inner canvases appended inside canvas elements would remain fallback content.",
+          "action": "Render four meaningful distinct diagram views directly into their visible canvases or SVG, with labels/units/model correspondence."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+          "line": 158,
+          "quote": "switch (stage) {",
+          "problem": "The four states swap a cylinder, plane and two offset cubes rather than showing an explained3D development process leading to the completed tower.",
+          "action": "Implement actual intermediate tower forms and a completed stage with understandable explanations."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+          "line": 188,
+          "quote": "const geometry = new THREE.CylinderGeometry(50, 50, 500, 32);",
+          "problem": "The purported tower remains an untapered500-unit cylinder, inconsistent with the supplied upward-narrowing555m form.",
+          "action": "Build the coherent authored tapering tower at a stated555m scale and align diagrams."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+          "line": 133,
+          "quote": "camera.position.copy(cameraPosition);",
+          "problem": "Every camera handler calls updateScene, which immediately restores fixed cameraPosition/lookAt, undoing Zoom/Orbit/Tilt/Pointer changes.",
+          "action": "Keep camera state separate from geometry updates; apply actual target-relative camera operations and reset only on explicit reset."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+          "line": 14,
+          "quote": "#controls {",
+          "problem": "Native buttons retain the browser default~13px font despite19px body/control-container text.",
+          "action": "Explicitly set button and other meaningful control text to at least19px."
+        }
+      ],
+      "notes": [
+        "Third re-review/iteration4. ExactSHA c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1. Browser reproduces unsupported CanvasRenderer constructor failure.",
+        "Three-re-review limit reached, task incomplete. Stop automatic paid repair for this native model and require a bundled user decision. Raw author bytes remain untouched."
+      ],
+      "reviewed_at": "2026-10-13T15:43:11.362278+00:00",
+      "re_review_number": 3,
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "current_generation_status": "generated",
+      "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "llama-3.3-70b",
+      "score": 90.5,
+      "critical": 0,
+      "warnings": 6,
+      "verdict": "REVIEW",
+      "category_scores": {
+        "Layout": 4.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 3.5,
+        "Readability": 5,
+        "Accessibility": 5,
+        "Structural Completeness": 2.5,
+        "Data Accuracy and References": 3.5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "a061dc832b7e06ecc97d03568baf5cf3098bd89829dd61f1eb9d721a9c914a94",
+      "model_id": "meta-llama/Llama-3.3-70B-Instruct",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/llama-3.3-70b/a061dc832b7e",
+      "browser_evidence": "/tmp/model-lotte-review/llama-3.3-70b/a061dc832b7e/browser.json",
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+          "line": 129,
+          "quote": "indices.push(base, base + 1, base + 2);",
+          "problem": "Every referenced vertex index has offset0–3 in an8-vertex block, and all those vertices have y=0. The height-bearing vertices4–7 are never indexed, so the completed model is a flat ground mesh, not the required555m tower.",
+          "action": "Build valid surface indices that use successive elevated rings; verify the referenced mesh has a real nonzero vertical extent and matches its drawings."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+          "line": 62,
+          "quote": "<div class=\"panel\" id=\"site-plan\">",
+          "problem": "The diagram package remains generic rectangles: elevation is three separate bars and section is three squares, with no coherent tower/site/floor/section geometry.",
+          "action": "Render four meaningful distinct diagrams tied to the authored spatial model and stages."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+          "line": 65,
+          "quote": "<text x=\"50\" y=\"50\" font-size=\"24\">Site Plan (500x500m)</text>",
+          "problem": "New site500×500m and floor80×80m dimensions are presented without identifying them as unverified conceptual assumptions.",
+          "action": "Label unsupported dimensions as assumptions, keeping555m/123floors distinct as supplied public facts."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+          "line": 16,
+          "quote": "height: 100vh;",
+          "problem": "The vertically centered fixed-height container is shorter than its mobile contents; panels extend above the reachable start and labels overflow their180pxSVG frames.",
+          "action": "Use content-sized responsive/scrollable layout and fit diagram annotations inside their rendered bounds."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+          "line": 151,
+          "quote": "camera.aspect = window.innerWidth / window.innerHeight;",
+          "problem": "Camera aspect uses full window height while the rendered canvas is70%window height, distorting the projection at every viewport.",
+          "action": "Calculate camera aspect from the actual rendered width/height used by renderer.setSize."
+        },
+        {
+          "severity": "Warning",
+          "category": "Interactions",
+          "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+          "line": 175,
+          "quote": "camera.position.z -= 50;",
+          "problem": "Zoom still changes world z after arbitrary orbit, rather than camera-to-target distance, without synchronizing controls; view direction can shift away from the object.",
+          "action": "Zoom along the target-relative camera vector and update controls. Restore the full home camera/target on reset, including after panning."
+        }
+      ],
+      "notes": [
+        "Third re-review/iteration4. SHAa061dc832b7e06ecc97d03568baf5cf3098bd89829dd61f1eb9d721a9c914a94; browser0script errors, localWebGL executes, stage buttons change geometry.",
+        "All final index references select only y=0 vertices; this is a concrete mesh-generation defect, not an aesthetic judgment.",
+        "Three-re-review limit reached. Do not automatically request further same-author paid repair; user decision required. Task remains incomplete and publication gate closed for this model."
+      ],
+      "reviewed_at": "2026-10-13T15:23:30.883120+00:00",
+      "re_review_number": 3,
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "current_generation_status": "generated",
+      "active_source": true
+    },
+    {
+      "task_requirements_complete": false,
+      "model": "exaone-3.5-32b",
+      "score": 87.5,
+      "critical": 1,
+      "warnings": 5,
+      "verdict": "FAIL",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 0,
+        "Interactions": 5,
+        "Readability": 3.5,
+        "Accessibility": 5,
+        "Structural Completeness": 2.5,
+        "Data Accuracy and References": 3.5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "artwork_sha256": "f810c39e19a7a8d6197f01194885f925449bb9bd6303710d59ed96219c2c096c",
+      "model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
+      "origin_generation": "lotte-tower-models-20261013",
+      "original_response_bytes_verified": true,
+      "source": "/tmp/model-lotte-review/exaone-3.5-32b/f810c39e19a7",
+      "browser_evidence": "/tmp/model-lotte-review/exaone-3.5-32b/f810c39e19a7/browser.json",
+      "findings": [
+        {
+          "severity": "Critical",
+          "category": "Renders",
+          "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+          "line": 90,
+          "quote": "function rotateRight() { controls.rotateRight(Math.PI / 4); }",
+          "problem": "The right-arrow button/shortcut still calls nonexistent controls.rotateRight; browser reproduces the exception.",
+          "action": "Use the supported signed rotateLeft operation or correct target-relative camera math."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+          "line": 95,
+          "quote": "// Mock diagram rendering (replace with actual SVG or canvas drawing)",
+          "problem": "All four diagrams are explicitly mock colored rectangles with titles, not meaningful site/floor/elevation/section content.",
+          "action": "Provide real schematic drawings with units/assumptions and model correspondence."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+          "line": 47,
+          "quote": "// Mock 3D model setup (replace with actual geometry)",
+          "problem": "All design-stage selection/progression was removed; only one static mock frustum remains.",
+          "action": "Restore explained intermediate3D forms and a completed state linked to drawings."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+          "line": 48,
+          "quote": "const geometry = new THREE.CylinderGeometry(50, 10, 500, 32, 1, true, 0, Math.PI * 2); // Simplified taper",
+          "problem": "Top radius50 exceeds bottom10, so the model widens upward, contrary to the supplied tower form.",
+          "action": "Use a coherent upward-narrowing form with stated scale and corresponding diagrams."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+          "line": 44,
+          "quote": "renderer.setSize(window.innerWidth, window.innerHeight);",
+          "problem": "The full-window canvas is inserted inside a max800px×600px host, overflowing its region; diagram widths plus padding exceed mobile width while overflow-x:hidden clips them.",
+          "action": "Use actual host dimensions and responsive diagram wrapping without clipped content."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+          "line": 8,
+          "quote": "body, html { margin: 0; padding: 0; overflow-x: hidden; font-family: Arial, sans-serif; }",
+          "problem": "Body and SVG diagram labels remain default16px, below19px, despite19px buttons.",
+          "action": "Set all meaningful rendered text and diagram labels to at least19px."
+        }
+      ],
+      "notes": [
+        "Third re-review/iteration4. ExactSHA f810c39e19a7a8d6197f01194885f925449bb9bd6303710d59ed96219c2c096c. Current original response bytes/configured native identity verified.",
+        "Far-plane clipping and missing reset are fixed, but a real directional exception and missing required drawing/stage content remain.",
+        "Three-re-review limit reached: stop further automatic EXAONE paid repairs and hand the unresolved scope to the user. Publication remains closed for this source."
+      ],
+      "reviewed_at": "2026-10-13T17:10:27.790848+00:00",
+      "re_review_number": 3,
+      "review_iteration": 4,
+      "retry_limit_reached": true,
+      "current_generation_status": "generated",
+      "active_source": true
     }
   ],
   "task_incomplete_models": [
-    "llama-3.3-70b",
-    "ministral-14b",
+    "exaone-3.5-32b",
+    "glm-4.7-flash",
+    "gpt-oss-120b",
+    "gpt-oss-20b",
     "llama-3.1-8b",
-    "nova-pro",
+    "llama-3.3-70b",
+    "llama-3.3-70b-bedrock",
+    "nemotron-nano-3-30b",
+    "nemotron-super-3-120b",
     "nova-lite",
     "nova-micro",
-    "nemotron-nano-3-30b",
-    "glm-4.7-flash",
-    "gpt-oss-20b",
-    "gpt-oss-120b",
-    "qwen3-32b",
-    "nemotron-super-3-120b",
+    "nova-pro",
     "qwen3-235b-a22b",
-    "llama-3.3-70b-bedrock",
-    "gemma-4-31b-bedrock",
-    "exaone-3.5-32b"
+    "qwen3-32b"
   ],
   "active_summary": {
-    "PASS": 20,
-    "REVIEW": 5,
-    "FAIL": 11
+    "full_task_ready": 19,
+    "not_ready": 19,
+    "generation_failed": 2
   },
   "active_task_complete_pass": 19,
   "snapshot_notice": "All38 configured enabled generative models now have an invocation outcome. Latest generated originals are source-matched and reviewed. Two generation failures have no current source grade; historicalMinistral source is retained only as evidence. Full requested raw-artwork batch cannot pass. A user-approved publication scope and frozen candidate still require a separate final release review.",
@@ -8633,7 +10054,7 @@
       "model_id": "mistral.ministral-3-14b-instruct",
       "status": "failed",
       "artwork_sha256": null,
-      "record_sha256": "591278e2031d97e6371912855172971757d586165a256cf9ccfb4f9a993aa053",
+      "record_sha256": "d2bbb7d45bc467d0be4bb7a08fad5336f366e38c16f19f097fb9ee1224fa6410",
       "content_grade_available": false,
       "error": {
         "type": "ValueError",
@@ -8647,7 +10068,7 @@
       "model_id": "Qwen/Qwen3.6-27B",
       "status": "failed",
       "artwork_sha256": null,
-      "record_sha256": "08642fd0d20134a0a4c27687a5d13d32ecbcee6520474ff8b24dfda561d163c1",
+      "record_sha256": "a00a12acbb51980adafa96e7afe1f55b977f11e54a606ba45a43962e75ccdcbb",
       "content_grade_available": false,
       "error": {
         "type": "ValueError",
@@ -8659,11 +10080,35 @@
   ],
   "generation_outcomes": [
     {
+      "model": "claude-fable-5.1",
+      "model_id": "us.anthropic.claude-fable-5-1",
+      "status": "generated",
+      "artwork_sha256": "a722373a6f6dce9c0e1cdffb6f8901b18b50dc849747ce6ffb7d0a6353efefd1",
+      "record_sha256": "f440e92d8620b46b4abda3a27cb3b5244940503fe5db02b7d84bfe5552ed43ff",
+      "content_grade_available": true
+    },
+    {
       "model": "claude-haiku-4.5",
       "model_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
       "status": "generated",
       "artwork_sha256": "78b4610c04f774f7b6e52688db0e63d81ba4cb2449ae96eebd9ad0384bb7af49",
       "record_sha256": "c39238ddb411b09876513456981ffc5f59f93182ac3928e4bf8891b2d6a01ea7",
+      "content_grade_available": true
+    },
+    {
+      "model": "claude-haiku-5.5",
+      "model_id": "us.anthropic.claude-haiku-5-5",
+      "status": "generated",
+      "artwork_sha256": "6fa8dd0377ec0fa0126a9c36e5ee26e90bf6081f9fadbfa5255217d6e65dd7d5",
+      "record_sha256": "4acc46370253834743d75b4f480bfece0a0967455ec5aed224307cc717bc9bd6",
+      "content_grade_available": true
+    },
+    {
+      "model": "claude-opus-5.5",
+      "model_id": "us.anthropic.claude-opus-5-5",
+      "status": "generated",
+      "artwork_sha256": "b6df342dbe57ded8493f9f174999b592f3f2f6b221c6392aa7be17cd80e7ab40",
+      "record_sha256": "2e5c68a40894e8203bc5383389d5c83a1e8211ec33e0a15c71ea6a12f0754722",
       "content_grade_available": true
     },
     {
@@ -8683,14 +10128,6 @@
       "content_grade_available": true
     },
     {
-      "model": "claude-haiku-5.5",
-      "model_id": "us.anthropic.claude-haiku-5-5",
-      "status": "generated",
-      "artwork_sha256": "6fa8dd0377ec0fa0126a9c36e5ee26e90bf6081f9fadbfa5255217d6e65dd7d5",
-      "record_sha256": "4acc46370253834743d75b4f480bfece0a0967455ec5aed224307cc717bc9bd6",
-      "content_grade_available": true
-    },
-    {
       "model": "claude-sonnet-5.5",
       "model_id": "us.anthropic.claude-sonnet-5-5",
       "status": "generated",
@@ -8699,43 +10136,35 @@
       "content_grade_available": true
     },
     {
-      "model": "claude-opus-5.5",
-      "model_id": "us.anthropic.claude-opus-5-5",
+      "model": "exaone-3.5-32b",
+      "model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
       "status": "generated",
-      "artwork_sha256": "b6df342dbe57ded8493f9f174999b592f3f2f6b221c6392aa7be17cd80e7ab40",
-      "record_sha256": "2e5c68a40894e8203bc5383389d5c83a1e8211ec33e0a15c71ea6a12f0754722",
+      "artwork_sha256": "aa8d496ba480b48951e1846316dbfe274144cf2c99f3042f458640f433f8dcd3",
+      "record_sha256": "4d2d7a39e8068c88bfd51f6749c63bae3acac42fd6ca59394421c4a97999127b",
       "content_grade_available": true
     },
     {
-      "model": "claude-fable-5.1",
-      "model_id": "us.anthropic.claude-fable-5-1",
+      "model": "gemma-4-31b-bedrock",
+      "model_id": "google.gemma-4-31b",
       "status": "generated",
-      "artwork_sha256": "a722373a6f6dce9c0e1cdffb6f8901b18b50dc849747ce6ffb7d0a6353efefd1",
-      "record_sha256": "f440e92d8620b46b4abda3a27cb3b5244940503fe5db02b7d84bfe5552ed43ff",
+      "artwork_sha256": "ad75231b7bb555c041dd03249f343c31fdda9b79b2700e5d6cdcbf7652d64827",
+      "record_sha256": "218e7d341775ac6a292f2fb34ebceab67f7bc9e5d7b864a5e2dfd07a0a918dc1",
       "content_grade_available": true
     },
     {
-      "model": "nova-pro",
-      "model_id": "us.amazon.nova-pro-v1:0",
+      "model": "glm-4.7-flash",
+      "model_id": "zai.glm-4.7-flash",
       "status": "generated",
-      "artwork_sha256": "f0f629b16c95906ac13780be02ff5ee6e2bb4af51458403689780b692aae373a",
-      "record_sha256": "f5798f2c3f2c5d303d7b9ef33c7dff0835937835c4df4c78f6fd469e52785aeb",
+      "artwork_sha256": "01555b144c524e716b23e8b4b582cafb729bd8ca1a2d689d96382bc16571e0fd",
+      "record_sha256": "e7c467f26541093f165e84ec87d3e1a1824b40c9d66177a327a636d59d4a2e00",
       "content_grade_available": true
     },
     {
-      "model": "kimi-k3",
-      "model_id": "us.moonshotai.kimi-k3",
+      "model": "glm-5.3",
+      "model_id": "us.zai.glm-5.3",
       "status": "generated",
-      "artwork_sha256": "f6b3e5f9e477e077d685e4116106995497494ec9175c138732e1920da3bbe730",
-      "record_sha256": "89400e6991514076f6d797393c1b5e7a0ef56d90b2345e8276161ed16ca26aed",
-      "content_grade_available": true
-    },
-    {
-      "model": "nova-lite",
-      "model_id": "us.amazon.nova-lite-v1:0",
-      "status": "generated",
-      "artwork_sha256": "57e9c8515fbc8dc91f51f718b15f31855b3db1034103037986a261c1d0924f5f",
-      "record_sha256": "ffb2c6316371a3d0ae2d38a2bf7d41b7a635ae21a494248b93355e934b1cbfa0",
+      "artwork_sha256": "67c9eb19f5f24a94250275dac483baf325d6d988b887036e7ae46dd7be5d04b2",
+      "record_sha256": "e60794f1dcbab830bd6f1352b7755b21ee43874766d93b02ea646f3b47d60a79",
       "content_grade_available": true
     },
     {
@@ -8755,14 +10184,6 @@
       "content_grade_available": true
     },
     {
-      "model": "gpt-5.6-terra",
-      "model_id": "openai.gpt-5.6-terra",
-      "status": "generated",
-      "artwork_sha256": "b249a061ce6e569696f042377923429cf5750e9fcde911b2723f63c9a0a4c39b",
-      "record_sha256": "c03e3e36c366623248c77b182f844571d5784368ac772ff1777f6ba18544d311",
-      "content_grade_available": true
-    },
-    {
       "model": "gpt-5.6-luna",
       "model_id": "openai.gpt-5.6-luna",
       "status": "generated",
@@ -8771,11 +10192,11 @@
       "content_grade_available": true
     },
     {
-      "model": "gpt-6-luna",
-      "model_id": "openai.gpt-6-luna",
+      "model": "gpt-5.6-terra",
+      "model_id": "openai.gpt-5.6-terra",
       "status": "generated",
-      "artwork_sha256": "eb91cfece23b88e320d67aaa9c2c64eeda369c4431753a183c2e61612b272c03",
-      "record_sha256": "5167c47ea91789224e8dee90de9b833dbcab2a94e34072617f021b80db8b640f",
+      "artwork_sha256": "b249a061ce6e569696f042377923429cf5750e9fcde911b2723f63c9a0a4c39b",
+      "record_sha256": "c03e3e36c366623248c77b182f844571d5784368ac772ff1777f6ba18544d311",
       "content_grade_available": true
     },
     {
@@ -8787,11 +10208,35 @@
       "content_grade_available": true
     },
     {
+      "model": "gpt-6-luna",
+      "model_id": "openai.gpt-6-luna",
+      "status": "generated",
+      "artwork_sha256": "eb91cfece23b88e320d67aaa9c2c64eeda369c4431753a183c2e61612b272c03",
+      "record_sha256": "5167c47ea91789224e8dee90de9b833dbcab2a94e34072617f021b80db8b640f",
+      "content_grade_available": true
+    },
+    {
       "model": "gpt-6.1-sol",
       "model_id": "openai.gpt-6.1-sol",
       "status": "generated",
       "artwork_sha256": "b8a72f232e47897520f7a7877aa07739aa1f3b3ee1444b4ad495faa4256502d5",
       "record_sha256": "37293c3b016c4389617a6afc68bd19df03b89d09c73eec7bafb7d835638da10b",
+      "content_grade_available": true
+    },
+    {
+      "model": "gpt-oss-120b",
+      "model_id": "openai.gpt-oss-120b-1:0",
+      "status": "generated",
+      "artwork_sha256": "24b4a47fb628819c562d60c4c5862dcb52b6b017dd24512f0b43619ae45bea2d",
+      "record_sha256": "85bf25277c1de9bef034906fd288d42c8983b5aaa79492f9c8c26876cac7ef3a",
+      "content_grade_available": true
+    },
+    {
+      "model": "gpt-oss-20b",
+      "model_id": "openai.gpt-oss-20b-1:0",
+      "status": "generated",
+      "artwork_sha256": "dbed87a3231bb0b53ac91e6c729b336075cfedae9db5c90891778e3c0049263f",
+      "record_sha256": "f1082b92a7a4f2575ec84bf3998327a86f3c3a8e91f73e4749f4e00e5c74e7c7",
       "content_grade_available": true
     },
     {
@@ -8819,67 +10264,43 @@
       "content_grade_available": true
     },
     {
-      "model": "nova-micro",
-      "model_id": "us.amazon.nova-micro-v1:0",
+      "model": "kimi-k3",
+      "model_id": "us.moonshotai.kimi-k3",
       "status": "generated",
-      "artwork_sha256": "5ebb6caba2c5f794c672836f213201676aa9a67a66ac2df64c9eb3e9fb7b4e7b",
-      "record_sha256": "b589a9c3b50f1648933fcd7a3b5ea7c55ed3cdf577fe8a7358e1adc53b32e5e2",
+      "artwork_sha256": "f6b3e5f9e477e077d685e4116106995497494ec9175c138732e1920da3bbe730",
+      "record_sha256": "89400e6991514076f6d797393c1b5e7a0ef56d90b2345e8276161ed16ca26aed",
       "content_grade_available": true
     },
     {
-      "model": "nemotron-nano-3-30b",
-      "model_id": "nvidia.nemotron-nano-3-30b",
+      "model": "llama-3.1-8b",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
       "status": "generated",
-      "artwork_sha256": "acc83a509b386bdc4f2335c08d3b474566d8e4e1ea9a5e146bd0428d16b15786",
-      "record_sha256": "94ab6ae89294fc8d9bc838ea925b122e45aaf0abcd22ae4911f9a6c860843a1e",
+      "artwork_sha256": "1e508a5673e2d09bba5a2fe6da312dbf766c5050e6000845e075483a46f09048",
+      "record_sha256": "e3093196242444264eb4cda85daef11c07dd4746a2fb58eb18f8d9985a66f7f0",
       "content_grade_available": true
     },
     {
-      "model": "glm-4.7-flash",
-      "model_id": "zai.glm-4.7-flash",
+      "model": "llama-3.3-70b",
+      "model_id": "meta-llama/Llama-3.3-70B-Instruct",
       "status": "generated",
-      "artwork_sha256": "9586dab8a74cc49794579f440ff4b948d1e1a89b58fd306b98d584276e8c38a0",
-      "record_sha256": "3e97d375c76e0760bc8a6518e445428c4b1c25d27a9c81584858c41ae911da35",
+      "artwork_sha256": "4ee86be21b6aafdb2766fbbb851baae57f2a0903ae3a9cc6f401d74191782a8f",
+      "record_sha256": "8f878a9fa20020fc23ee5ddd82ff5fd06d53d556981373bbeebb6744ec252848",
       "content_grade_available": true
     },
     {
-      "model": "glm-5.3",
-      "model_id": "us.zai.glm-5.3",
+      "model": "llama-3.3-70b-bedrock",
+      "model_id": "us.meta.llama3-3-70b-instruct-v1:0",
       "status": "generated",
-      "artwork_sha256": "67c9eb19f5f24a94250275dac483baf325d6d988b887036e7ae46dd7be5d04b2",
-      "record_sha256": "e60794f1dcbab830bd6f1352b7755b21ee43874766d93b02ea646f3b47d60a79",
+      "artwork_sha256": "87df1d376345d8a9d4e900a6e7d7abe3eb38d7ebe039ff7e00037ca92da6a0b0",
+      "record_sha256": "bd9468b35dd18a92a58aad7133243afba19bb5b5f4d9be484a9cb3f5814a4672",
       "content_grade_available": true
     },
     {
-      "model": "gpt-oss-20b",
-      "model_id": "openai.gpt-oss-20b-1:0",
+      "model": "llama4-maverick",
+      "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
       "status": "generated",
-      "artwork_sha256": "5ee00c024bdde7e10751fe50cf8f6e87d3c7bcc8035d71a4a72a8085c0c62d0c",
-      "record_sha256": "f0182c573ac56a366cc4f8cf7da437a4a8bfb8ba3667c26a652be62aec149f7a",
-      "content_grade_available": true
-    },
-    {
-      "model": "gpt-oss-120b",
-      "model_id": "openai.gpt-oss-120b-1:0",
-      "status": "generated",
-      "artwork_sha256": "662f89790a2a605ec2222566ead92b12357a9f7992fddc1add1ecf63f13d412f",
-      "record_sha256": "c772675f893716776800c0f2137142b507daee60c15568363a57a6d73f0dcec7",
-      "content_grade_available": true
-    },
-    {
-      "model": "qwen3-32b",
-      "model_id": "qwen.qwen3-32b-v1:0",
-      "status": "generated",
-      "artwork_sha256": "129863275742c51e3d06f0af0960d7a1997c40b3874e217eab2e499d3596c50f",
-      "record_sha256": "7d4c17cab0832f628b1b1f7b0c7b773fc3b6443ac7802085f431874cc715bf5f",
-      "content_grade_available": true
-    },
-    {
-      "model": "nemotron-super-3-120b",
-      "model_id": "nvidia.nemotron-super-3-120b",
-      "status": "generated",
-      "artwork_sha256": "a082bfe8a3bc35572b99259148f702cbb30a9ebad83da087812b308d06bc4982",
-      "record_sha256": "31fcf258d390e8d2328fc1a20f4063c0f26d843588dba0979a337a02c342af3c",
+      "artwork_sha256": "42a3ba1fe5ca0fea250d342d7488ddadfce5ba961d436a00202266659718173f",
+      "record_sha256": "e755ef88d0b66ca34c54ddf7a31051a33d5674ce53167b706239ab9dfb49b37d",
       "content_grade_available": true
     },
     {
@@ -8895,55 +10316,63 @@
       "model_id": "mistral.ministral-3-14b-instruct",
       "status": "failed",
       "artwork_sha256": null,
-      "record_sha256": "591278e2031d97e6371912855172971757d586165a256cf9ccfb4f9a993aa053",
+      "record_sha256": "d2bbb7d45bc467d0be4bb7a08fad5336f366e38c16f19f097fb9ee1224fa6410",
       "content_grade_available": false
+    },
+    {
+      "model": "nemotron-nano-3-30b",
+      "model_id": "nvidia.nemotron-nano-3-30b",
+      "status": "generated",
+      "artwork_sha256": "780aeeaca918fa3f9741543bbef13be669bcd3412b96f44c0ede61772e2c2226",
+      "record_sha256": "8d27a08c4b8dbe6561025e5a5900e718d09b51d3078fa7b6fa05a80729d824d0",
+      "content_grade_available": true
+    },
+    {
+      "model": "nemotron-super-3-120b",
+      "model_id": "nvidia.nemotron-super-3-120b",
+      "status": "generated",
+      "artwork_sha256": "26352ce6d3d607e691d1232b9d9fe0cf1d12ca5dfc66664f5b666ce2bfdcf160",
+      "record_sha256": "9128ab056c9d502099527c1badde221c82b1adb964489d2c58fcbd7d78411cad",
+      "content_grade_available": true
+    },
+    {
+      "model": "nova-lite",
+      "model_id": "us.amazon.nova-lite-v1:0",
+      "status": "generated",
+      "artwork_sha256": "1783c15d7336fbc5601ae271b0ce874fb5a9d5bb4d19a4785533f1ecaf2e9b30",
+      "record_sha256": "b363865a4e405765719998de9cef5df4f6a479cd13fbfdba0021f75b564b409e",
+      "content_grade_available": true
+    },
+    {
+      "model": "nova-micro",
+      "model_id": "us.amazon.nova-micro-v1:0",
+      "status": "generated",
+      "artwork_sha256": "0104441e0f0ec27688add9cf9ec4e5e11eb6a896439a69c48e6990d5504f1a1f",
+      "record_sha256": "12f2d3c2de57c9cf11a1a1827725741c9b278febe1bbf17d4e0fece904369fa6",
+      "content_grade_available": true
+    },
+    {
+      "model": "nova-pro",
+      "model_id": "us.amazon.nova-pro-v1:0",
+      "status": "generated",
+      "artwork_sha256": "c4ab0fb76210f0f72d164273662a93fbb8a19be70bf9b5166340f525a5e663c9",
+      "record_sha256": "6fbf3900fe68aa6abae650144328e4a73b0f238e8969891d9370b00bb6d25890",
+      "content_grade_available": true
     },
     {
       "model": "qwen3-235b-a22b",
       "model_id": "qwen.qwen3-235b-a22b-2507-v1:0",
       "status": "generated",
-      "artwork_sha256": "c361b11bdb85a58a3b14f046b484551db13809f92c864e4aad9d2934d8bda05c",
-      "record_sha256": "c64cd56b1e111f7dfc21f7764ed710d3d04df2e990d2ea8afb5b9a32c2f18095",
+      "artwork_sha256": "9057956d9ce2925d83db90d97cc221c0356959914c033e0f0aa5c8d8a83a18f0",
+      "record_sha256": "4f756779839fcd4d27644be209bc8ef4be2e0c0ebbb974e9600d2d78f210474d",
       "content_grade_available": true
     },
     {
-      "model": "llama4-maverick",
-      "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+      "model": "qwen3-32b",
+      "model_id": "qwen.qwen3-32b-v1:0",
       "status": "generated",
-      "artwork_sha256": "42a3ba1fe5ca0fea250d342d7488ddadfce5ba961d436a00202266659718173f",
-      "record_sha256": "e755ef88d0b66ca34c54ddf7a31051a33d5674ce53167b706239ab9dfb49b37d",
-      "content_grade_available": true
-    },
-    {
-      "model": "llama-3.3-70b-bedrock",
-      "model_id": "us.meta.llama3-3-70b-instruct-v1:0",
-      "status": "generated",
-      "artwork_sha256": "e67818ea849c028c22f5335f3a765d43a209a64804c2a516d35ac385f7de3052",
-      "record_sha256": "cb285f2a59f32c7eaa150f37ae5c42d99b6c6c4582d58170c45c87f516441ef0",
-      "content_grade_available": true
-    },
-    {
-      "model": "gemma-4-31b-bedrock",
-      "model_id": "google.gemma-4-31b",
-      "status": "generated",
-      "artwork_sha256": "776ede41d637c2f1e7e6ef02694a410357ec26da2a84b5fcdf00f3625b036454",
-      "record_sha256": "b7a608aed8b6dbadfe355f70d41dd938e4a21f9e6d58acb0b919001bf85f63b1",
-      "content_grade_available": true
-    },
-    {
-      "model": "llama-3.1-8b",
-      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
-      "status": "generated",
-      "artwork_sha256": "c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1",
-      "record_sha256": "4ba0102c46065402e758cdf025296ea2e97015c8b40af6959d0b526b7401b12b",
-      "content_grade_available": true
-    },
-    {
-      "model": "llama-3.3-70b",
-      "model_id": "meta-llama/Llama-3.3-70B-Instruct",
-      "status": "generated",
-      "artwork_sha256": "a061dc832b7e06ecc97d03568baf5cf3098bd89829dd61f1eb9d721a9c914a94",
-      "record_sha256": "d5f24332596d04a44fa754afe3acc997ce67dcc529fa5dbde69d9b41352043a4",
+      "artwork_sha256": "8c22602d376d7dcae5e2a56a56f8bf5bbac1bd82fd0e61201ee8456b08f5f63e",
+      "record_sha256": "35405f2953e0522e3c68a9f94c15a0861e86250a5cb47503539aff49945645a7",
       "content_grade_available": true
     },
     {
@@ -8951,16 +10380,8 @@
       "model_id": "Qwen/Qwen3.6-27B",
       "status": "failed",
       "artwork_sha256": null,
-      "record_sha256": "08642fd0d20134a0a4c27687a5d13d32ecbcee6520474ff8b24dfda561d163c1",
+      "record_sha256": "a00a12acbb51980adafa96e7afe1f55b977f11e54a606ba45a43962e75ccdcbb",
       "content_grade_available": false
-    },
-    {
-      "model": "exaone-3.5-32b",
-      "model_id": "LGAI-EXAONE/EXAONE-3.5-32B-Instruct",
-      "status": "generated",
-      "artwork_sha256": "f810c39e19a7a8d6197f01194885f925449bb9bd6303710d59ed96219c2c096c",
-      "record_sha256": "b79940f695889feffd0f67179bd731be482a8817576a977491d44fe5b7ee408d",
-      "content_grade_available": true
     }
   ],
   "generation_counts": {
@@ -8970,46 +10391,46 @@
   "artwork_batch_verdict": "FAIL",
   "publication_ready": false,
   "ready_models": [
+    "claude-fable-5.1",
     "claude-haiku-4.5",
+    "claude-haiku-5.5",
+    "claude-opus-5.5",
     "claude-sonnet-4.5",
     "claude-sonnet-5",
-    "claude-haiku-5.5",
     "claude-sonnet-5.5",
-    "claude-opus-5.5",
-    "claude-fable-5.1",
-    "kimi-k3",
+    "glm-5.3",
     "gpt-5.4",
     "gpt-5.5",
-    "gpt-5.6-terra",
     "gpt-5.6-luna",
-    "gpt-6-luna",
+    "gpt-5.6-terra",
     "gpt-6-astra",
+    "gpt-6-luna",
     "gpt-6.1-sol",
     "grok-4.3",
     "grok-4.6",
     "grok-4.7",
-    "glm-5.3"
+    "kimi-k3"
   ],
   "not_ready_models": [
-    "nova-pro",
-    "nova-lite",
-    "nova-micro",
-    "nemotron-nano-3-30b",
-    "glm-4.7-flash",
-    "gpt-oss-20b",
-    "gpt-oss-120b",
-    "qwen3-32b",
-    "nemotron-super-3-120b",
-    "llama4-scout",
-    "ministral-14b",
-    "qwen3-235b-a22b",
-    "llama4-maverick",
-    "llama-3.3-70b-bedrock",
+    "exaone-3.5-32b",
     "gemma-4-31b-bedrock",
+    "glm-4.7-flash",
+    "gpt-oss-120b",
+    "gpt-oss-20b",
     "llama-3.1-8b",
     "llama-3.3-70b",
-    "qwen3.6-27b",
-    "exaone-3.5-32b"
+    "llama-3.3-70b-bedrock",
+    "llama4-maverick",
+    "llama4-scout",
+    "ministral-14b",
+    "nemotron-nano-3-30b",
+    "nemotron-super-3-120b",
+    "nova-lite",
+    "nova-micro",
+    "nova-pro",
+    "qwen3-235b-a22b",
+    "qwen3-32b",
+    "qwen3.6-27b"
   ],
   "final_source_audit": {
     "latest_generated_sources": [
@@ -9576,5 +10997,7 @@
     "PASS": 20,
     "REVIEW": 5,
     "FAIL": 12
-  }
+  },
+  "latest_retry_episode": "lotte-tower-retry-20261015",
+  "publication_note": "New sources are graded; the publication candidate needs its own release gate."
 }

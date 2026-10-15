@@ -138,6 +138,8 @@ def task_page(model, task, reviews):
     status = record["status"]
     artifact = directory / "artwork.html"
     review = reviews.get(name) if reviews is not None else None
+    if review and (status != "generated" or review.get("artwork_sha256") != record.get("artwork_sha256")):
+        review = None
     if status == "generated":
         if reviews is not None and not (
             review and review.get("verdict") == "PASS" and review.get("score", 0) >= 85
@@ -173,7 +175,7 @@ def task_page(model, task, reviews):
         **{key: record[key] for key in (
             "request_id", "response_id", "requested_at", "generated_at", "reported_model",
             "tokens_in", "tokens_out", "max_output_tokens", "temperature", "temperature_sent",
-            "bedrock_reasoning_effort", "reported_reasoning", "finish_reason") if key in record},
+            "bedrock_reasoning_effort", "reported_reasoning", "finish_reason", "retry_episode") if key in record},
     }
     conditions = request_conditions(model, records / name, record) if task == "lotte-tower" else None
     if conditions:
@@ -220,6 +222,7 @@ def task_page(model, task, reviews):
         f'<small>{esc(LABELS.get(status, status))}</small><small>{esc(ui.cost_summary(cost))}</small></span>'
         '<div class="viewer-actions">' + ('<button type="button" data-open-prompts>프롬프트</button>' if prompts else "")
         + f'<details><summary>작성 기록</summary><section><p>{esc(model["model_id"])}</p><p>{note}</p>{condition_note}'
+        + (f'<p>재시도 기록: {esc(record["retry_episode"])}</p>' if record.get("retry_episode") else "")
         + fee + f'<a href="provenance.json" target="_blank" rel="noopener">작성자·응답 기록</a>{original}'
         + '</section></details></div></header>' + panel
         + ui.prompt_dialog(prompts, name, initial_first=task == "lotte-tower")

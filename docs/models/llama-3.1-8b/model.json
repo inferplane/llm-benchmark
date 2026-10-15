@@ -152,16 +152,22 @@
       "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b",
       "status": "review_failed",
       "generation_status": "generated",
-      "artwork_sha256": "c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1",
+      "artwork_sha256": "1e508a5673e2d09bba5a2fe6da312dbf766c5050e6000845e075483a46f09048",
       "content_review": {
-        "task_requirements_complete": false,
         "model": "llama-3.1-8b",
-        "score": 88.0,
+        "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+        "requested_at": "2026-10-15T00:25:28.013791+00:00",
+        "retry_episode": "lotte-tower-retry-20261015",
+        "review_iteration_in_episode": 1,
+        "current_generation_status": "generated",
+        "active_source": true,
+        "artwork_sha256": "1e508a5673e2d09bba5a2fe6da312dbf766c5050e6000845e075483a46f09048",
+        "score": 86.0,
         "critical": 1,
-        "warnings": 5,
+        "warnings": 6,
         "verdict": "FAIL",
         "category_scores": {
-          "Layout": 8,
+          "Layout": 6.0,
           "Terminology": 8,
           "No Hallucination": 12,
           "Language Consistency": 8,
@@ -169,89 +175,94 @@
           "Content-Type Quality": 2,
           "Icon Usage": 5,
           "Renders": 0,
-          "Interactions": 3.5,
+          "Interactions": 5,
           "Readability": 3.5,
-          "Accessibility": 5,
+          "Accessibility": 3.5,
           "Structural Completeness": 2.5,
           "Data Accuracy and References": 3.5,
           "Legal Compliance": 5,
           "Message Clarity": 5,
           "Duplication and Gaps": 5
         },
-        "artwork_sha256": "c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1",
-        "model_id": "meta-llama/Llama-3.1-8B-Instruct",
-        "origin_generation": "lotte-tower-models-20261013",
+        "task_requirements_complete": false,
+        "publication_approved": false,
         "original_response_bytes_verified": true,
-        "source": "/tmp/model-lotte-review/llama-3.1-8b/c32057471d5a",
-        "browser_evidence": "/tmp/model-lotte-review/llama-3.1-8b/c32057471d5a/browser.json",
+        "config_identity_verified": true,
+        "source": "/tmp/lotte-retry-20261015/llama-3.1-8b/1e508a5673e2",
+        "browser_evidence": "/tmp/lotte-retry-20261015/llama-3.1-8b/1e508a5673e2/browser.json",
+        "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
         "findings": [
           {
             "severity": "Critical",
             "category": "Renders",
             "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
-            "line": 81,
-            "quote": "const diagram1 = new THREE.CanvasRenderer();",
-            "problem": "The pinned runtime has no CanvasRenderer; construction throws THREE.CanvasRenderer is not a constructor before controls or animation initialize.",
-            "action": "Use supported local rendering APIs and real2Dcanvas contexts for diagrams, initialize actual scene geometry before rendering, and verify all controls."
+            "line": 128,
+            "quote": "const controls = new THREE.OrbitControls(camera, threeCanvas);",
+            "problem": "The script declares const controls twice (lines110and128). Browser throws Identifier controls has already been declared before any diagram or WebGL initialization; all controls are inactive.",
+            "action": "Remove the duplicate binding in an author-produced correction and verify full initialization."
           },
           {
             "severity": "Warning",
             "category": "Structural Completeness",
             "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
-            "line": 113,
-            "quote": "diagram1.render(scene, camera);",
-            "problem": "All four drawing renderers are intended to render the identical scene/camera, with no distinct site/floor/elevation/section drawing content; inner canvases appended inside canvas elements would remain fallback content.",
-            "action": "Render four meaningful distinct diagram views directly into their visible canvases or SVG, with labels/units/model correspondence."
+            "line": 133,
+            "quote": "function drawLayoutDiagram() {",
+            "problem": "All four diagram routines repeat the same grey rectangle and two axis lines; no actual site/floor/elevation/section content or dimensional correspondence is implemented.",
+            "action": "Create meaningful distinct diagrams tied to the authored tower concept."
           },
           {
             "severity": "Warning",
             "category": "Structural Completeness",
             "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
-            "line": 158,
-            "quote": "switch (stage) {",
-            "problem": "The four states swap a cylinder, plane and two offset cubes rather than showing an explained3D development process leading to the completed tower.",
-            "action": "Implement actual intermediate tower forms and a completed stage with understandable explanations."
+            "line": 213,
+            "quote": "function draw3DModel() {",
+            "problem": "No design-development stages, stage selector or explanations are implemented.",
+            "action": "Implement distinct explained intermediate3D forms and their drawing/model correspondence."
           },
           {
             "severity": "Warning",
             "category": "Data Accuracy and References",
             "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
-            "line": 188,
-            "quote": "const geometry = new THREE.CylinderGeometry(50, 50, 500, 32);",
-            "problem": "The purported tower remains an untapered500-unit cylinder, inconsistent with the supplied upward-narrowing555m form.",
-            "action": "Build the coherent authored tapering tower at a stated555m scale and align diagrams."
+            "line": 214,
+            "quote": "const geometry = new THREE.BoxGeometry(10, 10, 10);",
+            "problem": "The entire model routine creates a10×10×10cube rather than a555m upward-narrowing tower. The required public facts, sources and conceptual/nonofficial disclosure are absent.",
+            "action": "Represent the requested conceptual tower and identify known facts, assumptions and public sources."
           },
           {
             "severity": "Warning",
-            "category": "Interactions",
+            "category": "Layout",
             "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
-            "line": 133,
-            "quote": "camera.position.copy(cameraPosition);",
-            "problem": "Every camera handler calls updateScene, which immediately restores fixed cameraPosition/lookAt, undoing Zoom/Orbit/Tilt/Pointer changes.",
-            "action": "Keep camera state separate from geometry updates; apply actual target-relative camera operations and reset only on explicit reset."
+            "line": 15,
+            "quote": "height: 100vh;",
+            "problem": "The fixed-height centered container pushes upper drawings above the page top; fixed800px canvas and overlapping drawing captions/absolute controls prevent a usable mobile layout.",
+            "action": "Use responsive renderer sizing and reachable scrollable layout without clipped/overlapping content."
           },
           {
             "severity": "Warning",
             "category": "Readability",
             "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
-            "line": 14,
-            "quote": "#controls {",
-            "problem": "Native buttons retain the browser default~13px font despite19px body/control-container text.",
-            "action": "Explicitly set button and other meaningful control text to at least19px."
+            "line": 139,
+            "quote": "ctx.font = '14px Arial';",
+            "problem": "Diagram text is14px and visible drawing captions/units default to16px.",
+            "action": "Use at least19px meaningful rendered text."
+          },
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+            "line": 48,
+            "quote": "background-color: #4CAF50;",
+            "problem": "White button text on#4CAF50 has contrast about2.78:1, below4.5:1.",
+            "action": "Choose foreground/background colors meeting4.5:1 contrast."
           }
         ],
         "notes": [
-          "Third re-review/iteration4. ExactSHA c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1. Browser reproduces unsupported CanvasRenderer constructor failure.",
-          "Three-re-review limit reached, task incomplete. Stop automatic paid repair for this native model and require a bundled user decision. Raw author bytes remain untouched."
+          "Fresh actual native model identity and exact response bytes match the episode. No author HTML was edited; the original itself fails parsing. No additional paid retry is authorized by this review."
         ],
-        "reviewed_at": "2026-10-13T15:43:11.362278+00:00",
-        "re_review_number": 3,
-        "review_iteration": 4,
-        "retry_limit_reached": true,
-        "current_generation_status": "generated",
-        "active_source": true
+        "reviewed_at": "2026-10-15T00:29:22.887705+00:00",
+        "episode_review_iteration": 1
       },
-      "prompt_sha256": "1926b0f7ad97f730923d6334201c35bd203bfaaa78114de8e377d5b14a39da2f",
+      "prompt_sha256": "ea04b1b274b7998e3aea1923901375c742ad5bdf5f14a37dddcee4e162cdfa2a",
       "initial_prompt_sha256": "a8579dd0ee4b74fc146f255c9d15286d8ad84bc8167d3e1a49c8569bc7d551d8",
       "implementation_cost": {
         "kind": "gpu_request_time",
@@ -261,18 +272,18 @@
         "price_snapshot": {
           "gpu_hourly_usd": 1.627
         },
-        "estimated_total_usd": 0.15133013487583333,
-        "estimated_final_response_usd": 0.04769708138222222,
-        "recorded_attempts": 4,
-        "successful_code_responses": 4,
-        "additional_attempts": 3,
-        "known_cost_attempts": 4,
+        "estimated_total_usd": 0.20654932581,
+        "estimated_final_response_usd": 0.05521919093416667,
+        "recorded_attempts": 5,
+        "successful_code_responses": 5,
+        "additional_attempts": 4,
+        "known_cost_attempts": 5,
         "unknown_usage_attempts": 0,
         "missing_duration_attempts": 0,
-        "total_request_seconds": 334.842339,
+        "total_request_seconds": 457.023708,
         "tokens": {
-          "tokens_in": 5417,
-          "tokens_out": 5520,
+          "tokens_in": 6694,
+          "tokens_out": 7536,
           "cache_read_tokens": 0,
           "cache_write_tokens": 0
         },
@@ -324,28 +335,39 @@
             "request_seconds": 105.537488,
             "record_sha256": "4ba0102c46065402e758cdf025296ea2e97015c8b40af6959d0b526b7401b12b",
             "response_sha256": "21800ac43f141b91512be06acbaf93f978dd31ac5bda3e6b9d0de6eb2880b4b0"
+          },
+          {
+            "requested_at": "2026-10-15T00:25:28.013791+00:00",
+            "status": "generated",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.05521919093416667,
+            "request_seconds": 122.181369,
+            "record_sha256": "e3093196242444264eb4cda85daef11c07dd4746a2fb58eb18f8d9985a66f7f0",
+            "response_sha256": "43cd4c85f9c0af2df5677b7bdec19065dd8e371aa8c236ee855ded2392194ef6"
           }
         ]
       },
-      "requested_at": "2026-10-13T15:39:48.976436+00:00",
-      "generated_at": "2026-10-13T15:41:34.513924+00:00",
+      "requested_at": "2026-10-15T00:25:28.013791+00:00",
+      "generated_at": "2026-10-15T00:27:30.195160+00:00",
       "reported_model": "meta-llama/Llama-3.1-8B-Instruct",
-      "tokens_in": 1610,
-      "tokens_out": 1734,
+      "tokens_in": 1277,
+      "tokens_out": 2016,
       "max_output_tokens": 4096,
-      "temperature": 0.3,
+      "temperature": 0,
       "temperature_sent": true,
       "bedrock_reasoning_effort": null,
       "finish_reason": "stop",
+      "retry_episode": "lotte-tower-retry-20261015",
       "request_conditions": {
         "initial_prompt_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
         "initial_max_output_tokens": 6144,
         "latest_max_output_tokens": 4096,
         "initial_temperature": 0.3,
-        "latest_temperature": 0.3,
+        "latest_temperature": 0,
         "initial_reasoning_effort": null,
-        "recorded_requests": 4,
-        "followup_requests": 3,
+        "recorded_requests": 5,
+        "followup_requests": 4,
         "final_outputs_are_controlled_one_shot_comparison": false
       }
     }

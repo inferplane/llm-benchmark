@@ -1,0 +1,863 @@
+{
+  "nova-pro": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "task_failed",
+      "기존 실패 사유": null,
+      "기존 원본 SHA": "f0f629b16c95906ac13780be02ff5ee6e2bb4af51458403689780b692aae373a",
+      "직전 완결 원본 검수 SHA": "f0f629b16c95906ac13780be02ff5ee6e2bb4af51458403689780b692aae373a"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/nova-pro/lotte-tower/artwork.html",
+        "line": 46,
+        "quote": "// Placeholder for actual diagram drawing",
+        "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
+        "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+      },
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/nova-pro/lotte-tower/artwork.html",
+        "line": 63,
+        "quote": "const geometry = new THREE.CylinderGeometry(5, 2.5, 55, 40);",
+        "problem": "No explained intermediate3D development states are implemented.",
+        "action": "Provide distinct explained3D forms leading to completion and link them to the drawings."
+      },
+      {
+        "severity": "Warning",
+        "category": "Data Accuracy and References",
+        "file": "docs/models/nova-pro/lotte-tower/artwork.html",
+        "line": 63,
+        "quote": "const geometry = new THREE.CylinderGeometry(5, 2.5, 55, 40);",
+        "problem": "Top radius5 is larger than bottom2.5: the tower widens upward, contrary to the supplied form.",
+        "action": "Use coherent upward narrowing and matching drawings."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/nova-pro/lotte-tower/artwork.html",
+        "line": 58,
+        "quote": "camera = new THREE.PerspectiveCamera(75, modelContainer.offsetWidth / modelContainer.offsetHeight, 0.1, 1000);",
+        "problem": "Inner#model still has zero height; browser confirms a0px-high renderer and invalid aspect, despite the outer600px region.",
+        "action": "Give the actual host usable responsive dimensions and derive camera/render size from them."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "nova-lite": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "review_failed",
+      "기존 실패 사유": null,
+      "기존 원본 SHA": "57e9c8515fbc8dc91f51f718b15f31855b3db1034103037986a261c1d0924f5f",
+      "직전 완결 원본 검수 SHA": "57e9c8515fbc8dc91f51f718b15f31855b3db1034103037986a261c1d0924f5f"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Critical",
+        "category": "Renders",
+        "file": "docs/models/nova-lite/lotte-tower/artwork.html",
+        "line": 161,
+        "quote": "const geometry = new THREE.Geometry();",
+        "problem": "THREE.Geometry (and Face3 below) were removed from the pinned runtime; constructor throws before model initialization.",
+        "action": "Use supported BufferGeometry and valid indices."
+      },
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/nova-lite/lotte-tower/artwork.html",
+        "line": 160,
+        "quote": "function createTowerGeometry() {",
+        "problem": "No explained intermediate3D development states are implemented.",
+        "action": "Provide distinct explained3D forms leading to completion and link them to the drawings."
+      },
+      {
+        "severity": "Warning",
+        "category": "Data Accuracy and References",
+        "file": "docs/models/nova-lite/lotte-tower/artwork.html",
+        "line": 198,
+        "quote": "geometry.faces = geometry.faces.concat(faces);",
+        "problem": "Each new level appends faces indexed0–7 without an offset, so only the first ring would be referenced even after replacing the obsolete API.",
+        "action": "Index successive elevated rings correctly and verify actual mesh bounds at the stated555m total."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/nova-lite/lotte-tower/artwork.html",
+        "line": 158,
+        "quote": "camera.position.z = 5;",
+        "problem": "The intended555m geometry starts with camera only5units away and no useful target/home fit.",
+        "action": "Fit the complete authored tower and update aspect from the actual viewport."
+      },
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/nova-lite/lotte-tower/artwork.html",
+        "line": 107,
+        "quote": "sitePlanCtx.font = '24px Arial';",
+        "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+        "action": "Use at least19px meaningful rendered text and controls."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "nova-micro": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "review_failed",
+      "기존 실패 사유": null,
+      "기존 원본 SHA": "5ebb6caba2c5f794c672836f213201676aa9a67a66ac2df64c9eb3e9fb7b4e7b",
+      "직전 완결 원본 검수 SHA": "5ebb6caba2c5f794c672836f213201676aa9a67a66ac2df64c9eb3e9fb7b4e7b"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Critical",
+        "category": "Renders",
+        "file": "docs/models/nova-micro/lotte-tower/artwork.html",
+        "line": 76,
+        "quote": "<img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAQCAYAAADNo+9XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AEKDR0Iu3JyDAA==\" alt=\"Site Plan\">",
+        "problem": "All four images use the same incomplete PNG data URI; browser reports ERR_INVALID_URL and no drawings load.",
+        "action": "Render actual inline drawings or valid complete embedded assets."
+      },
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/nova-micro/lotte-tower/artwork.html",
+        "line": 141,
+        "quote": "function createStage(name) {",
+        "problem": "No explained intermediate3D development states are implemented.",
+        "action": "Provide distinct explained3D forms leading to completion and link them to the drawings."
+      },
+      {
+        "severity": "Warning",
+        "category": "Data Accuracy and References",
+        "file": "docs/models/nova-micro/lotte-tower/artwork.html",
+        "line": 142,
+        "quote": "const geometry = new THREE.BoxGeometry(1, 1, 1);",
+        "problem": "All named stage/final meshes remain identical unit cubes; only one is shown, not the required tapered tower.",
+        "action": "Build meaningful development forms and coherent completed tower geometry."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/nova-micro/lotte-tower/artwork.html",
+        "line": 20,
+        "quote": ".header {",
+        "problem": "The100%-width header adds horizontal padding, and unwrapped rows overflow at all tested widths. Model/stage slots remain poorly sized.",
+        "action": "Fit header/rows with responsive sizing and preserve normal scrolling."
+      },
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/nova-micro/lotte-tower/artwork.html",
+        "line": 48,
+        "quote": ".control-button {",
+        "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+        "action": "Use at least19px meaningful rendered text and controls."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "nemotron-nano-3-30b": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "review_failed",
+      "기존 실패 사유": null,
+      "기존 원본 SHA": "acc83a509b386bdc4f2335c08d3b474566d8e4e1ea9a5e146bd0428d16b15786",
+      "직전 완결 원본 검수 SHA": "acc83a509b386bdc4f2335c08d3b474566d8e4e1ea9a5e146bd0428d16b15786"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Critical",
+        "category": "Renders",
+        "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
+        "line": 99,
+        "quote": "const siteTex = texLoader.load(sitePlanCanvas);",
+        "problem": "TextureLoader still receives canvases as URLs, attempting missing[object HTMLCanvasElement] image requests.",
+        "action": "Use CanvasTexture with real drawn contents."
+      },
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
+        "line": 93,
+        "quote": "const sitePlanCanvas = makeCanvas(256, 256);",
+        "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
+        "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+      },
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html",
+        "line": 11,
+        "quote": "#info p { margin:0; font-size:1rem; line-height:1.4; }",
+        "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+        "action": "Use at least19px meaningful rendered text and controls."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "glm-4.7-flash": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "task_failed",
+      "기존 실패 사유": null,
+      "기존 원본 SHA": "9586dab8a74cc49794579f440ff4b948d1e1a89b58fd306b98d584276e8c38a0",
+      "직전 완결 원본 검수 SHA": "9586dab8a74cc49794579f440ff4b948d1e1a89b58fd306b98d584276e8c38a0"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+        "line": 82,
+        "quote": "font-size: 12px;",
+        "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+        "action": "Use at least19px meaningful rendered text and controls."
+      },
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+        "line": 582,
+        "quote": "setStage(stage) {",
+        "problem": "No explained intermediate3D development states are implemented.",
+        "action": "Provide distinct explained3D forms leading to completion and link them to the drawings."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+        "line": 305,
+        "quote": "this.camera.position.set(200, 150, 200);",
+        "problem": "Default/full-model target and distance do not contain the555-high shape; the view is concentrated near the base.",
+        "action": "Fit the complete form in its model/home pose."
+      },
+      {
+        "severity": "Warning",
+        "category": "Interactions",
+        "file": "docs/models/glm-4.7-flash/lotte-tower/artwork.html",
+        "line": 666,
+        "quote": "this.camera.position.lerp(this.targetCameraPos, 0.05);",
+        "problem": "Every frame pulls the camera back toward a programmed pose, undoing free OrbitControls movement after input.",
+        "action": "Apply transition interpolation only during explicit transitions and preserve user orbit afterward."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "gpt-oss-20b": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "review_failed",
+      "기존 실패 사유": null,
+      "기존 원본 SHA": "5ee00c024bdde7e10751fe50cf8f6e87d3c7bcc8035d71a4a72a8085c0c62d0c",
+      "직전 완결 원본 검수 SHA": "5ee00c024bdde7e10751fe50cf8f6e87d3c7bcc8035d71a4a72a8085c0c62d0c"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Critical",
+        "category": "Renders",
+        "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
+        "line": 98,
+        "quote": "resize();",
+        "problem": "resize runs before const camera initialization and accesses it, causing Cannot access camera before initialization.",
+        "action": "Initialize camera before the first resize call; retain correct host-based dimensions."
+      },
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
+        "line": 9,
+        "quote": "header span{font-size:18px}",
+        "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+        "action": "Use at least19px meaningful rendered text and controls."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
+        "line": 16,
+        "quote": "#viewer{flex:2 1 500px;position:relative;background:#000;min-height:300px}",
+        "problem": "Viewer layout continues to overflow768/375; the minimum/flex dimensions cannot fit the narrow page.",
+        "action": "Allow viewer and drawing children to shrink/reflow without clipping."
+      },
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html",
+        "line": 134,
+        "quote": "if(e.key==='w'){controls.target.y+=10;controls.update();}",
+        "problem": "Keyboard shortcuts move the target, but provide no actual orbit or zoom equivalent.",
+        "action": "Provide working keyboard orbit/zoom with correct camera-to-target state."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "gpt-oss-120b": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "review_failed",
+      "기존 실패 사유": null,
+      "기존 원본 SHA": "662f89790a2a605ec2222566ead92b12357a9f7992fddc1add1ecf63f13d412f",
+      "직전 완결 원본 검수 SHA": "662f89790a2a605ec2222566ead92b12357a9f7992fddc1add1ecf63f13d412f"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Critical",
+        "category": "Renders",
+        "file": "docs/models/gpt-oss-120b/lotte-tower/artwork.html",
+        "line": 175,
+        "quote": "case 'ArrowDown': controls.rotateDown(0.05); controls.update(); break;",
+        "problem": "ArrowDown/Right call nonexistent rotateDown/rotateRight; real keyboard tests reproduce both method-not-a-function errors.",
+        "action": "Use signed rotateUp/rotateLeft calls or supported camera math and test all directions."
+      },
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/gpt-oss-120b/lotte-tower/artwork.html",
+        "line": 13,
+        "quote": ".navBtn{background:#e0e0e0;border:none;padding:0.4rem 0.6rem;margin:0.2rem 0;cursor:pointer;font-size:1rem;width:100%;text-align:left;}",
+        "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+        "action": "Use at least19px meaningful rendered text and controls."
+      },
+      {
+        "severity": "Warning",
+        "category": "Data Accuracy and References",
+        "file": "docs/models/gpt-oss-120b/lotte-tower/artwork.html",
+        "line": 111,
+        "quote": "const geo = new THREE.CylinderGeometry(bottomR, topR, height, 32, 1, true);",
+        "problem": "Top/bottom radii remain reversed: completed upright geometry widens upward, inconsistent with its description/drawings.",
+        "action": "Correct radius order and keep drawing/model taper coherent."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "qwen3-32b": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "review_failed",
+      "기존 실패 사유": null,
+      "기존 원본 SHA": "129863275742c51e3d06f0af0960d7a1997c40b3874e217eab2e499d3596c50f",
+      "직전 완결 원본 검수 SHA": "129863275742c51e3d06f0af0960d7a1997c40b3874e217eab2e499d3596c50f"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Critical",
+        "category": "Renders",
+        "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+        "line": 108,
+        "quote": "if (typeof THREE === 'undefined') {",
+        "problem": "The local runtime script was omitted; initialization logs runtime not loaded then throws on THREE.Scene.",
+        "action": "Load ../runtime/three-runtime.js before initialization and verify actual rendering."
+      },
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+        "line": 260,
+        "quote": "function updateDrawing() {",
+        "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
+        "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+      },
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+        "line": 73,
+        "quote": "font-size: 14px;",
+        "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+        "action": "Use at least19px meaningful rendered text and controls."
+      },
+      {
+        "severity": "Warning",
+        "category": "Data Accuracy and References",
+        "file": "docs/models/qwen3-32b/lotte-tower/artwork.html",
+        "line": 189,
+        "quote": "new THREE.CylinderGeometry(baseRadiusBottom, baseRadiusTop, baseHeight, 32),",
+        "problem": "Cylinder radius order is still reversed, contradicting the upward-tapering description.",
+        "action": "Use correct top/bottom radii throughout all stages."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "nemotron-super-3-120b": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "task_failed",
+      "기존 실패 사유": null,
+      "기존 원본 SHA": "a082bfe8a3bc35572b99259148f702cbb30a9ebad83da087812b308d06bc4982",
+      "직전 완결 원본 검수 SHA": "a082bfe8a3bc35572b99259148f702cbb30a9ebad83da087812b308d06bc4982"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html",
+        "line": 11,
+        "quote": "header p { font-size: 1rem; opacity: 0.9; }",
+        "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+        "action": "Use at least19px meaningful rendered text and controls."
+      },
+      {
+        "severity": "Warning",
+        "category": "Interactions",
+        "file": "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html",
+        "line": 255,
+        "quote": "const stage = parseInt(button.getAttribute('data-stage').replace(/[^0-9]/g, '')) - 1;",
+        "problem": "Stage attributes are words(concept/massing/taper/facade/final), but code removes all nondigits then parses them, givingNaN. Every click creates the default100-unit form; only descriptions change.",
+        "action": "Map stage names to the actual numeric states so each advertised3D stage differs."
+      },
+      {
+        "severity": "Warning",
+        "category": "Accessibility",
+        "file": "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html",
+        "line": 282,
+        "quote": "if (e.key === 'Escape') {",
+        "problem": "Keyboard only resets; there is no keyboard orbit or zoom equivalent.",
+        "action": "Provide keyboard-accessible camera operations."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "ministral-14b": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "failed",
+      "기존 실패 사유": "Only the pinned local Three.js runtime is permitted",
+      "기존 원본 SHA": null,
+      "직전 완결 원본 검수 SHA": "95efdcf9dcb9f0fa1bf80555aefd9281515431cb189b665aa8a6e1d87f2f45dd"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Critical",
+        "category": "Renders",
+        "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+        "line": 531,
+        "quote": "window.OrbitControls = function(object, domElement) {",
+        "problem": "The simulated runtime defines window.OrbitControls but calls new THREE.OrbitControls; it throws before rendering. The bundled local runtime is never loaded.",
+        "action": "Use ../runtime/three-runtime.js and real THREE.OrbitControls; remove the incomplete substitute runtime rather than aliasing an incompatible stub. Retest all render/control methods."
+      },
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+        "line": 62,
+        "quote": "font-size: 0.9rem;",
+        "problem": "Meaningful UI/diagram text is below19px at rendered size.",
+        "action": "Make meaningful text and diagram labels at least19px on mobile/desktop."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "qwen3-235b-a22b": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "review_failed",
+      "기존 실패 사유": null,
+      "기존 원본 SHA": "c361b11bdb85a58a3b14f046b484551db13809f92c864e4aad9d2934d8bda05c",
+      "직전 완결 원본 검수 SHA": "c361b11bdb85a58a3b14f046b484551db13809f92c864e4aad9d2934d8bda05c"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Critical",
+        "category": "Renders",
+        "file": "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html",
+        "line": 449,
+        "quote": "const quat = new Quaternion().setFromEuler(new Euler(0, 0, 0, 'XYZ'));",
+        "problem": "The custom Quaternion class lacks setFromEuler, but OrbitControls construction calls it, causing the observed method-not-a-function error.",
+        "action": "Complete the custom spatial runtime consistently or use the supplied local runtime; verify initialization and all camera operations."
+      },
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html",
+        "line": 130,
+        "quote": "font-size: 16px;",
+        "problem": "Meaningful UI/diagram text remains below19px rendered size.",
+        "action": "Use at least19px meaningful rendered text and controls."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "llama-3.3-70b-bedrock": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "review_failed",
+      "기존 실패 사유": null,
+      "기존 원본 SHA": "e67818ea849c028c22f5335f3a765d43a209a64804c2a516d35ac385f7de3052",
+      "직전 완결 원본 검수 SHA": "e67818ea849c028c22f5335f3a765d43a209a64804c2a516d35ac385f7de3052"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Critical",
+        "category": "Renders",
+        "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+        "line": 135,
+        "quote": "case 'ArrowDown':",
+        "problem": "Down/Right invoke nonexistent rotateDown/rotateRight; actual keyboard tests throw for both directions.",
+        "action": "Use signed supported rotateUp/rotateLeft operations."
+      },
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+        "line": 57,
+        "quote": "<img id=\"site-plan\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==\">",
+        "problem": "The four actual site/floor/elevation/section diagrams remain missing or placeholders.",
+        "action": "Render meaningful distinct diagram content with model correspondence and labelled units/assumptions."
+      },
+      {
+        "severity": "Warning",
+        "category": "Data Accuracy and References",
+        "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+        "line": 76,
+        "quote": "const geometry = new THREE.CylinderGeometry(radius, radius / 2, height, 64);",
+        "problem": "All frusta widen upward, and final height is400 with no555m scale correspondence.",
+        "action": "Use coherent upward-narrowing stages and a consistent555m completed representation."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+        "line": 149,
+        "quote": "camera.aspect = window.innerWidth / window.innerHeight;",
+        "problem": "Camera aspect uses full-window height while renderer uses80%height.",
+        "action": "Derive aspect from the actual renderer dimensions."
+      },
+      {
+        "severity": "Warning",
+        "category": "Interactions",
+        "file": "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html",
+        "line": 109,
+        "quote": "document.getElementById('reset-view').addEventListener('click', () => {",
+        "problem": "Reset only sets camera.z, preserving prior orbit x/y/target, so it does not restore a valid home view.",
+        "action": "Restore complete home position/target/orientation."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "llama-3.1-8b": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "review_failed",
+      "기존 실패 사유": null,
+      "기존 원본 SHA": "c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1",
+      "직전 완결 원본 검수 SHA": "c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Critical",
+        "category": "Renders",
+        "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+        "line": 81,
+        "quote": "const diagram1 = new THREE.CanvasRenderer();",
+        "problem": "The pinned runtime has no CanvasRenderer; construction throws THREE.CanvasRenderer is not a constructor before controls or animation initialize.",
+        "action": "Use supported local rendering APIs and real2Dcanvas contexts for diagrams, initialize actual scene geometry before rendering, and verify all controls."
+      },
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+        "line": 113,
+        "quote": "diagram1.render(scene, camera);",
+        "problem": "All four drawing renderers are intended to render the identical scene/camera, with no distinct site/floor/elevation/section drawing content; inner canvases appended inside canvas elements would remain fallback content.",
+        "action": "Render four meaningful distinct diagram views directly into their visible canvases or SVG, with labels/units/model correspondence."
+      },
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+        "line": 158,
+        "quote": "switch (stage) {",
+        "problem": "The four states swap a cylinder, plane and two offset cubes rather than showing an explained3D development process leading to the completed tower.",
+        "action": "Implement actual intermediate tower forms and a completed stage with understandable explanations."
+      },
+      {
+        "severity": "Warning",
+        "category": "Data Accuracy and References",
+        "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+        "line": 188,
+        "quote": "const geometry = new THREE.CylinderGeometry(50, 50, 500, 32);",
+        "problem": "The purported tower remains an untapered500-unit cylinder, inconsistent with the supplied upward-narrowing555m form.",
+        "action": "Build the coherent authored tapering tower at a stated555m scale and align diagrams."
+      },
+      {
+        "severity": "Warning",
+        "category": "Interactions",
+        "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+        "line": 133,
+        "quote": "camera.position.copy(cameraPosition);",
+        "problem": "Every camera handler calls updateScene, which immediately restores fixed cameraPosition/lookAt, undoing Zoom/Orbit/Tilt/Pointer changes.",
+        "action": "Keep camera state separate from geometry updates; apply actual target-relative camera operations and reset only on explicit reset."
+      },
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/llama-3.1-8b/lotte-tower/artwork.html",
+        "line": 14,
+        "quote": "#controls {",
+        "problem": "Native buttons retain the browser default~13px font despite19px body/control-container text.",
+        "action": "Explicitly set button and other meaningful control text to at least19px."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "llama-3.3-70b": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "task_failed",
+      "기존 실패 사유": null,
+      "기존 원본 SHA": "a061dc832b7e06ecc97d03568baf5cf3098bd89829dd61f1eb9d721a9c914a94",
+      "직전 완결 원본 검수 SHA": "a061dc832b7e06ecc97d03568baf5cf3098bd89829dd61f1eb9d721a9c914a94"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+        "line": 129,
+        "quote": "indices.push(base, base + 1, base + 2);",
+        "problem": "Every referenced vertex index has offset0–3 in an8-vertex block, and all those vertices have y=0. The height-bearing vertices4–7 are never indexed, so the completed model is a flat ground mesh, not the required555m tower.",
+        "action": "Build valid surface indices that use successive elevated rings; verify the referenced mesh has a real nonzero vertical extent and matches its drawings."
+      },
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+        "line": 62,
+        "quote": "<div class=\"panel\" id=\"site-plan\">",
+        "problem": "The diagram package remains generic rectangles: elevation is three separate bars and section is three squares, with no coherent tower/site/floor/section geometry.",
+        "action": "Render four meaningful distinct diagrams tied to the authored spatial model and stages."
+      },
+      {
+        "severity": "Warning",
+        "category": "Data Accuracy and References",
+        "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+        "line": 65,
+        "quote": "<text x=\"50\" y=\"50\" font-size=\"24\">Site Plan (500x500m)</text>",
+        "problem": "New site500×500m and floor80×80m dimensions are presented without identifying them as unverified conceptual assumptions.",
+        "action": "Label unsupported dimensions as assumptions, keeping555m/123floors distinct as supplied public facts."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+        "line": 16,
+        "quote": "height: 100vh;",
+        "problem": "The vertically centered fixed-height container is shorter than its mobile contents; panels extend above the reachable start and labels overflow their180pxSVG frames.",
+        "action": "Use content-sized responsive/scrollable layout and fit diagram annotations inside their rendered bounds."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+        "line": 151,
+        "quote": "camera.aspect = window.innerWidth / window.innerHeight;",
+        "problem": "Camera aspect uses full window height while the rendered canvas is70%window height, distorting the projection at every viewport.",
+        "action": "Calculate camera aspect from the actual rendered width/height used by renderer.setSize."
+      },
+      {
+        "severity": "Warning",
+        "category": "Interactions",
+        "file": "docs/models/llama-3.3-70b/lotte-tower/artwork.html",
+        "line": 175,
+        "quote": "camera.position.z -= 50;",
+        "problem": "Zoom still changes world z after arbitrary orbit, rather than camera-to-target distance, without synchronizing controls; view direction can shift away from the object.",
+        "action": "Zoom along the target-relative camera vector and update controls. Restore the full home camera/target on reset, including after panning."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "qwen3.6-27b": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "failed",
+      "기존 실패 사유": "Model response is not a complete HTML document",
+      "기존 원본 SHA": null,
+      "직전 완결 원본 검수 SHA": null
+    },
+    "이전 독립 검수 지적 원문": [],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  },
+  "exaone-3.5-32b": {
+    "재시도": {
+      "회차": "lotte-tower-retry-20261015",
+      "실패 상태": "review_failed",
+      "기존 실패 사유": null,
+      "기존 원본 SHA": "f810c39e19a7a8d6197f01194885f925449bb9bd6303710d59ed96219c2c096c",
+      "직전 완결 원본 검수 SHA": "f810c39e19a7a8d6197f01194885f925449bb9bd6303710d59ed96219c2c096c"
+    },
+    "이전 독립 검수 지적 원문": [
+      {
+        "severity": "Critical",
+        "category": "Renders",
+        "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+        "line": 90,
+        "quote": "function rotateRight() { controls.rotateRight(Math.PI / 4); }",
+        "problem": "The right-arrow button/shortcut still calls nonexistent controls.rotateRight; browser reproduces the exception.",
+        "action": "Use the supported signed rotateLeft operation or correct target-relative camera math."
+      },
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+        "line": 95,
+        "quote": "// Mock diagram rendering (replace with actual SVG or canvas drawing)",
+        "problem": "All four diagrams are explicitly mock colored rectangles with titles, not meaningful site/floor/elevation/section content.",
+        "action": "Provide real schematic drawings with units/assumptions and model correspondence."
+      },
+      {
+        "severity": "Warning",
+        "category": "Structural Completeness",
+        "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+        "line": 47,
+        "quote": "// Mock 3D model setup (replace with actual geometry)",
+        "problem": "All design-stage selection/progression was removed; only one static mock frustum remains.",
+        "action": "Restore explained intermediate3D forms and a completed state linked to drawings."
+      },
+      {
+        "severity": "Warning",
+        "category": "Data Accuracy and References",
+        "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+        "line": 48,
+        "quote": "const geometry = new THREE.CylinderGeometry(50, 10, 500, 32, 1, true, 0, Math.PI * 2); // Simplified taper",
+        "problem": "Top radius50 exceeds bottom10, so the model widens upward, contrary to the supplied tower form.",
+        "action": "Use a coherent upward-narrowing form with stated scale and corresponding diagrams."
+      },
+      {
+        "severity": "Warning",
+        "category": "Layout",
+        "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+        "line": 44,
+        "quote": "renderer.setSize(window.innerWidth, window.innerHeight);",
+        "problem": "The full-window canvas is inserted inside a max800px×600px host, overflowing its region; diagram widths plus padding exceed mobile width while overflow-x:hidden clips them.",
+        "action": "Use actual host dimensions and responsive diagram wrapping without clipped content."
+      },
+      {
+        "severity": "Warning",
+        "category": "Readability",
+        "file": "docs/models/exaone-3.5-32b/lotte-tower/artwork.html",
+        "line": 8,
+        "quote": "body, html { margin: 0; padding: 0; overflow-x: hidden; font-family: Arial, sans-serif; }",
+        "problem": "Body and SVG diagram labels remain default16px, below19px, despite19px buttons.",
+        "action": "Set all meaningful rendered text and diagram labels to at least19px."
+      }
+    ],
+    "공통 기능 확인": [
+      "배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.",
+      "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.",
+      "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.",
+      "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.",
+      "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.",
+      "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."
+    ]
+  }
+}

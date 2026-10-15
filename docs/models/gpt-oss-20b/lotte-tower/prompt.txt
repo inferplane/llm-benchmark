@@ -1,6 +1,7 @@
-You are the original author, model gpt-oss-20b, served as openai.gpt-oss-20b-1:0. Repair your OWN previously generated standalone HTML. This is a bug-fix task, not a new creative brief. Preserve your own expressive concept and visual choices. Return ONLY one complete corrected HTML document, all tags closed. No explanation, no Markdown fence, no snippets. No external dependencies or network. 
+당신은 원 작성 모델 gpt-oss-20b이며, 실제 호출 ID는 openai.gpt-oss-20b-1:0입니다.
+자신이 작성한 롯데타워 구현의 실패를 수정하세요. 표현 방식과 시각적 구성은 스스로 결정하세요. 다른 모델의 코드나 참고 구현은 제공하지 않습니다. 모든 필수 기능을 구현한 완결된 HTML 문서 하나만 반환하세요.
 
-ORIGINAL TASK BRIEF. Retain every requested feature and disclosure:
+최초 공통 요청 — 기능과 출처·추정 구분을 모두 유지하세요:
 당신은 gpt-oss-20b 모델입니다. 실제 호출 식별자는 openai.gpt-oss-20b-1:0입니다.
 
 롯데월드타워의 건축 설계 과정을 이해할 수 있도록, 설계도면과 단계별 3D 모델 및 완성된 3D 모델을 함께 보여주는 인터랙티브 웹페이지를 직접 구현하세요.
@@ -31,7 +32,7 @@ ORIGINAL TASK BRIEF. Retain every requested feature and disclosure:
 - 설명문이나 코드 조각을 따로 반환하지 말고 전체 HTML을 반환하세요.
 
 
-YOUR PREVIOUS FULL RESPONSE:
+이 모델의 이전 응답 원문:
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -41,12 +42,13 @@ YOUR PREVIOUS FULL RESPONSE:
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f0f0f0;color:#222}
 header{background:#004b8d;color:#fff;padding:10px 20px;font-size:22px;display:flex;justify-content:space-between;align-items:center}
 header span{font-size:18px}
-#content{display:flex;flex-wrap:wrap;gap:20px;padding:20px}
+#content{display:flex;flex-direction:column;gap:20px;padding:20px}
+@media(min-width:600px){#content{flex-direction:row}}
 #drawings{flex:1 1 300px;display:flex;flex-direction:column;gap:10px}
 .drawing{border:1px solid #ccc;background:#fff;padding:10px;flex:1 1 200px;overflow:auto}
 .drawing h3{font-size:20px;margin:0 0 5px}
 .drawing svg{width:100%;height:auto}
-#viewer{flex:2 1 500px;position:relative;background:#000}
+#viewer{flex:2 1 500px;position:relative;background:#000;min-height:300px}
 #viewer canvas{display:block;width:100%;height:100%}
 #controls{position:absolute;top:10px;right:10px;display:flex;gap:10px}
 button{font-size:19px;padding:5px 10px;background:#fff;border:1px solid #888;border-radius:4px;cursor:pointer}
@@ -65,7 +67,9 @@ button:hover{background:#e0e0e0}
 <h3>배치도 (Site Plan)</h3>
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
 <rect x="10" y="10" width="180" height="180" fill="#e0e0e0" stroke="#888" stroke-width="2"/>
-<text x="100" y="100" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="#444">배치도 (공개 자료 기반)</text>
+<text x="100" y="30" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#444">서울 시내</text>
+<text x="100" y="50" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#444">롯데월드타워 부지</text>
+<text x="100" y="70" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#444">공개 자료 기반</text>
 </svg>
 </div>
 <div class="drawing">
@@ -73,7 +77,7 @@ button:hover{background:#e0e0e0}
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
 <rect x="20" y="20" width="160" height="160" fill="#f5f5f5" stroke="#888" stroke-width="2"/>
 <rect x="60" y="60" width="80" height="80" fill="#c0c0c0" stroke="#555" stroke-width="1"/>
-<text x="100" y="190" text-anchor="middle" font-size="12" fill="#444">기준층 평면도 (공개 자료 기반)</text>
+<text x="100" y="190" text-anchor="middle" font-size="18" fill="#444">기준층 평면도 (공개 자료 기반)</text>
 </svg>
 </div>
 <div class="drawing">
@@ -81,7 +85,7 @@ button:hover{background:#e0e0e0}
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
 <rect x="10" y="10" width="180" height="180" fill="#e0e0e0" stroke="#888" stroke-width="2"/>
 <polygon points="100,20 120,180 80,180" fill="#c0c0c0" stroke="#555" stroke-width="1"/>
-<text x="100" y="190" text-anchor="middle" font-size="12" fill="#444">입면도 (공개 자료 기반)</text>
+<text x="100" y="190" text-anchor="middle" font-size="18" fill="#444">입면도 (공개 자료 기반)</text>
 </svg>
 </div>
 <div class="drawing">
@@ -89,7 +93,7 @@ button:hover{background:#e0e0e0}
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
 <rect x="10" y="10" width="180" height="180" fill="#e0e0e0" stroke="#888" stroke-width="2"/>
 <rect x="90" y="20" width="20" height="160" fill="#c0c0c0" stroke="#555" stroke-width="1"/>
-<text x="100" y="190" text-anchor="middle" font-size="12" fill="#444">단면도 (공개 자료 기반)</text>
+<text x="100" y="190" text-anchor="middle" font-size="18" fill="#444">단면도 (공개 자료 기반)</text>
 </svg>
 </div>
 </div>
@@ -118,9 +122,17 @@ const stagePrev = document.getElementById('stagePrev');
 const stageNext = document.getElementById('stageNext');
 const canvas = document.getElementById('threeCanvas');
 const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
-renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+const container = document.getElementById('viewer');
+function resize(){
+const width = container.clientWidth;
+const height = container.clientHeight;
+renderer.setSize(width, height);
+camera.aspect = width / height;
+camera.updateProjectionMatrix();
+}
+resize();
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth/canvas.clientHeight, 0.1, 2000);
+const camera = new THREE.PerspectiveCamera(45, container.clientWidth/container.clientHeight, 0.1, 2000);
 camera.position.set(0, -400, 300);
 const controls = new THREE.OrbitControls(camera, canvas);
 controls.enableDamping = true;
@@ -149,11 +161,17 @@ createTower(stages[currentStage]);
 stagePrev.onclick = () =>{currentStage=Math.max(0,currentStage-1);updateStage();};
 stageNext.onclick = () =>{currentStage=Math.min(stages.length-1,currentStage+1);updateStage();};
 resetBtn.onclick = () =>{controls.reset();};
-window.addEventListener('resize',()=>{camera.aspect=canvas.clientWidth/canvas.clientHeight;camera.updateProjectionMatrix();renderer.setSize(canvas.clientWidth,camera.clientHeight);});
+window.addEventListener('resize',resize);
 window.addEventListener('keydown',(e)=>{
 if(e.key==='ArrowLeft'){stagePrev.click();}
 if(e.key==='ArrowRight'){stageNext.click();}
 if(e.key==='r'||e.key==='R'){resetBtn.click();}
+if(e.key==='w'){controls.target.y+=10;controls.update();}
+if(e.key==='s'){controls.target.y-=10;controls.update();}
+if(e.key==='a'){controls.target.x-=10;controls.update();}
+if(e.key==='d'){controls.target.x+=10;controls.update();}
+if(e.key==='q'){controls.target.z+=10;controls.update();}
+if(e.key==='e'){controls.target.z-=10;controls.update();}
 });
 updateStage();
 function animate(){requestAnimationFrame(animate);controls.update();renderer.render(scene,camera);}
@@ -162,7 +180,7 @@ animate();
 </body>
 </html>
 
-MANDATORY BROWSER REVIEW FIXES. Apply EVERY item below to the returned code; do not merely repeat your old code. The diagnostic list is the controlling repair request:
-["docs/models/gpt-oss-20b/lotte-tower/artwork.html:9: Meaningful UI/diagram text is below19px at rendered size. Required repair: Make meaningful text and diagram labels at least19px on mobile/desktop. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gpt-oss-20b/lotte-tower/artwork.html:15: Viewer minimum sizing causes horizontal overflow at768/375. Required repair: Make the drawing/viewer layout fit narrow screens while retaining readable controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gpt-oss-20b/lotte-tower/artwork.html:118: The resize handler passes undefined camera.clientHeight to renderer.setSize, clearing the drawing buffer height instead of using the canvas/container height. Required repair: Read actual container width/height and update both renderer and camera coherently on resize. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gpt-oss-20b/lotte-tower/artwork.html:120: Keyboard arrows change stages; no keyboard orbit or zoom equivalent exists. Required repair: Provide keyboard-accessible camera orbit/zoom alongside stage navigation. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gpt-oss-20b/lotte-tower/artwork.html:33: The diagrams are generic rectangles/triangle, without a meaningful site relationship, dimensional basis or correspondence to the displayed cylindrical3D stages. Required repair: Draw coherent site/floor/elevation/section content and clearly distinguish assumed dimensions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.", "docs/models/gpt-oss-20b/lotte-tower/artwork.html:90: Initial/reset camera looks from below-ground toward origin while the tower extends upward0..555; the complete tower is outside the useful framing. Required repair: Save a home pose/target that contains the full final model. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."]
+실패 기록과 필수 수정 사항 — 아래 항목을 모두 해결하세요:
+{"재시도": {"회차": "lotte-tower-retry-20261015", "실패 상태": "review_failed", "기존 실패 사유": null, "기존 원본 SHA": "5ee00c024bdde7e10751fe50cf8f6e87d3c7bcc8035d71a4a72a8085c0c62d0c", "직전 완결 원본 검수 SHA": "5ee00c024bdde7e10751fe50cf8f6e87d3c7bcc8035d71a4a72a8085c0c62d0c"}, "이전 독립 검수 지적 원문": [{"severity": "Critical", "category": "Renders", "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html", "line": 98, "quote": "resize();", "problem": "resize runs before const camera initialization and accesses it, causing Cannot access camera before initialization.", "action": "Initialize camera before the first resize call; retain correct host-based dimensions."}, {"severity": "Warning", "category": "Readability", "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html", "line": 9, "quote": "header span{font-size:18px}", "problem": "Meaningful UI/diagram text remains below19px rendered size.", "action": "Use at least19px meaningful rendered text and controls."}, {"severity": "Warning", "category": "Layout", "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html", "line": 16, "quote": "#viewer{flex:2 1 500px;position:relative;background:#000;min-height:300px}", "problem": "Viewer layout continues to overflow768/375; the minimum/flex dimensions cannot fit the narrow page.", "action": "Allow viewer and drawing children to shrink/reflow without clipping."}, {"severity": "Warning", "category": "Accessibility", "file": "docs/models/gpt-oss-20b/lotte-tower/artwork.html", "line": 134, "quote": "if(e.key==='w'){controls.target.y+=10;controls.update();}", "problem": "Keyboard shortcuts move the target, but provide no actual orbit or zoom equivalent.", "action": "Provide working keyboard orbit/zoom with correct camera-to-target state."}], "공통 기능 확인": ["배치도·기준층 평면도·입면도·단면도 네 가지를 실제로 그리세요. 도면 제목, 단위, 치수의 근거 또는 개념 추정을 읽을 수 있게 표시하세요.", "설계가 발전하는 단계별 3D 형상과 설명, 완성된 전체 타워 형상을 구현하세요. 단계·도면·3D 사이의 대응을 실제 선택 조작으로 확인할 수 있게 하세요.", "전체 타워가 초기 시점에서 보이도록 카메라를 맞추세요. 회전·확대축소·시점 초기화를 포인터와 키보드로 조작할 수 있게 하세요.", "제공된 로컬 런타임을 일반 script로 로드하면 THREE와 THREE.OrbitControls가 전역으로 제공됩니다. 지원되지 않는 Geometry·Face3나 존재하지 않는 ES-module export를 사용하지 마세요.", "의미 있는 글자와 조작 버튼은 최소 19px이며, 휴대폰에서 모든 도면과 3D 및 조작부에 접근할 수 있어야 합니다. 잘림이나 화면 밖의 접근 불가 영역을 해결하세요.", "표현 방식과 형상 생성 방식은 스스로 결정하세요. 공유 참고 구현이나 시각적 예시는 제공하지 않습니다. 불필요한 코드를 줄여 출력 한도 안에 모든 기능과 닫는 태그를 포함하세요."]}
 
-Return the complete repaired HTML now.
+설명이나 코드 조각 없이, 닫는 태그까지 포함한 전체 HTML을 반환하세요.

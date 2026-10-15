@@ -7,18 +7,18 @@
     "price_in": 0.07,
     "price_out": 0.3
   },
-  "estimated_total_usd": 0.00255448,
-  "estimated_final_response_usd": 0.00080672,
-  "recorded_attempts": 4,
-  "successful_code_responses": 4,
-  "additional_attempts": 3,
-  "known_cost_attempts": 4,
+  "estimated_total_usd": 0.00339631,
+  "estimated_final_response_usd": 0.00084183,
+  "recorded_attempts": 5,
+  "successful_code_responses": 5,
+  "additional_attempts": 4,
+  "known_cost_attempts": 5,
   "unknown_usage_attempts": 0,
   "missing_duration_attempts": 0,
   "total_request_seconds": null,
   "tokens": {
-    "tokens_in": 5764,
-    "tokens_out": 7170,
+    "tokens_in": 9433,
+    "tokens_out": 9120,
     "cache_read_tokens": 0,
     "cache_write_tokens": 0
   },
@@ -69,6 +69,16 @@
       "request_seconds": null,
       "record_sha256": "f0182c573ac56a366cc4f8cf7da437a4a8bfb8ba3667c26a652be62aec149f7a",
       "response_sha256": "1fe9956faa58b6f5b6200f163560a5b05978b4c6d60a1f8dda8ae717b10b27d9"
+    },
+    {
+      "requested_at": "2026-10-15T00:16:45.002785+00:00",
+      "status": "generated",
+      "request_id": "5abd1bc4-2e59-4383-b8ce-ba9a2e72f90b",
+      "usage_available": true,
+      "estimated_cost_usd": 0.00084183,
+      "request_seconds": null,
+      "record_sha256": "f1082b92a7a4f2575ec84bf3998327a86f3c3a8e91f73e4749f4e00e5c74e7c7",
+      "response_sha256": "33123c46bb18325ea9baa15cf9d3e735e9eeea4b3918032832d60a45a2b37673"
     }
   ]
 }

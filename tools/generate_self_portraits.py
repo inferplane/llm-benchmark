@@ -387,6 +387,19 @@ async def generate_one(model: dict, aws_region: str, limiter: asyncio.Semaphore)
                    if model.get("_fresh_repair") else "")
                 + "\n\nReturn the complete repaired HTML now."
             )
+            if model.get("_feedback_language") == "ko":
+                prompt = (
+                    f"당신은 원 작성 모델 {name}이며, 실제 호출 ID는 {model['model_id']}입니다.\n"
+                    "자신이 작성한 롯데타워 구현의 실패를 수정하세요. 표현 방식과 시각적 구성은 스스로 결정하세요. "
+                    "다른 모델의 코드나 참고 구현은 제공하지 않습니다. 모든 필수 기능을 구현한 완결된 HTML 문서 하나만 반환하세요.\n\n"
+                    "최초 공통 요청 — 기능과 출처·추정 구분을 모두 유지하세요:\n"
+                    + original_brief
+                    + "\n\n이 모델의 이전 응답 원문:\n"
+                    + (previous_code or "이번 요청에서는 이전 코드를 포함하지 않습니다. 원 작성 모델이 직접 다시 구현하세요.")
+                    + "\n\n실패 기록과 필수 수정 사항 — 아래 항목을 모두 해결하세요:\n"
+                    + json.dumps(model["_feedback"], ensure_ascii=False)
+                    + "\n\n설명이나 코드 조각 없이, 닫는 태그까지 포함한 전체 HTML을 반환하세요."
+                )
         directory.joinpath("prompt.txt").write_text(prompt)
         if model["api"] == "bedrock":
             import boto3
@@ -412,6 +425,8 @@ async def generate_one(model: dict, aws_region: str, limiter: asyncio.Semaphore)
             "bedrock_reasoning_effort": model.get("_art_effort", model.get("bedrock_reasoning_effort")),
             "art_thinking_disabled_requested": model.get("_art_disable_thinking", False),
             "stream_response": model.get("_art_stream", False),
+            **({"retry_episode": model["_retry_episode"]} if model.get("_retry_episode") else {}),
+            **({"request_base_url": model["base_url"]} if model.get("base_url") else {}),
         }
         attempt = directory / "attempts" / record["requested_at"].replace(":", "-")
         attempt.mkdir(parents=True, exist_ok=True)
@@ -450,9 +465,10 @@ async def generate_one(model: dict, aws_region: str, limiter: asyncio.Semaphore)
             write_json(directory / "response.json", result)
             write_json(attempt / "response.json", result)
             directory.joinpath("response.txt").write_text(result["text"])
-            code = extract_html(result["text"])
+            record.update(**{key: value for key, value in result.items() if key != "text"})
             if result.get("finish_reason") in ("length", "max_tokens"):
                 raise ValueError("Model response reached its output budget")
+            code = extract_html(result["text"])
             artwork.parent.mkdir(parents=True, exist_ok=True)
             artwork.write_text(code)
             record.update(

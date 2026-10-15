@@ -9,69 +9,8 @@
   "status": "failed",
   "generation_status": "failed",
   "artwork_sha256": null,
-  "content_review": {
-    "task_requirements_complete": false,
-    "model": "ministral-14b",
-    "score": 93.5,
-    "critical": 1,
-    "warnings": 1,
-    "verdict": "FAIL",
-    "category_scores": {
-      "Layout": 8,
-      "Terminology": 8,
-      "No Hallucination": 12,
-      "Language Consistency": 8,
-      "No Sensitive Data": 12,
-      "Content-Type Quality": 2,
-      "Icon Usage": 5,
-      "Renders": 0,
-      "Interactions": 5,
-      "Readability": 3.5,
-      "Accessibility": 5,
-      "Structural Completeness": 5,
-      "Data Accuracy and References": 5,
-      "Legal Compliance": 5,
-      "Message Clarity": 5,
-      "Duplication and Gaps": 5
-    },
-    "artwork_sha256": "95efdcf9dcb9f0fa1bf80555aefd9281515431cb189b665aa8a6e1d87f2f45dd",
-    "model_id": "mistral.ministral-3-14b-instruct",
-    "origin_generation": "lotte-tower-models-20261013",
-    "original_response_bytes_verified": true,
-    "source": "/tmp/model-lotte-review/ministral-14b/95efdcf9dcb9",
-    "browser_evidence": "/tmp/model-lotte-review/ministral-14b/95efdcf9dcb9/browser.json",
-    "findings": [
-      {
-        "severity": "Critical",
-        "category": "Renders",
-        "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
-        "line": 531,
-        "quote": "window.OrbitControls = function(object, domElement) {",
-        "problem": "The simulated runtime defines window.OrbitControls but calls new THREE.OrbitControls; it throws before rendering. The bundled local runtime is never loaded.",
-        "action": "Use ../runtime/three-runtime.js and real THREE.OrbitControls; remove the incomplete substitute runtime rather than aliasing an incompatible stub. Retest all render/control methods."
-      },
-      {
-        "severity": "Warning",
-        "category": "Readability",
-        "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
-        "line": 62,
-        "quote": "font-size: 0.9rem;",
-        "problem": "Meaningful UI/diagram text is below19px at rendered size.",
-        "action": "Make meaningful text and diagram labels at least19px on mobile/desktop."
-      }
-    ],
-    "notes": [
-      "Current stable original bytes and actual model identity verified; isolated browser375/768/1440 and source review. Re-review number is computed from previously reviewed successful source revisions, not failed/truncated API attempts.",
-      "The long source includes real drawing/stage intentions, but they cannot be called verified complete while actual rendering fails."
-    ],
-    "reviewed_at": "2026-10-13T15:25:04.103646+00:00",
-    "re_review_number": 2,
-    "review_iteration": 3,
-    "retry_limit_reached": false,
-    "current_generation_status": "failed",
-    "active_source": false
-  },
-  "prompt_sha256": "921834f17d2ef1fc8d0d143a60040533278f3ea1736bd9abd8177124e0db4d07",
+  "content_review": null,
+  "prompt_sha256": "9b5ec7231a09a18800df6175093565ccdffc6c29ee62352e1c0a7a492e6e3129",
   "initial_prompt_sha256": "fcb57e79bf063de470672286501639b5fb9ca6b1280354f88f34372a191181f2",
   "implementation_cost": {
     "kind": "api_tokens",
@@ -82,18 +21,18 @@
       "price_in": 0.2,
       "price_out": 0.2
     },
-    "estimated_total_usd": 0.0136048,
-    "estimated_final_response_usd": 0.0054022,
-    "recorded_attempts": 5,
+    "estimated_total_usd": 0.0179762,
+    "estimated_final_response_usd": 0.0043714,
+    "recorded_attempts": 6,
     "successful_code_responses": 3,
-    "additional_attempts": 4,
-    "known_cost_attempts": 5,
+    "additional_attempts": 5,
+    "known_cost_attempts": 6,
     "unknown_usage_attempts": 0,
     "missing_duration_attempts": 0,
     "total_request_seconds": null,
     "tokens": {
-      "tokens_in": 18099,
-      "tokens_out": 49925,
+      "tokens_in": 31764,
+      "tokens_out": 58117,
       "cache_read_tokens": 0,
       "cache_write_tokens": 0
     },
@@ -154,23 +93,34 @@
         "request_seconds": null,
         "record_sha256": "591278e2031d97e6371912855172971757d586165a256cf9ccfb4f9a993aa053",
         "response_sha256": "409888f5d643cdc808e3598b678d2a8b3088639bdff0cffb3df9842694ccb9fb"
+      },
+      {
+        "requested_at": "2026-10-15T00:18:34.896460+00:00",
+        "status": "failed",
+        "request_id": null,
+        "usage_available": true,
+        "estimated_cost_usd": 0.0043714,
+        "request_seconds": null,
+        "record_sha256": "d2bbb7d45bc467d0be4bb7a08fad5336f366e38c16f19f097fb9ee1224fa6410",
+        "response_sha256": "56c99d123a60b29d7a3ddade6804d7d5004f82cb0a5924718b285fdd00af0363"
       }
     ]
   },
-  "requested_at": "2026-10-13T15:27:27.647907+00:00",
-  "max_output_tokens": 16384,
+  "requested_at": "2026-10-15T00:18:34.896460+00:00",
+  "max_output_tokens": 8192,
   "temperature": 0,
   "temperature_sent": true,
   "bedrock_reasoning_effort": null,
+  "retry_episode": "lotte-tower-retry-20261015",
   "request_conditions": {
     "initial_prompt_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
     "initial_max_output_tokens": 8192,
-    "latest_max_output_tokens": 16384,
+    "latest_max_output_tokens": 8192,
     "initial_temperature": 0,
     "latest_temperature": 0,
     "initial_reasoning_effort": null,
-    "recorded_requests": 5,
-    "followup_requests": 4,
+    "recorded_requests": 6,
+    "followup_requests": 5,
     "final_outputs_are_controlled_one_shot_comparison": false
   }
 }

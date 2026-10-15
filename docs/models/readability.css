@@ -15,7 +15,7 @@
 .viewer-bar { display: grid; grid-template-columns: auto minmax(0,1fr) auto; font-size: 19px; gap: 16px; min-height: 64px; }
 .viewer-bar > span { justify-self: center; flex-wrap: wrap; justify-content: center; }
 .viewer-bar strong, .viewer-bar small { font-size: 19px; white-space: normal; text-align: center; }
-.viewer-bar details > section { font-size: 19px; max-height: calc(100svh - 110px); overflow-y: auto; }
+.viewer-bar details > section { top: 100%; font-size: 19px; max-height: calc(100svh - 110px); overflow-y: auto; }
 .viewer-actions { display: flex; align-items: center; gap: 12px; }
 .viewer-actions > button, .prompt-dialog button {
   font: inherit; font-size: 19px; color: #ece8de; background: #22291c;

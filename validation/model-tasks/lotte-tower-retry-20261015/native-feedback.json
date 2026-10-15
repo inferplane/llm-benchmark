@@ -1,0 +1,117 @@
+{
+  "llama-3.1-8b": {
+    "이전 검수 수정 사항": [
+      {
+        "severity": "Critical",
+        "action": "Use supported local rendering APIs and real2Dcanvas contexts for diagrams, initialize actual scene geometry before rendering, and verify all controls."
+      },
+      {
+        "severity": "Warning",
+        "action": "Render four meaningful distinct diagram views directly into their visible canvases or SVG, with labels/units/model correspondence."
+      },
+      {
+        "severity": "Warning",
+        "action": "Implement actual intermediate tower forms and a completed stage with understandable explanations."
+      },
+      {
+        "severity": "Warning",
+        "action": "Build the coherent authored tapering tower at a stated555m scale and align diagrams."
+      },
+      {
+        "severity": "Warning",
+        "action": "Keep camera state separate from geometry updates; apply actual target-relative camera operations and reset only on explicit reset."
+      },
+      {
+        "severity": "Warning",
+        "action": "Explicitly set button and other meaningful control text to at least19px."
+      }
+    ],
+    "필수 구현": [
+      "배치·기준층 평면·입면·단면 도면 4종, 단위·개념 추정의 근거를 실제로 표시하세요.",
+      "서로 다른 설계 단계별 3D와 전체 완성 타워를 구현하고, 도면 선택·단계와 연결하세요.",
+      "초기 시점에 전체 형상이 보이며 회전·줌·초기화를 포인터와 키보드로 조작할 수 있어야 합니다.",
+      "허용된 로컬 전역 THREE 런타임만 사용하세요. 글자·버튼은 19px 이상이며 휴대폰에서 접근 가능해야 합니다.",
+      "표현은 스스로 결정하세요. 간결한 코드로 출력 한도 안에 완결된 HTML을 작성하세요."
+    ]
+  },
+  "llama-3.3-70b": {
+    "이전 검수 수정 사항": [
+      {
+        "severity": "Warning",
+        "action": "Build valid surface indices that use successive elevated rings; verify the referenced mesh has a real nonzero vertical extent and matches its drawings."
+      },
+      {
+        "severity": "Warning",
+        "action": "Render four meaningful distinct diagrams tied to the authored spatial model and stages."
+      },
+      {
+        "severity": "Warning",
+        "action": "Label unsupported dimensions as assumptions, keeping555m/123floors distinct as supplied public facts."
+      },
+      {
+        "severity": "Warning",
+        "action": "Use content-sized responsive/scrollable layout and fit diagram annotations inside their rendered bounds."
+      },
+      {
+        "severity": "Warning",
+        "action": "Calculate camera aspect from the actual rendered width/height used by renderer.setSize."
+      },
+      {
+        "severity": "Warning",
+        "action": "Zoom along the target-relative camera vector and update controls. Restore the full home camera/target on reset, including after panning."
+      }
+    ],
+    "필수 구현": [
+      "배치·기준층 평면·입면·단면 도면 4종, 단위·개념 추정의 근거를 실제로 표시하세요.",
+      "서로 다른 설계 단계별 3D와 전체 완성 타워를 구현하고, 도면 선택·단계와 연결하세요.",
+      "초기 시점에 전체 형상이 보이며 회전·줌·초기화를 포인터와 키보드로 조작할 수 있어야 합니다.",
+      "허용된 로컬 전역 THREE 런타임만 사용하세요. 글자·버튼은 19px 이상이며 휴대폰에서 접근 가능해야 합니다.",
+      "표현은 스스로 결정하세요. 간결한 코드로 출력 한도 안에 완결된 HTML을 작성하세요."
+    ]
+  },
+  "qwen3.6-27b": {
+    "이전 검수 수정 사항": [],
+    "필수 구현": [
+      "배치·기준층 평면·입면·단면 도면 4종, 단위·개념 추정의 근거를 실제로 표시하세요.",
+      "서로 다른 설계 단계별 3D와 전체 완성 타워를 구현하고, 도면 선택·단계와 연결하세요.",
+      "초기 시점에 전체 형상이 보이며 회전·줌·초기화를 포인터와 키보드로 조작할 수 있어야 합니다.",
+      "허용된 로컬 전역 THREE 런타임만 사용하세요. 글자·버튼은 19px 이상이며 휴대폰에서 접근 가능해야 합니다.",
+      "표현은 스스로 결정하세요. 간결한 코드로 출력 한도 안에 완결된 HTML을 작성하세요."
+    ]
+  },
+  "exaone-3.5-32b": {
+    "이전 검수 수정 사항": [
+      {
+        "severity": "Critical",
+        "action": "Use the supported signed rotateLeft operation or correct target-relative camera math."
+      },
+      {
+        "severity": "Warning",
+        "action": "Provide real schematic drawings with units/assumptions and model correspondence."
+      },
+      {
+        "severity": "Warning",
+        "action": "Restore explained intermediate3D forms and a completed state linked to drawings."
+      },
+      {
+        "severity": "Warning",
+        "action": "Use a coherent upward-narrowing form with stated scale and corresponding diagrams."
+      },
+      {
+        "severity": "Warning",
+        "action": "Use actual host dimensions and responsive diagram wrapping without clipped content."
+      },
+      {
+        "severity": "Warning",
+        "action": "Set all meaningful rendered text and diagram labels to at least19px."
+      }
+    ],
+    "필수 구현": [
+      "배치·기준층 평면·입면·단면 도면 4종, 단위·개념 추정의 근거를 실제로 표시하세요.",
+      "서로 다른 설계 단계별 3D와 전체 완성 타워를 구현하고, 도면 선택·단계와 연결하세요.",
+      "초기 시점에 전체 형상이 보이며 회전·줌·초기화를 포인터와 키보드로 조작할 수 있어야 합니다.",
+      "허용된 로컬 전역 THREE 런타임만 사용하세요. 글자·버튼은 19px 이상이며 휴대폰에서 접근 가능해야 합니다.",
+      "표현은 스스로 결정하세요. 간결한 코드로 출력 한도 안에 완결된 HTML을 작성하세요."
+    ]
+  }
+}

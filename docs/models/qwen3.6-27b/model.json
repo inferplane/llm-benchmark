@@ -174,7 +174,7 @@
       "generation_status": "failed",
       "artwork_sha256": null,
       "content_review": null,
-      "prompt_sha256": "553eb3056cc280afbfdcc6c471dc65b3b8615cfa0346d5f5e374a8e5341e87e4",
+      "prompt_sha256": "0cecd3d194ee72e15341625bef6649ae7f85e2987fcfd3d05f29c2e68c6e781d",
       "initial_prompt_sha256": "b0b32ebd145da106e700152a96b2e71748711f12daea088231d438fe14983ff0",
       "implementation_cost": {
         "kind": "gpu_request_time",
@@ -184,18 +184,18 @@
         "price_snapshot": {
           "gpu_hourly_usd": 5.6582
         },
-        "estimated_total_usd": 1.638711523943389,
-        "estimated_final_response_usd": 0.36399467635605554,
-        "recorded_attempts": 4,
+        "estimated_total_usd": 2.0000114825494446,
+        "estimated_final_response_usd": 0.36129995860605557,
+        "recorded_attempts": 5,
         "successful_code_responses": 0,
-        "additional_attempts": 3,
-        "known_cost_attempts": 4,
+        "additional_attempts": 4,
+        "known_cost_attempts": 5,
         "unknown_usage_attempts": 0,
         "missing_duration_attempts": 0,
-        "total_request_seconds": 1042.621591,
+        "total_request_seconds": 1272.4967900000001,
         "tokens": {
-          "tokens_in": 3264,
-          "tokens_out": 18432,
+          "tokens_in": 4231,
+          "tokens_out": 22528,
           "cache_read_tokens": 0,
           "cache_write_tokens": 0
         },
@@ -247,23 +247,38 @@
             "request_seconds": 231.589699,
             "record_sha256": "08642fd0d20134a0a4c27687a5d13d32ecbcee6520474ff8b24dfda561d163c1",
             "response_sha256": "5f748c27c833cc7e529ab8b180f01e41011dfcfaa771ee4a4cda790d20ac5e0f"
+          },
+          {
+            "requested_at": "2026-10-15T01:02:35.162476+00:00",
+            "status": "failed",
+            "request_id": null,
+            "usage_available": true,
+            "estimated_cost_usd": 0.36129995860605557,
+            "request_seconds": 229.875199,
+            "record_sha256": "a00a12acbb51980adafa96e7afe1f55b977f11e54a606ba45a43962e75ccdcbb",
+            "response_sha256": "fd903e960d448bc8eec5347ac8119b24b1002f151952ffd35b1ef85cb71ecc80"
           }
         ]
       },
-      "requested_at": "2026-10-13T16:09:24.809457+00:00",
+      "requested_at": "2026-10-15T01:02:35.162476+00:00",
+      "reported_model": "Qwen/Qwen3.6-27B",
+      "tokens_in": 967,
+      "tokens_out": 4096,
       "max_output_tokens": 4096,
-      "temperature": 0.3,
+      "temperature": 0,
       "temperature_sent": true,
       "bedrock_reasoning_effort": null,
+      "finish_reason": "length",
+      "retry_episode": "lotte-tower-retry-20261015",
       "request_conditions": {
         "initial_prompt_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
         "initial_max_output_tokens": 6144,
         "latest_max_output_tokens": 4096,
         "initial_temperature": 0.3,
-        "latest_temperature": 0.3,
+        "latest_temperature": 0,
         "initial_reasoning_effort": null,
-        "recorded_requests": 4,
-        "followup_requests": 3,
+        "recorded_requests": 5,
+        "followup_requests": 4,
         "final_outputs_are_controlled_one_shot_comparison": false
       }
     }

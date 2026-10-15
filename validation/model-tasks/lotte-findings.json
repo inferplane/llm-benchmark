@@ -1,112 +1,205 @@
 {
-  "llama-3.3-70b": [
-    "docs/models/llama-3.3-70b/lotte-tower/artwork.html:129: Every referenced vertex index has offset0–3 in an8-vertex block, and all those vertices have y=0. The height-bearing vertices4–7 are never indexed, so the completed model is a flat ground mesh, not the required555m tower. Required repair: Build valid surface indices that use successive elevated rings; verify the referenced mesh has a real nonzero vertical extent and matches its drawings. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama-3.3-70b/lotte-tower/artwork.html:62: The diagram package remains generic rectangles: elevation is three separate bars and section is three squares, with no coherent tower/site/floor/section geometry. Required repair: Render four meaningful distinct diagrams tied to the authored spatial model and stages. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama-3.3-70b/lotte-tower/artwork.html:65: New site500×500m and floor80×80m dimensions are presented without identifying them as unverified conceptual assumptions. Required repair: Label unsupported dimensions as assumptions, keeping555m/123floors distinct as supplied public facts. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama-3.3-70b/lotte-tower/artwork.html:16: The vertically centered fixed-height container is shorter than its mobile contents; panels extend above the reachable start and labels overflow their180pxSVG frames. Required repair: Use content-sized responsive/scrollable layout and fit diagram annotations inside their rendered bounds. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama-3.3-70b/lotte-tower/artwork.html:151: Camera aspect uses full window height while the rendered canvas is70%window height, distorting the projection at every viewport. Required repair: Calculate camera aspect from the actual rendered width/height used by renderer.setSize. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama-3.3-70b/lotte-tower/artwork.html:175: Zoom still changes world z after arbitrary orbit, rather than camera-to-target distance, without synchronizing controls; view direction can shift away from the object. Required repair: Zoom along the target-relative camera vector and update controls. Restore the full home camera/target on reset, including after panning. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+  "claude-haiku-5.5": [
+    "Meaningful descriptions, controls and/or drawing labels render below19px. Use at least19px readable informative text while preserving your own layout.",
+    "With reduced motion enabled, the rotation button can announce rotation is on while animate() always suppresses it; the control state does not match the result. Synchronize/disable/explain the existing auto-rotation control under reduced motion."
   ],
-  "ministral-14b": [
-    "docs/models/ministral-14b/lotte-tower/artwork.html:531: The simulated runtime defines window.OrbitControls but calls new THREE.OrbitControls; it throws before rendering. The bundled local runtime is never loaded. Required repair: Use ../runtime/three-runtime.js and real THREE.OrbitControls; remove the incomplete substitute runtime rather than aliasing an incompatible stub. Retest all render/control methods. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/ministral-14b/lotte-tower/artwork.html:62: Meaningful UI/diagram text is below19px at rendered size. Required repair: Make meaningful text and diagram labels at least19px on mobile/desktop. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+  "claude-sonnet-5.5": [
+    "Meaningful descriptions, controls and/or drawing labels render below19px. Use at least19px readable informative text while preserving your own layout.",
+    "The initial/reset camera clips the top of the completed555-unit tower rather than framing the whole building. Choose a home pose/distance that shows the completedconcept within its viewport.",
+    "The caption estimates topwidth20m, but rad(1)=16 produces32m diameter in the actual finalshape and its linked views. Keep your assumed dimension labels consistent with your own geometry; no officialdimension is required."
+  ],
+  "gpt-6-luna": [
+    "Meaningful descriptions, controls and/or drawing labels render below19px. Use at least19px readable informative text while preserving your own layout.",
+    "The +/zoomIn action calls dollyIn(1.2), increasing camera distance;−calls dollyOut(1.2), decreasing it. The labeled directions are reversed. Make positivezoom enlarge andnegativezoom reduce, including the keyboard equivalents.",
+    "The SVG elevation/section bulge outward above a narrowbase and end at a point, whereas the3D is a monotonic flat-topped frustum; the displayed drawings do not correspond to the described same model. Align your own drawing outlines with your own3Dconcept or clearly distinguish an intentionally different sketch."
+  ],
+  "gpt-6-astra": [
+    "Meaningful descriptions, controls and/or drawing labels render below19px. Use at least19px readable informative text while preserving your own layout."
+  ],
+  "gpt-6.1-sol": [
+    "Meaningful descriptions, controls and/or drawing labels render below19px. Use at least19px readable informative text while preserving your own layout."
+  ],
+  "gpt-5.4": [
+    "Meaningful descriptions, controls and/or drawing labels render below19px. Use at least19px readable informative text while preserving your own layout.",
+    "The initial/reset camera is too close/low for the555-unit model, showing a croppedwall instead of the full tower silhouette. Fit the home view to the complete conceptualbuilding while retaining your chosen perspectives."
+  ],
+  "grok-4.6": [
+    "Meaningful descriptions, controls and/or drawing labels render below19px. Use at least19px readable informative text while preserving your own layout.",
+    "Rotation has no keyboard-equivalent controls or focusable camera handler; the nativebuttons cover zoom/reset only. Provide keyboard-operable rotation in your existingviewer.",
+    "The initial/reset pose crops the upperpart of the555-unit tower; zoomingout is required to reveal its whole silhouette. Provide a home view that frames the completedconcept."
+  ],
+  "claude-sonnet-4.5": [
+    "Informative captions and controls use 12–16px text below the 19px review minimum. Increase meaningful text and controls to at least 19px while preserving the composition.",
+    "Arrow keys move the camera, but zoom is available only through pointer/touch input. Add a keyboard-accessible zoom operation; preserve existing arrow and reset controls."
+  ],
+  "claude-opus-5.5": [
+    "Informative captions and controls use 12–16px text below the 19px review minimum. Increase meaningful text and controls to at least 19px while preserving the composition."
+  ],
+  "claude-fable-5.1": [
+    "Informative captions and controls use 12–16px text below the 19px review minimum. Increase meaningful text and controls to at least 19px while preserving the composition.",
+    "Canvas arrow-key handling is attached through listenToKeyEvents, but neither viewer has a keyboard-accessible zoom operation. Provide keyboard or native-button zoom controls for both viewers."
+  ],
+  "claude-haiku-4.5": [
+    "Some meaningful UI/diagram annotations render below19px, including fixed-size drawing labels scaled down on mobile. Keep meaningful text at least19px at its rendered size; adapt labels or provide readable HTML equivalents.",
+    "Initial/reset view is too close to contain the555-unit tower; its top is outside the viewport. Fit the entire tower in the home/reset view at desktop and mobile sizes.",
+    "At375px the page has horizontal overflow in its drawing/stage layout. Fit cards/canvases and controls within the available mobile width without losing text."
+  ],
+  "claude-sonnet-5": [
+    "Some meaningful UI/diagram annotations render below19px, including fixed-size drawing labels scaled down on mobile. Keep meaningful text at least19px at its rendered size; adapt labels or provide readable HTML equivalents.",
+    "The reset framing is too close/low for the full completed90-unit body plus14-unit crown. Fit the complete authored model in the home/reset pose."
+  ],
+  "gpt-5.5": [
+    "Some meaningful UI/diagram annotations render below19px, including fixed-size drawing labels scaled down on mobile. Keep meaningful text at least19px at its rendered size; adapt labels or provide readable HTML equivalents.",
+    "The model rotates continuously in normal mode, but no user stop/resume control is provided. Reset and camera controls do not stop that motion. Add an accessible motion toggle and preserve its state during camera/stage changes."
+  ],
+  "gpt-5.6-terra": [
+    "Some meaningful UI/diagram annotations render below19px, including fixed-size drawing labels scaled down on mobile. Keep meaningful text at least19px at its rendered size; adapt labels or provide readable HTML equivalents."
+  ],
+  "grok-4.7": [
+    "Some meaningful UI/diagram annotations render below19px, including fixed-size drawing labels scaled down on mobile. Keep meaningful text at least19px at its rendered size; adapt labels or provide readable HTML equivalents.",
+    "Reset camera distance with38°vertical field does not contain the555-high completed model; the extremes are cropped. Fit complete geometry to the actual canvas bounds in the default/reset pose."
+  ],
+  "llama-3.3-70b": [
+    "The four drawing panels contain only text; no actual site, floor, elevation or section drawing is rendered. Implement four meaningful drawings corresponding to the authored model.",
+    "Only one fixed mesh exists; no design-development stages, stage selector or explanations are implemented. Implement distinct explained intermediate forms and their correspondence with drawings and completion.",
+    "The complete3D model is a1×1×1cube, unrelated to the described555m upward-narrowing tower or stated footprint. Create a coherent conceptual tower linked to the labelled dimensions and facts.",
+    "Reset restores OrbitControls state saved at camera origin before initial positioning. Browser confirms reset moves camera to(0,0,0), inside the cube, rather than restoring the initial(0,0,5)view. Save a valid home camera/target after setup and restore that state.",
+    "Renderer size is the initial full viewport with no resize handler, despite a500px host. At375px it remains1440px wide; fixed centered100vh content also pushes upper panels off the reachable top. Size the renderer from its responsive host and preserve reachable normal scrolling.",
+    "Informative dimension/assumption text is16px. Use at least19px meaningful rendered text.",
+    "White text on#4CAF50 buttons has about2.78:1 contrast, below4.5:1. Choose accessible foreground/background contrast.",
+    "OrbitControls supports pointer orbit, but the page provides no keyboard orbit handler or orbit buttons; only reset and zoom buttons are present. Provide keyboard-accessible camera orbit equivalents."
+  ],
+  "kimi-k3": [
+    "SVG dimension/label text uses15–16px, below the19px review minimum. Increase meaningful rendered diagram labels to19px or provide equivalent readable annotations.",
+    "At375px the drawing panel/tab row extends beyond the viewport; the fourth tab and right diagram content are clipped from the initial width. Allow grid children/drawing regions to shrink or use deliberately accessible scrolling without clipped controls/content."
   ],
   "llama-3.1-8b": [
-    "docs/models/llama-3.1-8b/lotte-tower/artwork.html:81: The pinned runtime has no CanvasRenderer; construction throws THREE.CanvasRenderer is not a constructor before controls or animation initialize. Required repair: Use supported local rendering APIs and real2Dcanvas contexts for diagrams, initialize actual scene geometry before rendering, and verify all controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama-3.1-8b/lotte-tower/artwork.html:113: All four drawing renderers are intended to render the identical scene/camera, with no distinct site/floor/elevation/section drawing content; inner canvases appended inside canvas elements would remain fallback content. Required repair: Render four meaningful distinct diagram views directly into their visible canvases or SVG, with labels/units/model correspondence. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama-3.1-8b/lotte-tower/artwork.html:158: The four states swap a cylinder, plane and two offset cubes rather than showing an explained3D development process leading to the completed tower. Required repair: Implement actual intermediate tower forms and a completed stage with understandable explanations. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama-3.1-8b/lotte-tower/artwork.html:188: The purported tower remains an untapered500-unit cylinder, inconsistent with the supplied upward-narrowing555m form. Required repair: Build the coherent authored tapering tower at a stated555m scale and align diagrams. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama-3.1-8b/lotte-tower/artwork.html:133: Every camera handler calls updateScene, which immediately restores fixed cameraPosition/lookAt, undoing Zoom/Orbit/Tilt/Pointer changes. Required repair: Keep camera state separate from geometry updates; apply actual target-relative camera operations and reset only on explicit reset. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama-3.1-8b/lotte-tower/artwork.html:14: Native buttons retain the browser default~13px font despite19px body/control-container text. Required repair: Explicitly set button and other meaningful control text to at least19px. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "The script declares const controls twice (lines110and128). Browser throws Identifier controls has already been declared before any diagram or WebGL initialization; all controls are inactive. Remove the duplicate binding in an author-produced correction and verify full initialization.",
+    "All four diagram routines repeat the same grey rectangle and two axis lines; no actual site/floor/elevation/section content or dimensional correspondence is implemented. Create meaningful distinct diagrams tied to the authored tower concept.",
+    "No design-development stages, stage selector or explanations are implemented. Implement distinct explained intermediate3D forms and their drawing/model correspondence.",
+    "The entire model routine creates a10×10×10cube rather than a555m upward-narrowing tower. The required public facts, sources and conceptual/nonofficial disclosure are absent. Represent the requested conceptual tower and identify known facts, assumptions and public sources.",
+    "The fixed-height centered container pushes upper drawings above the page top; fixed800px canvas and overlapping drawing captions/absolute controls prevent a usable mobile layout. Use responsive renderer sizing and reachable scrollable layout without clipped/overlapping content.",
+    "Diagram text is14px and visible drawing captions/units default to16px. Use at least19px meaningful rendered text.",
+    "White button text on#4CAF50 has contrast about2.78:1, below4.5:1. Choose foreground/background colors meeting4.5:1 contrast."
+  ],
+  "gpt-5.6-luna": [
+    "camera is assigned globally rather than declared locally inside makeWorld; both render loops use the final viewer camera. Stage-viewer ArrowRight has no visible effect; final-viewer ArrowRight moves both views. Give each viewer its own locally declared camera and keep controls/render/resize bound to that camera.",
+    "Initial/reset framing is too close/low to contain the full55-unit tower. Fit complete model bounds in the initial/reset view for both canvases."
+  ],
+  "grok-4.3": [
+    "Disclosure text remains16px, and diagram annotations can scale below19px. Keep meaningful text/annotations at least19px rendered size.",
+    "Stage projection places its positive520-unit base below the usable600px stage frame; parts of the intermediate forms are cropped. Fit the full intermediate geometry within its stage viewport while preserving the projection style."
+  ],
+  "glm-5.3": [
+    "The profile narrows to its middle then expands to0.495 at the top, nearly its0.5base width, contrary to the stated upward-narrowing form. Use a coherent upward-narrowing profile and keep its schematic elevation/section consistent."
   ],
   "nova-pro": [
-    "docs/models/nova-pro/lotte-tower/artwork.html:46: The four actual site/floor/elevation/section diagrams remain missing or placeholders. Required repair: Render meaningful distinct diagram content with model correspondence and labelled units/assumptions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nova-pro/lotte-tower/artwork.html:63: No explained intermediate3D development states are implemented. Required repair: Provide distinct explained3D forms leading to completion and link them to the drawings. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nova-pro/lotte-tower/artwork.html:63: Top radius5 is larger than bottom2.5: the tower widens upward, contrary to the supplied form. Required repair: Use coherent upward narrowing and matching drawings. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nova-pro/lotte-tower/artwork.html:58: Inner#model still has zero height; browser confirms a0px-high renderer and invalid aspect, despite the outer600px region. Required repair: Give the actual host usable responsive dimensions and derive camera/render size from them. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "The actual #model host has zero height, so the renderer is 0px high and no3D model is visible at all three widths. Size the actual renderer host and camera aspect from usable responsive dimensions.",
+    "All four requested drawings remain the same empty rectangle with a title, explicitly marked Placeholder in source. Draw meaningful site, floor, elevation and section geometry corresponding to the tower.",
+    "No selectable or explained intermediate3D design-development states are implemented. Implement distinct explained development forms and drawing/model correspondence.",
+    "CylinderGeometry(topRadius2.5,bottomRadius1.25,height55) widens upward; it contradicts the supplied taper and has no stated scale to555m. Use an upward-narrowing form with consistent dimensions or an explicit scale.",
+    "The requested model identity nova-pro is absent from visible content. Show the actual model name in the authored page."
   ],
   "nova-lite": [
-    "docs/models/nova-lite/lotte-tower/artwork.html:161: THREE.Geometry (and Face3 below) were removed from the pinned runtime; constructor throws before model initialization. Required repair: Use supported BufferGeometry and valid indices. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nova-lite/lotte-tower/artwork.html:160: No explained intermediate3D development states are implemented. Required repair: Provide distinct explained3D forms leading to completion and link them to the drawings. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nova-lite/lotte-tower/artwork.html:198: Each new level appends faces indexed0–7 without an offset, so only the first ring would be referenced even after replacing the obsolete API. Required repair: Index successive elevated rings correctly and verify actual mesh bounds at the stated555m total. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nova-lite/lotte-tower/artwork.html:158: The intended555m geometry starts with camera only5units away and no useful target/home fit. Required repair: Fit the complete authored tower and update aspect from the actual viewport. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nova-lite/lotte-tower/artwork.html:107: Meaningful UI/diagram text remains below19px rendered size. Required repair: Use at least19px meaningful rendered text and controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "Browser initialization throws Assignment to constant variable because offset is const. Geometry construction also passes Vector3 objects as numeric position values and a plainArray to BufferAttribute. Use mutable indices and supported numeric/typed buffer attributes; confirm error-free initialization.",
+    "All four drawings are only identical grids with headings; no site/floor/elevation/section geometry exists. Implement actual distinct drawings with corresponding tower content.",
+    "Only a single final geometry function exists; no explained design-development stages or stage/drawing correspondence. Implement the requested intermediate forms and meaningful selection correspondence.",
+    "Invented50m/10m widths and drawings have no visible units, source references or conceptual/not-official disclosure. Label assumptions, units and the provided public sources without presenting inferred dimensions as official.",
+    "height:100% stretches each stacked drawing to its parent height, producing severely distorted grids and headings. Preserve a usable drawing aspect ratio and scrollable responsive layout.",
+    "The24px canvas labels shrink below19px at the375px viewport. Keep actual rendered informative labels at least19px."
   ],
   "nova-micro": [
-    "docs/models/nova-micro/lotte-tower/artwork.html:76: All four images use the same incomplete PNG data URI; browser reports ERR_INVALID_URL and no drawings load. Required repair: Render actual inline drawings or valid complete embedded assets. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nova-micro/lotte-tower/artwork.html:141: No explained intermediate3D development states are implemented. Required repair: Provide distinct explained3D forms leading to completion and link them to the drawings. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nova-micro/lotte-tower/artwork.html:142: All named stage/final meshes remain identical unit cubes; only one is shown, not the required tapered tower. Required repair: Build meaningful development forms and coherent completed tower geometry. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nova-micro/lotte-tower/artwork.html:20: The100%-width header adds horizontal padding, and unwrapped rows overflow at all tested widths. Model/stage slots remain poorly sized. Required repair: Fit header/rows with responsive sizing and preserve normal scrolling. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nova-micro/lotte-tower/artwork.html:48: Meaningful UI/diagram text remains below19px rendered size. Required repair: Use at least19px meaningful rendered text and controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "All four drawings reference nonexistent PNG files. Browser logs blocked missing-asset requests and displays broken images. Return complete inline or valid embedded drawings.",
+    "Browser throws THREE.Geometry is not a constructor before the scene is initialized. Face3 is also unavailable in the pinned runtime. Use supported BufferGeometry construction and verify startup.",
+    "The stage/final slots remain empty; only models[2], a0.5-unit cube, would be added. The completed tower models[3] is never mounted, and no stage selection or correspondence exists. Display the intended distinct intermediate forms and completed tower with working stage selection and correspondence.",
+    "The padded100%-width header and unwrapped drawing/control rows overflow at1280/768/375; mobile headings overlap and controls extend off screen. Fit responsive rows/header while retaining accessible scrollable content.",
+    "Explanatory text and model identity remain16px. Use at least19px meaningful rendered text.",
+    "The drawing scales and invented geometry dimensions lack the required conceptual/not-official disclosure or source attribution. Identify inferred dimensions/scales and public references explicitly."
   ],
   "nemotron-nano-3-30b": [
-    "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html:99: TextureLoader still receives canvases as URLs, attempting missing[object HTMLCanvasElement] image requests. Required repair: Use CanvasTexture with real drawn contents. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html:93: The four actual site/floor/elevation/section diagrams remain missing or placeholders. Required repair: Render meaningful distinct diagram content with model correspondence and labelled units/assumptions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nemotron-nano-3-30b/lotte-tower/artwork.html:11: Meaningful UI/diagram text remains below19px rendered size. Required repair: Use at least19px meaningful rendered text and controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "The four drawing textures contain only headings and assumption text; no actual diagram strokes are drawn. Render meaningful site/floor/elevation/section diagrams.",
+    "Each of the three stage groups is built identically and displayed at the same coordinates; no stage selector, development explanation or drawing correspondence exists. Implement distinct explained development states and correspondence.",
+    "The final model uses separately tilted cylinders and an overlapping cone; its measured height isabout165units and no scale explains the stated555m. It does not form a coherent vertical upward-narrowing tower. Create a coherent conceptual tower and disclose a consistent scale linking drawings and final model.",
+    "The initial camera clips the top of the assembly and the large drawing planes/text at desktop and mobile sizes. Fit the full assembly and all drawings or provide separately reachable diagram views.",
+    "Body explanations use16px and reset control defaults to about13px; texture text is also clipped. Provide readable19px explanatory text/controls and fully visible diagram labels.",
+    "The actual model name nemotron-nano-3-30b is not displayed. Show the actual model identity."
   ],
   "glm-4.7-flash": [
-    "docs/models/glm-4.7-flash/lotte-tower/artwork.html:82: Meaningful UI/diagram text remains below19px rendered size. Required repair: Use at least19px meaningful rendered text and controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/glm-4.7-flash/lotte-tower/artwork.html:582: No explained intermediate3D development states are implemented. Required repair: Provide distinct explained3D forms leading to completion and link them to the drawings. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/glm-4.7-flash/lotte-tower/artwork.html:305: Default/full-model target and distance do not contain the555-high shape; the view is concentrated near the base. Required repair: Fit the complete form in its model/home pose. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/glm-4.7-flash/lotte-tower/artwork.html:666: Every frame pulls the camera back toward a programmed pose, undoing free OrbitControls movement after input. Required repair: Apply transition interpolation only during explicit transitions and preserve user orbit afterward. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "The selectable states are drawing/camera views of a single fixed tower, not intermediate3D design-development forms. Add explained distinct developmental geometry and link it to the drawings.",
+    "The555m facade is a roughly2m-deep extrusion centered across negative/positiveY while its555m core spans0–555; diagrams extend toY832.5. The floor plan is an elevation profile, and the section has no corresponding internal section. Align the actual tower/core bounds and represent coherent horizontal floor and vertical section drawings.",
+    "The initial and completed-model camera positions crop the full height; the mobile overlays occupy the available central viewing area. Fit the complete geometry and keep a usable mobile model view with accessible panels.",
+    "Informative subtitle/body/disclaimer/model badge/hints use12–16px. Use at least19px for informative rendered text.",
+    "user-scalable=no plus global touch-action:none prevents normal zoom access to small text. Allow user zoom and scope touch-action restrictions to the actual camera surface.",
+    "The elevation stage key is elevation but its button ID is btn-elev; selecting elevation leaves no active button. Browser confirms empty active-button list. Keep the stage-to-button mapping consistent.",
+    "Browser warns THREE.Material: parameter color has value of undefined; CONFIG.colors.accent is never defined. Use defined material colors and clear actual runtime warnings."
   ],
   "gpt-oss-20b": [
-    "docs/models/gpt-oss-20b/lotte-tower/artwork.html:98: resize runs before const camera initialization and accesses it, causing Cannot access camera before initialization. Required repair: Initialize camera before the first resize call; retain correct host-based dimensions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/gpt-oss-20b/lotte-tower/artwork.html:9: Meaningful UI/diagram text remains below19px rendered size. Required repair: Use at least19px meaningful rendered text and controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/gpt-oss-20b/lotte-tower/artwork.html:16: Viewer layout continues to overflow768/375; the minimum/flex dimensions cannot fit the narrow page. Required repair: Allow viewer and drawing children to shrink/reflow without clipping. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/gpt-oss-20b/lotte-tower/artwork.html:134: Keyboard shortcuts move the target, but provide no actual orbit or zoom equivalent. Required repair: Provide working keyboard orbit/zoom with correct camera-to-target state. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "The floor drawing is square with a square core, while final3D is a circular open cone; supplied123floors, units, assumed dimensions and not-official disclosure are absent. Make the diagrams correspond to the chosen concept and label scale/assumptions/public facts.",
+    "Stage controls change the cone dimensions but provide only names, no development explanation or drawing/model linkage. Explain each development state and provide meaningful correspondence with drawings.",
+    "The desktop side-by-side layout horizontally overflows at768px; the initial camera is below the tower and targets its base rather than a fitted whole-tower view. Fit columns at tablet width and provide an initial/reset camera framing the complete tower.",
+    "The stage information is18px and some SVG text clips beyond the viewBox. Use readable19px informative text and keep diagram labels inside the visible bounds.",
+    "Keyboard handlers alter only stage/reset or controls.target; there is no keyboard zoom/camera-orbit implementation equivalent to pointer drag and wheel. Provide operable keyboard equivalents for camera orbit and zoom."
   ],
   "gpt-oss-120b": [
-    "docs/models/gpt-oss-120b/lotte-tower/artwork.html:175: ArrowDown/Right call nonexistent rotateDown/rotateRight; real keyboard tests reproduce both method-not-a-function errors. Required repair: Use signed rotateUp/rotateLeft calls or supported camera math and test all directions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/gpt-oss-120b/lotte-tower/artwork.html:13: Meaningful UI/diagram text remains below19px rendered size. Required repair: Use at least19px meaningful rendered text and controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/gpt-oss-120b/lotte-tower/artwork.html:111: Top/bottom radii remain reversed: completed upright geometry widens upward, inconsistent with its description/drawings. Required repair: Correct radius order and keep drawing/model taper coherent. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "The fixed intrinsic canvas width prevents the flex content from shrinking: after resize to375px the WebGL canvas remains1163px wide and the sidebar collapses to17px. Drawings, stage controls and reset are inaccessible outside the clipped main region. Allow both flex panels/render canvas to shrink and provide a usable mobile stacked layout; verify all controls at each width.",
+    "Meaningful navigation/info/reset text is16px and SVG dimensions use12px. Use at least19px rendered informative text and diagram dimensions.",
+    "The floor drawing is a30×30 rectangular footprint, but the completed mesh is a circular60m-diameter base; the section drawing has no internal section corresponding to that model. Keep the chosen conceptual footprint/scale and internal section consistent between drawings and3D."
   ],
   "qwen3-32b": [
-    "docs/models/qwen3-32b/lotte-tower/artwork.html:108: The local runtime script was omitted; initialization logs runtime not loaded then throws on THREE.Scene. Required repair: Load ../runtime/three-runtime.js before initialization and verify actual rendering. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/qwen3-32b/lotte-tower/artwork.html:260: The four actual site/floor/elevation/section diagrams remain missing or placeholders. Required repair: Render meaningful distinct diagram content with model correspondence and labelled units/assumptions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/qwen3-32b/lotte-tower/artwork.html:73: Meaningful UI/diagram text remains below19px rendered size. Required repair: Use at least19px meaningful rendered text and controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/qwen3-32b/lotte-tower/artwork.html:189: Cylinder radius order is still reversed, contradicting the upward-tapering description. Required repair: Use correct top/bottom radii throughout all stages. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "All four drawing selections produce text only; no site/floor/elevation/section drawing is rendered. Render actual corresponding diagrams with dimensions/assumptions.",
+    "CylinderGeometry receives bottom radius as top radius throughout; the100-unit tower widens upward despite the555m upward-tapering description. Use correct top/bottom radii and an explicitly consistent scale.",
+    "The assumption labels remain16px. Keep informative labels at least19px.",
+    "At375px the fixed-position drawing panel overlaps the stage selector and reset control, hiding/intercepting their content. Provide responsive nonoverlapping panels and reachable controls.",
+    "No keyboard camera orbit/zoom handlers or focusable camera controls exist; real arrow/+/- probes do not change the camera. Provide keyboard-operable camera orbit and zoom equivalents."
   ],
   "nemotron-super-3-120b": [
-    "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html:11: Meaningful UI/diagram text remains below19px rendered size. Required repair: Use at least19px meaningful rendered text and controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html:255: Stage attributes are words(concept/massing/taper/facade/final), but code removes all nondigits then parses them, givingNaN. Every click creates the default100-unit form; only descriptions change. Required repair: Map stage names to the actual numeric states so each advertised3D stage differs. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/nemotron-super-3-120b/lotte-tower/artwork.html:282: Keyboard only resets; there is no keyboard orbit or zoom equivalent. Required repair: Provide keyboard-accessible camera operations. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "Mobile controls/body text are18.4px, explanations16.8px; SVG dimensions and disclaimer remain smaller than19px. Keep informative rendered text and controls at least19px.",
+    "The minus key calls dollyOut(1.1), making the camera move closer just like plus; measured camera distance decreases for both. Reverse the minus scale/direction and verify + zooms in while - zooms out.",
+    "On narrowing to375px, the tall intrinsic renderer consumes the flex column and the sidebar collapses out of view; drawings and stage choices are no longer reachable. Final-stage geometry can also extend above the current camera view. Resize from a genuinely shrinkable viewport and preserve the full sidebar/3D area on mobile; fit/reset the selected complete form.",
+    "The elevation/section drawings do not match the model: the elevation curves inward at both ends and the section is a square plan, while3D is an upright circular taper. No scale links the155-unit final height to555m. Align the diagrams with the authored conceptual geometry and disclose the drawing/model scale."
   ],
   "llama4-scout": [
-    "docs/models/llama4-scout/lotte-tower/artwork.html:212: Meaningful UI/diagram text remains below19px rendered size. Required repair: Use at least19px meaningful rendered text and controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama4-scout/lotte-tower/artwork.html:109: Full-window renderer and absolute drawing panels overlap/overflow on narrow screens; border sizing also exceeds viewport width. Required repair: Reflow the panels around a usable responsive model surface. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama4-scout/lotte-tower/artwork.html:245: Elevation/section label100m while the complete model uses200units and the supplied total is555m; the scale correspondence is unexplained. Required repair: Use consistent total-height/scale labels and identify assumed dimensions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama4-scout/lotte-tower/artwork.html:301: Arrow handlers rotate camera quaternion directly, but OrbitControls.update immediately restores its orientation; targeted key tests show no camera change. Required repair: Orbit by changing camera-to-target position through supported controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "Meaningful UI/diagram text remains below19px rendered size. Use at least19px meaningful rendered text and controls.",
+    "Full-window renderer and absolute drawing panels overlap/overflow on narrow screens; border sizing also exceeds viewport width. Reflow the panels around a usable responsive model surface.",
+    "Elevation/section label100m while the complete model uses200units and the supplied total is555m; the scale correspondence is unexplained. Use consistent total-height/scale labels and identify assumed dimensions.",
+    "Arrow handlers rotate camera quaternion directly, but OrbitControls.update immediately restores its orientation; targeted key tests show no camera change. Orbit by changing camera-to-target position through supported controls."
   ],
   "qwen3-235b-a22b": [
-    "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html:449: The custom Quaternion class lacks setFromEuler, but OrbitControls construction calls it, causing the observed method-not-a-function error. Required repair: Complete the custom spatial runtime consistently or use the supplied local runtime; verify initialization and all camera operations. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/qwen3-235b-a22b/lotte-tower/artwork.html:130: Meaningful UI/diagram text remains below19px rendered size. Required repair: Use at least19px meaningful rendered text and controls. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "drawDiagram runs before init3D→resize resets the canvas dimensions, clearing it. The initial view and every resize leave the drawing blank until a drawing is selected again. Redraw the selected diagram after initialization/resizing.",
+    "Segment size decreases as itsY position decreases, so the final tower is widest at its top and narrows downward, opposite the brief and drawing description. Place smaller sections higher so geometry and diagrams both narrow upward.",
+    "Camera/OrbitControls are reset from the origin before a fitted view is saved. Initial and reset views look nearly vertically through the model fromY100, rather than showing the complete tower. Set and save a fitted whole-tower camera/target before enabling reset.",
+    "The section top is drawn at centerY-400*scale, above the300px canvas; elevation top/bottom also exceed the drawing bounds. Fit complete diagram extents and labels inside the canvas.",
+    "Drawing selectors are click-only DIVs without tabindex/keyboard handlers, so keyboard users cannot choose the four diagrams. Use native buttons or implement focus and Enter/Space activation.",
+    "user-scalable=no prevents normal viewport zoom. Allow user zoom.",
+    "Informative units/floor-count labels are17px. Keep meaningful canvas text at least19px.",
+    "Diagram choices silently select initial/mid/final geometry, but the user is never shown design-stage names or development explanations. Explain the actual3D development states and their relationship to the selected drawings."
   ],
   "llama4-maverick": [
-    "docs/models/llama4-maverick/lotte-tower/artwork.html:195: Keyboard camera rotations are overwritten by OrbitControls.update; all arrow tests return unchanged quaternion/position. Required repair: Use target-relative orbit operations that survive the control update. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama4-maverick/lotte-tower/artwork.html:80: The completed cone extends well below the reset target; initial screenshot crops much of its base. Required repair: Fit the full completed form in the default/reset pose. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama4-maverick/lotte-tower/artwork.html:187: Camera aspect uses full-window height while the canvas is80%height, distorting projections. Required repair: Use actual rendered width/height for both camera and renderer. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama4-maverick/lotte-tower/artwork.html:143: Floor/elevation/section views are generic square/box/plane primitives and do not coherently depict the completed cone cross-section and internal section. Required repair: Make the schematic views correspond to the authored complete form and label assumptions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "Keyboard camera rotations are overwritten by OrbitControls.update; all arrow tests return unchanged quaternion/position. Use target-relative orbit operations that survive the control update.",
+    "The completed cone extends well below the reset target; initial screenshot crops much of its base. Fit the full completed form in the default/reset pose.",
+    "Camera aspect uses full-window height while the canvas is80%height, distorting projections. Use actual rendered width/height for both camera and renderer.",
+    "Floor/elevation/section views are generic square/box/plane primitives and do not coherently depict the completed cone cross-section and internal section. Make the schematic views correspond to the authored complete form and label assumptions."
   ],
   "llama-3.3-70b-bedrock": [
-    "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html:135: Down/Right invoke nonexistent rotateDown/rotateRight; actual keyboard tests throw for both directions. Required repair: Use signed supported rotateUp/rotateLeft operations. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html:57: The four actual site/floor/elevation/section diagrams remain missing or placeholders. Required repair: Render meaningful distinct diagram content with model correspondence and labelled units/assumptions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html:76: All frusta widen upward, and final height is400 with no555m scale correspondence. Required repair: Use coherent upward-narrowing stages and a consistent555m completed representation. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html:149: Camera aspect uses full-window height while renderer uses80%height. Required repair: Derive aspect from the actual renderer dimensions. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/llama-3.3-70b-bedrock/lotte-tower/artwork.html:109: Reset only sets camera.z, preserving prior orbit x/y/target, so it does not restore a valid home view. Required repair: Restore complete home position/target/orientation. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "All four requested drawings are the same5×5 red placeholder PNG, with no real site/floor/elevation/section content or labels. Return four meaningful inline drawings with dimensions and corresponding tower content.",
+    "CylinderGeometry(radius,radius/2,...) makes every stage wider at the top; the final400-unit form has no scale linking it to555m/123floors. No conceptual/source disclosure is visible. Correct upward taper and disclose scale, known facts, assumptions and public sources.",
+    "Stage buttons swap geometry but never display the stage name/explanation or its relation to the drawings. Show and explain each selected developmental state and its diagram correspondence.",
+    "The fixed100vh centered flex container contains a large renderer plus controls and four200px images; mobile content exceeds its height and pushes the renderer above the reachable page top. Use responsive sizing/normal scrolling so the complete model and controls remain reachable."
   ],
   "gemma-4-31b-bedrock": [
-    "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:86: Diagram labels, model information and keyboard hints remain16px; the SVG555m annotation renders below19px. Required repair: Use at least19px meaningful rendered text, including diagram labels/annotations or readable equivalents. Preserve your own artwork and all currently working drawing/stage/3D controls; return the full corrected HTML using the same original model.",
-    "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:136: The four focusable diagramDIVs have onclick only. Actual Enter/Space tests leave the camera unchanged, while clicking changes it. Required repair: Use native buttons or implement Enter/Space activation consistently for all four diagram controls. Preserve your own artwork and all currently working drawing/stage/3D controls; return the full corrected HTML using the same original model.",
-    "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:262: The initial/reset camera crops the crown of the555-high model; the1280px screenshot shows the upper tower outside the view. Required repair: Fit the whole model in its initial/reset pose while preserving your own visual treatment. Preserve your own artwork and all currently working drawing/stage/3D controls; return the full corrected HTML using the same original model.",
-    "docs/models/gemma-4-31b-bedrock/lotte-tower/artwork.html:108: At375px the tall nearly full-width overlay panel covers the3D model and its pointer surface. Scrolling the panel does not expose a usable model area. Required repair: Adapt or collapse/reflow your own mobile controls so the3D model is visible and directly operable alongside accessible controls. Preserve your own artwork and all currently working drawing/stage/3D controls; return the full corrected HTML using the same original model."
+    "Diagram labels, model information and keyboard hints remain16px; the SVG555m annotation renders below19px. Use at least19px meaningful rendered text, including diagram labels/annotations or readable equivalents.",
+    "The four focusable diagramDIVs have onclick only. Actual Enter/Space tests leave the camera unchanged, while clicking changes it. Use native buttons or implement Enter/Space activation consistently for all four diagram controls.",
+    "The initial/reset camera crops the crown of the555-high model; the1280px screenshot shows the upper tower outside the view. Fit the whole model in its initial/reset pose while preserving your own visual treatment.",
+    "At375px the tall nearly full-width overlay panel covers the3D model and its pointer surface. Scrolling the panel does not expose a usable model area. Adapt or collapse/reflow your own mobile controls so the3D model is visible and directly operable alongside accessible controls."
   ],
   "exaone-3.5-32b": [
-    "docs/models/exaone-3.5-32b/lotte-tower/artwork.html:90: The right-arrow button/shortcut still calls nonexistent controls.rotateRight; browser reproduces the exception. Required repair: Use the supported signed rotateLeft operation or correct target-relative camera math. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/exaone-3.5-32b/lotte-tower/artwork.html:95: All four diagrams are explicitly mock colored rectangles with titles, not meaningful site/floor/elevation/section content. Required repair: Provide real schematic drawings with units/assumptions and model correspondence. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/exaone-3.5-32b/lotte-tower/artwork.html:47: All design-stage selection/progression was removed; only one static mock frustum remains. Required repair: Restore explained intermediate3D forms and a completed state linked to drawings. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/exaone-3.5-32b/lotte-tower/artwork.html:48: Top radius50 exceeds bottom10, so the model widens upward, contrary to the supplied tower form. Required repair: Use a coherent upward-narrowing form with stated scale and corresponding diagrams. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/exaone-3.5-32b/lotte-tower/artwork.html:44: The full-window canvas is inserted inside a max800px×600px host, overflowing its region; diagram widths plus padding exceed mobile width while overflow-x:hidden clips them. Required repair: Use actual host dimensions and responsive diagram wrapping without clipped content. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution.",
-    "docs/models/exaone-3.5-32b/lotte-tower/artwork.html:8: Body and SVG diagram labels remain default16px, below19px, despite19px buttons. Required repair: Set all meaningful rendered text and diagram labels to at least19px. Preserve your chosen visual style and expressive approach; no host-page geometry/template substitution."
+    "Only three text-based drawing views are offered; the required reference-floor plan is absent and no actual drawing geometry is rendered. Provide four meaningful site/floor/elevation/section drawings linked to the model.",
+    "The development states only change horizontal scale of the same flat mesh, with no stage explanations or meaningful design progression. Implement and explain distinct developmental3D forms and drawing correspondence.",
+    "CylinderGeometry top radius100/bottom10 widens upward, and scaling its1000-unit height by0.01 produces a10-unit-high disk rather than the555m narrowing tower. Use a coherent conceptual tower with correct upward taper and an explicit consistent dimensional scale.",
+    "The initial camera is1500units from the origin but far clipping is1000, so the model is outside the visible range. The initial screenshot is blank. Fit a visible whole-model camera and clipping range.",
+    "Selecting any drawing replaces document.body through innerHTML+=. Browser confirms the active WebGL canvas becomes detached(canvasIndex -1); the replacement select loses its change listener and later selections do nothing. Update a dedicated diagram panel without replacing the canvas/control nodes or losing listeners.",
+    "Reset restores the OrbitControls state captured at camera origin; browser confirms camera(0,0,0), not the intended home view. Save and restore a valid initial camera/target after setup.",
+    "Drawing explanations and units use default16px text. Use at least19px meaningful rendered text.",
+    "Only a view selector/reset button is keyboard-operable; no keyboard camera orbit or zoom equivalents exist. Provide accessible keyboard orbit and zoom controls."
   ]
 }

@@ -8,7 +8,7 @@ import subprocess
 import sys
 import time
 import tomllib
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 KUBE = ["kubectl", "--context", "mall-apne2-mgmt", "-n", "llm-bench"]
@@ -93,6 +93,7 @@ def diagnose():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--episode", required=True)
+    parser.add_argument("--prompt-file")
     args = parser.parse_args()
     if not args.episode.replace("-", "").isalnum():
         parser.error("Unsafe episode")
@@ -107,7 +108,7 @@ def main():
         row["model"]: {
             "이전 검수 수정 사항": [
                 {"severity": item["severity"], "action": item["action"][:260]}
-                for item in feedback[row["model"]]["이전 독립 검수 지적 원문"]
+                for item in feedback[row["model"]].get("이전 독립 검수 지적 원문", [])
             ],
             "필수 구현": [
                 "배치·기준층 평면·입면·단면 도면 4종, 단위·개념 추정의 근거를 실제로 표시하세요.",
@@ -174,12 +175,34 @@ def main():
                 time.sleep(30)
             ready = time.monotonic()
             print("NATIVE_IDENTITY_VERIFIED", row["model"], model["model_id"], flush=True)
+            output_cap = row["output_cap"]
+            generation_args = ["--feedback", str(compact_path), "--fresh-repair"]
+            if args.prompt_file:
+                text = Path(args.prompt_file).read_text().replace("{name}", row["model"]).replace("{model_id}", model["model_id"])
+                payload = {
+                    "model": model["model_id"], "messages": [{"role": "user", "content": text}],
+                    "add_generation_prompt": True,
+                    "chat_template_kwargs": model.get("chat_template_kwargs", {}),
+                }
+                request = Request(
+                    f"http://127.0.0.1:{PORT}/tokenize",
+                    data=json.dumps(payload).encode(),
+                    headers={"Content-Type": "application/json"},
+                )
+                with urlopen(request, timeout=30) as response:
+                    count = json.load(response)["count"]
+                output_cap = min(output_cap, 8192 - count - 64)
+                assert output_cap >= 4096, "Compact prompt still leaves insufficient output room"
+                budget = {"model": row["model"], "input_tokens": count,
+                          "context_tokens": 8192, "output_cap": output_cap, "safety_tokens": 64}
+                (directory / "native-token-budget.json").write_text(json.dumps(budget, indent=2) + "\n")
+                print("MEASURED_NATIVE_BUDGET", json.dumps(budget), flush=True)
+                generation_args = ["--prompt-file", args.prompt_file]
             command(
                 ["uv", "run", "--no-sync", "python3", "tools/generate_lotte_towers.py",
-                 "--models", row["model"], "--max-output-tokens", str(row["output_cap"]),
-                 "--native-port", str(PORT), "--feedback", str(compact_path),
-                 "--fresh-repair", "--repair-language", "ko", "--retry-episode", args.episode],
-                env=env,
+                 "--models", row["model"], "--max-output-tokens", str(output_cap),
+                 "--native-port", str(PORT), *generation_args,
+                 "--repair-language", "ko", "--retry-episode", args.episode], env=env,
             )
             receipts.append({"model": row["model"], "startup_seconds": ready - began,
                              "active_seconds": time.monotonic() - began})

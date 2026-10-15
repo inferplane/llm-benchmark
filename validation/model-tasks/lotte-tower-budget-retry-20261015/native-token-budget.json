@@ -1,0 +1,7 @@
+{
+  "model": "qwen3.6-27b",
+  "input_tokens": 629,
+  "context_tokens": 8192,
+  "output_cap": 6144,
+  "safety_tokens": 64
+}

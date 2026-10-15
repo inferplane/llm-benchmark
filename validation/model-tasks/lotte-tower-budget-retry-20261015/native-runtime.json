@@ -1,0 +1,7 @@
+[
+  {
+    "model": "qwen3.6-27b",
+    "startup_seconds": 782.8825289250235,
+    "active_seconds": 1035.5462495459942
+  }
+]

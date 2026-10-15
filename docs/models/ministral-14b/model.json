@@ -142,11 +142,128 @@
       "family": "Mistral",
       "generation": "lotte-tower-models-20261013",
       "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b",
-      "status": "failed",
-      "generation_status": "failed",
-      "artwork_sha256": null,
-      "content_review": null,
-      "prompt_sha256": "9b5ec7231a09a18800df6175093565ccdffc6c29ee62352e1c0a7a492e6e3129",
+      "status": "review_failed",
+      "generation_status": "generated",
+      "artwork_sha256": "d343e39d42caf2fbd8914f4537f3b71b76f7e138d3e93807a74b391f1279bbfd",
+      "content_review": {
+        "model": "ministral-14b",
+        "model_id": "mistral.ministral-3-14b-instruct",
+        "requested_at": "2026-10-15T11:37:57.494695+00:00",
+        "retry_episode": "lotte-tower-budget-retry-20261015",
+        "review_iteration_in_episode": 1,
+        "current_generation_status": "generated",
+        "active_source": true,
+        "artwork_sha256": "d343e39d42caf2fbd8914f4537f3b71b76f7e138d3e93807a74b391f1279bbfd",
+        "score": 84.5,
+        "critical": 1,
+        "warnings": 7,
+        "verdict": "FAIL",
+        "category_scores": {
+          "Layout": 6.0,
+          "Terminology": 8,
+          "No Hallucination": 12,
+          "Language Consistency": 8,
+          "No Sensitive Data": 12,
+          "Content-Type Quality": 2,
+          "Icon Usage": 5,
+          "Renders": 0,
+          "Interactions": 5,
+          "Readability": 3.5,
+          "Accessibility": 1,
+          "Structural Completeness": 3.5,
+          "Data Accuracy and References": 3.5,
+          "Legal Compliance": 5,
+          "Message Clarity": 5,
+          "Duplication and Gaps": 5
+        },
+        "task_requirements_complete": false,
+        "publication_approved": false,
+        "original_response_bytes_verified": true,
+        "config_identity_verified": true,
+        "source": "/tmp/lotte-budget-retry-20261015/ministral-14b/d343e39d42ca",
+        "browser_evidence": "/tmp/lotte-budget-retry-20261015/ministral-14b/d343e39d42ca/browser.json",
+        "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
+        "findings": [
+          {
+            "severity": "Critical",
+            "category": "Renders",
+            "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+            "line": 130,
+            "quote": "const ctx = canvas.getContext('2d');",
+            "problem": "drawDiagram obtains DIV hosts(layout-diagram,floor-plan,elevation-front,section) and calls getContext on them. Browser throws canvas.getContext is not a function before any diagrams, model load or control listeners are initialized.",
+            "action": "Use actual canvas elements or create canvases inside the hosts before acquiring their contexts; verify full startup."
+          },
+          {
+            "severity": "Warning",
+            "category": "Readability",
+            "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+            "line": 17,
+            "quote": "button, select { padding: 0.5rem 1rem; font-size: 1rem; border: none; border-radius: 4px; background: var(--secondary); color: var(--text); cursor: pointer; }",
+            "problem": "Buttons/body text are16px, model status14.4px, and intended canvas annotations10–12px, below the explicit19px requirement.",
+            "action": "Keep meaningful controls, explanations and rendered diagram annotations at least19px."
+          },
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+            "line": 5,
+            "quote": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\">",
+            "problem": "maximum-scale=1 and user-scalable=no disable normal user zoom.",
+            "action": "Allow viewport zoom."
+          },
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+            "line": 115,
+            "quote": "const controls = new THREE.OrbitControls(camera, renderer.domElement);",
+            "problem": "No keyboard orbit/zoom handler or corresponding native camera buttons exist; default OrbitControls is not attached to keyboard input.",
+            "action": "Provide keyboard-accessible camera orbit and zoom equivalents."
+          },
+          {
+            "severity": "Warning",
+            "category": "Accessibility",
+            "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+            "line": 18,
+            "quote": "button:hover { background: var(--accent); }",
+            "problem": "Hover changes the background to accent yellow without a compatible foreground: inactive view buttons become yellow-on-yellow, and ordinary button text remains pale.",
+            "action": "Set contrasting hover foreground/background colors meeting4.5:1."
+          },
+          {
+            "severity": "Warning",
+            "category": "Layout",
+            "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+            "line": 103,
+            "quote": "renderer.setSize(window.innerWidth, window.innerHeight);",
+            "problem": "The renderer is sized to the whole window, but its clipped host is at most1168px wide and500px tall. Its canvas extends beyond the visible model area and aspect uses the wrong bounds.",
+            "action": "Size the renderer/camera from the actual responsive model host."
+          },
+          {
+            "severity": "Warning",
+            "category": "Data Accuracy and References",
+            "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+            "line": 230,
+            "quote": "const outerGeometry = new THREE.ExtrudeGeometry(outerShape, {",
+            "problem": "The outer envelope is a constant100×100square extruded555units alongZ; floor-pattern groups are instead placed alongY. The shell never narrows, so final geometry is incoherent with the supplied upward-tapering tower and dimensioned drawings.",
+            "action": "Use a consistent height axis and coherent taper shared by the conceptual geometry and drawings."
+          },
+          {
+            "severity": "Warning",
+            "category": "Structural Completeness",
+            "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+            "line": 308,
+            "quote": "document.getElementById('design-stage').textContent = towerData.stages[towerData.currentStage].name;",
+            "problem": "The authored stage descriptions are never displayed, and stage selection does not update or identify corresponding drawings. The required development explanation and diagram/stage/model connection are absent.",
+            "action": "Expose each stage explanation and meaningful correspondence with the drawings."
+          }
+        ],
+        "notes": [
+          "Budget episode source is complete4415token HTML, extracted byte-for-byte from the configured actual author response. Completion resolves the former generation failure, but this new implementation fails the content/task gate. Only this fresh body was browser-tested; no source edits or extra model calls."
+        ],
+        "reviewed_at": "2026-10-15T11:41:29.434675+00:00",
+        "episode_review_iteration": 1
+      },
+      "prompt_sha256": "09d5b7fe96d9a9399784c3ce755990e51dbd275ddfe4398bccaa987b4318b24a",
       "initial_prompt_sha256": "fcb57e79bf063de470672286501639b5fb9ca6b1280354f88f34372a191181f2",
       "implementation_cost": {
         "kind": "api_tokens",
@@ -157,18 +274,18 @@
           "price_in": 0.2,
           "price_out": 0.2
         },
-        "estimated_total_usd": 0.0179762,
-        "estimated_final_response_usd": 0.0043714,
-        "recorded_attempts": 6,
-        "successful_code_responses": 3,
-        "additional_attempts": 5,
-        "known_cost_attempts": 6,
+        "estimated_total_usd": 0.018991,
+        "estimated_final_response_usd": 0.0010148,
+        "recorded_attempts": 7,
+        "successful_code_responses": 4,
+        "additional_attempts": 6,
+        "known_cost_attempts": 7,
         "unknown_usage_attempts": 0,
         "missing_duration_attempts": 0,
         "total_request_seconds": null,
         "tokens": {
-          "tokens_in": 31764,
-          "tokens_out": 58117,
+          "tokens_in": 32423,
+          "tokens_out": 62532,
           "cache_read_tokens": 0,
           "cache_write_tokens": 0
         },
@@ -239,15 +356,30 @@
             "request_seconds": null,
             "record_sha256": "d2bbb7d45bc467d0be4bb7a08fad5336f366e38c16f19f097fb9ee1224fa6410",
             "response_sha256": "56c99d123a60b29d7a3ddade6804d7d5004f82cb0a5924718b285fdd00af0363"
+          },
+          {
+            "requested_at": "2026-10-15T11:37:57.494695+00:00",
+            "status": "generated",
+            "request_id": "40ba4bbe-04a4-4f7c-93f0-f757999285d6",
+            "usage_available": true,
+            "estimated_cost_usd": 0.0010148,
+            "request_seconds": null,
+            "record_sha256": "faf90197b9d80ad86f00c46119564f6a5c2225dc4c28934188fb427c85e65e06",
+            "response_sha256": "0fe075db7c4f945b76025bae104ff60d197b799a665d98efbef35c7a4e4d0850"
           }
         ]
       },
-      "requested_at": "2026-10-15T00:18:34.896460+00:00",
+      "request_id": "40ba4bbe-04a4-4f7c-93f0-f757999285d6",
+      "requested_at": "2026-10-15T11:37:57.494695+00:00",
+      "generated_at": "2026-10-15T11:38:15.071388+00:00",
+      "tokens_in": 659,
+      "tokens_out": 4415,
       "max_output_tokens": 8192,
       "temperature": 0,
       "temperature_sent": true,
       "bedrock_reasoning_effort": null,
-      "retry_episode": "lotte-tower-retry-20261015",
+      "finish_reason": "end_turn",
+      "retry_episode": "lotte-tower-budget-retry-20261015",
       "request_conditions": {
         "initial_prompt_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
         "initial_max_output_tokens": 8192,
@@ -255,8 +387,8 @@
         "initial_temperature": 0,
         "latest_temperature": 0,
         "initial_reasoning_effort": null,
-        "recorded_requests": 6,
-        "followup_requests": 5,
+        "recorded_requests": 7,
+        "followup_requests": 6,
         "final_outputs_are_controlled_one_shot_comparison": false
       }
     }

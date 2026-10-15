@@ -1047,14 +1047,20 @@
       "episode_review_iteration": 1
     },
     {
-      "task_requirements_complete": false,
       "model": "ministral-14b",
-      "score": 93.5,
+      "model_id": "mistral.ministral-3-14b-instruct",
+      "requested_at": "2026-10-15T11:37:57.494695+00:00",
+      "retry_episode": "lotte-tower-budget-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "d343e39d42caf2fbd8914f4537f3b71b76f7e138d3e93807a74b391f1279bbfd",
+      "score": 84.5,
       "critical": 1,
-      "warnings": 1,
+      "warnings": 7,
       "verdict": "FAIL",
       "category_scores": {
-        "Layout": 8,
+        "Layout": 6.0,
         "Terminology": 8,
         "No Hallucination": 12,
         "Language Consistency": 8,
@@ -1064,50 +1070,99 @@
         "Renders": 0,
         "Interactions": 5,
         "Readability": 3.5,
-        "Accessibility": 5,
-        "Structural Completeness": 5,
-        "Data Accuracy and References": 5,
+        "Accessibility": 1,
+        "Structural Completeness": 3.5,
+        "Data Accuracy and References": 3.5,
         "Legal Compliance": 5,
         "Message Clarity": 5,
         "Duplication and Gaps": 5
       },
-      "artwork_sha256": "95efdcf9dcb9f0fa1bf80555aefd9281515431cb189b665aa8a6e1d87f2f45dd",
-      "model_id": "mistral.ministral-3-14b-instruct",
-      "origin_generation": "lotte-tower-models-20261013",
+      "task_requirements_complete": false,
+      "publication_approved": false,
       "original_response_bytes_verified": true,
-      "source": "/tmp/model-lotte-review/ministral-14b/95efdcf9dcb9",
-      "browser_evidence": "/tmp/model-lotte-review/ministral-14b/95efdcf9dcb9/browser.json",
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-budget-retry-20261015/ministral-14b/d343e39d42ca",
+      "browser_evidence": "/tmp/lotte-budget-retry-20261015/ministral-14b/d343e39d42ca/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
       "findings": [
         {
           "severity": "Critical",
           "category": "Renders",
           "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
-          "line": 531,
-          "quote": "window.OrbitControls = function(object, domElement) {",
-          "problem": "The simulated runtime defines window.OrbitControls but calls new THREE.OrbitControls; it throws before rendering. The bundled local runtime is never loaded.",
-          "action": "Use ../runtime/three-runtime.js and real THREE.OrbitControls; remove the incomplete substitute runtime rather than aliasing an incompatible stub. Retest all render/control methods."
+          "line": 130,
+          "quote": "const ctx = canvas.getContext('2d');",
+          "problem": "drawDiagram obtains DIV hosts(layout-diagram,floor-plan,elevation-front,section) and calls getContext on them. Browser throws canvas.getContext is not a function before any diagrams, model load or control listeners are initialized.",
+          "action": "Use actual canvas elements or create canvases inside the hosts before acquiring their contexts; verify full startup."
         },
         {
           "severity": "Warning",
           "category": "Readability",
           "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
-          "line": 62,
-          "quote": "font-size: 0.9rem;",
-          "problem": "Meaningful UI/diagram text is below19px at rendered size.",
-          "action": "Make meaningful text and diagram labels at least19px on mobile/desktop."
+          "line": 17,
+          "quote": "button, select { padding: 0.5rem 1rem; font-size: 1rem; border: none; border-radius: 4px; background: var(--secondary); color: var(--text); cursor: pointer; }",
+          "problem": "Buttons/body text are16px, model status14.4px, and intended canvas annotations10–12px, below the explicit19px requirement.",
+          "action": "Keep meaningful controls, explanations and rendered diagram annotations at least19px."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+          "line": 5,
+          "quote": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\">",
+          "problem": "maximum-scale=1 and user-scalable=no disable normal user zoom.",
+          "action": "Allow viewport zoom."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+          "line": 115,
+          "quote": "const controls = new THREE.OrbitControls(camera, renderer.domElement);",
+          "problem": "No keyboard orbit/zoom handler or corresponding native camera buttons exist; default OrbitControls is not attached to keyboard input.",
+          "action": "Provide keyboard-accessible camera orbit and zoom equivalents."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+          "line": 18,
+          "quote": "button:hover { background: var(--accent); }",
+          "problem": "Hover changes the background to accent yellow without a compatible foreground: inactive view buttons become yellow-on-yellow, and ordinary button text remains pale.",
+          "action": "Set contrasting hover foreground/background colors meeting4.5:1."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+          "line": 103,
+          "quote": "renderer.setSize(window.innerWidth, window.innerHeight);",
+          "problem": "The renderer is sized to the whole window, but its clipped host is at most1168px wide and500px tall. Its canvas extends beyond the visible model area and aspect uses the wrong bounds.",
+          "action": "Size the renderer/camera from the actual responsive model host."
+        },
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+          "line": 230,
+          "quote": "const outerGeometry = new THREE.ExtrudeGeometry(outerShape, {",
+          "problem": "The outer envelope is a constant100×100square extruded555units alongZ; floor-pattern groups are instead placed alongY. The shell never narrows, so final geometry is incoherent with the supplied upward-tapering tower and dimensioned drawings.",
+          "action": "Use a consistent height axis and coherent taper shared by the conceptual geometry and drawings."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/ministral-14b/lotte-tower/artwork.html",
+          "line": 308,
+          "quote": "document.getElementById('design-stage').textContent = towerData.stages[towerData.currentStage].name;",
+          "problem": "The authored stage descriptions are never displayed, and stage selection does not update or identify corresponding drawings. The required development explanation and diagram/stage/model connection are absent.",
+          "action": "Expose each stage explanation and meaningful correspondence with the drawings."
         }
       ],
       "notes": [
-        "Current stable original bytes and actual model identity verified; isolated browser375/768/1440 and source review. Re-review number is computed from previously reviewed successful source revisions, not failed/truncated API attempts.",
-        "The long source includes real drawing/stage intentions, but they cannot be called verified complete while actual rendering fails."
+        "Budget episode source is complete4415token HTML, extracted byte-for-byte from the configured actual author response. Completion resolves the former generation failure, but this new implementation fails the content/task gate. Only this fresh body was browser-tested; no source edits or extra model calls."
       ],
-      "reviewed_at": "2026-10-13T15:25:04.103646+00:00",
-      "re_review_number": 2,
-      "review_iteration": 3,
-      "retry_limit_reached": false,
-      "current_generation_status": "failed",
-      "active_source": false,
-      "no_current_artifact_grade": true
+      "reviewed_at": "2026-10-15T11:41:29.434675+00:00",
+      "episode_review_iteration": 1
     },
     {
       "task_requirements_complete": true,
@@ -2846,11 +2901,102 @@
       ],
       "reviewed_at": "2026-10-15T01:24:55.209030+00:00",
       "episode_review_iteration": 1
+    },
+    {
+      "model": "qwen3.6-27b",
+      "model_id": "Qwen/Qwen3.6-27B",
+      "requested_at": "2026-10-15T11:52:06.870656+00:00",
+      "retry_episode": "lotte-tower-budget-retry-20261015",
+      "review_iteration_in_episode": 1,
+      "current_generation_status": "generated",
+      "active_source": true,
+      "artwork_sha256": "a7b53aab9f02aec0cddba39a33ee94afb04abdad7518e39b6519d125a321dacb",
+      "score": 92.0,
+      "critical": 0,
+      "warnings": 5,
+      "verdict": "REVIEW",
+      "category_scores": {
+        "Layout": 6.0,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 3.5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 3.5,
+        "Data Accuracy and References": 3.5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "task_requirements_complete": false,
+      "publication_approved": false,
+      "original_response_bytes_verified": true,
+      "config_identity_verified": true,
+      "source": "/tmp/lotte-budget-retry-20261015/qwen3.6-27b/a7b53aab9f02",
+      "browser_evidence": "/tmp/lotte-budget-retry-20261015/qwen3.6-27b/a7b53aab9f02/browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Data Accuracy and References",
+          "file": "docs/models/qwen3.6-27b/lotte-tower/artwork.html",
+          "line": 206,
+          "quote": "mesh.position.y = 0; // Base at 0",
+          "problem": "The curved stage spansY-277.5to277.5 instead of resting on ground. In the final stage the body spans-267.5to267.5, but spire535–555and antenna550–560float far above it. Combined height827.5does not match the claimed555m completed tower; drawings do not depict these disconnected bounds.",
+          "action": "Align all parts on a consistent height axis/ground level, connect the crown and keep final height/drawings consistent with the declared conceptual model."
+        },
+        {
+          "severity": "Warning",
+          "category": "Layout",
+          "file": "docs/models/qwen3.6-27b/lotte-tower/artwork.html",
+          "line": 15,
+          "quote": "#main-container { flex: 1; position: relative; display: flex; flex-direction: column; }",
+          "problem": "The main flex column exceeds the fixed hidden-overflow page. At375×844 the viewport alone extends toY895, drawings start below it and the section is atY1630; real wheel input cannot reach them. Controls/drawings are clipped rather than usable on mobile.",
+          "action": "Allow the layout to shrink or scroll normally and keep all stage controls and four drawings reachable at the required widths."
+        },
+        {
+          "severity": "Warning",
+          "category": "Readability",
+          "file": "docs/models/qwen3.6-27b/lotte-tower/artwork.html",
+          "line": 22,
+          "quote": ".stage-desc { font-size: 16px; margin-top: 5px; max-width: 300px; }",
+          "problem": "Stage explanations are16px, model ID14px, drawing headings16px, notes12px and canvas labels12px, violating the explicit19px informative-text requirement.",
+          "action": "Keep actual rendered informative text and diagram labels at least19px."
+        },
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/qwen3.6-27b/lotte-tower/artwork.html",
+          "line": 110,
+          "quote": "const controls = new THREE.OrbitControls(camera, renderer.domElement);",
+          "problem": "No keyboard orbit/zoom implementation or equivalent buttons exists. Real ArrowLeft/ArrowUp/+/- probes leave the camera unchanged; only stage/reset buttons are keyboard-operable.",
+          "action": "Provide keyboard-accessible camera orbit and zoom equivalents."
+        },
+        {
+          "severity": "Warning",
+          "category": "Structural Completeness",
+          "file": "docs/models/qwen3.6-27b/lotte-tower/artwork.html",
+          "line": 328,
+          "quote": "function setStage(stage) {",
+          "problem": "Stage selection changes geometry/descriptions but never updates or identifies corresponding drawings. Browser confirms all four canvas drawing bytes remain identical across stages, with no diagram selection/linkage.",
+          "action": "Connect drawing selection or visible correspondence to the chosen design stage and completed model."
+        }
+      ],
+      "notes": [
+        "Fresh actualQwen/Qwen3.6-27B identity and unchanged response bytes verified. RealWebGL pointer drag/wheel and three stage states work without errors; fourcanvas drawings exist. Full-task approval remains false because of disconnected final geometry, inaccessible mobile drawings/controls and missing keyboard camera operations. Native receipt629input+6144outputcap+64safety=6837≤8192; actual4496output/stop. No extra calls or author-code edits."
+      ],
+      "reviewed_at": "2026-10-15T12:04:18.870771+00:00",
+      "episode_review_iteration": 1
     }
   ],
   "release_review_complete": false,
   "summary": "Latest-source per-model content reviews; prior grades remain in history.",
-  "reviewed_at": "2026-10-15T01:25:15.803689+00:00",
+  "reviewed_at": "2026-10-15T12:04:54.441468+00:00",
   "history": [
     {
       "model": "claude-haiku-4.5",
@@ -10017,18 +10163,20 @@
     "llama-3.1-8b",
     "llama-3.3-70b",
     "llama-3.3-70b-bedrock",
+    "ministral-14b",
     "nemotron-nano-3-30b",
     "nemotron-super-3-120b",
     "nova-lite",
     "nova-micro",
     "nova-pro",
     "qwen3-235b-a22b",
-    "qwen3-32b"
+    "qwen3-32b",
+    "qwen3.6-27b"
   ],
   "active_summary": {
     "full_task_ready": 19,
     "not_ready": 19,
-    "generation_failed": 2
+    "generation_failed": 0
   },
   "active_task_complete_pass": 19,
   "snapshot_notice": "All38 configured enabled generative models now have an invocation outcome. Latest generated originals are source-matched and reviewed. Two generation failures have no current source grade; historicalMinistral source is retained only as evidence. Full requested raw-artwork batch cannot pass. A user-approved publication scope and frozen candidate still require a separate final release review.",
@@ -10048,36 +10196,7 @@
     "llama-3.3-70b-bedrock",
     "exaone-3.5-32b"
   ],
-  "latest_generation_failures": [
-    {
-      "model": "ministral-14b",
-      "model_id": "mistral.ministral-3-14b-instruct",
-      "status": "failed",
-      "artwork_sha256": null,
-      "record_sha256": "d2bbb7d45bc467d0be4bb7a08fad5336f366e38c16f19f097fb9ee1224fa6410",
-      "content_grade_available": false,
-      "error": {
-        "type": "ValueError",
-        "message": "ValueError during model request",
-        "retryable": false
-      },
-      "no_current_artifact_grade": true
-    },
-    {
-      "model": "qwen3.6-27b",
-      "model_id": "Qwen/Qwen3.6-27B",
-      "status": "failed",
-      "artwork_sha256": null,
-      "record_sha256": "a00a12acbb51980adafa96e7afe1f55b977f11e54a606ba45a43962e75ccdcbb",
-      "content_grade_available": false,
-      "error": {
-        "type": "ValueError",
-        "message": "ValueError during model request",
-        "retryable": false
-      },
-      "no_current_artifact_grade": true
-    }
-  ],
+  "latest_generation_failures": [],
   "generation_outcomes": [
     {
       "model": "claude-fable-5.1",
@@ -10314,10 +10433,10 @@
     {
       "model": "ministral-14b",
       "model_id": "mistral.ministral-3-14b-instruct",
-      "status": "failed",
-      "artwork_sha256": null,
-      "record_sha256": "d2bbb7d45bc467d0be4bb7a08fad5336f366e38c16f19f097fb9ee1224fa6410",
-      "content_grade_available": false
+      "status": "generated",
+      "artwork_sha256": "d343e39d42caf2fbd8914f4537f3b71b76f7e138d3e93807a74b391f1279bbfd",
+      "record_sha256": "faf90197b9d80ad86f00c46119564f6a5c2225dc4c28934188fb427c85e65e06",
+      "content_grade_available": true
     },
     {
       "model": "nemotron-nano-3-30b",
@@ -10378,10 +10497,10 @@
     {
       "model": "qwen3.6-27b",
       "model_id": "Qwen/Qwen3.6-27B",
-      "status": "failed",
-      "artwork_sha256": null,
-      "record_sha256": "a00a12acbb51980adafa96e7afe1f55b977f11e54a606ba45a43962e75ccdcbb",
-      "content_grade_available": false
+      "status": "generated",
+      "artwork_sha256": "a7b53aab9f02aec0cddba39a33ee94afb04abdad7518e39b6519d125a321dacb",
+      "record_sha256": "046b2ae1f8b8a35b91948799336c7c353b6995ef5e60359bd5028628cff19c96",
+      "content_grade_available": true
     }
   ],
   "generation_counts": {
@@ -10998,6 +11117,6 @@
     "REVIEW": 5,
     "FAIL": 12
   },
-  "latest_retry_episode": "lotte-tower-retry-20261015",
+  "latest_retry_episode": "lotte-tower-budget-retry-20261015",
   "publication_note": "New sources are graded; the publication candidate needs its own release gate."
 }

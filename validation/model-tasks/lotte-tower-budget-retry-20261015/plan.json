@@ -1,0 +1,28 @@
+{
+  "episode": "lotte-tower-budget-retry-20261015",
+  "requested_at": "2026-10-15T11:37:41.923015+00:00",
+  "paid_calls_per_model": 1,
+  "controlled_one_shot_comparison": false,
+  "models": [
+    {
+      "model": "ministral-14b",
+      "model_id": "mistral.ministral-3-14b-instruct",
+      "api": "bedrock",
+      "native": false,
+      "baseline_status": "failed",
+      "baseline_record_sha256": "d2bbb7d45bc467d0be4bb7a08fad5336f366e38c16f19f097fb9ee1224fa6410",
+      "baseline_artwork_sha256": null,
+      "output_cap": 8192
+    },
+    {
+      "model": "qwen3.6-27b",
+      "model_id": "Qwen/Qwen3.6-27B",
+      "api": "openai",
+      "native": true,
+      "baseline_status": "failed",
+      "baseline_record_sha256": "a00a12acbb51980adafa96e7afe1f55b977f11e54a606ba45a43962e75ccdcbb",
+      "baseline_artwork_sha256": null,
+      "output_cap": 6144
+    }
+  ]
+}

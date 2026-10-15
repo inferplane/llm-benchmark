@@ -69,6 +69,16 @@
     "White text on#4CAF50 buttons has about2.78:1 contrast, below4.5:1. Choose accessible foreground/background contrast.",
     "OrbitControls supports pointer orbit, but the page provides no keyboard orbit handler or orbit buttons; only reset and zoom buttons are present. Provide keyboard-accessible camera orbit equivalents."
   ],
+  "ministral-14b": [
+    "drawDiagram obtains DIV hosts(layout-diagram,floor-plan,elevation-front,section) and calls getContext on them. Browser throws canvas.getContext is not a function before any diagrams, model load or control listeners are initialized. Use actual canvas elements or create canvases inside the hosts before acquiring their contexts; verify full startup.",
+    "Buttons/body text are16px, model status14.4px, and intended canvas annotations10–12px, below the explicit19px requirement. Keep meaningful controls, explanations and rendered diagram annotations at least19px.",
+    "maximum-scale=1 and user-scalable=no disable normal user zoom. Allow viewport zoom.",
+    "No keyboard orbit/zoom handler or corresponding native camera buttons exist; default OrbitControls is not attached to keyboard input. Provide keyboard-accessible camera orbit and zoom equivalents.",
+    "Hover changes the background to accent yellow without a compatible foreground: inactive view buttons become yellow-on-yellow, and ordinary button text remains pale. Set contrasting hover foreground/background colors meeting4.5:1.",
+    "The renderer is sized to the whole window, but its clipped host is at most1168px wide and500px tall. Its canvas extends beyond the visible model area and aspect uses the wrong bounds. Size the renderer/camera from the actual responsive model host.",
+    "The outer envelope is a constant100×100square extruded555units alongZ; floor-pattern groups are instead placed alongY. The shell never narrows, so final geometry is incoherent with the supplied upward-tapering tower and dimensioned drawings. Use a consistent height axis and coherent taper shared by the conceptual geometry and drawings.",
+    "The authored stage descriptions are never displayed, and stage selection does not update or identify corresponding drawings. The required development explanation and diagram/stage/model connection are absent. Expose each stage explanation and meaningful correspondence with the drawings."
+  ],
   "kimi-k3": [
     "SVG dimension/label text uses15–16px, below the19px review minimum. Increase meaningful rendered diagram labels to19px or provide equivalent readable annotations.",
     "At375px the drawing panel/tab row extends beyond the viewport; the fourth tab and right diagram content are clipped from the initial width. Allow grid children/drawing regions to shrink or use deliberately accessible scrolling without clipped controls/content."
@@ -201,5 +211,12 @@
     "Reset restores the OrbitControls state captured at camera origin; browser confirms camera(0,0,0), not the intended home view. Save and restore a valid initial camera/target after setup.",
     "Drawing explanations and units use default16px text. Use at least19px meaningful rendered text.",
     "Only a view selector/reset button is keyboard-operable; no keyboard camera orbit or zoom equivalents exist. Provide accessible keyboard orbit and zoom controls."
+  ],
+  "qwen3.6-27b": [
+    "The curved stage spansY-277.5to277.5 instead of resting on ground. In the final stage the body spans-267.5to267.5, but spire535–555and antenna550–560float far above it. Combined height827.5does not match the claimed555m completed tower; drawings do not depict these disconnected bounds. Align all parts on a consistent height axis/ground level, connect the crown and keep final height/drawings consistent with the declared conceptual model.",
+    "The main flex column exceeds the fixed hidden-overflow page. At375×844 the viewport alone extends toY895, drawings start below it and the section is atY1630; real wheel input cannot reach them. Controls/drawings are clipped rather than usable on mobile. Allow the layout to shrink or scroll normally and keep all stage controls and four drawings reachable at the required widths.",
+    "Stage explanations are16px, model ID14px, drawing headings16px, notes12px and canvas labels12px, violating the explicit19px informative-text requirement. Keep actual rendered informative text and diagram labels at least19px.",
+    "No keyboard orbit/zoom implementation or equivalent buttons exists. Real ArrowLeft/ArrowUp/+/- probes leave the camera unchanged; only stage/reset buttons are keyboard-operable. Provide keyboard-accessible camera orbit and zoom equivalents.",
+    "Stage selection changes geometry/descriptions but never updates or identifies corresponding drawings. Browser confirms all four canvas drawing bytes remain identical across stages, with no diagram selection/linkage. Connect drawing selection or visible correspondence to the chosen design stage and completed model."
   ]
 }

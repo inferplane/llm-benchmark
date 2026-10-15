@@ -349,7 +349,7 @@ async def generate_one(model: dict, aws_region: str, limiter: asyncio.Semaphore)
         and previous.get("model_id") == model["model_id"]
         and hashlib.sha256(artwork.read_bytes()).hexdigest() == previous.get("artwork_sha256")
     )
-    if previous["status"] == "generated" and same_source and not model.get("_feedback"):
+    if previous["status"] == "generated" and same_source and not model.get("_feedback") and not model.get("_prompt_file"):
         print(f"Cached {name}", flush=True)
         return
     directory = RECORDS / name
@@ -400,6 +400,8 @@ async def generate_one(model: dict, aws_region: str, limiter: asyncio.Semaphore)
                     + json.dumps(model["_feedback"], ensure_ascii=False)
                     + "\n\n설명이나 코드 조각 없이, 닫는 태그까지 포함한 전체 HTML을 반환하세요."
                 )
+        if model.get("_prompt_file"):
+            prompt = Path(model["_prompt_file"]).read_text().replace("{name}", name).replace("{model_id}", model["model_id"])
         directory.joinpath("prompt.txt").write_text(prompt)
         if model["api"] == "bedrock":
             import boto3

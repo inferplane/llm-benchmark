@@ -1,0 +1,6 @@
+{
+  "task_deployment_service_remaining": 0,
+  "task_pods_remaining": 0,
+  "context": "mall-apne2-mgmt",
+  "namespace": "llm-bench"
+}

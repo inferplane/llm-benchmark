@@ -96,6 +96,7 @@ def main():
     parser.add_argument("--repair-language", choices=("ko", "en"), default="ko")
     parser.add_argument("--retry-episode")
     parser.add_argument("--native-port", type=int, help="isolated loopback forwarding for this task")
+    parser.add_argument("--prompt-file", help="recorded task-specific request template")
     args = parser.parse_args()
     cfg = run.load_config()
     initialize(cfg["models"])
@@ -120,10 +121,14 @@ def main():
         not 1024 <= args.native_port <= 65535 or any(not model.get("base_url") for model in wanted)
     ):
         parser.error("Native forwarding port requires self-hosted models and a non-privileged port")
+    if args.prompt_file and (len(wanted) != 1 or not Path(args.prompt_file).is_file()):
+        parser.error("Custom request template requires one model and an existing file")
     feedback = json.loads(Path(args.feedback).read_text()) if args.feedback else {}
     prepared = []
     for model in wanted:
         options = dict(model)
+        if args.prompt_file:
+            options["_prompt_file"] = args.prompt_file
         if args.native_port is not None:
             options["base_url"] = f"http://127.0.0.1:{args.native_port}/v1"
         if model["name"] in LOW_EFFORT_CLAUDE or model["name"] == "kimi-k3":

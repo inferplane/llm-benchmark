@@ -1,6 +1,6 @@
 # Lotte Tower current-source content review
 
-Latest user-authorized retry: `lotte-tower-retry-20261015`.
+Latest user-authorized retry: `lotte-tower-budget-retry-20261015`.
 Full-task approved: 19; not approved: 19.
 
 | Model | Current generation | Verdict | Score | Critical | Warnings | Task complete | SHA |
@@ -34,7 +34,7 @@ Full-task approved: 19; not approved: 19.
 | llama-3.3-70b-bedrock | generated | REVIEW | 94.0 | 0 | 4 | False | 87df1d376345d8a9d4e900a6e7d7abe3eb38d7ebe039ff7e00037ca92da6a0b0 |
 | llama4-maverick | generated | REVIEW | 93.0 | 0 | 4 | True | 42a3ba1fe5ca0fea250d342d7488ddadfce5ba961d436a00202266659718173f |
 | llama4-scout | generated | REVIEW | 93.5 | 0 | 4 | True | a3b57bbea3622ba0ef514355fceb37db14506babefa82f0ed1501cb684731362 |
-| ministral-14b | failed | no current grade |  |  |  |  |  |
+| ministral-14b | generated | FAIL | 84.5 | 1 | 7 | False | d343e39d42caf2fbd8914f4537f3b71b76f7e138d3e93807a74b391f1279bbfd |
 | nemotron-nano-3-30b | generated | REVIEW | 91.0 | 0 | 6 | False | 780aeeaca918fa3f9741543bbef13be669bcd3412b96f44c0ede61772e2c2226 |
 | nemotron-super-3-120b | generated | REVIEW | 93.5 | 0 | 4 | False | 26352ce6d3d607e691d1232b9d9fe0cf1d12ca5dfc66664f5b666ce2bfdcf160 |
 | nova-lite | generated | FAIL | 87.5 | 1 | 5 | False | 1783c15d7336fbc5601ae271b0ce874fb5a9d5bb4d19a4785533f1ecaf2e9b30 |
@@ -42,4 +42,4 @@ Full-task approved: 19; not approved: 19.
 | nova-pro | generated | REVIEW | 92.5 | 0 | 5 | False | c4ab0fb76210f0f72d164273662a93fbb8a19be70bf9b5166340f525a5e663c9 |
 | qwen3-235b-a22b | generated | REVIEW | 87.5 | 0 | 8 | False | 9057956d9ce2925d83db90d97cc221c0356959914c033e0f0aa5c8d8a83a18f0 |
 | qwen3-32b | generated | REVIEW | 92.0 | 0 | 5 | False | 8c22602d376d7dcae5e2a56a56f8bf5bbac1bd82fd0e61201ee8456b08f5f63e |
-| qwen3.6-27b | failed | no current grade |  |  |  |  |  |
+| qwen3.6-27b | generated | REVIEW | 92.0 | 0 | 5 | False | a7b53aab9f02aec0cddba39a33ee94afb04abdad7518e39b6519d125a321dacb |

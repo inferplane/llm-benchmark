@@ -56,6 +56,13 @@ LANG_GROUP = {
 }
 
 
+def _classified_lang(r: dict) -> str:
+    """Non-pivot side of a pair (pivots: ko, en): X->ko / X->en classify by X,
+    ko->X / en->X by X."""
+    pivots = ("ko", "en")
+    return r["src_lang"] if r["tgt_lang"] in pivots and r["src_lang"] not in pivots else r["tgt_lang"]
+
+
 def load_config() -> dict:
     with open(CONFIG, "rb") as f:
         return tomllib.load(f)
@@ -753,11 +760,12 @@ def build_report(run_id: str, scenario_cfg: dict, models_cfg: list[dict], datase
             by_track[track]["baseline_comparison"] = baseline_comparison(
                 track_rows, [r for r in baseline_rows if track_of(r["doc_type"]) == track])
 
-        # Non-ko side of each pair determines its resource group (see LANG_GROUP) —
-        # ko is the pivot language in every pair, never itself the classified side.
+        # The classified side of a pair determines its resource group (see
+        # LANG_GROUP): ko is the pivot, so X->ko classifies by X; otherwise
+        # (ko->X, en->X) by the target.
         by_lang_group = {}
         for group in ("major", "other"):
-            group_rows = [r for r in rows if LANG_GROUP.get(r["src_lang"] if r["src_lang"] != "ko" else r["tgt_lang"]) == group]
+            group_rows = [r for r in rows if LANG_GROUP.get(_classified_lang(r)) == group]
             if group_rows:
                 by_lang_group[group] = aggregate_quality(group_rows)
 
@@ -1478,6 +1486,8 @@ def _selfcheck():
     assert set(s1["by_model"]) == {"m1", "m2"}
     assert s1["by_model"]["m2"]["translation_error"] == "throttled"
 
+    assert [_classified_lang({"src_lang": a, "tgt_lang": b}) for a, b in
+            (("ko", "ja"), ("ja", "ko"), ("en", "vi"), ("vi", "en"), ("ko", "en"))] == ["ja", "ja", "vi", "vi", "en"]
     # LANG_GROUP must cover exactly the 15 non-ko languages (matches docs/app.js's
     # LANG_ORDER) with no language in both groups — a typo here would silently
     # drop a language pair out of both the "major" and "other" breakdowns.

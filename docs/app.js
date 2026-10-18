@@ -760,20 +760,24 @@ function sequentialBg(value, lo, hi) {
 
 function renderHeatmap(report) {
   const table = document.getElementById("heatmap-table");
-  const isFromKo = state.direction === "from-ko";
+  // direction: "from-ko" (ko→X), "from-en" (en→X), "to-ko" (X→ko)
+  const isFromKo = !state.direction.startsWith("to-");
+  const toPivot = state.direction === "to-en" ? "en" : "ko";
+  const pivot = state.direction === "from-en" ? "en" : "ko";
+  const dirLabel = { "from-ko": "KO → X", "from-en": "EN → X", "to-ko": "X → KO", "to-en": "X → EN" }[state.direction];
 
   const pairsByModel = report.models.map((m) => ({
     name: m.name,
     provider: m.provider,
     pairs: Object.entries(m.by_pair).filter(([key]) => {
       const [src, tgt] = key.split("-");
-      return isFromKo ? src === "ko" : tgt === "ko";
+      return isFromKo ? src === pivot : tgt === toPivot;
     }),
   }));
 
   const columns = isFromKo
-    ? LANG_ORDER.filter((l) => pairsByModel.some((m) => m.pairs.some(([k]) => k === `ko-${l}`)))
-    : LANG_ORDER.filter((l) => pairsByModel.some((m) => m.pairs.some(([k]) => k === `${l}-ko`)));
+    ? LANG_ORDER.filter((l) => pairsByModel.some((m) => m.pairs.some(([k]) => k === `${pivot}-${l}`)))
+    : LANG_ORDER.filter((l) => pairsByModel.some((m) => m.pairs.some(([k]) => k === `${l}-${toPivot}`)));
 
   const rows = pairsByModel.filter((m) => m.pairs.length > 0);
 
@@ -786,13 +790,13 @@ function renderHeatmap(report) {
   }
 
   if (!rows.length || !columns.length) {
-    table.parentElement.innerHTML = `<div class="empty-state"><span class="glyph">◐</span>이 방향(${isFromKo ? "KO → X" : "X → KO"})에 대한 결과가 아직 없습니다.</div>`;
+    table.parentElement.innerHTML = `<div class="empty-state"><span class="glyph">◐</span>이 방향(${dirLabel})에 대한 결과가 아직 없습니다.</div>`;
     return;
   }
   if (!table.isConnected) return; // parent was replaced by an earlier empty state; caller re-fetches DOM
 
   let head = `<thead><tr><th class="rowhead">모델</th>`;
-  for (const l of columns) head += `<th>${isFromKo ? pairChip("ko", l) : pairChip(l, "ko")}</th>`;
+  for (const l of columns) head += `<th>${isFromKo ? pairChip(pivot, l) : pairChip(l, toPivot)}</th>`;
   head += `</tr></thead>`;
 
   const allValues = rows.flatMap((r) => r.pairs.map(([, v]) => v.judge_overall).filter((v) => v != null));
@@ -806,7 +810,7 @@ function renderHeatmap(report) {
     const providerColor = B.family(row.name).color;
     body += `<tr><td class="rowhead" style="border-left-color:${providerColor}"><span class="dot" style="background:${providerColor}" title="${B.family(row.name).label}"></span>${escapeHtml(row.name)}</td>`;
     for (const l of columns) {
-      const key = isFromKo ? `ko-${l}` : `${l}-ko`;
+      const key = isFromKo ? `${pivot}-${l}` : `${l}-${toPivot}`;
       const entry = row.pairs.find(([k]) => k === key);
       const v = entry ? entry[1].judge_overall : null;
       body += v != null

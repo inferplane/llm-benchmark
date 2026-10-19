@@ -233,7 +233,15 @@
   table.heatmap thead th { color: var(--ink-muted); font-weight: 500; font-size: 11px; }
   table.heatmap td.cell { font-family: "IBM Plex Mono", "Pretendard Variable", monospace; color: var(--ink); border-radius: 3px; }
   table.heatmap td.cell.empty { color: var(--ink-muted); }
-  .heatmap-scroll { overflow-x: auto; }
+  #heatmap-panel { margin-top: 18px; }
+  #direction-toggle { display: flex; width: fit-content; max-width: 100%; flex-wrap: wrap; margin: 12px 0; }
+  #direction-toggle button { flex: 1 0 auto; min-height: 36px; }
+  #direction-toggle button:focus-visible, .heatmap-scroll:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+  #heatmap-source { color: var(--ink-2); margin: 8px 0; overflow-wrap: anywhere; }
+  .heatmap-scroll { overflow: auto; max-height: min(52vh, 520px); border: 1px solid var(--border); border-radius: 5px; }
+  table.heatmap thead th { position: sticky; top: 0; z-index: 2; background: var(--surface); }
+  table.heatmap .rowhead { position: sticky; left: 0; z-index: 1; background: var(--surface); }
+  table.heatmap thead th.rowhead { z-index: 3; }
   .heatmap-panel-legend { display: flex; gap: 16px; flex-wrap: wrap; margin: 0 0 14px; font-size: 12px; color: var(--ink-2); }
   .heatmap-panel-legend .dot { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
 
@@ -401,6 +409,9 @@
     .masthead { flex-direction: column; align-items: flex-start; }
     .masthead-controls { width: 100%; }
     .chart-wrap { height: 320px; }
+    #direction-toggle { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+    #direction-toggle button { min-height: 40px; }
+    table.heatmap :is(th.rowhead, td.rowhead) { min-width: 128px; max-width: 148px; white-space: normal; overflow-wrap: anywhere; }
     #quality-panel .quality-table :is(th:first-child, td.model-cell) {
       width: 12ch; min-width: 12ch; max-width: 12ch;
       white-space: normal; overflow-wrap: anywhere;
@@ -441,28 +452,22 @@
 </header>
 
 <main>
-  <p class="customer-intro">고객에게 전달할 문서의 품질이 중요한가요, 대량 처리 비용이 중요한가요? 실제 측정값으로 후보를 좁히고, 번역 결과물을 직접 비교해 보세요.</p>
-  <div id="customer-family-legend" class="customer-legend" aria-label="모델 계열 색상 안내"></div>
-  <p class="customer-note">GPT·Claude는 별도 계열, 나머지는 개발사 소재 기준입니다. 모델별 측정 시점과 번역 지시가 달라 조건 A·B 안에서 후보를 고릅니다. 작은 점수 차이보다 실제 원문과 결과물을 함께 확인하세요.</p>
-
-
-  <details class="customer-disclosure"><summary>모델별 비교 조건 확인</summary><aside id="run-provenance" class="run-provenance" aria-label="수집 시점과 생성 조건" hidden></aside></details>
-
-
   <section class="panel" id="heatmap-panel">
     <div class="panel-head">
       <h2>언어쌍별 품질</h2>
       <span class="eyebrow">Model × Pair</span>
     </div>
-    <p class="panel-note">모델 × 언어쌍 매트릭스. 셀 색상 진하기는 judge 종합 점수(1–5)를 나타냅니다. <span id="heatmap-scale-note" class="mono"></span></p>
-    <div class="toggle-group" id="direction-toggle" style="margin-bottom:16px;">
-      <button data-dir="from-ko" class="active">KO → X</button>
-      <button data-dir="from-en">EN → X</button>
-      <button data-dir="to-ko">X → KO</button>
-      <button data-dir="to-en">X → EN</button>
+    <p class="panel-note">번역 방향을 골라 모델별 점수(1–5)를 비교하세요. 표는 선택한 결과에 최신 한국어·영어 결과를 보완합니다. 아래 차트는 선택한 결과 기준입니다.</p>
+    <div class="toggle-group" id="direction-toggle" role="group" aria-label="번역 방향">
+      <button type="button" data-dir="from-ko" class="active" aria-pressed="true">KO → X</button>
+      <button type="button" data-dir="from-en" aria-pressed="false">EN → X</button>
+      <button type="button" data-dir="to-ko" aria-pressed="false">X → KO</button>
+      <button type="button" data-dir="to-en" aria-pressed="false">X → EN</button>
     </div>
+    <p class="panel-note" id="heatmap-source" role="status"></p>
     <div class="heatmap-panel-legend" id="heatmap-legend"></div>
-    <div class="heatmap-scroll"><table class="heatmap" id="heatmap-table"></table></div>
+    <div class="heatmap-scroll" tabindex="0" role="region" aria-label="언어쌍별 품질 표 · 좌우 및 상하 스크롤"><table class="heatmap" id="heatmap-table"></table></div>
+    <p class="panel-note" style="margin:10px 0 0;"><span id="heatmap-scale-note" class="mono"></span> · 표를 스크롤하면 나머지 모델과 언어를 볼 수 있습니다. 문서 유형은 전체 기준입니다. 숫자에 마우스를 올리면 측정 출처를 확인할 수 있습니다. 평가 조건을 고르면 해당 조건이 기록된 결과만 표시하며, 조건 미기록 결과는 제외합니다.</p>
   </section>
 
   <section class="panel" id="hero-panel">
@@ -470,15 +475,30 @@
       <h2>가성비: 비용 대비 품질</h2>
       <span class="eyebrow">Cost / Quality Frontier</span>
     </div>
-    <p class="panel-note">
+    <p class="panel-note">왼쪽 위일수록 낮은 비용에 높은 품질입니다. 원이 클수록 응답이 빠릅니다.</p>
+    <div id="cohort-control" class="run-provenance" hidden>
+      <label for="cohort-select">평가 조건</label>
+      <select id="cohort-select" style="max-width:100%"></select>
+      <p>조건 A: 기존 번역 지시 · 조건 B: 명시적 번역 지시. 각 조건 안에서 품질·비용을 비교합니다.</p>
+    </div>
+    <div class="toggle-group" id="track-toggle" style="margin:10px 0 14px;">
+      <button data-track="synthetic" class="active">금융 문서(예시)</button>
+      <button data-track="flores">일반 문장</button>
+      <button data-track="all">전체 문서</button>
+    </div>
+    <p class="panel-note">품질은 선택한 문서 유형 기준이며, 비용·시간은 전체 번역 실측 기준입니다. gpt-5.5는 축 가독성을 위해 이 차트에서 제외했습니다.</p>
+    <div class="legend-row" id="hero-legend"></div>
+    <div class="chart-wrap"><canvas id="scatter-chart"></canvas></div>
+    <details class="quality-details">
+      <summary>차트 읽는 법과 비교 기준</summary>
+      <p class="panel-note">
       x축은 <strong>세그먼트당 비용</strong>(GPU 모델은 실측 처리량 기준 환산) — 모든 모델이 동일한 세그먼트 집합을 번역하므로 출력 토큰 수가 아니라 실제 문서 1건당 비용으로 비교합니다(출력이 긴 모델이 $/1M 토큰 기준으로 저렴해 보이는 왜곡을 피함).
       y축은 아래에서 고른 트랙의 LLM-judge 종합 점수(1–5)입니다. FLORES의 인간 참조 번역은 judge에 제공하고, 합성 데이터의 LLM 생성 참조는 제공하지 않습니다.
       원 크기는 <strong>속도</strong>(p50 지연시간의 역수) — 클수록 빠릅니다.
       금색 실선으로 이어진 점은 <strong>가성비 프론티어</strong> — 해당 비용 이하에서 더 높은 품질을 내는 모델이 없는 지점입니다.
       <em>축의 가독성을 위해 gpt-5.5는 이 차트에서만 제외했습니다. 전체 비교표·샘플·언어쌍 히트맵·런 히스토리에는 포함되어 있습니다.</em>
-    </p>
-    <div class="legend-row" id="hero-legend"></div>
-    <div class="chart-wrap"><canvas id="scatter-chart"></canvas></div>
+      </p>
+    </details>
 
     <div class="subpanel-head">
       <h3>저비용 구간 확대</h3>
@@ -488,6 +508,12 @@
     <div class="legend-row" id="hero-zoom-legend"></div>
     <div class="chart-wrap"><canvas id="scatter-zoom-chart"></canvas></div>
   </section>
+
+  <details class="customer-disclosure"><summary>모델 계열과 비교 조건 확인</summary>
+    <div id="customer-family-legend" class="customer-legend" aria-label="모델 계열 색상 안내"></div>
+    <p class="customer-note">GPT·Claude는 별도 계열, 나머지는 개발사 소재 기준입니다. 모델별 측정 시점과 번역 지시가 달라 조건 A·B 안에서 후보를 고릅니다. 작은 점수 차이보다 실제 원문과 결과물을 함께 확인하세요.</p>
+    <aside id="run-provenance" class="run-provenance" aria-label="수집 시점과 생성 조건" hidden></aside>
+  </details>
 
 <details class="customer-disclosure" id="interpretation-details"><summary>측정 기록과 해석</summary>
   <section class="panel" id="interpretation-panel" hidden>
@@ -500,19 +526,8 @@
   </section>
 </details>
 
-  <div id="cohort-control" class="run-provenance" hidden>
-    <label for="cohort-select">평가 조건</label>
-    <select id="cohort-select" style="max-width:100%"></select>
-    <p>조건 A: 기존 번역 지시 · 조건 B: 명시적 번역 지시. 각 조건 안에서 품질·비용을 비교합니다.</p>
-  </div>
-
   <section class="panel" id="recommendations-panel">
     <h2>어떤 업무에 도입하시나요?</h2>
-    <div class="toggle-group" id="track-toggle" style="margin-bottom:14px;">
-      <button data-track="synthetic" class="active">금융 문서(예시)</button>
-      <button data-track="flores">일반 문장</button>
-      <button data-track="all">전체 문서</button>
-    </div>
     <div class="customer-toolbar"><label for="customer-volume">예상 처리량 · 문장/문서 조각</label><input id="customer-volume" type="number" min="1" max="1000000000" step="1" value="10000"><span>건</span><span id="volume-feedback" role="status"></span></div>
     <p class="customer-note">예상 비용은 같은 평균 분량을 처리한다고 가정한 단순 비례값(USD)입니다. 완성 문서 한 부의 견적이 아닙니다. 품질은 선택한 문서 유형, 시간·비용은 전체 번역 실측 기준입니다.</p>
     <div id="recommendations-body" class="workload-grid"></div>
@@ -716,6 +731,6 @@
 
 </main>
 
-<script src="app.js?v=en-pivot-20261019"></script>
+<script src="app.js?v=direction-visibility-release-20261019"></script>
 </body>
 </html>

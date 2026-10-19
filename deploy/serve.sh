@@ -116,7 +116,7 @@ fi
 
 envsubst < deploy/vllm.yaml | kubectl apply -f -
 echo "waiting for rollout (model download + load can take several minutes for 30B+)..."
-kubectl rollout status deployment/vllm --timeout=20m
+kubectl rollout status deployment/vllm --timeout=60m
 
 echo "ready — port-forwarding localhost:8000 (Ctrl-C to stop, then run the next model)"
 echo "(the gpu-bench node auto-terminates ~60s after you delete the deployment — see deploy/karpenter-gpu.yaml)"

@@ -359,7 +359,9 @@ function renderScatterChart(report, { canvasId, legendId, chartKey, filterFn, em
         },
         y: {
           title: { display: true, text: `Judge 종합 점수 (1–5) · ${TRACK_LABEL[state.track]}`, color: ink2 },
-          min: 0, max: 5,
+          // fit to the data (scores cluster at 4-5; a 0-5 axis squashes every point
+          // into the top strip) while keeping a visible margin below the lowest model
+          min: Math.max(0, Math.floor(Math.min(...points.map((p) => p.y)) * 2) / 2 - 0.5), max: 5,
           grid: { color: grid },
           ticks: { color: ink2 },
         },
@@ -779,7 +781,11 @@ function renderHeatmap(report) {
     ? LANG_ORDER.filter((l) => pairsByModel.some((m) => m.pairs.some(([k]) => k === `${pivot}-${l}`)))
     : LANG_ORDER.filter((l) => pairsByModel.some((m) => m.pairs.some(([k]) => k === `${l}-${toPivot}`)));
 
-  const rows = pairsByModel.filter((m) => m.pairs.length > 0);
+  const avgScore = (m) => {
+    const v = m.pairs.map(([, x]) => x.judge_overall).filter((x) => x != null);
+    return v.length ? v.reduce((a, b) => a + b, 0) / v.length : -1;
+  };
+  const rows = pairsByModel.filter((m) => m.pairs.length > 0).sort((a, b) => avgScore(b) - avgScore(a));
 
   const legend = document.getElementById("heatmap-legend");
   if (legend) {
@@ -1026,6 +1032,8 @@ function renderInterpretation(report) {
     return;
   }
   panel.hidden = false;
+  const details = document.getElementById("interpretation-details");
+  if (details) details.open = report.summary_first === true;
   const body = document.getElementById("interpretation-body");
   body.innerHTML = `<div class="md-content">${renderMarkdown(report.interpretation)}</div>`;
   wrapMdTables(body);
@@ -1047,7 +1055,25 @@ function renderAll() {
   renderHistory(state.reports.filter((r) => r.report_kind !== "integrated"));
 }
 
+function pickHeatmapDirection(report) {
+  // en-only runs have no ko pairs: fall back to the first direction that has data
+  const keys = (report.models || []).flatMap((m) => Object.keys(m.by_pair || {}));
+  const has = {
+    "from-ko": keys.some((k) => k.startsWith("ko-")),
+    "from-en": keys.some((k) => k.startsWith("en-") && !k.endsWith("-ko")) || keys.some((k) => k === "en-ko"),
+    "to-ko": keys.some((k) => k.endsWith("-ko")),
+    "to-en": keys.some((k) => k.endsWith("-en")),
+  };
+  if (has[state.direction]) return;
+  const next = ["from-ko", "from-en", "to-en", "to-ko"].find((d) => has[d]);
+  if (!next) return;
+  state.direction = next;
+  document.querySelectorAll("#direction-toggle button").forEach((b) =>
+    b.classList.toggle("active", b.dataset.dir === next));
+}
+
 function renderHeatmapSafe(report) {
+  pickHeatmapDirection(report);
   // heatmap panel body may have been replaced by an empty-state div on a prior
   // render (e.g. direction toggle with no data) — restore the table container first.
   const panel = document.getElementById("heatmap-panel");
@@ -1101,8 +1127,9 @@ async function init() {
 
   const select = document.getElementById("run-select");
   select.innerHTML = state.reports.map((r, i) => `<option value="${i}">${escapeHtml(r.title || r.run_id)}</option>`).join("");
+  const flaggedIndex = state.reports.findLastIndex((r) => r.default === true);
   const integratedIndex = state.reports.findLastIndex((r) => r.report_kind === "integrated");
-  select.selectedIndex = integratedIndex >= 0 ? integratedIndex : state.reports.length - 1;
+  select.selectedIndex = flaggedIndex >= 0 ? flaggedIndex : integratedIndex >= 0 ? integratedIndex : state.reports.length - 1;
   state.current = state.reports[select.selectedIndex];
 
   select.addEventListener("change", () => {

@@ -27,6 +27,8 @@ metadata:
   labels: { app: vllm }
 spec:
   replicas: 1
+  # Cold 30B+/70B checkpoint downloads exceed the 600s default deadline.
+  progressDeadlineSeconds: 3600
   # One GPU model at a time; replace the old pod before requesting its GPUs.
   strategy:
     type: Recreate

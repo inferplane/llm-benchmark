@@ -264,6 +264,7 @@ function selectReport(report, cohort = "all") {
     Object.entries(report.cohorts || {}).map(([key, label]) =>
       `<option value="${escapeHtml(key)}">${escapeHtml(label)}</option>`).join("");
   select.value = cohort;
+  state.cohort = cohort;
   const models = report.models.filter((m) => cohort === "all" || m.evaluation_cohort === cohort);
   const names = new Set(models.map((m) => m.name));
   state.current = { ...report, models, samples: (report.samples || []).map((s) => ({
@@ -772,6 +773,7 @@ function renderHeatmap(report) {
   const pairsByModel = merged.models.map((m) => ({
     name: m.name,
     provider: m.provider,
+    pairSources: m.pairSources,
     pairs: Object.entries(m.by_pair).filter(([key]) => matchesDirection(key, state.direction)),
   }));
 
@@ -823,8 +825,12 @@ function renderHeatmap(report) {
       const key = isFrom ? `${pivot}-${l}` : `${l}-${pivot}`;
       const entry = row.pairs.find(([k]) => k === key);
       const v = entry ? entry[1].judge_overall : null;
+      const source = row.pairSources[key];
+      const sourceLabel = source
+        ? `${source.title} · ${source.runId} · 평가 조건: ${source.cohort === "explicit" ? "B" : source.cohort === "original" ? "A" : "미기록"}`
+        : "";
       body += v != null
-        ? `<td class="cell" style="background:${sequentialBg(v, lo, hi)}">${v.toFixed(2)}</td>`
+        ? `<td class="cell" title="${escapeHtml(sourceLabel)}" style="background:${sequentialBg(v, lo, hi)}">${v.toFixed(2)}</td>`
         : `<td class="cell empty">—</td>`;
     }
     body += `</tr>`;
@@ -1071,10 +1077,12 @@ function mergedPairsByModel(report) {
   const used = new Set();
   for (const src of sources) {
     for (const m of src.models || []) {
-      const entry = byName.get(m.name) || { name: m.name, provider: m.provider, by_pair: {} };
+      if (state.cohort && state.cohort !== "all" && m.evaluation_cohort !== state.cohort) continue;
+      const entry = byName.get(m.name) || { name: m.name, provider: m.provider, by_pair: {}, pairSources: {} };
       for (const [k, v] of Object.entries(m.by_pair || {})) {
         if (k in entry.by_pair) continue;
         entry.by_pair[k] = v;
+        entry.pairSources[k] = { title: src.title || src.run_id, runId: src.run_id, cohort: m.evaluation_cohort };
         if (matchesDirection(k, state.direction)) used.add(src);
       }
       byName.set(m.name, entry);
@@ -1096,13 +1104,14 @@ function directionPairs(report, direction) {
 }
 
 function pickHeatmapDirection(report) {
+  report = mergedPairsByModel(report);
   // Only choose a fallback when selecting a report, never on a direction click.
   if (directionPairs(report, state.direction).size) return;
   state.direction = Object.keys(DIRECTION_LABEL).find((d) => directionPairs(report, d).size) || state.direction;
 }
 
 function selectHeatmapDirection(direction) {
-  // The heatmap merges every report's pairs (see mergedPairsByModel), so a direction
+  // The heatmap merges supplemental pairs (see mergedPairsByModel), so a direction
   // click never needs to switch the selected run.
   state.direction = direction;
   renderHeatmapSafe(state.current);

@@ -11,6 +11,9 @@
   이름 기준으로 합쳐 KO→X, EN→X, X→KO, X→EN을 한 화면에서 보여준다. 같은 모델·언어쌍은
   먼저 나온 결과를 쓰고 덮어쓰지 않으며, 측정하지 않은 칸은 비워 둔다. 표 위에 측정
   출처를 표시한다. 방향 버튼은 선택한 결과를 바꾸지 않는다.
+- 숫자 셀의 도움말에는 실제 출처의 실행 ID와 기록된 평가 조건을 표시한다.
+  평가 조건 필터는 보완하는 결과에도 동일하게 적용하며, 조건 미기록 결과는
+  특정 조건을 선택했을 때 제외한다.
 - 품질 표는 높이를 제한하고 모델명·언어쌍 머리글을 고정해 스크롤 중에도 읽을 수 있다.
   표는 전체 문서 기준이며, 차트 위의 문서 유형 선택기는 차트·추천·품질 진단에 적용된다.
 - 모델 계열: GPT 파랑, Claude 보라, 중국 개발사 모델 주황, 그 외 미국 개발사 모델 청록,
@@ -51,7 +54,7 @@ PLAYWRIGHT_MODULE=/path/to/playwright CHROMIUM_PATH=/path/to/chromium \
 # 배포 이후 같은 검사를 공개 URL에서 실행
 BENCHMARK_SITE=https://inferplane.github.io/llm-benchmark/ \
   PLAYWRIGHT_MODULE=/path/to/playwright CHROMIUM_PATH=/path/to/chromium \
-  node validation/customer-view/browser.cjs
+  node validation/customer-view/translation-directions.cjs
 ```
 
 실제 결과 데이터로 분류, 그룹별 후보, 임계값, 불완전 측정 제외, 비용 결측·소액과
@@ -59,6 +62,7 @@ BENCHMARK_SITE=https://inferplane.github.io/llm-benchmark/ \
 비용 입력, 실제 답변 전환, 틀린 답변 보존, 접힌 차트 크기 복원,
 모바일·다크 모드 및 모든 과거 QA 결과 선택을 검증한다. 유료 API 호출은 없다.
 
-`translation-directions.cjs`는 네 방향 반복 전환, 결과 선택기·출처·셀 점수 일치,
-평가 조건 필터, 차트 표시, 390/320px 화면과 고정 머리글, EN↔KO 단일 열,
+`translation-directions.cjs`는 네 방향 반복 전환, 방향 변경 시 결과 선택기 유지,
+원본 결과와 셀 점수·출처 일치, 보완 결과까지 적용되는 평가 조건 필터와 조건 미기록
+결과 제외, 차트 표시, 390/320px 화면과 고정 머리글, EN↔KO 단일 열,
 결과가 없는 방향에서의 복구를 검사한다.

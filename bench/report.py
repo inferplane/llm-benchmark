@@ -1507,6 +1507,7 @@ def main():
     p.add_argument("--run-id")
     p.add_argument("--include-run", action="append", default=[], metavar="RUN_ID",
                    help="reuse this run before primary observations (repeatable; primary wins duplicate keys)")
+    p.add_argument("--judge-set", help="judge set from config.toml's scenario.translation.judge_sets the run was judged with")
     p.add_argument("--dataset", help="comma-separated jsonl paths (default: data/flores.jsonl,data/synthetic.jsonl)")
     p.add_argument("--selfcheck", action="store_true")
     args = p.parse_args()
@@ -1521,7 +1522,12 @@ def main():
     dataset_paths = [Path(p) for p in args.dataset.split(",")] if args.dataset else [
         DATA_DIR / "flores.jsonl", DATA_DIR / "synthetic.jsonl",
     ]
-    report = build_report(args.run_id, cfg["scenario"]["translation"], cfg["models"], dataset_paths,
+    scenario_cfg = cfg["scenario"]["translation"]
+    if args.judge_set:
+        # Alternative judge set: only the judge list changes (cost pricing); the
+        # per-segment judgments come from this run's own judgments.jsonl.
+        scenario_cfg = {**scenario_cfg, "judges": scenario_cfg["judge_sets"][args.judge_set]}
+    report = build_report(args.run_id, scenario_cfg, cfg["models"], dataset_paths,
                           include_run_ids=args.include_run)
     out_path = write_report(report)
     print(f"wrote {out_path}")

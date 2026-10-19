@@ -75,6 +75,7 @@ async def call_judge(clients: dict, judge_cfg: dict, prompt: str) -> dict:
         return await call_mantle(
             clients["mantle_session"], judge_cfg.get("mantle_region", "us-east-1"),
             judge_cfg["model_id"], prompt, response_format={"type": "json_object"},
+            reasoning_effort=judge_cfg.get("mantle_reasoning_effort"),
         )
     else:
         return await call_bedrock(clients["bedrock_client"], judge_cfg["model_id"], prompt)
@@ -155,7 +156,8 @@ async def main_async(args):
 
     cfg = load_config()
     scenario = cfg["scenario"]["translation"]
-    judges_cfg = scenario["judges"]
+    judge_set = getattr(args, "judge_set", None)
+    judges_cfg = scenario["judge_sets"][judge_set] if judge_set else scenario["judges"]
     # One shared boto3.Session (mantle path, SigV4) and one shared
     # bedrock-runtime client (plain Converse path) cover every judge
     # regardless of how many use each api — same reuse rationale as
@@ -196,7 +198,9 @@ async def main_async(args):
         async with sem:
             details = None
             try:
-                scores = await judge_one(clients, judges_cfg, seg, t["output_text"])
+                # A judge never scores its own candidate (skip_for_models).
+                model_judges = [j for j in judges_cfg if t["model"] not in j.get("skip_for_models", ())]
+                scores = await judge_one(clients, model_judges, seg, t["output_text"])
                 error = None
             except Exception as e:
                 # Same all-null shape as the single-judge case, plus a null
@@ -301,6 +305,7 @@ def main():
     p.add_argument("--limit", type=int, help="judge only the first N cached translations (smoke runs)")
     p.add_argument("--dataset", help="comma-separated jsonl paths (default: data/flores.jsonl,data/synthetic.jsonl)")
     p.add_argument("--concurrency", type=int, default=8)
+    p.add_argument("--judge-set", help="alternative judge set from config.toml's scenario.translation.judge_sets (default: the historical judges)")
     args = p.parse_args()
     if args.selfcheck:
         _selfcheck()

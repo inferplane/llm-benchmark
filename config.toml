@@ -85,6 +85,34 @@ fallback_model_id = "us.anthropic.claude-opus-4-8"
 fallback_price_in = 5.00
 fallback_price_out = 25.00
 
+# Alternative judge set (select with `--judge-set astra-fable51` on bench.judge /
+# bench.report). The default `judges` above stays the historical contract; results
+# judged here live in their own run directory and never overwrite sol/fable-5
+# judgments. Each judge skips its own candidate (`skip_for_models`): gpt-6-astra
+# translations are scored by fable51 alone, claude-fable-5.1 translations by astra
+# alone — single-judge rows, recorded in `judges_used`.
+[[scenario.translation.judge_sets.astra-fable51]]
+name = "astra"
+api = "bedrock_mantle"
+model_id = "openai.gpt-6-astra"
+mantle_region = "us-east-1"
+mantle_reasoning_effort = "low"   # same setting as the gpt-6-astra candidate entry
+price_in = 11.00
+price_out = 55.00
+skip_for_models = ["gpt-6-astra"]
+
+[[scenario.translation.judge_sets.astra-fable51]]
+name = "fable51"
+api = "bedrock"
+model_id = "us.anthropic.claude-fable-5-1"
+price_in = 11.00
+price_out = 55.00
+skip_for_models = ["claude-fable-5.1"]
+fallback_name = "fable51-fallback"
+fallback_model_id = "us.anthropic.claude-opus-4-8"
+fallback_price_in = 5.00
+fallback_price_out = 25.00
+
 # FLORES-200(flores_plus) language codes, indexed by the ISO code above
 [scenario.translation.flores_codes]
 ko = "kor_Hang"

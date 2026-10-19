@@ -1,11 +1,18 @@
 # 고객용 결과 페이지
 
-결과 페이지의 첫 화면을 워크로드 후보, 품질, 한 건 응답 시간, 예상 처리량 비용,
-두 모델의 실제 결과물 비교로 구성했다. 측정값·데이터·채점기·가격 설정은 수정하지 않는다.
+번역 페이지는 언어쌍별 품질 표와 비용 대비 품질 차트를 먼저 보여주고, 이어서
+워크로드 후보, 한 건 응답 시간, 예상 처리량 비용, 두 모델의 실제 결과물을 비교한다.
+측정값·데이터·채점기·가격 설정은 수정하지 않는다.
 오류 및 측정 조건, 상세 품질 지표, 과거 이력은 접힌 상세 영역에 보존한다.
 
 ## 표시 및 후보 선정
 
+- 언어쌍 표는 선택한 결과, 최신 통합 결과, 기본 표시로 지정된 결과의 언어쌍을 모델
+  이름 기준으로 합쳐 KO→X, EN→X, X→KO, X→EN을 한 화면에서 보여준다. 같은 모델·언어쌍은
+  먼저 나온 결과를 쓰고 덮어쓰지 않으며, 측정하지 않은 칸은 비워 둔다. 표 위에 측정
+  출처를 표시한다. 방향 버튼은 선택한 결과를 바꾸지 않는다.
+- 품질 표는 높이를 제한하고 모델명·언어쌍 머리글을 고정해 스크롤 중에도 읽을 수 있다.
+  표는 전체 문서 기준이며, 차트 위의 문서 유형 선택기는 차트·추천·품질 진단에 적용된다.
 - 모델 계열: GPT 파랑, Claude 보라, 중국 개발사 모델 주황, 그 외 미국 개발사 모델 청록,
   한국·유럽·알 수 없는 모델 회색. 색상과 텍스트 이름표를 함께 제공한다.
   개발사 분류이며 호스팅 리전이나 데이터 처리 위치의 표시가 아니다.
@@ -38,6 +45,9 @@ node --check docs/finqa.js
 # 별도로 localhost:8782에서 docs/ 정적 서버 실행
 PLAYWRIGHT_MODULE=/path/to/playwright CHROMIUM_PATH=/path/to/chromium \
   node validation/customer-view/browser.cjs
+# 번역 방향 전환 및 첫 화면 도표 회귀 검사 (현재 게시된 번역 데이터 사용)
+PLAYWRIGHT_MODULE=/path/to/playwright CHROMIUM_PATH=/path/to/chromium \
+  node validation/customer-view/translation-directions.cjs
 # 배포 이후 같은 검사를 공개 URL에서 실행
 BENCHMARK_SITE=https://inferplane.github.io/llm-benchmark/ \
   PLAYWRIGHT_MODULE=/path/to/playwright CHROMIUM_PATH=/path/to/chromium \
@@ -48,3 +58,7 @@ BENCHMARK_SITE=https://inferplane.github.io/llm-benchmark/ \
 처리량 환산을 검사한다. 브라우저에서는 두 페이지의 모델 수, 색상 이름표,
 비용 입력, 실제 답변 전환, 틀린 답변 보존, 접힌 차트 크기 복원,
 모바일·다크 모드 및 모든 과거 QA 결과 선택을 검증한다. 유료 API 호출은 없다.
+
+`translation-directions.cjs`는 네 방향 반복 전환, 결과 선택기·출처·셀 점수 일치,
+평가 조건 필터, 차트 표시, 390/320px 화면과 고정 머리글, EN↔KO 단일 열,
+결과가 없는 방향에서의 복구를 검사한다.

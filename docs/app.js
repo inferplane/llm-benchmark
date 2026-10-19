@@ -15,7 +15,7 @@ const B = window.BenchmarkView;
 // translation that a structurally different scenario needs its own page
 // rather than being squeezed into this one's conditional rendering.
 const SCENARIOS = [
-  { id: "translation", name: "번역: KO ↔ 15언어", href: "index.html" },
+  { id: "translation", name: "언어별 번역 품질", href: "index.html" },
   { id: "finqa", name: "금융 수치 추론", href: "finqa.html" },
   { id: "models", name: "모델이 만든 미디어아트 ↗", href: "models/" },
 ];
@@ -29,7 +29,8 @@ function renderScenarioNav() {
   }).join("");
 }
 
-const LANG_ORDER = ["en", "ja", "zh", "es", "fr", "de", "pt", "ru", "it", "vi", "id", "th", "ar", "hi", "tr"];
+const LANG_ORDER = ["ko", "en", "ja", "zh", "es", "fr", "de", "pt", "ru", "it", "vi", "id", "th", "ar", "hi", "tr"];
+const DIRECTION_LABEL = { "from-ko": "KO → X", "from-en": "EN → X", "to-ko": "X → KO", "to-en": "X → EN" };
 // "OpenAI via Bedrock" stopped being accurate once xAI's grok-4.3 and Google's
 // gemma-4-31b-bedrock joined the bedrock_mantle roster alongside OpenAI's
 // gpt-5.x — bedrock_mantle is a Bedrock API surface (the /openai/v1/responses
@@ -112,7 +113,7 @@ function fmtUsd(v) {
 }
 
 function pairChip(src, tgt) {
-  return `<span class="pair-chip">${src.toUpperCase()}/${tgt.toUpperCase()}</span>`;
+  return `<span class="pair-chip">${escapeHtml(src.toUpperCase())}/${escapeHtml(tgt.toUpperCase())}</span>`;
 }
 
 // ── in-cell comparison bars ───────────────────────────────────────────────
@@ -268,6 +269,7 @@ function selectReport(report, cohort = "all") {
   state.current = { ...report, models, samples: (report.samples || []).map((s) => ({
     ...s, by_model: Object.fromEntries(Object.entries(s.by_model).filter(([name]) => names.has(name))),
   })) };
+  pickHeatmapDirection(state.current);
   renderAll();
 }
 
@@ -762,24 +764,20 @@ function sequentialBg(value, lo, hi) {
 
 function renderHeatmap(report) {
   const table = document.getElementById("heatmap-table");
-  // direction: "from-ko" (ko→X), "from-en" (en→X), "to-ko" (X→ko)
-  const isFromKo = !state.direction.startsWith("to-");
-  const toPivot = state.direction === "to-en" ? "en" : "ko";
-  const pivot = state.direction === "from-en" ? "en" : "ko";
-  const dirLabel = { "from-ko": "KO → X", "from-en": "EN → X", "to-ko": "X → KO", "to-en": "X → EN" }[state.direction];
+  const [side, pivot] = state.direction.split("-");
+  const isFrom = side === "from";
+  const dirLabel = DIRECTION_LABEL[state.direction];
 
-  const pairsByModel = report.models.map((m) => ({
+  const merged = mergedPairsByModel(report);
+  const pairsByModel = merged.models.map((m) => ({
     name: m.name,
     provider: m.provider,
-    pairs: Object.entries(m.by_pair).filter(([key]) => {
-      const [src, tgt] = key.split("-");
-      return isFromKo ? src === pivot : tgt === toPivot;
-    }),
+    pairs: Object.entries(m.by_pair).filter(([key]) => matchesDirection(key, state.direction)),
   }));
 
-  const columns = isFromKo
-    ? LANG_ORDER.filter((l) => pairsByModel.some((m) => m.pairs.some(([k]) => k === `${pivot}-${l}`)))
-    : LANG_ORDER.filter((l) => pairsByModel.some((m) => m.pairs.some(([k]) => k === `${l}-${toPivot}`)));
+  const languages = new Set(pairsByModel.flatMap((m) => m.pairs.map(([k]) => k.split("-")[isFrom ? 1 : 0])));
+  const columns = [...LANG_ORDER.filter((l) => languages.has(l)),
+    ...[...languages].filter((l) => !LANG_ORDER.includes(l)).sort()];
 
   const avgScore = (m) => {
     const v = m.pairs.map(([, x]) => x.judge_overall).filter((x) => x != null);
@@ -787,6 +785,15 @@ function renderHeatmap(report) {
   };
   const rows = pairsByModel.filter((m) => m.pairs.length > 0).sort((a, b) => avgScore(b) - avgScore(a));
 
+  document.getElementById("heatmap-source").textContent =
+    `${dirLabel} · ${rows.length}개 모델 · ${columns.length}개 언어쌍 · 측정 출처: ${merged.titles.join(" + ")}`;
+  document.querySelectorAll("#direction-toggle button").forEach((button) => {
+    const active = button.dataset.dir === state.direction;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+  const scaleNote = document.getElementById("heatmap-scale-note");
+  scaleNote.textContent = "";
   const legend = document.getElementById("heatmap-legend");
   if (legend) {
     const providersHere = [...new Set(rows.map((r) => B.family(r.name).key))];
@@ -799,16 +806,13 @@ function renderHeatmap(report) {
     table.parentElement.innerHTML = `<div class="empty-state"><span class="glyph">◐</span>이 방향(${dirLabel})에 대한 결과가 아직 없습니다.</div>`;
     return;
   }
-  if (!table.isConnected) return; // parent was replaced by an earlier empty state; caller re-fetches DOM
-
   let head = `<thead><tr><th class="rowhead">모델</th>`;
-  for (const l of columns) head += `<th>${isFromKo ? pairChip(pivot, l) : pairChip(l, toPivot)}</th>`;
+  for (const l of columns) head += `<th>${isFrom ? pairChip(pivot, l) : pairChip(l, pivot)}</th>`;
   head += `</tr></thead>`;
 
   const allValues = rows.flatMap((r) => r.pairs.map(([, v]) => v.judge_overall).filter((v) => v != null));
   const lo = allValues.length ? Math.min(...allValues) : 1;
   const hi = allValues.length ? Math.max(...allValues) : 5;
-  const scaleNote = document.getElementById("heatmap-scale-note");
   if (scaleNote) scaleNote.textContent = `색상 범위: ${lo.toFixed(2)} (연함) – ${hi.toFixed(2)} (진함)`;
 
   let body = `<tbody>`;
@@ -816,7 +820,7 @@ function renderHeatmap(report) {
     const providerColor = B.family(row.name).color;
     body += `<tr><td class="rowhead" style="border-left-color:${providerColor}"><span class="dot" style="background:${providerColor}" title="${B.family(row.name).label}"></span>${escapeHtml(row.name)}</td>`;
     for (const l of columns) {
-      const key = isFromKo ? `${pivot}-${l}` : `${l}-${toPivot}`;
+      const key = isFrom ? `${pivot}-${l}` : `${l}-${pivot}`;
       const entry = row.pairs.find(([k]) => k === key);
       const v = entry ? entry[1].judge_overall : null;
       body += v != null
@@ -1032,8 +1036,6 @@ function renderInterpretation(report) {
     return;
   }
   panel.hidden = false;
-  const details = document.getElementById("interpretation-details");
-  if (details) details.open = report.summary_first === true;
   const body = document.getElementById("interpretation-body");
   body.innerHTML = `<div class="md-content">${renderMarkdown(report.interpretation)}</div>`;
   wrapMdTables(body);
@@ -1055,29 +1057,62 @@ function renderAll() {
   renderHistory(state.reports.filter((r) => r.report_kind !== "integrated"));
 }
 
+// A run only measures some directions: ko pairs live in the integrated report, en
+// pairs in the en-pivot run. Merge by model name — selected report first, then the
+// latest integrated report, then the latest report flagged `default` — so every
+// direction shows what has been measured. A (model, pair) key is never overwritten,
+// and a model with no measurement in a direction simply gets an empty cell.
+function mergedPairsByModel(report) {
+  const sources = [report];
+  const extra = [state.reports.findLast((r) => r.report_kind === "integrated"),
+                 state.reports.findLast((r) => r.default === true)];
+  for (const r of extra) if (r && !sources.some((x) => x.run_id === r.run_id)) sources.push(r);
+  const byName = new Map();
+  const used = new Set();
+  for (const src of sources) {
+    for (const m of src.models || []) {
+      const entry = byName.get(m.name) || { name: m.name, provider: m.provider, by_pair: {} };
+      for (const [k, v] of Object.entries(m.by_pair || {})) {
+        if (k in entry.by_pair) continue;
+        entry.by_pair[k] = v;
+        if (matchesDirection(k, state.direction)) used.add(src);
+      }
+      byName.set(m.name, entry);
+    }
+  }
+  const titles = sources.filter((s) => used.has(s)).map((s) => s.title || s.run_id);
+  return { models: [...byName.values()], titles: titles.length ? titles : [report.title || report.run_id] };
+}
+
+function matchesDirection(pair, direction) {
+  const [side, pivot] = direction.split("-");
+  const [src, tgt] = pair.split("-");
+  return side === "from" ? src === pivot : tgt === pivot;
+}
+
+function directionPairs(report, direction) {
+  return new Set((report.models || []).flatMap((m) =>
+    Object.keys(m.by_pair || {}).filter((key) => matchesDirection(key, direction))));
+}
+
 function pickHeatmapDirection(report) {
-  // en-only runs have no ko pairs: fall back to the first direction that has data
-  const keys = (report.models || []).flatMap((m) => Object.keys(m.by_pair || {}));
-  const has = {
-    "from-ko": keys.some((k) => k.startsWith("ko-")),
-    "from-en": keys.some((k) => k.startsWith("en-") && !k.endsWith("-ko")) || keys.some((k) => k === "en-ko"),
-    "to-ko": keys.some((k) => k.endsWith("-ko")),
-    "to-en": keys.some((k) => k.endsWith("-en")),
-  };
-  if (has[state.direction]) return;
-  const next = ["from-ko", "from-en", "to-en", "to-ko"].find((d) => has[d]);
-  if (!next) return;
-  state.direction = next;
-  document.querySelectorAll("#direction-toggle button").forEach((b) =>
-    b.classList.toggle("active", b.dataset.dir === next));
+  // Only choose a fallback when selecting a report, never on a direction click.
+  if (directionPairs(report, state.direction).size) return;
+  state.direction = Object.keys(DIRECTION_LABEL).find((d) => directionPairs(report, d).size) || state.direction;
+}
+
+function selectHeatmapDirection(direction) {
+  // The heatmap merges every report's pairs (see mergedPairsByModel), so a direction
+  // click never needs to switch the selected run.
+  state.direction = direction;
+  renderHeatmapSafe(state.current);
 }
 
 function renderHeatmapSafe(report) {
-  pickHeatmapDirection(report);
   // heatmap panel body may have been replaced by an empty-state div on a prior
   // render (e.g. direction toggle with no data) — restore the table container first.
   const panel = document.getElementById("heatmap-panel");
-  let scroll = panel.querySelector(".heatmap-scroll");
+  const scroll = panel.querySelector(".heatmap-scroll");
   scroll.innerHTML = `<table class="heatmap" id="heatmap-table"></table>`;
   renderHeatmap(report);
 }
@@ -1141,10 +1176,7 @@ async function init() {
 
   document.querySelectorAll("#direction-toggle button").forEach((btn) => {
     btn.addEventListener("click", () => {
-      document.querySelectorAll("#direction-toggle button").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      state.direction = btn.dataset.dir;
-      renderHeatmapSafe(state.current);
+      selectHeatmapDirection(btn.dataset.dir);
     });
   });
 

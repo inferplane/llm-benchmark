@@ -448,7 +448,48 @@
 
   <details class="customer-disclosure"><summary>모델별 비교 조건 확인</summary><aside id="run-provenance" class="run-provenance" aria-label="수집 시점과 생성 조건" hidden></aside></details>
 
-<details class="customer-disclosure"><summary>측정 기록과 해석</summary>
+
+  <section class="panel" id="heatmap-panel">
+    <div class="panel-head">
+      <h2>언어쌍별 품질</h2>
+      <span class="eyebrow">Model × Pair</span>
+    </div>
+    <p class="panel-note">모델 × 언어쌍 매트릭스. 셀 색상 진하기는 judge 종합 점수(1–5)를 나타냅니다. <span id="heatmap-scale-note" class="mono"></span></p>
+    <div class="toggle-group" id="direction-toggle" style="margin-bottom:16px;">
+      <button data-dir="from-ko" class="active">KO → X</button>
+      <button data-dir="from-en">EN → X</button>
+      <button data-dir="to-ko">X → KO</button>
+      <button data-dir="to-en">X → EN</button>
+    </div>
+    <div class="heatmap-panel-legend" id="heatmap-legend"></div>
+    <div class="heatmap-scroll"><table class="heatmap" id="heatmap-table"></table></div>
+  </section>
+
+  <section class="panel" id="hero-panel">
+    <div class="panel-head">
+      <h2>가성비: 비용 대비 품질</h2>
+      <span class="eyebrow">Cost / Quality Frontier</span>
+    </div>
+    <p class="panel-note">
+      x축은 <strong>세그먼트당 비용</strong>(GPU 모델은 실측 처리량 기준 환산) — 모든 모델이 동일한 세그먼트 집합을 번역하므로 출력 토큰 수가 아니라 실제 문서 1건당 비용으로 비교합니다(출력이 긴 모델이 $/1M 토큰 기준으로 저렴해 보이는 왜곡을 피함).
+      y축은 아래에서 고른 트랙의 LLM-judge 종합 점수(1–5)입니다. FLORES의 인간 참조 번역은 judge에 제공하고, 합성 데이터의 LLM 생성 참조는 제공하지 않습니다.
+      원 크기는 <strong>속도</strong>(p50 지연시간의 역수) — 클수록 빠릅니다.
+      금색 실선으로 이어진 점은 <strong>가성비 프론티어</strong> — 해당 비용 이하에서 더 높은 품질을 내는 모델이 없는 지점입니다.
+      <em>축의 가독성을 위해 gpt-5.5는 이 차트에서만 제외했습니다. 전체 비교표·샘플·언어쌍 히트맵·런 히스토리에는 포함되어 있습니다.</em>
+    </p>
+    <div class="legend-row" id="hero-legend"></div>
+    <div class="chart-wrap"><canvas id="scatter-chart"></canvas></div>
+
+    <div class="subpanel-head">
+      <h3>저비용 구간 확대</h3>
+      <span class="eyebrow">Zoomed — Under <span id="scatter-zoom-threshold"></span></span>
+    </div>
+    <p class="panel-note">위 차트에서 뭉쳐 보이는 저비용 모델들만 다시 그린 확대판입니다 — 세그먼트당 비용이 <span id="scatter-zoom-threshold-2"></span> 이하인 모델만 포함합니다.</p>
+    <div class="legend-row" id="hero-zoom-legend"></div>
+    <div class="chart-wrap"><canvas id="scatter-zoom-chart"></canvas></div>
+  </section>
+
+<details class="customer-disclosure" id="interpretation-details"><summary>측정 기록과 해석</summary>
   <section class="panel" id="interpretation-panel" hidden>
     <div class="panel-head">
       <h2>벤치마크 결과 요약</h2>
@@ -477,31 +518,6 @@
     <div id="recommendations-body" class="workload-grid"></div>
     <p class="customer-note">번역 평가는 두 평가자의 5점 척도이며 정확도 %가 아닙니다. 응답 시간은 한 건이 돌아오기까지의 중앙값입니다. 후보는 측정이 완료된 모델에서 고르며 최종 배포 적합성은 자사 문서로 확인하세요.</p>
   </section>
-<details class="customer-disclosure"><summary>비용·품질 차트로 자세히 비교</summary>
-  <section class="panel" id="hero-panel">
-    <div class="panel-head">
-      <h2>가성비: 비용 대비 품질</h2>
-      <span class="eyebrow">Cost / Quality Frontier</span>
-    </div>
-    <p class="panel-note">
-      x축은 <strong>세그먼트당 비용</strong>(GPU 모델은 실측 처리량 기준 환산) — 모든 모델이 동일한 세그먼트 집합을 번역하므로 출력 토큰 수가 아니라 실제 문서 1건당 비용으로 비교합니다(출력이 긴 모델이 $/1M 토큰 기준으로 저렴해 보이는 왜곡을 피함).
-      y축은 아래에서 고른 트랙의 LLM-judge 종합 점수(1–5)입니다. FLORES의 인간 참조 번역은 judge에 제공하고, 합성 데이터의 LLM 생성 참조는 제공하지 않습니다.
-      원 크기는 <strong>속도</strong>(p50 지연시간의 역수) — 클수록 빠릅니다.
-      금색 실선으로 이어진 점은 <strong>가성비 프론티어</strong> — 해당 비용 이하에서 더 높은 품질을 내는 모델이 없는 지점입니다.
-      <em>축의 가독성을 위해 gpt-5.5는 이 차트에서만 제외했습니다. 전체 비교표·샘플·언어쌍 히트맵·런 히스토리에는 포함되어 있습니다.</em>
-    </p>
-    <div class="legend-row" id="hero-legend"></div>
-    <div class="chart-wrap"><canvas id="scatter-chart"></canvas></div>
-
-    <div class="subpanel-head">
-      <h3>저비용 구간 확대</h3>
-      <span class="eyebrow">Zoomed — Under <span id="scatter-zoom-threshold"></span></span>
-    </div>
-    <p class="panel-note">위 차트에서 뭉쳐 보이는 저비용 모델들만 다시 그린 확대판입니다 — 세그먼트당 비용이 <span id="scatter-zoom-threshold-2"></span> 이하인 모델만 포함합니다.</p>
-    <div class="legend-row" id="hero-zoom-legend"></div>
-    <div class="chart-wrap"><canvas id="scatter-zoom-chart"></canvas></div>
-  </section>
-</details>
 
 
 
@@ -665,23 +681,6 @@
   </section>
 </details>
 
-<details class="customer-disclosure"><summary>언어 방향별 품질 비교</summary>
-  <section class="panel" id="heatmap-panel">
-    <div class="panel-head">
-      <h2>언어쌍별 품질</h2>
-      <span class="eyebrow">Model × Pair</span>
-    </div>
-    <p class="panel-note">모델 × 언어쌍 매트릭스. 셀 색상 진하기는 judge 종합 점수(1–5)를 나타냅니다. <span id="heatmap-scale-note" class="mono"></span></p>
-    <div class="toggle-group" id="direction-toggle" style="margin-bottom:16px;">
-      <button data-dir="from-ko" class="active">KO → X</button>
-      <button data-dir="from-en">EN → X</button>
-      <button data-dir="to-ko">X → KO</button>
-      <button data-dir="to-en">X → EN</button>
-    </div>
-    <div class="heatmap-panel-legend" id="heatmap-legend"></div>
-    <div class="heatmap-scroll"><table class="heatmap" id="heatmap-table"></table></div>
-  </section>
-</details>
 
 
 
@@ -717,6 +716,6 @@
 
 </main>
 
-<script src="app.js?v=customer-20260925"></script>
+<script src="app.js?v=en-pivot-20261019"></script>
 </body>
 </html>

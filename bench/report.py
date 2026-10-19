@@ -816,12 +816,16 @@ def build_report(run_id: str, scenario_cfg: dict, models_cfg: list[dict], datase
     # numbers, not a templated "top model is X" that would misfire on close CI overlaps.
     interpretation_path = run_dir / "interpretation.md"
     interpretation = interpretation_path.read_text(encoding="utf-8").strip() if interpretation_path.exists() else None
+    # Optional presentation hints (title, default, summary_first) for the dashboard.
+    meta_path = run_dir / "report_meta.json"
+    report_meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
 
     return {
         "schema_version": SCHEMA_VERSION,
         "run_id": run_id,
         "scenario": "translation",
         "interpretation": interpretation,
+        **report_meta,
         "dataset": {
             "flores_per_pair": scenario_cfg["flores_per_pair"],
             "synthetic_per_pair": scenario_cfg["synthetic_per_pair"],

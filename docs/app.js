@@ -1104,10 +1104,16 @@ function directionPairs(report, direction) {
 }
 
 function pickHeatmapDirection(report) {
-  report = mergedPairsByModel(report);
-  // Only choose a fallback when selecting a report, never on a direction click.
-  if (directionPairs(report, state.direction).size) return;
-  state.direction = Object.keys(DIRECTION_LABEL).find((d) => directionPairs(report, d).size) || state.direction;
+  // Only runs when a report is selected, never on a direction click. Open on a
+  // direction the selected report itself measured (an EN run opens on EN→X even
+  // though KO→X is also available through the merge); only if it measured none
+  // of the four do we fall back to the merged data.
+  const directions = Object.keys(DIRECTION_LABEL);
+  for (const source of [report, mergedPairsByModel(report)]) {
+    if (directionPairs(source, state.direction).size) return;
+    const own = directions.find((d) => directionPairs(source, d).size);
+    if (own) { state.direction = own; return; }
+  }
 }
 
 function selectHeatmapDirection(direction) {
@@ -1175,6 +1181,7 @@ async function init() {
   const integratedIndex = state.reports.findLastIndex((r) => r.report_kind === "integrated");
   select.selectedIndex = flaggedIndex >= 0 ? flaggedIndex : integratedIndex >= 0 ? integratedIndex : state.reports.length - 1;
   state.current = state.reports[select.selectedIndex];
+  pickHeatmapDirection(state.current); // open on a direction this report actually measured
 
   select.addEventListener("change", () => {
     selectReport(state.reports[Number(select.value)]);

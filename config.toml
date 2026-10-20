@@ -540,7 +540,7 @@ mantle_region = "us-west-2"
 price_in = 0.14
 price_out = 0.40
 
-# ── vLLM on the shared mall-apne2-mgmt EKS cluster (ap-northeast-2), gpu-bench
+# ── vLLM on the shared fsi-demo-cluster EKS cluster (ap-northeast-2), gpu-bench
 # NodePool (see deploy/karpenter-gpu.yaml), port-forwarded to localhost:8000.
 # Pricing verified via `aws pricing get-products` for ap-northeast-2 on
 # 2026-07-15. gpu_instance_type/tensor_parallel_size document what

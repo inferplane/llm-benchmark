@@ -1,4 +1,4 @@
-# One model at a time on the shared mall-apne2-mgmt cluster: vLLM Deployment +
+# One model at a time on the shared fsi-demo-cluster: vLLM Deployment +
 # ClusterIP Service, OpenAI-compatible. Rendered via envsubst (see
 # deploy/serve.sh) — needs $MODEL, $TP, and $INSTANCE_TYPE set. Requires
 # deploy/karpenter-gpu.yaml applied once first (provisions the gpu-bench
@@ -50,9 +50,8 @@ spec:
         node-pool: gpu-bench
         node.kubernetes.io/instance-type: $INSTANCE_TYPE
       tolerations:
-        - key: gpu-bench
-          operator: Equal
-          value: "true"
+        - key: nvidia.com/gpu
+          operator: Exists
           effect: NoSchedule
       containers:
         - name: vllm

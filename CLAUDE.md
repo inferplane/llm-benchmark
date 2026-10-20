@@ -8,9 +8,9 @@ A benchmark harness for financial-industry LLM selection: which models give the
 best cost/quality tradeoff for specific customer scenarios. The first
 scenario is Korean↔15-language financial document translation,
 comparing Bedrock models, OpenAI API models, and open-weight models served via
-vLLM on the shared `mall-apne2-mgmt` EKS cluster (ap-northeast-2 — see
-`../aws-ec2-benchmark` for that cluster's own tooling/conventions; this repo
-only adds a dedicated GPU NodePool to it, see below). Results accumulate as
+vLLM on the shared `fsi-demo-cluster` EKS cluster (ap-northeast-2, in the
+account's demo VPC `fsi-demo-vpc` — all demos/PoCs run there per the global
+VPC policy; this repo only adds a dedicated GPU NodePool to it, see below). Results accumulate as
 JSON and are visualized by a static dashboard on GitHub Pages.
 A second scenario, FinQA-style financial numerical QA, uses a fixed English
 dev subset and deterministic program execution, with separate static reports.
@@ -66,11 +66,11 @@ uv run python3 validation/kimi-k3/final_check.py
 # preview the dashboard locally
 python3 -m http.server 8000 -d docs   # then open localhost:8000/index.html
 
-# vLLM on the shared mgmt cluster — see deploy/serve.sh header for full usage.
+# vLLM on the shared fsi-demo-cluster — see deploy/serve.sh header for full usage.
 # No manual scale-down step: Karpenter terminates the GPU node ~60s after you
 # delete the deployment (deploy/karpenter-gpu.yaml's consolidateAfter).
 deploy/serve.sh llama-3.1-8b 1        # short name from the case statement, or a raw HF id; TP = tensor-parallel-size
-kubectl --context mall-apne2-mgmt -n llm-bench delete deployment vllm   # done with this model
+kubectl --context arn:aws:eks:ap-northeast-2:180294183052:cluster/fsi-demo-cluster -n llm-bench delete deployment vllm   # done with this model
 ```
 
 There is no test suite. Correctness on the money/aggregation path is covered by
@@ -319,21 +319,23 @@ all 15 `ko-X` pairs' FLORES samples are literal translations of the *same*
 5 Korean sentences — not a bug, just how FLORES is structured; only the
 synthetic-track samples differ per pair.
 
-**vLLM runs on `mall-apne2-mgmt`, a shared EKS cluster with other live
-tenants — not a cluster this repo owns.** There used to be a standalone
-eksctl-created cluster for this; it was deleted in favor of the existing
-shared mgmt cluster once that was pointed out. `deploy/karpenter-gpu.yaml`
-adds a dedicated `gpu-bench` Karpenter `EC2NodeClass`/`NodePool` to it
-(mirrors the cluster's existing `benchmark` EC2NodeClass's subnet/SG/IAM-role
-wiring — confirmed against the *live* cluster, not the checked-in configs in
-`../aws-ec2-benchmark`, which that repo's own CLAUDE.md documents as drifted
-from reality). Unlike a single-purpose cluster, **the `gpu-bench` NodePool
-_should_ taint its nodes** (`gpu-bench=true:NoSchedule`) — every other
-NodePool/nodegroup on this cluster is already tainted, and CoreDNS/system
-pods run on a separate dedicated node set, so tainting here doesn't repeat
-the DNS-outage mistake from the old single-node cluster; it prevents other
-teams' non-GPU workloads from landing on (and wasting) an expensive GPU node.
-`deploy/vllm.yaml`'s pod carries the matching toleration and deploys into its
+**vLLM runs on `fsi-demo-cluster`, a shared EKS cluster with other live
+tenants (PaddleOCR, Qwen, claude-code pools, ...) — not a cluster this repo
+owns.** It used to run on `mall-apne2-mgmt` in `production-vpc`; that was
+moved (2026-10-20) because demos and PoCs belong in the demo VPC, and
+everything this repo had created there (`gpu-bench` NodePool/EC2NodeClass,
+the device-plugin DaemonSet, the `llm-bench` namespace) was deleted. Before
+that there was a standalone eksctl cluster, deleted in favor of a shared one.
+`deploy/karpenter-gpu.yaml` adds a dedicated `gpu-bench` Karpenter
+`EC2NodeClass`/`NodePool` (mirrors the cluster's `gpu-paddleocr` class: node
+role, `karpenter.sh/discovery` subnet/SG tag, pinned AL2023 AMI alias —
+read from the *live* cluster, not from checked-in configs). Its nodes carry the
+cluster-wide GPU taint `nvidia.com/gpu=true:NoSchedule` and the label
+`nvidia.com/device-plugin.config=default`: the cluster already runs NVIDIA
+device-plugin DaemonSets selected by that label, so this repo installs none (a
+second plugin would register `nvidia.com/gpu` twice), and `serve.sh` fails
+early if `nvidia-device-plugin-default-daemonset` ever disappears.
+`deploy/vllm.yaml`'s pod tolerates that taint and deploys into its
 own `llm-bench` namespace (not `default`) to stay clearly separated from
 other tenants' resources. It still sets `enableServiceLinks: false`: Kubernetes
 auto-injects `<SERVICE_NAME>_PORT` env vars for service discovery, and since
@@ -365,14 +367,12 @@ pod throws away the entire partial download (`emptyDir` cache is lost) and
 forces a full 100+GB re-download from zero — a real cost paid once here from
 misdiagnosing "slow" as "stuck."
 
-**Every `kubectl` call in `deploy/serve.sh` hardcodes `--context
-mall-apne2-mgmt`** rather than trusting the ambient current-context — another
-session on this shared kubeconfig has changed the current-context before
-(documented in `../aws-ec2-benchmark/CLAUDE.md`). Don't refactor that away.
-`deploy/serve.sh` also (idempotently) applies `deploy/karpenter-gpu.yaml` and
-installs an `nvidia-device-plugin` DaemonSet scoped to `gpu-bench` nodes on
-every invocation — no device plugin ran on this cluster before this repo's
-GPU nodes existed, and re-applying is harmless. `deploy/vllm.yaml` itself is
+**Every `kubectl` call in `deploy/serve.sh` passes an explicit `--context`**
+(the `fsi-demo-cluster` ARN, overridable with `KUBE_CONTEXT`) rather than
+trusting the ambient current-context — another session on this shared
+kubeconfig has changed the current-context before. Don't refactor that away.
+`deploy/serve.sh` also (idempotently) applies `deploy/karpenter-gpu.yaml` on
+every invocation; re-applying is harmless. `deploy/vllm.yaml` itself is
 still rendered per-model via `envsubst` (`$MODEL`, `$TP`, `$INSTANCE_TYPE`);
 `deploy/serve.sh` looks up `model_id`/`tensor_parallel_size`/`gpu_instance_type`
 from `config.toml` by name (not a second hardcoded mapping — that would drift),
@@ -460,12 +460,14 @@ AZs allowed, ruling out a zone-capacity fluke): scheduling a pod requesting
 `nvidia.com/gpu` with `node.kubernetes.io/instance-type: g7e.4xlarge` always
 fails with "no instance type met all requirements," even though `aws ec2
 describe-instance-types` confirms the instance type and its GPU spec exist.
-Root cause: this cluster runs Karpenter v1.9.0
-(`kubectl -n karpenter get deployment -o jsonpath='{.items[0].spec.template.spec.containers[0].image}'`),
-and `g7e.4xlarge` only appears in Karpenter's own instance-type reference
-docs under the v1.14 (latest) version — the AWS API knows about it, this
-Karpenter's bundled data doesn't yet. Revisit if that cluster's Karpenter
-gets upgraded past whatever version actually added g7e support.
+Root cause (found on the old `mall-apne2-mgmt` cluster, Karpenter v1.9.0):
+`g7e.4xlarge` only appears in Karpenter's own instance-type reference docs
+under the v1.14 (latest) version — the AWS API knows about it, that
+Karpenter's bundled data didn't. `fsi-demo-cluster` runs the older v1.4.0
+(`kubectl -n kube-system get deployment karpenter -o jsonpath='{.spec.template.spec.containers[0].image}'`),
+so g7e is not usable there either; g6/g6e predate it and are fine. Revisit
+only if that cluster's Karpenter gets upgraded past the version that added
+g7e support.
 
 **`HF_TOKEN` is only required for the actually-gated vLLM models — verify with
 `HfApi().model_info(id).gated` before assuming, and re-verify with a real

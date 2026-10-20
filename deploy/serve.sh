@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Deploy one vLLM model to the gpu-bench NodePool on the shared mall-apne2-mgmt
+# Deploy one vLLM model to the gpu-bench NodePool on the shared fsi-demo-cluster
 # EKS cluster (ap-northeast-2), wait for it to become ready, then port-forward
 # it to localhost:8000 for bench/run.py.
 #
@@ -12,13 +12,14 @@
 # must have its gated-repo terms accepted on huggingface.co under that token.
 #
 # This is a SHARED cluster with other live tenants — every kubectl call below
-# hardcodes --context mall-apne2-mgmt rather than trusting the ambient
-# current-context, which another session has changed before (see
+# passes an explicit --context (the fsi-demo-cluster ARN, overridable with
+# KUBE_CONTEXT) rather than trusting the ambient current-context, which another
+# session has changed before (see
 # ../aws-ec2-benchmark/CLAUDE.md's documented incident). Don't remove this.
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-CTX=mall-apne2-mgmt
+CTX="${KUBE_CONTEXT:-arn:aws:eks:ap-northeast-2:180294183052:cluster/fsi-demo-cluster}"
 NS=llm-bench
 kubectl() { command kubectl --context "$CTX" -n "$NS" "$@"; }
 
@@ -73,41 +74,13 @@ command kubectl --context "$CTX" get namespace "$NS" >/dev/null 2>&1 || \
 # after another team's cleanup pass. Safe to run every time.
 command kubectl --context "$CTX" apply -f deploy/karpenter-gpu.yaml
 
-# No nvidia-device-plugin runs on this cluster yet (verified against the live
-# cluster — see CLAUDE.md) — install one scoped to gpu-bench nodes only, so it
-# doesn't touch other teams' nodes.
-command kubectl --context "$CTX" -n kube-system apply -f - <<'YAML'
-apiVersion: apps/v1
-kind: DaemonSet
-metadata:
-  name: nvidia-device-plugin-gpu-bench
-  namespace: kube-system
-spec:
-  selector: { matchLabels: { name: nvidia-device-plugin-gpu-bench } }
-  template:
-    metadata:
-      labels: { name: nvidia-device-plugin-gpu-bench }
-    spec:
-      nodeSelector: { node-pool: gpu-bench }
-      tolerations:
-        - key: gpu-bench
-          operator: Equal
-          value: "true"
-          effect: NoSchedule
-      priorityClassName: system-node-critical
-      containers:
-        - name: nvidia-device-plugin-ctr
-          image: nvcr.io/nvidia/k8s-device-plugin:v0.16.2
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities: { drop: ["ALL"] }
-          volumeMounts:
-            - name: device-plugin
-              mountPath: /var/lib/kubelet/device-plugins
-      volumes:
-        - name: device-plugin
-          hostPath: { path: /var/lib/kubelet/device-plugins }
-YAML
+# This cluster already runs the NVIDIA device plugin (selects nodes labelled
+# nvidia.com/device-plugin.config=default, which deploy/karpenter-gpu.yaml sets),
+# so none is installed here. Fail early if it ever disappears.
+command kubectl --context "$CTX" -n kube-system get ds nvidia-device-plugin-default-daemonset >/dev/null || {
+  echo "ERROR: nvidia-device-plugin-default-daemonset missing on $CTX — GPU nodes would show 0 nvidia.com/gpu" >&2
+  exit 1
+}
 
 if ! kubectl get secret hf-token >/dev/null 2>&1; then
   : "${HF_TOKEN:?export HF_TOKEN before first run — needed to create the hf-token k8s secret}"

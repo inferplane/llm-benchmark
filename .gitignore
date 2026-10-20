@@ -6,3 +6,8 @@ __pycache__/
 .claude/scheduled_tasks.lock
 results/*/.execution.lock
 results/finqa/*/.execution.lock
+# Local publisher checkout and private retry backups.
+/.work/
+# Browser crash memory dumps.
+/core
+/core.[0-9]*

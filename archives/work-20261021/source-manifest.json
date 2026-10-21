@@ -1,0 +1,3356 @@
+{
+  "created_at": "2026-10-21T00:18:49.854237+00:00",
+  "purpose": "Private backup of uncommitted publisher data and retry baselines; not reviewed for publication.",
+  "root_head": "76865fdf9dacba1e351ad0ffdcdc80eb00d78acc",
+  "publisher_head": "25c353c0563900bf7330af4f5e90fed694a6bacd",
+  "publisher_changes": [
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/response.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/prompt.txt"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/record.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/response.json"
+    },
+    {
+      "status": " M",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/response.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/attempts/2026-10-15T01-20-59.209579+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/attempts/2026-10-15T01-20-59.209579+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/attempts/2026-10-15T01-20-59.209579+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/attempts/2026-10-14T06-36-42.635851+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/attempts/2026-10-14T06-36-42.635851+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/attempts/2026-10-14T06-36-42.635851+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/attempts/2026-10-15T00-16-16.953617+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/attempts/2026-10-15T00-16-16.953617+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/attempts/2026-10-15T00-16-16.953617+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/attempts/2026-10-15T00-17-02.644082+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/attempts/2026-10-15T00-17-02.644082+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/attempts/2026-10-15T00-17-02.644082+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/attempts/2026-10-15T00-16-45.002785+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/attempts/2026-10-15T00-16-45.002785+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/attempts/2026-10-15T00-16-45.002785+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/attempts/2026-10-15T00-25-28.013791+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/attempts/2026-10-15T00-25-28.013791+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/attempts/2026-10-15T00-25-28.013791+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/attempts/2026-10-15T00-20-17.292588+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/attempts/2026-10-15T00-20-17.292588+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/attempts/2026-10-15T00-20-17.292588+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/attempts/2026-10-15T00-37-02.622609+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/attempts/2026-10-15T00-37-02.622609+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/attempts/2026-10-15T00-37-02.622609+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/attempts/2026-10-15T00-18-34.896460+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/attempts/2026-10-15T00-18-34.896460+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/attempts/2026-10-15T00-18-34.896460+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/attempts/2026-10-15T11-37-57.494695+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/attempts/2026-10-15T11-37-57.494695+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/attempts/2026-10-15T11-37-57.494695+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/attempts/2026-10-15T00-15-55.883204+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/attempts/2026-10-15T00-15-55.883204+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/attempts/2026-10-15T00-15-55.883204+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/attempts/2026-10-15T00-18-03.241269+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/attempts/2026-10-15T00-18-03.241269+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/attempts/2026-10-15T00-18-03.241269+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/attempts/2026-10-15T00-15-40.327028+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/attempts/2026-10-15T00-15-40.327028+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/attempts/2026-10-15T00-15-40.327028+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/attempts/2026-10-15T00-15-51.647075+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/attempts/2026-10-15T00-15-51.647075+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/attempts/2026-10-15T00-15-51.647075+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/attempts/2026-10-15T00-15-31.900973+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/attempts/2026-10-15T00-15-31.900973+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/attempts/2026-10-15T00-15-31.900973+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/attempts/2026-10-15T00-19-11.757718+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/attempts/2026-10-15T00-19-11.757718+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/attempts/2026-10-15T00-19-11.757718+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/attempts/2026-10-15T00-17-36.708690+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/attempts/2026-10-15T00-17-36.708690+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/attempts/2026-10-15T00-17-36.708690+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/attempts/2026-10-15T01-02-35.162476+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/attempts/2026-10-15T01-02-35.162476+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/attempts/2026-10-15T01-02-35.162476+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/attempts/2026-10-15T11-52-06.870656+00-00/prompt.txt"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/attempts/2026-10-15T11-52-06.870656+00-00/record.json"
+    },
+    {
+      "status": "??",
+      "path": "results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/attempts/2026-10-15T11-52-06.870656+00-00/response.json"
+    },
+    {
+      "status": "??",
+      "path": "validation/claude-haiku-5.5/deployment.json"
+    },
+    {
+      "status": "??",
+      "path": "validation/claude-haiku-5.5/model-card.txt"
+    },
+    {
+      "status": "??",
+      "path": "validation/claude-haiku-5.5/pricing-source-1.txt"
+    },
+    {
+      "status": "??",
+      "path": "validation/model-tasks/deployment.json"
+    },
+    {
+      "status": "??",
+      "path": "validation/model-tasks/failure-status-deployment.json"
+    },
+    {
+      "status": "??",
+      "path": "validation/model-tasks/prompt-display-deployment-extra.json"
+    },
+    {
+      "status": "??",
+      "path": "validation/model-tasks/review-status-deployment.json"
+    },
+    {
+      "status": "??",
+      "path": "validation/self-portraits/deployment-free-expression.json"
+    },
+    {
+      "status": "??",
+      "path": "validation/self-portraits/deployment-prompt-expansion.json"
+    }
+  ],
+  "files": [
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/STATE.md",
+      "bytes": 3916,
+      "sha256": "85ef193b7a51bd58c86ce55889515917821faf8536555a2b02b3d2e63be6e2cf"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/lotte-review.json",
+      "bytes": 524123,
+      "sha256": "2759050a3449a99c17a3514b8b3cc88c306dde41b204bd54556c09cc1cb34103"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/page/artwork.html",
+      "bytes": 57744,
+      "sha256": "95efdcf9dcb9f0fa1bf80555aefd9281515431cb189b665aa8a6e1d87f2f45dd"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/page/implementation-cost.json",
+      "bytes": 3378,
+      "sha256": "f58e31328c7be3bddb9a6b2f3ead128e4b63d7a38c30e64bd6f0b0e9bbb956bd"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/page/index.html",
+      "bytes": 66067,
+      "sha256": "e292f1ebb51a1e80087c672e44d86ebb51cbd9ecfd231ce5b846fd05188d0a0c"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/page/initial-prompt.txt",
+      "bytes": 2594,
+      "sha256": "fcb57e79bf063de470672286501639b5fb9ca6b1280354f88f34372a191181f2"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/page/prompt.txt",
+      "bytes": 54858,
+      "sha256": "9b5ec7231a09a18800df6175093565ccdffc6c29ee62352e1c0a7a492e6e3129"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/page/provenance.json",
+      "bytes": 4829,
+      "sha256": "0ac9cd7a31ac6910948394082862d3a1ac80fb925737801b249db5996a3f8594"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T11-00-11.141328+00-00/prompt.txt",
+      "bytes": 2594,
+      "sha256": "fcb57e79bf063de470672286501639b5fb9ca6b1280354f88f34372a191181f2"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T11-00-11.141328+00-00/record.json",
+      "bytes": 726,
+      "sha256": "3ab9902258c2c563c43d325d23cb15672ab293b450196c87d1d86a594700a0ce"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T11-00-11.141328+00-00/response.json",
+      "bytes": 36726,
+      "sha256": "4972667b652cfcccb565441a932f93382c1587fd5f9691afa8703d95a35fb633"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T11-25-14.077421+00-00/prompt.txt",
+      "bytes": 3949,
+      "sha256": "d4597c7e37f2e63b9787304cddcc30f15681ce9e7b6ba5ff741154d1a2803cf2"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T11-25-14.077421+00-00/record.json",
+      "bytes": 825,
+      "sha256": "fd2241115856dbedbef6699c899a1f3520215d870891b2a15c39fa3f7d1729e6"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T11-25-14.077421+00-00/response.json",
+      "bytes": 54271,
+      "sha256": "ccb337ad4a53e1dab9f2ff03a7a9d2e7bd479e7a6da1444ced59833c56cfcb76"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T13-37-24.198739+00-00/prompt.txt",
+      "bytes": 1988,
+      "sha256": "296b32cc5a035a1a5592acb6b10aa1be420379b2bbb7db10cb8e27efee88cd10"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T13-37-24.198739+00-00/record.json",
+      "bytes": 823,
+      "sha256": "eb062a140a3fd47676815358f44e44f982cf95e9e381b0e43e7235ddc87333ee"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T13-37-24.198739+00-00/response.json",
+      "bytes": 20248,
+      "sha256": "801909ffc6a2bb595ca023c2d0cac86351aee9380aafad242d5b34615bda88c0"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T15-05-57.415771+00-00/prompt.txt",
+      "bytes": 5259,
+      "sha256": "a83acdd06d19fb04e5a06c20cb3111bc89d2055f824c769ec306f6a306ecdb20"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T15-05-57.415771+00-00/record.json",
+      "bytes": 826,
+      "sha256": "23016dafa816f3ed1cfdfabb277d8f48e4f46bb916ac91928fef252b24db7c28"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T15-05-57.415771+00-00/response.json",
+      "bytes": 59504,
+      "sha256": "0977344258fc8768df62d5fa43340c9b3850e5bee67cbab3566b45f9c4720f74"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T15-27-27.647907+00-00/prompt.txt",
+      "bytes": 61895,
+      "sha256": "921834f17d2ef1fc8d0d143a60040533278f3ea1736bd9abd8177124e0db4d07"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T15-27-27.647907+00-00/record.json",
+      "bytes": 732,
+      "sha256": "591278e2031d97e6371912855172971757d586165a256cf9ccfb4f9a993aa053"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T15-27-27.647907+00-00/response.json",
+      "bytes": 50623,
+      "sha256": "409888f5d643cdc808e3598b678d2a8b3088639bdff0cffb3df9842694ccb9fb"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-15T00-18-34.896460+00-00/prompt.txt",
+      "bytes": 54858,
+      "sha256": "9b5ec7231a09a18800df6175093565ccdffc6c29ee62352e1c0a7a492e6e3129"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-15T00-18-34.896460+00-00/record.json",
+      "bytes": 775,
+      "sha256": "d2bbb7d45bc467d0be4bb7a08fad5336f366e38c16f19f097fb9ee1224fa6410"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-15T00-18-34.896460+00-00/response.json",
+      "bytes": 35138,
+      "sha256": "56c99d123a60b29d7a3ddade6804d7d5004f82cb0a5924718b285fdd00af0363"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/prompt.txt",
+      "bytes": 54858,
+      "sha256": "9b5ec7231a09a18800df6175093565ccdffc6c29ee62352e1c0a7a492e6e3129"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/record.json",
+      "bytes": 775,
+      "sha256": "d2bbb7d45bc467d0be4bb7a08fad5336f366e38c16f19f097fb9ee1224fa6410"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/response.json",
+      "bytes": 35138,
+      "sha256": "56c99d123a60b29d7a3ddade6804d7d5004f82cb0a5924718b285fdd00af0363"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/ministral-14b/records/response.txt",
+      "bytes": 33964,
+      "sha256": "bf72a17bb683aab3c919f7062d01276d642401413ec92f939d997a048b97f727"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/page/implementation-cost.json",
+      "bytes": 2994,
+      "sha256": "0aeda80c0dff48da465443971e1b4f2aadd819c1a1caf0035e0f4cdfb4cc031c"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/page/index.html",
+      "bytes": 11337,
+      "sha256": "9a8fabee9b0b3c70d761a807836756108c42c4a95463279c19e5763a4c142bba"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/page/initial-prompt.txt",
+      "bytes": 2574,
+      "sha256": "b0b32ebd145da106e700152a96b2e71748711f12daea088231d438fe14983ff0"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/page/prompt.txt",
+      "bytes": 4069,
+      "sha256": "0cecd3d194ee72e15341625bef6649ae7f85e2987fcfd3d05f29c2e68c6e781d"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/page/provenance.json",
+      "bytes": 4512,
+      "sha256": "4c38da2d19cf451b00cb95d2719caa492bd7344a5f78a8c65cb69cb19061f109"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T15-55-51.471356+00-00/prompt.txt",
+      "bytes": 2574,
+      "sha256": "b0b32ebd145da106e700152a96b2e71748711f12daea088231d438fe14983ff0"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T15-55-51.471356+00-00/record.json",
+      "bytes": 709,
+      "sha256": "48bc098ea8c70ebb02ae07a4e260ac5bd7d678256386e79a066185b4ad6674f3"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T15-55-51.471356+00-00/response.json",
+      "bytes": 18495,
+      "sha256": "f319ad28bc2f41ad18bef6532f6cdf46f7ba21d1bf48308b62b7729ef14238b1"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-01-39.551286+00-00/prompt.txt",
+      "bytes": 3802,
+      "sha256": "553eb3056cc280afbfdcc6c471dc65b3b8615cfa0346d5f5e374a8e5341e87e4"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-01-39.551286+00-00/record.json",
+      "bytes": 709,
+      "sha256": "758ed9112321486917a7c93d4503790e1df53ef2ba001909928fa1b70ed71d8f"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-01-39.551286+00-00/response.json",
+      "bytes": 12949,
+      "sha256": "44d61fce45dbaae683d8538fd9c848ed42b2e78fef8c39798dd3ccd11fce1182"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-05-32.479447+00-00/prompt.txt",
+      "bytes": 3802,
+      "sha256": "553eb3056cc280afbfdcc6c471dc65b3b8615cfa0346d5f5e374a8e5341e87e4"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-05-32.479447+00-00/record.json",
+      "bytes": 709,
+      "sha256": "e883488b5a65d92fac6c9849ed66bd6de8f381b421fc8a69c138b5282fbe895c"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-05-32.479447+00-00/response.json",
+      "bytes": 13116,
+      "sha256": "ccf4b491fcc135316cd23e2c4c4c9a9653a38ce0f7662ac63f36c29483eab776"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-09-24.809457+00-00/prompt.txt",
+      "bytes": 3802,
+      "sha256": "553eb3056cc280afbfdcc6c471dc65b3b8615cfa0346d5f5e374a8e5341e87e4"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-09-24.809457+00-00/record.json",
+      "bytes": 709,
+      "sha256": "08642fd0d20134a0a4c27687a5d13d32ecbcee6520474ff8b24dfda561d163c1"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-09-24.809457+00-00/response.json",
+      "bytes": 12831,
+      "sha256": "5f748c27c833cc7e529ab8b180f01e41011dfcfaa771ee4a4cda790d20ac5e0f"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-15T01-02-35.162476+00-00/prompt.txt",
+      "bytes": 4069,
+      "sha256": "0cecd3d194ee72e15341625bef6649ae7f85e2987fcfd3d05f29c2e68c6e781d"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-15T01-02-35.162476+00-00/record.json",
+      "bytes": 940,
+      "sha256": "a00a12acbb51980adafa96e7afe1f55b977f11e54a606ba45a43962e75ccdcbb"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-15T01-02-35.162476+00-00/response.json",
+      "bytes": 15366,
+      "sha256": "fd903e960d448bc8eec5347ac8119b24b1002f151952ffd35b1ef85cb71ecc80"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/prompt.txt",
+      "bytes": 4069,
+      "sha256": "0cecd3d194ee72e15341625bef6649ae7f85e2987fcfd3d05f29c2e68c6e781d"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/record.json",
+      "bytes": 940,
+      "sha256": "a00a12acbb51980adafa96e7afe1f55b977f11e54a606ba45a43962e75ccdcbb"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/response.json",
+      "bytes": 15366,
+      "sha256": "fd903e960d448bc8eec5347ac8119b24b1002f151952ffd35b1ef85cb71ecc80"
+    },
+    {
+      "path": ".work/lotte-tower-budget-retry-20261015/baseline/qwen3.6-27b/records/response.txt",
+      "bytes": 14728,
+      "sha256": "476f76b969ff31a5bf57d1db8f62989eee092104d6827c9f52272c497519b68e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/STATE.md",
+      "bytes": 4518,
+      "sha256": "512de5559ecfde6b5838c37c5e8f0b21805a20de47bbef7af758a0502a0b2056"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/page/artwork.html",
+      "bytes": 5975,
+      "sha256": "f810c39e19a7a8d6197f01194885f925449bb9bd6303710d59ed96219c2c096c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/page/implementation-cost.json",
+      "bytes": 2560,
+      "sha256": "0bf508dd8925eddaa0f08dd1255dc12a919abe3d2333dae46907363a57f59fd9"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/page/index.html",
+      "bytes": 15416,
+      "sha256": "3e41bce80e3bf9360b7c804d58743eff60444f22f0c8b6480271b0650d182945"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/page/initial-prompt.txt",
+      "bytes": 2599,
+      "sha256": "05c84b82f909544a751df95d31f959599dcabcff28c16c879556c8723cb87387"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/page/prompt.txt",
+      "bytes": 6699,
+      "sha256": "f753f1a706ecf8ade7564acc3ebe40db93744880578e978b4e75a254f717728e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/page/provenance.json",
+      "bytes": 9045,
+      "sha256": "d90617e998dff4363118e41937878e55c938ea769dc2799d3ce3cdeb67402335"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/attempts/2026-10-13T16-27-48.307472+00-00/prompt.txt",
+      "bytes": 2599,
+      "sha256": "05c84b82f909544a751df95d31f959599dcabcff28c16c879556c8723cb87387"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/attempts/2026-10-13T16-27-48.307472+00-00/record.json",
+      "bytes": 774,
+      "sha256": "086cb7557a8476e489183b2758d77c0cbb6e20319be2f464b9d692a1e575db03"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/attempts/2026-10-13T16-27-48.307472+00-00/response.json",
+      "bytes": 7286,
+      "sha256": "a030e6e219cfb83a578eb1011210db124486a8d43684894e090b3ec90ef71a6a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/attempts/2026-10-13T16-40-31.581946+00-00/prompt.txt",
+      "bytes": 5952,
+      "sha256": "8d72dae83f6a35e84602fcc99d5722d576de425519eefdc5c9489b5aa9b2c421"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/attempts/2026-10-13T16-40-31.581946+00-00/record.json",
+      "bytes": 775,
+      "sha256": "1c6f161fee92148ebac22e2d044e66747c15bf5acbd49c84dc283331926804f2"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/attempts/2026-10-13T16-40-31.581946+00-00/response.json",
+      "bytes": 7573,
+      "sha256": "f69cbae468b72898f5dae1fb544ad0713c92aec887d14e13a3cca364348764f2"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/attempts/2026-10-13T16-47-33.996332+00-00/prompt.txt",
+      "bytes": 6790,
+      "sha256": "708eeea366c9ff500d93aed603f1e1e041d376f3f0f037f7fe24e9aca32f231b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/attempts/2026-10-13T16-47-33.996332+00-00/record.json",
+      "bytes": 775,
+      "sha256": "4598920ded499df3c5bd44ee3de13e9befdd5ee40a180e2a00ec9db8618da0aa"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/attempts/2026-10-13T16-47-33.996332+00-00/response.json",
+      "bytes": 5585,
+      "sha256": "299c70c2a6a162246e7bb77b432eaf33374bee7ea2cecf031f0c4ccdfa2895c7"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/attempts/2026-10-13T16-54-31.307827+00-00/prompt.txt",
+      "bytes": 6699,
+      "sha256": "f753f1a706ecf8ade7564acc3ebe40db93744880578e978b4e75a254f717728e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/attempts/2026-10-13T16-54-31.307827+00-00/record.json",
+      "bytes": 775,
+      "sha256": "b79940f695889feffd0f67179bd731be482a8817576a977491d44fe5b7ee408d"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/attempts/2026-10-13T16-54-31.307827+00-00/response.json",
+      "bytes": 6380,
+      "sha256": "bab599bfec6953d25354e60d25e700231b778ed5b51bc00b6bf430d7edbc9c72"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/prompt.txt",
+      "bytes": 6699,
+      "sha256": "f753f1a706ecf8ade7564acc3ebe40db93744880578e978b4e75a254f717728e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/record.json",
+      "bytes": 775,
+      "sha256": "b79940f695889feffd0f67179bd731be482a8817576a977491d44fe5b7ee408d"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/response.json",
+      "bytes": 6380,
+      "sha256": "bab599bfec6953d25354e60d25e700231b778ed5b51bc00b6bf430d7edbc9c72"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/exaone-3.5-32b/records/response.txt",
+      "bytes": 5987,
+      "sha256": "0ee978d9179a529a6671b92290c2dea14a800fed1af4f654ef48344505b0a742"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/page/artwork.html",
+      "bytes": 29059,
+      "sha256": "9586dab8a74cc49794579f440ff4b948d1e1a89b58fd306b98d584276e8c38a0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/page/implementation-cost.json",
+      "bytes": 2608,
+      "sha256": "c6e057d8eed0553d406c4d6f3950808fad4c3e1f3f597bd8d38a2521cb7b38e8"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/page/index.html",
+      "bytes": 36445,
+      "sha256": "9d2f7dfa560d4ee1ccead026c5c2bb05f4274809c6ae4e7a0af6f0c08b3e8062"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/page/initial-prompt.txt",
+      "bytes": 2579,
+      "sha256": "3515c8afcd1290449c300d76d77a280bd9df4c8a50f88ff7c7fcd9bcc35062d6"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/page/prompt.txt",
+      "bytes": 26961,
+      "sha256": "3c0b03aaa03a0071f3f472fd6734cdeaf9ad232fd092c52306804d5674aa77fe"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/page/provenance.json",
+      "bytes": 7652,
+      "sha256": "6538e48850c30b074fbccc7e35faa64694dd414494956a3f47fca709676af935"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/attempts/2026-10-13T10-59-02.893696+00-00/prompt.txt",
+      "bytes": 2579,
+      "sha256": "3515c8afcd1290449c300d76d77a280bd9df4c8a50f88ff7c7fcd9bcc35062d6"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/attempts/2026-10-13T10-59-02.893696+00-00/record.json",
+      "bytes": 808,
+      "sha256": "5e2980e62b2170e83349b15c2c5e29b413ef241e3bf77f265a0aa441a41e65d1"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/attempts/2026-10-13T10-59-02.893696+00-00/response.json",
+      "bytes": 29200,
+      "sha256": "a84f26014bbad54a38b1aade891e225993fd3e9b32ee8a0efb208304cfa94457"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/attempts/2026-10-13T13-36-58.037685+00-00/prompt.txt",
+      "bytes": 3486,
+      "sha256": "94fb9c720626dd9e0fd607145492df261d070139ddc430e5ab100662d27b1e2b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/attempts/2026-10-13T13-36-58.037685+00-00/record.json",
+      "bytes": 808,
+      "sha256": "8de239b1f6153127e3e28c0f2e6670791e9e5afc27e883845726571d71d13c1e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/attempts/2026-10-13T13-36-58.037685+00-00/response.json",
+      "bytes": 24567,
+      "sha256": "be1ebd9fd20427d72c6837b0963e7d5e7afa6882889b6b88dca00cf97bb6ce87"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/attempts/2026-10-13T15-05-32.957899+00-00/prompt.txt",
+      "bytes": 6742,
+      "sha256": "7964909eb4bd16561820f0cec0c6d745f9f82c79a78179c57d3def5a9e446c06"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/attempts/2026-10-13T15-05-32.957899+00-00/record.json",
+      "bytes": 810,
+      "sha256": "6b0052a34c001f1a75dd6f57716c7f12b9be913e1f194ed156f09d36528482d3"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/attempts/2026-10-13T15-05-32.957899+00-00/response.json",
+      "bytes": 22999,
+      "sha256": "066cc2922bac1a0fe4bdaa7c63ede187df44fa1ed1cea9702149451e7d33eae3"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/attempts/2026-10-13T15-26-55.717431+00-00/prompt.txt",
+      "bytes": 26961,
+      "sha256": "3c0b03aaa03a0071f3f472fd6734cdeaf9ad232fd092c52306804d5674aa77fe"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/attempts/2026-10-13T15-26-55.717431+00-00/record.json",
+      "bytes": 810,
+      "sha256": "3e97d375c76e0760bc8a6518e445428c4b1c25d27a9c81584858c41ae911da35"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/attempts/2026-10-13T15-26-55.717431+00-00/response.json",
+      "bytes": 30052,
+      "sha256": "c2f777176e2e7e33d51f501ab5b54ed0e0fefd7f5b6154ce95b5d7f5af8fa3b2"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/prompt.txt",
+      "bytes": 26961,
+      "sha256": "3c0b03aaa03a0071f3f472fd6734cdeaf9ad232fd092c52306804d5674aa77fe"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/record.json",
+      "bytes": 810,
+      "sha256": "3e97d375c76e0760bc8a6518e445428c4b1c25d27a9c81584858c41ae911da35"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/response.json",
+      "bytes": 30052,
+      "sha256": "c2f777176e2e7e33d51f501ab5b54ed0e0fefd7f5b6154ce95b5d7f5af8fa3b2"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/glm-4.7-flash/records/response.txt",
+      "bytes": 29071,
+      "sha256": "46d30295bae867110475fd231406d8a66717e22ff37d0063b4c82037c12cd212"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/page/artwork.html",
+      "bytes": 9166,
+      "sha256": "662f89790a2a605ec2222566ead92b12357a9f7992fddc1add1ecf63f13d412f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/page/implementation-cost.json",
+      "bytes": 2607,
+      "sha256": "fda7a1e0a659f4760c33d2eb2f27c434683e3d5738c8789a4c255ff533460e72"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/page/index.html",
+      "bytes": 23700,
+      "sha256": "59348328a83d7cc4cdcdba256f63e95dfa0c3cdb96c50c2c410930fa05643f2e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/page/initial-prompt.txt",
+      "bytes": 2583,
+      "sha256": "59e3ef141d8a0ab2c2105802b123ac6e2c2d049f9225fae9098726b8f24cc627"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/page/prompt.txt",
+      "bytes": 13957,
+      "sha256": "7908e6e3b91e66064eb9fd1ce7691acd99a1b09bf80c5b52dfa96c600db0dcef"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/page/provenance.json",
+      "bytes": 7386,
+      "sha256": "28597b3cff8db7c489b44c9604dba0814bbedcef2930e6716ed0ba132c60616f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/attempts/2026-10-13T10-59-49.472573+00-00/prompt.txt",
+      "bytes": 2583,
+      "sha256": "59e3ef141d8a0ab2c2105802b123ac6e2c2d049f9225fae9098726b8f24cc627"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/attempts/2026-10-13T10-59-49.472573+00-00/record.json",
+      "bytes": 814,
+      "sha256": "a25390cf122021486550e1e0e2ee28692d82ae59ae5b63bd15b613557e50b4ea"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/attempts/2026-10-13T10-59-49.472573+00-00/response.json",
+      "bytes": 8618,
+      "sha256": "cad81d393d816ce188b6037ca736fb6bb4006aa96b99021e53a576464fe84493"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/attempts/2026-10-13T13-38-42.929600+00-00/prompt.txt",
+      "bytes": 2367,
+      "sha256": "2c66b1c7045014ca6bb53376667c01b320380d0acc30815c19d11b6a11ace2bd"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/attempts/2026-10-13T13-38-42.929600+00-00/record.json",
+      "bytes": 814,
+      "sha256": "625408816817cab46cf5d7d42fcc663e03a4dc7e99a12b2cae691d0f32c12087"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/attempts/2026-10-13T13-38-42.929600+00-00/response.json",
+      "bytes": 5543,
+      "sha256": "44107e45f2cfe4e2c8ca1b136122735ca8183297da676ad4022f0eaa5cc5d065"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/attempts/2026-10-13T15-07-53.414141+00-00/prompt.txt",
+      "bytes": 5627,
+      "sha256": "5729d7edb9994ef479de9cfd45ccb594d9c2621bcffd24f0d4ce00f881315f52"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/attempts/2026-10-13T15-07-53.414141+00-00/record.json",
+      "bytes": 816,
+      "sha256": "28d1edbafbc9b4a1e192ca9ec45770b1079f5c29d2d2f48dfa1950f5c173f214"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/attempts/2026-10-13T15-07-53.414141+00-00/response.json",
+      "bytes": 9841,
+      "sha256": "32bfdb8d86f4b1a1e43d0748e8d906c9f57d016478ce71e11be2d21e4a7c24f1"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/attempts/2026-10-13T15-27-01.936341+00-00/prompt.txt",
+      "bytes": 13957,
+      "sha256": "7908e6e3b91e66064eb9fd1ce7691acd99a1b09bf80c5b52dfa96c600db0dcef"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/attempts/2026-10-13T15-27-01.936341+00-00/record.json",
+      "bytes": 816,
+      "sha256": "c772675f893716776800c0f2137142b507daee60c15568363a57a6d73f0dcec7"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/attempts/2026-10-13T15-27-01.936341+00-00/response.json",
+      "bytes": 9709,
+      "sha256": "15802f7bf552856251b15ca36e6775e453017f9a293bcf10ffb85300bac680ca"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/prompt.txt",
+      "bytes": 13957,
+      "sha256": "7908e6e3b91e66064eb9fd1ce7691acd99a1b09bf80c5b52dfa96c600db0dcef"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/record.json",
+      "bytes": 816,
+      "sha256": "c772675f893716776800c0f2137142b507daee60c15568363a57a6d73f0dcec7"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/response.json",
+      "bytes": 9709,
+      "sha256": "15802f7bf552856251b15ca36e6775e453017f9a293bcf10ffb85300bac680ca"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-120b/records/response.txt",
+      "bytes": 9166,
+      "sha256": "662f89790a2a605ec2222566ead92b12357a9f7992fddc1add1ecf63f13d412f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/page/artwork.html",
+      "bytes": 6476,
+      "sha256": "5ee00c024bdde7e10751fe50cf8f6e87d3c7bcc8035d71a4a72a8085c0c62d0c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/page/implementation-cost.json",
+      "bytes": 2608,
+      "sha256": "26a52d6826182067e0eca438bd0d1adc925d7a4a619731c1feb9ce4cb188ac9c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/page/index.html",
+      "bytes": 21051,
+      "sha256": "46994b979cba140127629aaad946a2e45fa68e61a8494f5faf57a2e3a383aecb"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/page/initial-prompt.txt",
+      "bytes": 2580,
+      "sha256": "7a7aa7d3889025d732c6e05719de8fa3c06091313c26c56b9f47ac0e6cef9d5b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/page/prompt.txt",
+      "bytes": 11242,
+      "sha256": "cc02bb3b293b8affc823c0963260c46adfd974a288b4fa88b501628659bdfbc8"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/page/provenance.json",
+      "bytes": 7480,
+      "sha256": "0876dbbe71a1d174beabee5d7c7183bfb3a98c09d1b58f31de1a677ab106967f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/attempts/2026-10-13T10-59-39.440347+00-00/prompt.txt",
+      "bytes": 2580,
+      "sha256": "7a7aa7d3889025d732c6e05719de8fa3c06091313c26c56b9f47ac0e6cef9d5b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/attempts/2026-10-13T10-59-39.440347+00-00/record.json",
+      "bytes": 812,
+      "sha256": "c6962c5d67704aa52413a58ffe92973dbdae4ce31a756d27a1b4d19420288754"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/attempts/2026-10-13T10-59-39.440347+00-00/response.json",
+      "bytes": 5408,
+      "sha256": "95d08447fe8555ac964322cbc1083d4828f7c2c9a790158427a9fb2d507f22b9"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/attempts/2026-10-13T13-36-51.997934+00-00/prompt.txt",
+      "bytes": 2666,
+      "sha256": "aa6bf0a438a91b6724c9d9f7196ab0df7c853fed18ade625b6141072c2d1ff3e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/attempts/2026-10-13T13-36-51.997934+00-00/record.json",
+      "bytes": 812,
+      "sha256": "ee99f098b589509f7efe347df32db036bca67530c3f351b02ee0e47198fac48a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/attempts/2026-10-13T13-36-51.997934+00-00/response.json",
+      "bytes": 5234,
+      "sha256": "cbf67f92ced796e290ca43648a6e13d7b764bd7ea1283757581483a06cd008c4"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/attempts/2026-10-13T15-05-31.737729+00-00/prompt.txt",
+      "bytes": 5923,
+      "sha256": "64deebaf60102582ad6f4a75159ce8f40d68ef3787cfd00e169cf43710ee746c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/attempts/2026-10-13T15-05-31.737729+00-00/record.json",
+      "bytes": 814,
+      "sha256": "21a3d3a43e19f53a5cbb3fa64691bff97552b0a44384eb9170a1334c7e49c949"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/attempts/2026-10-13T15-05-31.737729+00-00/response.json",
+      "bytes": 6268,
+      "sha256": "b994ec746a80c927f11968f1050789281a33264fce02388030956e546d52d35e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/attempts/2026-10-13T15-26-57.389235+00-00/prompt.txt",
+      "bytes": 11242,
+      "sha256": "cc02bb3b293b8affc823c0963260c46adfd974a288b4fa88b501628659bdfbc8"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/attempts/2026-10-13T15-26-57.389235+00-00/record.json",
+      "bytes": 814,
+      "sha256": "f0182c573ac56a366cc4f8cf7da437a4a8bfb8ba3667c26a652be62aec149f7a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/attempts/2026-10-13T15-26-57.389235+00-00/response.json",
+      "bytes": 7031,
+      "sha256": "1fe9956faa58b6f5b6200f163560a5b05978b4c6d60a1f8dda8ae717b10b27d9"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/prompt.txt",
+      "bytes": 11242,
+      "sha256": "cc02bb3b293b8affc823c0963260c46adfd974a288b4fa88b501628659bdfbc8"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/record.json",
+      "bytes": 814,
+      "sha256": "f0182c573ac56a366cc4f8cf7da437a4a8bfb8ba3667c26a652be62aec149f7a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/response.json",
+      "bytes": 7031,
+      "sha256": "1fe9956faa58b6f5b6200f163560a5b05978b4c6d60a1f8dda8ae717b10b27d9"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/gpt-oss-20b/records/response.txt",
+      "bytes": 6476,
+      "sha256": "5ee00c024bdde7e10751fe50cf8f6e87d3c7bcc8035d71a4a72a8085c0c62d0c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/page/artwork.html",
+      "bytes": 8254,
+      "sha256": "c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/page/implementation-cost.json",
+      "bytes": 2572,
+      "sha256": "5f6d91c8f50212f320b29fc05a953a027aed78296196c12d01d45c1e329bb4a3"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/page/index.html",
+      "bytes": 15824,
+      "sha256": "b273a5a08910a40f21378565e6be684e9db500ac3f981778742b906c15aee794"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/page/initial-prompt.txt",
+      "bytes": 2592,
+      "sha256": "a8579dd0ee4b74fc146f255c9d15286d8ad84bc8167d3e1a49c8569bc7d551d8"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/page/prompt.txt",
+      "bytes": 6945,
+      "sha256": "1926b0f7ad97f730923d6334201c35bd203bfaaa78114de8e377d5b14a39da2f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/page/provenance.json",
+      "bytes": 9026,
+      "sha256": "f012e48f8fffe03a8d03f206ae0da7f7be956ab6b9c6878b11a9ad554671c3d2"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/attempts/2026-10-13T15-30-57.389845+00-00/prompt.txt",
+      "bytes": 2592,
+      "sha256": "a8579dd0ee4b74fc146f255c9d15286d8ad84bc8167d3e1a49c8569bc7d551d8"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/attempts/2026-10-13T15-30-57.389845+00-00/record.json",
+      "bytes": 766,
+      "sha256": "5656877562352562e0d5faca6551d989e8f38c47c1767fb85e3d7210ec46763b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/attempts/2026-10-13T15-30-57.389845+00-00/response.json",
+      "bytes": 5876,
+      "sha256": "4198ea8fdddd35ad4c25fbd3ef995e57aa1727aec5bca9d24dcc4119c2074fe9"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/attempts/2026-10-13T15-34-02.549695+00-00/prompt.txt",
+      "bytes": 6443,
+      "sha256": "464f6d4f9037ba8d420329f4973363021fd4617427d87bdf9099a672422a5bba"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/attempts/2026-10-13T15-34-02.549695+00-00/record.json",
+      "bytes": 766,
+      "sha256": "37d9fe1479b14e7b19aeefb428c8758b0d4110cdb7f4e90d5b982e3b4b5668fd"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/attempts/2026-10-13T15-34-02.549695+00-00/response.json",
+      "bytes": 4386,
+      "sha256": "c9fc86b9ea8e484e4c39b6b069bf24a710753843b70430431c92934826638086"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/attempts/2026-10-13T15-35-58.901422+00-00/prompt.txt",
+      "bytes": 6670,
+      "sha256": "b5487d1b1f7b60337c6606580cc4c4c87a69e5c7359cf1e756cf8ce3e719c94c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/attempts/2026-10-13T15-35-58.901422+00-00/record.json",
+      "bytes": 767,
+      "sha256": "5a803e1b7ae7bc15cfc961bdfb127dc026ecc196ce4274c16fab2a132c8e1637"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/attempts/2026-10-13T15-35-58.901422+00-00/response.json",
+      "bytes": 7618,
+      "sha256": "c2829d64be956e900aaecc3997f45b3f8e2a236b4c5336942555456dd1cc2fc9"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/attempts/2026-10-13T15-39-48.976436+00-00/prompt.txt",
+      "bytes": 6945,
+      "sha256": "1926b0f7ad97f730923d6334201c35bd203bfaaa78114de8e377d5b14a39da2f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/attempts/2026-10-13T15-39-48.976436+00-00/record.json",
+      "bytes": 767,
+      "sha256": "4ba0102c46065402e758cdf025296ea2e97015c8b40af6959d0b526b7401b12b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/attempts/2026-10-13T15-39-48.976436+00-00/response.json",
+      "bytes": 8666,
+      "sha256": "21800ac43f141b91512be06acbaf93f978dd31ac5bda3e6b9d0de6eb2880b4b0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/prompt.txt",
+      "bytes": 6945,
+      "sha256": "1926b0f7ad97f730923d6334201c35bd203bfaaa78114de8e377d5b14a39da2f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/record.json",
+      "bytes": 767,
+      "sha256": "4ba0102c46065402e758cdf025296ea2e97015c8b40af6959d0b526b7401b12b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/response.json",
+      "bytes": 8666,
+      "sha256": "21800ac43f141b91512be06acbaf93f978dd31ac5bda3e6b9d0de6eb2880b4b0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.1-8b/records/response.txt",
+      "bytes": 8254,
+      "sha256": "c32057471d5a335bc59e1a30c9a9315d8458f0138e6177005820c109f4a7d4c1"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/page/artwork.html",
+      "bytes": 7958,
+      "sha256": "a061dc832b7e06ecc97d03568baf5cf3098bd89829dd61f1eb9d721a9c914a94"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/page/implementation-cost.json",
+      "bytes": 3729,
+      "sha256": "945b51c31f126ba3d7e24f9eea6947146729a2d4d3085fef1735c7505b2f1731"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/page/index.html",
+      "bytes": 19464,
+      "sha256": "d33ff93d3d58a642135a6f53904e91824f36a1c3fda6caf9578c513c9ac66835"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/page/initial-prompt.txt",
+      "bytes": 2595,
+      "sha256": "26965249b4ca9f673f45e814c23572ec685f24220ad0e95b4483199eea14e8d7"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/page/prompt.txt",
+      "bytes": 9146,
+      "sha256": "ca238b8d29cc231677c2f1970883b7797052b1b3e1ea5ab2822e678e5354705c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/page/provenance.json",
+      "bytes": 10557,
+      "sha256": "b79f8050b3d248590c9d9d373e57ab3932980cd1c22280390120d9a61048f339"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T11-04-31.629238+00-00/prompt.txt",
+      "bytes": 2595,
+      "sha256": "26965249b4ca9f673f45e814c23572ec685f24220ad0e95b4483199eea14e8d7"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T11-04-31.629238+00-00/record.json",
+      "bytes": 769,
+      "sha256": "f7f9a22079c725496d7078a49a7c366c595f1985fb2aed5f2287fbff5fbce1fc"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T11-04-31.629238+00-00/response.json",
+      "bytes": 5934,
+      "sha256": "6f4d65930f3dac06e7452d1517c00f9171d9e9649b8f8c60afc9a46576db4cc0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T11-08-17.137582+00-00/prompt.txt",
+      "bytes": 6774,
+      "sha256": "8f22c48dbde00e3b7812238e66363b8f85295064f5455b08815186dfd310696a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T11-08-17.137582+00-00/record.json",
+      "bytes": 770,
+      "sha256": "284b2cd3a60fa0661fd5867ea44d0b769ab47abd706052d08af10c8555c37a4e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T11-08-17.137582+00-00/response.json",
+      "bytes": 6130,
+      "sha256": "53230e143e2c728c34ce132d218b64162a61f20704b2de34859dddf3dac3d202"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T13-36-57.535079+00-00/prompt.txt",
+      "bytes": 4127,
+      "sha256": "aa4ba715234509085435ec4ba8a727270b59f1486c059246543a7f0d794818c3"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T13-36-57.535079+00-00/record.json",
+      "bytes": 764,
+      "sha256": "b165edd0386d5e97e0d8fd46aa196c4138d9dbbbf9c8dd431aae63ea670cd779"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T15-00-43.080652+00-00/prompt.txt",
+      "bytes": 9700,
+      "sha256": "753c7b7f1e0ad02fd34edd803eddaec344a6bc2e9ab76653ecfac71040f32452"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T15-00-43.080652+00-00/record.json",
+      "bytes": 728,
+      "sha256": "b18dbcc861cc93db7c5171fd35f84023698c9d4f8dd34c1af09b655634ddc7bd"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T15-00-43.080652+00-00/response.json",
+      "bytes": 6434,
+      "sha256": "584640b417a01a7aca63b39b8cd7abf3ecc42a2ea9cc6d40c67059f9de1f2e7b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T15-06-52.544589+00-00/prompt.txt",
+      "bytes": 4499,
+      "sha256": "63c60f6f68ce02086131b24c92fd6f167835b384885cb9c69652dd50ed56ca39"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T15-06-52.544589+00-00/record.json",
+      "bytes": 770,
+      "sha256": "4ee89b149b3ac35b81ef5fbac25de28ee1b0cbf5d8ad35638335465901ea1f17"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T15-06-52.544589+00-00/response.json",
+      "bytes": 16438,
+      "sha256": "03293de0a6f4fac5c815eb27c5b280c96a0367efeb6e04bbb4b935d4577a4541"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T15-14-12.070299+00-00/prompt.txt",
+      "bytes": 4724,
+      "sha256": "b9a6535b3ae45d96b6544c1f68fe9b81b728f9f86e67c1fd3f54c559c5759fc0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T15-14-12.070299+00-00/record.json",
+      "bytes": 770,
+      "sha256": "f357329dadf797d6c1131dd1c2fa480517b8923b9309e4379ada5cb0d00aab89"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T15-14-12.070299+00-00/response.json",
+      "bytes": 5303,
+      "sha256": "44a54f0556225f9e98e182f9b370068ab3362877dfd7f5509b639e4f43399de2"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T15-19-05.849903+00-00/prompt.txt",
+      "bytes": 9146,
+      "sha256": "ca238b8d29cc231677c2f1970883b7797052b1b3e1ea5ab2822e678e5354705c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T15-19-05.849903+00-00/record.json",
+      "bytes": 770,
+      "sha256": "d5f24332596d04a44fa754afe3acc997ce67dcc529fa5dbde69d9b41352043a4"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/attempts/2026-10-13T15-19-05.849903+00-00/response.json",
+      "bytes": 8499,
+      "sha256": "9e523db4803b7b420da2dd5ad4f11a12ab2790f96f92247dc0709e387f78f304"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/prompt.txt",
+      "bytes": 9146,
+      "sha256": "ca238b8d29cc231677c2f1970883b7797052b1b3e1ea5ab2822e678e5354705c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/record.json",
+      "bytes": 770,
+      "sha256": "d5f24332596d04a44fa754afe3acc997ce67dcc529fa5dbde69d9b41352043a4"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/response.json",
+      "bytes": 8499,
+      "sha256": "9e523db4803b7b420da2dd5ad4f11a12ab2790f96f92247dc0709e387f78f304"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b/records/response.txt",
+      "bytes": 7970,
+      "sha256": "d2c524852b2f68d9faf0e5ec1a722849563c4aa83badb1798fb722f3be116fe2"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/page/artwork.html",
+      "bytes": 6313,
+      "sha256": "e67818ea849c028c22f5335f3a765d43a209a64804c2a516d35ac385f7de3052"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/page/implementation-cost.json",
+      "bytes": 2609,
+      "sha256": "e16197abcfef2a41a5348971ef3a80f06903012f6f86c4c140b2bfc161f87daa"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/page/index.html",
+      "bytes": 19604,
+      "sha256": "49704fdef081e296f562242b9c72bea6fc1d99a59de0a0ead699e14a644911e0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/page/initial-prompt.txt",
+      "bytes": 2612,
+      "sha256": "e3bc21659d48c0fe0379b154d425efacea5a86d24d9ecea2e8a4c5366a610909"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/page/prompt.txt",
+      "bytes": 10529,
+      "sha256": "e2d8df7c45f6fab88cc4f579d220e741af9d6d381b65c2a7675d289a70c932cf"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/page/provenance.json",
+      "bytes": 8332,
+      "sha256": "88af8051fd45b5b711bfd9cb69727e54cb763c86aef26e39094ee6de4f49c25d"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/attempts/2026-10-13T11-00-33.369856+00-00/prompt.txt",
+      "bytes": 2612,
+      "sha256": "e3bc21659d48c0fe0379b154d425efacea5a86d24d9ecea2e8a4c5366a610909"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/attempts/2026-10-13T11-00-33.369856+00-00/record.json",
+      "bytes": 833,
+      "sha256": "a1ecae4e475582eb4e16b56162b625f3512065f575d9599835edc1798cd1378c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/attempts/2026-10-13T11-00-33.369856+00-00/response.json",
+      "bytes": 4649,
+      "sha256": "d4f1827cd5a39ded4aa392681df3c87c6c20b8b25984071cd6bfd5b28f0b7c4e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/attempts/2026-10-13T13-38-59.894980+00-00/prompt.txt",
+      "bytes": 3774,
+      "sha256": "403f43460a04e6fb75761047981e3e56bcddd452754c475893d1570055f21db0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/attempts/2026-10-13T13-38-59.894980+00-00/record.json",
+      "bytes": 833,
+      "sha256": "40c72126467cfacade9b6811641876d93c05e51a069b02658a52325905a07cf2"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/attempts/2026-10-13T13-38-59.894980+00-00/response.json",
+      "bytes": 4244,
+      "sha256": "a7e2479c8d78f737939776b53e66594e3756bb90057857c09dcc9a3181934c63"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/attempts/2026-10-13T15-08-00.888824+00-00/prompt.txt",
+      "bytes": 7063,
+      "sha256": "b05045870d1421061dcbfe701f4ae2f6c66e4f8d2b813148711896679eaad034"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/attempts/2026-10-13T15-08-00.888824+00-00/record.json",
+      "bytes": 834,
+      "sha256": "09fe533d4f0968b09d04635d876c4efed10309c467490a5529715e893e2b02ba"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/attempts/2026-10-13T15-08-00.888824+00-00/response.json",
+      "bytes": 5892,
+      "sha256": "f155e39635affe4a4b9ff1873eff5dcf055cd62900f3c5b2d936daa89116f099"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/attempts/2026-10-13T15-27-33.255263+00-00/prompt.txt",
+      "bytes": 10529,
+      "sha256": "e2d8df7c45f6fab88cc4f579d220e741af9d6d381b65c2a7675d289a70c932cf"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/attempts/2026-10-13T15-27-33.255263+00-00/record.json",
+      "bytes": 834,
+      "sha256": "cb285f2a59f32c7eaa150f37ae5c42d99b6c6c4582d58170c45c87f516441ef0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/attempts/2026-10-13T15-27-33.255263+00-00/response.json",
+      "bytes": 6735,
+      "sha256": "dce135a3dc884eb3c449112976c96becb0ca5d4291bf30c9ff330b7507de6acb"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/prompt.txt",
+      "bytes": 10529,
+      "sha256": "e2d8df7c45f6fab88cc4f579d220e741af9d6d381b65c2a7675d289a70c932cf"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/record.json",
+      "bytes": 834,
+      "sha256": "cb285f2a59f32c7eaa150f37ae5c42d99b6c6c4582d58170c45c87f516441ef0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/response.json",
+      "bytes": 6735,
+      "sha256": "dce135a3dc884eb3c449112976c96becb0ca5d4291bf30c9ff330b7507de6acb"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/llama-3.3-70b-bedrock/records/response.txt",
+      "bytes": 6325,
+      "sha256": "25d77f491edd3026ef401a260154908f1d84e312d4ecce4f2c5c296a912b0428"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/lotte-findings.json",
+      "bytes": 28368,
+      "sha256": "c3166b6a33002ac0f468e6585d8eaa99b03c4c39e388b0257c56f02862a008f8"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/lotte-review.json",
+      "bytes": 454908,
+      "sha256": "77bac594c19329480768f2134a845e27859b5b0edb3365daa7e4e3b9588a9f62"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/page/artwork.html",
+      "bytes": 57744,
+      "sha256": "95efdcf9dcb9f0fa1bf80555aefd9281515431cb189b665aa8a6e1d87f2f45dd"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/page/implementation-cost.json",
+      "bytes": 2971,
+      "sha256": "45f540ed43c5b8c25ae054ee7da1b359300a3c33ebfafcf37d1816b9685c228b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/page/index.html",
+      "bytes": 72718,
+      "sha256": "8dcfa651cee4ff9a82766ad28d2dbb39dd446e2613bcdef85aec7d7fb1b6bf70"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/page/initial-prompt.txt",
+      "bytes": 2594,
+      "sha256": "fcb57e79bf063de470672286501639b5fb9ca6b1280354f88f34372a191181f2"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/page/prompt.txt",
+      "bytes": 61895,
+      "sha256": "921834f17d2ef1fc8d0d143a60040533278f3ea1736bd9abd8177124e0db4d07"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/page/provenance.json",
+      "bytes": 7045,
+      "sha256": "9b3cbe35b76ffb3b0970247e214b786ae5830b430cd60f5c371d8a914aece3fb"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T11-00-11.141328+00-00/prompt.txt",
+      "bytes": 2594,
+      "sha256": "fcb57e79bf063de470672286501639b5fb9ca6b1280354f88f34372a191181f2"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T11-00-11.141328+00-00/record.json",
+      "bytes": 726,
+      "sha256": "3ab9902258c2c563c43d325d23cb15672ab293b450196c87d1d86a594700a0ce"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T11-00-11.141328+00-00/response.json",
+      "bytes": 36726,
+      "sha256": "4972667b652cfcccb565441a932f93382c1587fd5f9691afa8703d95a35fb633"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T11-25-14.077421+00-00/prompt.txt",
+      "bytes": 3949,
+      "sha256": "d4597c7e37f2e63b9787304cddcc30f15681ce9e7b6ba5ff741154d1a2803cf2"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T11-25-14.077421+00-00/record.json",
+      "bytes": 825,
+      "sha256": "fd2241115856dbedbef6699c899a1f3520215d870891b2a15c39fa3f7d1729e6"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T11-25-14.077421+00-00/response.json",
+      "bytes": 54271,
+      "sha256": "ccb337ad4a53e1dab9f2ff03a7a9d2e7bd479e7a6da1444ced59833c56cfcb76"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T13-37-24.198739+00-00/prompt.txt",
+      "bytes": 1988,
+      "sha256": "296b32cc5a035a1a5592acb6b10aa1be420379b2bbb7db10cb8e27efee88cd10"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T13-37-24.198739+00-00/record.json",
+      "bytes": 823,
+      "sha256": "eb062a140a3fd47676815358f44e44f982cf95e9e381b0e43e7235ddc87333ee"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T13-37-24.198739+00-00/response.json",
+      "bytes": 20248,
+      "sha256": "801909ffc6a2bb595ca023c2d0cac86351aee9380aafad242d5b34615bda88c0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T15-05-57.415771+00-00/prompt.txt",
+      "bytes": 5259,
+      "sha256": "a83acdd06d19fb04e5a06c20cb3111bc89d2055f824c769ec306f6a306ecdb20"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T15-05-57.415771+00-00/record.json",
+      "bytes": 826,
+      "sha256": "23016dafa816f3ed1cfdfabb277d8f48e4f46bb916ac91928fef252b24db7c28"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T15-05-57.415771+00-00/response.json",
+      "bytes": 59504,
+      "sha256": "0977344258fc8768df62d5fa43340c9b3850e5bee67cbab3566b45f9c4720f74"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T15-27-27.647907+00-00/prompt.txt",
+      "bytes": 61895,
+      "sha256": "921834f17d2ef1fc8d0d143a60040533278f3ea1736bd9abd8177124e0db4d07"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T15-27-27.647907+00-00/record.json",
+      "bytes": 732,
+      "sha256": "591278e2031d97e6371912855172971757d586165a256cf9ccfb4f9a993aa053"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/attempts/2026-10-13T15-27-27.647907+00-00/response.json",
+      "bytes": 50623,
+      "sha256": "409888f5d643cdc808e3598b678d2a8b3088639bdff0cffb3df9842694ccb9fb"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/prompt.txt",
+      "bytes": 61895,
+      "sha256": "921834f17d2ef1fc8d0d143a60040533278f3ea1736bd9abd8177124e0db4d07"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/record.json",
+      "bytes": 732,
+      "sha256": "591278e2031d97e6371912855172971757d586165a256cf9ccfb4f9a993aa053"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/response.json",
+      "bytes": 50623,
+      "sha256": "409888f5d643cdc808e3598b678d2a8b3088639bdff0cffb3df9842694ccb9fb"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/ministral-14b/records/response.txt",
+      "bytes": 49059,
+      "sha256": "be1fc8b512d827e09c158f91e709e24eac90de637e750aeaabe53b3eb28ef52d"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/page/artwork.html",
+      "bytes": 9178,
+      "sha256": "acc83a509b386bdc4f2335c08d3b474566d8e4e1ea9a5e146bd0428d16b15786"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/page/implementation-cost.json",
+      "bytes": 2609,
+      "sha256": "83e6d0d76c9b00f50a2c30ef80d39eb25e40f6298df813c4aa9fbdd91db0774d"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/page/index.html",
+      "bytes": 21364,
+      "sha256": "8c0be722b259f009d53cf6f0e86f38c973677dfd375adfe6ecc5d4e805794ebc"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/page/initial-prompt.txt",
+      "bytes": 2600,
+      "sha256": "c9b2413b78ac0cef17e8fb4bb536dfd9be46764ec0c34dafc264bf54fc44c6da"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/page/prompt.txt",
+      "bytes": 12671,
+      "sha256": "3dea68cc57d46155405bdc986119d2d5cc57227fa3efee5264e70c0ffaca0736"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/page/provenance.json",
+      "bytes": 7243,
+      "sha256": "4851dd89be6510db309ebcd8420692584034535d705f8ad63e6b8dbf7395188e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/attempts/2026-10-13T10-58-55.920702+00-00/prompt.txt",
+      "bytes": 2600,
+      "sha256": "c9b2413b78ac0cef17e8fb4bb536dfd9be46764ec0c34dafc264bf54fc44c6da"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/attempts/2026-10-13T10-58-55.920702+00-00/record.json",
+      "bytes": 823,
+      "sha256": "f12de524ebafc620cc65958395c8556171b9d862198acbf0f3737731035f15ce"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/attempts/2026-10-13T10-58-55.920702+00-00/response.json",
+      "bytes": 7031,
+      "sha256": "e3d259b9cf7d74d1f05e9c54b5ba310213037556b937819df245f836f2a0645b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/attempts/2026-10-13T13-36-52.012438+00-00/prompt.txt",
+      "bytes": 3156,
+      "sha256": "1a2c5a1a1de958ac48ea117be2573df14bae36baf4a339dce9daf2f74720990f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/attempts/2026-10-13T13-36-52.012438+00-00/record.json",
+      "bytes": 822,
+      "sha256": "bb7b8a3670401c8a31ff5bc06e336c2ad1eebb791572b842c7a01b095ebc73f0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/attempts/2026-10-13T13-36-52.012438+00-00/response.json",
+      "bytes": 3532,
+      "sha256": "135b3b36e35de363adfa4a13b8d26877978fcb3b00b9aef6e18b4897115cbbf9"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/attempts/2026-10-13T15-05-31.767936+00-00/prompt.txt",
+      "bytes": 6433,
+      "sha256": "7f0a470496273f3d675f756103e1dd99db8e559a4e59f5eadc977d2054ca198d"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/attempts/2026-10-13T15-05-31.767936+00-00/record.json",
+      "bytes": 825,
+      "sha256": "cd42c4e7b73cd2b76481d5f0010f20fd345bd595a943c082e241cf79376e92ef"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/attempts/2026-10-13T15-05-31.767936+00-00/response.json",
+      "bytes": 8190,
+      "sha256": "114fae87c5223b89681d27b0ac62dc9e693858c2ab364f3bb4a132c3c8b6fa1d"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/attempts/2026-10-13T15-26-49.638065+00-00/prompt.txt",
+      "bytes": 12671,
+      "sha256": "3dea68cc57d46155405bdc986119d2d5cc57227fa3efee5264e70c0ffaca0736"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/attempts/2026-10-13T15-26-49.638065+00-00/record.json",
+      "bytes": 825,
+      "sha256": "94ab6ae89294fc8d9bc838ea925b122e45aaf0abcd22ae4911f9a6c860843a1e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/attempts/2026-10-13T15-26-49.638065+00-00/response.json",
+      "bytes": 9619,
+      "sha256": "e6ea2d365b876f75cbd36a1dee3bc7209611fe11f826f72cb31a3a5cc216dafc"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/prompt.txt",
+      "bytes": 12671,
+      "sha256": "3dea68cc57d46155405bdc986119d2d5cc57227fa3efee5264e70c0ffaca0736"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/record.json",
+      "bytes": 825,
+      "sha256": "94ab6ae89294fc8d9bc838ea925b122e45aaf0abcd22ae4911f9a6c860843a1e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/response.json",
+      "bytes": 9619,
+      "sha256": "e6ea2d365b876f75cbd36a1dee3bc7209611fe11f826f72cb31a3a5cc216dafc"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-nano-3-30b/records/response.txt",
+      "bytes": 9178,
+      "sha256": "acc83a509b386bdc4f2335c08d3b474566d8e4e1ea9a5e146bd0428d16b15786"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/page/artwork.html",
+      "bytes": 13794,
+      "sha256": "a082bfe8a3bc35572b99259148f702cbb30a9ebad83da087812b308d06bc4982"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/page/implementation-cost.json",
+      "bytes": 3016,
+      "sha256": "1fc48cd4a12492ff17772db4d384847f364cd3b6cdbb17bac7e6c28b652e77f3"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/page/index.html",
+      "bytes": 27057,
+      "sha256": "6e02557e7b38535b7445555e81cc395c2049463045a740e3b57aff84c3af676e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/page/initial-prompt.txt",
+      "bytes": 2606,
+      "sha256": "851f44272c4c70abbd82dde2167ab06310451f58942c86fab1b56c6220d9382b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/page/prompt.txt",
+      "bytes": 17281,
+      "sha256": "f423b009a11a20fbb6668257b21e026ae4d5a9d7ee22d1140101fdc3870370f8"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/page/provenance.json",
+      "bytes": 7817,
+      "sha256": "cff39d56b42af9bab35dee1e662f63da92529b4279a5b056f839529ce7f62372"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T10-59-55.383553+00-00/prompt.txt",
+      "bytes": 2606,
+      "sha256": "851f44272c4c70abbd82dde2167ab06310451f58942c86fab1b56c6220d9382b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T10-59-55.383553+00-00/record.json",
+      "bytes": 730,
+      "sha256": "46d01fce58df7130d8b69297240f039c699368525149459d1a4b17af566c3b71"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T10-59-55.383553+00-00/response.json",
+      "bytes": 34067,
+      "sha256": "e19766ec9f43b4d54971ed21f5ea184e55cf20ef95069eae46b81edc2b912e2a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T11-25-06.224549+00-00/prompt.txt",
+      "bytes": 3965,
+      "sha256": "33c2cb1f45f0535527aa98760cbc136a74e4de29b4e24b80c7e2bc6a1094ba79"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T11-25-06.224549+00-00/record.json",
+      "bytes": 828,
+      "sha256": "f8cf9ed840fe4ece856eb885f6b19108e483088bf53e16b0aa6430449f3b9732"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T11-25-06.224549+00-00/response.json",
+      "bytes": 17418,
+      "sha256": "14c115f3c00e55e8758b950356ed5448a29f0bad28430ced3548ff3c1e8923a5"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T13-37-20.352148+00-00/prompt.txt",
+      "bytes": 2366,
+      "sha256": "cc1691b085cfc4453823285b92081ded006ab57bf411e686e9c331c2b8920e9e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T13-37-20.352148+00-00/record.json",
+      "bytes": 827,
+      "sha256": "f7089aec3c41aabde650abc3625bbc36a20a7d43ed4d30664e2afa6f0a8e5a4d"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T13-37-20.352148+00-00/response.json",
+      "bytes": 6420,
+      "sha256": "979e3b7825992094e0a893656359bc86e8e34ab9d04ce3199488b5b21a50b86f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T15-05-47.155285+00-00/prompt.txt",
+      "bytes": 5649,
+      "sha256": "adbe4dd71ea15245c7618774a66f7affa89c1660cbb3aa5a0555b8f363ffad63"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T15-05-47.155285+00-00/record.json",
+      "bytes": 829,
+      "sha256": "c35857dc34e30081373c856b87df592d67e2eb4627e178c97be4940791c3c625"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T15-05-47.155285+00-00/response.json",
+      "bytes": 13264,
+      "sha256": "2b7f13b20be3f4c728be87ce6d36d6314e8c58dc5cfd317ff10e4c46df74048b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T15-27-03.925625+00-00/prompt.txt",
+      "bytes": 17281,
+      "sha256": "f423b009a11a20fbb6668257b21e026ae4d5a9d7ee22d1140101fdc3870370f8"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T15-27-03.925625+00-00/record.json",
+      "bytes": 829,
+      "sha256": "31fcf258d390e8d2328fc1a20f4063c0f26d843588dba0979a337a02c342af3c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/attempts/2026-10-13T15-27-03.925625+00-00/response.json",
+      "bytes": 14814,
+      "sha256": "efc5d9749458345e72151ad5d000953a4ab89fabe7535b58e86b1f89227fa739"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/prompt.txt",
+      "bytes": 17281,
+      "sha256": "f423b009a11a20fbb6668257b21e026ae4d5a9d7ee22d1140101fdc3870370f8"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/record.json",
+      "bytes": 829,
+      "sha256": "31fcf258d390e8d2328fc1a20f4063c0f26d843588dba0979a337a02c342af3c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/response.json",
+      "bytes": 14814,
+      "sha256": "efc5d9749458345e72151ad5d000953a4ab89fabe7535b58e86b1f89227fa739"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nemotron-super-3-120b/records/response.txt",
+      "bytes": 13794,
+      "sha256": "a082bfe8a3bc35572b99259148f702cbb30a9ebad83da087812b308d06bc4982"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/page/artwork.html",
+      "bytes": 8808,
+      "sha256": "57e9c8515fbc8dc91f51f718b15f31855b3db1034103037986a261c1d0924f5f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/page/implementation-cost.json",
+      "bytes": 2951,
+      "sha256": "200c9d223d25983accca86a733816994f35d9ed1c2272eec310b8256699c4f73"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/page/index.html",
+      "bytes": 20634,
+      "sha256": "9e1f93031b5abdba01cad115f23ab48fef4e058f33ed7858c998638b76804e48"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/page/initial-prompt.txt",
+      "bytes": 2578,
+      "sha256": "1a154a8220efd6ab6bde290516abb482ad280d69cfda069dede2616cf491961f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/page/prompt.txt",
+      "bytes": 11061,
+      "sha256": "9ea42825b7ae58015efa8342ab6a20a8b1183d71df383070599df16619942f2a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/page/provenance.json",
+      "bytes": 8298,
+      "sha256": "7b5b3bb02e0f715c8e086e036c1836e5515f3c1d5c86545adc7b4f9374ebcd2a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/attempts/2026-10-13T10-55-39.143797+00-00/prompt.txt",
+      "bytes": 2578,
+      "sha256": "1a154a8220efd6ab6bde290516abb482ad280d69cfda069dede2616cf491961f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/attempts/2026-10-13T10-55-39.143797+00-00/record.json",
+      "bytes": 812,
+      "sha256": "21b50a2feb27f6ba1a07ae2c24961af75bb301fbe94110426a2ff519c21dc08c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/attempts/2026-10-13T10-55-39.143797+00-00/response.json",
+      "bytes": 6942,
+      "sha256": "0f8ab7d26de1822b5bd97fbe07db9c4844a5e1ae3ca39d63de86bfebb8aea3cd"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/attempts/2026-10-13T13-36-52.007511+00-00/prompt.txt",
+      "bytes": 2943,
+      "sha256": "28e320e34c630b02af054c3b03a8d6f7703d15fa03ba67e3a807c5baa4ca620c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/attempts/2026-10-13T13-36-52.007511+00-00/record.json",
+      "bytes": 811,
+      "sha256": "1f4512f24a266b7b5f9399b03c24d8936e8aa811bfa6b0d7d0f3a968a465d78b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/attempts/2026-10-13T13-36-52.007511+00-00/response.json",
+      "bytes": 4691,
+      "sha256": "a000a6a87a55e8dcd44daf4a82f921c2df804db0d33f83adeee6244f661f94f2"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/attempts/2026-10-13T15-05-31.770669+00-00/prompt.txt",
+      "bytes": 6198,
+      "sha256": "335b2a5b7c856d56ecf8f377ca7894a985d5e60df2a62205a9d301cb4cc64b86"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/attempts/2026-10-13T15-05-31.770669+00-00/record.json",
+      "bytes": 880,
+      "sha256": "20ca3d215d21d73b2fc2f6cfc6a08c9d5c1b0082afdef90e1a23e5db5e7d3b3a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/attempts/2026-10-13T15-05-58.413779+00-00/prompt.txt",
+      "bytes": 6198,
+      "sha256": "335b2a5b7c856d56ecf8f377ca7894a985d5e60df2a62205a9d301cb4cc64b86"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/attempts/2026-10-13T15-05-58.413779+00-00/record.json",
+      "bytes": 812,
+      "sha256": "d6b3c77d21882affd62f74a26f182f8ea0d6f586a7552334344a01140d07ce32"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/attempts/2026-10-13T15-05-58.413779+00-00/response.json",
+      "bytes": 6341,
+      "sha256": "370235cf2dfa8f6010dbd2b4a37aa8b98c14f668d32f156e012b7380da7a538c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/attempts/2026-10-13T15-26-43.167122+00-00/prompt.txt",
+      "bytes": 11061,
+      "sha256": "9ea42825b7ae58015efa8342ab6a20a8b1183d71df383070599df16619942f2a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/attempts/2026-10-13T15-26-43.167122+00-00/record.json",
+      "bytes": 812,
+      "sha256": "ffb2c6316371a3d0ae2d38a2bf7d41b7a635ae21a494248b93355e934b1cbfa0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/attempts/2026-10-13T15-26-43.167122+00-00/response.json",
+      "bytes": 9308,
+      "sha256": "3353e61b3ad2699c48f0a7b87774f2c28334658716d4e55ea5f287ce7235ec88"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/prompt.txt",
+      "bytes": 11061,
+      "sha256": "9ea42825b7ae58015efa8342ab6a20a8b1183d71df383070599df16619942f2a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/record.json",
+      "bytes": 812,
+      "sha256": "ffb2c6316371a3d0ae2d38a2bf7d41b7a635ae21a494248b93355e934b1cbfa0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/response.json",
+      "bytes": 9308,
+      "sha256": "3353e61b3ad2699c48f0a7b87774f2c28334658716d4e55ea5f287ce7235ec88"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-lite/records/response.txt",
+      "bytes": 8820,
+      "sha256": "de4ee5e87ccf948b7161192db1b042963b00fd4db23a488fcde31efc18efefbe"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/page/artwork.html",
+      "bytes": 5896,
+      "sha256": "5ebb6caba2c5f794c672836f213201676aa9a67a66ac2df64c9eb3e9fb7b4e7b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/page/implementation-cost.json",
+      "bytes": 2955,
+      "sha256": "be2a42d7b7fdfe8d1d72a041f04eda55a13b2217a0b65a80151bbe2573175416"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/page/index.html",
+      "bytes": 20431,
+      "sha256": "455f042be00a6f0215c33a4b144ba9381b08a2b4128ceb7da587b188105c85ad"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/page/initial-prompt.txt",
+      "bytes": 2581,
+      "sha256": "8fde699e56b39d393458df1071f35c32cb9a6d3d25a9372d451bb81dacd12967"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/page/prompt.txt",
+      "bytes": 10814,
+      "sha256": "8d37098c298d3bb26ce6d809277b2db8fda62371f85c465a58afc621152fd0b6"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/page/provenance.json",
+      "bytes": 8384,
+      "sha256": "c254bc26e63d7fc3932f79159b455b3a5a71154aea2e248dcbee4849badc5607"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/attempts/2026-10-13T10-58-52.827191+00-00/prompt.txt",
+      "bytes": 2581,
+      "sha256": "8fde699e56b39d393458df1071f35c32cb9a6d3d25a9372d451bb81dacd12967"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/attempts/2026-10-13T10-58-52.827191+00-00/record.json",
+      "bytes": 814,
+      "sha256": "69617d6057d2d846ee4dbfa6099d95742fa2f0162b4ce087df31a3c8e2d7c0f0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/attempts/2026-10-13T10-58-52.827191+00-00/response.json",
+      "bytes": 3972,
+      "sha256": "ebba7641a35ff1c2eb1790b57930a53eeeb1adfd68de5a37d0b45ff149ce2a54"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/attempts/2026-10-13T13-36-56.668002+00-00/prompt.txt",
+      "bytes": 3366,
+      "sha256": "6b41635f53a1f1e26cf5ff046fb7c4550c5f4d4249f1e3d17a15f0689e55909c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/attempts/2026-10-13T13-36-56.668002+00-00/record.json",
+      "bytes": 812,
+      "sha256": "9ef4b79972ebed5f30a7bbb44705415e00531afdc5e7133e4d16ae12bb2df1c9"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/attempts/2026-10-13T13-36-56.668002+00-00/response.json",
+      "bytes": 4753,
+      "sha256": "643a81d79ce1b84d4d83bcd59e9d64ef2b58a4c964a98d534bdad2815e195caf"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/attempts/2026-10-13T15-05-32.965421+00-00/prompt.txt",
+      "bytes": 6624,
+      "sha256": "c6ff2e2815633295287b20e03603122ebfcc3b11570017ee5ef64d5b6da1e76e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/attempts/2026-10-13T15-05-32.965421+00-00/record.json",
+      "bytes": 882,
+      "sha256": "9b55fe4df7c7311b200eff4279abcf5b9e5c1944ccc95d1f2e4d10b075569f03"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/attempts/2026-10-13T15-05-58.405913+00-00/prompt.txt",
+      "bytes": 6624,
+      "sha256": "c6ff2e2815633295287b20e03603122ebfcc3b11570017ee5ef64d5b6da1e76e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/attempts/2026-10-13T15-05-58.405913+00-00/record.json",
+      "bytes": 814,
+      "sha256": "b1875fcd9a5ac99de8c1976a1b4fc11473ac6f1b17e011ac9ec9c15b214e2503"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/attempts/2026-10-13T15-05-58.405913+00-00/response.json",
+      "bytes": 5828,
+      "sha256": "3e7cc3de648a1a6d1a798e026668cb2ff709c8a58b5cb79df45063680151017e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/attempts/2026-10-13T15-26-45.339294+00-00/prompt.txt",
+      "bytes": 10814,
+      "sha256": "8d37098c298d3bb26ce6d809277b2db8fda62371f85c465a58afc621152fd0b6"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/attempts/2026-10-13T15-26-45.339294+00-00/record.json",
+      "bytes": 814,
+      "sha256": "b589a9c3b50f1648933fcd7a3b5ea7c55ed3cdf577fe8a7358e1adc53b32e5e2"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/attempts/2026-10-13T15-26-45.339294+00-00/response.json",
+      "bytes": 6370,
+      "sha256": "df0501c2b88a7496a2cdd2829127fb42e7e66d60e39ee3cb84b468833643cb18"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/prompt.txt",
+      "bytes": 10814,
+      "sha256": "8d37098c298d3bb26ce6d809277b2db8fda62371f85c465a58afc621152fd0b6"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/record.json",
+      "bytes": 814,
+      "sha256": "b589a9c3b50f1648933fcd7a3b5ea7c55ed3cdf577fe8a7358e1adc53b32e5e2"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/response.json",
+      "bytes": 6370,
+      "sha256": "df0501c2b88a7496a2cdd2829127fb42e7e66d60e39ee3cb84b468833643cb18"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-micro/records/response.txt",
+      "bytes": 5908,
+      "sha256": "6be7a9fcd404b0a2fefd06c86029a6624561792d48fb13f3bf933c168f17abda"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/page/artwork.html",
+      "bytes": 4303,
+      "sha256": "f0f629b16c95906ac13780be02ff5ee6e2bb4af51458403689780b692aae373a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/page/implementation-cost.json",
+      "bytes": 2942,
+      "sha256": "86c73cc5943e0ee03eff1c92996db11b61ce64db33408e3b063341cd6b29f1d5"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/page/index.html",
+      "bytes": 19130,
+      "sha256": "d0f5e482e5a96ed2d6debf3bbbdb9688edcb51388e31350555ad11d48e18bf0f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/page/initial-prompt.txt",
+      "bytes": 2575,
+      "sha256": "67609c31aee694da17312db3bd0b6477742bf5f3c810b73ba4fd31182f6b2e5e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/page/prompt.txt",
+      "bytes": 9895,
+      "sha256": "3b85c233604a0643d8271d93ffb22a11a24162282f8249bef51a9a84b2069631"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/page/provenance.json",
+      "bytes": 8011,
+      "sha256": "18569ddbe7ec3d36a5fb7a1dab03ffa0340ad2721c8777c518d1ed912f2af2b9"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/attempts/2026-10-13T10-55-26.887506+00-00/prompt.txt",
+      "bytes": 2575,
+      "sha256": "67609c31aee694da17312db3bd0b6477742bf5f3c810b73ba4fd31182f6b2e5e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/attempts/2026-10-13T10-55-26.887506+00-00/record.json",
+      "bytes": 810,
+      "sha256": "02178541ba24dbc36f08520d7c279327c481d426765a3ded33b947f4e738939e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/attempts/2026-10-13T10-55-26.887506+00-00/response.json",
+      "bytes": 4526,
+      "sha256": "c1413e62292f8703d34050be411f525b13bb0683f89ec61441f8e87312a8586a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/attempts/2026-10-13T13-36-55.572019+00-00/prompt.txt",
+      "bytes": 2343,
+      "sha256": "b3e903d9f0f291e0ace2ae0e38690504c22c0ee8f7f00164f5f51f6f3a90375a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/attempts/2026-10-13T13-36-55.572019+00-00/record.json",
+      "bytes": 808,
+      "sha256": "6ff32e6b3e3910fe5a7688fefac8842fb45037841beb0e742fd0a9af1bee799e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/attempts/2026-10-13T13-36-55.572019+00-00/response.json",
+      "bytes": 2919,
+      "sha256": "f5a25a79aed6585da7b71ab2f3106657290d9967125b1568a513fff862ca5e59"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/attempts/2026-10-13T15-05-31.762691+00-00/prompt.txt",
+      "bytes": 5595,
+      "sha256": "a048259bb4d877671b499b9405d8aea5eb27be3429c477b1620e631cb3dea1f3"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/attempts/2026-10-13T15-05-31.762691+00-00/record.json",
+      "bytes": 878,
+      "sha256": "f025e94df31c97f3e9388613485bc331ef68236fe7ccce2bf960c7b3fd427ce8"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/attempts/2026-10-13T15-05-58.414764+00-00/prompt.txt",
+      "bytes": 5595,
+      "sha256": "a048259bb4d877671b499b9405d8aea5eb27be3429c477b1620e631cb3dea1f3"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/attempts/2026-10-13T15-05-58.414764+00-00/record.json",
+      "bytes": 810,
+      "sha256": "9da69bbb0b202ee6a8f4fc372b4eb5c91e9e65a63112a11b4f9c3394f213b0a8"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/attempts/2026-10-13T15-05-58.414764+00-00/response.json",
+      "bytes": 5054,
+      "sha256": "ada6b4a2257ee1eef9600013823438594787f31f3430b07af6988493db8467c1"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/attempts/2026-10-13T15-26-27.347927+00-00/prompt.txt",
+      "bytes": 9895,
+      "sha256": "3b85c233604a0643d8271d93ffb22a11a24162282f8249bef51a9a84b2069631"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/attempts/2026-10-13T15-26-27.347927+00-00/record.json",
+      "bytes": 810,
+      "sha256": "f5798f2c3f2c5d303d7b9ef33c7dff0835937835c4df4c78f6fd469e52785aeb"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/attempts/2026-10-13T15-26-27.347927+00-00/response.json",
+      "bytes": 4672,
+      "sha256": "636521feebf28db48ca06246dc968e5aaa0772dd726c06bb0fd4e50f221da7aa"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/prompt.txt",
+      "bytes": 9895,
+      "sha256": "3b85c233604a0643d8271d93ffb22a11a24162282f8249bef51a9a84b2069631"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/record.json",
+      "bytes": 810,
+      "sha256": "f5798f2c3f2c5d303d7b9ef33c7dff0835937835c4df4c78f6fd469e52785aeb"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/response.json",
+      "bytes": 4672,
+      "sha256": "636521feebf28db48ca06246dc968e5aaa0772dd726c06bb0fd4e50f221da7aa"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/nova-pro/records/response.txt",
+      "bytes": 4315,
+      "sha256": "444cc3e679bc08d0f2f2155ddf3e5498c33890b25965cc09aac285af70f8b4d4"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/page/artwork.html",
+      "bytes": 32080,
+      "sha256": "c361b11bdb85a58a3b14f046b484551db13809f92c864e4aad9d2934d8bda05c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/page/implementation-cost.json",
+      "bytes": 2608,
+      "sha256": "493675694b094d4cec0ca553eeb02f9a45c6d369cade5d0a48943b3b44b5f52e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/page/index.html",
+      "bytes": 31907,
+      "sha256": "37baf9162f92da797ab99d7eeb1cd348d6d35e28efba1a81a6c8a31cc8752039"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/page/initial-prompt.txt",
+      "bytes": 2596,
+      "sha256": "dc21ce7a52ad1d3b02fadd8e246193104b5e0247ad09b07b1be583d58aa7e6ab"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/page/prompt.txt",
+      "bytes": 22480,
+      "sha256": "601fe55fec5f6131b8bebb3bfa43bf1d7b03334bedb4edfae2858614fc42f5dd"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/page/provenance.json",
+      "bytes": 6927,
+      "sha256": "2d39a89852dbd4fd345b5638eea94c2406ab6cc89dbe60811bbd50abe6fd9ea6"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/attempts/2026-10-13T11-00-12.402447+00-00/prompt.txt",
+      "bytes": 2596,
+      "sha256": "dc21ce7a52ad1d3b02fadd8e246193104b5e0247ad09b07b1be583d58aa7e6ab"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/attempts/2026-10-13T11-00-12.402447+00-00/record.json",
+      "bytes": 823,
+      "sha256": "9745673a1a224e9841390c40751b0bd85ad875b159be4a2ae9f48e2d8d34a0ee"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/attempts/2026-10-13T11-00-12.402447+00-00/response.json",
+      "bytes": 17001,
+      "sha256": "f0dd88f9cff7dec913334cb15482fc4d00f22373e0695e527d3ee81ece472463"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/attempts/2026-10-13T13-37-32.215828+00-00/prompt.txt",
+      "bytes": 2355,
+      "sha256": "604da9b62a93a9cd1f168dbfd7196f35935727cadfa8c9662af6c8b5a9cbdd30"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/attempts/2026-10-13T13-37-32.215828+00-00/record.json",
+      "bytes": 823,
+      "sha256": "21d3361d893ca40c1ce3994aaa4d0c6301dcd5523e6c684d79f14588efcecfb8"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/attempts/2026-10-13T13-37-32.215828+00-00/response.json",
+      "bytes": 8456,
+      "sha256": "eaa35452420ade7ed5ff2a07d7e0248f4c3b9752abdbcf0597fb90a0ad27ab4c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/attempts/2026-10-13T15-06-10.476840+00-00/prompt.txt",
+      "bytes": 5628,
+      "sha256": "5acab02cc600a6f7c3d75a4f5d1eb5f9515ed2c5f47a4e4d9080900f413c6b6c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/attempts/2026-10-13T15-06-10.476840+00-00/record.json",
+      "bytes": 825,
+      "sha256": "b214e90118447d5d08edc5652d3dec043bb84d2be9f79682dae95b09e98a5a05"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/attempts/2026-10-13T15-06-10.476840+00-00/response.json",
+      "bytes": 18706,
+      "sha256": "cc46e2645224748bf285737743cc01a37ff2368cbb050c6b2f6bbea42d0c5ce6"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/attempts/2026-10-13T15-27-28.053503+00-00/prompt.txt",
+      "bytes": 22480,
+      "sha256": "601fe55fec5f6131b8bebb3bfa43bf1d7b03334bedb4edfae2858614fc42f5dd"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/attempts/2026-10-13T15-27-28.053503+00-00/record.json",
+      "bytes": 825,
+      "sha256": "c64cd56b1e111f7dfc21f7764ed710d3d04df2e990d2ea8afb5b9a32c2f18095"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/attempts/2026-10-13T15-27-28.053503+00-00/response.json",
+      "bytes": 33146,
+      "sha256": "ee6fa4e705ea14b7bb89903a16dfc7662ec7afcfa2a3ce4daa7b47ad96009545"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/prompt.txt",
+      "bytes": 22480,
+      "sha256": "601fe55fec5f6131b8bebb3bfa43bf1d7b03334bedb4edfae2858614fc42f5dd"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/record.json",
+      "bytes": 825,
+      "sha256": "c64cd56b1e111f7dfc21f7764ed710d3d04df2e990d2ea8afb5b9a32c2f18095"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/response.json",
+      "bytes": 33146,
+      "sha256": "ee6fa4e705ea14b7bb89903a16dfc7662ec7afcfa2a3ce4daa7b47ad96009545"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-235b-a22b/records/response.txt",
+      "bytes": 32080,
+      "sha256": "c361b11bdb85a58a3b14f046b484551db13809f92c864e4aad9d2934d8bda05c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/page/artwork.html",
+      "bytes": 10203,
+      "sha256": "129863275742c51e3d06f0af0960d7a1997c40b3874e217eab2e499d3596c50f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/page/implementation-cost.json",
+      "bytes": 2565,
+      "sha256": "bd40d80c188b4b7adb852d5b6a81b29fd159c3a792c66467f9878c1d97fbc687"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/page/index.html",
+      "bytes": 21491,
+      "sha256": "5a569da77f2d9d6af22116994f6bb2acae205760e976e0fc34d81eacc411ba50"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/page/initial-prompt.txt",
+      "bytes": 2573,
+      "sha256": "df23df8d85d99bb5268e2ed4243ca22b3403ba48de035f65e2baab3cd04d95a7"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/page/prompt.txt",
+      "bytes": 12557,
+      "sha256": "1d225e8e09be49b83a601fd3b1241acba83cb499a72e0858950822e2584e5e0a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/page/provenance.json",
+      "bytes": 7605,
+      "sha256": "e15a29aa337817fd395b34b861d29e675338069605a8069e17109e47b19eaff8"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/attempts/2026-10-13T10-59-53.310140+00-00/prompt.txt",
+      "bytes": 2573,
+      "sha256": "df23df8d85d99bb5268e2ed4243ca22b3403ba48de035f65e2baab3cd04d95a7"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/attempts/2026-10-13T10-59-53.310140+00-00/record.json",
+      "bytes": 806,
+      "sha256": "1c4ee9a9ec9e1970473c4dda6cab76d7f00032ed6a1d77b8d9af588931d29e64"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/attempts/2026-10-13T10-59-53.310140+00-00/response.json",
+      "bytes": 5635,
+      "sha256": "05389f27985b19eb2ebb5e596eb3eac55cc34288351b530ba10530d31108e01f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/attempts/2026-10-13T13-37-13.216682+00-00/prompt.txt",
+      "bytes": 2955,
+      "sha256": "380f7039db7839f877205ab55bdd23bb92203fb7467df702bbd65b9ab3a2e73f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/attempts/2026-10-13T13-37-13.216682+00-00/record.json",
+      "bytes": 714,
+      "sha256": "6681d6b45eabbf4bf63ea6b03e07be2c0f3ba5ac07f9b9d5ba19cbd085ce313e"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/attempts/2026-10-13T13-37-13.216682+00-00/response.json",
+      "bytes": 8043,
+      "sha256": "7ce2dc4b33b3efee03487f41663001694f5cfa9a3e3ae5d2c3bac4cb7134180d"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/attempts/2026-10-13T15-00-48.804616+00-00/prompt.txt",
+      "bytes": 3579,
+      "sha256": "a252abb971ddb42e025da0f9b08f2f226f7a38ae7901d6e12a3ac6c8a6b62c31"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/attempts/2026-10-13T15-00-48.804616+00-00/record.json",
+      "bytes": 807,
+      "sha256": "32e4bafd0d0dea32a2264b672fbe0e7461859daa42172441c9cfcdc620510f9f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/attempts/2026-10-13T15-00-48.804616+00-00/response.json",
+      "bytes": 8421,
+      "sha256": "1d9dfbc83b3899772359fd8f75e6dd62d3f81738f2f07cb8cbcd4d5de804d43b"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/attempts/2026-10-13T15-27-02.167190+00-00/prompt.txt",
+      "bytes": 12557,
+      "sha256": "1d225e8e09be49b83a601fd3b1241acba83cb499a72e0858950822e2584e5e0a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/attempts/2026-10-13T15-27-02.167190+00-00/record.json",
+      "bytes": 808,
+      "sha256": "7d4c17cab0832f628b1b1f7b0c7b773fc3b6443ac7802085f431874cc715bf5f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/attempts/2026-10-13T15-27-02.167190+00-00/response.json",
+      "bytes": 10788,
+      "sha256": "4f2e27ee86e81ea7194daa086f62e8736e8c2ea257758ad7475001c091594d79"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/prompt.txt",
+      "bytes": 12557,
+      "sha256": "1d225e8e09be49b83a601fd3b1241acba83cb499a72e0858950822e2584e5e0a"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/record.json",
+      "bytes": 808,
+      "sha256": "7d4c17cab0832f628b1b1f7b0c7b773fc3b6443ac7802085f431874cc715bf5f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/response.json",
+      "bytes": 10788,
+      "sha256": "4f2e27ee86e81ea7194daa086f62e8736e8c2ea257758ad7475001c091594d79"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3-32b/records/response.txt",
+      "bytes": 10215,
+      "sha256": "f28ec41c1b0b85c73414a195ea5611064118f2dfdd74145da83b9d6ae0526c26"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/page/implementation-cost.json",
+      "bytes": 2563,
+      "sha256": "16f970cac0c7fde91e2ab350daf661772e59fcc68663a064efec375300b986d4"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/page/index.html",
+      "bytes": 10900,
+      "sha256": "9f1c9db6c96bb873b500d066b089f7fe1b1fee2d1d55f753882fd432374576eb"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/page/initial-prompt.txt",
+      "bytes": 2574,
+      "sha256": "b0b32ebd145da106e700152a96b2e71748711f12daea088231d438fe14983ff0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/page/prompt.txt",
+      "bytes": 3802,
+      "sha256": "553eb3056cc280afbfdcc6c471dc65b3b8615cfa0346d5f5e374a8e5341e87e4"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/page/provenance.json",
+      "bytes": 3905,
+      "sha256": "b7948d3ddac3bff192e654c67c0f675229701fe1bb4c8d88520899dc672239ce"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T15-55-51.471356+00-00/prompt.txt",
+      "bytes": 2574,
+      "sha256": "b0b32ebd145da106e700152a96b2e71748711f12daea088231d438fe14983ff0"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T15-55-51.471356+00-00/record.json",
+      "bytes": 709,
+      "sha256": "48bc098ea8c70ebb02ae07a4e260ac5bd7d678256386e79a066185b4ad6674f3"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T15-55-51.471356+00-00/response.json",
+      "bytes": 18495,
+      "sha256": "f319ad28bc2f41ad18bef6532f6cdf46f7ba21d1bf48308b62b7729ef14238b1"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-01-39.551286+00-00/prompt.txt",
+      "bytes": 3802,
+      "sha256": "553eb3056cc280afbfdcc6c471dc65b3b8615cfa0346d5f5e374a8e5341e87e4"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-01-39.551286+00-00/record.json",
+      "bytes": 709,
+      "sha256": "758ed9112321486917a7c93d4503790e1df53ef2ba001909928fa1b70ed71d8f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-01-39.551286+00-00/response.json",
+      "bytes": 12949,
+      "sha256": "44d61fce45dbaae683d8538fd9c848ed42b2e78fef8c39798dd3ccd11fce1182"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-05-32.479447+00-00/prompt.txt",
+      "bytes": 3802,
+      "sha256": "553eb3056cc280afbfdcc6c471dc65b3b8615cfa0346d5f5e374a8e5341e87e4"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-05-32.479447+00-00/record.json",
+      "bytes": 709,
+      "sha256": "e883488b5a65d92fac6c9849ed66bd6de8f381b421fc8a69c138b5282fbe895c"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-05-32.479447+00-00/response.json",
+      "bytes": 13116,
+      "sha256": "ccf4b491fcc135316cd23e2c4c4c9a9653a38ce0f7662ac63f36c29483eab776"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-09-24.809457+00-00/prompt.txt",
+      "bytes": 3802,
+      "sha256": "553eb3056cc280afbfdcc6c471dc65b3b8615cfa0346d5f5e374a8e5341e87e4"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-09-24.809457+00-00/record.json",
+      "bytes": 709,
+      "sha256": "08642fd0d20134a0a4c27687a5d13d32ecbcee6520474ff8b24dfda561d163c1"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/attempts/2026-10-13T16-09-24.809457+00-00/response.json",
+      "bytes": 12831,
+      "sha256": "5f748c27c833cc7e529ab8b180f01e41011dfcfaa771ee4a4cda790d20ac5e0f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/prompt.txt",
+      "bytes": 3802,
+      "sha256": "553eb3056cc280afbfdcc6c471dc65b3b8615cfa0346d5f5e374a8e5341e87e4"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/record.json",
+      "bytes": 709,
+      "sha256": "08642fd0d20134a0a4c27687a5d13d32ecbcee6520474ff8b24dfda561d163c1"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/response.json",
+      "bytes": 12831,
+      "sha256": "5f748c27c833cc7e529ab8b180f01e41011dfcfaa771ee4a4cda790d20ac5e0f"
+    },
+    {
+      "path": ".work/lotte-tower-retry-20261015/baseline/qwen3.6-27b/records/response.txt",
+      "bytes": 12164,
+      "sha256": "4e10be8433c087a78a28911d06ae76672945c39815aaf8b5df726049b137225e"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/attempts/2026-10-15T01-20-59.209579+00-00/prompt.txt",
+      "bytes": 4827,
+      "sha256": "a30a01fefb92c65e685b1367742ab7a41a0cfd1e074b576a3b3aa07e527631e6"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/attempts/2026-10-15T01-20-59.209579+00-00/record.json",
+      "bytes": 901,
+      "sha256": "4d2d7a39e8068c88bfd51f6749c63bae3acac42fd6ca59394421c4a97999127b"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/attempts/2026-10-15T01-20-59.209579+00-00/response.json",
+      "bytes": 7467,
+      "sha256": "754b9d58ebaf3e2a327194df2f6fb4a900dde15a6cec72fb8db99861c740a63e"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/prompt.txt",
+      "bytes": 4827,
+      "sha256": "a30a01fefb92c65e685b1367742ab7a41a0cfd1e074b576a3b3aa07e527631e6"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/record.json",
+      "bytes": 901,
+      "sha256": "4d2d7a39e8068c88bfd51f6749c63bae3acac42fd6ca59394421c4a97999127b"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/response.json",
+      "bytes": 7467,
+      "sha256": "754b9d58ebaf3e2a327194df2f6fb4a900dde15a6cec72fb8db99861c740a63e"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/exaone-3.5-32b/response.txt",
+      "bytes": 7083,
+      "sha256": "e0989660ff6ef80ba1813a4b3a2827e38b7d3646cb89a924a979237b01b5883a"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/attempts/2026-10-14T06-36-42.635851+00-00/prompt.txt",
+      "bytes": 19888,
+      "sha256": "e0177a7ed10bd58b48ddeabb58f8d1a8882fa09c23dddbfd4b1ba63ba3713d65"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/attempts/2026-10-14T06-36-42.635851+00-00/record.json",
+      "bytes": 1040,
+      "sha256": "218e7d341775ac6a292f2fb34ebceab67f7bc9e5d7b864a5e2dfd07a0a918dc1"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/attempts/2026-10-14T06-36-42.635851+00-00/response.json",
+      "bytes": 16560,
+      "sha256": "509ba39898aa8c47da2e8f4ade9b0142cb2b29a1cd0ef663b62d318bab9d5314"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/prompt.txt",
+      "bytes": 19888,
+      "sha256": "e0177a7ed10bd58b48ddeabb58f8d1a8882fa09c23dddbfd4b1ba63ba3713d65"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/record.json",
+      "bytes": 1040,
+      "sha256": "218e7d341775ac6a292f2fb34ebceab67f7bc9e5d7b864a5e2dfd07a0a918dc1"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/response.json",
+      "bytes": 16560,
+      "sha256": "509ba39898aa8c47da2e8f4ade9b0142cb2b29a1cd0ef663b62d318bab9d5314"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gemma-4-31b-bedrock/response.txt",
+      "bytes": 15570,
+      "sha256": "ad75231b7bb555c041dd03249f343c31fdda9b79b2700e5d6cdcbf7652d64827"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/attempts/2026-10-15T00-16-16.953617+00-00/prompt.txt",
+      "bytes": 35426,
+      "sha256": "67b34e9ed7900444f5f0b7da0b9acdc6b0b88ab418d6e1173bfde65dcded03a5"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/attempts/2026-10-15T00-16-16.953617+00-00/record.json",
+      "bytes": 858,
+      "sha256": "e7c467f26541093f165e84ec87d3e1a1824b40c9d66177a327a636d59d4a2e00"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/attempts/2026-10-15T00-16-16.953617+00-00/response.json",
+      "bytes": 31161,
+      "sha256": "8dbbd11ff70df5d86babd1834926fdc90a9e51cb15e25299aaa2f89b15749727"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/prompt.txt",
+      "bytes": 35426,
+      "sha256": "67b34e9ed7900444f5f0b7da0b9acdc6b0b88ab418d6e1173bfde65dcded03a5"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/record.json",
+      "bytes": 858,
+      "sha256": "e7c467f26541093f165e84ec87d3e1a1824b40c9d66177a327a636d59d4a2e00"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/response.json",
+      "bytes": 31161,
+      "sha256": "8dbbd11ff70df5d86babd1834926fdc90a9e51cb15e25299aaa2f89b15749727"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/glm-4.7-flash/response.txt",
+      "bytes": 30161,
+      "sha256": "7d469149016a1ab824164778bb1275f8b456cb61aa99dff8f309979bbaf2c1d0"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/attempts/2026-10-15T00-17-02.644082+00-00/prompt.txt",
+      "bytes": 15391,
+      "sha256": "f126e456cb2f227093b1cbd6245bbd1fd537af7533ee8f6d3a9eed480142117c"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/attempts/2026-10-15T00-17-02.644082+00-00/record.json",
+      "bytes": 864,
+      "sha256": "85bf25277c1de9bef034906fd288d42c8983b5aaa79492f9c8c26876cac7ef3a"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/attempts/2026-10-15T00-17-02.644082+00-00/response.json",
+      "bytes": 10508,
+      "sha256": "2acc3a33dddec390732524cdc443ac30bec7946d403bc113c5612ea715808b56"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/prompt.txt",
+      "bytes": 15391,
+      "sha256": "f126e456cb2f227093b1cbd6245bbd1fd537af7533ee8f6d3a9eed480142117c"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/record.json",
+      "bytes": 864,
+      "sha256": "85bf25277c1de9bef034906fd288d42c8983b5aaa79492f9c8c26876cac7ef3a"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/response.json",
+      "bytes": 10508,
+      "sha256": "2acc3a33dddec390732524cdc443ac30bec7946d403bc113c5612ea715808b56"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-120b/response.txt",
+      "bytes": 9895,
+      "sha256": "24b4a47fb628819c562d60c4c5862dcb52b6b017dd24512f0b43619ae45bea2d"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/attempts/2026-10-15T00-16-45.002785+00-00/prompt.txt",
+      "bytes": 12861,
+      "sha256": "c68ff0e8481334643f527ee00f6036fa5838423ccbe3429f476bfe20457f690f"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/attempts/2026-10-15T00-16-45.002785+00-00/record.json",
+      "bytes": 862,
+      "sha256": "f1082b92a7a4f2575ec84bf3998327a86f3c3a8e91f73e4749f4e00e5c74e7c7"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/attempts/2026-10-15T00-16-45.002785+00-00/response.json",
+      "bytes": 6910,
+      "sha256": "33123c46bb18325ea9baa15cf9d3e735e9eeea4b3918032832d60a45a2b37673"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/prompt.txt",
+      "bytes": 12861,
+      "sha256": "c68ff0e8481334643f527ee00f6036fa5838423ccbe3429f476bfe20457f690f"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/record.json",
+      "bytes": 862,
+      "sha256": "f1082b92a7a4f2575ec84bf3998327a86f3c3a8e91f73e4749f4e00e5c74e7c7"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/response.json",
+      "bytes": 6910,
+      "sha256": "33123c46bb18325ea9baa15cf9d3e735e9eeea4b3918032832d60a45a2b37673"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/gpt-oss-20b/response.txt",
+      "bytes": 6356,
+      "sha256": "dbed87a3231bb0b53ac91e6c729b336075cfedae9db5c90891778e3c0049263f"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/attempts/2026-10-15T00-25-28.013791+00-00/prompt.txt",
+      "bytes": 5000,
+      "sha256": "ea04b1b274b7998e3aea1923901375c742ad5bdf5f14a37dddcee4e162cdfa2a"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/attempts/2026-10-15T00-25-28.013791+00-00/record.json",
+      "bytes": 893,
+      "sha256": "e3093196242444264eb4cda85daef11c07dd4746a2fb58eb18f8d9985a66f7f0"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/attempts/2026-10-15T00-25-28.013791+00-00/response.json",
+      "bytes": 9198,
+      "sha256": "43cd4c85f9c0af2df5677b7bdec19065dd8e371aa8c236ee855ded2392194ef6"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/prompt.txt",
+      "bytes": 5000,
+      "sha256": "ea04b1b274b7998e3aea1923901375c742ad5bdf5f14a37dddcee4e162cdfa2a"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/record.json",
+      "bytes": 893,
+      "sha256": "e3093196242444264eb4cda85daef11c07dd4746a2fb58eb18f8d9985a66f7f0"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/response.json",
+      "bytes": 9198,
+      "sha256": "43cd4c85f9c0af2df5677b7bdec19065dd8e371aa8c236ee855ded2392194ef6"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.1-8b/response.txt",
+      "bytes": 8718,
+      "sha256": "a369ca090bf4b30fec821b9c29e35f7663bc6cd34d1fe097c2d7321770dcb75d"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/attempts/2026-10-15T00-37-02.622609+00-00/prompt.txt",
+      "bytes": 5007,
+      "sha256": "fe0484bf43e447d2392b2efefa084a3b5f7ee9c2e5cf6548e8d96c7da8a45d1d"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/attempts/2026-10-15T00-37-02.622609+00-00/record.json",
+      "bytes": 896,
+      "sha256": "8f878a9fa20020fc23ee5ddd82ff5fd06d53d556981373bbeebb6744ec252848"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/attempts/2026-10-15T00-37-02.622609+00-00/response.json",
+      "bytes": 4712,
+      "sha256": "68e8f636063ecbd81e539ee5d364591a462395ec30c4b08bace4c1e852254357"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/prompt.txt",
+      "bytes": 5007,
+      "sha256": "fe0484bf43e447d2392b2efefa084a3b5f7ee9c2e5cf6548e8d96c7da8a45d1d"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/record.json",
+      "bytes": 896,
+      "sha256": "8f878a9fa20020fc23ee5ddd82ff5fd06d53d556981373bbeebb6744ec252848"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/response.json",
+      "bytes": 4712,
+      "sha256": "68e8f636063ecbd81e539ee5d364591a462395ec30c4b08bace4c1e852254357"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b/response.txt",
+      "bytes": 4362,
+      "sha256": "d31237f06f8ee76230a28a6ff76dcf5df8fcc8e3f409dab893565be1b5fdc329"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/attempts/2026-10-15T00-20-17.292588+00-00/prompt.txt",
+      "bytes": 13368,
+      "sha256": "a72cf87c7c73ac9a995cfcdc34e2bb05c6b30842f409c27c5745fa27149f06b7"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/attempts/2026-10-15T00-20-17.292588+00-00/record.json",
+      "bytes": 883,
+      "sha256": "bd9468b35dd18a92a58aad7133243afba19bb5b5f4d9be484a9cb3f5814a4672"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/attempts/2026-10-15T00-20-17.292588+00-00/response.json",
+      "bytes": 6992,
+      "sha256": "bcca7f1092fafd7484c3392b89697d689db5ae3fb944fe46ed42a601b8571d3f"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/prompt.txt",
+      "bytes": 13368,
+      "sha256": "a72cf87c7c73ac9a995cfcdc34e2bb05c6b30842f409c27c5745fa27149f06b7"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/record.json",
+      "bytes": 883,
+      "sha256": "bd9468b35dd18a92a58aad7133243afba19bb5b5f4d9be484a9cb3f5814a4672"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/response.json",
+      "bytes": 6992,
+      "sha256": "bcca7f1092fafd7484c3392b89697d689db5ae3fb944fe46ed42a601b8571d3f"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/llama-3.3-70b-bedrock/response.txt",
+      "bytes": 6576,
+      "sha256": "77f704718234283854107b06791fee0ddcd9b6955af6ad4ba2a397b0eeb75906"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/attempts/2026-10-15T00-18-34.896460+00-00/prompt.txt",
+      "bytes": 54858,
+      "sha256": "9b5ec7231a09a18800df6175093565ccdffc6c29ee62352e1c0a7a492e6e3129"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/attempts/2026-10-15T00-18-34.896460+00-00/record.json",
+      "bytes": 775,
+      "sha256": "d2bbb7d45bc467d0be4bb7a08fad5336f366e38c16f19f097fb9ee1224fa6410"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/attempts/2026-10-15T00-18-34.896460+00-00/response.json",
+      "bytes": 35138,
+      "sha256": "56c99d123a60b29d7a3ddade6804d7d5004f82cb0a5924718b285fdd00af0363"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/attempts/2026-10-15T11-37-57.494695+00-00/prompt.txt",
+      "bytes": 2644,
+      "sha256": "09d5b7fe96d9a9399784c3ce755990e51dbd275ddfe4398bccaa987b4318b24a"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/attempts/2026-10-15T11-37-57.494695+00-00/record.json",
+      "bytes": 879,
+      "sha256": "faf90197b9d80ad86f00c46119564f6a5c2225dc4c28934188fb427c85e65e06"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/attempts/2026-10-15T11-37-57.494695+00-00/response.json",
+      "bytes": 17317,
+      "sha256": "0fe075db7c4f945b76025bae104ff60d197b799a665d98efbef35c7a4e4d0850"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/prompt.txt",
+      "bytes": 2644,
+      "sha256": "09d5b7fe96d9a9399784c3ce755990e51dbd275ddfe4398bccaa987b4318b24a"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/record.json",
+      "bytes": 879,
+      "sha256": "faf90197b9d80ad86f00c46119564f6a5c2225dc4c28934188fb427c85e65e06"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/response.json",
+      "bytes": 17317,
+      "sha256": "0fe075db7c4f945b76025bae104ff60d197b799a665d98efbef35c7a4e4d0850"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/ministral-14b/response.txt",
+      "bytes": 16644,
+      "sha256": "e4526826b5449ff7e602896fe4fdad3b27a34bf6b5ac2664a8a7f399a164490d"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/attempts/2026-10-15T00-15-55.883204+00-00/prompt.txt",
+      "bytes": 15259,
+      "sha256": "df8322776a05aeccf6e75ed30ff4759b27b438ed2efdc4d380dd9b2f6c0e2a13"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/attempts/2026-10-15T00-15-55.883204+00-00/record.json",
+      "bytes": 873,
+      "sha256": "8d27a08c4b8dbe6561025e5a5900e718d09b51d3078fa7b6fa05a80729d824d0"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/attempts/2026-10-15T00-15-55.883204+00-00/response.json",
+      "bytes": 9644,
+      "sha256": "28f78cf5d35170054ab302c09bafacf7ff53e545e968050be3eeb6016ef2c352"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/prompt.txt",
+      "bytes": 15259,
+      "sha256": "df8322776a05aeccf6e75ed30ff4759b27b438ed2efdc4d380dd9b2f6c0e2a13"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/record.json",
+      "bytes": 873,
+      "sha256": "8d27a08c4b8dbe6561025e5a5900e718d09b51d3078fa7b6fa05a80729d824d0"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/response.json",
+      "bytes": 9644,
+      "sha256": "28f78cf5d35170054ab302c09bafacf7ff53e545e968050be3eeb6016ef2c352"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nemotron-nano-3-30b/response.txt",
+      "bytes": 9206,
+      "sha256": "780aeeaca918fa3f9741543bbef13be669bcd3412b96f44c0ede61772e2c2226"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/attempts/2026-10-15T00-18-03.241269+00-00/prompt.txt",
+      "bytes": 19947,
+      "sha256": "b7af6333893b901ba758ddb3761406fdaff07b8c18bfce72952ca5d951630a16"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/attempts/2026-10-15T00-18-03.241269+00-00/record.json",
+      "bytes": 877,
+      "sha256": "9128ab056c9d502099527c1badde221c82b1adb964489d2c58fcbd7d78411cad"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/attempts/2026-10-15T00-18-03.241269+00-00/response.json",
+      "bytes": 16115,
+      "sha256": "1750a4d5d997dcc06d30b1ddb9c6a1187731f68f90a27fe31cfed24b93edc677"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/prompt.txt",
+      "bytes": 19947,
+      "sha256": "b7af6333893b901ba758ddb3761406fdaff07b8c18bfce72952ca5d951630a16"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/record.json",
+      "bytes": 877,
+      "sha256": "9128ab056c9d502099527c1badde221c82b1adb964489d2c58fcbd7d78411cad"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/response.json",
+      "bytes": 16115,
+      "sha256": "1750a4d5d997dcc06d30b1ddb9c6a1187731f68f90a27fe31cfed24b93edc677"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nemotron-super-3-120b/response.txt",
+      "bytes": 15068,
+      "sha256": "26352ce6d3d607e691d1232b9d9fe0cf1d12ca5dfc66664f5b666ce2bfdcf160"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/attempts/2026-10-15T00-15-40.327028+00-00/prompt.txt",
+      "bytes": 15591,
+      "sha256": "5574e167f46a05e7469cbef2ae9c18da8d68a7a207db1c19d4ae314ab4d6c6d2"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/attempts/2026-10-15T00-15-40.327028+00-00/record.json",
+      "bytes": 861,
+      "sha256": "b363865a4e405765719998de9cef5df4f6a479cd13fbfdba0021f75b564b409e"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/attempts/2026-10-15T00-15-40.327028+00-00/response.json",
+      "bytes": 9844,
+      "sha256": "55972ed7e19f960540fcd892f19f134c9c801d0c5b6b0b7d9ac9c1b93ba5aa81"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/prompt.txt",
+      "bytes": 15591,
+      "sha256": "5574e167f46a05e7469cbef2ae9c18da8d68a7a207db1c19d4ae314ab4d6c6d2"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/record.json",
+      "bytes": 861,
+      "sha256": "b363865a4e405765719998de9cef5df4f6a479cd13fbfdba0021f75b564b409e"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/response.json",
+      "bytes": 9844,
+      "sha256": "55972ed7e19f960540fcd892f19f134c9c801d0c5b6b0b7d9ac9c1b93ba5aa81"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-lite/response.txt",
+      "bytes": 9343,
+      "sha256": "0f021f1e663b82e1036a033af36c8c9776030af78a7837d1f778872737a587bf"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/attempts/2026-10-15T00-15-51.647075+00-00/prompt.txt",
+      "bytes": 12759,
+      "sha256": "bfb88ad803de1e49328b9b1f89601daf15b25f23123b0965b1a2a66df251acad"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/attempts/2026-10-15T00-15-51.647075+00-00/record.json",
+      "bytes": 863,
+      "sha256": "12f2d3c2de57c9cf11a1a1827725741c9b278febe1bbf17d4e0fece904369fa6"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/attempts/2026-10-15T00-15-51.647075+00-00/response.json",
+      "bytes": 7322,
+      "sha256": "adf3481f1004e82c607fd8d6e167d2047fc370b6719bfd35b695bba5d0bee59e"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/prompt.txt",
+      "bytes": 12759,
+      "sha256": "bfb88ad803de1e49328b9b1f89601daf15b25f23123b0965b1a2a66df251acad"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/record.json",
+      "bytes": 863,
+      "sha256": "12f2d3c2de57c9cf11a1a1827725741c9b278febe1bbf17d4e0fece904369fa6"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/response.json",
+      "bytes": 7322,
+      "sha256": "adf3481f1004e82c607fd8d6e167d2047fc370b6719bfd35b695bba5d0bee59e"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-micro/response.txt",
+      "bytes": 6826,
+      "sha256": "e21a7704657b4f09656773d59e285980ea6daa6751dfc1c9db094e0fb30fadca"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/attempts/2026-10-15T00-15-31.900973+00-00/prompt.txt",
+      "bytes": 10880,
+      "sha256": "bb417f615b642d8f898ef86392e93fe8bedc9b4cd66410b9a5effaa695dbd702"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/attempts/2026-10-15T00-15-31.900973+00-00/record.json",
+      "bytes": 859,
+      "sha256": "6fbf3900fe68aa6abae650144328e4a73b0f238e8969891d9370b00bb6d25890"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/attempts/2026-10-15T00-15-31.900973+00-00/response.json",
+      "bytes": 4885,
+      "sha256": "d04e89ad921521ef712f3bf3007ea57daeeb1310b138249a1ea810a5f2eb767e"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/prompt.txt",
+      "bytes": 10880,
+      "sha256": "bb417f615b642d8f898ef86392e93fe8bedc9b4cd66410b9a5effaa695dbd702"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/record.json",
+      "bytes": 859,
+      "sha256": "6fbf3900fe68aa6abae650144328e4a73b0f238e8969891d9370b00bb6d25890"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/response.json",
+      "bytes": 4885,
+      "sha256": "d04e89ad921521ef712f3bf3007ea57daeeb1310b138249a1ea810a5f2eb767e"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/nova-pro/response.txt",
+      "bytes": 4524,
+      "sha256": "1e80437ef8ff401a0f53ec5dbaa6e8f418ea34570d085ba8377f0c5df214ebc7"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/attempts/2026-10-15T00-19-11.757718+00-00/prompt.txt",
+      "bytes": 37841,
+      "sha256": "116281daa5f475cd3d802e9b0845dfd3414d2c61d9853c7cb4852b910e6f7085"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/attempts/2026-10-15T00-19-11.757718+00-00/record.json",
+      "bytes": 874,
+      "sha256": "4f756779839fcd4d27644be209bc8ef4be2e0c0ebbb974e9600d2d78f210474d"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/attempts/2026-10-15T00-19-11.757718+00-00/response.json",
+      "bytes": 13967,
+      "sha256": "f37b2705b0fec4a0822bb95a5052f8b356370d54cccf1efa95d6796ead6c821e"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/prompt.txt",
+      "bytes": 37841,
+      "sha256": "116281daa5f475cd3d802e9b0845dfd3414d2c61d9853c7cb4852b910e6f7085"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/record.json",
+      "bytes": 874,
+      "sha256": "4f756779839fcd4d27644be209bc8ef4be2e0c0ebbb974e9600d2d78f210474d"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/response.json",
+      "bytes": 13967,
+      "sha256": "f37b2705b0fec4a0822bb95a5052f8b356370d54cccf1efa95d6796ead6c821e"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3-235b-a22b/response.txt",
+      "bytes": 13291,
+      "sha256": "9057956d9ce2925d83db90d97cc221c0356959914c033e0f0aa5c8d8a83a18f0"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/attempts/2026-10-15T00-17-36.708690+00-00/prompt.txt",
+      "bytes": 16589,
+      "sha256": "845650cff00cd3517974994c0ab07358875f153c57d9791797be2e17db1be1ac"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/attempts/2026-10-15T00-17-36.708690+00-00/record.json",
+      "bytes": 856,
+      "sha256": "35405f2953e0522e3c68a9f94c15a0861e86250a5cb47503539aff49945645a7"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/attempts/2026-10-15T00-17-36.708690+00-00/response.json",
+      "bytes": 9694,
+      "sha256": "564db69439a39663365fc88a2a27d551f94ba1424e94abdd17d3efba2e101248"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/prompt.txt",
+      "bytes": 16589,
+      "sha256": "845650cff00cd3517974994c0ab07358875f153c57d9791797be2e17db1be1ac"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/record.json",
+      "bytes": 856,
+      "sha256": "35405f2953e0522e3c68a9f94c15a0861e86250a5cb47503539aff49945645a7"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/response.json",
+      "bytes": 9694,
+      "sha256": "564db69439a39663365fc88a2a27d551f94ba1424e94abdd17d3efba2e101248"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3-32b/response.txt",
+      "bytes": 9150,
+      "sha256": "bd00309ba06b91436fa89a754f5ccc56f910702258bc88ba2f603cf30923a84b"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/attempts/2026-10-15T01-02-35.162476+00-00/prompt.txt",
+      "bytes": 4069,
+      "sha256": "0cecd3d194ee72e15341625bef6649ae7f85e2987fcfd3d05f29c2e68c6e781d"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/attempts/2026-10-15T01-02-35.162476+00-00/record.json",
+      "bytes": 940,
+      "sha256": "a00a12acbb51980adafa96e7afe1f55b977f11e54a606ba45a43962e75ccdcbb"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/attempts/2026-10-15T01-02-35.162476+00-00/response.json",
+      "bytes": 15366,
+      "sha256": "fd903e960d448bc8eec5347ac8119b24b1002f151952ffd35b1ef85cb71ecc80"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/attempts/2026-10-15T11-52-06.870656+00-00/prompt.txt",
+      "bytes": 2624,
+      "sha256": "adaa632bd19ec09e925d40dbfeaf8dfeb655ba9a21dfb234d2db5deb46dbbf95"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/attempts/2026-10-15T11-52-06.870656+00-00/record.json",
+      "bytes": 866,
+      "sha256": "046b2ae1f8b8a35b91948799336c7c353b6995ef5e60359bd5028628cff19c96"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/attempts/2026-10-15T11-52-06.870656+00-00/response.json",
+      "bytes": 14018,
+      "sha256": "d82e2f5fd8bf27bf8f3ab8b270e097bab5a50f1dd55f97ce92dfb024a7b70df3"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/prompt.txt",
+      "bytes": 2624,
+      "sha256": "adaa632bd19ec09e925d40dbfeaf8dfeb655ba9a21dfb234d2db5deb46dbbf95"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/record.json",
+      "bytes": 866,
+      "sha256": "046b2ae1f8b8a35b91948799336c7c353b6995ef5e60359bd5028628cff19c96"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/response.json",
+      "bytes": 14018,
+      "sha256": "d82e2f5fd8bf27bf8f3ab8b270e097bab5a50f1dd55f97ce92dfb024a7b70df3"
+    },
+    {
+      "path": ".work/model-pages-publisher/results/model-lotte-towers/lotte-tower-models-20261013/qwen3.6-27b/response.txt",
+      "bytes": 13373,
+      "sha256": "7dd95b17c268204eb12f428d95d09f4cf5ddc76c2a01987360a41c5afffb8b60"
+    },
+    {
+      "path": ".work/model-pages-publisher/validation/claude-haiku-5.5/deployment.json",
+      "bytes": 43240,
+      "sha256": "ffebb7aeba53bca455e9bbf9850c8ef2d0f6b558194ee902142ddb6305883e0b"
+    },
+    {
+      "path": ".work/model-pages-publisher/validation/claude-haiku-5.5/model-card.txt",
+      "bytes": 78153,
+      "sha256": "75a96bc78f050193c0b823e6dfffffeca36bafd38b767ede00ab9a5e758f5fae"
+    },
+    {
+      "path": ".work/model-pages-publisher/validation/claude-haiku-5.5/pricing-source-1.txt",
+      "bytes": 50272,
+      "sha256": "67904e280b595d31f373c857844ed380072ae79d280d8f385640b5992d337ca9"
+    },
+    {
+      "path": ".work/model-pages-publisher/validation/model-tasks/deployment.json",
+      "bytes": 105496,
+      "sha256": "52e2f8f8603c9377adcec7475ed3bebc4b9f52966c1fd1d8a81b542285b995dd"
+    },
+    {
+      "path": ".work/model-pages-publisher/validation/model-tasks/failure-status-deployment.json",
+      "bytes": 20022,
+      "sha256": "f9cf8c57171205e0abd90604f6ccf20e7b8d5738dd343440b813b2e7d9e3696c"
+    },
+    {
+      "path": ".work/model-pages-publisher/validation/model-tasks/prompt-display-deployment-extra.json",
+      "bytes": 897,
+      "sha256": "b96a1632813dde4d60d57dca77cb62f66fed5fc1d94da192b597029c6816662b"
+    },
+    {
+      "path": ".work/model-pages-publisher/validation/model-tasks/review-status-deployment.json",
+      "bytes": 6150,
+      "sha256": "c44d485435d8241734f89b0d7d738bf82615e3fef2d27b79d41b4ee9edee7a2e"
+    },
+    {
+      "path": ".work/model-pages-publisher/validation/self-portraits/deployment-free-expression.json",
+      "bytes": 35837,
+      "sha256": "87dac5c72c8c17c36a06b658a8f00cd442273521091d478eeda3aec087448de6"
+    },
+    {
+      "path": ".work/model-pages-publisher/validation/self-portraits/deployment-prompt-expansion.json",
+      "bytes": 25159,
+      "sha256": "38b26e9d368c34d0555bf970f89ba591afe26eacb6cfebb7f42d3e5f38eca9e6"
+    }
+  ]
+}

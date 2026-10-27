@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "verified_at": "2026-10-27T10:17:40.551775+00:00",
+  "url": "https://inferplane.github.io/llm-benchmark/tatqa.html",
+  "run_id": "tatqa-api-200-20261027",
+  "models": 35,
+  "questions_per_model": 200,
+  "scheduled_answers": 7000,
+  "assets": [
+    {
+      "path": "tatqa.html",
+      "sha256": "b7d7317e67e6665a612c5df7134aa7660784fbe40f828c5ac9c22e142c638a28"
+    },
+    {
+      "path": "tatqa.js",
+      "sha256": "06fc75ac5a3c76ddd2076390e228fa3b2a67ca623e792e935f58d78c5d7f23e9"
+    },
+    {
+      "path": "tatqa.css",
+      "sha256": "790b6a19919ba1e295ad11b4574ddcf901ff93ca2ffed6c65868e51ee2132421"
+    },
+    {
+      "path": "index.html",
+      "sha256": "0839d8447e8b3782378ba01695bdbba242870bd02836f810ec85a6114c04221a"
+    },
+    {
+      "path": "app.js",
+      "sha256": "1e4fd6bc8b466a5d8e50e5e53eee62db16910121f1a20d4832f5e23f248228bd"
+    },
+    {
+      "path": "finqa.html",
+      "sha256": "66b3a40a8db5b81383fb70fdf547e9ed7a4b5e344454b9a9ae35db0b70c16939"
+    },
+    {
+      "path": "tatqa-results/index.json",
+      "sha256": "956c551e45667e578680794c5f3c5b534bfb09b7d69c3f6b76da5473db6a98ab"
+    },
+    {
+      "path": "tatqa-results/tatqa-api-200-20261027.json",
+      "sha256": "c667a06faaa4f91d2822d1ef870e846972942875d6d7cadec3becb8aa51705fb"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "verified_at": "2026-10-27T10:17:53.144Z",
+  "url": "https://inferplane.github.io/llm-benchmark/tatqa.html",
+  "checks": [
+    "35 models and 200 questions/contexts loaded from public Pages",
+    "Terra answer comparison and arithmetic type controls work",
+    "viewport 1280: no page overflow",
+    "viewport 375: no page overflow"
+  ],
+  "errors": [],
+  "model_rows": 35,
+  "question_options": 200
+}

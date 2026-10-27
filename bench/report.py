@@ -971,6 +971,32 @@ def _selfcheck():
     assert performance_of([finqa_rows[0], {**finqa_rows[1], "error": "timeout"}],
                           api_model)["estimated_cost_per_question_usd"] is None
 
+    # TAT-QA: 200 billed responses, even invalid JSON, each use 100 input and
+    # 10 output tokens at $1/$2 per million: $0.024 total / $0.00012 per question.
+    # One missing response must withhold the whole-model estimate rather than
+    # silently pricing a 199-question successful subset.
+    from bench.tatqa import performance_for as tatqa_performance
+    tatqa_rows = [
+        {"model": "tatqa-check", "id": str(i), "error": None, "output_text": "invalid JSON",
+         "tokens_in": 100, "tokens_out": 10, "latency_s": 1,
+         "timestamp": "2026-10-27T00:00:01+00:00"}
+        for i in range(200)
+    ]
+    tatqa_model = {"api": "bedrock", "price_in": 1, "price_out": 2}
+    tatqa_perf = tatqa_performance(tatqa_rows, tatqa_model, total=200)
+    assert abs(tatqa_perf["estimated_cost_usd"] - .024) < 1e-12
+    assert abs(tatqa_perf["estimated_cost_per_question_usd"] - .00012) < 1e-12
+    missing_tatqa = tatqa_performance(tatqa_rows[:-1], tatqa_model, total=200)
+    assert missing_tatqa["estimated_cost_usd"] is None
+    assert missing_tatqa["estimated_cost_per_question_usd"] is None
+    assert missing_tatqa["cost_unavailable_reason"] == "missing_responses"
+    truncated_tatqa = tatqa_performance(
+        [{**row, "finish_reason": "max_tokens"} for row in tatqa_rows], tatqa_model, total=200)
+    # A completed transport with a token-limited answer still has billed usage,
+    # even though the separate TAT-QA quality scorer assigns zero.
+    assert abs(truncated_tatqa["estimated_cost_usd"] - .024) < 1e-12
+    assert truncated_tatqa["tokens_in"] == 20_000 and truncated_tatqa["tokens_out"] == 2_000
+
     # translation_error vs judge_error must be independent: a translation that
     # succeeded but whose judge call failed must still count as a successful
     # translation (tokens/cost intact) while contributing zero judged segments.

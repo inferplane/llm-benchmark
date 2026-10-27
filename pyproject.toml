@@ -7,6 +7,9 @@ dependencies = [
     "boto3>=1.43.48",
     "datasets>=5.0.0",
     "httpx>=0.28.1",
+    "numpy>=2.0",
     "openai>=2.45.0",
+    "pandas>=2.2",
     "sacrebleu>=2.6.0",
+    "scipy>=1.14",
 ]

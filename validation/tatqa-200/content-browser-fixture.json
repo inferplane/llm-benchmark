@@ -1,0 +1,77 @@
+{
+  "mode": "fixture",
+  "run_id": "fixture-only",
+  "checks": [
+    "report model count matches rendered rows",
+    "all report fetches explicitly no-store",
+    "skip link first keyboard focus",
+    "skip link targets main",
+    "sort select keyboard access",
+    "sorting exact_match",
+    "sorting f1",
+    "sorting cost",
+    "sorting latency",
+    "sorting name",
+    "type count span",
+    "question filter span",
+    "type count arithmetic",
+    "question filter arithmetic",
+    "type count multi-span",
+    "question filter multi-span",
+    "type count count",
+    "question filter count",
+    "question switching shows selected text",
+    "both model selectors change answer cards",
+    "keyboard opens source evidence",
+    "source table displays",
+    "keyboard opens raw output",
+    "untrusted text cannot create executable nodes",
+    "generation settings listed",
+    "no horizontal page overflow at 375",
+    "no horizontal page overflow at 768",
+    "no horizontal page overflow at 1280",
+    "empty hides stale scores",
+    "empty offers retry",
+    "malformed hides stale scores",
+    "malformed offers retry",
+    "error hides stale scores",
+    "error offers retry",
+    "retry recovers real scores",
+    "no normal-load console errors",
+    "no uncaught JS errors",
+    "no unexpected HTTP failures",
+    "index.html TAT-QA navigation",
+    "finqa.html TAT-QA navigation"
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "unexpected_http_errors": [],
+  "screenshots": [
+    "content-fixture-375.png",
+    "content-fixture-768.png",
+    "content-fixture-1280.png"
+  ],
+  "widths": [
+    {
+      "viewport": 375,
+      "page": 375
+    },
+    {
+      "viewport": 768,
+      "page": 768
+    },
+    {
+      "viewport": 1280,
+      "page": 1280
+    }
+  ],
+  "font_samples": {
+    "body": "17px",
+    ".customer-note": "14px",
+    ".model-provider": "11px",
+    ".metric-sub": "11px",
+    ".sample-caption": "12px",
+    "nav a": "14px"
+  },
+  "verdict": "PASS"
+}

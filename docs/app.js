@@ -16,7 +16,8 @@ const B = window.BenchmarkView;
 // rather than being squeezed into this one's conditional rendering.
 const SCENARIOS = [
   { id: "translation", name: "언어별 번역 품질", href: "index.html" },
-  { id: "finqa", name: "금융 수치 추론", href: "finqa.html" },
+  { id: "finqa", name: "FinQA · 감사 20문항", href: "finqa.html" },
+  { id: "tatqa", name: "TAT-QA · 200문항", href: "tatqa.html" },
   { id: "models", name: "모델이 만든 미디어아트 ↗", href: "models/" },
 ];
 

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="TAT-QA 공식 test 중 고정 200문항으로 비교한 금융 표·본문 질의응답 모델의 EM, F1, 응답 커버리지와 비용.">
+<title>TAT-QA · 200문항 — 금융 문서 질의응답 벤치마크</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="customer.css?v=customer-20260925">
+<link rel="stylesheet" href="tatqa.css?v=20261027">
+<script src="customer.js?v=customer-20260925" defer></script>
+<script src="tatqa.js?v=20261027" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<nav aria-label="벤치마크 시나리오"><div class="nav-inner">
+  <span class="nav-brand">LLM 벤치마크</span>
+  <a href="index.html">번역: KO ↔ 15언어</a>
+  <a href="finqa.html">FinQA · 감사 20문항</a>
+  <a href="tatqa.html" aria-current="page">TAT-QA · 200문항</a>
+  <a href="models/">모델이 만든 미디어아트 ↗</a>
+</div></nav>
+<main id="main">
+  <header class="hero">
+    <p class="eyebrow">FINANCIAL DOCUMENT QA · OFFICIAL-RULE SUBSET</p>
+    <h1>표와 본문을 함께 읽는<br><span>TAT-QA · 200문항</span></h1>
+    <p class="customer-intro">재무 문서에서 답을 찾고, 여러 값을 모으고, 계산하는 능력을 비교합니다. 정답 일치율과 부분 정답 점수를 응답 커버리지·시간·비용과 함께 확인하세요.</p>
+    <p class="scope-note">공식 test의 고정 부분집합입니다. 전체 공식 리더보드 점수와 구분해 읽어주세요. <a href="finqa.html">기존 FinQA 감사 20문항 결과 ↗</a></p>
+  </header>
+  <div class="population" aria-label="평가 표본과 범위">
+    <div><span>고정 질문</span><strong id="question-count">200<small>문항</small></strong></div>
+    <div><span>서로 다른 표·본문 묶음</span><strong id="context-count">200<small>맥락</small></strong></div>
+    <div><span>질문 유형</span><strong>4<small>유형</small></strong></div>
+    <div><span>선택 실행의 모델</span><strong id="model-count">—</strong></div>
+  </div>
+  <div class="load-state" id="load-state">
+    <p id="load-status" role="status" aria-live="polite">결과를 불러오는 중…</p>
+    <button id="retry-load" type="button" hidden>다시 불러오기</button>
+  </div>
+  <noscript><p class="notice">결과 비교에는 JavaScript가 필요합니다. <a href="tatqa-results/index.json">실행 목록 JSON</a>에서 게시된 결과를 확인할 수 있습니다.</p></noscript>
+  <div id="results" hidden>
+    <div class="run-toolbar"><label for="run-select">결과 기준</label><select id="run-select"></select><a id="json-link">결과 JSON ↗</a><span id="run-note"></span></div>
+    <section class="panel" aria-labelledby="comparison-title">
+      <div class="section-head"><div><p class="eyebrow">01 · MODEL COMPARISON</p><h2 id="comparison-title">정답·시간·비용 한눈에 비교</h2></div><div class="controls"><label for="sort-select">정렬</label><select id="sort-select"><option value="exact_match">EM 높은 순</option><option value="f1">F1 높은 순</option><option value="cost">문항당 비용 낮은 순</option><option value="latency">응답 빠른 순</option><option value="name">모델명</option></select></div></div>
+      <p class="customer-note"><strong>문서 이해·계산과 함께 지정 JSON 형식 준수까지 평가한 점수입니다.</strong> 정답이 포함되어도 설명이 섞인 응답은 형식 오류로 0점입니다.</p>
+      <p class="customer-note">EM은 정규화된 정답과 완전히 일치한 비율, F1은 부분 일치를 반영한 공식 평가 점수입니다. 둘 다 전체 200문항을 분모로 하며, 실패·누락·형식 오류·출력 잘림은 0점입니다. 한 문항은 EM 0.5%p에 해당하며, 근소한 차이만으로 우열을 단정할 수는 없습니다.</p>
+      <div id="family-legend" class="customer-legend" aria-label="모델 계열 색상 안내"></div>
+      <p id="comparison-summary" class="summary-line" aria-live="polite"></p>
+      <div class="scroll" tabindex="0" role="region" aria-label="모델별 EM F1 시간 비용 비교"><table><caption class="sr-only">모델 전체 200문항 기준 비교. EM과 F1은 형식 준수를 포함하며 높을수록 좋습니다.</caption><thead><tr><th scope="col">모델</th><th scope="col">EM <small>완전 일치<br>형식 준수 포함</small></th><th scope="col">F1 <small>부분 일치<br>형식 준수 포함</small></th><th scope="col">응답 커버리지</th><th scope="col">중앙 응답 시간</th><th scope="col">문항당 비용 <small>USD · 추정</small></th></tr></thead><tbody id="model-body"></tbody></table></div>
+      <p class="customer-note">비용은 설정 당시 단가와 실제 토큰으로 계산한 모델 전체 추정치입니다. 유효기간이 지난 단가 등 계산할 수 없는 비용은 —로 표시합니다. 응답 시간은 추론 설정·API 경로·동시성의 영향을 받으므로 시간 차이를 모델 능력만으로 해석하지 마세요.</p>
+    </section>
+    <section class="panel" aria-labelledby="type-title">
+      <div class="section-head"><div><p class="eyebrow">02 · QUESTION TYPES</p><h2 id="type-title">어떤 유형에서 차이가 나나요?</h2></div><div class="controls"><label for="type-select">질문 유형</label><select id="type-select"><option value="span">단일 답 추출 · span</option><option value="arithmetic">계산 · arithmetic</option><option value="multi-span">여러 답 추출 · multi-span</option><option value="count">개수 세기 · count</option></select></div></div>
+      <p id="type-summary" class="customer-note"></p>
+      <div class="scroll" tabindex="0" role="region" aria-label="선택한 질문 유형의 모델별 점수"><table><thead><tr><th scope="col">모델</th><th scope="col">완전 일치 / 유형 전체</th><th scope="col">EM <small>형식 준수 포함</small></th><th scope="col">F1 <small>형식 준수 포함</small></th></tr></thead><tbody id="type-body"></tbody></table></div>
+      <p class="customer-note">유형별 점수에도 해당 유형의 실패·누락이 포함됩니다. 표본이 적은 유형의 작은 차이는 주의해 해석하세요. 유형별 비용·처리량은 제공하지 않습니다.</p>
+    </section>
+    <section class="panel" aria-labelledby="sample-title">
+      <p class="eyebrow">03 · ANSWER EXPLORER</p><h2 id="sample-title">같은 질문에 어떻게 답했나요?</h2>
+      <p class="customer-note">공식 정답과 두 모델의 제출 답을 나란히 확인하세요. 정답과 단위는 평가할 때만 사용하며 모델 입력에는 포함하지 않습니다.</p>
+      <div class="sample-controls"><label for="sample-type">유형</label><select id="sample-type"><option value="all">전체 유형</option><option value="span">단일 답 추출</option><option value="arithmetic">계산</option><option value="multi-span">여러 답 추출</option><option value="count">개수 세기</option></select><label for="sample-select">질문</label><select id="sample-select"></select><label for="sample-model-a">모델 A</label><select id="sample-model-a"></select><label for="sample-model-b">모델 B</label><select id="sample-model-b"></select></div>
+      <div id="sample-question" class="sample-question"></div><div id="sample-answers" class="qa-example-grid"></div>
+    </section>
+    <details class="panel diagnostics" open>
+      <summary>응답 커버리지·실패·누락·모델 전체 비용</summary>
+      <p class="customer-note">응답 커버리지 = (채점 가능 + 형식 오류) / 전체 문항으로, 잘리지 않은 응답의 비율이며 정답률이 아닙니다. 요청 실패·누락·출력 잘림은 커버리지에서 제외합니다. 누락은 아직 실행되지 않았거나 기록이 없는 문항, 요청 실패는 API 호출 오류, 형식 오류는 채점 가능한 답을 파싱하지 못한 응답입니다.</p>
+      <div class="scroll" tabindex="0" role="region" aria-label="모델별 응답 상태와 전체 비용"><table><thead><tr><th scope="col">모델</th><th scope="col">채점 가능 / 전체</th><th scope="col">형식 오류</th><th scope="col">요청 실패</th><th scope="col">누락</th><th scope="col">출력 잘림</th><th scope="col">P95 응답 <small>초</small></th><th scope="col">전체 비용 <small>USD · 추정</small></th><th scope="col">입력 / 출력 토큰</th></tr></thead><tbody id="coverage-body"></tbody></table></div>
+      <p class="customer-note">P95는 응답의 95%가 이 시간 안에 도착했다는 뜻입니다. 응답 시간과 토큰은 실제 기록이 있는 요청 기준이며, 누락된 요청의 비용을 0달러로 가정하지 않습니다. —는 값이 없다는 뜻으로 0과 구분합니다.</p>
+      <p class="customer-note">표와 점수는 문항별 마지막 기록 기준입니다. 재시도 이전의 실패도 <a href="https://github.com/inferplane/llm-benchmark/tree/main/results/tatqa">원본 실행 기록 ↗</a>에 보존합니다. 재시도·실패 호출 비용은 추정치에서 제외합니다.</p>
+    </details>
+  </div>
+  <section class="panel methodology" aria-labelledby="protocol-title">
+    <p class="eyebrow">PROTOCOL &amp; PROVENANCE</p><h2 id="protocol-title">무엇을, 어떻게 측정하나요?</h2>
+    <div class="method-grid"><div><h3>공식 test에서 고정한 200문항</h3><p>seed 20261027로 서로 다른 표·본문 묶음에서 질문을 하나씩 선정합니다. 단일 답 추출 86개, 계산 84개, 여러 답 추출 25개, 개수 세기 5개입니다. 모델 답변을 보고 질문을 고르지 않습니다.</p><p class="customer-note">200개의 표·본문 맥락은 원본 기업 보고서 200개가 서로 독립이라는 뜻이 아닙니다.</p></div><div><h3>공식 평가 규칙으로 EM·F1 채점</h3><p>표·본문·질문만 입력하고, 답과 scale을 JSON으로 받습니다. 숫자와 단위 환산, 다중 답 비교에는 고정한 TAT-QA 공식 평가기를 사용합니다. 바깥 JSON 코드블록만 제거하며 답을 자동 수정하거나 LLM으로 재채점하지 않습니다.</p></div></div>
+    <p><strong>문서 이해·계산과 지정 JSON 형식 준수를 함께 평가합니다.</strong> JSON 앞뒤에 설명이 섞이면 정답이 포함되어도 형식 오류로 0점입니다. 이런 응답에서 정답만 추출해 다시 채점하지 않습니다.</p>
+    <div class="notice"><strong>결과의 적용 범위</strong><p>공개된 test 정답을 사용하므로 학습 데이터 포함 가능성을 배제할 수 없습니다. 공식 전체 리더보드, 기존 FinQA 감사 20문항, 실제 금융 업무 전체와 점수를 직접 등치하지 마세요. 회사 문서의 검색·OCR 성능과 업무 판단의 안전성은 별도 검증이 필요합니다.</p></div>
+    <p id="protocol-description" class="customer-note"></p><ul id="protocol-limitations" class="limitation-list"></ul>
+    <p><a id="source-link" href="https://github.com/NExTplusplus/TAT-QA/tree/870accc41953dcde885aabeb963d94aabdc0fbc3">TAT-QA 공식 데이터·평가기 ↗</a> · <a href="https://aclanthology.org/2021.acl-long.254/">Zhu et al., ACL 2021 ↗</a></p>
+    <p><a href="https://creativecommons.org/licenses/by/4.0/">데이터셋 · CC BY 4.0 ↗</a> · <a href="https://github.com/NExTplusplus/TAT-QA/blob/870accc41953dcde885aabeb963d94aabdc0fbc3/LICENSE">공식 평가기 · MIT 라이선스 ↗</a></p>
+    <p class="customer-note">출처: NExTplusplus / TAT-QA, Zhu et al. (2021). 데이터셋은 CC BY 4.0, 공식 평가기 코드는 MIT 라이선스를 따릅니다. 이 페이지는 원본 데이터의 고정 부분집합을 사용하고 모델 비교 결과를 추가했습니다.</p>
+    <details><summary>실행 범위·재현 정보</summary><p id="excluded-models">실행별 모델 범위는 결과를 불러온 뒤 표시합니다. 자체 호스팅 GPU 모델은 별도 실행군이 필요합니다.</p><dl id="provenance" class="provenance"></dl><div id="generation-settings"></div><p class="customer-note">전체 설정·제외 목록·질문별 원본 답변은 선택 실행의 JSON에서 확인할 수 있습니다.</p></details>
+  </section>
+  <footer><span>TAT-QA · 고정 test 부분집합</span><a href="https://github.com/inferplane/llm-benchmark">코드와 실행 기록 ↗</a></footer>
+</main>
+</body>
+</html>

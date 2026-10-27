@@ -1,0 +1,92 @@
+{
+  "mode": "actual",
+  "run_id": "tatqa-api-200-20261027",
+  "report_generated_at": "2026-10-27T10:11:40.780612+00:00",
+  "report_sha256": "c667a06faaa4f91d2822d1ef870e846972942875d6d7cadec3becb8aa51705fb",
+  "missing_responses": 0,
+  "checks": [
+    "report model count matches rendered rows",
+    "all report fetches explicitly no-store",
+    "35 models including Terra",
+    "all 200 questions available",
+    "skip link first keyboard focus",
+    "skip link targets main",
+    "sort select keyboard access",
+    "sorting exact_match",
+    "sorting f1",
+    "sorting cost",
+    "sorting latency",
+    "sorting name",
+    "type count span",
+    "question filter span",
+    "type count arithmetic",
+    "question filter arithmetic",
+    "type count multi-span",
+    "question filter multi-span",
+    "type count count",
+    "question filter count",
+    "question switching shows selected text",
+    "both model selectors change answer cards",
+    "keyboard opens source evidence",
+    "source table displays",
+    "keyboard opens raw output",
+    "untrusted text cannot create executable nodes",
+    "generation settings listed",
+    "wide comparison table scrolls by keyboard",
+    "no horizontal page overflow at 375",
+    "no horizontal page overflow at 768",
+    "no horizontal page overflow at 1280",
+    "empty hides stale scores",
+    "empty offers retry",
+    "malformed hides stale scores",
+    "malformed offers retry",
+    "error hides stale scores",
+    "error offers retry",
+    "retry recovers real scores",
+    "no normal-load console errors",
+    "no uncaught JS errors",
+    "no unexpected HTTP failures",
+    "index.html TAT-QA navigation",
+    "finqa.html TAT-QA navigation"
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "unexpected_http_errors": [],
+  "screenshots": [
+    "content-actual-375.png",
+    "content-actual-768.png",
+    "content-actual-1280.png"
+  ],
+  "widths": [
+    {
+      "viewport": 375,
+      "page": 375
+    },
+    {
+      "viewport": 768,
+      "page": 768
+    },
+    {
+      "viewport": 1280,
+      "page": 1280
+    }
+  ],
+  "font_samples": {
+    "body": "19px",
+    ".customer-note": "19px",
+    ".model-provider": "19px",
+    ".metric-sub": "19px",
+    ".sample-caption": "19px",
+    "nav a": "19px"
+  },
+  "verified_at": "2026-10-27T10:11:59.279Z",
+  "source_hashes": {
+    "tatqa.html": "b7d7317e67e6665a612c5df7134aa7660784fbe40f828c5ac9c22e142c638a28",
+    "tatqa.js": "06fc75ac5a3c76ddd2076390e228fa3b2a67ca623e792e935f58d78c5d7f23e9",
+    "tatqa.css": "790b6a19919ba1e295ad11b4574ddcf901ff93ca2ffed6c65868e51ee2132421",
+    "app.js": "1e4fd6bc8b466a5d8e50e5e53eee62db16910121f1a20d4832f5e23f248228bd",
+    "index.html": "0839d8447e8b3782378ba01695bdbba242870bd02836f810ec85a6114c04221a",
+    "finqa.html": "66b3a40a8db5b81383fb70fdf547e9ed7a4b5e344454b9a9ae35db0b70c16939"
+  },
+  "verdict": "PASS"
+}

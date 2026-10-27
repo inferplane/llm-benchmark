@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "verified_at": "2026-10-27T10:11:42.828891+00:00",
+  "run_id": "tatqa-api-200-20261027",
+  "models": 35,
+  "questions_per_model": 200,
+  "question_contexts": 200,
+  "scheduled_answers": 7000,
+  "latest_response_rows": 7000,
+  "statuses": {
+    "scored": 6811,
+    "invalid": 189
+  },
+  "gold_roundtrip": 200,
+  "recorded_attempt_rows": 7001,
+  "recorded_failed_attempts": 1,
+  "dataset_sha256": "f2d55367f68684ffddfdac138fb22075003290fd7a8e4106e8b425fa3e238a71",
+  "contract_sha256": "0a202145e2a3b978e783abbfefbd6f11e58330a7ae23c576f6190cc12f2d67a3",
+  "report_sha256": "c667a06faaa4f91d2822d1ef870e846972942875d6d7cadec3becb8aa51705fb"
+}

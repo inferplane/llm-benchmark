@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-27",
+  "status": "PASS",
+  "critical_findings": [],
+  "important_findings": [],
+  "candidate_calls_by_reviewer": 0,
+  "implementation_edits_by_reviewer": 0,
+  "base_head": "07e21c5473a03e6e834625f64f672d3fc9e0bb5f",
+  "review_includes_working_tree": true,
+  "run_id": "tatqa-api-200-20261027",
+  "report_sha256": "c667a06faaa4f91d2822d1ef870e846972942875d6d7cadec3becb8aa51705fb",
+  "contract_sha256": "0a202145e2a3b978e783abbfefbd6f11e58330a7ae23c576f6190cc12f2d67a3",
+  "dataset_sha256": "f2d55367f68684ffddfdac138fb22075003290fd7a8e4106e8b425fa3e238a71",
+  "models": 35,
+  "questions_per_model": 200,
+  "distinct_table_contexts": 200,
+  "latest_response_rows": 7000,
+  "raw_attempt_rows": 7001,
+  "historical_failed_attempts": 1,
+  "statuses": {
+    "scored": 6811,
+    "invalid": 189,
+    "request_failed": 0,
+    "missing": 0,
+    "truncated": 0
+  },
+  "all_execution_events_finished": true,
+  "one_invocation_per_model": true,
+  "manifest_predates_execution": true,
+  "all_prediction_hashes_verified": true,
+  "all_scores_and_denominators_verified": true,
+  "all_type_metrics_verified": true,
+  "all_token_counts_and_costs_verified": true,
+  "model_estimate_sum_usd": 14.9194,
+  "invoice_total_verified": false,
+  "dashboard_untrusted_text_rendering_review": "PASS",
+  "dashboard_failure_disclosure_review": "PASS",
+  "content_review_scope": "separate reviewer",
+  "checks": {
+    "tatqa_selfcheck": "PASS",
+    "report_selfcheck": "PASS",
+    "javascript_syntax": "PASS",
+    "git_diff_check": "PASS",
+    "final_report_independent_reconciliation": "PASS"
+  },
+  "code_sha256": {
+    "bench/tatqa.py": "1c4834589582189d4a286ecab058b4d19644c82b5c86457af78e63cfb382d09c",
+    "bench/report.py": "11daa071bb058f79c7dc34f469dc6db50d0d26a989d86900beb81a5721ae2f5c",
+    "docs/tatqa.html": "b7d7317e67e6665a612c5df7134aa7660784fbe40f828c5ac9c22e142c638a28",
+    "docs/tatqa.js": "06fc75ac5a3c76ddd2076390e228fa3b2a67ca623e792e935f58d78c5d7f23e9",
+    "docs/tatqa.css": "790b6a19919ba1e295ad11b4574ddcf901ff93ca2ffed6c65868e51ee2132421"
+  }
+}

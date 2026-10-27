@@ -1,0 +1,10 @@
+{
+  "models": 35,
+  "scheduled_questions_per_model": 200,
+  "scheduled_calls": 7000,
+  "input_tokens_per_question_estimate": 678,
+  "estimate_method": "English JSON characters /4 plus200 prompt tokens; heuristic only, not billed token count",
+  "estimated_usd_at_500_output_tokens_per_answer": 40.18,
+  "estimated_usd_at_4096_output_tokens_per_answer": 265.91,
+  "limitations": "Configured rates; no retries/caching discounts. Actual usage may differ."
+}

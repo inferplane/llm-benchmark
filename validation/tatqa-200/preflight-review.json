@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-27",
+  "status": "source_design_and_backend_execution_review_passed",
+  "paid_calls_made": 0,
+  "source": {
+    "url": "https://github.com/NExTplusplus/TAT-QA/tree/870accc41953dcde885aabeb963d94aabdc0fbc3",
+    "revision": "870accc41953dcde885aabeb963d94aabdc0fbc3",
+    "split": "test",
+    "questions": 1663,
+    "unique_table_contexts": 277,
+    "unique_table_contents": 277,
+    "source_documents_verified": false,
+    "answer_types": {"span": 714, "arithmetic": 699, "multi-span": 210, "count": 40},
+    "sha256": {
+      "test_gold.json": "c4d08418359c1d76468dec420ee748a37f48c06b63cb8ec2766f19d5d314b597",
+      "tatqa_metric.py": "2aeeac479f89f8c76300af1cc0e8d098eb86af84bc386b38b6ab4af484a6dea8",
+      "tatqa_utils.py": "a84bb2f960737cf0a53733637a674cc4b20ef030a2be6a4b21dc2c4356f415ec",
+      "LICENSE": "46e27ffbc49c3fd44a9595c2213f8a5f4319a81b53238e49ce1eec39e7e25662"
+    }
+  },
+  "proposed_sample": {
+    "questions": 200,
+    "table_contexts": 200,
+    "seed": 20261027,
+    "answer_types": {"span": 86, "arithmetic": 84, "multi-span": 25, "count": 5},
+    "proportional_quotas_verified": true,
+    "actual_selection_review": "passed",
+    "dataset_sha256": "f2d55367f68684ffddfdac138fb22075003290fd7a8e4106e8b425fa3e238a71"
+  },
+  "cohort": {
+    "models": 35,
+    "providers": {"bedrock": 24, "bedrock_mantle": 11},
+    "includes_gpt_6_1_terra": true,
+    "has_self_hosted_model": false,
+    "has_disabled_model": false,
+    "has_translation_only_service": false,
+    "explicit_pricing_expiry_fields": 0,
+    "independent_live_price_review": false
+  },
+  "official_gold_roundtrip": {
+    "python": "3.12.13",
+    "scipy": "1.18.1",
+    "real_scipy_used": true,
+    "cases": 1663,
+    "exact_match_one": 1663,
+    "f1_one": 1663,
+    "exceptions": 0,
+    "semantic_annotation_accuracy_verified": false
+  },
+  "official_probes": [
+    {"case": "scalar_zero", "exact_match": 0, "f1": 0},
+    {"case": "string_list_zero", "exact_match": 1, "f1": 1},
+    {"case": "percent_explicit_scale", "exact_match": 1, "f1": 1},
+    {"case": "percent_fraction_without_scale", "exact_match": 1, "f1": 1},
+    {"case": "percent_symbol", "exact_match": 1, "f1": 1},
+    {"case": "multispan_reversed", "exact_match": 1, "f1": 1},
+    {"case": "multispan_joined", "exact_match": 1, "f1": 1},
+    {"case": "mixed_scalar_list", "exception": "TypeError"},
+    {"case": "scientific_string_1e_minus05_against_gold1", "exact_match": 1, "f1": 1},
+    {"case": "decimal_000001_against_gold1", "exact_match": 0, "f1": 0},
+    {"case": "official_numeric_rounding", "exact_match": 1, "f1": 1}
+  ],
+  "communicated_requirements": [
+    "nonempty_string_list_adapter_preserves_zero_and_mixed_scalar_types",
+    "numeric_json_serialized_without_exponent_notation",
+    "strict_finite_json_validation_and_recursion_error_handling",
+    "failed_nonterminal_truncated_responses_score_zero",
+    "immutable_dataset_prompt_code_dependencies_roster_and_settings",
+    "all_frozen_model_question_pairs_in_denominator",
+    "incomplete_cost_estimates_withheld",
+    "label_distinct_table_contexts_not_source_documents"
+  ],
+  "backend_implementation_review": "code-review.md",
+  "reviewed_adapter_sha256": "1c4834589582189d4a286ecab058b4d19644c82b5c86457af78e63cfb382d09c",
+  "reviewed_report_sha256": "11daa071bb058f79c7dc34f469dc6db50d0d26a989d86900beb81a5721ae2f5c",
+  "open_important_blockers": 0,
+  "paid_execution_clearance": true,
+  "publication_clearance": false
+}

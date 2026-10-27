@@ -4,6 +4,14 @@
 [aws]
 region = "us-west-2"
 
+[scenario.tatqa]
+concurrency_default = 2
+parallel_models = 4
+sample_size = 200
+seed = 20261027
+split = "test"
+source_revision = "870accc41953dcde885aabeb963d94aabdc0fbc3"
+
 [scenario.finqa]
 concurrency_default = 2
 sample_size = 20

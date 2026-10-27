@@ -1,0 +1,198 @@
+{
+  "stage": "final_completed_actual_report",
+  "reviewed_at": "2026-10-27T10:13:16.662350+00:00",
+  "verdict": "PASS",
+  "score": 100,
+  "scale": 100,
+  "deployment_content_gate": "PASS",
+  "threshold": 85,
+  "critical": 0,
+  "warnings": 0,
+  "open_findings": [],
+  "rubric": "/home/atomoh/.codex/plugins/cache/oh-my-cloud-skills/aws-content-plugin/3.0.5/agents/content-review-agent.md",
+  "run_id": "tatqa-api-200-20261027",
+  "report_generated_at": "2026-10-27T10:11:40.780612+00:00",
+  "report_sha256": "c667a06faaa4f91d2822d1ef870e846972942875d6d7cadec3becb8aa51705fb",
+  "contract_sha256": "0a202145e2a3b978e783abbfefbd6f11e58330a7ae23c576f6190cc12f2d67a3",
+  "source_hashes": {
+    "tatqa.html": "b7d7317e67e6665a612c5df7134aa7660784fbe40f828c5ac9c22e142c638a28",
+    "tatqa.js": "06fc75ac5a3c76ddd2076390e228fa3b2a67ca623e792e935f58d78c5d7f23e9",
+    "tatqa.css": "790b6a19919ba1e295ad11b4574ddcf901ff93ca2ffed6c65868e51ee2132421",
+    "app.js": "1e4fd6bc8b466a5d8e50e5e53eee62db16910121f1a20d4832f5e23f248228bd",
+    "index.html": "0839d8447e8b3782378ba01695bdbba242870bd02836f810ec85a6114c04221a",
+    "finqa.html": "66b3a40a8db5b81383fb70fdf547e9ed7a4b5e344454b9a9ae35db0b70c16939"
+  },
+  "categories": [
+    {
+      "category": "Layout",
+      "maximum": 8,
+      "score": 8,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "Terminology",
+      "maximum": 8,
+      "score": 8,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "No Hallucination",
+      "maximum": 12,
+      "score": 12,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "Language Consistency",
+      "maximum": 8,
+      "score": 8,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "No Sensitive Data",
+      "maximum": 12,
+      "score": 12,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "Content-Type Quality",
+      "maximum": 2,
+      "score": 2,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "Icon Usage & Appropriateness",
+      "maximum": 5,
+      "score": 5,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "Renders Correctly",
+      "maximum": 5,
+      "score": 5,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "Interactions Work",
+      "maximum": 5,
+      "score": 5,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "Readability",
+      "maximum": 5,
+      "score": 5,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "Accessibility",
+      "maximum": 5,
+      "score": 5,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "Structural Completeness",
+      "maximum": 5,
+      "score": 5,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "Data Accuracy & External References",
+      "maximum": 5,
+      "score": 5,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "Legal Compliance",
+      "maximum": 5,
+      "score": 5,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "Message Clarity",
+      "maximum": 5,
+      "score": 5,
+      "critical": 0,
+      "warnings": 0
+    },
+    {
+      "category": "Duplication/Gaps",
+      "maximum": 5,
+      "score": 5,
+      "critical": 0,
+      "warnings": 0
+    }
+  ],
+  "actual_results": {
+    "models": 35,
+    "includes_gpt_6_1_terra": true,
+    "questions_per_model": 200,
+    "contexts": 200,
+    "latest_response_rows": 7000,
+    "scored": 6811,
+    "invalid": 189,
+    "missing": 0,
+    "request_failures": 0,
+    "truncated": 0,
+    "recorded_attempt_rows": 7001,
+    "historical_failed_attempts": 1,
+    "configured_token_estimate_usd": 14.9194,
+    "published_raw_outputs_matching_latest_records": 7000
+  },
+  "browser": {
+    "engine": "Playwright Chromium via installed Node SDK",
+    "command": "node validation/tatqa-200/content-browser-check.cjs --actual",
+    "assertions": 43,
+    "viewports": [
+      375,
+      768,
+      1280
+    ],
+    "errors": [],
+    "result": "content-browser-actual.json",
+    "screenshots_visually_inspected": [
+      "content-actual-375-hero.png",
+      "content-actual-768-sample.png",
+      "content-actual-1280-protocol.png"
+    ],
+    "computed_core_font_px": 19
+  },
+  "resolved_findings": [
+    {
+      "id": "C1",
+      "resolution": "Scoped text minimum is now 19px; responsive and contrast checks pass."
+    },
+    {
+      "id": "C2",
+      "resolution": "Dataset CC BY 4.0 and evaluator MIT attribution/links are separate."
+    },
+    {
+      "id": "C3",
+      "resolution": "Timing note explains influences without falsely asserting differing concurrency."
+    },
+    {
+      "id": "C4",
+      "resolution": "Latest-record metrics and preserved historical failures/retry cost exclusion are explicit."
+    }
+  ],
+  "limitations": [
+    "Content gate verifies this exact local report and source hashes; it is not a deployment or post-publication check.",
+    "Financial-answer and strict JSON-format compliance are jointly measured; 189 invalid responses score zero.",
+    "Published test subset is not the official full leaderboard; contamination and model/provider setting differences remain disclosed.",
+    "Cost is a frozen configured-rate token estimate; retries, failed calls and infrastructure are excluded."
+  ],
+  "source_omissions": []
+}

@@ -1,0 +1,28 @@
+PASS _selfcheck_diagnostics
+PASS _selfcheck_cache
+PASS _selfcheck_mantle
+[offline] running 1 segments (concurrency=1, max_attempts=4)
+[offline] all 1 segments cached, skipping
+[offline] running 1 segments (concurrency=1, max_attempts=4)
+[offline] running 1 segments (concurrency=1, max_attempts=4)
+[offline] running 1 segments (concurrency=1, max_attempts=1)
+[offline] running 1 segments (concurrency=1, max_attempts=4)
+[offline] client init failed: RuntimeError during model request
+PASS _selfcheck_runner
+PASS _selfcheck_client_attempts
+PASS _selfcheck_manifest
+1 segments selected
+run_id=async-failed models=['offline']
+[offline] client init failed: RuntimeError during model request
+successful=0 failed=1 -> /tmp/tmpaphvr16j/async-failed/translations.jsonl
+1 segments selected
+run_id=cli-failed models=['offline']
+[offline] client init failed: RuntimeError during model request
+successful=0 failed=1 -> /tmp/tmpaphvr16j/cli-failed/translations.jsonl
+1 segments selected
+run_id=cached models=['offline']
+[offline] all 1 segments cached, skipping
+successful=1 failed=0 -> /tmp/tmpaphvr16j/cached/translations.jsonl
+1 segments selected
+PASS _selfcheck_cli
+PASS _selfcheck_kimi

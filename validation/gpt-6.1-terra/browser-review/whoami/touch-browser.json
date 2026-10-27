@@ -1,0 +1,669 @@
+{
+  "task": "whoami",
+  "artwork_sha256": "7108b1874290c93d69b135183826487f7b9b3c71d9637565864eb224e04d5631",
+  "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
+  "sandbox": "allow-scripts",
+  "offline": true,
+  "exact_allowlist": [
+    "https://terra-review.test/models/gpt-6.1-terra/whoami/review.html",
+    "https://terra-review.test/models/gpt-6.1-terra/whoami/artwork.html",
+    "https://terra-review.test/models/gpt-6.1-terra/runtime/three-runtime.js"
+  ],
+  "requests": [
+    {
+      "url": "https://terra-review.test/models/gpt-6.1-terra/whoami/review.html",
+      "method": "GET"
+    },
+    {
+      "url": "https://terra-review.test/models/gpt-6.1-terra/whoami/artwork.html",
+      "method": "GET"
+    },
+    {
+      "url": "https://terra-review.test/models/gpt-6.1-terra/whoami/review.html",
+      "method": "GET"
+    },
+    {
+      "url": "https://terra-review.test/models/gpt-6.1-terra/whoami/artwork.html",
+      "method": "GET"
+    }
+  ],
+  "blockedRequests": [],
+  "errors": [],
+  "warnings": [],
+  "controls": [
+    {
+      "id": "seed",
+      "before": {
+        "draws2d": 18,
+        "glDraws": 0,
+        "scenes": []
+      },
+      "after": {
+        "draws2d": 22,
+        "glDraws": 0,
+        "scenes": []
+      },
+      "label": "생각 놓기",
+      "status": "새로운 생각이 지형에 놓였습니다.",
+      "focused": true
+    },
+    {
+      "id": "reset",
+      "before": {
+        "draws2d": 24,
+        "glDraws": 0,
+        "scenes": []
+      },
+      "after": {
+        "draws2d": 26,
+        "glDraws": 0,
+        "scenes": []
+      },
+      "label": "다시 그리기",
+      "status": "지형을 새로 그렸습니다.",
+      "focused": true
+    },
+    {
+      "id": "motion",
+      "before": {
+        "draws2d": 26,
+        "glDraws": 0,
+        "scenes": []
+      },
+      "after": {
+        "draws2d": 28,
+        "glDraws": 0,
+        "scenes": []
+      },
+      "label": "움직임 재생",
+      "status": "움직임을 일시정지했습니다.",
+      "focused": true
+    }
+  ],
+  "drawings": [],
+  "stages": [],
+  "views": [
+    {
+      "width": 1440,
+      "height": 900,
+      "overflow": false,
+      "scrollHeight": 1117,
+      "fonts": [
+        {
+          "text": "A LANDSCAPE OF POSSIBILITY",
+          "font": "12px",
+          "color": "rgb(201, 238, 140)",
+          "rect": {
+            "x": 20,
+            "y": 105.125,
+            "width": 960,
+            "height": 18.59375,
+            "top": 105.125,
+            "right": 980,
+            "bottom": 123.71875,
+            "left": 20
+          }
+        },
+        {
+          "text": "나는 완성된 지도가 아니라, 질문을 만날 때마다 달라지는 지형입니다. 작은 점 하나가 주변의 선들을 움직이고 새로운 길을 만듭니다.",
+          "font": "15.2px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 1004,
+            "y": 189.796875,
+            "width": 416,
+            "height": 47.125,
+            "top": 189.796875,
+            "right": 1420,
+            "bottom": 236.921875,
+            "left": 1004
+          }
+        },
+        {
+          "text": "화면을 누르거나 ‘생각 놓기’를 선택해 지형에 흔적을 남겨 보세요.",
+          "font": "14.08px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 20,
+            "y": 963.390625,
+            "width": 374.734375,
+            "height": 21.8125,
+            "top": 963.390625,
+            "right": 394.734375,
+            "bottom": 985.203125,
+            "left": 20
+          }
+        },
+        {
+          "text": "생각 놓기",
+          "font": "16px",
+          "color": "rgb(17, 32, 15)",
+          "rect": {
+            "x": 1080.234375,
+            "y": 951.3125,
+            "width": 97.046875,
+            "height": 45.984375,
+            "top": 951.3125,
+            "right": 1177.28125,
+            "bottom": 997.296875,
+            "left": 1080.234375
+          }
+        },
+        {
+          "text": "다시 그리기",
+          "font": "16px",
+          "color": "rgb(236, 240, 223)",
+          "rect": {
+            "x": 1186.875,
+            "y": 951.3125,
+            "width": 111.765625,
+            "height": 45.984375,
+            "top": 951.3125,
+            "right": 1298.640625,
+            "bottom": 997.296875,
+            "left": 1186.875
+          }
+        },
+        {
+          "text": "움직임 재생",
+          "font": "16px",
+          "color": "rgb(236, 240, 223)",
+          "rect": {
+            "x": 1308.234375,
+            "y": 951.3125,
+            "width": 111.765625,
+            "height": 45.984375,
+            "top": 951.3125,
+            "right": 1420,
+            "bottom": 997.296875,
+            "left": 1308.234375
+          }
+        },
+        {
+          "text": "새로운 생각이 지형에 놓였습니다.",
+          "font": "14.08px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 20,
+            "y": 997.296875,
+            "width": 1400,
+            "height": 21.8125,
+            "top": 997.296875,
+            "right": 1420,
+            "bottom": 1019.109375,
+            "left": 20
+          }
+        },
+        {
+          "text": "SELF-PORTRAIT / gpt-6.1-terra\n    질문과 응답 사이의 풍경",
+          "font": "12px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 20,
+            "y": 1059.109375,
+            "width": 1400,
+            "height": 57.96875,
+            "top": 1059.109375,
+            "right": 1420,
+            "bottom": 1117.078125,
+            "left": 20
+          }
+        }
+      ],
+      "canvasRects": [
+        {
+          "x": 21,
+          "y": 261.921875,
+          "width": 1398,
+          "height": 670,
+          "top": 261.921875,
+          "right": 1419,
+          "bottom": 931.921875,
+          "left": 21
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "overflow": false,
+      "scrollHeight": 1024,
+      "fonts": [
+        {
+          "text": "A LANDSCAPE OF POSSIBILITY",
+          "font": "12px",
+          "color": "rgb(201, 238, 140)",
+          "rect": {
+            "x": 20,
+            "y": 191.109375,
+            "width": 288,
+            "height": 18.59375,
+            "top": 191.109375,
+            "right": 308,
+            "bottom": 209.703125,
+            "left": 20
+          }
+        },
+        {
+          "text": "나는 완성된 지도가 아니라, 질문을 만날 때마다 달라지는 지형입니다. 작은 점 하나가 주변의 선들을 움직이고 새로운 길을 만듭니다.",
+          "font": "15.2px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 332,
+            "y": 227.796875,
+            "width": 416,
+            "height": 47.125,
+            "top": 227.796875,
+            "right": 748,
+            "bottom": 274.921875,
+            "left": 332
+          }
+        },
+        {
+          "text": "화면을 누르거나 ‘생각 놓기’를 선택해 지형에 흔적을 남겨 보세요.",
+          "font": "14.08px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 20,
+            "y": 745.640625,
+            "width": 371.328125,
+            "height": 43.625,
+            "top": 745.640625,
+            "right": 391.328125,
+            "bottom": 789.265625,
+            "left": 20
+          }
+        },
+        {
+          "text": "생각 놓기",
+          "font": "16px",
+          "color": "rgb(17, 32, 15)",
+          "rect": {
+            "x": 411.328125,
+            "y": 716.671875,
+            "width": 97.046875,
+            "height": 45.984375,
+            "top": 716.671875,
+            "right": 508.375,
+            "bottom": 762.65625,
+            "left": 411.328125
+          }
+        },
+        {
+          "text": "다시 그리기",
+          "font": "16px",
+          "color": "rgb(236, 240, 223)",
+          "rect": {
+            "x": 517.96875,
+            "y": 716.671875,
+            "width": 111.765625,
+            "height": 45.984375,
+            "top": 716.671875,
+            "right": 629.734375,
+            "bottom": 762.65625,
+            "left": 517.96875
+          }
+        },
+        {
+          "text": "움직임 재생",
+          "font": "16px",
+          "color": "rgb(236, 240, 223)",
+          "rect": {
+            "x": 411.328125,
+            "y": 772.25,
+            "width": 111.765625,
+            "height": 45.984375,
+            "top": 772.25,
+            "right": 523.09375,
+            "bottom": 818.234375,
+            "left": 411.328125
+          }
+        },
+        {
+          "text": "새로운 생각이 지형에 놓였습니다.",
+          "font": "14.08px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 20,
+            "y": 818.234375,
+            "width": 728,
+            "height": 21.8125,
+            "top": 818.234375,
+            "right": 748,
+            "bottom": 840.046875,
+            "left": 20
+          }
+        },
+        {
+          "text": "SELF-PORTRAIT / gpt-6.1-terra\n    질문과 응답 사이의 풍경",
+          "font": "12px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 20,
+            "y": 966.03125,
+            "width": 728,
+            "height": 57.96875,
+            "top": 966.03125,
+            "right": 748,
+            "bottom": 1024,
+            "left": 20
+          }
+        }
+      ],
+      "canvasRects": [
+        {
+          "x": 21,
+          "y": 299.921875,
+          "width": 726,
+          "height": 397.359375,
+          "top": 299.921875,
+          "right": 747,
+          "bottom": 697.28125,
+          "left": 21
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 844,
+      "overflow": false,
+      "scrollHeight": 999,
+      "fonts": [
+        {
+          "text": "A LANDSCAPE OF POSSIBILITY",
+          "font": "12px",
+          "color": "rgb(201, 238, 140)",
+          "rect": {
+            "x": 12,
+            "y": 105.125,
+            "width": 351,
+            "height": 18.59375,
+            "top": 105.125,
+            "right": 363,
+            "bottom": 123.71875,
+            "left": 12
+          }
+        },
+        {
+          "text": "나는 완성된 지도가 아니라, 질문을 만날 때마다 달라지는 지형입니다. 작은 점 하나가 주변의 선들을 움직이고 새로운 길을 만듭니다.",
+          "font": "15.2px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 12,
+            "y": 192.109375,
+            "width": 351,
+            "height": 70.6875,
+            "top": 192.109375,
+            "right": 363,
+            "bottom": 262.796875,
+            "left": 12
+          }
+        },
+        {
+          "text": "화면을 누르거나 ‘생각 놓기’를 선택해 지형에 흔적을 남겨 보세요.",
+          "font": "14.08px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 12,
+            "y": 769.375,
+            "width": 351,
+            "height": 43.625,
+            "top": 769.375,
+            "right": 363,
+            "bottom": 813,
+            "left": 12
+          }
+        },
+        {
+          "text": "생각 놓기",
+          "font": "16px",
+          "color": "rgb(17, 32, 15)",
+          "rect": {
+            "x": 12,
+            "y": 833,
+            "width": 97.046875,
+            "height": 45.984375,
+            "top": 833,
+            "right": 109.046875,
+            "bottom": 878.984375,
+            "left": 12
+          }
+        },
+        {
+          "text": "다시 그리기",
+          "font": "16px",
+          "color": "rgb(236, 240, 223)",
+          "rect": {
+            "x": 118.640625,
+            "y": 833,
+            "width": 111.765625,
+            "height": 45.984375,
+            "top": 833,
+            "right": 230.40625,
+            "bottom": 878.984375,
+            "left": 118.640625
+          }
+        },
+        {
+          "text": "움직임 재생",
+          "font": "16px",
+          "color": "rgb(236, 240, 223)",
+          "rect": {
+            "x": 240,
+            "y": 833,
+            "width": 111.765625,
+            "height": 45.984375,
+            "top": 833,
+            "right": 351.765625,
+            "bottom": 878.984375,
+            "left": 240
+          }
+        },
+        {
+          "text": "새로운 생각이 지형에 놓였습니다.",
+          "font": "14.08px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 12,
+            "y": 878.984375,
+            "width": 351,
+            "height": 21.8125,
+            "top": 878.984375,
+            "right": 363,
+            "bottom": 900.796875,
+            "left": 12
+          }
+        },
+        {
+          "text": "SELF-PORTRAIT / gpt-6.1-terra\n    질문과 응답 사이의 풍경",
+          "font": "12px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 12,
+            "y": 940.796875,
+            "width": 351,
+            "height": 57.96875,
+            "top": 940.796875,
+            "right": 363,
+            "bottom": 998.765625,
+            "left": 12
+          }
+        }
+      ],
+      "canvasRects": [
+        {
+          "x": 13,
+          "y": 287.796875,
+          "width": 349,
+          "height": 462.1875,
+          "top": 287.796875,
+          "right": 362,
+          "bottom": 749.984375,
+          "left": 13
+        }
+      ]
+    },
+    {
+      "width": 720,
+      "height": 900,
+      "overflow": false,
+      "scrollHeight": 900,
+      "fonts": [
+        {
+          "text": "A LANDSCAPE OF POSSIBILITY",
+          "font": "12px",
+          "color": "rgb(201, 238, 140)",
+          "rect": {
+            "x": 20,
+            "y": 143.3125,
+            "width": 240,
+            "height": 18.59375,
+            "top": 143.3125,
+            "right": 260,
+            "bottom": 161.90625,
+            "left": 20
+          }
+        },
+        {
+          "text": "나는 완성된 지도가 아니라, 질문을 만날 때마다 달라지는 지형입니다. 작은 점 하나가 주변의 선들을 움직이고 새로운 길을 만듭니다.",
+          "font": "15.2px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 284,
+            "y": 176.5625,
+            "width": 416,
+            "height": 47.125,
+            "top": 176.5625,
+            "right": 700,
+            "bottom": 223.6875,
+            "left": 284
+          }
+        },
+        {
+          "text": "화면을 누르거나 ‘생각 놓기’를 선택해 지형에 흔적을 남겨 보세요.",
+          "font": "14.08px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 20,
+            "y": 669.4375,
+            "width": 346.15625,
+            "height": 43.625,
+            "top": 669.4375,
+            "right": 366.15625,
+            "bottom": 713.0625,
+            "left": 20
+          }
+        },
+        {
+          "text": "생각 놓기",
+          "font": "16px",
+          "color": "rgb(17, 32, 15)",
+          "rect": {
+            "x": 386.15625,
+            "y": 640.46875,
+            "width": 97.046875,
+            "height": 45.984375,
+            "top": 640.46875,
+            "right": 483.203125,
+            "bottom": 686.453125,
+            "left": 386.15625
+          }
+        },
+        {
+          "text": "다시 그리기",
+          "font": "16px",
+          "color": "rgb(236, 240, 223)",
+          "rect": {
+            "x": 492.796875,
+            "y": 640.46875,
+            "width": 111.765625,
+            "height": 45.984375,
+            "top": 640.46875,
+            "right": 604.5625,
+            "bottom": 686.453125,
+            "left": 492.796875
+          }
+        },
+        {
+          "text": "움직임 재생",
+          "font": "16px",
+          "color": "rgb(236, 240, 223)",
+          "rect": {
+            "x": 386.15625,
+            "y": 696.046875,
+            "width": 111.765625,
+            "height": 45.984375,
+            "top": 696.046875,
+            "right": 497.921875,
+            "bottom": 742.03125,
+            "left": 386.15625
+          }
+        },
+        {
+          "text": "새로운 생각이 지형에 놓였습니다.",
+          "font": "14.08px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 20,
+            "y": 742.03125,
+            "width": 680,
+            "height": 21.8125,
+            "top": 742.03125,
+            "right": 700,
+            "bottom": 763.84375,
+            "left": 20
+          }
+        },
+        {
+          "text": "SELF-PORTRAIT / gpt-6.1-terra\n    질문과 응답 사이의 풍경",
+          "font": "12px",
+          "color": "rgb(183, 197, 181)",
+          "rect": {
+            "x": 20,
+            "y": 842.03125,
+            "width": 680,
+            "height": 57.96875,
+            "top": 842.03125,
+            "right": 700,
+            "bottom": 900,
+            "left": 20
+          }
+        }
+      ],
+      "canvasRects": [
+        {
+          "x": 21,
+          "y": 248.6875,
+          "width": 678,
+          "height": 372.390625,
+          "top": 248.6875,
+          "right": 699,
+          "bottom": 621.078125,
+          "left": 21
+        }
+      ]
+    }
+  ],
+  "initial": {
+    "state": {
+      "draws2d": 12,
+      "glDraws": 0,
+      "scenes": []
+    },
+    "text": "TERRA / 지형 실험실\nMEDIA ART  ·  01\n\nA LANDSCAPE OF POSSIBILITY\n\n생각의 지형\n\n나는 완성된 지도가 아니라, 질문을 만날 때마다 달라지는 지형입니다. 작은 점 하나가 주변의 선들을 움직이고 새로운 길을 만듭니다.\n\n관계의 등고선 / RELATIONAL TOPOGRAPHY\n●  HERE, A THOUGHT\n\n화면을 누르거나 ‘생각 놓기’를 선택해 지형에 흔적을 남겨 보세요.\n\n생각 놓기\n다시 그리기\n움직임 일시정지\n\nSELF-PORTRAIT / gpt-6.1-terra\n질문과 응답 사이의 풍경"
+  },
+  "pointerStatus": "새로운 생각이 지형에 놓였습니다.",
+  "reduced": {
+    "before": {
+      "draws2d": 4,
+      "glDraws": 0,
+      "scenes": []
+    },
+    "motionLabel": "움직임 재생",
+    "after": {
+      "draws2d": 4,
+      "glDraws": 0,
+      "scenes": []
+    }
+  }
+}

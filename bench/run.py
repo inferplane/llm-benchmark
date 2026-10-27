@@ -42,7 +42,7 @@ TRANSIENT_HTTP_STATUSES = {408, 429, 500, 502, 503, 504}
 # decoding parity (see call_bedrock/call_openai) cannot be perfectly uniform
 # across every model — it's an intrinsic limitation of these specific model
 # IDs, not a config knob, hence hardcoded here rather than in config.toml.
-MANTLE_NO_TEMPERATURE = {"openai.gpt-5.6-sol", "openai.gpt-5.6-terra", "openai.gpt-5.6-luna", "openai.gpt-5.5", "google.gemma-4-31b", "openai.gpt-6-luna", "openai.gpt-6-astra", "openai.gpt-6.1-sol"}
+MANTLE_NO_TEMPERATURE = {"openai.gpt-5.6-sol", "openai.gpt-5.6-terra", "openai.gpt-5.6-luna", "openai.gpt-5.5", "google.gemma-4-31b", "openai.gpt-6-luna", "openai.gpt-6-astra", "openai.gpt-6.1-sol", "openai.gpt-6.1-terra"}
 
 # Same exception, plain Bedrock Converse API this time: claude-sonnet-5 400s
 # with "`temperature` is deprecated for this model" (verified live via a
@@ -440,7 +440,7 @@ def luna_usage(usage: dict) -> dict:
     """OpenAI 6 Responses: inclusive input -> disjoint billing counters.
 
     Luna was checked with a live write/read pair on 2026-09-25. The new
-    Astra/Sol entries use the same documented Responses cache-counter
+    Astra/Sol/Terra entries use the same documented Responses cache-counter
     contract (OpenAI prompt-caching guide, checked 2026-10-11). Keep older
     Mantle/judge accounting unchanged until separately audited.
     """
@@ -574,7 +574,7 @@ async def call_mantle(
             "reported_reasoning": data.get("reasoning"),
             "reasoning_tokens": (usage.get("output_tokens_details") or {}).get("reasoning_tokens"),
         }
-        if model_id in {"openai.gpt-6-luna", "openai.gpt-6-astra", "openai.gpt-6.1-sol"}:
+        if model_id in {"openai.gpt-6-luna", "openai.gpt-6-astra", "openai.gpt-6.1-sol", "openai.gpt-6.1-terra"}:
             result.update(luna_usage(usage))
         if "request_id" in context:
             result["request_id"] = context["request_id"]
@@ -1026,7 +1026,7 @@ def _selfcheck_mantle():
         with patch("httpx.AsyncClient", side_effect=lambda **kwargs: client_class(transport=transport, **kwargs)):
             streamed = await call_mantle(session, "us-west-2", "xai.grok-4.6", "offline", stream_response=True)
         assert streamed["text"] == "translated" and streamed["tokens_out"] == 3
-        for model_id in ("openai.gpt-6-astra", "openai.gpt-6.1-sol"):
+        for model_id in ("openai.gpt-6-astra", "openai.gpt-6.1-sol", "openai.gpt-6.1-terra"):
             cached = {**completed, "model": model_id, "usage": {
                 "input_tokens": 1_000_000, "output_tokens": 100_000,
                 "input_tokens_details": {"cached_tokens": 200_000, "cache_write_tokens": 400_000},

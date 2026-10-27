@@ -1,0 +1,128 @@
+{
+  "run_id": "bedrock-gpt-6.1-terra-20261027",
+  "git_commit": "296fd4df008244222b3c44f709fb45b30f904cee",
+  "prompt_sha256": "002886c783e9",
+  "rubric_sha256": "d06c98b162ad",
+  "dataset_segments": 3300,
+  "dataset_sha256": "9f1b6a8db80dab47be8d180007e13cbafec3dbeaf2137baadd0c6560e3fda8c9",
+  "aws_region": "us-west-2",
+  "judge_models": [
+    "openai.gpt-5.6-sol",
+    "us.anthropic.claude-fable-5"
+  ],
+  "generation_parameters": {
+    "temperature": 0,
+    "max_tokens": 4096
+  },
+  "models": [
+    {
+      "name": "gpt-6.1-terra",
+      "api": "bedrock_mantle",
+      "model_id": "openai.gpt-6.1-terra",
+      "concurrency": 8,
+      "gpu_hourly_usd": null,
+      "gpu_instance_type": null,
+      "tensor_parallel_size": null,
+      "extra_vllm_args": null,
+      "mantle_region": "us-east-1",
+      "mantle_reasoning_effort": "low",
+      "request_timeout_s": 600,
+      "mantle_background": false,
+      "request_max_attempts": 1,
+      "bedrock_reasoning_effort": null,
+      "translate_region": null,
+      "price_per_char": null,
+      "price_in": 1.1,
+      "price_out": 5.5,
+      "price_cache_read": 0.055,
+      "price_cache_write": 1.375,
+      "temperature_omitted": true,
+      "thinking_disabled": false,
+      "warmup_excluded": false
+    }
+  ],
+  "started_at": "2026-10-27T04:04:08.411652+00:00",
+  "finished_at": "2026-10-27T04:15:25.783711+00:00",
+  "completion_summary": {
+    "requested": 3300,
+    "successful": 3300,
+    "failed": 0,
+    "cached": 0,
+    "request_attempts": 3300,
+    "models": [
+      {
+        "model": "gpt-6.1-terra",
+        "requested": 3300,
+        "cached": 0,
+        "successful": 3300,
+        "failed": 0,
+        "request_attempts": 3300
+      }
+    ]
+  },
+  "executions": [
+    {
+      "run_id": "bedrock-gpt-6.1-terra-20261027",
+      "git_commit": "296fd4df008244222b3c44f709fb45b30f904cee",
+      "prompt_sha256": "002886c783e9",
+      "rubric_sha256": "d06c98b162ad",
+      "dataset_segments": 3300,
+      "dataset_sha256": "9f1b6a8db80dab47be8d180007e13cbafec3dbeaf2137baadd0c6560e3fda8c9",
+      "aws_region": "us-west-2",
+      "judge_models": [
+        "openai.gpt-5.6-sol",
+        "us.anthropic.claude-fable-5"
+      ],
+      "generation_parameters": {
+        "temperature": 0,
+        "max_tokens": 4096
+      },
+      "models": [
+        {
+          "name": "gpt-6.1-terra",
+          "api": "bedrock_mantle",
+          "model_id": "openai.gpt-6.1-terra",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": "us-east-1",
+          "mantle_reasoning_effort": "low",
+          "request_timeout_s": 600,
+          "mantle_background": false,
+          "request_max_attempts": 1,
+          "bedrock_reasoning_effort": null,
+          "translate_region": null,
+          "price_per_char": null,
+          "price_in": 1.1,
+          "price_out": 5.5,
+          "price_cache_read": 0.055,
+          "price_cache_write": 1.375,
+          "temperature_omitted": true,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        }
+      ],
+      "started_at": "2026-10-27T04:04:08.411652+00:00",
+      "finished_at": "2026-10-27T04:15:25.783711+00:00",
+      "completion_summary": {
+        "requested": 3300,
+        "successful": 3300,
+        "failed": 0,
+        "cached": 0,
+        "request_attempts": 3300,
+        "models": [
+          {
+            "model": "gpt-6.1-terra",
+            "requested": 3300,
+            "cached": 0,
+            "successful": 3300,
+            "failed": 0,
+            "request_attempts": 3300
+          }
+        ]
+      }
+    }
+  ]
+}

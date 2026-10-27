@@ -294,20 +294,36 @@ def model_alias(model, target):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--lotte-review")
+    parser.add_argument("--models", help="refresh only these model/task pages, retaining all other published records")
     args = parser.parse_args(argv)
     cfg = run.load_config()
     whoami = {row["model"]: row for row in read(ROOT / "validation/self-portraits/free-expression-review.json")["artifacts"]}
     lotte = {row["model"]: row for row in read(Path(args.lotte_review))["artifacts"]} if args.lotte_review else None
     entries, cards, aliases = [], [], []
     configured = {model["name"]: model for model in cfg["models"]}
+    selected = {name.strip() for name in args.models.split(",")} if args.models is not None else None
+    if selected is not None and ("" in selected or not selected <= configured.keys()):
+        parser.error("--models requires nonempty configured model names")
+    retained = {entry["model"]: entry for entry in read(MODELS / "catalog.json")} if selected is not None else {}
+    retained_aliases = {entry["alias"]: entry for entry in read(MODELS / "aliases.json")} if selected is not None else {}
+    if selected is not None:
+        missing = [model["name"] for model in cfg["models"] if model["name"] not in selected
+                   and model["name"] not in (retained_aliases if model.get("page_alias") else retained)]
+        if missing:
+            parser.error("Missing retained records for unselected models: " + ", ".join(missing))
     for model in cfg["models"]:
         if model.get("page_alias"):
-            aliases.append(model_alias(model, configured[model["page_alias"]]))
+            aliases.append(retained_aliases[model["name"]] if selected is not None and model["name"] not in selected
+                           else model_alias(model, configured[model["page_alias"]]))
             continue
-        tasks = {task: task_page(model, task, whoami if task == "whoami" else lotte) for task in TASKS}
-        model_home(model, tasks)
-        entry = {"model": model["name"], "requested_model_id": model["model_id"], "family": ui.family(model), "tasks": tasks}
-        ui.write_json(MODELS / model["name"] / "model.json", entry)
+        if selected is not None and model["name"] not in selected:
+            entry = retained[model["name"]]
+            tasks = entry["tasks"]
+        else:
+            tasks = {task: task_page(model, task, whoami if task == "whoami" else lotte) for task in TASKS}
+            model_home(model, tasks)
+            entry = {"model": model["name"], "requested_model_id": model["model_id"], "family": ui.family(model), "tasks": tasks}
+            ui.write_json(MODELS / model["name"] / "model.json", entry)
         entries.append(entry)
         esc = ui.escape
         preview_file = MODELS / model["name"] / "whoami/preview.jpg"

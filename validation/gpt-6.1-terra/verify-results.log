@@ -1,0 +1,48 @@
+{
+  "qa": {
+    "questions": 20,
+    "independent_correct": 19,
+    "exact_cost_usd": "0.054719500",
+    "previous_models_and_evaluations_preserved": true
+  },
+  "korean_translation": {
+    "segments": 3300,
+    "pairs": 30,
+    "successful": 3300,
+    "judged": 3300,
+    "exact_cost_usd": "2.83587535",
+    "previous_models_and_samples_preserved": true
+  },
+  "english_translation": {
+    "segments": 3080,
+    "pairs": 28,
+    "successful": 3080,
+    "judged": 3080,
+    "exact_cost_usd": "2.31869605",
+    "previous_models_and_samples_preserved": true
+  },
+  "english_translation_judge2": {
+    "segments": 3080,
+    "pairs": 28,
+    "successful": 3080,
+    "judged": 3080,
+    "exact_cost_usd": "2.31869605",
+    "previous_models_and_samples_preserved": true
+  },
+  "scheduling": {
+    "overlap_seconds": 283.236593,
+    "source_report_sha256_valid": true
+  },
+  "artwork": [
+    {
+      "task": "whoami",
+      "artwork_sha256": "7108b1874290c93d69b135183826487f7b9b3c71d9637565864eb224e04d5631",
+      "review_score": 98.5
+    },
+    {
+      "task": "lotte-tower",
+      "artwork_sha256": "fa3e0810db87b9f0c0f916e4f747d80cb65aad97b1bd4a73c31d964bd0e350ac",
+      "review_score": 97.5
+    }
+  ]
+}

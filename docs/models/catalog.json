@@ -5404,6 +5404,472 @@
     }
   },
   {
+    "model": "gpt-6.1-terra",
+    "requested_model_id": "openai.gpt-6.1-terra",
+    "family": "OpenAI",
+    "tasks": {
+      "whoami": {
+        "model": "gpt-6.1-terra",
+        "task": "whoami",
+        "requested_model_id": "openai.gpt-6.1-terra",
+        "provider": "bedrock_mantle",
+        "family": "OpenAI",
+        "generation": "free-expression-20261012",
+        "source_records": "results/model-self-portraits/generations/free-expression-20261012/gpt-6.1-terra",
+        "status": "generated",
+        "generation_status": "generated",
+        "artwork_sha256": "7108b1874290c93d69b135183826487f7b9b3c71d9637565864eb224e04d5631",
+        "content_review": {
+          "model": "gpt-6.1-terra",
+          "task": "whoami",
+          "artwork_sha256": "7108b1874290c93d69b135183826487f7b9b3c71d9637565864eb224e04d5631",
+          "score": 98.5,
+          "scale": 100,
+          "critical": 0,
+          "warnings": 1,
+          "verdict": "PASS",
+          "category_scores": {
+            "Layout": 8,
+            "Terminology": 8,
+            "No Hallucination": 12,
+            "Language Consistency": 8,
+            "No Sensitive Data": 12,
+            "Content-Type Quality": 2,
+            "Icon Usage": 5,
+            "Renders": 5,
+            "Interactions": 5,
+            "Readability": 5,
+            "Accessibility": 3.5,
+            "Structural Completeness": 5,
+            "Data Accuracy and References": 5,
+            "Legal Compliance": 5,
+            "Message Clarity": 5,
+            "Duplication and Gaps": 5
+          },
+          "findings": [
+            {
+              "severity": "Warning",
+              "category": "Accessibility",
+              "file": "docs/models/gpt-6.1-terra/whoami/artwork.html",
+              "line": 106,
+              "quote": ".hint { margin: 0; color: var(--muted); font-size: .88rem; }",
+              "problem": "The interaction hint and live status use 14.08px text; the description uses 15.2px and footer/model name uses 12px. These informative strings are below the review rubric’s 14pt (18.67px) target. They remain readable with browser enlargement and have strong contrast.",
+              "action": "On an authorized model-authored revision, raise informative text and controls to at least 19px while retaining the current responsive reflow.",
+              "evidence": "browser-review/whoami/touch-mobile-footer.png"
+            }
+          ],
+          "source_status": "generated",
+          "review_iteration": 1,
+          "prompt_sha256": "954fbfcaece05e75a377d78303be142d3b836752be513a54af7c3f818e0cf236",
+          "prompt_path": "results/model-self-portraits/generations/free-expression-20261012/gpt-6.1-terra/prompt.txt",
+          "source_record_path": "results/model-self-portraits/generations/free-expression-20261012/gpt-6.1-terra/record.json",
+          "browser_evidence": "validation/gpt-6.1-terra/browser-review/whoami/browser.json",
+          "touch_evidence": "validation/gpt-6.1-terra/browser-review/whoami/touch-browser.json",
+          "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
+          "review_scope": "Exact original artwork in a temporary sandbox allow-scripts iframe; unpublished production wrappers excluded.",
+          "browser_summary": {
+            "js_errors": 0,
+            "console_warnings": 0,
+            "external_requests": 0,
+            "horizontal_overflow": false,
+            "tested_widths": [
+              1440,
+              768,
+              375,
+              720
+            ],
+            "720_width_note": "Reflow proxy for a 1440px desktop at 200% browser zoom; not an assertion of an OS accessibility audit.",
+            "keyboard_controls": "pass",
+            "touch_controls": "pass",
+            "reduced_motion": "pass"
+          },
+          "source_omissions": [
+            {
+              "source_section": "Original self-expression using a chosen visual language and interaction",
+              "status": "INCLUDED",
+              "evidence": "Terrain/contour metaphor, pointer placement, seed/reset/pause controls."
+            },
+            {
+              "source_section": "Actual model name",
+              "status": "INCLUDED",
+              "evidence": "Footer displays gpt-6.1-terra; touch-mobile-footer.png."
+            },
+            {
+              "source_section": "Single offline HTML, phone/desktop and accessibility consideration",
+              "status": "INCLUDED",
+              "evidence": "Embedded CSS/JS, no external requests, responsive layout, keyboard buttons/live status, reduced-motion handler. Size warning remains."
+            }
+          ],
+          "reduced_motion_evidence": {
+            "before_draws": 4,
+            "after_draws": 4,
+            "button": "움직임 재생"
+          }
+        },
+        "prompt_sha256": "954fbfcaece05e75a377d78303be142d3b836752be513a54af7c3f818e0cf236",
+        "initial_prompt_sha256": "954fbfcaece05e75a377d78303be142d3b836752be513a54af7c3f818e0cf236",
+        "implementation_cost": {
+          "kind": "api_tokens",
+          "generation": "free-expression-20261012",
+          "currency": "USD",
+          "price_source": "config.toml",
+          "price_snapshot": {
+            "price_in": 1.1,
+            "price_out": 5.5,
+            "price_cache_read": 0.055,
+            "price_cache_write": 1.375
+          },
+          "estimated_total_usd": 0.0178893,
+          "estimated_final_response_usd": 0.0178893,
+          "recorded_attempts": 1,
+          "successful_code_responses": 1,
+          "additional_attempts": 0,
+          "known_cost_attempts": 1,
+          "unknown_usage_attempts": 0,
+          "missing_duration_attempts": 0,
+          "total_request_seconds": null,
+          "tokens": {
+            "tokens_in": 213,
+            "tokens_out": 3210,
+            "cache_read_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "complete_request_estimate": true,
+          "excludes": [
+            "reviewer_and_coordinator_calls",
+            "historical_generations",
+            "taxes_and_discounts",
+            "requests_without_returned_usage"
+          ],
+          "attempts": [
+            {
+              "requested_at": "2026-10-27T04:05:55.246856+00:00",
+              "status": "generated",
+              "request_id": "req_6mwq6l5esfxri3lnkjtzkljhulnenihw4shbic4id3we2buwj22a",
+              "usage_available": true,
+              "estimated_cost_usd": 0.0178893,
+              "request_seconds": null,
+              "record_sha256": "2dd7ec22eec03212beff4af0b1eb0eb18692f10604665ff2798ec4a0f6510fee",
+              "response_sha256": "1f46f5abb018525ef74d219789cc94e03f82a33a162f5e2cf5629e01366c8488"
+            }
+          ]
+        },
+        "request_id": "req_6mwq6l5esfxri3lnkjtzkljhulnenihw4shbic4id3we2buwj22a",
+        "response_id": "resp_pbn4vmov3crv4tjce3andcbeojob47p22qxisrehpgq3yzhzpvyq",
+        "requested_at": "2026-10-27T04:05:55.246856+00:00",
+        "generated_at": "2026-10-27T04:06:10.423676+00:00",
+        "reported_model": "openai.gpt-6.1-terra",
+        "tokens_in": 213,
+        "tokens_out": 3210,
+        "max_output_tokens": 16384,
+        "temperature": null,
+        "temperature_sent": false,
+        "bedrock_reasoning_effort": null,
+        "reported_reasoning": {
+          "summary": null,
+          "effort": "low",
+          "context": "all_turns"
+        }
+      },
+      "lotte-tower": {
+        "model": "gpt-6.1-terra",
+        "task": "lotte-tower",
+        "requested_model_id": "openai.gpt-6.1-terra",
+        "provider": "bedrock_mantle",
+        "family": "OpenAI",
+        "generation": "lotte-tower-models-20261013",
+        "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-6.1-terra",
+        "status": "generated",
+        "generation_status": "generated",
+        "artwork_sha256": "fa3e0810db87b9f0c0f916e4f747d80cb65aad97b1bd4a73c31d964bd0e350ac",
+        "content_review": {
+          "model": "gpt-6.1-terra",
+          "task": "lotte-tower",
+          "artwork_sha256": "fa3e0810db87b9f0c0f916e4f747d80cb65aad97b1bd4a73c31d964bd0e350ac",
+          "score": 97.5,
+          "scale": 100,
+          "critical": 0,
+          "warnings": 2,
+          "verdict": "PASS",
+          "category_scores": {
+            "Layout": 8,
+            "Terminology": 8,
+            "No Hallucination": 12,
+            "Language Consistency": 8,
+            "No Sensitive Data": 12,
+            "Content-Type Quality": 2,
+            "Icon Usage": 5,
+            "Renders": 5,
+            "Interactions": 5,
+            "Readability": 5,
+            "Accessibility": 2.5,
+            "Structural Completeness": 5,
+            "Data Accuracy and References": 5,
+            "Legal Compliance": 5,
+            "Message Clarity": 5,
+            "Duplication and Gaps": 5
+          },
+          "findings": [
+            {
+              "severity": "Warning",
+              "category": "Accessibility",
+              "file": "docs/models/gpt-6.1-terra/lotte-tower/artwork.html",
+              "line": 80,
+              "quote": "font-size=\"10\"",
+              "problem": "SVG drawing labels are 10 SVG units and render at 5.6167 CSS pixels on the 375px phone viewport (337px-wide SVG / 600-unit viewBox). Essential disclosures, control instructions and source notes elsewhere also use 11–12px text. Tiny drawing labels make dimensions and conceptual notes hard to read without magnification.",
+              "action": "On an authorized model-authored revision, use responsive drawing label sizing or a keyboard/touch-accessible drawing zoom; make informative surrounding text at least 19px and diagram labels at least 12px at the displayed scale.",
+              "evidence": "browser-review/lotte-tower/drawing-mobile-375.png",
+              "measurement": {
+                "rect": {
+                  "x": 19,
+                  "y": -334.40625,
+                  "width": 337,
+                  "height": 298,
+                  "top": -334.40625,
+                  "right": 356,
+                  "bottom": -36.40625,
+                  "left": 19
+                },
+                "viewBox": 600,
+                "labels": [
+                  {
+                    "text": "TOWER",
+                    "font": 10,
+                    "renderedPx": 5.616666666666666
+                  },
+                  {
+                    "text": "추정 대지 / 주변 맥락은 도식",
+                    "font": 10,
+                    "renderedPx": 5.616666666666666
+                  },
+                  {
+                    "text": "N",
+                    "font": 10,
+                    "renderedPx": 5.616666666666666
+                  }
+                ]
+              }
+            },
+            {
+              "severity": "Warning",
+              "category": "Accessibility",
+              "file": "docs/models/gpt-6.1-terra/lotte-tower/artwork.html",
+              "line": 80,
+              "quote": "fill=\"#66817b\"",
+              "problem": "The common SVG label color #66817b on #f8faf7 has 4.009:1 contrast, below 4.5:1 for small normal text. The unselected stage number color #79918a on #f8faf8 is 3.214:1; muted #647478 on paper #f4f2eb is 4.348:1.",
+              "action": "On an authorized model-authored revision, darken these informative text colors to reach at least 4.5:1 against their actual backgrounds.",
+              "evidence": "browser-review/lotte-tower/drawing-section.png",
+              "contrast_ratios": {
+                "#66817b on #f8faf7": 4.008882020640514,
+                "#79918a on #f8faf8": 3.2135684671731553,
+                "#647478 on #f4f2eb": 4.3484302549092275
+              }
+            }
+          ],
+          "source_status": "generated",
+          "review_iteration": 1,
+          "prompt_sha256": "c7705c0008883a139b66cad1b35d01e2676dde5bfd4bfaaba3a0059af6ad9f0f",
+          "prompt_path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-6.1-terra/prompt.txt",
+          "source_record_path": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-6.1-terra/record.json",
+          "browser_evidence": "validation/gpt-6.1-terra/browser-review/lotte-tower/browser.json",
+          "touch_evidence": "validation/gpt-6.1-terra/browser-review/lotte-tower/touch-browser.json",
+          "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
+          "review_scope": "Exact original artwork in a temporary sandbox allow-scripts iframe; unpublished production wrappers excluded.",
+          "browser_summary": {
+            "js_errors": 0,
+            "console_warnings": 0,
+            "external_requests": 0,
+            "horizontal_overflow": false,
+            "tested_widths": [
+              1440,
+              768,
+              375,
+              720
+            ],
+            "720_width_note": "Reflow proxy for a 1440px desktop at 200% browser zoom; not an assertion of an OS accessibility audit.",
+            "keyboard_controls": "pass",
+            "touch_controls": "pass",
+            "reduced_motion": "pass"
+          },
+          "source_omissions": [
+            {
+              "source_section": "555m, 123 above-ground floors, taper, KPF Korean pottery inspiration",
+              "status": "INCLUDED",
+              "evidence": "Lines 39, 72–74; dimensions/height and phase descriptions."
+            },
+            {
+              "source_section": "Conceptual reconstruction disclaimer and inferred dimensions/members",
+              "status": "INCLUDED",
+              "evidence": "Lines 43, 54, 62, 84, 88, 99–100 explicitly qualify site, plans, core, facade and invented history."
+            },
+            {
+              "source_section": "KPF and LERA attribution",
+              "status": "INCLUDED",
+              "evidence": "Line 62 contains the exact supplied URLs and credits original/structural designers. URLs are text links, never fetched."
+            },
+            {
+              "source_section": "Site, typical floor plan, elevation and section, unit/basis",
+              "status": "INCLUDED",
+              "evidence": "Four working tabs; no-scale/metres note; changing description and basis text. Phone legibility warning remains."
+            },
+            {
+              "source_section": "Design process and 3D form of every phase",
+              "status": "INCLUDED",
+              "evidence": "Four stage buttons select distinct indexed 3D surface geometries."
+            },
+            {
+              "source_section": "Finished building as an actual 3D model with rotate/zoom/reset",
+              "status": "INCLUDED",
+              "evidence": "Stage 04 is a real Three.js mesh with tapered body, facade lines and crown. Pointer, keyboard and touch gestures update camera; reset restores it. It is correctly described as an approximate conceptual reconstruction, not a surveyed replica."
+            },
+            {
+              "source_section": "Correspondence between drawings, selected phase and finished model",
+              "status": "INCLUDED",
+              "evidence": "Shared stage radius drives 3D body, floor-plan size, elevation and section outlines; selected stage labels and drawings update together. Site base is unchanged because the base radius is unchanged."
+            },
+            {
+              "source_section": "Single HTML/local allowed runtime/offline sandbox/mobile/name/accessibility",
+              "status": "INCLUDED",
+              "evidence": "Embedded CSS/JS, only pinned local runtime request, no parent access/dialog/API, mobile/keyboard/reduced-motion support, visible footer model name."
+            }
+          ],
+          "task_requirements_complete": true,
+          "three_d_evidence": {
+            "runtime_revision": "186",
+            "initial_gl_draw_calls": 12,
+            "surface_vertices": 6565,
+            "surface_indices": 38400,
+            "stage_geometry_hashes": [
+              "b17881a07a4d8370c319c7e6144294918f99d3454638eecaa05e355c4968a650",
+              "698d7cb51518755fcd989c6ae1be9a86965ad08c9fd59f5387c458b4f085705d",
+              "e48a2cce7c1e61dae7b44a769204900efa167948646527f61744095a99074bed",
+              "27d0b530ac72e28f94e23580bd4662590bf349d2b3a7d3ac1b37bd2d5ba5151b"
+            ],
+            "keyboard_camera_before": [
+              10.999999999999998,
+              8,
+              12.999999999999998
+            ],
+            "keyboard_camera_after": [
+              11.229438320233632,
+              7.550000000000001,
+              10.430710187329934
+            ],
+            "drag_camera": [
+              -3.876554848858224,
+              12.384732266898153,
+              12.54337893270121
+            ],
+            "wheel_camera": [
+              -3.4275404264332456,
+              11.355629601577462,
+              11.090501760491629
+            ],
+            "reset_camera": [
+              10.999999999999998,
+              8,
+              12.999999999999998
+            ],
+            "touch_drag_camera": [
+              -1.2516432071073833,
+              12.615450943578265,
+              15.019718485288598
+            ],
+            "touch_pinch_camera": [
+              -0.6739617269039754,
+              8.408319738849837,
+              8.087540722847704
+            ],
+            "touch_reset_camera": [
+              10.999999999999998,
+              8,
+              12.999999999999998
+            ]
+          },
+          "reduced_motion_evidence": {
+            "before_gl_draws": 12,
+            "after_gl_draws": 12
+          }
+        },
+        "prompt_sha256": "c7705c0008883a139b66cad1b35d01e2676dde5bfd4bfaaba3a0059af6ad9f0f",
+        "initial_prompt_sha256": "c7705c0008883a139b66cad1b35d01e2676dde5bfd4bfaaba3a0059af6ad9f0f",
+        "implementation_cost": {
+          "kind": "api_tokens",
+          "generation": "lotte-tower-models-20261013",
+          "currency": "USD",
+          "price_source": "config.toml",
+          "price_snapshot": {
+            "price_in": 1.1,
+            "price_out": 5.5,
+            "price_cache_read": 0.055,
+            "price_cache_write": 1.375
+          },
+          "estimated_total_usd": 0.0405064,
+          "estimated_final_response_usd": 0.0405064,
+          "recorded_attempts": 1,
+          "successful_code_responses": 1,
+          "additional_attempts": 0,
+          "known_cost_attempts": 1,
+          "unknown_usage_attempts": 0,
+          "missing_duration_attempts": 0,
+          "total_request_seconds": null,
+          "tokens": {
+            "tokens_in": 659,
+            "tokens_out": 7233,
+            "cache_read_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "complete_request_estimate": true,
+          "excludes": [
+            "reviewer_and_coordinator_calls",
+            "historical_generations",
+            "taxes_and_discounts",
+            "requests_without_returned_usage"
+          ],
+          "attempts": [
+            {
+              "requested_at": "2026-10-27T04:04:22.748799+00:00",
+              "status": "generated",
+              "request_id": "req_d7u2qajckbthd3my3oimrccbtcg4iad65vd5xdgphyozwthhiiza",
+              "usage_available": true,
+              "estimated_cost_usd": 0.0405064,
+              "request_seconds": null,
+              "record_sha256": "af8088feb1e1b3a9f82f496123fbd8363502dec3ec303b6da36ee74fb84be0fb",
+              "response_sha256": "c29413036f0713c1ba9330a9f1a15ff3b9e4bf5bb3fb1034ea387ab6d9def638"
+            }
+          ]
+        },
+        "request_id": "req_d7u2qajckbthd3my3oimrccbtcg4iad65vd5xdgphyozwthhiiza",
+        "response_id": "resp_gf7idwqbvlarkmpjndukkjflr52mb2zgfytldsixn6a5xbj57bfq",
+        "requested_at": "2026-10-27T04:04:22.748799+00:00",
+        "generated_at": "2026-10-27T04:05:02.821859+00:00",
+        "reported_model": "openai.gpt-6.1-terra",
+        "tokens_in": 659,
+        "tokens_out": 7233,
+        "max_output_tokens": 16384,
+        "temperature": null,
+        "temperature_sent": false,
+        "bedrock_reasoning_effort": null,
+        "reported_reasoning": {
+          "summary": null,
+          "effort": "low",
+          "context": "all_turns"
+        },
+        "request_conditions": {
+          "initial_prompt_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+          "initial_max_output_tokens": 16384,
+          "latest_max_output_tokens": 16384,
+          "initial_temperature": null,
+          "latest_temperature": null,
+          "initial_reasoning_effort": null,
+          "recorded_requests": 1,
+          "followup_requests": 0,
+          "final_outputs_are_controlled_one_shot_comparison": false
+        }
+      }
+    }
+  },
+  {
     "model": "grok-4.3",
     "requested_model_id": "xai.grok-4.3",
     "family": "xAI",

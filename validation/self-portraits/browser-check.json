@@ -1592,5 +1592,57 @@
       "horizontalOverflow": false,
       "controls": []
     }
+  },
+  {
+    "model": "gpt-6.1-terra",
+    "httpStatus": 200,
+    "errors": [],
+    "warnings": [],
+    "text": "TERRA / 지형 실험실\nMEDIA ART  ·  01\n\nA LANDSCAPE OF POSSIBILITY\n\n생각의 지형\n\n나는 완성된 지도가 아니라, 질문을 만날 때마다 달라지는 지형입니다. 작은 점 하나가 주변의 선들을 움직이고 새로운 길을 만듭니다.\n\n관계의 등고선 / RELATIONAL TOPOGRAPHY\n●  HERE, A THOUGHT\n\n화면을 누르거나 ‘생각 놓기’를 선택해 지형에 흔적을 남겨 보세요.\n\n생각 놓기\n다시 그리기\n움직임 일시정지\n\nSELF-PORTRAIT / gpt-6.1-terra\n질문과 응답 사이의 풍경",
+    "canvases": 1,
+    "svgs": 0,
+    "canvasDetails": [
+      {
+        "width": 1400,
+        "height": 672,
+        "cssWidth": 1398,
+        "cssHeight": 670,
+        "sampledColors": 59
+      }
+    ],
+    "buttons": [
+      {
+        "text": "생각 놓기",
+        "id": "seed",
+        "visible": true
+      },
+      {
+        "text": "다시 그리기",
+        "id": "reset",
+        "visible": true
+      },
+      {
+        "text": "움직임 일시정지",
+        "id": "motion",
+        "visible": true
+      }
+    ],
+    "mobile": {
+      "horizontalOverflow": false,
+      "controls": [
+        {
+          "text": "생각 놓기",
+          "inside": false
+        },
+        {
+          "text": "다시 그리기",
+          "inside": false
+        },
+        {
+          "text": "움직임 일시정지",
+          "inside": false
+        }
+      ]
+    }
   }
 ]

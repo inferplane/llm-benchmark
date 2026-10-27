@@ -1,0 +1,129 @@
+{
+  "frozen_at": "2026-10-27T04:10:35.385751+00:00",
+  "identity": {
+    "model": {
+      "name": "gpt-6.1-terra",
+      "api": "bedrock_mantle",
+      "model_id": "openai.gpt-6.1-terra",
+      "mantle_region": "us-east-1",
+      "mantle_reasoning_effort": "low",
+      "price_in": 1.1,
+      "price_out": 5.5,
+      "price_cache_read": 0.055,
+      "price_cache_write": 1.375,
+      "enabled": true
+    },
+    "dataset_sha256": "530c6af4e0b59ae9115a761c140f29979812768e7e760d041b6f5dc45c56768c",
+    "scenario": {
+      "src_lang": "ko",
+      "targets": [
+        "en",
+        "ja",
+        "zh",
+        "es",
+        "fr",
+        "de",
+        "pt",
+        "ru",
+        "it",
+        "vi",
+        "id",
+        "th",
+        "ar",
+        "hi",
+        "tr"
+      ],
+      "directions": "both",
+      "concurrency_default": 8,
+      "flores_per_pair": 100,
+      "synthetic_per_pair": 10,
+      "judges": [
+        {
+          "name": "sol",
+          "api": "bedrock_mantle",
+          "model_id": "openai.gpt-5.6-sol",
+          "mantle_region": "us-east-1",
+          "price_in": 5.0,
+          "price_out": 30.0
+        },
+        {
+          "name": "fable-5",
+          "api": "bedrock",
+          "model_id": "us.anthropic.claude-fable-5",
+          "price_in": 10.0,
+          "price_out": 50.0,
+          "fallback_name": "fable-5-fallback",
+          "fallback_model_id": "us.anthropic.claude-opus-4-8",
+          "fallback_price_in": 5.0,
+          "fallback_price_out": 25.0
+        }
+      ],
+      "judge_sets": {
+        "astra-fable51": [
+          {
+            "name": "astra",
+            "api": "bedrock_mantle",
+            "model_id": "openai.gpt-6-astra",
+            "mantle_region": "us-east-1",
+            "mantle_reasoning_effort": "low",
+            "price_in": 11.0,
+            "price_out": 55.0,
+            "skip_for_models": [
+              "gpt-6-astra"
+            ]
+          },
+          {
+            "name": "fable51",
+            "api": "bedrock",
+            "model_id": "us.anthropic.claude-fable-5-1",
+            "price_in": 11.0,
+            "price_out": 55.0,
+            "skip_for_models": [
+              "claude-fable-5.1"
+            ],
+            "fallback_name": "fable51-fallback",
+            "fallback_model_id": "us.anthropic.claude-opus-4-8",
+            "fallback_price_in": 5.0,
+            "fallback_price_out": 25.0
+          }
+        ]
+      },
+      "flores_codes": {
+        "ko": "kor_Hang",
+        "en": "eng_Latn",
+        "ja": "jpn_Jpan",
+        "zh": "cmn_Hans",
+        "es": "spa_Latn",
+        "fr": "fra_Latn",
+        "de": "deu_Latn",
+        "pt": "por_Latn",
+        "ru": "rus_Cyrl",
+        "it": "ita_Latn",
+        "vi": "vie_Latn",
+        "id": "ind_Latn",
+        "th": "tha_Thai",
+        "ar": "arb_Arab",
+        "hi": "hin_Deva",
+        "tr": "tur_Latn"
+      }
+    },
+    "aws_region": "us-west-2",
+    "max_output_tokens": 4096,
+    "request_timeout_s": 600,
+    "files": {
+      "validation/gpt-6.1-terra/en_pivot.py": "e084315968a851b13a096d0b9fb66d7909495535395af6f36c5de7f2e07e9278",
+      "bench/run.py": "6231e052930cf6da1fe5982fdced1d91d2bb15a829dc6be519acede5b4a7b4b3",
+      "bench/judge.py": "8e4a446abadb368b4b5786c6693154b32dc97a6722648f3be3c652885238df02",
+      "bench/report.py": "00d4f82a9342120a995e9d1294d8f0a532fbad073e3b99cd5b58aa6f209c25c5",
+      "scenarios/translation/prompt.txt": "002886c783e95ddbb6802dd9e425867a61bf2a4b3306afe513d8cb544f1c3ad8",
+      "scenarios/translation/rubric.txt": "d06c98b162adc83606dc6ed37eb230177b325fbeaf1347e81a37ceb8faccf139",
+      "docs/results/en-pivot-20261019.json": "72d83b04bf6ebc9c9ddd5259237ad6513108d5d71242a74d9c5d0115b7a6b166",
+      "docs/results/en-pivot-20261019-judge2.json": "9ddaa45fdf7a5bc802eddd098c6d33346b1e080b78f1e2508802fde28188cd7c",
+      "data/flores-en.jsonl": "80c82a3e86a0e92cfa92027350ae5e6db9a234fb0fe520029759a64b950a03d0",
+      "data/synthetic-en.jsonl": "633bb8b2af5956f36ecb41514388dd020292cd8947c9d4549371906c26343121",
+      "data/flores-to-en.jsonl": "7f9d4075db0742f01f785f1533ddc7f84eacdb45cf4de93e3cca52808ed28cfe",
+      "data/synthetic-to-en.jsonl": "d96bb7ed9f3d2ff29ea2e50bdd820623ec9589a155e0a07033dde9c76ace989e"
+    },
+    "policy": "Preserve recorded requests including empty/capped/failed responses; configured transport retries remain allowed. No candidate regeneration, reasoning change, or cap increase after seeing outcomes. Grade successful returned translations with the existing two judges and rubric. Failed/nonterminal Responses remain failures even when partial text is retained. Translation quality is conditional on eligible returned text. Cost estimates cover successful calls with known token usage, not the entire experiment invoice. Preserve all prior model snapshots; report prompt cohort and measurement dates. Reuse identical candidate responses for independent judge sets."
+  }
+}

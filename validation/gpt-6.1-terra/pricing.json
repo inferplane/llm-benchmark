@@ -1,0 +1,18 @@
+{
+  "verified_at": "2026-10-27",
+  "model_id": "openai.gpt-6.1-terra",
+  "region": "us-east-1",
+  "tier": "Standard In-Region short context (<=272K input tokens)",
+  "source_url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-1-terra.html",
+  "source_sha256": "e0ed9ab84fc544314a39174983572fc455a71a8496f2fcb476f26776aa8ed875",
+  "openai_url": "https://developers.openai.com/api/docs/models/gpt-6.1-terra",
+  "openai_sha256": "bc5ca0fcfa19b1aafdf76c9cd3bf400826c640f0a912a2b58a7b7d955a7879d5",
+  "per_million_usd": {
+    "price_in": 1.1,
+    "price_out": 5.5,
+    "price_cache_read": 0.055,
+    "price_cache_write": 1.375
+  },
+  "regional_fee_included": true,
+  "config_is_only_runtime_source": true
+}

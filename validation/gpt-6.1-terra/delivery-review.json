@@ -1,0 +1,68 @@
+{
+  "reviewed_at": "2026-10-27T04:35:23.018116+00:00",
+  "status": "complete",
+  "overall_verdict": "PASS",
+  "phases": {
+    "models_financial_qa": "PASS",
+    "translation": "PASS"
+  },
+  "page_count": 7,
+  "console_errors": 0,
+  "console_warnings": 0,
+  "blocked_external_requests": 0,
+  "responsive_widths": [
+    1280,
+    768,
+    375
+  ],
+  "translation_default": {
+    "run_id": "en-pivot-20261027-judge2",
+    "track": "synthetic",
+    "cohort": "all",
+    "models": 40,
+    "samples": 196
+  },
+  "translation_report_ids": [
+    "bedrock-gpt-6.1-terra-20261027",
+    "en-pivot-20261027",
+    "en-pivot-20261027-judge2",
+    "en-pivot-gpt-6.1-terra-20261027",
+    "en-pivot-gpt-6.1-terra-20261027-judge2",
+    "integrated-2026-10-27"
+  ],
+  "each_translation_run_has_both_sample_tracks": true,
+  "scheduling_note": {
+    "present_in_all_six_report_interpretations": true,
+    "present_in_all_six_candidate_measurement_scheduling": true,
+    "renders_after_opening_measurement_disclosure": true,
+    "disclosure_initially_expanded": false,
+    "translation_overlap_seconds": 283.236593,
+    "screenshot": "validation/gpt-6.1-terra/delivery-review-translation-caveat-mobile.png"
+  },
+  "financial_qa": {
+    "default_run": "finqa-gpt-6.1-terra-20261027",
+    "models": 32,
+    "questions": 20,
+    "terra_correct": 19,
+    "terra_questions": 20,
+    "accuracy": 0.95,
+    "interactive_answers": "PASS",
+    "volume_and_sorting": "PASS"
+  },
+  "vendor_cache": {
+    "manifest": "/tmp/haiku-delivery-review/vendor/manifest.json",
+    "urls_used": 29,
+    "sha256_verified": true,
+    "network_access": "none; resources fulfilled from disk cache in offline context"
+  },
+  "source_hashes_verified": true,
+  "warnings": [
+    "Original-artwork accessibility warnings remain as documented in content-review.json: portrait small informative text; tower tiny mobile drawing labels and contrast."
+  ],
+  "new_delivery_findings": [],
+  "production_changes_made_by_reviewer": false,
+  "browser_evidence": [
+    "validation/gpt-6.1-terra/delivery-browser.models-financial-qa.json",
+    "validation/gpt-6.1-terra/delivery-browser.translation.json"
+  ]
+}

@@ -77,6 +77,10 @@
       "model_id": "openai.gpt-6.1-sol"
     },
     {
+      "name": "gpt-6.1-terra",
+      "model_id": "openai.gpt-6.1-terra"
+    },
+    {
       "name": "grok-4.3",
       "model_id": "xai.grok-4.3"
     },

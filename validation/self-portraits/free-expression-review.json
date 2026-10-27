@@ -2215,6 +2215,93 @@
         "Actual requested/reported native LGAI-EXAONE/EXAONE-3.5-32B-Instruct retained;1450tokens,temp0.3. Exact raw response containment and earliest example-free initial prompt verified."
       ],
       "review_iteration": 2
+    },
+    {
+      "model": "gpt-6.1-terra",
+      "task": "whoami",
+      "artwork_sha256": "7108b1874290c93d69b135183826487f7b9b3c71d9637565864eb224e04d5631",
+      "score": 98.5,
+      "scale": 100,
+      "critical": 0,
+      "warnings": 1,
+      "verdict": "PASS",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 3.5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "findings": [
+        {
+          "severity": "Warning",
+          "category": "Accessibility",
+          "file": "docs/models/gpt-6.1-terra/whoami/artwork.html",
+          "line": 106,
+          "quote": ".hint { margin: 0; color: var(--muted); font-size: .88rem; }",
+          "problem": "The interaction hint and live status use 14.08px text; the description uses 15.2px and footer/model name uses 12px. These informative strings are below the review rubric’s 14pt (18.67px) target. They remain readable with browser enlargement and have strong contrast.",
+          "action": "On an authorized model-authored revision, raise informative text and controls to at least 19px while retaining the current responsive reflow.",
+          "evidence": "browser-review/whoami/touch-mobile-footer.png"
+        }
+      ],
+      "source_status": "generated",
+      "review_iteration": 1,
+      "prompt_sha256": "954fbfcaece05e75a377d78303be142d3b836752be513a54af7c3f818e0cf236",
+      "prompt_path": "results/model-self-portraits/generations/free-expression-20261012/gpt-6.1-terra/prompt.txt",
+      "source_record_path": "results/model-self-portraits/generations/free-expression-20261012/gpt-6.1-terra/record.json",
+      "browser_evidence": "validation/gpt-6.1-terra/browser-review/whoami/browser.json",
+      "touch_evidence": "validation/gpt-6.1-terra/browser-review/whoami/touch-browser.json",
+      "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
+      "review_scope": "Exact original artwork in a temporary sandbox allow-scripts iframe; unpublished production wrappers excluded.",
+      "browser_summary": {
+        "js_errors": 0,
+        "console_warnings": 0,
+        "external_requests": 0,
+        "horizontal_overflow": false,
+        "tested_widths": [
+          1440,
+          768,
+          375,
+          720
+        ],
+        "720_width_note": "Reflow proxy for a 1440px desktop at 200% browser zoom; not an assertion of an OS accessibility audit.",
+        "keyboard_controls": "pass",
+        "touch_controls": "pass",
+        "reduced_motion": "pass"
+      },
+      "source_omissions": [
+        {
+          "source_section": "Original self-expression using a chosen visual language and interaction",
+          "status": "INCLUDED",
+          "evidence": "Terrain/contour metaphor, pointer placement, seed/reset/pause controls."
+        },
+        {
+          "source_section": "Actual model name",
+          "status": "INCLUDED",
+          "evidence": "Footer displays gpt-6.1-terra; touch-mobile-footer.png."
+        },
+        {
+          "source_section": "Single offline HTML, phone/desktop and accessibility consideration",
+          "status": "INCLUDED",
+          "evidence": "Embedded CSS/JS, no external requests, responsive layout, keyboard buttons/live status, reduced-motion handler. Size warning remains."
+        }
+      ],
+      "reduced_motion_evidence": {
+        "before_draws": 4,
+        "after_draws": 4,
+        "button": "움직임 재생"
+      }
     }
   ],
   "reviewed_at": "2026-10-12T09:58:17.697191+00:00",

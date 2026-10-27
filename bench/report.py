@@ -882,6 +882,11 @@ def _selfcheck():
     assert compute_cost(sol, usage["tokens_in"], 100_000, None,
                         cache_read_tokens=usage["cache_read_tokens"],
                         cache_write_tokens=usage["cache_write_tokens"])[0] == 3.102  # .88 + 1.1 + .022 + 1.1
+    terra = {"price_in": 1.1, "price_out": 5.5,
+             "price_cache_read": .055, "price_cache_write": 1.375}
+    assert compute_cost(terra, usage["tokens_in"], 100_000, None,
+                        cache_read_tokens=usage["cache_read_tokens"],
+                        cache_write_tokens=usage["cache_write_tokens"])[0] == 1.551  # .44 + .55 + .011 + .55
     for bad in ({"input_tokens": 2, "input_tokens_details": {"cached_tokens": 3}},
                 {"input_tokens": True}, {"input_tokens": 2, "input_tokens_details": {"cache_write_tokens": -1}}):
         try:

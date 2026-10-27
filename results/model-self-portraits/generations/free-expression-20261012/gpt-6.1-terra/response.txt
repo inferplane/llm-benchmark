@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>생각의 지형 — gpt-6.1-terra</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0b1110;
+    --ink: #ecf0df;
+    --muted: #b7c5b5;
+    --lime: #c9ee8c;
+    --line: rgba(220, 238, 204, .22);
+  }
+  * { box-sizing: border-box; }
+  html { min-height: 100%; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.55;
+  }
+  button { font: inherit; }
+  button:focus-visible { outline: 3px solid #e2ffa9; outline-offset: 4px; }
+  .page {
+    width: min(100% - 2.5rem, 90rem);
+    margin: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: .78rem;
+    letter-spacing: .12em;
+  }
+  .brand { color: var(--lime); font-weight: 700; }
+  .header-note { color: var(--muted); text-align: right; }
+  main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 2.5rem 0; }
+  .intro {
+    display: grid;
+    grid-template-columns: 1fr minmax(15rem, 26rem);
+    gap: 1.5rem;
+    align-items: end;
+    margin-bottom: 1.5rem;
+  }
+  .eyebrow {
+    margin: 0 0 .65rem;
+    color: var(--lime);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(2.5rem, 6.8vw, 6.5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -.06em;
+  }
+  .description { margin: 0; max-width: 28rem; color: var(--muted); font-size: .95rem; }
+  .art {
+    position: relative;
+    height: clamp(23rem, 52vw, 42rem);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: #111b16;
+    isolation: isolate;
+  }
+  canvas { display: block; width: 100%; height: 100%; cursor: crosshair; }
+  .art-label {
+    pointer-events: none;
+    position: absolute;
+    left: 1.2rem;
+    top: 1rem;
+    color: #e5f3d6;
+    text-shadow: 0 1px 5px #07100a;
+    font-size: .72rem;
+    letter-spacing: .14em;
+  }
+  .art-index {
+    pointer-events: none;
+    position: absolute;
+    right: 1.2rem;
+    bottom: 1rem;
+    color: #d7e8ce;
+    text-shadow: 0 1px 5px #07100a;
+    font-size: .72rem;
+    letter-spacing: .12em;
+  }
+  .under {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.25rem;
+    padding-top: 1.15rem;
+  }
+  .hint { margin: 0; color: var(--muted); font-size: .88rem; }
+  .controls { display: flex; flex-wrap: wrap; gap: .6rem; }
+  button {
+    min-height: 2.75rem;
+    padding: .6rem 1rem;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid #859781;
+    cursor: pointer;
+  }
+  button:hover { background: #263629; border-color: var(--lime); }
+  button.primary { background: var(--lime); border-color: var(--lime); color: #11200f; font-weight: 700; }
+  button.primary:hover { background: #e1ffaf; }
+  footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.2rem 0;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: .75rem;
+    letter-spacing: .04em;
+  }
+  @media (max-width: 650px) {
+    .page { width: min(100% - 1.5rem, 90rem); }
+    header { align-items: flex-start; }
+    .intro { grid-template-columns: 1fr; gap: 1rem; }
+    .art { height: 55vh; min-height: 20rem; max-height: 35rem; }
+    .under { align-items: flex-start; flex-direction: column; }
+    footer { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <span class="brand">TERRA / 지형 실험실</span>
+    <span class="header-note">MEDIA ART &nbsp;·&nbsp; 01</span>
+  </header>
+
+  <main>
+    <section aria-labelledby="title">
+      <div class="intro">
+        <div>
+          <p class="eyebrow">A LANDSCAPE OF POSSIBILITY</p>
+          <h1 id="title">생각의 지형</h1>
+        </div>
+        <p class="description">나는 완성된 지도가 아니라, 질문을 만날 때마다 달라지는 지형입니다. 작은 점 하나가 주변의 선들을 움직이고 새로운 길을 만듭니다.</p>
+      </div>
+
+      <div class="art" id="art">
+        <canvas id="landscape" aria-hidden="true"></canvas>
+        <span class="art-label">관계의 등고선 / RELATIONAL TOPOGRAPHY</span>
+        <span class="art-index">● &nbsp;HERE, A THOUGHT</span>
+      </div>
+
+      <div class="under">
+        <p class="hint">화면을 누르거나 ‘생각 놓기’를 선택해 지형에 흔적을 남겨 보세요.</p>
+        <div class="controls">
+          <button class="primary" id="seed" type="button">생각 놓기</button>
+          <button id="reset" type="button">다시 그리기</button>
+          <button id="motion" type="button" aria-pressed="false">움직임 일시정지</button>
+        </div>
+      </div>
+      <p id="status" class="hint" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer>
+    <span>SELF-PORTRAIT / gpt-6.1-terra</span>
+    <span>질문과 응답 사이의 풍경</span>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const canvas = document.getElementById('landscape');
+  const art = document.getElementById('art');
+  const ctx = canvas.getContext('2d');
+  const status = document.getElementById('status');
+  const motionButton = document.getElementById('motion');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let paused = reduced.matches;
+  let width = 0, height = 0, time = 0, last = 0, frame = 0;
+  let points = [];
+
+  function randomPoint() {
+    return {
+      x: .1 + Math.random() * .8,
+      y: .16 + Math.random() * .68,
+      strength: .7 + Math.random() * .65,
+      phase: Math.random() * Math.PI * 2
+    };
+  }
+
+  function reset() {
+    points = Array.from({length: 6}, randomPoint);
+    draw();
+  }
+
+  function resize() {
+    const rect = art.getBoundingClientRect();
+    width = rect.width;
+    height = rect.height;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.max(1, Math.round(width * dpr));
+    canvas.height = Math.max(1, Math.round(height * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  }
+
+  function draw() {
+    if (!width || !height) return;
+    const bg = ctx.createLinearGradient(0, 0, width, height);
+    bg.addColorStop(0, '#17271d');
+    bg.addColorStop(.55, '#101b16');
+    bg.addColorStop(1, '#1b2a20');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, width, height);
+
+    const glow = ctx.createRadialGradient(width * .53, height * .48, 0, width * .53, height * .48, width * .62);
+    glow.addColorStop(0, 'rgba(109,145,77,.19)');
+    glow.addColorStop(1, 'rgba(10,19,14,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, width, height);
+
+    const spacing = Math.max(10, height / 48);
+    const step = Math.max(5, width / 150);
+    for (let base = -height * .35; base < height * 1.35; base += spacing) {
+      ctx.beginPath();
+      for (let x = -step; x <= width + step; x += step) {
+        let y = base + Math.sin(x / width * 5 + base / height * 4 + time * .12) * height * .025;
+        for (const p of points) {
+          const px = p.x * width;
+          const py = p.y * height;
+          const dx = (x - px) / (width * .19);
+          const dy = (base - py) / (height * .24);
+          const influence = Math.exp(-(dx * dx + dy * dy) * 1.35);
+          y -= influence * height * .13 * p.strength * (1 + .08 * Math.sin(time * .5 + p.phase));
+        }
+        if (x === -step) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = 'rgba(190, 223, 151, .34)';
+      ctx.lineWidth = .8;
+      ctx.stroke();
+    }
+
+    for (const p of points) {
+      const x = p.x * width, y = p.y * height;
+      const radius = Math.max(16, Math.min(width, height) * .05);
+      const halo = ctx.createRadialGradient(x, y, 0, x, y, radius);
+      halo.addColorStop(0, 'rgba(213,255,160,.34)');
+      halo.addColorStop(1, 'rgba(213,255,160,0)');
+      ctx.fillStyle = halo;
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#e1ffb0';
+      ctx.beginPath();
+      ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function tick(now) {
+    if (paused) { frame = 0; return; }
+    if (last) time += Math.min((now - last) / 1000, .05);
+    last = now;
+    draw();
+    frame = requestAnimationFrame(tick);
+  }
+
+  function updateMotion() {
+    motionButton.textContent = paused ? '움직임 재생' : '움직임 일시정지';
+    motionButton.setAttribute('aria-pressed', String(paused));
+    last = 0;
+    if (!paused && !frame) frame = requestAnimationFrame(tick);
+    if (paused && frame) { cancelAnimationFrame(frame); frame = 0; }
+    draw();
+  }
+
+  function addPoint(x, y) {
+    const p = randomPoint();
+    p.x = Math.max(.02, Math.min(.98, x));
+    p.y = Math.max(.02, Math.min(.98, y));
+    points.push(p);
+    if (points.length > 14) points.shift();
+    draw();
+    status.textContent = '새로운 생각이 지형에 놓였습니다.';
+  }
+
+  art.addEventListener('pointerdown', event => {
+    const rect = art.getBoundingClientRect();
+    addPoint((event.clientX - rect.left) / rect.width, (event.clientY - rect.top) / rect.height);
+  });
+  document.getElementById('seed').addEventListener('click', () => {
+    const p = randomPoint();
+    addPoint(p.x, p.y);
+  });
+  document.getElementById('reset').addEventListener('click', () => {
+    reset();
+    status.textContent = '지형을 새로 그렸습니다.';
+  });
+  motionButton.addEventListener('click', () => {
+    paused = !paused;
+    updateMotion();
+    status.textContent = paused ? '움직임을 일시정지했습니다.' : '움직임을 재생합니다.';
+  });
+  reduced.addEventListener?.('change', event => {
+    paused = event.matches;
+    updateMotion();
+  });
+  window.addEventListener('resize', resize);
+  reset();
+  resize();
+  updateMotion();
+})();
+</script>
+</body>
+</html>

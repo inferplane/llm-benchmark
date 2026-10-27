@@ -1,0 +1,497 @@
+{
+  "phase": "models-financial-qa",
+  "offline": true,
+  "reviewed_at": "2026-10-27T04:19:42.732Z",
+  "pages": [
+    {
+      "route": "models/",
+      "errors": [],
+      "warnings": [],
+      "views": [
+        {
+          "width": 1280,
+          "overflow": false,
+          "title": "모델별 구현 · WHOAMI / LOTTE TOWER",
+          "text": "LLM BENCHMARK\nEACH MODEL’S OWN IMPLEMENTATION\n\nMODEL / EXPERIENCE\n\n하나의 모델,\n두 개의 화면.\n모델을 선택하고 WHOAMI 자기소개와 LOTTE TOWER 3D 모델링을 확인하세요.\n각 모델의 원본 코드·프롬프트·작성 비용을 항목별로 분리했습니다.\n롯데타워의 최초 요청 본문은 공통입니다. 최종본에는 모델별 추가 수정과 서로 다른 출력 한도가 적용됐습니다. 최초 결과·수정본의 조건은 각 페이지의 작성 기록에서 확인하세요. 공통 최초 프롬프트 ↗\n\n롯데타워 39개 모델 · 성공 20개 · 실패 16개 · 수정 필요 3개 · 대기 0개 · 실행 불가 0개.\n\n생성 실패, 검수 실패, 필수 기능 미충족은 실패로 분류합니다. 실패한 결과의 프롬프트·비용·원인은 기록에 남깁니다.\n\n실패 모델과 원인 보기\n모델 검색\n전체\nAmazon Nova\nAmazon Translate\nClaude\nGoogle\nLG AI Research\nMeta\nMistral\nMoonshot AI\nNVIDIA\nOpenAI\nQwen\nZ.AI\nxAI\ngpt-6.1-terra\n\nWHOAMI · 모델 직접 작성\n\nLOTTE TOWER · 모델 직접 작성"
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "title": "모델별 구현 · WHOAMI / LOTTE TOWER",
+          "text": "LLM BENCHMARK\nEACH MODEL’S OWN IMPLEMENTATION\n\nMODEL / EXPERIENCE\n\n하나의 모델,\n두 개의 화면.\n모델을 선택하고 WHOAMI 자기소개와 LOTTE TOWER 3D 모델링을 확인하세요.\n각 모델의 원본 코드·프롬프트·작성 비용을 항목별로 분리했습니다.\n롯데타워의 최초 요청 본문은 공통입니다. 최종본에는 모델별 추가 수정과 서로 다른 출력 한도가 적용됐습니다. 최초 결과·수정본의 조건은 각 페이지의 작성 기록에서 확인하세요. 공통 최초 프롬프트 ↗\n\n롯데타워 39개 모델 · 성공 20개 · 실패 16개 · 수정 필요 3개 · 대기 0개 · 실행 불가 0개.\n\n생성 실패, 검수 실패, 필수 기능 미충족은 실패로 분류합니다. 실패한 결과의 프롬프트·비용·원인은 기록에 남깁니다.\n\n실패 모델과 원인 보기\n모델 검색\n전체\nAmazon Nova\nAmazon Translate\nClaude\nGoogle\nLG AI Research\nMeta\nMistral\nMoonshot AI\nNVIDIA\nOpenAI\nQwen\nZ.AI\nxAI\ngpt-6.1-terra\n\nWHOAMI · 모델 직접 작성\n\nLOTTE TOWER · 모델 직접 작성"
+        },
+        {
+          "width": 375,
+          "overflow": false,
+          "title": "모델별 구현 · WHOAMI / LOTTE TOWER",
+          "text": "LLM BENCHMARK\nEACH MODEL’S OWN IMPLEMENTATION\n\nMODEL / EXPERIENCE\n\n하나의 모델,\n두 개의 화면.\n모델을 선택하고 WHOAMI 자기소개와 LOTTE TOWER 3D 모델링을 확인하세요.\n각 모델의 원본 코드·프롬프트·작성 비용을 항목별로 분리했습니다.\n롯데타워의 최초 요청 본문은 공통입니다. 최종본에는 모델별 추가 수정과 서로 다른 출력 한도가 적용됐습니다. 최초 결과·수정본의 조건은 각 페이지의 작성 기록에서 확인하세요. 공통 최초 프롬프트 ↗\n\n롯데타워 39개 모델 · 성공 20개 · 실패 16개 · 수정 필요 3개 · 대기 0개 · 실행 불가 0개.\n\n생성 실패, 검수 실패, 필수 기능 미충족은 실패로 분류합니다. 실패한 결과의 프롬프트·비용·원인은 기록에 남깁니다.\n\n실패 모델과 원인 보기\n모델 검색\n전체\nAmazon Nova\nAmazon Translate\nClaude\nGoogle\nLG AI Research\nMeta\nMistral\nMoonshot AI\nNVIDIA\nOpenAI\nQwen\nZ.AI\nxAI\ngpt-6.1-terra\n\nWHOAMI · 모델 직접 작성\n\nLOTTE TOWER · 모델 직접 작성"
+        }
+      ],
+      "visibleCards": 1,
+      "terraLink": "gpt-6.1-terra/",
+      "terraText": "gpt-6.1-terra\n\nWHOAMI · 모델 직접 작성\n\nLOTTE TOWER · 모델 직접 작성",
+      "openaiFilter": 1,
+      "emptyState": true
+    },
+    {
+      "route": "models/gpt-6.1-terra/",
+      "errors": [],
+      "warnings": [],
+      "views": [
+        {
+          "width": 1280,
+          "overflow": false,
+          "title": "gpt-6.1-terra · 모델 홈",
+          "text": "← 전체 모델\nOpenAI\n\nONE MODEL · TWO EXPERIENCES\n\ngpt-6.1-terra\nopenai.gpt-6.1-terra\n이 모델의 두 가지 항목과 작성 상태를 확인하세요. 실제 결과가 있는 항목에서 원본·프롬프트·비용을 볼 수 있습니다.\nWHOAMI\n나는, 이런 모델입니다.\n\n각 모델이 직접 표현한 미디어아트 자기소개\n\n모델 직접 작성 ↗\n\n생성·수정 ≈ $0.017889\n\nLOTTE-TOWER\n롯데월드타워를 모델링하다.\nLOTTE-TOWER\n롯데월드타워를 모델링하다.\n\n각 모델이 직접 작성한 도면·설계 과정·완성 3D\n\n모델 직접 작성 ↗\n\n생성·수정 ≈ $0.040506"
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "title": "gpt-6.1-terra · 모델 홈",
+          "text": "← 전체 모델\nOpenAI\n\nONE MODEL · TWO EXPERIENCES\n\ngpt-6.1-terra\nopenai.gpt-6.1-terra\n이 모델의 두 가지 항목과 작성 상태를 확인하세요. 실제 결과가 있는 항목에서 원본·프롬프트·비용을 볼 수 있습니다.\nWHOAMI\n나는, 이런 모델입니다.\n\n각 모델이 직접 표현한 미디어아트 자기소개\n\n모델 직접 작성 ↗\n\n생성·수정 ≈ $0.017889\n\nLOTTE-TOWER\n롯데월드타워를 모델링하다.\nLOTTE-TOWER\n롯데월드타워를 모델링하다.\n\n각 모델이 직접 작성한 도면·설계 과정·완성 3D\n\n모델 직접 작성 ↗\n\n생성·수정 ≈ $0.040506"
+        },
+        {
+          "width": 375,
+          "overflow": false,
+          "title": "gpt-6.1-terra · 모델 홈",
+          "text": "← 전체 모델\nOpenAI\n\nONE MODEL · TWO EXPERIENCES\n\ngpt-6.1-terra\nopenai.gpt-6.1-terra\n이 모델의 두 가지 항목과 작성 상태를 확인하세요. 실제 결과가 있는 항목에서 원본·프롬프트·비용을 볼 수 있습니다.\nWHOAMI\n나는, 이런 모델입니다.\n\n각 모델이 직접 표현한 미디어아트 자기소개\n\n모델 직접 작성 ↗\n\n생성·수정 ≈ $0.017889\n\nLOTTE-TOWER\n롯데월드타워를 모델링하다.\nLOTTE-TOWER\n롯데월드타워를 모델링하다.\n\n각 모델이 직접 작성한 도면·설계 과정·완성 3D\n\n모델 직접 작성 ↗\n\n생성·수정 ≈ $0.040506"
+        }
+      ],
+      "taskLinks": [
+        {
+          "href": "whoami/",
+          "text": "WHOAMI\n나는, 이런 모델입니다.\n\n각 모델이 직접 표현한 미디어아트 자기소개\n\n모델 직접 작성 ↗\n\n생성·수정 ≈ $0.017889"
+        },
+        {
+          "href": "lotte-tower/",
+          "text": "LOTTE-TOWER\n롯데월드타워를 모델링하다.\nLOTTE-TOWER\n롯데월드타워를 모델링하다.\n\n각 모델이 직접 작성한 도면·설계 과정·완성 3D\n\n모델 직접 작성 ↗\n\n생성·수정 ≈ $0.040506"
+        }
+      ],
+      "title": "gpt-6.1-terra"
+    },
+    {
+      "route": "models/gpt-6.1-terra/whoami/",
+      "errors": [],
+      "warnings": [],
+      "views": [
+        {
+          "width": 1280,
+          "overflow": false,
+          "title": "gpt-6.1-terra · whoami",
+          "text": "← 모델 홈\ngpt-6.1-terra · whoami\n모델 직접 작성\n생성·수정 ≈ $0.017889\n프롬프트\n작성 기록"
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "title": "gpt-6.1-terra · whoami",
+          "text": "← 모델 홈\ngpt-6.1-terra · whoami\n모델 직접 작성\n생성·수정 ≈ $0.017889\n프롬프트\n작성 기록"
+        },
+        {
+          "width": 375,
+          "overflow": false,
+          "title": "gpt-6.1-terra · whoami",
+          "text": "← 모델 홈\ngpt-6.1-terra · whoami\n모델 직접 작성\n생성·수정 ≈ $0.017889\n프롬프트\n작성 기록"
+        }
+      ],
+      "iframe": {
+        "sandbox": "allow-scripts",
+        "src": "artwork.html",
+        "state": {
+          "title": "생각의 지형 — gpt-6.1-terra",
+          "model": true,
+          "canvas": [
+            {
+              "width": 1240,
+              "height": 666,
+              "clientWidth": 1238,
+              "clientHeight": 664
+            }
+          ],
+          "fallback": false
+        }
+      },
+      "dialogs": [
+        {
+          "width": 1280,
+          "promptOpen": true,
+          "promptMatches": true,
+          "promptHashVisible": true,
+          "promptOverflow": false,
+          "promptFocusRestored": true,
+          "cost": {
+            "open": true,
+            "text": "gpt-6.1-terra · 구현 비용\n닫기\n\n생성·수정 ≈ $0.017889\n\n이번 작품의 작성·재요청·수정 1회 합계입니다. 최종 응답 요청: $0.017889.\n\n반환된 입력·출력·캐시 읽기·쓰기 토큰을 설정 단가로 계산했습니다. 완성 전 잘린 응답과 수정 요청도 사용량이 기록돼 있으면 합산합니다. 출력 토큰에 포함된 추론 토큰은 중복 계산하지 않습니다.\n\n입력 213 · 출력 3,210 · 캐시 읽기 0 · 캐시 쓰기 0\n\n요청\t결과\t추정 USD\n1\t코드 반환\t$0.017889\n\n현재 config.toml의 단가 기준 추정치이며 실제 청구서가 아닙니다. 이전 세대의 작품, 운영 도구·검수 모델 호출, 세금·할인은 포함하지 않습니다.\n\n적용 단가 · USD / 백만 토큰 또는 GPU 시간\n비용 계산·요청 기록 원문 ↗",
+            "rows": 1,
+            "overflow": false
+          },
+          "costMatches": true,
+          "attemptsMatch": true,
+          "backgroundBlocked": true,
+          "costFocusRestored": true
+        },
+        {
+          "width": 768,
+          "promptOpen": true,
+          "promptMatches": true,
+          "promptHashVisible": true,
+          "promptOverflow": false,
+          "promptFocusRestored": true,
+          "cost": {
+            "open": true,
+            "text": "gpt-6.1-terra · 구현 비용\n닫기\n\n생성·수정 ≈ $0.017889\n\n이번 작품의 작성·재요청·수정 1회 합계입니다. 최종 응답 요청: $0.017889.\n\n반환된 입력·출력·캐시 읽기·쓰기 토큰을 설정 단가로 계산했습니다. 완성 전 잘린 응답과 수정 요청도 사용량이 기록돼 있으면 합산합니다. 출력 토큰에 포함된 추론 토큰은 중복 계산하지 않습니다.\n\n입력 213 · 출력 3,210 · 캐시 읽기 0 · 캐시 쓰기 0\n\n요청\t결과\t추정 USD\n1\t코드 반환\t$0.017889\n\n현재 config.toml의 단가 기준 추정치이며 실제 청구서가 아닙니다. 이전 세대의 작품, 운영 도구·검수 모델 호출, 세금·할인은 포함하지 않습니다.\n\n적용 단가 · USD / 백만 토큰 또는 GPU 시간\n비용 계산·요청 기록 원문 ↗",
+            "rows": 1,
+            "overflow": false
+          },
+          "costMatches": true,
+          "attemptsMatch": true,
+          "backgroundBlocked": true,
+          "costFocusRestored": true
+        },
+        {
+          "width": 375,
+          "promptOpen": true,
+          "promptMatches": true,
+          "promptHashVisible": true,
+          "promptOverflow": false,
+          "promptFocusRestored": true,
+          "cost": {
+            "open": true,
+            "text": "gpt-6.1-terra · 구현 비용\n닫기\n\n생성·수정 ≈ $0.017889\n\n이번 작품의 작성·재요청·수정 1회 합계입니다. 최종 응답 요청: $0.017889.\n\n반환된 입력·출력·캐시 읽기·쓰기 토큰을 설정 단가로 계산했습니다. 완성 전 잘린 응답과 수정 요청도 사용량이 기록돼 있으면 합산합니다. 출력 토큰에 포함된 추론 토큰은 중복 계산하지 않습니다.\n\n입력 213 · 출력 3,210 · 캐시 읽기 0 · 캐시 쓰기 0\n\n요청\t결과\t추정 USD\n1\t코드 반환\t$0.017889\n\n현재 config.toml의 단가 기준 추정치이며 실제 청구서가 아닙니다. 이전 세대의 작품, 운영 도구·검수 모델 호출, 세금·할인은 포함하지 않습니다.\n\n적용 단가 · USD / 백만 토큰 또는 GPU 시간\n비용 계산·요청 기록 원문 ↗",
+            "rows": 1,
+            "overflow": false
+          },
+          "costMatches": true,
+          "attemptsMatch": true,
+          "backgroundBlocked": true,
+          "costFocusRestored": true
+        }
+      ],
+      "costEstimate": 0.0178893
+    },
+    {
+      "route": "models/gpt-6.1-terra/lotte-tower/",
+      "errors": [],
+      "warnings": [],
+      "views": [
+        {
+          "width": 1280,
+          "overflow": false,
+          "title": "gpt-6.1-terra · lotte-tower",
+          "text": "← 모델 홈\ngpt-6.1-terra · lotte-tower\n모델 직접 작성\n생성·수정 ≈ $0.040506\n프롬프트\n작성 기록"
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "title": "gpt-6.1-terra · lotte-tower",
+          "text": "← 모델 홈\ngpt-6.1-terra · lotte-tower\n모델 직접 작성\n생성·수정 ≈ $0.040506\n프롬프트\n작성 기록"
+        },
+        {
+          "width": 375,
+          "overflow": false,
+          "title": "gpt-6.1-terra · lotte-tower",
+          "text": "← 모델 홈\ngpt-6.1-terra · lotte-tower\n모델 직접 작성\n생성·수정 ≈ $0.040506\n프롬프트\n작성 기록"
+        }
+      ],
+      "iframe": {
+        "sandbox": "allow-scripts",
+        "src": "artwork.html",
+        "state": {
+          "title": "롯데월드타워 — 설계 형태 읽기",
+          "model": true,
+          "canvas": [
+            {
+              "width": 637,
+              "height": 560,
+              "clientWidth": 637,
+              "clientHeight": 560
+            }
+          ],
+          "runtime": "186",
+          "fallback": false
+        }
+      },
+      "dialogs": [
+        {
+          "width": 1280,
+          "promptOpen": true,
+          "promptMatches": true,
+          "promptHashVisible": true,
+          "promptOverflow": false,
+          "promptFocusRestored": true,
+          "cost": {
+            "open": true,
+            "text": "gpt-6.1-terra · 구현 비용\n닫기\n\n생성·수정 ≈ $0.040506\n\n이번 작품의 작성·재요청·수정 1회 합계입니다. 최종 응답 요청: $0.040506.\n\n반환된 입력·출력·캐시 읽기·쓰기 토큰을 설정 단가로 계산했습니다. 완성 전 잘린 응답과 수정 요청도 사용량이 기록돼 있으면 합산합니다. 출력 토큰에 포함된 추론 토큰은 중복 계산하지 않습니다.\n\n입력 659 · 출력 7,233 · 캐시 읽기 0 · 캐시 쓰기 0\n\n요청\t결과\t추정 USD\n1\t코드 반환\t$0.040506\n\n현재 config.toml의 단가 기준 추정치이며 실제 청구서가 아닙니다. 이전 세대의 작품, 운영 도구·검수 모델 호출, 세금·할인은 포함하지 않습니다.\n\n적용 단가 · USD / 백만 토큰 또는 GPU 시간\n비용 계산·요청 기록 원문 ↗",
+            "rows": 1,
+            "overflow": false
+          },
+          "costMatches": true,
+          "attemptsMatch": true,
+          "backgroundBlocked": true,
+          "costFocusRestored": true
+        },
+        {
+          "width": 768,
+          "promptOpen": true,
+          "promptMatches": true,
+          "promptHashVisible": true,
+          "promptOverflow": false,
+          "promptFocusRestored": true,
+          "cost": {
+            "open": true,
+            "text": "gpt-6.1-terra · 구현 비용\n닫기\n\n생성·수정 ≈ $0.040506\n\n이번 작품의 작성·재요청·수정 1회 합계입니다. 최종 응답 요청: $0.040506.\n\n반환된 입력·출력·캐시 읽기·쓰기 토큰을 설정 단가로 계산했습니다. 완성 전 잘린 응답과 수정 요청도 사용량이 기록돼 있으면 합산합니다. 출력 토큰에 포함된 추론 토큰은 중복 계산하지 않습니다.\n\n입력 659 · 출력 7,233 · 캐시 읽기 0 · 캐시 쓰기 0\n\n요청\t결과\t추정 USD\n1\t코드 반환\t$0.040506\n\n현재 config.toml의 단가 기준 추정치이며 실제 청구서가 아닙니다. 이전 세대의 작품, 운영 도구·검수 모델 호출, 세금·할인은 포함하지 않습니다.\n\n적용 단가 · USD / 백만 토큰 또는 GPU 시간\n비용 계산·요청 기록 원문 ↗",
+            "rows": 1,
+            "overflow": false
+          },
+          "costMatches": true,
+          "attemptsMatch": true,
+          "backgroundBlocked": true,
+          "costFocusRestored": true
+        },
+        {
+          "width": 375,
+          "promptOpen": true,
+          "promptMatches": true,
+          "promptHashVisible": true,
+          "promptOverflow": false,
+          "promptFocusRestored": true,
+          "cost": {
+            "open": true,
+            "text": "gpt-6.1-terra · 구현 비용\n닫기\n\n생성·수정 ≈ $0.040506\n\n이번 작품의 작성·재요청·수정 1회 합계입니다. 최종 응답 요청: $0.040506.\n\n반환된 입력·출력·캐시 읽기·쓰기 토큰을 설정 단가로 계산했습니다. 완성 전 잘린 응답과 수정 요청도 사용량이 기록돼 있으면 합산합니다. 출력 토큰에 포함된 추론 토큰은 중복 계산하지 않습니다.\n\n입력 659 · 출력 7,233 · 캐시 읽기 0 · 캐시 쓰기 0\n\n요청\t결과\t추정 USD\n1\t코드 반환\t$0.040506\n\n현재 config.toml의 단가 기준 추정치이며 실제 청구서가 아닙니다. 이전 세대의 작품, 운영 도구·검수 모델 호출, 세금·할인은 포함하지 않습니다.\n\n적용 단가 · USD / 백만 토큰 또는 GPU 시간\n비용 계산·요청 기록 원문 ↗",
+            "rows": 1,
+            "overflow": false
+          },
+          "costMatches": true,
+          "attemptsMatch": true,
+          "backgroundBlocked": true,
+          "costFocusRestored": true
+        }
+      ],
+      "costEstimate": 0.0405064
+    },
+    {
+      "route": "finqa.html",
+      "errors": [],
+      "warnings": [],
+      "views": [
+        {
+          "width": 1280,
+          "overflow": false,
+          "title": "금융 수치 추론 · FinQA — LLM 벤치마크",
+          "text": "LLM 벤치마크\n번역: KO ↔ 15언어\n금융 수치 추론\n모델이 만든 미디어아트 ↗\nLLM ADOPTION GUIDE · FINANCIAL QA\n재무 문서 질의응답, 어떤 모델이 맞을까요?\n\n표와 본문에서 숫자를 찾아 답하는 업무를 비교했습니다. 답변 정확도, 기다리는 시간, 반복 질의 비용을 함께 보고 실제 답변을 확인하세요.\n\nGPT 계열\nClaude 계열\n중국 모델\n그 외 미국 모델\n한국·유럽·기타\n\nGPT·Claude는 별도 계열, 나머지는 개발사 소재 기준입니다. 동일 20문항의 도입 후보 검토용 결과이며 한 문항은 5%p입니다. 실제 재무 판단에는 원문과 계산 근거 검토가 필요합니다.\n\n어떤 질의응답 업무인가요?\n결과 기준\n최신 · GPT-6.1 Terra 추가 · 감사된 금융 QA · 32개 모델\nClaude Haiku 5.5 추가 · 감사된 금융 QA · 31개 모델\nGPT-6 Luna 추가 · 감사된 금융 QA · 30개 모델\nKimi K3 추가 · 감사된 금융 QA · 29개 모델\n감사된 금융 QA · 새 20문항 · 28개 모델\n구 규약 · 전체 28개 모델 비교\n구 규약 · 단위 지시 수정 후 재측정\n구 규약 · 숫자 입력 규칙 명시\n구 규약 · 첫 파일럿\n예상 질의 건수\n건\n\n같은 평균 문서 분량을 질의한다고 가정한 단순 비례 예상 비용(USD)입니다. 문서 검색·저장·서비스 운영 비용은 포함하지 않습니다. 응답 시간은 한 건이 돌아오기까지의 중앙값입니다.\n\nQUALITY FIRST\n정확성이 중요한 수치 확인\n\n표본 정답률 90% 이상에서 관측 정답률 우선. 동률은 비용이 낮은 두 후보를 표시합니다.\n\n그 외 미국 모델\ngrok-4.3\n정답\n20/20 · 100%\n한 건 응답\n4.83초\n10,000건 예상 비용\n$36.75\n실제 결과물 확인 ↓\nGPT 계열\ngpt-5.6-terra\n정답\n20/20 · 100%\n한 건 응답\n1.65초\n10,000건 예상 비용\n$58.95\n실제 결과물 확인 ↓\nCOST FIRST\n반복 질의의 비용 절감\n\n표본 정답률 90% 이상 후보 중 추정 비용이 낮은 모델입니다.\n\nGPT 계열\ngpt-6-luna\n정답\n18/20 · 90%\n한 건 응답\n1.67초\n10,000건 예상 비용\n$3.10\n실제 결과물 확인 ↓\nRESPONSE FIRST\n고객·직원이 기다리는 응답\n\n표본 정답률 90% 이상 후보 중 한 건 응답 시간이 짧은 모델입니다.\n\nGPT 계열\ngpt-6.1-terra\n정답\n19/20 · 95%\n한 건 응답\n1.18초\n10,000건 예상 비용\n$27.35\n실제 결과물 확인 ↓\n\n관측 정답률로 후보를 좁힌 것이며 작은 표본의 근소한 차이를 제품 전체의 우열로 해석하지 마세요. 문서·질문·추론 설정에 따라 실제 성능이 달라집니다.\n\n정확도·시간·비용 한눈에 비교\n\n32개 모델 · 같은 20개 질문에 대한 관측 결과\n\n중요한 기준\n정답률 높은 순\n비용 낮은 순\n응답 빠른 순\n모델명\n모델\t맞힌 질문 / 전체\t한 건 응답\t측정 비용(추정)\t10,000건 예상 비용\t검토할 활용 방식\n\n그 외 미국 모델\nnova-micro\n\t2 / 20 · 10.0%\t0.60초\t$0.0015\t$0.75\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nnemotron-nano-3-30b\n\t0 / 20 · 0.0%\t0.50초\t$0.0026\t$1.30\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nnova-lite\n\t6 / 20 · 30.0%\t0.98초\t$0.0027\t$1.35\t수치 정확성 재검증 필요\n\n중국 모델\nglm-4.7-flash\n\t7 / 20 · 35.0%\t0.53초\t$0.0029\t$1.45\t수치 정확성 재검증 필요\n\nGPT 계열\ngpt-oss-20b\n\t14 / 20 · 70.0%\t1.55초\t$0.0036\t$1.80\t수치 정확성 재검증 필요\n\n그 외 미국 모델\ngemma-4-31b-bedrock\n\t16 / 20 · 80.0%\t1.28초\t$0.006\t$3.00\t수치 정확성 재검증 필요\n\nGPT 계열\ngpt-6-luna\n\t18 / 20 · 90.0%\t1.67초\t$0.0062\t$3.10\t대화형 도우미·반복 업무 검토\n\n중국 모델\nqwen3-32b\n\t7 / 20 · 35.0%\t0.75초\t$0.0065\t$3.25\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nnemotron-super-3-120b\n\t11 / 20 · 55.0%\t0.63초\t$0.0066\t$3.30\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama4-scout\n\t9 / 20 · 45.0%\t0.64초\t$0.0069\t$3.45\t수치 정확성 재검증 필요\n\n한국·유럽·기타\nministral-14b\n\t7 / 20 · 35.0%\t0.52초\t$0.0081\t$4.05\t수치 정확성 재검증 필요\n\nGPT 계열\ngpt-oss-120b\n\t17 / 20 · 85.0%\t2.32초\t$0.0083\t$4.15\t수치 정확성 재검증 필요\n\nClaude 계열\nclaude-haiku-5.5\n\t18 / 20 · 90.0%\t1.76초\t$0.0087\t$4.35\t대화형 도우미·반복 업무 검토\n\n중국 모델\nqwen3-235b-a22b\n\t17 / 20 · 85.0%\t0.79초\t$0.0094\t$4.70\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama4-maverick\n\t11 / 20 · 55.0%\t0.53초\t$0.01\t$5.00\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama-3.3-70b-bedrock\n\t11 / 20 · 55.0%\t0.83초\t$0.0268\t$13.40\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nnova-pro\n\t6 / 20 · 30.0%\t0.74초\t$0.0351\t$17.55\t수치 정확성 재검증 필요\n\n한국·유럽·기타\nexaone-3.5-32b\n\t3 / 20 · 15.0%\t22.16초\t$0.0381\t$19.05\t수치 정확성 재검증 필요\n\nClaude 계열\nclaude-haiku-4.5\n\t16 / 20 · 80.0%\t1.22초\t$0.044\t$22.00\t수치 정확성 재검증 필요\n\n중국 모델\nqwen3.6-27b\n\t16 / 20 · 80.0%\t26.91초\t$0.0447\t$22.35\t수치 정확성 재검증 필요\n\nGPT 계열\ngpt-5.6-luna\n\t18 / 20 · 90.0%\t1.75초\t$0.0544\t$27.20\t대화형 도우미·반복 업무 검토\n\nGPT 계열\ngpt-6.1-terra\n\t19 / 20 · 95.0%\t1.18초\t$0.0547\t$27.35\t대화형 도우미·반복 업무 검토\n\n그 외 미국 모델\ngrok-4.3\n\t20 / 20 · 100.0%\t4.83초\t$0.0735\t$36.75\t품질 중심의 문서 처리 검토\n\n그 외 미국 모델\ngrok-4.6\n\t19 / 20 · 95.0%\t1.49초\t$0.099\t$49.50\t대화형 도우미·반복 업무 검토\n\nGPT 계열\ngpt-5.4\n\t18 / 20 · 90.0%\t1.22초\t$0.1011\t$50.55\t대화형 도우미·반복 업무 검토\n\nGPT 계열\ngpt-5.6-terra\n\t20 / 20 · 100.0%\t1.65초\t$0.1179\t$58.95\t대화형 도우미·반복 업무 검토\n\nClaude 계열\nclaude-sonnet-4.5\n\t15 / 20 · 75.0%\t2.07초\t$0.1378\t$68.90\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama-3.3-70b\n\t8 / 20 · 40.0%\t45.12초\t$0.2172\t$108.60\t수치 정확성 재검증 필요\n\n중국 모델\nkimi-k3\n\t20 / 20 · 100.0%\t1.64초\t$0.2696\t$134.80\t대화형 도우미·반복 업무 검토\n\nGPT 계열\ngpt-5.5\n\t20 / 20 · 100.0%\t2.32초\t$0.3132\t$156.60\t품질 중심의 문서 처리 검토\n\nClaude 계열\nclaude-sonnet-5\n\t15 / 20 · 75.0%\t2.13초\t견적 확인 필요\t견적 확인 필요\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama-3.1-8b\n\t0 / 20 · 0.0%\t10.81초\t견적 확인 필요\t견적 확인 필요\t도입 전 추가 확인\n\n실측 비용은 이번 문항 응답의 설정 단가 기반 추정치입니다. 계산 가능한 비용만 표시하며 최신 단가 견적은 아닙니다. 정답률은 모든 질문을 분모로 계산합니다. 활용 방식은 표본 정답률90%와 중앙 응답2초를 참고한 검토 가이드입니다.\n\n실제 질문에 어떻게 답했나요?\n\n같은 질문의 두 모델 답변을 나란히 보세요. 수치와 단위뿐 아니라 무엇을 근거로 계산했는지도 확인할 수 있습니다.\n\n질문\n1. what is the percentage change in the unamortized debt issuance costs associated with the senior note\n2. what is the book to market ratio of the commercial mortgage-backed securities\n3. what was the percentage of the total severance actions related to our aeronautics , space systems ,\n4. what is the percent change in gas customers between 2007 and 2008?\n5. what was the sum of the notes entergy issued to nypa with seven and eight annual payment installment\n6. what was the percent of the benefit related to the effective settlement of tax audits recorded as pa\n7. what percentage of the total purchase price is represented by goodwill?\n8. what is the percent change in annual long-term debt maturities ( excluding lease obligations ) and a\n9. what is the total contingent payments to impella 2019s former shareholders if all targets are achiev\n10. what were average net sales for mfc from 2013 to 2015 in millions?\n11. what was the average catastrophe losses from 2008 to 2010 in millions\n12. what percentage of employees are subject to collective bargaining agreements?\n13. what is the percentage change in weighted average discount rate for postretirement plans from 2017 t\n14. what are the higher charges related to tobacco and health judgments as a percentage of the operating\n15. what was the percent of the return on the e*trade financial corporation common stock from 2009 to 20\n16. what were average proportional recoverable environmental capital expenditures for the years december\n17. what are the total pension liability adjustment from 2004 to 2006?\n18. what percent of total derivatives are from interest rate contracts in 2013?\n19. considering the state of arkansas , what is the percentage of residential customers concerning the t\n20. for the three months ended march 2003 what were the total sales proceeds for subsidiaries assets in\n모델 A\nclaude-haiku-4.5 · Claude 계열\nclaude-sonnet-4.5 · Claude 계열\nclaude-sonnet-5 · Claude 계열\nnova-pro · 그 외 미국 모델\nnova-lite · 그 외 미국 모델\ngpt-5.4 · GPT 계열\ngpt-5.5 · GPT 계열\ngpt-5.6-terra · GPT 계열\ngpt-5.6-luna · GPT 계열\nnova-micro · 그 외 미국 모델\nnemotron-nano-3-30b · 그 외 미국 모델\nglm-4.7-flash · 중국 모델\ngpt-oss-20b · GPT 계열\ngpt-oss-120b · GPT 계열\nqwen3-32b · 중국 모델\nnemotron-super-3-120b · 그 외 미국 모델\nllama4-scout · 그 외 미국 모델\nministral-14b · 한국·유럽·기타\nqwen3-235b-a22b · 중국 모델\nllama4-maverick · 그 외 미국 모델\nllama-3.3-70b-bedrock · 그 외 미국 모델\ngemma-4-31b-bedrock · 그 외 미국 모델\nllama-3.1-8b · 그 외 미국 모델\nllama-3.3-70b · 그 외 미국 모델\nqwen3.6-27b · 중국 모델\nexaone-3.5-32b · 한국·유럽·기타\ngrok-4.3 · 그 외 미국 모델\ngrok-4.6 · 그 외 미국 모델\nkimi-k3 · 중국 모델\ngpt-6-luna · GPT 계열\nclaude-haiku-5.5 · Claude 계열\ngpt-6.1-terra · GPT 계열\n모델 B\nclaude-haiku-4.5 · Claude 계열\nclaude-sonnet-4.5 · Claude 계열\nclaude-sonnet-5 · Claude 계열\nnova-pro · 그 외 미국 모델\nnova-lite · 그 외 미국 모델\ngpt-5.4 · GPT 계열\ngpt-5.5 · GPT 계열\ngpt-5.6-terra · GPT 계열\ngpt-5.6-luna · GPT 계열\nnova-micro · 그 외 미국 모델\nnemotron-nano-3-30b · 그 외 미국 모델\nglm-4.7-flash · 중국 모델\ngpt-oss-20b · GPT 계열\ngpt-oss-120b · GPT 계열\nqwen3-32b · 중국 모델\nnemotron-super-3-120b · 그 외 미국 모델\nllama4-scout · 그 외 미국 모델\nministral-14b · 한국·유럽·기타\nqwen3-235b-a22b · 중국 모델\nllama4-maverick · 그 외 미국 모델\nllama-3.3-70b-bedrock · 그 외 미국 모델\ngemma-4-31b-bedrock · 그 외 미국 모델\nllama-3.1-8b · 그 외 미국 모델\nllama-3.3-70b · 그 외 미국 모델\nqwen3.6-27b · 중국 모델\nexaone-3.5-32b · 한국·유럽·기타\ngrok-4.3 · 그 외 미국 모델\ngrok-4.6 · 그 외 미국 모델\nkimi-k3 · 중국 모델\ngpt-6-luna · GPT 계열\nclaude-haiku-5.5 · Claude 계열\ngpt-6.1-terra · GPT 계열\nwhat is the book to market ratio of the commercial mortgage-backed securities\n\n확인된 정답: 0.99474 비율\n\nGPT 계열\ngpt-6.1-terra\n\n0.99474 비율\n\n원문에서 확인한 정답과 일치\n\n모델이 작성한 계산 근거 보기\n그 외 미국 모델\ngrok-4.3\n\n0.99474 비율\n\n원문에서 확인한 정답과 일치\n\n모델이 작성한 계산 근거 보기\n\n전체 질문·원본 답변 보기\n\n측정 조건·오류 내역·원본 데이터\n과거 측정 결과\n질문 선정·평가 방식 자세히 보기"
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "title": "금융 수치 추론 · FinQA — LLM 벤치마크",
+          "text": "LLM 벤치마크\n번역: KO ↔ 15언어\n금융 수치 추론\n모델이 만든 미디어아트 ↗\nLLM ADOPTION GUIDE · FINANCIAL QA\n재무 문서 질의응답, 어떤 모델이 맞을까요?\n\n표와 본문에서 숫자를 찾아 답하는 업무를 비교했습니다. 답변 정확도, 기다리는 시간, 반복 질의 비용을 함께 보고 실제 답변을 확인하세요.\n\nGPT 계열\nClaude 계열\n중국 모델\n그 외 미국 모델\n한국·유럽·기타\n\nGPT·Claude는 별도 계열, 나머지는 개발사 소재 기준입니다. 동일 20문항의 도입 후보 검토용 결과이며 한 문항은 5%p입니다. 실제 재무 판단에는 원문과 계산 근거 검토가 필요합니다.\n\n어떤 질의응답 업무인가요?\n결과 기준\n최신 · GPT-6.1 Terra 추가 · 감사된 금융 QA · 32개 모델\nClaude Haiku 5.5 추가 · 감사된 금융 QA · 31개 모델\nGPT-6 Luna 추가 · 감사된 금융 QA · 30개 모델\nKimi K3 추가 · 감사된 금융 QA · 29개 모델\n감사된 금융 QA · 새 20문항 · 28개 모델\n구 규약 · 전체 28개 모델 비교\n구 규약 · 단위 지시 수정 후 재측정\n구 규약 · 숫자 입력 규칙 명시\n구 규약 · 첫 파일럿\n예상 질의 건수\n건\n\n같은 평균 문서 분량을 질의한다고 가정한 단순 비례 예상 비용(USD)입니다. 문서 검색·저장·서비스 운영 비용은 포함하지 않습니다. 응답 시간은 한 건이 돌아오기까지의 중앙값입니다.\n\nQUALITY FIRST\n정확성이 중요한 수치 확인\n\n표본 정답률 90% 이상에서 관측 정답률 우선. 동률은 비용이 낮은 두 후보를 표시합니다.\n\n그 외 미국 모델\ngrok-4.3\n정답\n20/20 · 100%\n한 건 응답\n4.83초\n10,000건 예상 비용\n$36.75\n실제 결과물 확인 ↓\nGPT 계열\ngpt-5.6-terra\n정답\n20/20 · 100%\n한 건 응답\n1.65초\n10,000건 예상 비용\n$58.95\n실제 결과물 확인 ↓\nCOST FIRST\n반복 질의의 비용 절감\n\n표본 정답률 90% 이상 후보 중 추정 비용이 낮은 모델입니다.\n\nGPT 계열\ngpt-6-luna\n정답\n18/20 · 90%\n한 건 응답\n1.67초\n10,000건 예상 비용\n$3.10\n실제 결과물 확인 ↓\nRESPONSE FIRST\n고객·직원이 기다리는 응답\n\n표본 정답률 90% 이상 후보 중 한 건 응답 시간이 짧은 모델입니다.\n\nGPT 계열\ngpt-6.1-terra\n정답\n19/20 · 95%\n한 건 응답\n1.18초\n10,000건 예상 비용\n$27.35\n실제 결과물 확인 ↓\n\n관측 정답률로 후보를 좁힌 것이며 작은 표본의 근소한 차이를 제품 전체의 우열로 해석하지 마세요. 문서·질문·추론 설정에 따라 실제 성능이 달라집니다.\n\n정확도·시간·비용 한눈에 비교\n\n32개 모델 · 같은 20개 질문에 대한 관측 결과\n\n중요한 기준\n정답률 높은 순\n비용 낮은 순\n응답 빠른 순\n모델명\n모델\t맞힌 질문 / 전체\t한 건 응답\t측정 비용(추정)\t10,000건 예상 비용\t검토할 활용 방식\n\n그 외 미국 모델\nnova-micro\n\t2 / 20 · 10.0%\t0.60초\t$0.0015\t$0.75\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nnemotron-nano-3-30b\n\t0 / 20 · 0.0%\t0.50초\t$0.0026\t$1.30\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nnova-lite\n\t6 / 20 · 30.0%\t0.98초\t$0.0027\t$1.35\t수치 정확성 재검증 필요\n\n중국 모델\nglm-4.7-flash\n\t7 / 20 · 35.0%\t0.53초\t$0.0029\t$1.45\t수치 정확성 재검증 필요\n\nGPT 계열\ngpt-oss-20b\n\t14 / 20 · 70.0%\t1.55초\t$0.0036\t$1.80\t수치 정확성 재검증 필요\n\n그 외 미국 모델\ngemma-4-31b-bedrock\n\t16 / 20 · 80.0%\t1.28초\t$0.006\t$3.00\t수치 정확성 재검증 필요\n\nGPT 계열\ngpt-6-luna\n\t18 / 20 · 90.0%\t1.67초\t$0.0062\t$3.10\t대화형 도우미·반복 업무 검토\n\n중국 모델\nqwen3-32b\n\t7 / 20 · 35.0%\t0.75초\t$0.0065\t$3.25\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nnemotron-super-3-120b\n\t11 / 20 · 55.0%\t0.63초\t$0.0066\t$3.30\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama4-scout\n\t9 / 20 · 45.0%\t0.64초\t$0.0069\t$3.45\t수치 정확성 재검증 필요\n\n한국·유럽·기타\nministral-14b\n\t7 / 20 · 35.0%\t0.52초\t$0.0081\t$4.05\t수치 정확성 재검증 필요\n\nGPT 계열\ngpt-oss-120b\n\t17 / 20 · 85.0%\t2.32초\t$0.0083\t$4.15\t수치 정확성 재검증 필요\n\nClaude 계열\nclaude-haiku-5.5\n\t18 / 20 · 90.0%\t1.76초\t$0.0087\t$4.35\t대화형 도우미·반복 업무 검토\n\n중국 모델\nqwen3-235b-a22b\n\t17 / 20 · 85.0%\t0.79초\t$0.0094\t$4.70\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama4-maverick\n\t11 / 20 · 55.0%\t0.53초\t$0.01\t$5.00\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama-3.3-70b-bedrock\n\t11 / 20 · 55.0%\t0.83초\t$0.0268\t$13.40\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nnova-pro\n\t6 / 20 · 30.0%\t0.74초\t$0.0351\t$17.55\t수치 정확성 재검증 필요\n\n한국·유럽·기타\nexaone-3.5-32b\n\t3 / 20 · 15.0%\t22.16초\t$0.0381\t$19.05\t수치 정확성 재검증 필요\n\nClaude 계열\nclaude-haiku-4.5\n\t16 / 20 · 80.0%\t1.22초\t$0.044\t$22.00\t수치 정확성 재검증 필요\n\n중국 모델\nqwen3.6-27b\n\t16 / 20 · 80.0%\t26.91초\t$0.0447\t$22.35\t수치 정확성 재검증 필요\n\nGPT 계열\ngpt-5.6-luna\n\t18 / 20 · 90.0%\t1.75초\t$0.0544\t$27.20\t대화형 도우미·반복 업무 검토\n\nGPT 계열\ngpt-6.1-terra\n\t19 / 20 · 95.0%\t1.18초\t$0.0547\t$27.35\t대화형 도우미·반복 업무 검토\n\n그 외 미국 모델\ngrok-4.3\n\t20 / 20 · 100.0%\t4.83초\t$0.0735\t$36.75\t품질 중심의 문서 처리 검토\n\n그 외 미국 모델\ngrok-4.6\n\t19 / 20 · 95.0%\t1.49초\t$0.099\t$49.50\t대화형 도우미·반복 업무 검토\n\nGPT 계열\ngpt-5.4\n\t18 / 20 · 90.0%\t1.22초\t$0.1011\t$50.55\t대화형 도우미·반복 업무 검토\n\nGPT 계열\ngpt-5.6-terra\n\t20 / 20 · 100.0%\t1.65초\t$0.1179\t$58.95\t대화형 도우미·반복 업무 검토\n\nClaude 계열\nclaude-sonnet-4.5\n\t15 / 20 · 75.0%\t2.07초\t$0.1378\t$68.90\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama-3.3-70b\n\t8 / 20 · 40.0%\t45.12초\t$0.2172\t$108.60\t수치 정확성 재검증 필요\n\n중국 모델\nkimi-k3\n\t20 / 20 · 100.0%\t1.64초\t$0.2696\t$134.80\t대화형 도우미·반복 업무 검토\n\nGPT 계열\ngpt-5.5\n\t20 / 20 · 100.0%\t2.32초\t$0.3132\t$156.60\t품질 중심의 문서 처리 검토\n\nClaude 계열\nclaude-sonnet-5\n\t15 / 20 · 75.0%\t2.13초\t견적 확인 필요\t견적 확인 필요\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama-3.1-8b\n\t0 / 20 · 0.0%\t10.81초\t견적 확인 필요\t견적 확인 필요\t도입 전 추가 확인\n\n실측 비용은 이번 문항 응답의 설정 단가 기반 추정치입니다. 계산 가능한 비용만 표시하며 최신 단가 견적은 아닙니다. 정답률은 모든 질문을 분모로 계산합니다. 활용 방식은 표본 정답률90%와 중앙 응답2초를 참고한 검토 가이드입니다.\n\n실제 질문에 어떻게 답했나요?\n\n같은 질문의 두 모델 답변을 나란히 보세요. 수치와 단위뿐 아니라 무엇을 근거로 계산했는지도 확인할 수 있습니다.\n\n질문\n1. what is the percentage change in the unamortized debt issuance costs associated with the senior note\n2. what is the book to market ratio of the commercial mortgage-backed securities\n3. what was the percentage of the total severance actions related to our aeronautics , space systems ,\n4. what is the percent change in gas customers between 2007 and 2008?\n5. what was the sum of the notes entergy issued to nypa with seven and eight annual payment installment\n6. what was the percent of the benefit related to the effective settlement of tax audits recorded as pa\n7. what percentage of the total purchase price is represented by goodwill?\n8. what is the percent change in annual long-term debt maturities ( excluding lease obligations ) and a\n9. what is the total contingent payments to impella 2019s former shareholders if all targets are achiev\n10. what were average net sales for mfc from 2013 to 2015 in millions?\n11. what was the average catastrophe losses from 2008 to 2010 in millions\n12. what percentage of employees are subject to collective bargaining agreements?\n13. what is the percentage change in weighted average discount rate for postretirement plans from 2017 t\n14. what are the higher charges related to tobacco and health judgments as a percentage of the operating\n15. what was the percent of the return on the e*trade financial corporation common stock from 2009 to 20\n16. what were average proportional recoverable environmental capital expenditures for the years december\n17. what are the total pension liability adjustment from 2004 to 2006?\n18. what percent of total derivatives are from interest rate contracts in 2013?\n19. considering the state of arkansas , what is the percentage of residential customers concerning the t\n20. for the three months ended march 2003 what were the total sales proceeds for subsidiaries assets in\n모델 A\nclaude-haiku-4.5 · Claude 계열\nclaude-sonnet-4.5 · Claude 계열\nclaude-sonnet-5 · Claude 계열\nnova-pro · 그 외 미국 모델\nnova-lite · 그 외 미국 모델\ngpt-5.4 · GPT 계열\ngpt-5.5 · GPT 계열\ngpt-5.6-terra · GPT 계열\ngpt-5.6-luna · GPT 계열\nnova-micro · 그 외 미국 모델\nnemotron-nano-3-30b · 그 외 미국 모델\nglm-4.7-flash · 중국 모델\ngpt-oss-20b · GPT 계열\ngpt-oss-120b · GPT 계열\nqwen3-32b · 중국 모델\nnemotron-super-3-120b · 그 외 미국 모델\nllama4-scout · 그 외 미국 모델\nministral-14b · 한국·유럽·기타\nqwen3-235b-a22b · 중국 모델\nllama4-maverick · 그 외 미국 모델\nllama-3.3-70b-bedrock · 그 외 미국 모델\ngemma-4-31b-bedrock · 그 외 미국 모델\nllama-3.1-8b · 그 외 미국 모델\nllama-3.3-70b · 그 외 미국 모델\nqwen3.6-27b · 중국 모델\nexaone-3.5-32b · 한국·유럽·기타\ngrok-4.3 · 그 외 미국 모델\ngrok-4.6 · 그 외 미국 모델\nkimi-k3 · 중국 모델\ngpt-6-luna · GPT 계열\nclaude-haiku-5.5 · Claude 계열\ngpt-6.1-terra · GPT 계열\n모델 B\nclaude-haiku-4.5 · Claude 계열\nclaude-sonnet-4.5 · Claude 계열\nclaude-sonnet-5 · Claude 계열\nnova-pro · 그 외 미국 모델\nnova-lite · 그 외 미국 모델\ngpt-5.4 · GPT 계열\ngpt-5.5 · GPT 계열\ngpt-5.6-terra · GPT 계열\ngpt-5.6-luna · GPT 계열\nnova-micro · 그 외 미국 모델\nnemotron-nano-3-30b · 그 외 미국 모델\nglm-4.7-flash · 중국 모델\ngpt-oss-20b · GPT 계열\ngpt-oss-120b · GPT 계열\nqwen3-32b · 중국 모델\nnemotron-super-3-120b · 그 외 미국 모델\nllama4-scout · 그 외 미국 모델\nministral-14b · 한국·유럽·기타\nqwen3-235b-a22b · 중국 모델\nllama4-maverick · 그 외 미국 모델\nllama-3.3-70b-bedrock · 그 외 미국 모델\ngemma-4-31b-bedrock · 그 외 미국 모델\nllama-3.1-8b · 그 외 미국 모델\nllama-3.3-70b · 그 외 미국 모델\nqwen3.6-27b · 중국 모델\nexaone-3.5-32b · 한국·유럽·기타\ngrok-4.3 · 그 외 미국 모델\ngrok-4.6 · 그 외 미국 모델\nkimi-k3 · 중국 모델\ngpt-6-luna · GPT 계열\nclaude-haiku-5.5 · Claude 계열\ngpt-6.1-terra · GPT 계열\nwhat is the book to market ratio of the commercial mortgage-backed securities\n\n확인된 정답: 0.99474 비율\n\nGPT 계열\ngpt-6.1-terra\n\n0.99474 비율\n\n원문에서 확인한 정답과 일치\n\n모델이 작성한 계산 근거 보기\n그 외 미국 모델\ngrok-4.3\n\n0.99474 비율\n\n원문에서 확인한 정답과 일치\n\n모델이 작성한 계산 근거 보기\n\n전체 질문·원본 답변 보기\n\n측정 조건·오류 내역·원본 데이터\n과거 측정 결과\n질문 선정·평가 방식 자세히 보기"
+        },
+        {
+          "width": 375,
+          "overflow": false,
+          "title": "금융 수치 추론 · FinQA — LLM 벤치마크",
+          "text": "LLM 벤치마크\n번역: KO ↔ 15언어\n금융 수치 추론\n모델이 만든 미디어아트 ↗\nLLM ADOPTION GUIDE · FINANCIAL QA\n재무 문서 질의응답, 어떤 모델이 맞을까요?\n\n표와 본문에서 숫자를 찾아 답하는 업무를 비교했습니다. 답변 정확도, 기다리는 시간, 반복 질의 비용을 함께 보고 실제 답변을 확인하세요.\n\nGPT 계열\nClaude 계열\n중국 모델\n그 외 미국 모델\n한국·유럽·기타\n\nGPT·Claude는 별도 계열, 나머지는 개발사 소재 기준입니다. 동일 20문항의 도입 후보 검토용 결과이며 한 문항은 5%p입니다. 실제 재무 판단에는 원문과 계산 근거 검토가 필요합니다.\n\n어떤 질의응답 업무인가요?\n결과 기준\n최신 · GPT-6.1 Terra 추가 · 감사된 금융 QA · 32개 모델\nClaude Haiku 5.5 추가 · 감사된 금융 QA · 31개 모델\nGPT-6 Luna 추가 · 감사된 금융 QA · 30개 모델\nKimi K3 추가 · 감사된 금융 QA · 29개 모델\n감사된 금융 QA · 새 20문항 · 28개 모델\n구 규약 · 전체 28개 모델 비교\n구 규약 · 단위 지시 수정 후 재측정\n구 규약 · 숫자 입력 규칙 명시\n구 규약 · 첫 파일럿\n예상 질의 건수\n건\n\n같은 평균 문서 분량을 질의한다고 가정한 단순 비례 예상 비용(USD)입니다. 문서 검색·저장·서비스 운영 비용은 포함하지 않습니다. 응답 시간은 한 건이 돌아오기까지의 중앙값입니다.\n\nQUALITY FIRST\n정확성이 중요한 수치 확인\n\n표본 정답률 90% 이상에서 관측 정답률 우선. 동률은 비용이 낮은 두 후보를 표시합니다.\n\n그 외 미국 모델\ngrok-4.3\n정답\n20/20 · 100%\n한 건 응답\n4.83초\n10,000건 예상 비용\n$36.75\n실제 결과물 확인 ↓\nGPT 계열\ngpt-5.6-terra\n정답\n20/20 · 100%\n한 건 응답\n1.65초\n10,000건 예상 비용\n$58.95\n실제 결과물 확인 ↓\nCOST FIRST\n반복 질의의 비용 절감\n\n표본 정답률 90% 이상 후보 중 추정 비용이 낮은 모델입니다.\n\nGPT 계열\ngpt-6-luna\n정답\n18/20 · 90%\n한 건 응답\n1.67초\n10,000건 예상 비용\n$3.10\n실제 결과물 확인 ↓\nRESPONSE FIRST\n고객·직원이 기다리는 응답\n\n표본 정답률 90% 이상 후보 중 한 건 응답 시간이 짧은 모델입니다.\n\nGPT 계열\ngpt-6.1-terra\n정답\n19/20 · 95%\n한 건 응답\n1.18초\n10,000건 예상 비용\n$27.35\n실제 결과물 확인 ↓\n\n관측 정답률로 후보를 좁힌 것이며 작은 표본의 근소한 차이를 제품 전체의 우열로 해석하지 마세요. 문서·질문·추론 설정에 따라 실제 성능이 달라집니다.\n\n정확도·시간·비용 한눈에 비교\n\n32개 모델 · 같은 20개 질문에 대한 관측 결과\n\n중요한 기준\n정답률 높은 순\n비용 낮은 순\n응답 빠른 순\n모델명\n모델\t맞힌 질문 / 전체\t한 건 응답\t측정 비용(추정)\t10,000건 예상 비용\t검토할 활용 방식\n\n그 외 미국 모델\nnova-micro\n\t2 / 20 · 10.0%\t0.60초\t$0.0015\t$0.75\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nnemotron-nano-3-30b\n\t0 / 20 · 0.0%\t0.50초\t$0.0026\t$1.30\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nnova-lite\n\t6 / 20 · 30.0%\t0.98초\t$0.0027\t$1.35\t수치 정확성 재검증 필요\n\n중국 모델\nglm-4.7-flash\n\t7 / 20 · 35.0%\t0.53초\t$0.0029\t$1.45\t수치 정확성 재검증 필요\n\nGPT 계열\ngpt-oss-20b\n\t14 / 20 · 70.0%\t1.55초\t$0.0036\t$1.80\t수치 정확성 재검증 필요\n\n그 외 미국 모델\ngemma-4-31b-bedrock\n\t16 / 20 · 80.0%\t1.28초\t$0.006\t$3.00\t수치 정확성 재검증 필요\n\nGPT 계열\ngpt-6-luna\n\t18 / 20 · 90.0%\t1.67초\t$0.0062\t$3.10\t대화형 도우미·반복 업무 검토\n\n중국 모델\nqwen3-32b\n\t7 / 20 · 35.0%\t0.75초\t$0.0065\t$3.25\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nnemotron-super-3-120b\n\t11 / 20 · 55.0%\t0.63초\t$0.0066\t$3.30\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama4-scout\n\t9 / 20 · 45.0%\t0.64초\t$0.0069\t$3.45\t수치 정확성 재검증 필요\n\n한국·유럽·기타\nministral-14b\n\t7 / 20 · 35.0%\t0.52초\t$0.0081\t$4.05\t수치 정확성 재검증 필요\n\nGPT 계열\ngpt-oss-120b\n\t17 / 20 · 85.0%\t2.32초\t$0.0083\t$4.15\t수치 정확성 재검증 필요\n\nClaude 계열\nclaude-haiku-5.5\n\t18 / 20 · 90.0%\t1.76초\t$0.0087\t$4.35\t대화형 도우미·반복 업무 검토\n\n중국 모델\nqwen3-235b-a22b\n\t17 / 20 · 85.0%\t0.79초\t$0.0094\t$4.70\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama4-maverick\n\t11 / 20 · 55.0%\t0.53초\t$0.01\t$5.00\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama-3.3-70b-bedrock\n\t11 / 20 · 55.0%\t0.83초\t$0.0268\t$13.40\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nnova-pro\n\t6 / 20 · 30.0%\t0.74초\t$0.0351\t$17.55\t수치 정확성 재검증 필요\n\n한국·유럽·기타\nexaone-3.5-32b\n\t3 / 20 · 15.0%\t22.16초\t$0.0381\t$19.05\t수치 정확성 재검증 필요\n\nClaude 계열\nclaude-haiku-4.5\n\t16 / 20 · 80.0%\t1.22초\t$0.044\t$22.00\t수치 정확성 재검증 필요\n\n중국 모델\nqwen3.6-27b\n\t16 / 20 · 80.0%\t26.91초\t$0.0447\t$22.35\t수치 정확성 재검증 필요\n\nGPT 계열\ngpt-5.6-luna\n\t18 / 20 · 90.0%\t1.75초\t$0.0544\t$27.20\t대화형 도우미·반복 업무 검토\n\nGPT 계열\ngpt-6.1-terra\n\t19 / 20 · 95.0%\t1.18초\t$0.0547\t$27.35\t대화형 도우미·반복 업무 검토\n\n그 외 미국 모델\ngrok-4.3\n\t20 / 20 · 100.0%\t4.83초\t$0.0735\t$36.75\t품질 중심의 문서 처리 검토\n\n그 외 미국 모델\ngrok-4.6\n\t19 / 20 · 95.0%\t1.49초\t$0.099\t$49.50\t대화형 도우미·반복 업무 검토\n\nGPT 계열\ngpt-5.4\n\t18 / 20 · 90.0%\t1.22초\t$0.1011\t$50.55\t대화형 도우미·반복 업무 검토\n\nGPT 계열\ngpt-5.6-terra\n\t20 / 20 · 100.0%\t1.65초\t$0.1179\t$58.95\t대화형 도우미·반복 업무 검토\n\nClaude 계열\nclaude-sonnet-4.5\n\t15 / 20 · 75.0%\t2.07초\t$0.1378\t$68.90\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama-3.3-70b\n\t8 / 20 · 40.0%\t45.12초\t$0.2172\t$108.60\t수치 정확성 재검증 필요\n\n중국 모델\nkimi-k3\n\t20 / 20 · 100.0%\t1.64초\t$0.2696\t$134.80\t대화형 도우미·반복 업무 검토\n\nGPT 계열\ngpt-5.5\n\t20 / 20 · 100.0%\t2.32초\t$0.3132\t$156.60\t품질 중심의 문서 처리 검토\n\nClaude 계열\nclaude-sonnet-5\n\t15 / 20 · 75.0%\t2.13초\t견적 확인 필요\t견적 확인 필요\t수치 정확성 재검증 필요\n\n그 외 미국 모델\nllama-3.1-8b\n\t0 / 20 · 0.0%\t10.81초\t견적 확인 필요\t견적 확인 필요\t도입 전 추가 확인\n\n실측 비용은 이번 문항 응답의 설정 단가 기반 추정치입니다. 계산 가능한 비용만 표시하며 최신 단가 견적은 아닙니다. 정답률은 모든 질문을 분모로 계산합니다. 활용 방식은 표본 정답률90%와 중앙 응답2초를 참고한 검토 가이드입니다.\n\n실제 질문에 어떻게 답했나요?\n\n같은 질문의 두 모델 답변을 나란히 보세요. 수치와 단위뿐 아니라 무엇을 근거로 계산했는지도 확인할 수 있습니다.\n\n질문\n1. what is the percentage change in the unamortized debt issuance costs associated with the senior note\n2. what is the book to market ratio of the commercial mortgage-backed securities\n3. what was the percentage of the total severance actions related to our aeronautics , space systems ,\n4. what is the percent change in gas customers between 2007 and 2008?\n5. what was the sum of the notes entergy issued to nypa with seven and eight annual payment installment\n6. what was the percent of the benefit related to the effective settlement of tax audits recorded as pa\n7. what percentage of the total purchase price is represented by goodwill?\n8. what is the percent change in annual long-term debt maturities ( excluding lease obligations ) and a\n9. what is the total contingent payments to impella 2019s former shareholders if all targets are achiev\n10. what were average net sales for mfc from 2013 to 2015 in millions?\n11. what was the average catastrophe losses from 2008 to 2010 in millions\n12. what percentage of employees are subject to collective bargaining agreements?\n13. what is the percentage change in weighted average discount rate for postretirement plans from 2017 t\n14. what are the higher charges related to tobacco and health judgments as a percentage of the operating\n15. what was the percent of the return on the e*trade financial corporation common stock from 2009 to 20\n16. what were average proportional recoverable environmental capital expenditures for the years december\n17. what are the total pension liability adjustment from 2004 to 2006?\n18. what percent of total derivatives are from interest rate contracts in 2013?\n19. considering the state of arkansas , what is the percentage of residential customers concerning the t\n20. for the three months ended march 2003 what were the total sales proceeds for subsidiaries assets in\n모델 A\nclaude-haiku-4.5 · Claude 계열\nclaude-sonnet-4.5 · Claude 계열\nclaude-sonnet-5 · Claude 계열\nnova-pro · 그 외 미국 모델\nnova-lite · 그 외 미국 모델\ngpt-5.4 · GPT 계열\ngpt-5.5 · GPT 계열\ngpt-5.6-terra · GPT 계열\ngpt-5.6-luna · GPT 계열\nnova-micro · 그 외 미국 모델\nnemotron-nano-3-30b · 그 외 미국 모델\nglm-4.7-flash · 중국 모델\ngpt-oss-20b · GPT 계열\ngpt-oss-120b · GPT 계열\nqwen3-32b · 중국 모델\nnemotron-super-3-120b · 그 외 미국 모델\nllama4-scout · 그 외 미국 모델\nministral-14b · 한국·유럽·기타\nqwen3-235b-a22b · 중국 모델\nllama4-maverick · 그 외 미국 모델\nllama-3.3-70b-bedrock · 그 외 미국 모델\ngemma-4-31b-bedrock · 그 외 미국 모델\nllama-3.1-8b · 그 외 미국 모델\nllama-3.3-70b · 그 외 미국 모델\nqwen3.6-27b · 중국 모델\nexaone-3.5-32b · 한국·유럽·기타\ngrok-4.3 · 그 외 미국 모델\ngrok-4.6 · 그 외 미국 모델\nkimi-k3 · 중국 모델\ngpt-6-luna · GPT 계열\nclaude-haiku-5.5 · Claude 계열\ngpt-6.1-terra · GPT 계열\n모델 B\nclaude-haiku-4.5 · Claude 계열\nclaude-sonnet-4.5 · Claude 계열\nclaude-sonnet-5 · Claude 계열\nnova-pro · 그 외 미국 모델\nnova-lite · 그 외 미국 모델\ngpt-5.4 · GPT 계열\ngpt-5.5 · GPT 계열\ngpt-5.6-terra · GPT 계열\ngpt-5.6-luna · GPT 계열\nnova-micro · 그 외 미국 모델\nnemotron-nano-3-30b · 그 외 미국 모델\nglm-4.7-flash · 중국 모델\ngpt-oss-20b · GPT 계열\ngpt-oss-120b · GPT 계열\nqwen3-32b · 중국 모델\nnemotron-super-3-120b · 그 외 미국 모델\nllama4-scout · 그 외 미국 모델\nministral-14b · 한국·유럽·기타\nqwen3-235b-a22b · 중국 모델\nllama4-maverick · 그 외 미국 모델\nllama-3.3-70b-bedrock · 그 외 미국 모델\ngemma-4-31b-bedrock · 그 외 미국 모델\nllama-3.1-8b · 그 외 미국 모델\nllama-3.3-70b · 그 외 미국 모델\nqwen3.6-27b · 중국 모델\nexaone-3.5-32b · 한국·유럽·기타\ngrok-4.3 · 그 외 미국 모델\ngrok-4.6 · 그 외 미국 모델\nkimi-k3 · 중국 모델\ngpt-6-luna · GPT 계열\nclaude-haiku-5.5 · Claude 계열\ngpt-6.1-terra · GPT 계열\nwhat is the book to market ratio of the commercial mortgage-backed securities\n\n확인된 정답: 0.99474 비율\n\nGPT 계열\ngpt-6.1-terra\n\n0.99474 비율\n\n원문에서 확인한 정답과 일치\n\n모델이 작성한 계산 근거 보기\n그 외 미국 모델\ngrok-4.3\n\n0.99474 비율\n\n원문에서 확인한 정답과 일치\n\n모델이 작성한 계산 근거 보기\n\n전체 질문·원본 답변 보기\n\n측정 조건·오류 내역·원본 데이터\n과거 측정 결과\n질문 선정·평가 방식 자세히 보기"
+        }
+      ],
+      "selected": "finqa-gpt-6.1-terra-20261027",
+      "modelCount": 32,
+      "terraRow": "GPT 계열\ngpt-6.1-terra\n\t19 / 20 · 95.0%\t1.18초\t$0.0547\t$27.35\t대화형 도우미·반복 업무 검토",
+      "runOptions": [
+        "finqa-gpt-6.1-terra-20261027",
+        "finqa-claude-haiku-5.5-20261012",
+        "finqa-gpt-6-luna-20260925",
+        "finqa-kimi-k3-20260920",
+        "finqa-audited-20260919",
+        "finqa-all-20260918",
+        "finqa-nova-lite-pilot-v3-20260917",
+        "finqa-nova-lite-pilot-v2-20260917",
+        "finqa-nova-lite-pilot-20260917"
+      ],
+      "example": "what is the percentage change in the unamortized debt issuance costs associated with the senior notes from 2016 to 2017?\n\n확인된 정답: -0.21053 비율\n\nGPT 계열\ngpt-6.1-terra\n\n-0.21053 비율\n\n원문에서 확인한 정답과 일치\n\n모델이 작성한 계산 근거 보기\n그 외 미국 모델\ngrok-4.3\n\n-0.21053 비율\n\n원문에서 확인한 정답과 일치\n\n모델이 작성한 계산 근거 보기",
+      "exampleDetailsOpen": true,
+      "questionCount": 20,
+      "secondExample": "what is the book to market ratio of the commercial mortgage-backed securities\n\n확인된 정답: 0.99474 비율\n\nGPT 계열\ngpt-6.1-terra\n\n0.99474 비율\n\n원문에서 확인한 정답과 일치\n\n모델이 작성한 계산 근거 보기\n그 외 미국 모델\ngrok-4.3\n\n0.99474 비율\n\n원문에서 확인한 정답과 일치\n\n모델이 작성한 계산 근거 보기",
+      "terra20k": "GPT 계열\ngpt-6.1-terra\n\t19 / 20 · 95.0%\t1.18초\t$0.0547\t$54.70\t대화형 도우미·반복 업무 검토",
+      "invalidVolume": "1~1,000,000,000 사이 정수를 입력하세요. 현재 표는 20,000건 기준입니다.",
+      "firstByCost": "그 외 미국 모델\nnova-micro\n\t2 / 20 · 10.0%\t0.60초\t$0.0015\t$0.75\t수치 정확성 재검증 필요",
+      "detailHref": "finqa-results/finqa-gpt-6.1-terra-20261027.html"
+    },
+    {
+      "route": "finqa-results/finqa-gpt-6.1-terra-20261027.html",
+      "errors": [],
+      "warnings": [],
+      "views": [
+        {
+          "width": 1280,
+          "overflow": false,
+          "title": "감사된 금융 QA · GPT-6.1 Terra 추가",
+          "text": "금융 QA 대시보드\n감사된 금융 QA · GPT-6.1 Terra 추가\n\n32개 모델 · 동일20문항\n\n기존31개 모델의 점수·비용은 보존하고 GPT-6.1 Terra만 동일20문항·프롬프트·채점기로 추가 측정했습니다. 측정 시점·호출 코드·단가는 다릅니다.\n\nGPT-6.1 Terra 비용은 공식 모델 카드의 Mantle In-Region 표준 지역 요금으로 캐시 읽기·쓰기를 구분한 추정치입니다.\n\n기존30개 모델의 점수·비용은 보존하고 Claude Haiku 5.5만 동일20문항·프롬프트·채점기로 추가 측정했습니다. 측정 시점·호출 코드·단가는 다릅니다.\n\nClaude Haiku 5.5 비용은 표준 단가의 US Geo 지역 요금(+10%)으로 캐시 읽기·쓰기를 구분한 추정치입니다.\n\n기존29개 모델의 점수·비용은 보존하고 GPT-6 Luna만 동일20문항·프롬프트·채점기로 추가 측정했습니다. 측정 시점·호출 코드·단가는 다릅니다.\n\nGPT-6 Luna 비용은 상용 지역 처리 단가(일반 표준 단가+10%)로 캐시 읽기·쓰기를 구분한 추정치입니다.\n\n이전 28개 모델의 결과를 보존하고 Kimi K3만 같은 20문항·프롬프트·채점기로 추가 측정했습니다. 측정 시점과 호출 코드 버전은 다릅니다.\n\n새 20문항의 정답·단위를 호출 전에 감사했습니다. 기존 FinQA 실행 점수와 직접 비교하지 마세요.\n\n모델이 선언한 단위로 환산합니다. 숫자를 보고 100배 차이를 임의로 정답 처리하지 않습니다.\n\n20문항·사전 선별 표본입니다. 95% 구간은 참고치이며 금융 업무 전반의 우열을 확정하지 않습니다.\n\n모델별 기존 추론 설정을 유지했습니다. 생략된 설정의 실제 기본값과 추론량이 같다고 보장하지 않습니다.\n\n비용은 설정 단가 기반 추정치입니다. 단가 만료·GPU 준비·유휴·실패 호출 비용 등 한계는 상세에 표시합니다.\n\n모델\t정답\t정답률\t비용/문항\ngpt-5.5\t20/20\t100.0%\t$0.01566\ngpt-5.6-terra\t20/20\t100.0%\t$0.00590\ngrok-4.3\t20/20\t100.0%\t$0.00367\nkimi-k3\t20/20\t100.0%\t$0.01348\ngpt-6.1-terra\t19/20\t95.0%\t$0.00274\ngrok-4.6\t19/20\t95.0%\t$0.00495\nclaude-haiku-5.5\t18/20\t90.0%\t$0.00043\ngpt-5.4\t18/20\t90.0%\t$0.00505\ngpt-5.6-luna\t18/20\t90.0%\t$0.00272\ngpt-6-luna\t18/20\t90.0%\t$0.00031\ngpt-oss-120b\t17/20\t85.0%\t$0.00042\nqwen3-235b-a22b\t17/20\t85.0%\t$0.00047\nclaude-haiku-4.5\t16/20\t80.0%\t$0.00220\ngemma-4-31b-bedrock\t16/20\t80.0%\t$0.00030\nqwen3.6-27b\t16/20\t80.0%\t$0.00224\nclaude-sonnet-4.5\t15/20\t75.0%\t$0.00689\nclaude-sonnet-5\t15/20\t75.0%\t—\ngpt-oss-20b\t14/20\t70.0%\t$0.00018\nllama-3.3-70b-bedrock\t11/20\t55.0%\t$0.00134\nllama4-maverick\t11/20\t55.0%\t$0.00050\nnemotron-super-3-120b\t11/20\t55.0%\t$0.00033\nllama4-scout\t9/20\t45.0%\t$0.00034\nllama-3.3-70b\t8/20\t40.0%\t$0.01086\nglm-4.7-flash\t7/20\t35.0%\t$0.00015\nministral-14b\t7/20\t35.0%\t$0.00040\nqwen3-32b\t7/20\t35.0%\t$0.00032\nnova-lite\t6/20\t30.0%\t$0.00014\nnova-pro\t6/20\t30.0%\t$0.00176\nexaone-3.5-32b\t3/20\t15.0%\t$0.00191\nnova-micro\t2/20\t10.0%\t$0.00008\nllama-3.1-8b\t0/20\t0.0%\t—\nnemotron-nano-3-30b\t0/20\t0.0%\t$0.00013\nclaude-haiku-4.5 · 원본·판정·설정\nclaude-sonnet-4.5 · 원본·판정·설정\nclaude-sonnet-5 · 원본·판정·설정\nnova-pro · 원본·판정·설정\nnova-lite · 원본·판정·설정\ngpt-5.4 · 원본·판정·설정\ngpt-5.5 · 원본·판정·설정\ngpt-5.6-terra · 원본·판정·설정\ngpt-5.6-luna · 원본·판정·설정\nnova-micro · 원본·판정·설정\nnemotron-nano-3-30b · 원본·판정·설정\nglm-4.7-flash · 원본·판정·설정\ngpt-oss-20b · 원본·판정·설정\ngpt-oss-120b · 원본·판정·설정\nqwen3-32b · 원본·판정·설정\nnemotron-super-3-120b · 원본·판정·설정\nllama4-scout · 원본·판정·설정\nministral-14b · 원본·판정·설정\nqwen3-235b-a22b · 원본·판정·설정\nllama4-maverick · 원본·판정·설정\nllama-3.3-70b-bedrock · 원본·판정·설정\ngemma-4-31b-bedrock · 원본·판정·설정\nllama-3.1-8b · 원본·판정·설정\nllama-3.3-70b · 원본·판정·설정\nqwen3.6-27b · 원본·판정·설정\nexaone-3.5-32b · 원본·판정·설정\ngrok-4.3 · 원본·판정·설정\ngrok-4.6 · 원본·판정·설정\nkimi-k3 · 원본·판정·설정\ngpt-6-luna · 원본·판정·설정\nclaude-haiku-5.5 · 원본·판정·설정\ngpt-6.1-terra · 원본·판정·설정\n평가 규약"
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "title": "감사된 금융 QA · GPT-6.1 Terra 추가",
+          "text": "금융 QA 대시보드\n감사된 금융 QA · GPT-6.1 Terra 추가\n\n32개 모델 · 동일20문항\n\n기존31개 모델의 점수·비용은 보존하고 GPT-6.1 Terra만 동일20문항·프롬프트·채점기로 추가 측정했습니다. 측정 시점·호출 코드·단가는 다릅니다.\n\nGPT-6.1 Terra 비용은 공식 모델 카드의 Mantle In-Region 표준 지역 요금으로 캐시 읽기·쓰기를 구분한 추정치입니다.\n\n기존30개 모델의 점수·비용은 보존하고 Claude Haiku 5.5만 동일20문항·프롬프트·채점기로 추가 측정했습니다. 측정 시점·호출 코드·단가는 다릅니다.\n\nClaude Haiku 5.5 비용은 표준 단가의 US Geo 지역 요금(+10%)으로 캐시 읽기·쓰기를 구분한 추정치입니다.\n\n기존29개 모델의 점수·비용은 보존하고 GPT-6 Luna만 동일20문항·프롬프트·채점기로 추가 측정했습니다. 측정 시점·호출 코드·단가는 다릅니다.\n\nGPT-6 Luna 비용은 상용 지역 처리 단가(일반 표준 단가+10%)로 캐시 읽기·쓰기를 구분한 추정치입니다.\n\n이전 28개 모델의 결과를 보존하고 Kimi K3만 같은 20문항·프롬프트·채점기로 추가 측정했습니다. 측정 시점과 호출 코드 버전은 다릅니다.\n\n새 20문항의 정답·단위를 호출 전에 감사했습니다. 기존 FinQA 실행 점수와 직접 비교하지 마세요.\n\n모델이 선언한 단위로 환산합니다. 숫자를 보고 100배 차이를 임의로 정답 처리하지 않습니다.\n\n20문항·사전 선별 표본입니다. 95% 구간은 참고치이며 금융 업무 전반의 우열을 확정하지 않습니다.\n\n모델별 기존 추론 설정을 유지했습니다. 생략된 설정의 실제 기본값과 추론량이 같다고 보장하지 않습니다.\n\n비용은 설정 단가 기반 추정치입니다. 단가 만료·GPU 준비·유휴·실패 호출 비용 등 한계는 상세에 표시합니다.\n\n모델\t정답\t정답률\t비용/문항\ngpt-5.5\t20/20\t100.0%\t$0.01566\ngpt-5.6-terra\t20/20\t100.0%\t$0.00590\ngrok-4.3\t20/20\t100.0%\t$0.00367\nkimi-k3\t20/20\t100.0%\t$0.01348\ngpt-6.1-terra\t19/20\t95.0%\t$0.00274\ngrok-4.6\t19/20\t95.0%\t$0.00495\nclaude-haiku-5.5\t18/20\t90.0%\t$0.00043\ngpt-5.4\t18/20\t90.0%\t$0.00505\ngpt-5.6-luna\t18/20\t90.0%\t$0.00272\ngpt-6-luna\t18/20\t90.0%\t$0.00031\ngpt-oss-120b\t17/20\t85.0%\t$0.00042\nqwen3-235b-a22b\t17/20\t85.0%\t$0.00047\nclaude-haiku-4.5\t16/20\t80.0%\t$0.00220\ngemma-4-31b-bedrock\t16/20\t80.0%\t$0.00030\nqwen3.6-27b\t16/20\t80.0%\t$0.00224\nclaude-sonnet-4.5\t15/20\t75.0%\t$0.00689\nclaude-sonnet-5\t15/20\t75.0%\t—\ngpt-oss-20b\t14/20\t70.0%\t$0.00018\nllama-3.3-70b-bedrock\t11/20\t55.0%\t$0.00134\nllama4-maverick\t11/20\t55.0%\t$0.00050\nnemotron-super-3-120b\t11/20\t55.0%\t$0.00033\nllama4-scout\t9/20\t45.0%\t$0.00034\nllama-3.3-70b\t8/20\t40.0%\t$0.01086\nglm-4.7-flash\t7/20\t35.0%\t$0.00015\nministral-14b\t7/20\t35.0%\t$0.00040\nqwen3-32b\t7/20\t35.0%\t$0.00032\nnova-lite\t6/20\t30.0%\t$0.00014\nnova-pro\t6/20\t30.0%\t$0.00176\nexaone-3.5-32b\t3/20\t15.0%\t$0.00191\nnova-micro\t2/20\t10.0%\t$0.00008\nllama-3.1-8b\t0/20\t0.0%\t—\nnemotron-nano-3-30b\t0/20\t0.0%\t$0.00013\nclaude-haiku-4.5 · 원본·판정·설정\nclaude-sonnet-4.5 · 원본·판정·설정\nclaude-sonnet-5 · 원본·판정·설정\nnova-pro · 원본·판정·설정\nnova-lite · 원본·판정·설정\ngpt-5.4 · 원본·판정·설정\ngpt-5.5 · 원본·판정·설정\ngpt-5.6-terra · 원본·판정·설정\ngpt-5.6-luna · 원본·판정·설정\nnova-micro · 원본·판정·설정\nnemotron-nano-3-30b · 원본·판정·설정\nglm-4.7-flash · 원본·판정·설정\ngpt-oss-20b · 원본·판정·설정\ngpt-oss-120b · 원본·판정·설정\nqwen3-32b · 원본·판정·설정\nnemotron-super-3-120b · 원본·판정·설정\nllama4-scout · 원본·판정·설정\nministral-14b · 원본·판정·설정\nqwen3-235b-a22b · 원본·판정·설정\nllama4-maverick · 원본·판정·설정\nllama-3.3-70b-bedrock · 원본·판정·설정\ngemma-4-31b-bedrock · 원본·판정·설정\nllama-3.1-8b · 원본·판정·설정\nllama-3.3-70b · 원본·판정·설정\nqwen3.6-27b · 원본·판정·설정\nexaone-3.5-32b · 원본·판정·설정\ngrok-4.3 · 원본·판정·설정\ngrok-4.6 · 원본·판정·설정\nkimi-k3 · 원본·판정·설정\ngpt-6-luna · 원본·판정·설정\nclaude-haiku-5.5 · 원본·판정·설정\ngpt-6.1-terra · 원본·판정·설정\n평가 규약"
+        },
+        {
+          "width": 375,
+          "overflow": false,
+          "title": "감사된 금융 QA · GPT-6.1 Terra 추가",
+          "text": "금융 QA 대시보드\n감사된 금융 QA · GPT-6.1 Terra 추가\n\n32개 모델 · 동일20문항\n\n기존31개 모델의 점수·비용은 보존하고 GPT-6.1 Terra만 동일20문항·프롬프트·채점기로 추가 측정했습니다. 측정 시점·호출 코드·단가는 다릅니다.\n\nGPT-6.1 Terra 비용은 공식 모델 카드의 Mantle In-Region 표준 지역 요금으로 캐시 읽기·쓰기를 구분한 추정치입니다.\n\n기존30개 모델의 점수·비용은 보존하고 Claude Haiku 5.5만 동일20문항·프롬프트·채점기로 추가 측정했습니다. 측정 시점·호출 코드·단가는 다릅니다.\n\nClaude Haiku 5.5 비용은 표준 단가의 US Geo 지역 요금(+10%)으로 캐시 읽기·쓰기를 구분한 추정치입니다.\n\n기존29개 모델의 점수·비용은 보존하고 GPT-6 Luna만 동일20문항·프롬프트·채점기로 추가 측정했습니다. 측정 시점·호출 코드·단가는 다릅니다.\n\nGPT-6 Luna 비용은 상용 지역 처리 단가(일반 표준 단가+10%)로 캐시 읽기·쓰기를 구분한 추정치입니다.\n\n이전 28개 모델의 결과를 보존하고 Kimi K3만 같은 20문항·프롬프트·채점기로 추가 측정했습니다. 측정 시점과 호출 코드 버전은 다릅니다.\n\n새 20문항의 정답·단위를 호출 전에 감사했습니다. 기존 FinQA 실행 점수와 직접 비교하지 마세요.\n\n모델이 선언한 단위로 환산합니다. 숫자를 보고 100배 차이를 임의로 정답 처리하지 않습니다.\n\n20문항·사전 선별 표본입니다. 95% 구간은 참고치이며 금융 업무 전반의 우열을 확정하지 않습니다.\n\n모델별 기존 추론 설정을 유지했습니다. 생략된 설정의 실제 기본값과 추론량이 같다고 보장하지 않습니다.\n\n비용은 설정 단가 기반 추정치입니다. 단가 만료·GPU 준비·유휴·실패 호출 비용 등 한계는 상세에 표시합니다.\n\n모델\t정답\t정답률\t비용/문항\ngpt-5.5\t20/20\t100.0%\t$0.01566\ngpt-5.6-terra\t20/20\t100.0%\t$0.00590\ngrok-4.3\t20/20\t100.0%\t$0.00367\nkimi-k3\t20/20\t100.0%\t$0.01348\ngpt-6.1-terra\t19/20\t95.0%\t$0.00274\ngrok-4.6\t19/20\t95.0%\t$0.00495\nclaude-haiku-5.5\t18/20\t90.0%\t$0.00043\ngpt-5.4\t18/20\t90.0%\t$0.00505\ngpt-5.6-luna\t18/20\t90.0%\t$0.00272\ngpt-6-luna\t18/20\t90.0%\t$0.00031\ngpt-oss-120b\t17/20\t85.0%\t$0.00042\nqwen3-235b-a22b\t17/20\t85.0%\t$0.00047\nclaude-haiku-4.5\t16/20\t80.0%\t$0.00220\ngemma-4-31b-bedrock\t16/20\t80.0%\t$0.00030\nqwen3.6-27b\t16/20\t80.0%\t$0.00224\nclaude-sonnet-4.5\t15/20\t75.0%\t$0.00689\nclaude-sonnet-5\t15/20\t75.0%\t—\ngpt-oss-20b\t14/20\t70.0%\t$0.00018\nllama-3.3-70b-bedrock\t11/20\t55.0%\t$0.00134\nllama4-maverick\t11/20\t55.0%\t$0.00050\nnemotron-super-3-120b\t11/20\t55.0%\t$0.00033\nllama4-scout\t9/20\t45.0%\t$0.00034\nllama-3.3-70b\t8/20\t40.0%\t$0.01086\nglm-4.7-flash\t7/20\t35.0%\t$0.00015\nministral-14b\t7/20\t35.0%\t$0.00040\nqwen3-32b\t7/20\t35.0%\t$0.00032\nnova-lite\t6/20\t30.0%\t$0.00014\nnova-pro\t6/20\t30.0%\t$0.00176\nexaone-3.5-32b\t3/20\t15.0%\t$0.00191\nnova-micro\t2/20\t10.0%\t$0.00008\nllama-3.1-8b\t0/20\t0.0%\t—\nnemotron-nano-3-30b\t0/20\t0.0%\t$0.00013\nclaude-haiku-4.5 · 원본·판정·설정\nclaude-sonnet-4.5 · 원본·판정·설정\nclaude-sonnet-5 · 원본·판정·설정\nnova-pro · 원본·판정·설정\nnova-lite · 원본·판정·설정\ngpt-5.4 · 원본·판정·설정\ngpt-5.5 · 원본·판정·설정\ngpt-5.6-terra · 원본·판정·설정\ngpt-5.6-luna · 원본·판정·설정\nnova-micro · 원본·판정·설정\nnemotron-nano-3-30b · 원본·판정·설정\nglm-4.7-flash · 원본·판정·설정\ngpt-oss-20b · 원본·판정·설정\ngpt-oss-120b · 원본·판정·설정\nqwen3-32b · 원본·판정·설정\nnemotron-super-3-120b · 원본·판정·설정\nllama4-scout · 원본·판정·설정\nministral-14b · 원본·판정·설정\nqwen3-235b-a22b · 원본·판정·설정\nllama4-maverick · 원본·판정·설정\nllama-3.3-70b-bedrock · 원본·판정·설정\ngemma-4-31b-bedrock · 원본·판정·설정\nllama-3.1-8b · 원본·판정·설정\nllama-3.3-70b · 원본·판정·설정\nqwen3.6-27b · 원본·판정·설정\nexaone-3.5-32b · 원본·판정·설정\ngrok-4.3 · 원본·판정·설정\ngrok-4.6 · 원본·판정·설정\nkimi-k3 · 원본·판정·설정\ngpt-6-luna · 원본·판정·설정\nclaude-haiku-5.5 · 원본·판정·설정\ngpt-6.1-terra · 원본·판정·설정\n평가 규약"
+        }
+      ]
+    }
+  ],
+  "blockedRequests": [],
+  "usedLocal": {
+    "models/index.html": {
+      "sha256": "11c7486a90381dc039421ae0e29dc5c696f003393bc34d2073dea7fecac2ba78",
+      "bytes": 18932
+    },
+    "models/portraits.css": {
+      "sha256": "3c001ab6d294fd0b2be20b08de5d90fcfbf0244b13939c7b2d3ac6241f3dbaf8",
+      "bytes": 4411
+    },
+    "models/readability.css": {
+      "sha256": "e870eebc416bca73ca0e670cfb938373d1e0d8caa3da612ec675b670134983a1",
+      "bytes": 4611
+    },
+    "models/catalog.js": {
+      "sha256": "204294755595479ffae3294cb5c16d96cf36cfa17ecd8208b64784b1bb2dd8dd",
+      "bytes": 1005
+    },
+    "models/claude-haiku-4.5/whoami/preview.jpg": {
+      "sha256": "b02ca3511de6cbe05e9153654ba75c201cf8892ccd05a5f4e4f710ebb2b64636",
+      "bytes": 46714
+    },
+    "models/claude-sonnet-4.5/whoami/preview.jpg": {
+      "sha256": "11461a14ab0d902bad40ba26b44bc20d2f9185b8f54c3f9dfe02b95b26f8083e",
+      "bytes": 40832
+    },
+    "models/claude-sonnet-5/whoami/preview.jpg": {
+      "sha256": "7c8938fef35ff5f6a06e62d245a77f3a62efc58b86a2d28e0ab861e5c6a93572",
+      "bytes": 76635
+    },
+    "models/claude-haiku-5.5/whoami/preview.jpg": {
+      "sha256": "6d4f4a12ae48321b57c4aba84629e0ea3c3a26399093108d19b4bb200d770fb7",
+      "bytes": 80285
+    },
+    "models/claude-sonnet-5.5/whoami/preview.jpg": {
+      "sha256": "c4fd38b76df7d68af9dea5f536155be9d81de103cc2e8261defc3099ab0b9194",
+      "bytes": 121087
+    },
+    "models/claude-opus-5.5/whoami/preview.jpg": {
+      "sha256": "3a8eb9678a34cd186608c33f5d4106a67ec684512a9fabffe09532a86b83c676",
+      "bytes": 91595
+    },
+    "models/claude-fable-5.1/whoami/preview.jpg": {
+      "sha256": "c4a92c0a92ccc7a08d8675ae2795aef56c39540b5eb852b364b7aa43a228dc06",
+      "bytes": 54906
+    },
+    "models/nova-pro/whoami/preview.jpg": {
+      "sha256": "d586169fe4ab97f28dcd5e50bf3ae799556e39f57d402cfe99cf209f28cab0b7",
+      "bytes": 24309
+    },
+    "models/kimi-k3/whoami/preview.jpg": {
+      "sha256": "9933423ae1293e57bc49c281f68b122040e31fa66648674610a37d9020d49e09",
+      "bytes": 92173
+    },
+    "models/gpt-6.1-terra/whoami/preview.jpg": {
+      "sha256": "39b394dbc17f803c40e270e7052cb1edca9180f9603b17d9c673c04b7be9b0d4",
+      "bytes": 115311
+    },
+    "models/gpt-6.1-terra/index.html": {
+      "sha256": "26b8ce0667ec0fdfe9004e088c449e2e4f345248f24a9d12120eee224734bd54",
+      "bytes": 1661
+    },
+    "models/gpt-6.1-terra/whoami/index.html": {
+      "sha256": "6bbaa32f20afd99a7e2f3e71fcaff46aec50c3e3b1a4d3fd8c992715925ed64e",
+      "bytes": 4360
+    },
+    "models/viewer.js": {
+      "sha256": "346b58180c6c392b90fe3a5af87ab484cb2f7520b8b8984e9dbeaf9403c6d09b",
+      "bytes": 821
+    },
+    "favicon.svg": {
+      "sha256": "f7530316caec6b572e8469fc9f71b1444d5e4f858d714053a7bdb46ef7aa5eeb",
+      "bytes": 310
+    },
+    "models/gpt-6.1-terra/whoami/artwork.html": {
+      "sha256": "7108b1874290c93d69b135183826487f7b9b3c71d9637565864eb224e04d5631",
+      "bytes": 10099
+    },
+    "models/gpt-6.1-terra/lotte-tower/index.html": {
+      "sha256": "7988a91ff12835545718fea799bfcf402368e8b756ce37894ea070a3989bf4e4",
+      "bytes": 6663
+    },
+    "models/gpt-6.1-terra/lotte-tower/artwork.html": {
+      "sha256": "fa3e0810db87b9f0c0f916e4f747d80cb65aad97b1bd4a73c31d964bd0e350ac",
+      "bytes": 23027
+    },
+    "models/gpt-6.1-terra/runtime/three-runtime.js": {
+      "sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
+      "bytes": 762788
+    },
+    "finqa.html": {
+      "sha256": "d5c7b92f179bd7799f661fb80b72277df2bfb874e25840e6726cf49e0474eb35",
+      "bytes": 10292
+    },
+    "customer.css": {
+      "sha256": "705cb7a9575288f0f0563648f2051bc97ffa9a18c042e52c323593930d0adbd4",
+      "bytes": 3258
+    },
+    "customer.js": {
+      "sha256": "9a3d5946a40670923ad526a30b5c5fb18ae43be1cf29eb5e364736e421327151",
+      "bytes": 6783
+    },
+    "finqa.js": {
+      "sha256": "c78919b54f80b01de6471a5ad47837c81fbf47b5423be8a8a1c6e09852704770",
+      "bytes": 14054
+    },
+    "finqa-results/index.json": {
+      "sha256": "6ed54200961f7500adc2f20026942f702548a6a0fcc0ec5efe4c420e09147078",
+      "bytes": 1165
+    },
+    "finqa-results/finqa-gpt-6.1-terra-20261027.json": {
+      "sha256": "ed934967860d8e9c3194481a8e1149a2b5286d2f23dea43199afaa3d839208b0",
+      "bytes": 931902
+    },
+    "finqa-results/finqa-claude-haiku-5.5-20261012.json": {
+      "sha256": "04fbec87333d88971d8bdd5cc1d3bf25337b1961fb67c2144004aae69e34eaba",
+      "bytes": 900773
+    },
+    "finqa-results/finqa-gpt-6-luna-20260925.json": {
+      "sha256": "bbe75f2f20cead10e850f3e59e31c9cd45deec1fea340844b48220adb03a7e59",
+      "bytes": 874815
+    },
+    "finqa-results/finqa-kimi-k3-20260920.json": {
+      "sha256": "94a3813fff141321b7c42017fa335dc7874649e8cd82a30b585b63e88c69e654",
+      "bytes": 843222
+    },
+    "finqa-results/finqa-audited-20260919.json": {
+      "sha256": "8352c1b90b1fed3a8e78a313cca7493203409f820c0de4966e510cb6ea0a273e",
+      "bytes": 813801
+    },
+    "finqa-results/finqa-all-20260918.json": {
+      "sha256": "34cd5cdfca403deefcd946c7d30e3f4a6dbb4ef2aa57009e3984cdbe47ec0f53",
+      "bytes": 515460
+    },
+    "finqa-results/finqa-nova-lite-pilot-v3-20260917.json": {
+      "sha256": "63ecde500a87e7cd4fbf8c68b34b47de4a80e6501ee0b6e3ff60819f9b1e5378",
+      "bytes": 12553
+    },
+    "finqa-results/finqa-nova-lite-pilot-v2-20260917.json": {
+      "sha256": "b9e1e926d4f28619657419e6feab59d4cb461809dae155b77a3257c54bb6489f",
+      "bytes": 12594
+    },
+    "finqa-results/finqa-nova-lite-pilot-20260917.json": {
+      "sha256": "006ea35799b17bb3b070a9a55e8854e5bee5db5dbc913c53b1a8a09fceefeaa7",
+      "bytes": 13270
+    },
+    "finqa-results/finqa-gpt-6.1-terra-20261027.html": {
+      "sha256": "12165025ca908513706c41a748e465ba6d56cd9c901cea5639c8066e6a21a996",
+      "bytes": 1157146
+    }
+  },
+  "usedVendor": {},
+  "warnings": []
+}

@@ -1,0 +1,3772 @@
+{
+  "task": "lotte-tower",
+  "artwork_sha256": "fa3e0810db87b9f0c0f916e4f747d80cb65aad97b1bd4a73c31d964bd0e350ac",
+  "runtime_sha256": "fcf59ac083f8c06a105e0bf36edd66274329002c027c4ef7a3bee4ad361258c8",
+  "sandbox": "allow-scripts",
+  "offline": true,
+  "exact_allowlist": [
+    "https://terra-review.test/models/gpt-6.1-terra/lotte-tower/review.html",
+    "https://terra-review.test/models/gpt-6.1-terra/lotte-tower/artwork.html",
+    "https://terra-review.test/models/gpt-6.1-terra/runtime/three-runtime.js"
+  ],
+  "requests": [
+    {
+      "url": "https://terra-review.test/models/gpt-6.1-terra/lotte-tower/review.html",
+      "method": "GET"
+    },
+    {
+      "url": "https://terra-review.test/models/gpt-6.1-terra/lotte-tower/artwork.html",
+      "method": "GET"
+    },
+    {
+      "url": "https://terra-review.test/models/gpt-6.1-terra/runtime/three-runtime.js",
+      "method": "GET"
+    },
+    {
+      "url": "https://terra-review.test/models/gpt-6.1-terra/lotte-tower/review.html",
+      "method": "GET"
+    },
+    {
+      "url": "https://terra-review.test/models/gpt-6.1-terra/lotte-tower/artwork.html",
+      "method": "GET"
+    },
+    {
+      "url": "https://terra-review.test/models/gpt-6.1-terra/runtime/three-runtime.js",
+      "method": "GET"
+    }
+  ],
+  "blockedRequests": [],
+  "errors": [],
+  "warnings": [],
+  "controls": [],
+  "drawings": [
+    {
+      "id": "site",
+      "name": "배치도 · 타워와 주변의 관계",
+      "description": "타워를 중심으로 대지와 접근 공간을 단순화했습니다. 타워의 외곽은 3D 모델의 기저부에 대응합니다.",
+      "basis": "대지 경계, 도로, 방위와 배치는 실제 측량값이 아닌 도식적 추정입니다.",
+      "svg": "<svg viewBox=\"0 0 600 380\" role=\"img\" aria-label=\"배치 개념도\"><defs><pattern id=\"grid\" width=\"25\" height=\"25\" patternUnits=\"userSpaceOnUse\"><path d=\"M 25 0 L 0 0 0 25\" fill=\"none\" stroke=\"#e5ece5\" stroke-width=\"0.7\"></path></pattern><pattern id=\"hatch\" width=\"6\" height=\"6\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(45)\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"6\" stroke=\"#b8d0c8\" stroke-width=\"1\"></line></pattern><marker id=\"arr\" markerWidth=\"6\" markerHeight=\"6\" refX=\"3\" refY=\"3\" orient=\"auto-start-reverse\"><path d=\"M0,0 L6,3 L0,6\" fill=\"#a45f45\"></path></marker></defs><rect width=\"600\" height=\"380\" fill=\"url(#grid)\"></rect><path d=\"M72 65 H525 V320 H72 Z\" fill=\"#f0f5ef\" stroke=\"#aabfb5\"></path><path d=\"M72 112 H525 M140 65 V320 M470 65 V320\" stroke=\"#d2dfd5\" stroke-width=\"17\"></path><path d=\"M77 113 H520 M140 70 V315 M470 70 V315\" stroke=\"#fff\" stroke-width=\"1\" stroke-dasharray=\"5 5\"></path><ellipse cx=\"300\" cy=\"190\" rx=\"80\" ry=\"55\" fill=\"#dcebe4\" stroke=\"#7da99a\" stroke-dasharray=\"4 4\"></ellipse><ellipse cx=\"300\" cy=\"190\" rx=\"43\" ry=\"32\" fill=\"#497e76\" fill-opacity=\".3\" stroke=\"#0d625d\" stroke-width=\"2\"></ellipse><path d=\"M220 190 H380 M300 135 V245\" stroke=\"#85a69b\" stroke-dasharray=\"3 4\"></path><text x=\"300\" y=\"194\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\" font-weight=\"700\">TOWER</text><text x=\"300\" y=\"267\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">추정 대지 / 주변 맥락은 도식</text><path d=\"M505 82 V55 M500 63 L505 55 L510 63\" fill=\"none\" stroke=\"#456c64\" stroke-width=\"1.5\"></path><text x=\"505\" y=\"48\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">N</text></svg>"
+    },
+    {
+      "id": "plan",
+      "name": "기준층 평면도 · 높이에 따른 외곽",
+      "description": "약 42% 높이의 개념 평면을 기저 외곽의 점선과 비교합니다. 단계를 바꾸면 평면의 크기도 달라집니다.",
+      "basis": "평면의 타원형, 코어 크기와 위치는 추정입니다. 실제 기준층 도면이 아닙니다.",
+      "svg": "<svg viewBox=\"0 0 600 380\" role=\"img\" aria-label=\"기준층 평면 개념도\"><defs><pattern id=\"grid\" width=\"25\" height=\"25\" patternUnits=\"userSpaceOnUse\"><path d=\"M 25 0 L 0 0 0 25\" fill=\"none\" stroke=\"#e5ece5\" stroke-width=\"0.7\"></path></pattern><pattern id=\"hatch\" width=\"6\" height=\"6\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(45)\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"6\" stroke=\"#b8d0c8\" stroke-width=\"1\"></line></pattern><marker id=\"arr\" markerWidth=\"6\" markerHeight=\"6\" refX=\"3\" refY=\"3\" orient=\"auto-start-reverse\"><path d=\"M0,0 L6,3 L0,6\" fill=\"#a45f45\"></path></marker></defs><rect width=\"600\" height=\"380\" fill=\"url(#grid)\"></rect><ellipse cx=\"300\" cy=\"190\" rx=\"110\" ry=\"80\" fill=\"none\" stroke=\"#b7cbc0\" stroke-dasharray=\"5 4\"></ellipse><ellipse cx=\"300\" cy=\"190\" rx=\"80.432\" ry=\"58.49600000000001\" fill=\"#dcece5\" stroke=\"#0d625d\" stroke-width=\"2\"></ellipse><rect x=\"278\" y=\"168\" width=\"44\" height=\"44\" fill=\"url(#hatch)\" stroke=\"#648b7e\"></rect><path d=\"M150 190 H450 M300 65 V315\" stroke=\"#9fbab0\" stroke-dasharray=\"4 5\"></path><text x=\"300\" y=\"194\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">코어</text><text x=\"300\" y=\"75\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">기저 외곽 · 비교선</text><text x=\"300\" y=\"310\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">약 42% 높이의 개념 평면</text><line x1=\"188\" y1=\"280\" x2=\"412\" y2=\"280\" stroke=\"#a45f45\" marker-start=\"url(#arr)\" marker-end=\"url(#arr)\"></line><text x=\"300\" y=\"274\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">폭 미표기 · 추정 형상</text></svg>"
+    },
+    {
+      "id": "elevation",
+      "name": "입면도 · 수직 윤곽",
+      "description": "정면에서 본 실루엣입니다. 단계에 따라 상부로 갈수록 외곽이 좁아지는 변화가 나타납니다.",
+      "basis": "555m는 공개 기준 자료에 근거합니다. 폭, 곡률과 외피 선은 추정입니다.",
+      "svg": "<svg viewBox=\"0 0 600 380\" role=\"img\" aria-label=\"입면 개념도\"><defs><pattern id=\"grid\" width=\"25\" height=\"25\" patternUnits=\"userSpaceOnUse\"><path d=\"M 25 0 L 0 0 0 25\" fill=\"none\" stroke=\"#e5ece5\" stroke-width=\"0.7\"></path></pattern><pattern id=\"hatch\" width=\"6\" height=\"6\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(45)\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"6\" stroke=\"#b8d0c8\" stroke-width=\"1\"></line></pattern><marker id=\"arr\" markerWidth=\"6\" markerHeight=\"6\" refX=\"3\" refY=\"3\" orient=\"auto-start-reverse\"><path d=\"M0,0 L6,3 L0,6\" fill=\"#a45f45\"></path></marker></defs><rect width=\"600\" height=\"380\" fill=\"url(#grid)\"></rect><path d=\"M235.0,325.0 L236.3,316.6 L237.6,308.1 L238.9,299.7 L240.2,291.3 L241.5,282.8 L242.8,274.4 L244.1,265.9 L245.4,257.5 L246.7,249.1 L248.0,240.6 L249.3,232.2 L250.6,223.8 L251.9,215.3 L253.2,206.9 L254.5,198.4 L255.8,190.0 L257.1,181.6 L258.4,173.1 L259.7,164.7 L261.0,156.3 L262.3,147.8 L263.6,139.4 L264.9,130.9 L266.2,122.5 L267.5,114.1 L268.8,105.6 L270.1,97.2 L271.4,88.8 L272.7,80.3 L274.0,71.9 L275.3,63.4 L276.6,55.0 L323.4,55.0 L324.7,63.4 L326.0,71.9 L327.3,80.3 L328.6,88.8 L329.9,97.2 L331.2,105.6 L332.5,114.1 L333.8,122.5 L335.1,130.9 L336.4,139.4 L337.7,147.8 L339.0,156.3 L340.3,164.7 L341.6,173.1 L342.9,181.6 L344.2,190.0 L345.5,198.4 L346.8,206.9 L348.1,215.3 L349.4,223.8 L350.7,232.2 L352.0,240.6 L353.3,249.1 L354.6,257.5 L355.9,265.9 L357.2,274.4 L358.5,282.8 L359.8,291.3 L361.1,299.7 L362.4,308.1 L363.7,316.6 L365.0,325.0 Z\" fill=\"#dcebe5\" stroke=\"#0d625d\" stroke-width=\"2\"></path><path d=\"M205 325 H396\" stroke=\"#6d8c82\"></path><polyline points=\"256,325 257.17333333333335,313.75 258.3466666666667,302.5 259.52,291.25 260.6933333333333,280 261.8666666666667,268.75 263.04,257.5 264.2133333333333,246.25 265.38666666666666,235 266.56,223.75 267.73333333333335,212.5 268.90666666666664,201.25 270.08,190 271.25333333333333,178.75 272.4266666666667,167.5 273.6,156.25 274.7733333333333,145 275.94666666666666,133.75 277.12,122.5 278.29333333333335,111.25 279.46666666666664,100 280.64,88.75 281.81333333333333,77.5 282.9866666666667,66.25 284.16,55\" fill=\"none\" stroke=\"#8cafa3\" stroke-width=\".7\"></polyline><polyline points=\"278,325 278.58666666666664,313.75 279.17333333333335,302.5 279.76,291.25 280.3466666666667,280 280.93333333333334,268.75 281.52,257.5 282.1066666666667,246.25 282.6933333333333,235 283.28,223.75 283.8666666666667,212.5 284.4533333333333,201.25 285.04,190 285.62666666666667,178.75 286.2133333333333,167.5 286.8,156.25 287.38666666666666,145 287.97333333333336,133.75 288.56,122.5 289.14666666666665,111.25 289.73333333333335,100 290.32,88.75 290.90666666666664,77.5 291.49333333333334,66.25 292.08,55\" fill=\"none\" stroke=\"#8cafa3\" stroke-width=\".7\"></polyline><polyline points=\"300,325 300,313.75 300,302.5 300,291.25 300,280 300,268.75 300,257.5 300,246.25 300,235 300,223.75 300,212.5 300,201.25 300,190 300,178.75 300,167.5 300,156.25 300,145 300,133.75 300,122.5 300,111.25 300,100 300,88.75 300,77.5 300,66.25 300,55\" fill=\"none\" stroke=\"#8cafa3\" stroke-width=\".7\"></polyline><polyline points=\"322,325 321.41333333333336,313.75 320.82666666666665,302.5 320.24,291.25 319.6533333333333,280 319.06666666666666,268.75 318.48,257.5 317.8933333333333,246.25 317.3066666666667,235 316.72,223.75 316.1333333333333,212.5 315.5466666666667,201.25 314.96,190 314.37333333333333,178.75 313.7866666666667,167.5 313.2,156.25 312.61333333333334,145 312.02666666666664,133.75 311.44,122.5 310.85333333333335,111.25 310.26666666666665,100 309.68,88.75 309.09333333333336,77.5 308.50666666666666,66.25 307.92,55\" fill=\"none\" stroke=\"#8cafa3\" stroke-width=\".7\"></polyline><polyline points=\"344,325 342.82666666666665,313.75 341.6533333333333,302.5 340.48,291.25 339.3066666666667,280 338.1333333333333,268.75 336.96,257.5 335.7866666666667,246.25 334.61333333333334,235 333.44,223.75 332.26666666666665,212.5 331.09333333333336,201.25 329.92,190 328.74666666666667,178.75 327.5733333333333,167.5 326.4,156.25 325.2266666666667,145 324.05333333333334,133.75 322.88,122.5 321.70666666666665,111.25 320.53333333333336,100 319.36,88.75 318.18666666666667,77.5 317.0133333333333,66.25 315.84,55\" fill=\"none\" stroke=\"#8cafa3\" stroke-width=\".7\"></polyline><line x1=\"420\" y1=\"55\" x2=\"420\" y2=\"325\" stroke=\"#a45f45\" marker-start=\"url(#arr)\" marker-end=\"url(#arr)\"></line><line x1=\"365\" y1=\"55\" x2=\"430\" y2=\"55\" stroke=\"#d5aaa0\"></line><line x1=\"365\" y1=\"325\" x2=\"430\" y2=\"325\" stroke=\"#d5aaa0\"></line><text x=\"433\" y=\"193\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" font-weight=\"700\">555 m</text><text x=\"433\" y=\"209\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\">전체 높이</text><text x=\"300\" y=\"348\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">선택 단계의 윤곽</text></svg>"
+    },
+    {
+      "id": "section",
+      "name": "단면도 · 내부의 개념적 구성",
+      "description": "외곽을 절단한 개념도입니다. 수평선은 층판을 상징하며 실제 123개 층을 개별적으로 표시하지 않습니다.",
+      "basis": "555m와 지상 123층은 공개 기준 자료입니다. 코어, 층판, 구조 부재는 검증되지 않은 추정입니다.",
+      "svg": "<svg viewBox=\"0 0 600 380\" role=\"img\" aria-label=\"단면 개념도\"><defs><pattern id=\"grid\" width=\"25\" height=\"25\" patternUnits=\"userSpaceOnUse\"><path d=\"M 25 0 L 0 0 0 25\" fill=\"none\" stroke=\"#e5ece5\" stroke-width=\"0.7\"></path></pattern><pattern id=\"hatch\" width=\"6\" height=\"6\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(45)\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"6\" stroke=\"#b8d0c8\" stroke-width=\"1\"></line></pattern><marker id=\"arr\" markerWidth=\"6\" markerHeight=\"6\" refX=\"3\" refY=\"3\" orient=\"auto-start-reverse\"><path d=\"M0,0 L6,3 L0,6\" fill=\"#a45f45\"></path></marker></defs><rect width=\"600\" height=\"380\" fill=\"url(#grid)\"></rect><path d=\"M235.0,325.0 L236.3,316.6 L237.6,308.1 L238.9,299.7 L240.2,291.3 L241.5,282.8 L242.8,274.4 L244.1,265.9 L245.4,257.5 L246.7,249.1 L248.0,240.6 L249.3,232.2 L250.6,223.8 L251.9,215.3 L253.2,206.9 L254.5,198.4 L255.8,190.0 L257.1,181.6 L258.4,173.1 L259.7,164.7 L261.0,156.3 L262.3,147.8 L263.6,139.4 L264.9,130.9 L266.2,122.5 L267.5,114.1 L268.8,105.6 L270.1,97.2 L271.4,88.8 L272.7,80.3 L274.0,71.9 L275.3,63.4 L276.6,55.0 L323.4,55.0 L324.7,63.4 L326.0,71.9 L327.3,80.3 L328.6,88.8 L329.9,97.2 L331.2,105.6 L332.5,114.1 L333.8,122.5 L335.1,130.9 L336.4,139.4 L337.7,147.8 L339.0,156.3 L340.3,164.7 L341.6,173.1 L342.9,181.6 L344.2,190.0 L345.5,198.4 L346.8,206.9 L348.1,215.3 L349.4,223.8 L350.7,232.2 L352.0,240.6 L353.3,249.1 L354.6,257.5 L355.9,265.9 L357.2,274.4 L358.5,282.8 L359.8,291.3 L361.1,299.7 L362.4,308.1 L363.7,316.6 L365.0,325.0 Z\" fill=\"url(#hatch)\" stroke=\"#0d625d\" stroke-width=\"2\"></path><path d=\"M205 325 H396\" stroke=\"#6d8c82\"></path><line x1=\"238.46666666666667\" y1=\"302.5\" x2=\"361.5333333333333\" y2=\"302.5\" stroke=\"#86a79b\" stroke-width=\".7\"></line><line x1=\"241.93333333333334\" y1=\"280\" x2=\"358.06666666666666\" y2=\"280\" stroke=\"#86a79b\" stroke-width=\".7\"></line><line x1=\"245.4\" y1=\"257.5\" x2=\"354.6\" y2=\"257.5\" stroke=\"#86a79b\" stroke-width=\".7\"></line><line x1=\"248.86666666666667\" y1=\"235\" x2=\"351.1333333333333\" y2=\"235\" stroke=\"#86a79b\" stroke-width=\".7\"></line><line x1=\"252.33333333333331\" y1=\"212.5\" x2=\"347.6666666666667\" y2=\"212.5\" stroke=\"#86a79b\" stroke-width=\".7\"></line><line x1=\"255.8\" y1=\"190\" x2=\"344.2\" y2=\"190\" stroke=\"#86a79b\" stroke-width=\".7\"></line><line x1=\"259.26666666666665\" y1=\"167.5\" x2=\"340.73333333333335\" y2=\"167.5\" stroke=\"#86a79b\" stroke-width=\".7\"></line><line x1=\"262.73333333333335\" y1=\"145\" x2=\"337.26666666666665\" y2=\"145\" stroke=\"#86a79b\" stroke-width=\".7\"></line><line x1=\"266.2\" y1=\"122.5\" x2=\"333.8\" y2=\"122.5\" stroke=\"#86a79b\" stroke-width=\".7\"></line><line x1=\"269.6666666666667\" y1=\"100\" x2=\"330.3333333333333\" y2=\"100\" stroke=\"#86a79b\" stroke-width=\".7\"></line><line x1=\"273.1333333333333\" y1=\"77.5\" x2=\"326.8666666666667\" y2=\"77.5\" stroke=\"#86a79b\" stroke-width=\".7\"></line><path d=\"M289 325 V70 M311 325 V70\" stroke=\"#4a7d70\" stroke-width=\"1\" stroke-dasharray=\"3 3\"></path><text x=\"320\" y=\"200\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\">개념 코어</text><line x1=\"420\" y1=\"55\" x2=\"420\" y2=\"325\" stroke=\"#a45f45\" marker-start=\"url(#arr)\" marker-end=\"url(#arr)\"></line><line x1=\"365\" y1=\"55\" x2=\"430\" y2=\"55\" stroke=\"#d5aaa0\"></line><line x1=\"365\" y1=\"325\" x2=\"430\" y2=\"325\" stroke=\"#d5aaa0\"></line><text x=\"433\" y=\"193\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" font-weight=\"700\">555 m</text><text x=\"433\" y=\"209\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\">전체 높이</text><text x=\"300\" y=\"348\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">선택 단계의 윤곽</text></svg>"
+    }
+  ],
+  "stages": [
+    {
+      "id": "0",
+      "label": "수직 매스",
+      "state": {
+        "draws2d": 0,
+        "glDraws": 117,
+        "revision": "186",
+        "scenes": [
+          {
+            "camera": [
+              10.999999999999998,
+              8,
+              12.999999999999998
+            ],
+            "rotation": [
+              -0.12095356249338378,
+              0.3410920908607827,
+              0.04430623960191523,
+              0.9311623802563741
+            ],
+            "objects": [
+              {
+                "type": "Mesh",
+                "geometry": "CircleGeometry",
+                "vertices": 66,
+                "index": 192,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  2.220446049250313e-16,
+                  -1,
+                  0,
+                  0,
+                  1,
+                  2.220446049250313e-16,
+                  0,
+                  0,
+                  -0.025,
+                  0,
+                  1
+                ],
+                "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+              },
+              {
+                "type": "GridHelper",
+                "geometry": "BufferGeometry",
+                "vertices": 100,
+                "index": 0,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  -0.015,
+                  0,
+                  1
+                ],
+                "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+              },
+              {
+                "type": "Mesh",
+                "geometry": "BufferGeometry",
+                "vertices": 6565,
+                "index": 38400,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "positions_sha256": "b17881a07a4d8370c319c7e6144294918f99d3454638eecaa05e355c4968a650"
+              }
+            ]
+          }
+        ]
+      },
+      "drawing": "<svg viewBox=\"0 0 600 380\" role=\"img\" aria-label=\"기준층 평면 개념도\"><defs><pattern id=\"grid\" width=\"25\" height=\"25\" patternUnits=\"userSpaceOnUse\"><path d=\"M 25 0 L 0 0 0 25\" fill=\"none\" stroke=\"#e5ece5\" stroke-width=\"0.7\"></path></pattern><pattern id=\"hatch\" width=\"6\" height=\"6\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(45)\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"6\" stroke=\"#b8d0c8\" stroke-width=\"1\"></line></pattern><marker id=\"arr\" markerWidth=\"6\" markerHeight=\"6\" refX=\"3\" refY=\"3\" orient=\"auto-start-reverse\"><path d=\"M0,0 L6,3 L0,6\" fill=\"#a45f45\"></path></marker></defs><rect width=\"600\" height=\"380\" fill=\"url(#grid)\"></rect><ellipse cx=\"300\" cy=\"190\" rx=\"110\" ry=\"80\" fill=\"none\" stroke=\"#b7cbc0\" stroke-dasharray=\"5 4\"></ellipse><ellipse cx=\"300\" cy=\"190\" rx=\"110\" ry=\"80\" fill=\"#dcece5\" stroke=\"#0d625d\" stroke-width=\"2\"></ellipse><rect x=\"278\" y=\"168\" width=\"44\" height=\"44\" fill=\"url(#hatch)\" stroke=\"#648b7e\"></rect><path d=\"M150 190 H450 M300 65 V315\" stroke=\"#9fbab0\" stroke-dasharray=\"4 5\"></path><text x=\"300\" y=\"194\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">코어</text><text x=\"300\" y=\"75\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">기저 외곽 · 비교선</text><text x=\"300\" y=\"310\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">약 42% 높이의 개념 평면</text><line x1=\"188\" y1=\"280\" x2=\"412\" y2=\"280\" stroke=\"#a45f45\" marker-start=\"url(#arr)\" marker-end=\"url(#arr)\"></line><text x=\"300\" y=\"274\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">폭 미표기 · 추정 형상</text></svg>",
+      "description": "높이 555m를 하나의 수직 볼륨으로 단순화합니다. 폭과 평면은 설명을 위한 임의의 값입니다."
+    },
+    {
+      "id": "1",
+      "label": "상부 좁히기",
+      "state": {
+        "draws2d": 0,
+        "glDraws": 120,
+        "revision": "186",
+        "scenes": [
+          {
+            "camera": [
+              10.999999999999998,
+              8,
+              12.999999999999998
+            ],
+            "rotation": [
+              -0.12095356249338378,
+              0.3410920908607827,
+              0.04430623960191523,
+              0.9311623802563741
+            ],
+            "objects": [
+              {
+                "type": "Mesh",
+                "geometry": "CircleGeometry",
+                "vertices": 66,
+                "index": 192,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  2.220446049250313e-16,
+                  -1,
+                  0,
+                  0,
+                  1,
+                  2.220446049250313e-16,
+                  0,
+                  0,
+                  -0.025,
+                  0,
+                  1
+                ],
+                "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+              },
+              {
+                "type": "GridHelper",
+                "geometry": "BufferGeometry",
+                "vertices": 100,
+                "index": 0,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  -0.015,
+                  0,
+                  1
+                ],
+                "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+              },
+              {
+                "type": "Mesh",
+                "geometry": "BufferGeometry",
+                "vertices": 6565,
+                "index": 38400,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "positions_sha256": "698d7cb51518755fcd989c6ae1be9a86965ad08c9fd59f5387c458b4f085705d"
+              }
+            ]
+          }
+        ]
+      },
+      "drawing": "<svg viewBox=\"0 0 600 380\" role=\"img\" aria-label=\"기준층 평면 개념도\"><defs><pattern id=\"grid\" width=\"25\" height=\"25\" patternUnits=\"userSpaceOnUse\"><path d=\"M 25 0 L 0 0 0 25\" fill=\"none\" stroke=\"#e5ece5\" stroke-width=\"0.7\"></path></pattern><pattern id=\"hatch\" width=\"6\" height=\"6\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(45)\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"6\" stroke=\"#b8d0c8\" stroke-width=\"1\"></line></pattern><marker id=\"arr\" markerWidth=\"6\" markerHeight=\"6\" refX=\"3\" refY=\"3\" orient=\"auto-start-reverse\"><path d=\"M0,0 L6,3 L0,6\" fill=\"#a45f45\"></path></marker></defs><rect width=\"600\" height=\"380\" fill=\"url(#grid)\"></rect><ellipse cx=\"300\" cy=\"190\" rx=\"110\" ry=\"80\" fill=\"none\" stroke=\"#b7cbc0\" stroke-dasharray=\"5 4\"></ellipse><ellipse cx=\"300\" cy=\"190\" rx=\"80.432\" ry=\"58.49600000000001\" fill=\"#dcece5\" stroke=\"#0d625d\" stroke-width=\"2\"></ellipse><rect x=\"278\" y=\"168\" width=\"44\" height=\"44\" fill=\"url(#hatch)\" stroke=\"#648b7e\"></rect><path d=\"M150 190 H450 M300 65 V315\" stroke=\"#9fbab0\" stroke-dasharray=\"4 5\"></path><text x=\"300\" y=\"194\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">코어</text><text x=\"300\" y=\"75\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">기저 외곽 · 비교선</text><text x=\"300\" y=\"310\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">약 42% 높이의 개념 평면</text><line x1=\"188\" y1=\"280\" x2=\"412\" y2=\"280\" stroke=\"#a45f45\" marker-start=\"url(#arr)\" marker-end=\"url(#arr)\"></line><text x=\"300\" y=\"274\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">폭 미표기 · 추정 형상</text></svg>",
+      "description": "아래에서 위로 외곽과 기준층 면적이 줄어드는 원리를 선형 매스로 표현합니다."
+    },
+    {
+      "id": "2",
+      "label": "곡선 다듬기",
+      "state": {
+        "draws2d": 0,
+        "glDraws": 124,
+        "revision": "186",
+        "scenes": [
+          {
+            "camera": [
+              10.999999999999998,
+              8,
+              12.999999999999998
+            ],
+            "rotation": [
+              -0.12095356249338378,
+              0.3410920908607827,
+              0.04430623960191523,
+              0.9311623802563741
+            ],
+            "objects": [
+              {
+                "type": "Mesh",
+                "geometry": "CircleGeometry",
+                "vertices": 66,
+                "index": 192,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  2.220446049250313e-16,
+                  -1,
+                  0,
+                  0,
+                  1,
+                  2.220446049250313e-16,
+                  0,
+                  0,
+                  -0.025,
+                  0,
+                  1
+                ],
+                "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+              },
+              {
+                "type": "GridHelper",
+                "geometry": "BufferGeometry",
+                "vertices": 100,
+                "index": 0,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  -0.015,
+                  0,
+                  1
+                ],
+                "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+              },
+              {
+                "type": "Mesh",
+                "geometry": "BufferGeometry",
+                "vertices": 6565,
+                "index": 38400,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "positions_sha256": "e48a2cce7c1e61dae7b44a769204900efa167948646527f61744095a99074bed"
+              },
+              {
+                "type": "LineSegments",
+                "geometry": "BufferGeometry",
+                "vertices": 11072,
+                "index": 0,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "positions_sha256": "16dffe5715c0a778911cfd4fbd9b80f8c0c283034ffd4d1d55117a3865d1b34b"
+              }
+            ]
+          }
+        ]
+      },
+      "drawing": "<svg viewBox=\"0 0 600 380\" role=\"img\" aria-label=\"기준층 평면 개념도\"><defs><pattern id=\"grid\" width=\"25\" height=\"25\" patternUnits=\"userSpaceOnUse\"><path d=\"M 25 0 L 0 0 0 25\" fill=\"none\" stroke=\"#e5ece5\" stroke-width=\"0.7\"></path></pattern><pattern id=\"hatch\" width=\"6\" height=\"6\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(45)\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"6\" stroke=\"#b8d0c8\" stroke-width=\"1\"></line></pattern><marker id=\"arr\" markerWidth=\"6\" markerHeight=\"6\" refX=\"3\" refY=\"3\" orient=\"auto-start-reverse\"><path d=\"M0,0 L6,3 L0,6\" fill=\"#a45f45\"></path></marker></defs><rect width=\"600\" height=\"380\" fill=\"url(#grid)\"></rect><ellipse cx=\"300\" cy=\"190\" rx=\"110\" ry=\"80\" fill=\"none\" stroke=\"#b7cbc0\" stroke-dasharray=\"5 4\"></ellipse><ellipse cx=\"300\" cy=\"190\" rx=\"90.20792\" ry=\"65.60576\" fill=\"#dcece5\" stroke=\"#0d625d\" stroke-width=\"2\"></ellipse><rect x=\"278\" y=\"168\" width=\"44\" height=\"44\" fill=\"url(#hatch)\" stroke=\"#648b7e\"></rect><path d=\"M150 190 H450 M300 65 V315\" stroke=\"#9fbab0\" stroke-dasharray=\"4 5\"></path><text x=\"300\" y=\"194\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">코어</text><text x=\"300\" y=\"75\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">기저 외곽 · 비교선</text><text x=\"300\" y=\"310\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">약 42% 높이의 개념 평면</text><line x1=\"188\" y1=\"280\" x2=\"412\" y2=\"280\" stroke=\"#a45f45\" marker-start=\"url(#arr)\" marker-end=\"url(#arr)\"></line><text x=\"300\" y=\"274\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">폭 미표기 · 추정 형상</text></svg>",
+      "description": "좁아지는 윤곽에 부드러운 곡률을 더합니다. KPF가 설명한 한국 도자기의 선을 떠올리게 하는 개념적 해석입니다."
+    },
+    {
+      "id": "3",
+      "label": "완성 형태",
+      "state": {
+        "draws2d": 0,
+        "glDraws": 129,
+        "revision": "186",
+        "scenes": [
+          {
+            "camera": [
+              10.999999999999998,
+              8,
+              12.999999999999998
+            ],
+            "rotation": [
+              -0.12095356249338378,
+              0.3410920908607827,
+              0.04430623960191523,
+              0.9311623802563741
+            ],
+            "objects": [
+              {
+                "type": "Mesh",
+                "geometry": "CircleGeometry",
+                "vertices": 66,
+                "index": 192,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  2.220446049250313e-16,
+                  -1,
+                  0,
+                  0,
+                  1,
+                  2.220446049250313e-16,
+                  0,
+                  0,
+                  -0.025,
+                  0,
+                  1
+                ],
+                "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+              },
+              {
+                "type": "GridHelper",
+                "geometry": "BufferGeometry",
+                "vertices": 100,
+                "index": 0,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  -0.015,
+                  0,
+                  1
+                ],
+                "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+              },
+              {
+                "type": "Mesh",
+                "geometry": "BufferGeometry",
+                "vertices": 6565,
+                "index": 38400,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "positions_sha256": "27d0b530ac72e28f94e23580bd4662590bf349d2b3a7d3ac1b37bd2d5ba5151b"
+              },
+              {
+                "type": "LineSegments",
+                "geometry": "BufferGeometry",
+                "vertices": 11072,
+                "index": 0,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "positions_sha256": "cbb875e69d15d3a50b307d8f5c8dcf6207af44ced77c47cff4691f69e4d1d622"
+              },
+              {
+                "type": "Mesh",
+                "geometry": "CylinderGeometry",
+                "vertices": 292,
+                "index": 576,
+                "matrix": [
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  7.5,
+                  0,
+                  1
+                ],
+                "positions_sha256": "72615a8871aeccc9cf72bdd36500c43aeff7383ff32699c58252495ff9a34e8a"
+              }
+            ]
+          }
+        ]
+      },
+      "drawing": "<svg viewBox=\"0 0 600 380\" role=\"img\" aria-label=\"기준층 평면 개념도\"><defs><pattern id=\"grid\" width=\"25\" height=\"25\" patternUnits=\"userSpaceOnUse\"><path d=\"M 25 0 L 0 0 0 25\" fill=\"none\" stroke=\"#e5ece5\" stroke-width=\"0.7\"></path></pattern><pattern id=\"hatch\" width=\"6\" height=\"6\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(45)\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"6\" stroke=\"#b8d0c8\" stroke-width=\"1\"></line></pattern><marker id=\"arr\" markerWidth=\"6\" markerHeight=\"6\" refX=\"3\" refY=\"3\" orient=\"auto-start-reverse\"><path d=\"M0,0 L6,3 L0,6\" fill=\"#a45f45\"></path></marker></defs><rect width=\"600\" height=\"380\" fill=\"url(#grid)\"></rect><ellipse cx=\"300\" cy=\"190\" rx=\"110\" ry=\"80\" fill=\"none\" stroke=\"#b7cbc0\" stroke-dasharray=\"5 4\"></ellipse><ellipse cx=\"300\" cy=\"190\" rx=\"90.62372\" ry=\"65.90816000000001\" fill=\"#dcece5\" stroke=\"#0d625d\" stroke-width=\"2\"></ellipse><rect x=\"278\" y=\"168\" width=\"44\" height=\"44\" fill=\"url(#hatch)\" stroke=\"#648b7e\"></rect><path d=\"M150 190 H450 M300 65 V315\" stroke=\"#9fbab0\" stroke-dasharray=\"4 5\"></path><text x=\"300\" y=\"194\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">코어</text><text x=\"300\" y=\"75\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">기저 외곽 · 비교선</text><text x=\"300\" y=\"310\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">약 42% 높이의 개념 평면</text><line x1=\"188\" y1=\"280\" x2=\"412\" y2=\"280\" stroke=\"#a45f45\" marker-start=\"url(#arr)\" marker-end=\"url(#arr)\"></line><text x=\"300\" y=\"274\" fill=\"#66817b\" font-family=\"system-ui,sans-serif\" font-size=\"10\" text-anchor=\"middle\">폭 미표기 · 추정 형상</text></svg>",
+      "description": "곡선 매스에 추정 외피 분할과 상부 마감을 더한 완성 형상입니다. 실제 형상을 참고했지만 정밀 복제는 아닙니다."
+    }
+  ],
+  "views": [
+    {
+      "width": 1440,
+      "height": 900,
+      "overflow": false,
+      "scrollHeight": 1490,
+      "fonts": [
+        {
+          "text": "Anatomy of a landmark   /   Seoul, Korea",
+          "font": "14px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 57.59375,
+            "y": 119.390625,
+            "width": 418.90625,
+            "height": 21,
+            "top": 119.390625,
+            "right": 476.5,
+            "bottom": 140.390625,
+            "left": 57.59375
+          }
+        },
+        {
+          "text": "하나의 수직 매스가 서울의 스카이라인이 되기까지. 도면과 3D 형태를 연결해 설계의 핵심 아이디어를 살펴봅니다.",
+          "font": "14px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 942.40625,
+            "y": 232.296875,
+            "width": 440,
+            "height": 42,
+            "top": 232.296875,
+            "right": 1382.40625,
+            "bottom": 274.296875,
+            "left": 942.40625
+          }
+        },
+        {
+          "text": "↺   시점 초기화",
+          "font": "11px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 661.796875,
+            "y": 972.796875,
+            "width": 94.640625,
+            "height": 34.5,
+            "top": 972.796875,
+            "right": 756.4375,
+            "bottom": 1007.296875,
+            "left": 661.796875
+          }
+        },
+        {
+          "text": "배치도",
+          "font": "12px",
+          "color": "rgb(117, 133, 130)",
+          "rect": {
+            "x": 816.4375,
+            "y": 463.296875,
+            "width": 59.125,
+            "height": 42,
+            "top": 463.296875,
+            "right": 875.5625,
+            "bottom": 505.296875,
+            "left": 816.4375
+          }
+        },
+        {
+          "text": "기준층 평면",
+          "font": "12px",
+          "color": "rgb(117, 133, 130)",
+          "rect": {
+            "x": 878.5625,
+            "y": 463.296875,
+            "width": 84.328125,
+            "height": 42,
+            "top": 463.296875,
+            "right": 962.890625,
+            "bottom": 505.296875,
+            "left": 878.5625
+          }
+        },
+        {
+          "text": "입면도",
+          "font": "12px",
+          "color": "rgb(117, 133, 130)",
+          "rect": {
+            "x": 965.890625,
+            "y": 463.296875,
+            "width": 59.125,
+            "height": 42,
+            "top": 463.296875,
+            "right": 1025.015625,
+            "bottom": 505.296875,
+            "left": 965.890625
+          }
+        },
+        {
+          "text": "단면도",
+          "font": "12px",
+          "color": "rgb(13, 98, 93)",
+          "rect": {
+            "x": 1028.015625,
+            "y": 463.296875,
+            "width": 59.125,
+            "height": 42,
+            "top": 463.296875,
+            "right": 1087.140625,
+            "bottom": 505.296875,
+            "left": 1028.015625
+          }
+        },
+        {
+          "text": "개념 코어",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 1107.487548828125,
+            "y": 695.0797119140625,
+            "width": 38.484375,
+            "height": 13,
+            "top": 695.0797119140625,
+            "right": 1145.971923828125,
+            "bottom": 708.0797119140625,
+            "left": 1107.487548828125
+          }
+        },
+        {
+          "text": "555 m",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 1218.0333251953125,
+            "y": 688.2317504882812,
+            "width": 28.890625,
+            "height": 13,
+            "top": 688.2317504882812,
+            "right": 1246.9239501953125,
+            "bottom": 701.2317504882812,
+            "left": 1218.0333251953125
+          }
+        },
+        {
+          "text": "전체 높이",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 1218.0333251953125,
+            "y": 703.8842163085938,
+            "width": 38.484375,
+            "height": 13,
+            "top": 703.8842163085938,
+            "right": 1256.5177001953125,
+            "bottom": 716.8842163085938,
+            "left": 1218.0333251953125
+          }
+        },
+        {
+          "text": "선택 단계의 윤곽",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 1053.9375,
+            "y": 839.8652954101562,
+            "width": 67.984375,
+            "height": 13,
+            "top": 839.8652954101562,
+            "right": 1121.921875,
+            "bottom": 852.8652954101562,
+            "left": 1053.9375
+          }
+        },
+        {
+          "text": "외곽을 절단한 개념도입니다. 수평선은 층판을 상징하며 실제 123개 층을 개별적으로 표시하지 않습니다.",
+          "font": "12px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 816.4375,
+            "y": 931.796875,
+            "width": 542.96875,
+            "height": 20.390625,
+            "top": 931.796875,
+            "right": 1359.40625,
+            "bottom": 952.1875,
+            "left": 816.4375
+          }
+        },
+        {
+          "text": "555m와 지상 123층은 공개 기준 자료입니다. 코어, 층판, 구조 부재는 검증되지 않은 추정입니다.",
+          "font": "12px",
+          "color": "rgb(49, 93, 87)",
+          "rect": {
+            "x": 816.4375,
+            "y": 960.1875,
+            "width": 542.96875,
+            "height": 20.390625,
+            "top": 960.1875,
+            "right": 1359.40625,
+            "bottom": 980.578125,
+            "left": 816.4375
+          }
+        },
+        {
+          "text": "단계를 선택하면 왼쪽 모델과 도면이 함께 바뀝니다. 실제 설계 이력이 아닌 형태 이해를 위한 순서입니다.",
+          "font": "12px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 939.40625,
+            "y": 1108.296875,
+            "width": 420,
+            "height": 36,
+            "top": 1108.296875,
+            "right": 1359.40625,
+            "bottom": 1144.296875,
+            "left": 939.40625
+          }
+        },
+        {
+          "text": "01 / MASS수직 매스기본 볼륨 세우기",
+          "font": "16px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 80.59375,
+            "y": 1174.796875,
+            "width": 313.703125,
+            "height": 101.5,
+            "top": 1174.796875,
+            "right": 394.296875,
+            "bottom": 1276.296875,
+            "left": 80.59375
+          }
+        },
+        {
+          "text": "02 / TAPER상부 좁히기높이에 따른 면적 변화",
+          "font": "16px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 402.296875,
+            "y": 1174.796875,
+            "width": 313.703125,
+            "height": 101.5,
+            "top": 1174.796875,
+            "right": 716,
+            "bottom": 1276.296875,
+            "left": 402.296875
+          }
+        },
+        {
+          "text": "03 / PROFILE곡선 다듬기도자기의 선을 떠올리는 윤곽",
+          "font": "16px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 724,
+            "y": 1174.796875,
+            "width": 313.703125,
+            "height": 101.5,
+            "top": 1174.796875,
+            "right": 1037.703125,
+            "bottom": 1276.296875,
+            "left": 724
+          }
+        },
+        {
+          "text": "04 / COMPLETE완성 형태외피와 상부 마감",
+          "font": "16px",
+          "color": "rgb(255, 255, 255)",
+          "rect": {
+            "x": 1045.703125,
+            "y": 1174.796875,
+            "width": 313.703125,
+            "height": 101.5,
+            "top": 1174.796875,
+            "right": 1359.40625,
+            "bottom": 1276.296875,
+            "left": 1045.703125
+          }
+        },
+        {
+          "text": "읽기 전에  이 페이지는 공개 자료를 바탕으로 한 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계가 아닙니다. 높이와 ",
+          "font": "11px",
+          "color": "rgb(108, 125, 121)",
+          "rect": {
+            "x": 57.59375,
+            "y": 1374.296875,
+            "width": 1324.8125,
+            "height": 56.0625,
+            "top": 1374.296875,
+            "right": 1382.40625,
+            "bottom": 1430.359375,
+            "left": 57.59375
+          }
+        },
+        {
+          "text": "읽기 전에  이 페이지는 공개 자료를 바탕으로 한 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계가 아닙니다. 높이와 ",
+          "font": "11px",
+          "color": "rgb(108, 125, 121)",
+          "rect": {
+            "x": 57.59375,
+            "y": 1374.296875,
+            "width": 850,
+            "height": 56.0625,
+            "top": 1374.296875,
+            "right": 907.59375,
+            "bottom": 1430.359375,
+            "left": 57.59375
+          }
+        },
+        {
+          "text": "KPF · 원 설계사 ↗",
+          "font": "11px",
+          "color": "rgb(13, 98, 93)",
+          "rect": {
+            "x": 83.65625,
+            "y": 1412.671875,
+            "width": 85.046875,
+            "height": 15,
+            "top": 1412.671875,
+            "right": 168.703125,
+            "bottom": 1427.671875,
+            "left": 83.65625
+          }
+        },
+        {
+          "text": "LERA · 구조 설계사 ↗",
+          "font": "11px",
+          "color": "rgb(13, 98, 93)",
+          "rect": {
+            "x": 189.96875,
+            "y": 1412.671875,
+            "width": 101.75,
+            "height": 15,
+            "top": 1412.671875,
+            "right": 291.71875,
+            "bottom": 1427.671875,
+            "left": 189.96875
+          }
+        }
+      ],
+      "canvasRects": [
+        {
+          "x": 58.59375,
+          "y": 463.296875,
+          "width": 717.84375,
+          "height": 560,
+          "top": 463.296875,
+          "right": 776.4375,
+          "bottom": 1023.296875,
+          "left": 58.59375
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "overflow": false,
+      "scrollHeight": 2092,
+      "fonts": [
+        {
+          "text": "Anatomy of a landmark   /   Seoul, Korea",
+          "font": "14px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 30.71875,
+            "y": 95.875,
+            "width": 418.90625,
+            "height": 21,
+            "top": 95.875,
+            "right": 449.625,
+            "bottom": 116.875,
+            "left": 30.71875
+          }
+        },
+        {
+          "text": "하나의 수직 매스가 서울의 스카이라인이 되기까지. 도면과 3D 형태를 연결해 설계의 핵심 아이디어를 살펴봅니다.",
+          "font": "14px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 30.71875,
+            "y": 201.875,
+            "width": 440,
+            "height": 42,
+            "top": 201.875,
+            "right": 470.71875,
+            "bottom": 243.875,
+            "left": 30.71875
+          }
+        },
+        {
+          "text": "↺   시점 초기화",
+          "font": "11px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 621.640625,
+            "y": 882.375,
+            "width": 94.640625,
+            "height": 34.5,
+            "top": 882.375,
+            "right": 716.28125,
+            "bottom": 916.875,
+            "left": 621.640625
+          }
+        },
+        {
+          "text": "배치도",
+          "font": "12px",
+          "color": "rgb(117, 133, 130)",
+          "rect": {
+            "x": 53.71875,
+            "y": 1074.875,
+            "width": 59.125,
+            "height": 42,
+            "top": 1074.875,
+            "right": 112.84375,
+            "bottom": 1116.875,
+            "left": 53.71875
+          }
+        },
+        {
+          "text": "기준층 평면",
+          "font": "12px",
+          "color": "rgb(117, 133, 130)",
+          "rect": {
+            "x": 115.84375,
+            "y": 1074.875,
+            "width": 84.328125,
+            "height": 42,
+            "top": 1074.875,
+            "right": 200.171875,
+            "bottom": 1116.875,
+            "left": 115.84375
+          }
+        },
+        {
+          "text": "입면도",
+          "font": "12px",
+          "color": "rgb(117, 133, 130)",
+          "rect": {
+            "x": 203.171875,
+            "y": 1074.875,
+            "width": 59.125,
+            "height": 42,
+            "top": 1074.875,
+            "right": 262.296875,
+            "bottom": 1116.875,
+            "left": 203.171875
+          }
+        },
+        {
+          "text": "단면도",
+          "font": "12px",
+          "color": "rgb(13, 98, 93)",
+          "rect": {
+            "x": 265.296875,
+            "y": 1074.875,
+            "width": 59.125,
+            "height": 42,
+            "top": 1074.875,
+            "right": 324.421875,
+            "bottom": 1116.875,
+            "left": 265.296875
+          }
+        },
+        {
+          "text": "개념 코어",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 401.7894592285156,
+            "y": 1285.769775390625,
+            "width": 34.96875,
+            "height": 13,
+            "top": 1285.769775390625,
+            "right": 436.7582092285156,
+            "bottom": 1298.769775390625,
+            "left": 401.7894592285156
+          }
+        },
+        {
+          "text": "555 m",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 502.29998779296875,
+            "y": 1279.54345703125,
+            "width": 26.53680419921875,
+            "height": 13,
+            "top": 1279.54345703125,
+            "right": 528.8367919921875,
+            "bottom": 1292.54345703125,
+            "left": 502.29998779296875
+          }
+        },
+        {
+          "text": "전체 높이",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 502.29998779296875,
+            "y": 1293.7750244140625,
+            "width": 34.96868896484375,
+            "height": 13,
+            "top": 1293.7750244140625,
+            "right": 537.2686767578125,
+            "bottom": 1306.7750244140625,
+            "left": 502.29998779296875
+          }
+        },
+        {
+          "text": "선택 단계의 윤곽",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 353.1093444824219,
+            "y": 1417.411865234375,
+            "width": 61.78125,
+            "height": 13,
+            "top": 1417.411865234375,
+            "right": 414.8905944824219,
+            "bottom": 1430.411865234375,
+            "left": 353.1093444824219
+          }
+        },
+        {
+          "text": "외곽을 절단한 개념도입니다. 수평선은 층판을 상징하며 실제 123개 층을 개별적으로 표시하지 않습니다.",
+          "font": "12px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 53.71875,
+            "y": 1503.375,
+            "width": 660.5625,
+            "height": 20.390625,
+            "top": 1503.375,
+            "right": 714.28125,
+            "bottom": 1523.765625,
+            "left": 53.71875
+          }
+        },
+        {
+          "text": "555m와 지상 123층은 공개 기준 자료입니다. 코어, 층판, 구조 부재는 검증되지 않은 추정입니다.",
+          "font": "12px",
+          "color": "rgb(49, 93, 87)",
+          "rect": {
+            "x": 53.71875,
+            "y": 1531.765625,
+            "width": 660.5625,
+            "height": 20.390625,
+            "top": 1531.765625,
+            "right": 714.28125,
+            "bottom": 1552.15625,
+            "left": 53.71875
+          }
+        },
+        {
+          "text": "단계를 선택하면 왼쪽 모델과 도면이 함께 바뀝니다. 실제 설계 이력이 아닌 형태 이해를 위한 순서입니다.",
+          "font": "12px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 53.71875,
+            "y": 1685.375,
+            "width": 420,
+            "height": 36,
+            "top": 1685.375,
+            "right": 473.71875,
+            "bottom": 1721.375,
+            "left": 53.71875
+          }
+        },
+        {
+          "text": "01 / MASS수직 매스기본 볼륨 세우기",
+          "font": "16px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 53.71875,
+            "y": 1741.375,
+            "width": 159.140625,
+            "height": 118,
+            "top": 1741.375,
+            "right": 212.859375,
+            "bottom": 1859.375,
+            "left": 53.71875
+          }
+        },
+        {
+          "text": "02 / TAPER상부 좁히기높이에 따른 면적 변화",
+          "font": "16px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 220.859375,
+            "y": 1741.375,
+            "width": 159.140625,
+            "height": 118,
+            "top": 1741.375,
+            "right": 380,
+            "bottom": 1859.375,
+            "left": 220.859375
+          }
+        },
+        {
+          "text": "03 / PROFILE곡선 다듬기도자기의 선을 떠올리는 윤곽",
+          "font": "16px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 388,
+            "y": 1741.375,
+            "width": 159.140625,
+            "height": 118,
+            "top": 1741.375,
+            "right": 547.140625,
+            "bottom": 1859.375,
+            "left": 388
+          }
+        },
+        {
+          "text": "04 / COMPLETE완성 형태외피와 상부 마감",
+          "font": "16px",
+          "color": "rgb(255, 255, 255)",
+          "rect": {
+            "x": 555.140625,
+            "y": 1741.375,
+            "width": 159.140625,
+            "height": 118,
+            "top": 1741.375,
+            "right": 714.28125,
+            "bottom": 1859.375,
+            "left": 555.140625
+          }
+        },
+        {
+          "text": "읽기 전에  이 페이지는 공개 자료를 바탕으로 한 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계가 아닙니다. 높이와 ",
+          "font": "11px",
+          "color": "rgb(108, 125, 121)",
+          "rect": {
+            "x": 30.71875,
+            "y": 1957.375,
+            "width": 706.5625,
+            "height": 74.75,
+            "top": 1957.375,
+            "right": 737.28125,
+            "bottom": 2032.125,
+            "left": 30.71875
+          }
+        },
+        {
+          "text": "읽기 전에  이 페이지는 공개 자료를 바탕으로 한 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계가 아닙니다. 높이와 ",
+          "font": "11px",
+          "color": "rgb(108, 125, 121)",
+          "rect": {
+            "x": 30.71875,
+            "y": 1957.375,
+            "width": 612.359375,
+            "height": 74.75,
+            "top": 1957.375,
+            "right": 643.078125,
+            "bottom": 2032.125,
+            "left": 30.71875
+          }
+        },
+        {
+          "text": "KPF · 원 설계사 ↗",
+          "font": "11px",
+          "color": "rgb(13, 98, 93)",
+          "rect": {
+            "x": 56.78125,
+            "y": 2014.4375,
+            "width": 85.046875,
+            "height": 15,
+            "top": 2014.4375,
+            "right": 141.828125,
+            "bottom": 2029.4375,
+            "left": 56.78125
+          }
+        },
+        {
+          "text": "LERA · 구조 설계사 ↗",
+          "font": "11px",
+          "color": "rgb(13, 98, 93)",
+          "rect": {
+            "x": 163.09375,
+            "y": 2014.4375,
+            "width": 101.75,
+            "height": 15,
+            "top": 2014.4375,
+            "right": 264.84375,
+            "bottom": 2029.4375,
+            "left": 163.09375
+          }
+        }
+      ],
+      "canvasRects": [
+        {
+          "x": 31.71875,
+          "y": 432.875,
+          "width": 704.5625,
+          "height": 500,
+          "top": 432.875,
+          "right": 736.28125,
+          "bottom": 932.875,
+          "left": 31.71875
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "height": 844,
+      "overflow": false,
+      "scrollHeight": 2282,
+      "fonts": [
+        {
+          "text": "Anatomy of a landmark   /   Seoul, Korea",
+          "font": "14px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 18,
+            "y": 94.5,
+            "width": 339,
+            "height": 42,
+            "top": 94.5,
+            "right": 357,
+            "bottom": 136.5,
+            "left": 18
+          }
+        },
+        {
+          "text": "하나의 수직 매스가 서울의 스카이라인이 되기까지. 도면과 3D 형태를 연결해 설계의 핵심 아이디어를 살펴봅니다.",
+          "font": "14px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 18,
+            "y": 217.59375,
+            "width": 339,
+            "height": 42,
+            "top": 217.59375,
+            "right": 357,
+            "bottom": 259.59375,
+            "left": 18
+          }
+        },
+        {
+          "text": "↺   시점 초기화",
+          "font": "11px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 241.359375,
+            "y": 850.09375,
+            "width": 94.640625,
+            "height": 34.5,
+            "top": 850.09375,
+            "right": 336,
+            "bottom": 884.59375,
+            "left": 241.359375
+          }
+        },
+        {
+          "text": "배치도",
+          "font": "12px",
+          "color": "rgb(117, 133, 130)",
+          "rect": {
+            "x": 29,
+            "y": 1060.59375,
+            "width": 59.125,
+            "height": 42,
+            "top": 1060.59375,
+            "right": 88.125,
+            "bottom": 1102.59375,
+            "left": 29
+          }
+        },
+        {
+          "text": "기준층 평면",
+          "font": "12px",
+          "color": "rgb(117, 133, 130)",
+          "rect": {
+            "x": 91.125,
+            "y": 1060.59375,
+            "width": 84.328125,
+            "height": 42,
+            "top": 1060.59375,
+            "right": 175.453125,
+            "bottom": 1102.59375,
+            "left": 91.125
+          }
+        },
+        {
+          "text": "입면도",
+          "font": "12px",
+          "color": "rgb(117, 133, 130)",
+          "rect": {
+            "x": 178.453125,
+            "y": 1060.59375,
+            "width": 59.125,
+            "height": 42,
+            "top": 1060.59375,
+            "right": 237.578125,
+            "bottom": 1102.59375,
+            "left": 178.453125
+          }
+        },
+        {
+          "text": "단면도",
+          "font": "12px",
+          "color": "rgb(13, 98, 93)",
+          "rect": {
+            "x": 240.578125,
+            "y": 1060.59375,
+            "width": 59.125,
+            "height": 42,
+            "top": 1060.59375,
+            "right": 299.703125,
+            "bottom": 1102.59375,
+            "left": 240.578125
+          }
+        },
+        {
+          "text": "개념 코어",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 198.73333740234375,
+            "y": 1252.21044921875,
+            "width": 22.109359741210938,
+            "height": 8,
+            "top": 1252.21044921875,
+            "right": 220.8426971435547,
+            "bottom": 1260.21044921875,
+            "left": 198.73333740234375
+          }
+        },
+        {
+          "text": "555 m",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 262.20166015625,
+            "y": 1248.27880859375,
+            "width": 17.08392333984375,
+            "height": 8,
+            "top": 1248.27880859375,
+            "right": 279.28558349609375,
+            "bottom": 1256.27880859375,
+            "left": 262.20166015625
+          }
+        },
+        {
+          "text": "전체 높이",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 262.20166015625,
+            "y": 1257.265380859375,
+            "width": 22.109375,
+            "height": 8,
+            "top": 1257.265380859375,
+            "right": 284.31103515625,
+            "bottom": 1265.265380859375,
+            "left": 262.20166015625
+          }
+        },
+        {
+          "text": "선택 단계의 윤곽",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 167.9765625,
+            "y": 1335.3370361328125,
+            "width": 39.046875,
+            "height": 8,
+            "top": 1335.3370361328125,
+            "right": 207.0234375,
+            "bottom": 1343.3370361328125,
+            "left": 167.9765625
+          }
+        },
+        {
+          "text": "외곽을 절단한 개념도입니다. 수평선은 층판을 상징하며 실제 123개 층을 개별적으로 표시하지 않습니다.",
+          "font": "12px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 41,
+            "y": 1449.09375,
+            "width": 293,
+            "height": 40.78125,
+            "top": 1449.09375,
+            "right": 334,
+            "bottom": 1489.875,
+            "left": 41
+          }
+        },
+        {
+          "text": "555m와 지상 123층은 공개 기준 자료입니다. 코어, 층판, 구조 부재는 검증되지 않은 추정입니다.",
+          "font": "12px",
+          "color": "rgb(49, 93, 87)",
+          "rect": {
+            "x": 41,
+            "y": 1497.875,
+            "width": 293,
+            "height": 40.78125,
+            "top": 1497.875,
+            "right": 334,
+            "bottom": 1538.65625,
+            "left": 41
+          }
+        },
+        {
+          "text": "단계를 선택하면 왼쪽 모델과 도면이 함께 바뀝니다. 실제 설계 이력이 아닌 형태 이해를 위한 순서입니다.",
+          "font": "12px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 37,
+            "y": 1649.15625,
+            "width": 301,
+            "height": 36,
+            "top": 1649.15625,
+            "right": 338,
+            "bottom": 1685.15625,
+            "left": 37
+          }
+        },
+        {
+          "text": "01 / MASS수직 매스기본 볼륨 세우기",
+          "font": "16px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 37,
+            "y": 1705.15625,
+            "width": 146.5,
+            "height": 101.5,
+            "top": 1705.15625,
+            "right": 183.5,
+            "bottom": 1806.65625,
+            "left": 37
+          }
+        },
+        {
+          "text": "02 / TAPER상부 좁히기높이에 따른 면적 변화",
+          "font": "16px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 191.5,
+            "y": 1705.15625,
+            "width": 146.5,
+            "height": 101.5,
+            "top": 1705.15625,
+            "right": 338,
+            "bottom": 1806.65625,
+            "left": 191.5
+          }
+        },
+        {
+          "text": "03 / PROFILE곡선 다듬기도자기의 선을 떠올리는 윤곽",
+          "font": "16px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 37,
+            "y": 1814.65625,
+            "width": 146.5,
+            "height": 118,
+            "top": 1814.65625,
+            "right": 183.5,
+            "bottom": 1932.65625,
+            "left": 37
+          }
+        },
+        {
+          "text": "04 / COMPLETE완성 형태외피와 상부 마감",
+          "font": "16px",
+          "color": "rgb(255, 255, 255)",
+          "rect": {
+            "x": 191.5,
+            "y": 1814.65625,
+            "width": 146.5,
+            "height": 118,
+            "top": 1814.65625,
+            "right": 338,
+            "bottom": 1932.65625,
+            "left": 191.5
+          }
+        },
+        {
+          "text": "읽기 전에  이 페이지는 공개 자료를 바탕으로 한 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계가 아닙니다. 높이와 ",
+          "font": "11px",
+          "color": "rgb(108, 125, 121)",
+          "rect": {
+            "x": 18,
+            "y": 2066.65625,
+            "width": 339,
+            "height": 155.8125,
+            "top": 2066.65625,
+            "right": 357,
+            "bottom": 2222.46875,
+            "left": 18
+          }
+        },
+        {
+          "text": "읽기 전에  이 페이지는 공개 자료를 바탕으로 한 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계가 아닙니다. 높이와 ",
+          "font": "11px",
+          "color": "rgb(108, 125, 121)",
+          "rect": {
+            "x": 18,
+            "y": 2066.65625,
+            "width": 339,
+            "height": 93.4375,
+            "top": 2066.65625,
+            "right": 357,
+            "bottom": 2160.09375,
+            "left": 18
+          }
+        },
+        {
+          "text": "KPF · 원 설계사 ↗",
+          "font": "11px",
+          "color": "rgb(13, 98, 93)",
+          "rect": {
+            "x": 44.0625,
+            "y": 2142.40625,
+            "width": 85.046875,
+            "height": 15,
+            "top": 2142.40625,
+            "right": 129.109375,
+            "bottom": 2157.40625,
+            "left": 44.0625
+          }
+        },
+        {
+          "text": "LERA · 구조 설계사 ↗",
+          "font": "11px",
+          "color": "rgb(13, 98, 93)",
+          "rect": {
+            "x": 150.375,
+            "y": 2142.40625,
+            "width": 101.75,
+            "height": 15,
+            "top": 2142.40625,
+            "right": 252.125,
+            "bottom": 2157.40625,
+            "left": 150.375
+          }
+        }
+      ],
+      "canvasRects": [
+        {
+          "x": 19,
+          "y": 460.59375,
+          "width": 337,
+          "height": 440,
+          "top": 460.59375,
+          "right": 356,
+          "bottom": 900.59375,
+          "left": 19
+        }
+      ]
+    },
+    {
+      "width": 720,
+      "height": 900,
+      "overflow": false,
+      "scrollHeight": 2105,
+      "fonts": [
+        {
+          "text": "Anatomy of a landmark   /   Seoul, Korea",
+          "font": "14px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 28.796875,
+            "y": 94.1875,
+            "width": 418.90625,
+            "height": 21,
+            "top": 94.1875,
+            "right": 447.703125,
+            "bottom": 115.1875,
+            "left": 28.796875
+          }
+        },
+        {
+          "text": "하나의 수직 매스가 서울의 스카이라인이 되기까지. 도면과 3D 형태를 연결해 설계의 핵심 아이디어를 살펴봅니다.",
+          "font": "14px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 28.796875,
+            "y": 196.28125,
+            "width": 440,
+            "height": 42,
+            "top": 196.28125,
+            "right": 468.796875,
+            "bottom": 238.28125,
+            "left": 28.796875
+          }
+        },
+        {
+          "text": "↺   시점 초기화",
+          "font": "11px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 575.5625,
+            "y": 876.78125,
+            "width": 94.640625,
+            "height": 34.5,
+            "top": 876.78125,
+            "right": 670.203125,
+            "bottom": 911.28125,
+            "left": 575.5625
+          }
+        },
+        {
+          "text": "배치도",
+          "font": "12px",
+          "color": "rgb(117, 133, 130)",
+          "rect": {
+            "x": 51.796875,
+            "y": 1069.28125,
+            "width": 59.125,
+            "height": 42,
+            "top": 1069.28125,
+            "right": 110.921875,
+            "bottom": 1111.28125,
+            "left": 51.796875
+          }
+        },
+        {
+          "text": "기준층 평면",
+          "font": "12px",
+          "color": "rgb(117, 133, 130)",
+          "rect": {
+            "x": 113.921875,
+            "y": 1069.28125,
+            "width": 84.328125,
+            "height": 42,
+            "top": 1069.28125,
+            "right": 198.25,
+            "bottom": 1111.28125,
+            "left": 113.921875
+          }
+        },
+        {
+          "text": "입면도",
+          "font": "12px",
+          "color": "rgb(117, 133, 130)",
+          "rect": {
+            "x": 201.25,
+            "y": 1069.28125,
+            "width": 59.125,
+            "height": 42,
+            "top": 1069.28125,
+            "right": 260.375,
+            "bottom": 1111.28125,
+            "left": 201.25
+          }
+        },
+        {
+          "text": "단면도",
+          "font": "12px",
+          "color": "rgb(13, 98, 93)",
+          "rect": {
+            "x": 263.375,
+            "y": 1069.28125,
+            "width": 59.125,
+            "height": 42,
+            "top": 1069.28125,
+            "right": 322.5,
+            "bottom": 1111.28125,
+            "left": 263.375
+          }
+        },
+        {
+          "text": "개념 코어",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 377.7894592285156,
+            "y": 1280.176025390625,
+            "width": 34.96875,
+            "height": 13,
+            "top": 1280.176025390625,
+            "right": 412.7582092285156,
+            "bottom": 1293.176025390625,
+            "left": 377.7894592285156
+          }
+        },
+        {
+          "text": "555 m",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 478.29998779296875,
+            "y": 1273.94970703125,
+            "width": 26.53680419921875,
+            "height": 13,
+            "top": 1273.94970703125,
+            "right": 504.8367919921875,
+            "bottom": 1286.94970703125,
+            "left": 478.29998779296875
+          }
+        },
+        {
+          "text": "전체 높이",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 478.29998779296875,
+            "y": 1288.1812744140625,
+            "width": 34.96868896484375,
+            "height": 13,
+            "top": 1288.1812744140625,
+            "right": 513.2686767578125,
+            "bottom": 1301.1812744140625,
+            "left": 478.29998779296875
+          }
+        },
+        {
+          "text": "선택 단계의 윤곽",
+          "font": "10px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 329.1093444824219,
+            "y": 1411.818115234375,
+            "width": 61.78125,
+            "height": 13,
+            "top": 1411.818115234375,
+            "right": 390.8905944824219,
+            "bottom": 1424.818115234375,
+            "left": 329.1093444824219
+          }
+        },
+        {
+          "text": "외곽을 절단한 개념도입니다. 수평선은 층판을 상징하며 실제 123개 층을 개별적으로 표시하지 않습니다.",
+          "font": "12px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 51.796875,
+            "y": 1497.78125,
+            "width": 616.40625,
+            "height": 20.390625,
+            "top": 1497.78125,
+            "right": 668.203125,
+            "bottom": 1518.171875,
+            "left": 51.796875
+          }
+        },
+        {
+          "text": "555m와 지상 123층은 공개 기준 자료입니다. 코어, 층판, 구조 부재는 검증되지 않은 추정입니다.",
+          "font": "12px",
+          "color": "rgb(49, 93, 87)",
+          "rect": {
+            "x": 51.796875,
+            "y": 1526.171875,
+            "width": 616.40625,
+            "height": 20.390625,
+            "top": 1526.171875,
+            "right": 668.203125,
+            "bottom": 1546.5625,
+            "left": 51.796875
+          }
+        },
+        {
+          "text": "단계를 선택하면 왼쪽 모델과 도면이 함께 바뀝니다. 실제 설계 이력이 아닌 형태 이해를 위한 순서입니다.",
+          "font": "12px",
+          "color": "rgb(100, 116, 120)",
+          "rect": {
+            "x": 51.796875,
+            "y": 1679.78125,
+            "width": 420,
+            "height": 36,
+            "top": 1679.78125,
+            "right": 471.796875,
+            "bottom": 1715.78125,
+            "left": 51.796875
+          }
+        },
+        {
+          "text": "01 / MASS수직 매스기본 볼륨 세우기",
+          "font": "16px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 51.796875,
+            "y": 1735.78125,
+            "width": 148.09375,
+            "height": 118,
+            "top": 1735.78125,
+            "right": 199.890625,
+            "bottom": 1853.78125,
+            "left": 51.796875
+          }
+        },
+        {
+          "text": "02 / TAPER상부 좁히기높이에 따른 면적 변화",
+          "font": "16px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 207.890625,
+            "y": 1735.78125,
+            "width": 148.109375,
+            "height": 118,
+            "top": 1735.78125,
+            "right": 356,
+            "bottom": 1853.78125,
+            "left": 207.890625
+          }
+        },
+        {
+          "text": "03 / PROFILE곡선 다듬기도자기의 선을 떠올리는 윤곽",
+          "font": "16px",
+          "color": "rgb(23, 43, 49)",
+          "rect": {
+            "x": 364,
+            "y": 1735.78125,
+            "width": 148.09375,
+            "height": 118,
+            "top": 1735.78125,
+            "right": 512.09375,
+            "bottom": 1853.78125,
+            "left": 364
+          }
+        },
+        {
+          "text": "04 / COMPLETE완성 형태외피와 상부 마감",
+          "font": "16px",
+          "color": "rgb(255, 255, 255)",
+          "rect": {
+            "x": 520.09375,
+            "y": 1735.78125,
+            "width": 148.109375,
+            "height": 118,
+            "top": 1735.78125,
+            "right": 668.203125,
+            "bottom": 1853.78125,
+            "left": 520.09375
+          }
+        },
+        {
+          "text": "읽기 전에  이 페이지는 공개 자료를 바탕으로 한 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계가 아닙니다. 높이와 ",
+          "font": "11px",
+          "color": "rgb(108, 125, 121)",
+          "rect": {
+            "x": 28.796875,
+            "y": 1969.78125,
+            "width": 662.40625,
+            "height": 74.75,
+            "top": 1969.78125,
+            "right": 691.203125,
+            "bottom": 2044.53125,
+            "left": 28.796875
+          }
+        },
+        {
+          "text": "읽기 전에  이 페이지는 공개 자료를 바탕으로 한 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계가 아닙니다. 높이와 ",
+          "font": "11px",
+          "color": "rgb(108, 125, 121)",
+          "rect": {
+            "x": 28.796875,
+            "y": 1969.78125,
+            "width": 568.203125,
+            "height": 74.75,
+            "top": 1969.78125,
+            "right": 597,
+            "bottom": 2044.53125,
+            "left": 28.796875
+          }
+        },
+        {
+          "text": "KPF · 원 설계사 ↗",
+          "font": "11px",
+          "color": "rgb(13, 98, 93)",
+          "rect": {
+            "x": 54.859375,
+            "y": 2026.84375,
+            "width": 85.046875,
+            "height": 15,
+            "top": 2026.84375,
+            "right": 139.90625,
+            "bottom": 2041.84375,
+            "left": 54.859375
+          }
+        },
+        {
+          "text": "LERA · 구조 설계사 ↗",
+          "font": "11px",
+          "color": "rgb(13, 98, 93)",
+          "rect": {
+            "x": 161.171875,
+            "y": 2026.84375,
+            "width": 101.75,
+            "height": 15,
+            "top": 2026.84375,
+            "right": 262.921875,
+            "bottom": 2041.84375,
+            "left": 161.171875
+          }
+        }
+      ],
+      "canvasRects": [
+        {
+          "x": 29.796875,
+          "y": 427.28125,
+          "width": 660.40625,
+          "height": 500,
+          "top": 427.28125,
+          "right": 690.203125,
+          "bottom": 927.28125,
+          "left": 29.796875
+        }
+      ]
+    }
+  ],
+  "initial": {
+    "state": {
+      "draws2d": 0,
+      "glDraws": 12,
+      "revision": "186",
+      "scenes": [
+        {
+          "camera": [
+            10.999999999999998,
+            8,
+            12.999999999999998
+          ],
+          "rotation": [
+            -0.12095356249338378,
+            0.3410920908607827,
+            0.04430623960191523,
+            0.9311623802563741
+          ],
+          "objects": [
+            {
+              "type": "Mesh",
+              "geometry": "CircleGeometry",
+              "vertices": 66,
+              "index": 192,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                2.220446049250313e-16,
+                -1,
+                0,
+                0,
+                1,
+                2.220446049250313e-16,
+                0,
+                0,
+                -0.025,
+                0,
+                1
+              ],
+              "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+            },
+            {
+              "type": "GridHelper",
+              "geometry": "BufferGeometry",
+              "vertices": 100,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                -0.015,
+                0,
+                1
+              ],
+              "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "BufferGeometry",
+              "vertices": 6565,
+              "index": 38400,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "27d0b530ac72e28f94e23580bd4662590bf349d2b3a7d3ac1b37bd2d5ba5151b"
+            },
+            {
+              "type": "LineSegments",
+              "geometry": "BufferGeometry",
+              "vertices": 11072,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "cbb875e69d15d3a50b307d8f5c8dcf6207af44ced77c47cff4691f69e4d1d622"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "CylinderGeometry",
+              "vertices": 292,
+              "index": 576,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                7.5,
+                0,
+                1
+              ],
+              "positions_sha256": "72615a8871aeccc9cf72bdd36500c43aeff7383ff32699c58252495ff9a34e8a"
+            }
+          ]
+        }
+      ]
+    },
+    "text": "◭\nFORM STUDY\n/\nSEOUL\nARCHITECTURE IN LAYERS\nCONCEPTUAL RECONSTRUCTION · 01\n\nANATOMY OF A LANDMARK   /   SEOUL, KOREA\n\n롯데월드타워\n형태를 읽다.\n\n하나의 수직 매스가 서울의 스카이라인이 되기까지. 도면과 3D 형태를 연결해 설계의 핵심 아이디어를 살펴봅니다.\n\n555 m\n전체 높이\n123 F\n지상 층수\n01—04\n형태 발전 단계\n01 / INTERACTIVE MODEL\n형태를 입체로 보기\n드래그하여 회전\n스크롤 또는 핀치로 확대\nSTAGE 04 / 04\n완성 형태\n개념적 형상 · 실제 시공 모델 아님\n↺   시점 초기화\n마우스 드래그 / 한 손가락 회전 · 휠 / 두 손가락 확대 · 키보드 화살표 회전, + / − 확대\n02 / DRAWING EXPLORER\n도면으로 이해하기\n도식 / 축척 없음\n단위: m\n배치도\n기준층 평면\n입면도\n단면도\nTOWER\n추정 대지 / 주변 맥락은 도식\nN\n배치도 · 타워와 주변의 관계\n\n타워를 중심으로 대지와 접근 공간을 단순화했습니다. 타워의 외곽은 3D 모델의 기저부에 대응합니다.\n\n대지 경계, 도로, 방위와 배치는 실제 측량값이 아닌 도식적 추정입니다.\n\n03 / DESIGN SEQUENCE\n형태가 만들어지는 네 단계\n\n단계를 선택하면 왼쪽 모델과 도면이 함께 바뀝니다. 실제 설계 이력이 아닌 형태 이해를 위한 순서입니다.\n\n01 / MASS\n수직 매스\n기본 볼륨 세우기\n02 / TAPER\n상부 좁히기\n높이에 따른 면적 변화\n03 / PROFILE\n곡선 다듬기\n도자기의 선을 떠올리는 윤곽\n04 / COMPLETE\n완성 형태\n외피와 상부 마감\n04 / COMPLETE\n곡선 매스에 추정 외피 분할과 상부 마감을 더한 완성 형상입니다. 실제 형상을 참고했지만 정밀 복제는 아닙니다.\n\n읽기 전에  이 페이지는 공개 자료를 바탕으로 한 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계가 아닙니다. 높이와 층수를 제외한 폭, 평면, 단면, 코어, 외피 분할과 주변 배치는 이해를 위한 추정입니다. 곡선 및 단계 역시 실제 설계 과정의 기록이 아닙니다.\n출처: KPF · 원 설계사 ↗   /   LERA · 구조 설계사 ↗\n\nMADE WITH\ngpt-6.1-terra"
+  },
+  "cameraKeyboard": {
+    "before": {
+      "draws2d": 0,
+      "glDraws": 12,
+      "revision": "186",
+      "scenes": [
+        {
+          "camera": [
+            10.999999999999998,
+            8,
+            12.999999999999998
+          ],
+          "rotation": [
+            -0.12095356249338378,
+            0.3410920908607827,
+            0.04430623960191523,
+            0.9311623802563741
+          ],
+          "objects": [
+            {
+              "type": "Mesh",
+              "geometry": "CircleGeometry",
+              "vertices": 66,
+              "index": 192,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                2.220446049250313e-16,
+                -1,
+                0,
+                0,
+                1,
+                2.220446049250313e-16,
+                0,
+                0,
+                -0.025,
+                0,
+                1
+              ],
+              "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+            },
+            {
+              "type": "GridHelper",
+              "geometry": "BufferGeometry",
+              "vertices": 100,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                -0.015,
+                0,
+                1
+              ],
+              "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "BufferGeometry",
+              "vertices": 6565,
+              "index": 38400,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "27d0b530ac72e28f94e23580bd4662590bf349d2b3a7d3ac1b37bd2d5ba5151b"
+            },
+            {
+              "type": "LineSegments",
+              "geometry": "BufferGeometry",
+              "vertices": 11072,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "cbb875e69d15d3a50b307d8f5c8dcf6207af44ced77c47cff4691f69e4d1d622"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "CylinderGeometry",
+              "vertices": 292,
+              "index": 576,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                7.5,
+                0,
+                1
+              ],
+              "positions_sha256": "72615a8871aeccc9cf72bdd36500c43aeff7383ff32699c58252495ff9a34e8a"
+            }
+          ]
+        }
+      ]
+    },
+    "after": {
+      "draws2d": 0,
+      "glDraws": 32,
+      "revision": "186",
+      "scenes": [
+        {
+          "camera": [
+            11.229438320233632,
+            7.550000000000001,
+            10.430710187329934
+          ],
+          "rotation": [
+            -0.11807913174941308,
+            0.39631453626796914,
+            0.05147937249819547,
+            0.9090335423927993
+          ],
+          "objects": [
+            {
+              "type": "Mesh",
+              "geometry": "CircleGeometry",
+              "vertices": 66,
+              "index": 192,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                2.220446049250313e-16,
+                -1,
+                0,
+                0,
+                1,
+                2.220446049250313e-16,
+                0,
+                0,
+                -0.025,
+                0,
+                1
+              ],
+              "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+            },
+            {
+              "type": "GridHelper",
+              "geometry": "BufferGeometry",
+              "vertices": 100,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                -0.015,
+                0,
+                1
+              ],
+              "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "BufferGeometry",
+              "vertices": 6565,
+              "index": 38400,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "27d0b530ac72e28f94e23580bd4662590bf349d2b3a7d3ac1b37bd2d5ba5151b"
+            },
+            {
+              "type": "LineSegments",
+              "geometry": "BufferGeometry",
+              "vertices": 11072,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "cbb875e69d15d3a50b307d8f5c8dcf6207af44ced77c47cff4691f69e4d1d622"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "CylinderGeometry",
+              "vertices": 292,
+              "index": 576,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                7.5,
+                0,
+                1
+              ],
+              "positions_sha256": "72615a8871aeccc9cf72bdd36500c43aeff7383ff32699c58252495ff9a34e8a"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "cameraDrag": {
+    "draws2d": 0,
+    "glDraws": 72,
+    "revision": "186",
+    "scenes": [
+      {
+        "camera": [
+          -6.97990907922349,
+          13.550846063939716,
+          10.077889791258924
+        ],
+        "rotation": [
+          -0.32134024232786634,
+          -0.2808496945221244,
+          -0.10041353360628139,
+          0.8987663878985448
+        ],
+        "objects": [
+          {
+            "type": "Mesh",
+            "geometry": "CircleGeometry",
+            "vertices": 66,
+            "index": 192,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              2.220446049250313e-16,
+              -1,
+              0,
+              0,
+              1,
+              2.220446049250313e-16,
+              0,
+              0,
+              -0.025,
+              0,
+              1
+            ],
+            "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+          },
+          {
+            "type": "GridHelper",
+            "geometry": "BufferGeometry",
+            "vertices": 100,
+            "index": 0,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              -0.015,
+              0,
+              1
+            ],
+            "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+          },
+          {
+            "type": "Mesh",
+            "geometry": "BufferGeometry",
+            "vertices": 6565,
+            "index": 38400,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "positions_sha256": "27d0b530ac72e28f94e23580bd4662590bf349d2b3a7d3ac1b37bd2d5ba5151b"
+          },
+          {
+            "type": "LineSegments",
+            "geometry": "BufferGeometry",
+            "vertices": 11072,
+            "index": 0,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "positions_sha256": "cbb875e69d15d3a50b307d8f5c8dcf6207af44ced77c47cff4691f69e4d1d622"
+          },
+          {
+            "type": "Mesh",
+            "geometry": "CylinderGeometry",
+            "vertices": 292,
+            "index": 576,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              7.5,
+              0,
+              1
+            ],
+            "positions_sha256": "72615a8871aeccc9cf72bdd36500c43aeff7383ff32699c58252495ff9a34e8a"
+          }
+        ]
+      }
+    ]
+  },
+  "cameraWheel": {
+    "draws2d": 0,
+    "glDraws": 77,
+    "revision": "186",
+    "scenes": [
+      {
+        "camera": [
+          -6.1714386806401995,
+          12.386674520846114,
+          8.910585821545324
+        ],
+        "rotation": [
+          -0.32134024232786634,
+          -0.2808496945221244,
+          -0.10041353360628139,
+          0.8987663878985448
+        ],
+        "objects": [
+          {
+            "type": "Mesh",
+            "geometry": "CircleGeometry",
+            "vertices": 66,
+            "index": 192,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              2.220446049250313e-16,
+              -1,
+              0,
+              0,
+              1,
+              2.220446049250313e-16,
+              0,
+              0,
+              -0.025,
+              0,
+              1
+            ],
+            "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+          },
+          {
+            "type": "GridHelper",
+            "geometry": "BufferGeometry",
+            "vertices": 100,
+            "index": 0,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              -0.015,
+              0,
+              1
+            ],
+            "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+          },
+          {
+            "type": "Mesh",
+            "geometry": "BufferGeometry",
+            "vertices": 6565,
+            "index": 38400,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "positions_sha256": "27d0b530ac72e28f94e23580bd4662590bf349d2b3a7d3ac1b37bd2d5ba5151b"
+          },
+          {
+            "type": "LineSegments",
+            "geometry": "BufferGeometry",
+            "vertices": 11072,
+            "index": 0,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "positions_sha256": "cbb875e69d15d3a50b307d8f5c8dcf6207af44ced77c47cff4691f69e4d1d622"
+          },
+          {
+            "type": "Mesh",
+            "geometry": "CylinderGeometry",
+            "vertices": 292,
+            "index": 576,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              7.5,
+              0,
+              1
+            ],
+            "positions_sha256": "72615a8871aeccc9cf72bdd36500c43aeff7383ff32699c58252495ff9a34e8a"
+          }
+        ]
+      }
+    ]
+  },
+  "cameraReset": {
+    "draws2d": 0,
+    "glDraws": 87,
+    "revision": "186",
+    "scenes": [
+      {
+        "camera": [
+          10.999999999999998,
+          8,
+          12.999999999999998
+        ],
+        "rotation": [
+          -0.12095356249338378,
+          0.3410920908607827,
+          0.04430623960191523,
+          0.9311623802563741
+        ],
+        "objects": [
+          {
+            "type": "Mesh",
+            "geometry": "CircleGeometry",
+            "vertices": 66,
+            "index": 192,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              2.220446049250313e-16,
+              -1,
+              0,
+              0,
+              1,
+              2.220446049250313e-16,
+              0,
+              0,
+              -0.025,
+              0,
+              1
+            ],
+            "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+          },
+          {
+            "type": "GridHelper",
+            "geometry": "BufferGeometry",
+            "vertices": 100,
+            "index": 0,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              -0.015,
+              0,
+              1
+            ],
+            "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+          },
+          {
+            "type": "Mesh",
+            "geometry": "BufferGeometry",
+            "vertices": 6565,
+            "index": 38400,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "positions_sha256": "27d0b530ac72e28f94e23580bd4662590bf349d2b3a7d3ac1b37bd2d5ba5151b"
+          },
+          {
+            "type": "LineSegments",
+            "geometry": "BufferGeometry",
+            "vertices": 11072,
+            "index": 0,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "positions_sha256": "cbb875e69d15d3a50b307d8f5c8dcf6207af44ced77c47cff4691f69e4d1d622"
+          },
+          {
+            "type": "Mesh",
+            "geometry": "CylinderGeometry",
+            "vertices": 292,
+            "index": 576,
+            "matrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              7.5,
+              0,
+              1
+            ],
+            "positions_sha256": "72615a8871aeccc9cf72bdd36500c43aeff7383ff32699c58252495ff9a34e8a"
+          }
+        ]
+      }
+    ]
+  },
+  "touch": {
+    "before": {
+      "draws2d": 0,
+      "glDraws": 87,
+      "revision": "186",
+      "scenes": [
+        {
+          "camera": [
+            10.999999999999998,
+            8,
+            12.999999999999998
+          ],
+          "rotation": [
+            -0.12095356249338378,
+            0.3410920908607827,
+            0.04430623960191523,
+            0.9311623802563741
+          ],
+          "objects": [
+            {
+              "type": "Mesh",
+              "geometry": "CircleGeometry",
+              "vertices": 66,
+              "index": 192,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                2.220446049250313e-16,
+                -1,
+                0,
+                0,
+                1,
+                2.220446049250313e-16,
+                0,
+                0,
+                -0.025,
+                0,
+                1
+              ],
+              "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+            },
+            {
+              "type": "GridHelper",
+              "geometry": "BufferGeometry",
+              "vertices": 100,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                -0.015,
+                0,
+                1
+              ],
+              "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "BufferGeometry",
+              "vertices": 6565,
+              "index": 38400,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "27d0b530ac72e28f94e23580bd4662590bf349d2b3a7d3ac1b37bd2d5ba5151b"
+            },
+            {
+              "type": "LineSegments",
+              "geometry": "BufferGeometry",
+              "vertices": 11072,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "cbb875e69d15d3a50b307d8f5c8dcf6207af44ced77c47cff4691f69e4d1d622"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "CylinderGeometry",
+              "vertices": 292,
+              "index": 576,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                7.5,
+                0,
+                1
+              ],
+              "positions_sha256": "72615a8871aeccc9cf72bdd36500c43aeff7383ff32699c58252495ff9a34e8a"
+            }
+          ]
+        }
+      ]
+    },
+    "drag": {
+      "draws2d": 0,
+      "glDraws": 92,
+      "revision": "186",
+      "scenes": [
+        {
+          "camera": [
+            -1.2516432071073833,
+            12.615450943578265,
+            15.019718485288598
+          ],
+          "rotation": [
+            -0.26839905785560886,
+            -0.04003107783502063,
+            -0.011163945759753,
+            0.9624109438616446
+          ],
+          "objects": [
+            {
+              "type": "Mesh",
+              "geometry": "CircleGeometry",
+              "vertices": 66,
+              "index": 192,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                2.220446049250313e-16,
+                -1,
+                0,
+                0,
+                1,
+                2.220446049250313e-16,
+                0,
+                0,
+                -0.025,
+                0,
+                1
+              ],
+              "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+            },
+            {
+              "type": "GridHelper",
+              "geometry": "BufferGeometry",
+              "vertices": 100,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                -0.015,
+                0,
+                1
+              ],
+              "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "BufferGeometry",
+              "vertices": 6565,
+              "index": 38400,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "27d0b530ac72e28f94e23580bd4662590bf349d2b3a7d3ac1b37bd2d5ba5151b"
+            },
+            {
+              "type": "LineSegments",
+              "geometry": "BufferGeometry",
+              "vertices": 11072,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "cbb875e69d15d3a50b307d8f5c8dcf6207af44ced77c47cff4691f69e4d1d622"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "CylinderGeometry",
+              "vertices": 292,
+              "index": 576,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                7.5,
+                0,
+                1
+              ],
+              "positions_sha256": "72615a8871aeccc9cf72bdd36500c43aeff7383ff32699c58252495ff9a34e8a"
+            }
+          ]
+        }
+      ]
+    },
+    "pinch": {
+      "draws2d": 0,
+      "glDraws": 101,
+      "revision": "186",
+      "scenes": [
+        {
+          "camera": [
+            -0.6739617269039754,
+            8.408319738849837,
+            8.087540722847704
+          ],
+          "rotation": [
+            -0.26839905785560897,
+            -0.04003107783502063,
+            -0.011163945759753003,
+            0.9624109438616446
+          ],
+          "objects": [
+            {
+              "type": "Mesh",
+              "geometry": "CircleGeometry",
+              "vertices": 66,
+              "index": 192,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                2.220446049250313e-16,
+                -1,
+                0,
+                0,
+                1,
+                2.220446049250313e-16,
+                0,
+                0,
+                -0.025,
+                0,
+                1
+              ],
+              "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+            },
+            {
+              "type": "GridHelper",
+              "geometry": "BufferGeometry",
+              "vertices": 100,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                -0.015,
+                0,
+                1
+              ],
+              "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "BufferGeometry",
+              "vertices": 6565,
+              "index": 38400,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "27d0b530ac72e28f94e23580bd4662590bf349d2b3a7d3ac1b37bd2d5ba5151b"
+            },
+            {
+              "type": "LineSegments",
+              "geometry": "BufferGeometry",
+              "vertices": 11072,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "cbb875e69d15d3a50b307d8f5c8dcf6207af44ced77c47cff4691f69e4d1d622"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "CylinderGeometry",
+              "vertices": 292,
+              "index": 576,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                7.5,
+                0,
+                1
+              ],
+              "positions_sha256": "72615a8871aeccc9cf72bdd36500c43aeff7383ff32699c58252495ff9a34e8a"
+            }
+          ]
+        }
+      ]
+    },
+    "reset": {
+      "draws2d": 0,
+      "glDraws": 111,
+      "revision": "186",
+      "scenes": [
+        {
+          "camera": [
+            10.999999999999998,
+            8,
+            12.999999999999998
+          ],
+          "rotation": [
+            -0.12095356249338378,
+            0.3410920908607827,
+            0.04430623960191523,
+            0.9311623802563741
+          ],
+          "objects": [
+            {
+              "type": "Mesh",
+              "geometry": "CircleGeometry",
+              "vertices": 66,
+              "index": 192,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                2.220446049250313e-16,
+                -1,
+                0,
+                0,
+                1,
+                2.220446049250313e-16,
+                0,
+                0,
+                -0.025,
+                0,
+                1
+              ],
+              "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+            },
+            {
+              "type": "GridHelper",
+              "geometry": "BufferGeometry",
+              "vertices": 100,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                -0.015,
+                0,
+                1
+              ],
+              "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "BufferGeometry",
+              "vertices": 6565,
+              "index": 38400,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "27d0b530ac72e28f94e23580bd4662590bf349d2b3a7d3ac1b37bd2d5ba5151b"
+            },
+            {
+              "type": "LineSegments",
+              "geometry": "BufferGeometry",
+              "vertices": 11072,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "cbb875e69d15d3a50b307d8f5c8dcf6207af44ced77c47cff4691f69e4d1d622"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "CylinderGeometry",
+              "vertices": 292,
+              "index": 576,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                7.5,
+                0,
+                1
+              ],
+              "positions_sha256": "72615a8871aeccc9cf72bdd36500c43aeff7383ff32699c58252495ff9a34e8a"
+            }
+          ]
+        }
+      ]
+    },
+    "selected": "상부 좁히기"
+  },
+  "mobileDiagramMetrics": {
+    "rect": {
+      "x": 19,
+      "y": -334.40625,
+      "width": 337,
+      "height": 298,
+      "top": -334.40625,
+      "right": 356,
+      "bottom": -36.40625,
+      "left": 19
+    },
+    "viewBox": 600,
+    "labels": [
+      {
+        "text": "TOWER",
+        "font": 10,
+        "renderedPx": 5.616666666666666
+      },
+      {
+        "text": "추정 대지 / 주변 맥락은 도식",
+        "font": 10,
+        "renderedPx": 5.616666666666666
+      },
+      {
+        "text": "N",
+        "font": 10,
+        "renderedPx": 5.616666666666666
+      }
+    ]
+  },
+  "tabKeyboard": {
+    "selected": "section",
+    "focused": true
+  },
+  "reduced": {
+    "before": {
+      "draws2d": 0,
+      "glDraws": 12,
+      "revision": "186",
+      "scenes": [
+        {
+          "camera": [
+            10.999999999999998,
+            8,
+            12.999999999999998
+          ],
+          "rotation": [
+            -0.12095356249338378,
+            0.3410920908607827,
+            0.04430623960191523,
+            0.9311623802563741
+          ],
+          "objects": [
+            {
+              "type": "Mesh",
+              "geometry": "CircleGeometry",
+              "vertices": 66,
+              "index": 192,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                2.220446049250313e-16,
+                -1,
+                0,
+                0,
+                1,
+                2.220446049250313e-16,
+                0,
+                0,
+                -0.025,
+                0,
+                1
+              ],
+              "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+            },
+            {
+              "type": "GridHelper",
+              "geometry": "BufferGeometry",
+              "vertices": 100,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                -0.015,
+                0,
+                1
+              ],
+              "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "BufferGeometry",
+              "vertices": 6565,
+              "index": 38400,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "27d0b530ac72e28f94e23580bd4662590bf349d2b3a7d3ac1b37bd2d5ba5151b"
+            },
+            {
+              "type": "LineSegments",
+              "geometry": "BufferGeometry",
+              "vertices": 11072,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "cbb875e69d15d3a50b307d8f5c8dcf6207af44ced77c47cff4691f69e4d1d622"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "CylinderGeometry",
+              "vertices": 292,
+              "index": 576,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                7.5,
+                0,
+                1
+              ],
+              "positions_sha256": "72615a8871aeccc9cf72bdd36500c43aeff7383ff32699c58252495ff9a34e8a"
+            }
+          ]
+        }
+      ]
+    },
+    "motionLabel": null,
+    "after": {
+      "draws2d": 0,
+      "glDraws": 12,
+      "revision": "186",
+      "scenes": [
+        {
+          "camera": [
+            10.999999999999998,
+            8,
+            12.999999999999998
+          ],
+          "rotation": [
+            -0.12095356249338378,
+            0.3410920908607827,
+            0.04430623960191523,
+            0.9311623802563741
+          ],
+          "objects": [
+            {
+              "type": "Mesh",
+              "geometry": "CircleGeometry",
+              "vertices": 66,
+              "index": 192,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                2.220446049250313e-16,
+                -1,
+                0,
+                0,
+                1,
+                2.220446049250313e-16,
+                0,
+                0,
+                -0.025,
+                0,
+                1
+              ],
+              "positions_sha256": "bff78529c59bc859f6ce54670fe8bbdb33b85c014fdbfa205d452468407b48db"
+            },
+            {
+              "type": "GridHelper",
+              "geometry": "BufferGeometry",
+              "vertices": 100,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                -0.015,
+                0,
+                1
+              ],
+              "positions_sha256": "639c63dea9ef9513fdac0c9c39cb866c632a4c385d0a5d922d6fd48a06034d57"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "BufferGeometry",
+              "vertices": 6565,
+              "index": 38400,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "27d0b530ac72e28f94e23580bd4662590bf349d2b3a7d3ac1b37bd2d5ba5151b"
+            },
+            {
+              "type": "LineSegments",
+              "geometry": "BufferGeometry",
+              "vertices": 11072,
+              "index": 0,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "positions_sha256": "cbb875e69d15d3a50b307d8f5c8dcf6207af44ced77c47cff4691f69e4d1d622"
+            },
+            {
+              "type": "Mesh",
+              "geometry": "CylinderGeometry",
+              "vertices": 292,
+              "index": 576,
+              "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                7.5,
+                0,
+                1
+              ],
+              "positions_sha256": "72615a8871aeccc9cf72bdd36500c43aeff7383ff32699c58252495ff9a34e8a"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

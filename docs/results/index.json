@@ -1,9 +1,14 @@
 [
   "bedrock-claude-haiku-5.5-20261012.json",
   "bedrock-gpt-6-luna-20260925.json",
+  "bedrock-gpt-6.1-terra-20261027.json",
   "bedrock-kimi-k3-20260920.json",
   "en-pivot-20261019-judge2.json",
   "en-pivot-20261019.json",
+  "en-pivot-20261027-judge2.json",
+  "en-pivot-20261027.json",
+  "en-pivot-gpt-6.1-terra-20261027-judge2.json",
+  "en-pivot-gpt-6.1-terra-20261027.json",
   "full-2026-07-18.json",
   "grok-4.6-2026-09-13.json",
   "grok-4.6-2026-09-16.json",
@@ -11,5 +16,6 @@
   "integrated-2026-09-17.json",
   "integrated-2026-09-20.json",
   "integrated-2026-09-25.json",
-  "integrated-2026-10-12.json"
+  "integrated-2026-10-12.json",
+  "integrated-2026-10-27.json"
 ]

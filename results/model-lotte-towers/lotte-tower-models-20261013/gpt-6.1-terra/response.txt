@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>롯데월드타워 — 설계 형태 읽기</title>
+<style>
+:root{--ink:#172b31;--muted:#647478;--paper:#f4f2eb;--line:#d6dcd7;--teal:#0d625d;--lime:#d9e884;--blue:#152f3b;--white:#fff;--orange:#d99561}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+button,a{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #dcad45;outline-offset:3px}
+header{background:var(--blue);color:#edf5ef;padding:18px clamp(20px,4vw,64px);display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;gap:12px;align-items:center;font-weight:750;letter-spacing:.04em;font-size:13px}.brand-mark{width:25px;height::25px;color:var(--lime);font-size:25px;line-height:1}
+.header-right{font-size:11px;color:#b5c8c8;letter-spacing:.1em;text-transform:uppercase;text-align:right}
+main{max-width:1600px;margin:auto;padding:clamp(24px,3.5vw,54px) clamp(18px,4vw,64px) 60px}
+.hero{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:26px}.eyebrow{font-size:11px;color:var(--teal);font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin:0 0 8px}
+h1{font-size:clamp(32px,4.4vw,62px);line-height:1.08;letter-spacing:-.055em;margin:0}.hero p{color:var(--muted);font-size:14px;max-width:440px;margin:0}
+.metrics{display:flex;gap:0;border-top:1px solid #becbc6;border-bottom:1px solid #becbc6;margin-bottom:25px}.metric{padding:13px 28px 13px 0;margin-right:28px;border-right:1px solid #cbd4cf}.metric:last-child{border:0}.metric strong{font-size:20px;letter-spacing:-.03em}.metric span{font-size:11px;color:var(--muted);margin-left:8px}
+.layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:16px;align-items:stretch}
+.panel{background:#fff;border:1px solid var(--line);min-width:0}.panel-head{padding:19px 22px 15px;display:flex;justify-content:space-between;gap:15px;align-items:flex-start}.kicker{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:800}.panel h2{font-size:18px;letter-spacing:-.03em;margin:3px 0 0}.panel-head small{font-size:11px;color:var(--muted);text-align:right}
+.viewer{position:relative;background:#dfe8e4;height:560px;overflow:hidden;touch-action:none}.viewer canvas{display:block;width:100%;height:100%}.viewer-overlay{position:absolute;top:18px;left:20px;pointer-events:none}.viewer-overlay span{display:block;font-size:10px;letter-spacing:.13em;color:#42615e;font-weight:700}.viewer-overlay strong{display:block;font-size:17px;margin-top:4px}.viewer-bottom{position:absolute;bottom:16px;left:20px;right:20px;display:flex;justify-content:space-between;align-items:end;gap:10px;pointer-events:none;color:#42615e;font-size:11px}.viewer-bottom button{pointer-events:auto;background:#fff;border:1px solid #aabdb6;border-radius:2px;padding:8px 12px;color:var(--ink);font-size:11px;font-weight:700}.fallback{padding:30px;font-size:14px}
+.viewer-note{padding:13px 22px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+.drawing-tabs{display:flex;gap:3px;padding:0 22px;overflow:auto}.drawing-tabs button{border:0;background:transparent;color:#758582;font-size:12px;font-weight:700;white-space:nowrap;padding:11px 13px;border-bottom:2px solid transparent}.drawing-tabs button[aria-selected=true]{color:var(--teal);border-color:var(--teal)}
+.drawing{height:380px;background:#f8faf7;border-top:1px solid #e2e9e3;border-bottom:1px solid #e2e9e3;display:flex;align-items:center;justify-content:center;overflow:hidden}.drawing svg{width:100%;height:100%;max-width:660px}.drawing-info{padding:18px 22px 20px;min-height:134px}.drawing-info h3{font-size:15px;margin:0 0 6px}.drawing-info p{font-size:12px;color:var(--muted);margin:0;line-height:1.7}.drawing-info .basis{margin-top:8px;color:#315d57}
+.process{margin-top:16px;background:#fff;border:1px solid var(--line);padding:22px}.process-top{display:flex;justify-content:space-between;gap:20px;align-items:start}.process h2{margin:3px 0 0;font-size:19px}.process-top p{font-size:12px;color:var(--muted);max-width:420px;margin:0}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:20px}.step{position:relative;text-align:left;border:1px solid #dce4df;background:#f8faf8;padding:15px;min-height:100px;color:var(--ink)}.step:hover{border-color:#7fa89d}.step[aria-pressed=true]{background:var(--blue);color:#fff;border-color:var(--blue)}.step .num{display:block;color:#79918a;font-size:10px;letter-spacing:.14em;margin-bottom:10px}.step[aria-pressed=true] .num{color:var(--lime)}.step strong{font-size:14px}.step small{display:block;font-size:11px;color:#73827e;margin-top:4px}.step[aria-pressed=true] small{color:#bdceca}
+.stage-detail{display:flex;gap:15px;align-items:baseline;border-top:1px solid #e4e9e5;margin-top:16px;padding-top:15px;font-size:12px;color:var(--muted)}.stage-detail strong{white-space:nowrap;color:var(--teal)}
+footer{display:flex;justify-content:space-between;gap:25px;margin-top:25px;color:#6c7d79;font-size:11px;line-height:1.7}footer p{margin:0;max-width:850px}footer a{color:var(--teal)}.model-tag{white-space:nowrap}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.viewer{height:500px}.hero{align-items:start;flex-direction:column;gap:12px}.drawing{height:340px}.process-top{flex-direction:column;gap:8px}}
+@media(max-width:520px){header{padding:15px 18px}.header-right{font-size:9px}.metric{margin-right:14px;padding-right:14px}.metric strong{font-size:17px}.metric span{display:block;margin:0}.viewer{height:440px}.steps{grid-template-columns:repeat(2,1fr)}.step{min-height:88px}.drawing{height:300px}.panel-head{padding:17px}.drawing-tabs{padding:0 10px}.process{padding:18px}footer{flex-direction:column}.stage-detail{display:block}.stage-detail strong{display:block;margin-bottom:4px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="brand"><span class="brand-mark">◭</span> FORM STUDY <span style="color:#8ca8a5;font-weight:400">/</span> SEOUL</div><div class="header-right">Architecture in layers<br>Conceptual reconstruction · 01</div></header>
+<main>
+<section class="hero"><div><p class="eyebrow">Anatomy of a landmark &nbsp; / &nbsp; Seoul, Korea</p><h1>롯데월드타워<br>형태를 읽다<span style="color:#0d625d">.</span></h1></div><p>하나의 수직 매스가 서울의 스카이라인이 되기까지. 도면과 3D 형태를 연결해 설계의 핵심 아이디어를 살펴봅니다.</p></section>
+<div class="metrics"><div class="metric"><strong>555 m</strong><span>전체 높이</span></div><div class="metric"><strong>123 F</strong><span>지상 층수</span></div><div class="metric"><strong>01—04</strong><span>형태 발전 단계</span></div></div>
+<div class="layout">
+<section class="panel" aria-labelledby="model-title">
+<div class="panel-head"><div><div class="kicker">01 / Interactive model</div><h2 id="model-title">형태를 입체로 보기</h2></div><small>드래그하여 회전<br>스크롤 또는 핀치로 확대</small></div>
+<div id="viewer" class="viewer" aria-label="선택한 설계 단계의 3D 모델"><div class="viewer-overlay"><span id="model-index">STAGE 04 / 04</span><strong id="model-label">완성 형태</strong></div><div class="viewer-bottom"><span>개념적 형상 · 실제 시공 모델 아님</span><button id="reset" type="button">↺ &nbsp; 시점 초기화</button></div></div>
+<div class="viewer-note">마우스 드래그 / 한 손가락 회전 · 휠 / 두 손가락 확대 · 키보드 화살표 회전, + / − 확대</div>
+</section>
+<section class="panel" aria-labelledby="drawing-title">
+<div class="panel-head"><div><div class="kicker">02 / Drawing explorer</div><h2 id="drawing-title">도면으로 이해하기</h2></div><small>도식 / 축척 없음<br>단위: m</small></div>
+<div class="drawing-tabs" role="tablist" aria-label="도면 종류">
+<button role="tab" aria-selected="true" data-drawing="site">배치도</button><button role="tab" aria-selected="false" data-drawing="plan">기준층 평면</button><button role="tab" aria-selected="false" data-drawing="elevation">입면도</button><button role="tab" aria-selected="false" data-drawing="section">단면도</button>
+</div>
+<div id="drawing" class="drawing" role="tabpanel" aria-live="polite"></div><div class="drawing-info"><h3 id="drawing-name"></h3><p id="drawing-desc"></p><p class="basis" id="drawing-basis"></p></div>
+</section>
+</div>
+<section class="process" aria-labelledby="process-title"><div class="process-top"><div><div class="kicker">03 / Design sequence</div><h2 id="process-title">형태가 만들어지는 네 단계</h2></div><p>단계를 선택하면 왼쪽 모델과 도면이 함께 바뀝니다. 실제 설계 이력이 아닌 형태 이해를 위한 순서입니다.</p></div>
+<div class="steps" aria-label="설계 단계 선택">
+<button class="step" data-stage="0" aria-pressed="false"><span class="num">01 / MASS</span><strong>수직 매스</strong><small>기본 볼륨 세우기</small></button>
+<button class="step" data-stage="1" aria-pressed="false"><span class="num">02 / TAPER</span><strong>상부 좁히기</strong><small>높이에 따른 면적 변화</small></button>
+<button class="step" data-stage="2" aria-pressed="false"><span class="num">03 / PROFILE</span><strong>곡선 다듬기</strong><small>도자기의 선을 떠올리는 윤곽</small></button>
+<button class="step" data-stage="3" aria-pressed="true"><span class="num">04 / COMPLETE</span><strong>완성 형태</strong><small>외피와 상부 마감</small></button>
+</div><div class="stage-detail" aria-live="polite"><strong id="stage-title"></strong><span id="stage-desc"></span></div>
+</section>
+<footer><p><strong>읽기 전에</strong> &nbsp;이 페이지는 공개 자료를 바탕으로 한 설명용 개념 재구성입니다. 공식 시공 도면이나 검증된 구조 설계가 아닙니다. 높이와 층수를 제외한 폭, 평면, 단면, 코어, 외피 분할과 주변 배치는 이해를 위한 추정입니다. 곡선 및 단계 역시 실제 설계 과정의 기록이 아닙니다.<br>출처: <a href="https://www.kpf.com/project/lotte-world-tower" target="_blank" rel="noopener noreferrer">KPF · 원 설계사 ↗</a> &nbsp; / &nbsp; <a href="https://www.lera.com/lotte-world-tower" target="_blank" rel="noopener noreferrer">LERA · 구조 설계사 ↗</a></p><div class="model-tag">MADE WITH<br><strong>gpt-6.1-terra</strong></div></footer>
+</main>
+<script src="../runtime/three-runtime.js"></script>
+<script>
+(function(){
+'use strict';
+const stages=[
+{name:'수직 매스',en:'MASS',desc:'높이 555m를 하나의 수직 볼륨으로 단순화합니다. 폭과 평면은 설명을 위한 임의의 값입니다.'},
+{name:'상부 좁히기',en:'TAPER',desc:'아래에서 위로 외곽과 기준층 면적이 줄어드는 원리를 선형 매스로 표현합니다.'},
+{name:'곡선 다듬기',en:'PROFILE',desc:'좁아지는 윤곽에 부드러운 곡률을 더합니다. KPF가 설명한 한국 도자기의 선을 떠올리게 하는 개념적 해석입니다.'},
+{name:'완성 형태',en:'COMPLETE',desc:'곡선 매스에 추정 외피 분할과 상부 마감을 더한 완성 형상입니다. 실제 형상을 참고했지만 정밀 복제는 아닙니다.'}
+];
+let stage=3, drawing='site', scene,camera,renderer,controls,building;
+const $=id=>document.getElementById(id);
+function radius(t,s){if(s===0)return 1;if(s===1)return 1-.64*t;if(s===2)return 1-.21*t-.52*t*t;return 1-.18*t-.57*t*t;}
+function widthAt(t){return radius(t,stage)}
+function outlinePath(cx,base,h,w){let l=[],r=[];for(let i=0;i<=32;i++){let t=i/32, x=w*widthAt(t);l.push((cx-x).toFixed(1)+','+(base-h*t).toFixed(1));r.unshift((cx+x).toFixed(1)+','+(base-h*t).toFixed(1));}return 'M'+l.join(' L')+' L'+r.join(' L')+' Z'}
+function svg(content){return '<svg viewBox="0 0 600 380" role="img" aria-label="'+({site:'배치 개념도',plan:'기준층 평면 개념도',elevation:'입면 개념도',section:'단면 개념도'})[drawing]+'"><defs><pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse"><path d="M 25 0 L 0 0 0 25" fill="none" stroke="#e5ece5" stroke-width="0.7"/></pattern><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#b8d0c8" stroke-width="1"/></pattern><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse"><path d="M0,0 L6,3 L0,6" fill="#a45f45"/></marker></defs><rect width="600" height="380" fill="url(#grid)"/>'+content+'</svg>'}
+function t(x,y,text,extra=''){return '<text x="'+x+'" y="'+y+'" fill="#66817b" font-family="system-ui,sans-serif" font-size="10" '+extra+'>'+text+'</text>'}
+function renderDrawing(){
+let c='',name='',desc='',basis='',r=widthAt(.42);
+if(drawing==='site'){
+c='<path d="M72 65 H525 V320 H72 Z" fill="#f0f5ef" stroke="#aabfb5"/><path d="M72 112 H525 M140 65 V320 M470 65 V320" stroke="#d2dfd5" stroke-width="17"/><path d="M77 113 H520 M140 70 V315 M470 70 V315" stroke="#fff" stroke-width="1" stroke-dasharray="5 5"/><ellipse cx="300" cy="190" rx="80" ry="55" fill="#dcebe4" stroke="#7da99a" stroke-dasharray="4 4"/><ellipse cx="300" cy="190" rx="43" ry="32" fill="#497e76" fill-opacity=".3" stroke="#0d625d" stroke-width="2"/><path d="M220 190 H380 M300 135 V245" stroke="#85a69b" stroke-dasharray="3 4"/>'+t(300,194,'TOWER', 'text-anchor="middle" fill="#164f4a" font-weight="700"')+t(300,267,'추정 대지 / 주변 맥락은 도식', 'text-anchor="middle"')+'<path d="M505 82 V55 M500 63 L505 55 L510 63" fill="none" stroke="#456c64" stroke-width="1.5"/>'+t(505,48,'N','text-anchor="middle"');
+name='배치도 · 타워와 주변의 관계';desc='타워를 중심으로 대지와 접근 공간을 단순화했습니다. 타워의 외곽은 3D 모델의 기저부에 대응합니다.';basis='대지 경계, 도로, 방위와 배치는 실제 측량값이 아닌 도식적 추정입니다.';
+}else if(drawing==='plan'){
+let rx=110*r, ry=80*r;
+c='<ellipse cx="300" cy="190" rx="110" ry="80" fill="none" stroke="#b7cbc0" stroke-dasharray="5 4"/><ellipse cx="300" cy="190" rx="'+rx+'" ry="'+ry+'" fill="#dcece5" stroke="#0d625d" stroke-width="2"/><rect x="278" y="168" width="44" height="44" fill="url(#hatch)" stroke="#648b7e"/><path d="M150 190 H450 M300 65 V315" stroke="#9fbab0" stroke-dasharray="4 5"/>'+t(300,194,'코어','text-anchor="middle" fill="#315d57"')+t(300,75,'기저 외곽 · 비교선','text-anchor="middle"')+t(300,310,'약 42% 높이의 개념 평면','text-anchor="middle"')+'<line x1="188" y1="280" x2="412" y2="280" stroke="#a45f45" marker-start="url(#arr)" marker-end="url(#arr)"/>'+t(300,274,'폭 미표기 · 추정 형상','text-anchor="middle" fill="#a45f45"');
+name='기준층 평면도 · 높이에 따른 외곽';desc='약 42% 높이의 개념 평면을 기저 외곽의 점선과 비교합니다. 단계를 바꾸면 평면의 크기도 달라집니다.';basis='평면의 타원형, 코어 크기와 위치는 추정입니다. 실제 기준층 도면이 아닙니다.';
+}else{
+let path=outlinePath(300,325,270,65);
+c='<path d="'+path+'" fill="'+(drawing==='section'?'url(#hatch)':'#dcebe5')+'" stroke="#0d625d" stroke-width="2"/><path d="M205 325 H396" stroke="#6d8c82"/>';
+if(drawing==='section'){
+for(let i=1;i<12;i++){let y=325-i*22.5, w=65*widthAt(i/12);c+='<line x1="'+(300-w)+'" y1="'+y+'" x2="'+(300+w)+'" y2="'+y+'" stroke="#86a79b" stroke-width=".7"/>'}
+c+='<path d="M289 325 V70 M311 325 V70" stroke="#4a7d70" stroke-width="1" stroke-dasharray="3 3"/>'+t(320,200,'개념 코어');
+}else{
+for(let j=-2;j<=2;j++){let pts=[];for(let i=0;i<=24;i++){let u=i/24;pts.push((300+j*22*widthAt(u))+','+(325-270*u))}c+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#8cafa3" stroke-width=".7"/>'}
+}
+c+='<line x1="420" y1="55" x2="420" y2="325" stroke="#a45f45" marker-start="url(#arr)" marker-end="url(#arr)"/><line x1="365" y1="55" x2="430" y2="55" stroke="#d5aaa0"/><line x1="365" y1="325" x2="430" y2="325" stroke="#d5aaa0"/>'+t(433,193,'555 m','fill="#a45f45" font-weight="700"')+t(433,209,'전체 높이')+t(300,348,'선택 단계의 윤곽','text-anchor="middle"');
+if(drawing==='elevation'){name='입면도 · 수직 윤곽';desc='정면에서 본 실루엣입니다. 단계에 따라 상부로 갈수록 외곽이 좁아지는 변화가 나타납니다.';basis='555m는 공개 기준 자료에 근거합니다. 폭, 곡률과 외피 선은 추정입니다.'}
+else{name='단면도 · 내부의 개념적 구성';desc='외곽을 절단한 개념도입니다. 수평선은 층판을 상징하며 실제 123개 층을 개별적으로 표시하지 않습니다.';basis='555m와 지상 123층은 공개 기준 자료입니다. 코어, 층판, 구조 부재는 검증되지 않은 추정입니다.'}
+}
+$('drawing').innerHTML=svg(c);$('drawing-name').textContent=name;$('drawing-desc').textContent=desc;$('drawing-basis').textContent=basis;
+}
+function makeBuilding(){
+if(!scene)return;
+if(building){scene.remove(building);building.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){if(Array.isArray(o.material))o.material.forEach(m=>m.dispose());else o.material.dispose()}})}
+building=new THREE.Group();let n=64, rows=100, pos=[],ind=[];
+for(let i=0;i<=rows;i++){let t=i/rows, rad=1.02*radius(t,stage);for(let j=0;j<=n;j++){let a=j/n*Math.PI*2;let subtle=stage>=2?1+0.025*Math.cos(4*a):1;pos.push(Math.cos(a)*rad*subtle,t*7.4,Math.sin(a)*rad*.83*subtle)}}
+for(let i=0;i<rows;i++)for(let j=0;j<n;j++){let a=i*(n+1)+j,b=a+n+1;ind.push(a,b,a+1,b,b+1,a+1)}
+let geom=new THREE.BufferGeometry();geom.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geom.setIndex(ind);geom.computeVertexNormals();
+building.add(new THREE.Mesh(geom,new THREE.MeshStandardMaterial({color:stage===0?0x8aada3:0x82afa6,metalness:.28,roughness:.42,side:THREE.DoubleSide})));
+let lines=[];function pt(t,a){let rad=1.026*radius(t,stage),k=stage>=2?1+.025*Math.cos(4*a):1;return [Math.cos(a)*rad*k,t*7.4,Math.sin(a)*rad*.83*k]}
+if(stage>=2){for(let j=0;j<24;j++){let a=j/24*Math.PI*2;for(let i=0;i<rows;i++){lines.push(...pt(i/rows,a),...pt((i+1)/rows,a))}}for(let i=1;i<50;i++){let t=i/50;for(let j=0;j<n;j++)lines.push(...pt(t,j/n*Math.PI*2),...pt(t,(j+1)/n*Math.PI*2))}
+let lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.Float32BufferAttribute(lines,3));building.add(new THREE.LineSegments(lg,new THREE.LineBasicMaterial({color:0x416e68,transparent:true,opacity:.42})))}
+if(stage===3){let top=new THREE.Mesh(new THREE.CylinderGeometry(.015,.255,.22,48),new THREE.MeshStandardMaterial({color:0xc5d8d0,metalness:.4,roughness:.35}));top.position.y=7.5;building.add(top)}
+scene.add(building);
+}
+function update(){const s=stages[stage];$('model-index').textContent='STAGE 0'+(stage+1)+' / 04';$('model-label').textContent=s.name;$('stage-title').textContent='0'+(stage+1)+' / '+s.en;$('stage-desc').textContent=s.desc;document.querySelectorAll('.step').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.stage===stage)));makeBuilding();renderDrawing()}
+document.querySelectorAll('.step').forEach(b=>b.addEventListener('click',()=>{stage=+b.dataset.stage;update()}));
+document.querySelectorAll('[data-drawing]').forEach(b=>{b.addEventListener('click',()=>{drawing=b.dataset.drawing;document.querySelectorAll('[data-drawing]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));renderDrawing()});b.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();let list=[...document.querySelectorAll('[data-drawing]')],i=list.indexOf(b),next=list[(i+(e.key==='ArrowRight'?1:-1)+list.length)%list.length];next.focus();next.click()}})});
+function init3D(){try{
+if(!window.THREE||!THREE.OrbitControls)throw Error('3D runtime unavailable');
+const host=$('viewer');scene=new THREE.Scene();scene.background=new THREE.Color(0xdfe8e4);
+camera=new THREE.PerspectiveCamera(35,1,.1,100);camera.position.set(11,8,13);
+renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.outputColorSpace=THREE.SRGBColorSpace;host.prepend(renderer.domElement);renderer.domElement.tabIndex=0;renderer.domElement.setAttribute('aria-label','3D 모델. 화살표로 회전하고 더하기 또는 빼기로 확대 축소합니다.');
+controls=new THREE.OrbitControls(camera,renderer.domElement);controls.target.set(0,3.5,0);controls.enableDamping=false;controls.enablePan=false;controls.minDistance=7;controls.maxDistance=30;controls.maxPolarAngle=Math.PI*.49;controls.update();
+scene.add(new THREE.HemisphereLight(0xffffff,0x829d8f,2));let light=new THREE.DirectionalLight(0xffffff,2);light.position.set(5,12,8);scene.add(light);
+let ground=new THREE.Mesh(new THREE.CircleGeometry(6,64),new THREE.MeshStandardMaterial({color:0xc7d8ce,roughness:1}));ground.rotation.x=-Math.PI/2;ground.position.y=-.025;scene.add(ground);
+let ring=new THREE.GridHelper(12,24,0x9fb9ac,0xb9cdc1);ring.position.y=-.015;scene.add(ring);
+function resize(){let w=host.clientWidth,h=host.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);renderer.render(scene,camera)}
+controls.addEventListener('change',()=>renderer.render(scene,camera));window.addEventListener('resize',resize);if(window.ResizeObserver)new ResizeObserver(resize).observe(host);
+renderer.domElement.addEventListener('keydown',e=>{let offset=camera.position.clone().sub(controls.target),sph=new THREE.Spherical().setFromVector3(offset),used=true;if(e.key==='ArrowLeft')sph.theta-=.12;else if(e.key==='ArrowRight')sph.theta+=.12;else if(e.key==='ArrowUp')sph.phi=Math.max(.1,sph.phi-.1);else if(e.key==='ArrowDown')sph.phi=Math.min(Math.PI*.49,sph.phi+.1);else if(e.key==='+'||e.key==='=')sph.radius=Math.max(7,sph.radius*.9);else if(e.key==='-')sph.radius=Math.min(30,sph.radius*1.1);else used=false;if(used){e.preventDefault();camera.position.copy(new THREE.Vector3().setFromSpherical(sph).add(controls.target));controls.update();renderer.render(scene,camera)}});
+$('reset').addEventListener('click',()=>{camera.position.set(11,8,13);controls.target.set(0,3.5,0);controls.update();renderer.render(scene,camera)});resize();
+}catch(e){let p=document.createElement('p');p.className='fallback';p.textContent='3D 환경을 불러오지 못했습니다. 도면과 단계 설명은 계속 사용할 수 있습니다.';$('viewer').prepend(p)}}
+init3D();update();if(renderer)renderer.render(scene,camera);
+// 단계 전환 후에도 정지 화면을 즉시 갱신합니다.
+document.querySelectorAll('.step').forEach(b=>b.addEventListener('click',()=>{if(renderer)renderer.render(scene,camera)}));
+})();
+</script>
+</body>
+</html>

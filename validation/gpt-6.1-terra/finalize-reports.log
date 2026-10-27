@@ -1,0 +1,21 @@
+{
+  "candidate_collection_intervals": {
+    "bedrock-gpt-6.1-terra-20261027": {
+      "started_at": "2026-10-27T04:04:08.411652+00:00",
+      "finished_at": "2026-10-27T04:15:25.783711+00:00"
+    },
+    "en-pivot-gpt-6.1-terra-20261027": {
+      "started_at": "2026-10-27T04:10:42.547118+00:00",
+      "finished_at": "2026-10-27T04:20:08.630690+00:00"
+    }
+  },
+  "translation_overlap_seconds": 283.236593,
+  "per_job_concurrency": 8,
+  "isolated_model_service_load": false,
+  "other_overlapping_candidate_tasks": [
+    "finqa_audited",
+    "whoami",
+    "lotte-tower"
+  ],
+  "note": "GPT-6.1 Terra의 한국어·영어 번역 수집 시간이 일부 겹쳤습니다. 각 작업의 동시성은 8이지만 같은 모델 서비스에 동시 요청이 발생했습니다. 금융 QA·모델 소개·롯데타워 생성도 한국어 번역 수집 중에 수행했습니다. 지연·처리량은 관측값이며 단독 부하 실험과 직접 비교에 한계가 있습니다."
+}

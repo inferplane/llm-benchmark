@@ -1,0 +1,45 @@
+{
+  "reviewed_on": "2026-10-28",
+  "review_type": "independent_documentation_supplement_review",
+  "base_revision": "bbd351785dd9c32ec6897546860223d99f8a2f95",
+  "branch": "chore/bedrock-deprecation-notice-date-20261120",
+  "reviewed_state": "working_tree",
+  "verdict": "PASS",
+  "ready_to_merge": true,
+  "critical": [],
+  "important": [],
+  "minor": [],
+  "source_attribution": "User-reported AWS Health Dashboard email",
+  "user_reported_effective_date": "2026-11-20",
+  "superseded_user_reported_date": "November 26",
+  "health_event_independently_retrieved": false,
+  "notice_transition_type": "Not independently confirmed",
+  "reviewed_file_sha256": {
+    "README.md": "2d3bc88bfa29b5de4d6a8fe3e87fea963ff73c689f6689afe53e8aa00d9f0f90",
+    "documentation-evidence.json": "837475673f95a78aeafe4b7a665ecfb1f52f3ac90857fd71493afe6389e794ee"
+  },
+  "original_review_config_sha256": "15a3c4de1bd4eeac86b012f54eb85a9681d82a810933cec42b801d303fab5894",
+  "checks": {
+    "documentation_only_scope": "PASS",
+    "json_parsing_and_corrected_date": "PASS",
+    "user_attribution_and_retrieval_limitations": "PASS",
+    "no_invented_legacy_or_eol_transition": "PASS",
+    "public_lifecycle_table_and_card_evidence_preserved": "PASS",
+    "raw_api_evidence_preserved": "PASS",
+    "original_code_review_and_verification_preserved": "PASS",
+    "config_hash_matches_original_review": "PASS",
+    "website_and_historical_artifacts_unchanged": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "declined_to_judge": [
+    "Independent retrieval or interpretation of the account-specific AWS Health event: outside documentation-only scope; no event ARN or notice text supplied.",
+    "Repeated inference, runner selfchecks or browser review: behavior and website unchanged; original review preserved."
+  ],
+  "paid_candidate_calls": 0,
+  "health_event_accesses": 0,
+  "cloud_mutations": 0,
+  "written_files": [
+    "validation/model-deprecation-20261028/notice-date-review.md",
+    "validation/model-deprecation-20261028/notice-date-review.json"
+  ]
+}

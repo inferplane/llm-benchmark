@@ -1,6 +1,10 @@
 {
   "checked_on": "2026-10-28",
-  "policy_source": "User-provided Bedrock deprecation list; no notice URL or effective date supplied.",
+  "policy_source": "User-provided Bedrock deprecation list, reported to come from an AWS Health Dashboard email; no notice URL or event ARN supplied.",
+  "user_reported_effective_date": "2026-11-20",
+  "date_correction": "User initially said Nov 26, then corrected it to Nov 20 2026.",
+  "health_event_independently_retrieved": false,
+  "notice_transition_type": "Not independently confirmed; do not infer Legacy vs EOL from the supplied date.",
   "note": "Exclusion is repository policy. API ACTIVE does not establish continued availability; documented future EOL does not mean a model is already unavailable.",
   "lifecycle_tables": [
     {

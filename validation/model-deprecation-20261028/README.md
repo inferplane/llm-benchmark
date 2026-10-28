@@ -1,11 +1,16 @@
 # Bedrock model exclusions — 2026-10-28
 
-The user supplied a Bedrock deprecation list without a notice URL or effective
-date. Nine configured API models match that list, including the `us.` inference
+The user supplied a Bedrock deprecation list and later identified its source as
+an AWS Health Dashboard email, with an effective date of **2026-11-20** (corrected
+from the initially supplied November 26). No notice URL or event ARN was supplied;
+the account-specific Health event has not been independently retrieved. The
+effective date is recorded as user-reported, separately from public lifecycle
+documentation. Nine configured API models match that list, including the `us.` inference
 profiles for the listed Meta foundation model IDs. They are now `enabled = false`
 for new runs. Model IDs, prices and all historical observations remain intact.
+The exclusions were applied on 2026-10-28 ahead of the reported notice date.
 This is a repository exclusion policy; it does not assert that these endpoints
-are already unavailable.
+are already unavailable or infer whether the notice date means Legacy or EOL.
 
 | Config name | Config model ID | Documentation checked 2026-10-28 |
 | --- | --- | --- |
@@ -25,7 +30,9 @@ The five remaining model cards still state Active and EOL N/A. Source URLs and
 table rows are saved in [documentation-evidence.json](documentation-evidence.json).
 The same day's read-only `aws bedrock list-foundation-models --region us-west-2`
 query returned ACTIVE for all nine foundation models, including the four marked
-Legacy by the documentation. The raw filtered response is saved in
+Legacy by the documentation. ACTIVE can be consistent with a future notice date;
+the public lifecycle table's 2027-03-30 EOL and the reported 2026-11-20 notice
+date remain separate evidence. The raw filtered response is saved in
 [aws-lifecycle-us-west-2.json](aws-lifecycle-us-west-2.json). These conflicting
 signals are preserved separately; no candidate inference was performed.
 

@@ -1,0 +1,248 @@
+{
+  "checked_on": "2026-10-28",
+  "policy_source": "User-provided Bedrock deprecation list; no notice URL or effective date supplied.",
+  "note": "Exclusion is repository policy. API ACTIVE does not establish continued availability; documented future EOL does not mean a model is already unavailable.",
+  "lifecycle_tables": [
+    {
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
+      "section_title": "Legacy and end-of-life (EOL) models",
+      "query": "GLM 4.7 Flash",
+      "tables_searched": 2,
+      "tables_with_matches": 1,
+      "results": [
+        {
+          "table_heading": "Legacy and end-of-life (EOL) models",
+          "columns": [
+            "Model provider",
+            "Model name",
+            "Model ID",
+            "Regions",
+            "Legacy date",
+            "EOL date",
+            "Public extended access start date"
+          ],
+          "parent_columns": [
+            "Model provider",
+            "Model name",
+            "Model ID"
+          ],
+          "child_columns": [
+            "Regions",
+            "Legacy date",
+            "EOL date",
+            "Public extended access start date"
+          ],
+          "total_rows": 40,
+          "matched_rows": 1,
+          "showing": 1,
+          "rows": [
+            {
+              "Model provider": "Z.AI",
+              "Model name": "GLM 4.7 Flash",
+              "Model ID": "zai.glm-4.7-flash",
+              "rows": [
+                {
+                  "Regions": "ap-northeast-1, ap-south-1, ap-southeast-2, ap-southeast-3, eu-central-1, eu-north-1, eu-south-1, eu-west-1, eu-west-2, sa-east-1, us-east-1, us-east-2, us-west-2",
+                  "Legacy date": "September 30, 2026",
+                  "EOL date": "March 30, 2027",
+                  "Public extended access start date": "To be announced"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hint": null
+    },
+    {
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
+      "section_title": "Legacy and end-of-life (EOL) models",
+      "query": "Llama 4 Scout",
+      "tables_searched": 2,
+      "tables_with_matches": 1,
+      "results": [
+        {
+          "table_heading": "Legacy and end-of-life (EOL) models",
+          "columns": [
+            "Model provider",
+            "Model name",
+            "Model ID",
+            "Regions",
+            "Legacy date",
+            "EOL date",
+            "Public extended access start date"
+          ],
+          "parent_columns": [
+            "Model provider",
+            "Model name",
+            "Model ID"
+          ],
+          "child_columns": [
+            "Regions",
+            "Legacy date",
+            "EOL date",
+            "Public extended access start date"
+          ],
+          "total_rows": 40,
+          "matched_rows": 1,
+          "showing": 1,
+          "rows": [
+            {
+              "Model provider": "Meta",
+              "Model name": "Llama 4 Scout 17B Instruct",
+              "Model ID": "meta.llama4-scout-17b-instruct-v1:0",
+              "rows": [
+                {
+                  "Regions": "us-east-1, us-east-2, us-west-1, us-west-2",
+                  "Legacy date": "September 30, 2026",
+                  "EOL date": "March 30, 2027",
+                  "Public extended access start date": "To be announced"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hint": null
+    },
+    {
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
+      "section_title": "Legacy and end-of-life (EOL) models",
+      "query": "Llama 4 Maverick",
+      "tables_searched": 2,
+      "tables_with_matches": 1,
+      "results": [
+        {
+          "table_heading": "Legacy and end-of-life (EOL) models",
+          "columns": [
+            "Model provider",
+            "Model name",
+            "Model ID",
+            "Regions",
+            "Legacy date",
+            "EOL date",
+            "Public extended access start date"
+          ],
+          "parent_columns": [
+            "Model provider",
+            "Model name",
+            "Model ID"
+          ],
+          "child_columns": [
+            "Regions",
+            "Legacy date",
+            "EOL date",
+            "Public extended access start date"
+          ],
+          "total_rows": 40,
+          "matched_rows": 1,
+          "showing": 1,
+          "rows": [
+            {
+              "Model provider": "Meta",
+              "Model name": "Llama 4 Maverick 17B Instruct",
+              "Model ID": "meta.llama4-maverick-17b-instruct-v1:0",
+              "rows": [
+                {
+                  "Regions": "us-east-1, us-east-2, us-west-1, us-west-2",
+                  "Legacy date": "September 30, 2026",
+                  "EOL date": "March 30, 2027",
+                  "Public extended access start date": "To be announced"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hint": null
+    },
+    {
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
+      "section_title": "Legacy and end-of-life (EOL) models",
+      "query": "Llama 3.3 70B",
+      "tables_searched": 2,
+      "tables_with_matches": 1,
+      "results": [
+        {
+          "table_heading": "Legacy and end-of-life (EOL) models",
+          "columns": [
+            "Model provider",
+            "Model name",
+            "Model ID",
+            "Regions",
+            "Legacy date",
+            "EOL date",
+            "Public extended access start date"
+          ],
+          "parent_columns": [
+            "Model provider",
+            "Model name",
+            "Model ID"
+          ],
+          "child_columns": [
+            "Regions",
+            "Legacy date",
+            "EOL date",
+            "Public extended access start date"
+          ],
+          "total_rows": 40,
+          "matched_rows": 1,
+          "showing": 1,
+          "rows": [
+            {
+              "Model provider": "Meta",
+              "Model name": "Llama 3.3 70B Instruct",
+              "Model ID": "meta.llama3-3-70b-instruct-v1:0",
+              "rows": [
+                {
+                  "Regions": "us-east-1, us-east-2, us-west-2",
+                  "Legacy date": "September 30, 2026",
+                  "EOL date": "March 30, 2027",
+                  "Public extended access start date": "To be announced"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hint": null
+    }
+  ],
+  "model_cards": [
+    {
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-nvidia-nemotron-super-3-120b.html",
+      "excerpts": [
+        "**Model EOL date:** N/A",
+        "**Model lifecycle:** Active"
+      ]
+    },
+    {
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-nvidia-nemotron-nano-3-30b.html",
+      "excerpts": [
+        "**Model EOL date:** N/A",
+        "**Model lifecycle:** Active"
+      ]
+    },
+    {
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-qwen-qwen3-235b-a22b-2507.html",
+      "excerpts": [
+        "**Model EOL date:** N/A",
+        "**Model lifecycle:** Active"
+      ]
+    },
+    {
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-qwen-qwen3-32b.html",
+      "excerpts": [
+        "**Model EOL date:** N/A",
+        "**Model lifecycle:** Active"
+      ]
+    },
+    {
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-mistral-ai-ministral-14b-3-0.html",
+      "excerpts": [
+        "**Model EOL date:** N/A",
+        "**Model lifecycle:** Active"
+      ]
+    }
+  ]
+}

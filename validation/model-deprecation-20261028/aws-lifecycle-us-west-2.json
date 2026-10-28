@@ -1,0 +1,65 @@
+[
+    {
+        "model_id": "qwen.qwen3-235b-a22b-2507-v1:0",
+        "lifecycle": {
+            "status": "ACTIVE",
+            "startOfLifeTime": "2025-09-15T00:00:00+00:00"
+        }
+    },
+    {
+        "model_id": "nvidia.nemotron-nano-3-30b",
+        "lifecycle": {
+            "status": "ACTIVE",
+            "startOfLifeTime": "2025-12-23T00:00:00+00:00"
+        }
+    },
+    {
+        "model_id": "zai.glm-4.7-flash",
+        "lifecycle": {
+            "status": "ACTIVE",
+            "startOfLifeTime": "2026-02-06T18:00:00+00:00"
+        }
+    },
+    {
+        "model_id": "nvidia.nemotron-super-3-120b",
+        "lifecycle": {
+            "status": "ACTIVE",
+            "startOfLifeTime": "2026-03-18T17:00:00+00:00"
+        }
+    },
+    {
+        "model_id": "qwen.qwen3-32b-v1:0",
+        "lifecycle": {
+            "status": "ACTIVE",
+            "startOfLifeTime": "2025-09-15T00:00:00+00:00"
+        }
+    },
+    {
+        "model_id": "mistral.ministral-3-14b-instruct",
+        "lifecycle": {
+            "status": "ACTIVE",
+            "startOfLifeTime": "2025-12-02T00:00:00+00:00"
+        }
+    },
+    {
+        "model_id": "meta.llama3-3-70b-instruct-v1:0",
+        "lifecycle": {
+            "status": "ACTIVE",
+            "startOfLifeTime": "2024-12-19T08:00:00+00:00"
+        }
+    },
+    {
+        "model_id": "meta.llama4-scout-17b-instruct-v1:0",
+        "lifecycle": {
+            "status": "ACTIVE",
+            "startOfLifeTime": "2025-04-28T08:00:00+00:00"
+        }
+    },
+    {
+        "model_id": "meta.llama4-maverick-17b-instruct-v1:0",
+        "lifecycle": {
+            "status": "ACTIVE",
+            "startOfLifeTime": "2025-04-28T08:00:00+00:00"
+        }
+    }
+]

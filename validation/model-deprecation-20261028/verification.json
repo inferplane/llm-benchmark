@@ -1,0 +1,36 @@
+{
+  "verdict": "PASS",
+  "base_revision": "d8478791d16c0eceeb9506905c1a3ffa94df75d8",
+  "changed_enabled_flags": [
+    "nemotron-nano-3-30b",
+    "glm-4.7-flash",
+    "qwen3-32b",
+    "nemotron-super-3-120b",
+    "llama4-scout",
+    "ministral-14b",
+    "qwen3-235b-a22b",
+    "llama4-maverick",
+    "llama-3.3-70b-bedrock"
+  ],
+  "other_config_fields_unchanged": true,
+  "tatqa_new_cohort": 26,
+  "tatqa_historical_cohort": 35,
+  "tatqa_historical_questions": 200,
+  "historical_run_load": "PASS",
+  "self_hosted_config_unchanged": true,
+  "untouched_paths": [
+    "bench",
+    "scenarios",
+    "docs",
+    "data",
+    "results",
+    "deploy"
+  ],
+  "report_selfcheck": "PASS",
+  "tatqa_selfcheck": "PASS",
+  "content_review_hash_verification": "PASS",
+  "unchanged_content_review_score": 100,
+  "content_review_threshold": 85,
+  "api_lifecycle_status": "ACTIVE for all 9",
+  "paid_candidate_calls": 0
+}

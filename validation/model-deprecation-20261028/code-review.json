@@ -1,0 +1,44 @@
+{
+  "reviewed_on": "2026-10-28",
+  "review_type": "independent_scoped_code_review",
+  "base_revision": "d8478791d16c0eceeb9506905c1a3ffa94df75d8",
+  "reviewed_state": "working_tree",
+  "branch": "chore/bedrock-model-deprecation-20261028",
+  "config_sha256": "15a3c4de1bd4eeac86b012f54eb85a9681d82a810933cec42b801d303fab5894",
+  "verdict": "PASS",
+  "ready_to_merge": true,
+  "critical": [],
+  "important": [],
+  "minor": [],
+  "checks": {
+    "exactly_nine_enable_only_changes": "PASS",
+    "other_config_settings_unchanged": "PASS",
+    "model_ids_pricing_self_hosted_unchanged": "PASS",
+    "translation_explicit_disabled_selection_rejected_before_inference": "PASS",
+    "finqa_explicit_disabled_selection_rejected_before_inference": "PASS",
+    "tatqa_explicit_disabled_selection_rejected_before_inference": "PASS",
+    "tatqa_api_roster": {"before": 35, "after": 26, "verdict": "PASS"},
+    "historical_tatqa_load": {"models": 35, "questions": 200, "verdict": "PASS"},
+    "published_tatqa_report_hash": "PASS",
+    "published_tatqa_contract_hash": "PASS",
+    "website_reviewed_source_hashes": "PASS",
+    "prior_content_review": {"score": 100, "threshold": 85},
+    "documented_audited_finqa_freeze_mismatch": "CONFIRMED",
+    "report_selfcheck": "PASS",
+    "tatqa_selfcheck": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "audit_assessment": "Comments and evidence distinguish user-requested exclusions from documented lifecycle dates and conflicting API ACTIVE statuses; no unsupported claim of current unavailability.",
+  "declined_to_judge": [
+    "Current paid inference availability: outside scope; no candidate calls performed.",
+    "Future provider retirement schedule for five Active/N/A cards: no user notice URL or effective date supplied.",
+    "Legacy FinQA replay redesign under a changed roster: outside scope; original revision/config replay is documented and frozen code must be preserved.",
+    "Fresh browser content review: website/report hashes match the previously reviewed content."
+  ],
+  "paid_candidate_calls": 0,
+  "cloud_mutations": 0,
+  "written_files": [
+    "validation/model-deprecation-20261028/code-review.md",
+    "validation/model-deprecation-20261028/code-review.json"
+  ]
+}

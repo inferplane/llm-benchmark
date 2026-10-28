@@ -449,6 +449,9 @@ api = "bedrock"
 model_id = "nvidia.nemotron-nano-3-30b"
 price_in = 0.06
 price_out = 0.24
+# Excluded per user's 2026-10-28 deprecation list; AWS card/API still Active.
+# Evidence and historical replay notes: validation/model-deprecation-20261028/README.md.
+enabled = false
 
 [[models]]
 name = "glm-4.7-flash"
@@ -456,6 +459,9 @@ api = "bedrock"
 model_id = "zai.glm-4.7-flash"
 price_in = 0.07
 price_out = 0.40
+# Excluded per user's 2026-10-28 list; AWS lifecycle table: EOL 2027-03-30.
+# API still Active; see validation/model-deprecation-20261028/README.md.
+enabled = false
 
 # Verified 2026-10-12: US inference ID on the official model card;
 # Standard US CRIS input/output/cache rates on AWS's GLM 5.3 pricing table.
@@ -502,6 +508,9 @@ api = "bedrock"
 model_id = "qwen.qwen3-32b-v1:0"
 price_in = 0.15
 price_out = 0.60
+# Excluded per user's 2026-10-28 deprecation list; AWS card/API still Active.
+# Evidence and historical replay notes: validation/model-deprecation-20261028/README.md.
+enabled = false
 
 [[models]]
 name = "nemotron-super-3-120b"
@@ -509,6 +518,9 @@ api = "bedrock"
 model_id = "nvidia.nemotron-super-3-120b"
 price_in = 0.15
 price_out = 0.65
+# Excluded per user's 2026-10-28 deprecation list; AWS card/API still Active.
+# Evidence and historical replay notes: validation/model-deprecation-20261028/README.md.
+enabled = false
 
 [[models]]
 name = "llama4-scout"
@@ -516,6 +528,9 @@ api = "bedrock"
 model_id = "us.meta.llama4-scout-17b-instruct-v1:0"
 price_in = 0.17
 price_out = 0.66
+# Excluded per user's 2026-10-28 list; AWS lifecycle table: EOL 2027-03-30.
+# API still Active; see validation/model-deprecation-20261028/README.md.
+enabled = false
 
 [[models]]
 name = "ministral-14b"
@@ -523,6 +538,9 @@ api = "bedrock"
 model_id = "mistral.ministral-3-14b-instruct"
 price_in = 0.20
 price_out = 0.20
+# Excluded per user's 2026-10-28 deprecation list; AWS card/API still Active.
+# Evidence and historical replay notes: validation/model-deprecation-20261028/README.md.
+enabled = false
 
 [[models]]
 name = "qwen3-235b-a22b"
@@ -530,6 +548,9 @@ api = "bedrock"
 model_id = "qwen.qwen3-235b-a22b-2507-v1:0"
 price_in = 0.22
 price_out = 0.88
+# Excluded per user's 2026-10-28 deprecation list; AWS card/API still Active.
+# Evidence and historical replay notes: validation/model-deprecation-20261028/README.md.
+enabled = false
 
 [[models]]
 name = "llama4-maverick"
@@ -537,6 +558,9 @@ api = "bedrock"
 model_id = "us.meta.llama4-maverick-17b-instruct-v1:0"
 price_in = 0.24
 price_out = 0.97
+# Excluded per user's 2026-10-28 list; AWS lifecycle table: EOL 2027-03-30.
+# API still Active; see validation/model-deprecation-20261028/README.md.
+enabled = false
 
 # Same weights as the vLLM `llama-3.3-70b` entry below, served managed instead
 # of self-hosted — the point is a direct API-vs-self-hosted cost comparison on
@@ -547,6 +571,9 @@ api = "bedrock"
 model_id = "us.meta.llama3-3-70b-instruct-v1:0"
 price_in = 0.72
 price_out = 0.72
+# Excluded per user's 2026-10-28 list; AWS lifecycle table: EOL 2027-03-30.
+# API still Active; self-hosted weights are unaffected. See validation/model-deprecation-20261028/README.md.
+enabled = false
 
 # Gemma 4 31B, mantle-hosted (Pricing API usagetype is
 # google.gemma-4-31b-mantle-*; it does NOT appear in list-foundation-models,

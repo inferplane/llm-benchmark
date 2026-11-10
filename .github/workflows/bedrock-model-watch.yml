@@ -1,0 +1,140 @@
+# Daily (09:17 KST) check of AWS What's New for newly available Bedrock models.
+#
+# tools/bedrock_model_watch.py asks Claude Haiku 5.5 (Bedrock) to triage the
+# last two days of Amazon Bedrock announcements and to extract model-card
+# facts, then verifies them deterministically (ListFoundationModels, verbatim
+# prices, live probe). Verified models are appended to config.toml on an
+# auto/models-<date> branch and model-benchmark.yml is dispatched on it.
+# Drafts needing review (no verifiable price, failed probe, zero quota) get a
+# draft PR instead and never start a paid run.
+name: bedrock-model-watch
+
+on:
+  schedule:
+    - cron: "17 0 * * *"
+  workflow_dispatch:
+    inputs:
+      lookback_days:
+        description: "How many days of announcements to triage"
+        required: false
+        default: "2"
+        type: string
+      max_usd:
+        description: "Cost cap passed to model-benchmark"
+        required: false
+        default: "400"
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  id-token: write
+
+concurrency:
+  group: bedrock-model-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      LOOKBACK: ${{ inputs.lookback_days || '2' }}
+      MAX_USD: ${{ inputs.max_usd || '400' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Collect model IDs already drafted on open branches
+        run: |
+          set -euo pipefail
+          [[ "$LOOKBACK" =~ ^[0-9]+(\.[0-9]+)?$ ]] || { echo "::error::invalid lookback"; exit 1; }
+          git fetch -q origin '+refs/heads/auto/*:refs/remotes/origin/auto/*' '+refs/heads/bench/*:refs/remotes/origin/bench/*' || true
+          : > "$RUNNER_TEMP/known-ids.txt"
+          for ref in $(git for-each-ref --format='%(refname)' refs/remotes/origin/auto refs/remotes/origin/bench); do
+            git show "$ref:config.toml" 2>/dev/null \
+              | sed -n -e 's/^model_id = "\(.*\)"$/id \1/p' -e 's/^name = "\(.*\)"$/name \1/p' >> "$RUNNER_TEMP/known-ids.txt" || true
+          done
+          sort -u -o "$RUNNER_TEMP/known-ids.txt" "$RUNNER_TEMP/known-ids.txt"
+          wc -l < "$RUNNER_TEMP/known-ids.txt"
+
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+      - run: uv sync --frozen
+
+      - uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          role-session-name: bedrock-model-watch-${{ github.run_id }}
+          aws-region: us-west-2
+
+      - name: Triage What's New with Claude Haiku 5.5
+        id: watch
+        run: |
+          uv run python3 tools/bedrock_model_watch.py --lookback-days "$LOOKBACK" \
+            --known-ids "$RUNNER_TEMP/known-ids.txt" --out "$RUNNER_TEMP/watch.json"
+
+      - name: Commit drafted config entries
+        id: branch
+        if: steps.watch.outputs.added != '0'
+        run: |
+          set -euo pipefail
+          tag="$(date -u +%Y%m%d)"
+          for suffix in "" b c d e; do
+            git ls-remote --exit-code --heads origin "auto/models-${tag}${suffix}" >/dev/null || { tag="${tag}${suffix}"; break; }
+          done
+          branch="auto/models-${tag}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -q -b "$branch"
+          tools/ci_checkpoint.sh "$branch" "Draft Bedrock model entries from What's New ($tag)"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Start benchmark for verified models
+        if: steps.watch.outputs.ready != ''
+        env:
+          READY: ${{ steps.watch.outputs.ready }}
+          BRANCH: ${{ steps.branch.outputs.branch }}
+          TAG: ${{ steps.branch.outputs.tag }}
+        run: |
+          gh workflow run model-benchmark.yml --ref "$BRANCH" \
+            -f models="$READY" -f tag="$TAG" -f max_usd="$MAX_USD"
+          echo "Dispatched model-benchmark for $READY on $BRANCH"
+
+      # When some models are ready, the benchmark PR carries the drafts too
+      # (enabled = false with NEEDS REVIEW comments); otherwise open a draft PR.
+      - name: Open draft PR for entries that need review
+        if: steps.watch.outputs.ready == '' && steps.watch.outputs.review != ''
+        env:
+          REVIEW: ${{ steps.watch.outputs.review }}
+          BRANCH: ${{ steps.branch.outputs.branch }}
+        run: |
+          set -euo pipefail
+          {
+            echo "The daily What's New watcher drafted config entries it could not fully verify: **$REVIEW**."
+            echo
+            echo "They are committed with \`enabled = false\`; see the \`NEEDS REVIEW\` comments in config.toml and"
+            echo "\`validation/model-watch/\` for the announcement, model card hash, Haiku extraction and live probe."
+            echo "After fixing the entry, set \`enabled = true\` and run \`model-benchmark\` on this branch."
+            echo
+            echo "🤖 Generated with [Claude Code](https://claude.com/claude-code)"
+          } > "$RUNNER_TEMP/body.md"
+          gh pr create --draft --base main --head "$BRANCH" \
+            --title "Review drafted Bedrock model entries: $REVIEW" --body-file "$RUNNER_TEMP/body.md"
+
+      - name: Summary
+        if: always()
+        run: |
+          [[ -f "$RUNNER_TEMP/watch.json" ]] || exit 0
+          python3 - "$RUNNER_TEMP/watch.json" >> "$GITHUB_STEP_SUMMARY" <<'EOF'
+          import json, sys
+          d = json.load(open(sys.argv[1]))
+          print(f"### Bedrock What's New triage ({d['checked_at']})\n")
+          print("| New model? | Title | Outcome |\n| --- | --- | --- |")
+          for e in d["items"]:
+              print(f"| {e['classification'].get('new_model')} | {e['item']['title']} | {e.get('skipped') or ''} |")
+          print(f"\nAdded: {d['added']}")
+          EOF

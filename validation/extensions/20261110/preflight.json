@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-11-10T07:59:29.893427+00:00",
+  "results": {
+    "claude-fable-5.2": {
+      "ok": true,
+      "text": "The Company's consolidated operating profit for the third quarter of 2026 was KRW 1,234.5 billion, up 12.4% year on year.",
+      "tokens_in": 233,
+      "tokens_out": 49,
+      "finish_reason": "end_turn"
+    }
+  }
+}

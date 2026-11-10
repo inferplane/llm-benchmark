@@ -1,0 +1,188 @@
+# Benchmark newly added models on every published surface and open a PR.
+#
+# Started by bedrock-model-watch.yml (on its auto/models-* branch) or by hand:
+#   gh workflow run model-benchmark.yml --ref <branch> -f models=claude-fable-5.2 -f tag=20261110
+# Runs bench.model_extension stage by stage and pushes a checkpoint commit
+# after each one, so re-running the workflow on the same branch resumes from
+# cached results (completed candidate inputs are never re-requested). The
+# results reach the live site only when a human merges the PR.
+name: model-benchmark
+
+on:
+  workflow_dispatch:
+    inputs:
+      models:
+        description: "Comma-separated config.toml model names (must be enabled)"
+        required: true
+        type: string
+      tag:
+        description: "Extension tag YYYYMMDD[letter]; empty = today (UTC)"
+        required: false
+        type: string
+      max_usd:
+        description: "Abort before any paid collection when the estimate exceeds this"
+        required: false
+        default: "400"
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+# One run per branch: a second dispatch for the same branch waits, while
+# extensions on different branches never cancel each other's queued runs.
+concurrency:
+  group: model-benchmark-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    env:
+      MODELS: ${{ inputs.models }}
+      INPUT_TAG: ${{ inputs.tag }}
+      MAX_USD: ${{ inputs.max_usd }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          lfs: true
+          fetch-depth: 0
+
+      - name: Validate inputs and choose branch
+        id: meta
+        run: |
+          set -euo pipefail
+          [[ "$MODELS" =~ ^[a-z0-9][a-z0-9.,-]*$ ]] || { echo "::error::invalid models list"; exit 1; }
+          [[ "$MAX_USD" =~ ^[0-9]+(\.[0-9]+)?$ ]] || { echo "::error::invalid max_usd"; exit 1; }
+          tag="${INPUT_TAG:-$(date -u +%Y%m%d)}"
+          [[ "$tag" =~ ^[0-9]{8}[a-z]?$ ]] || { echo "::error::invalid tag"; exit 1; }
+          if [[ "$GITHUB_REF_NAME" == main ]]; then branch="bench/ext-${tag}"; else branch="$GITHUB_REF_NAME"; fi
+          [[ "$branch" =~ ^(auto|bench)/[A-Za-z0-9._-]+$ ]] || { echo "::error::run from main or an auto/* or bench/* branch"; exit 1; }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin "$branch" >/dev/null; then
+            git checkout -q -B "$branch" "origin/$branch"
+          else
+            git checkout -q -b "$branch"
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "Benchmarking $MODELS as extension $tag on $branch (cap \$$MAX_USD)"
+
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+      - run: uv sync --frozen
+
+      - uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          role-session-name: model-benchmark-${{ github.run_id }}
+          role-duration-seconds: 43200
+          aws-region: us-west-2
+
+      - name: Preflight, estimate and freeze contract
+        env:
+          TAG: ${{ steps.meta.outputs.tag }}
+          BRANCH: ${{ steps.meta.outputs.branch }}
+        run: |
+          set -euo pipefail
+          ext="uv run python3 -m bench.model_extension"
+          if [[ ! -f "validation/extensions/$TAG/contract.json" ]]; then
+            $ext estimate --models "$MODELS" --tag "$TAG"
+            $ext preflight --models "$MODELS" --tag "$TAG"
+            $ext freeze --models "$MODELS" --tag "$TAG" --max-usd "$MAX_USD"
+          else
+            $ext verify --models "$MODELS" --tag "$TAG"
+          fi
+          tools/ci_checkpoint.sh "$BRANCH" "Freeze model extension $TAG ($MODELS)"
+
+      - name: Collect candidates (KO, EN, FinQA, TAT-QA — sequential)
+        timeout-minutes: 180
+        env:
+          TAG: ${{ steps.meta.outputs.tag }}
+          BRANCH: ${{ steps.meta.outputs.branch }}
+        run: |
+          set -uo pipefail
+          for stage in ko en qa tatqa; do
+            rc=0
+            uv run python3 -m bench.model_extension "run-$stage" --models "$MODELS" --tag "$TAG" || rc=$?
+            tools/ci_checkpoint.sh "$BRANCH" "Collect $stage for extension $TAG"
+            # 3 = finished with recorded candidate failures, which stay in the report.
+            if [[ $rc -ne 0 && $rc -ne 3 ]]; then echo "::error::run-$stage crashed ($rc)"; exit $rc; fi
+            # Measured spend + projected judge cost must stay under the cap.
+            uv run python3 -m bench.model_extension budget --models "$MODELS" --tag "$TAG" --max-usd "$MAX_USD" \
+              || { echo "::error::budget cap \$$MAX_USD exceeded after $stage; stopping before more paid calls"; exit 1; }
+          done
+
+      - name: Grade translations (three judge cohorts in parallel, retried)
+        timeout-minutes: 140
+        env:
+          TAG: ${{ steps.meta.outputs.tag }}
+          BRANCH: ${{ steps.meta.outputs.branch }}
+        run: |
+          set -uo pipefail
+          for attempt in 1 2 3; do
+            pids=()
+            for target in ko en en2; do
+              uv run python3 -m bench.model_extension "judge-$target" --models "$MODELS" --tag "$TAG" \
+                > "$RUNNER_TEMP/judge-$target.log" 2>&1 &
+              pids+=($!)
+            done
+            failed=0
+            for pid in "${pids[@]}"; do wait "$pid" || failed=1; done
+            tail -n 3 "$RUNNER_TEMP"/judge-*.log
+            tools/ci_checkpoint.sh "$BRANCH" "Grade extension $TAG (attempt $attempt)"
+            [[ $failed -eq 0 ]] && exit 0
+            echo "Some judge calls failed; cached grades kept, retrying ($attempt/3)"
+          done
+          echo "::error::judge calls still failing after 3 attempts"; exit 1
+
+      - name: Compose reports
+        env:
+          TAG: ${{ steps.meta.outputs.tag }}
+          BRANCH: ${{ steps.meta.outputs.branch }}
+        run: |
+          set -euo pipefail
+          # Compose onto main's newest published reports so an extension merged
+          # while this one ran is not dropped from the latest comparison.
+          git fetch -q origin main
+          git merge -q --no-edit origin/main
+          uv run python3 -m bench.model_extension report --models "$MODELS" --tag "$TAG"
+          uv run python3 -m bench.report --selfcheck > "$RUNNER_TEMP/report-selfcheck.log" 2>&1 \
+            || { cat "$RUNNER_TEMP/report-selfcheck.log"; exit 1; }
+          grep -q "selfcheck OK" "$RUNNER_TEMP/report-selfcheck.log"
+          tools/ci_checkpoint.sh "$BRANCH" "Publish model extension $TAG ($MODELS)"
+
+      # Runs after failures, cancellation and the job timeout as well, so rows
+      # collected by an interrupted stage are kept for the resumed run.
+      - name: Checkpoint partial results
+        if: always() && steps.meta.outputs.branch != ''
+        env:
+          BRANCH: ${{ steps.meta.outputs.branch }}
+          TAG: ${{ steps.meta.outputs.tag }}
+          JOB_STATUS: ${{ job.status }}
+        run: tools/ci_checkpoint.sh "$BRANCH" "Checkpoint extension $TAG (job $JOB_STATUS)"
+
+      - name: Open or update pull request
+        env:
+          TAG: ${{ steps.meta.outputs.tag }}
+          BRANCH: ${{ steps.meta.outputs.branch }}
+        run: |
+          set -euo pipefail
+          body="$RUNNER_TEMP/pr-body.md"
+          {
+            cat "validation/extensions/$TAG/README.md"
+            echo
+            echo "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo
+            echo "Merging publishes these results to GitHub Pages. Review the cost/coverage diagnostics first."
+            echo
+            echo "🤖 Generated with [Claude Code](https://claude.com/claude-code)"
+          } > "$body"
+          if gh pr view "$BRANCH" --json number >/dev/null 2>&1; then
+            gh pr edit "$BRANCH" --body-file "$body"
+          else
+            gh pr create --base main --head "$BRANCH" --title "Benchmark $MODELS (extension $TAG)" --body-file "$body"
+          fi

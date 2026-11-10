@@ -77,9 +77,33 @@ LANG_NAMES = {
 }
 
 
+def register_temperature_omissions(cfg: dict) -> None:
+    """Fold config-declared `omit_temperature = true` into the sets above.
+
+    Models added from 2026-11-10 on (including those drafted by the daily
+    Bedrock What's New workflow) declare a live-verified temperature
+    rejection in config.toml instead of editing this module, so adding a
+    model never changes runner code. The hardcoded sets stay as the
+    historical record; this only ever adds IDs (idempotent)."""
+    targets = {"bedrock": BEDROCK_NO_TEMPERATURE, "bedrock_mantle": MANTLE_NO_TEMPERATURE}
+    for model in cfg.get("models", []):
+        if model.get("omit_temperature"):
+            if model["api"] not in targets:
+                raise ValueError(f"{model['name']}: omit_temperature unsupported for api={model['api']}")
+            targets[model["api"]].add(model["model_id"])
+
+
 def load_config() -> dict:
     with open(CONFIG, "rb") as f:
-        return tomllib.load(f)
+        cfg = tomllib.load(f)
+    register_temperature_omissions(cfg)
+    return cfg
+
+
+# Register at import as well: report/judge helpers consult the sets directly
+# and must agree with config.toml even before any caller loads it.
+if CONFIG.exists():
+    load_config()
 
 
 def load_dataset(paths: list[Path]) -> list[dict]:

@@ -1,0 +1,50 @@
+{
+  "tag": "20261110",
+  "models": {
+    "claude-fable-5.2": {
+      "ko": {
+        "segments": 3300,
+        "successful": 3300,
+        "judge_overall": 4.933,
+        "cost_total_usd": 33.6458,
+        "capped": 0
+      },
+      "en": {
+        "segments": 3080,
+        "successful": 3080,
+        "judge_overall": 4.95,
+        "cost_total_usd": 29.3123,
+        "capped": 0
+      },
+      "en2": {
+        "segments": 3080,
+        "successful": 3080,
+        "judge_overall": 4.963,
+        "cost_total_usd": 29.3123,
+        "capped": 0
+      },
+      "qa": {
+        "correct": 18,
+        "questions": 20,
+        "cost_usd": 0.5106
+      },
+      "tatqa": {
+        "exact_match": 0.72,
+        "f1": 0.7885,
+        "cost_usd": 2.0367
+      }
+    }
+  },
+  "judge_cost_usd": {
+    "ko": 64.6311,
+    "en": 49.6508,
+    "en2": 53.8578
+  },
+  "published": [
+    "docs/results/integrated-2026-11-10.json",
+    "docs/results/en-pivot-20261110.json",
+    "docs/results/en-pivot-20261110-judge2.json",
+    "docs/finqa-results/finqa-ext-20261110.json",
+    "docs/tatqa-results/tatqa-api-200-20261110.json"
+  ]
+}

@@ -62,6 +62,10 @@ uv run python3 -m bench.kimi_observed policy
 uv run python3 -m bench.kimi_observed judge
 uv run python3 -m bench.kimi_observed report
 uv run python3 validation/kimi-k3/final_check.py
+# New models (2026-11-10 on): one generic extension pipeline for every surface
+uv run python3 -m bench.model_extension estimate --models claude-fable-5.2 --tag 20261110
+uv run python3 -m bench.model_extension all --models claude-fable-5.2 --tag 20261110 --max-usd 400
+uv run python3 tools/bedrock_model_watch.py --dry-run   # What's New triage (Haiku 5.5), no edits
 
 # preview the dashboard locally
 python3 -m http.server 8000 -d docs   # then open localhost:8000/index.html
@@ -123,6 +127,26 @@ recorded first attempts stay in the population, only returned text receives the
 unchanged paired judgment, and quality coverage/caps are explicit. Its separate
 reporting policy is recorded after collection and before judging. Do not
 regenerate model answers or alter the 4,096-token cap to make this report pass.
+
+**New models go through `bench/model_extension.py`, not a new one-off
+`*_benchmark.py`.** One extension tag (`YYYYMMDD[letter]`) freezes
+`validation/extensions/<tag>/contract.json` (models, bases, datasets, prompts,
+judges, collection-code hashes, cost estimate) before any paid call, then
+composes onto the latest published KO integrated, EN-pivot (both judge sets),
+audited FinQA and TAT-QA reports. Collections resume only never-attempted
+inputs; recorded failures stay failures. Effort is `low` roster-wide for new
+reasoning models. `.github/workflows/bedrock-model-watch.yml` runs daily
+(09:17 KST): Claude Haiku 5.5 triages AWS What's New and extracts model-card
+facts; `tools/bedrock_model_watch.py` verifies them deterministically
+(ListFoundationModels, prices verbatim in the card, live probe) and appends
+config entries on an `auto/models-<date>` branch, then dispatches
+`model-benchmark.yml`, which pushes stage checkpoints and opens a PR —
+results publish only when a human merges it. Unverifiable drafts land with
+`enabled = false` in a draft PR. AWS access: OIDC role `llm-benchmark-gha`
+(`deploy/github-actions/`). Live temperature rejections are declared with
+`omit_temperature = true` in config.toml (`run.register_temperature_omissions`)
+instead of editing the hardcoded sets. Artwork tasks (WHOAMI/Lotte Tower,
+`tools/model_pages.py`) are not part of the automated extension.
 
 **`config.toml` is the single source of truth for models.** Every model is one
 `[[models]]` table with a `name`, an `api` (`"bedrock"` | `"openai"` |

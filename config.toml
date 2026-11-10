@@ -223,6 +223,28 @@ price_cache_read = 0.275
 price_cache_write = 13.75
 enabled = true
 
+# Claude Fable 5.2 (launched 2026-11-09). AWS model card
+# model-card-anthropic-claude-fable-5-2.html lists the US Geo ID and says
+# temperature must be 1.0/unset and adaptive thinking cannot be disabled;
+# price defers to the Bedrock pricing page. Rates = Anthropic global list
+# ($8 / $40, cache read 0.025x = $0.20, 5-minute write $10, verified
+# 2026-11-10 at platform.claude.com/docs/en/about-claude/pricing.md) x the
+# documented 10% Bedrock regional premium, same method as claude-fable-5.1.
+# Live Converse 2026-11-10: temperature=0 -> "`temperature` is deprecated";
+# omitted + output_config effort=low -> end_turn. Effort "low" is the
+# roster-wide explicit setting shared by Terra/Grok 4.7/Kimi K3.1.
+[[models]]
+name = "claude-fable-5.2"
+api = "bedrock"
+model_id = "us.anthropic.claude-fable-5-2"
+price_in = 8.80
+price_out = 44.00
+price_cache_read = 0.22
+price_cache_write = 11.00
+omit_temperature = true
+bedrock_reasoning_effort = "low"
+enabled = true
+
 [[models]]
 name = "nova-pro"
 api = "bedrock"
@@ -243,6 +265,27 @@ price_out = 16.50
 price_cache_read = 0.33
 price_cache_write = 4.125
 enabled = true
+
+# Kimi K3.1 Pro - Highspeed (launched 2026-11-04/06). US CRIS Standard rates
+# from model-card-moonshot-ai-kimi-k3-1-highspeed.html (checked 2026-11-10):
+# $4.40 in / $22.00 out / $0.22 cache read / $5.50 cache write (30 min).
+# Not in the AWS Price List API yet. Live Converse 2026-11-10 rejects
+# temperature ("doesn't support the temperature field"). Reasoning defaults
+# to `max`; the card says Converse accepts `reasoning_effort` but does not
+# validate it, so `bench.model_extension preflight` must confirm "low" is
+# honored before collection. Disabled until the account's Kimi K3.1 TPM
+# quota (L-B37A8021, 0 on 2026-11-10; 4M requested) is granted.
+[[models]]
+name = "kimi-k3.1"
+api = "bedrock"
+model_id = "us.moonshotai.kimi-k3.1"
+price_in = 4.40
+price_out = 22.00
+price_cache_read = 0.22
+price_cache_write = 5.50
+omit_temperature = true
+bedrock_reasoning_effort = "low"
+enabled = false
 
 [[models]]
 name = "nova-lite"

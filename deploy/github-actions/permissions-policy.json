@@ -1,0 +1,29 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "InvokeModels",
+      "Effect": "Allow",
+      "Action": ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"],
+      "Resource": ["arn:aws:bedrock:*::foundation-model/*", "arn:aws:bedrock:*:180294183052:inference-profile/*"]
+    },
+    {
+      "Sid": "DiscoverModels",
+      "Effect": "Allow",
+      "Action": ["bedrock:ListFoundationModels", "bedrock:GetFoundationModel", "bedrock:ListInferenceProfiles", "bedrock:GetInferenceProfile"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "MantleInference",
+      "Effect": "Allow",
+      "Action": ["bedrock-mantle:CreateInference", "bedrock-mantle:GetInference", "bedrock-mantle:CancelInference", "bedrock-mantle:GetModel", "bedrock-mantle:ListModels"],
+      "Resource": "arn:aws:bedrock-mantle:*:180294183052:*"
+    },
+    {
+      "Sid": "PricingAndQuotas",
+      "Effect": "Allow",
+      "Action": ["pricing:GetProducts", "servicequotas:GetServiceQuota", "servicequotas:ListServiceQuotas"],
+      "Resource": "*"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "translations_sha256": "565b0606212f450356af933237d53631d64dbafb3b32e1febaba17612c469bad",
+  "contract_sha256": "14e1b32632cd36627d64a26c3728473e9fde928436f1b9f2d13ebb5cbef3738e",
+  "judges": [
+    {
+      "name": "astra",
+      "api": "bedrock_mantle",
+      "model_id": "openai.gpt-6-astra",
+      "mantle_region": "us-east-1",
+      "mantle_reasoning_effort": "low",
+      "price_in": 11.0,
+      "price_out": 55.0,
+      "skip_for_models": [
+        "gpt-6-astra"
+      ]
+    },
+    {
+      "name": "fable51",
+      "api": "bedrock",
+      "model_id": "us.anthropic.claude-fable-5-1",
+      "price_in": 11.0,
+      "price_out": 55.0,
+      "skip_for_models": [
+        "claude-fable-5.1"
+      ],
+      "fallback_name": "fable51-fallback",
+      "fallback_model_id": "us.anthropic.claude-opus-4-8",
+      "fallback_price_in": 5.0,
+      "fallback_price_out": 25.0
+    }
+  ],
+  "candidate_regenerated": false
+}

@@ -1,0 +1,12 @@
+Answer the question using only the supplied financial table and paragraphs.
+Return one JSON object with exactly two fields: "answer" and "scale".
+The answer must be a string, a finite number, or a list of strings or finite numbers
+for an answer containing multiple spans. Return only the final answer, without
+reasoning, derivations, explanations, or additional fields.
+The scale must be exactly one of: "", "thousand", "million", "billion", "percent".
+Use the scale explicitly: for example 12 million is {"answer":12,"scale":"million"}
+and 12 percent is {"answer":12,"scale":"percent"}. Use "" when no scale applies.
+For text answers, quote the relevant answer span(s). Do not add units to a numeric
+answer when those units are already represented by the scale field.
+
+INPUT (table rows preserve the original cell order):

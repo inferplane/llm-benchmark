@@ -1,6 +1,10 @@
 {
-  "latest": "finqa-gpt-6.1-terra-20261027",
+  "latest": "finqa-ext-20261110",
   "runs": [
+    {
+      "id": "finqa-ext-20261110",
+      "label": "claude-fable-5.2 추가 · 감사된 금융 QA · 33개 모델"
+    },
     {
       "id": "finqa-gpt-6.1-terra-20261027",
       "label": "GPT-6.1 Terra 추가 · 감사된 금융 QA · 32개 모델"

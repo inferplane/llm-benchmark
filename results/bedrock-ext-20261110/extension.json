@@ -1,0 +1,220 @@
+{
+  "frozen_at": "2026-11-10T07:59:31.097837+00:00",
+  "identity": {
+    "tag": "20261110",
+    "models": [
+      {
+        "name": "claude-fable-5.2",
+        "api": "bedrock",
+        "model_id": "us.anthropic.claude-fable-5-2",
+        "price_in": 8.8,
+        "price_out": 44.0,
+        "price_cache_read": 0.22,
+        "price_cache_write": 11.0,
+        "omit_temperature": true,
+        "bedrock_reasoning_effort": "low",
+        "enabled": true
+      }
+    ],
+    "reasoning_effort": {
+      "claude-fable-5.2": "low"
+    },
+    "bases": {
+      "ko": {
+        "path": "docs/results/integrated-2026-10-27.json",
+        "sha256": "c53ef96e2b560e8894d40faefbb706c91c1ff1499cf43caef6301b8848057052",
+        "run_id": "integrated-2026-10-27"
+      },
+      "en": {
+        "path": "docs/results/en-pivot-20261027.json",
+        "sha256": "762ae55b218859ba7f283ed92441c41e226d2c2302a82aa00228c287e6716410",
+        "run_id": "en-pivot-20261027"
+      },
+      "en2": {
+        "path": "docs/results/en-pivot-20261027-judge2.json",
+        "sha256": "e9468a977d3e9a19d140dbf3ecf29d1b78c4e49324fa6c8b5e12b1bfe96edfaa",
+        "run_id": "en-pivot-20261027-judge2"
+      },
+      "qa": {
+        "path": "docs/finqa-results/finqa-gpt-6.1-terra-20261027.json",
+        "sha256": "ed934967860d8e9c3194481a8e1149a2b5286d2f23dea43199afaa3d839208b0",
+        "run_id": "finqa-gpt-6.1-terra-20261027"
+      },
+      "tatqa": {
+        "path": "docs/tatqa-results/tatqa-api-200-20261027.json",
+        "sha256": "c667a06faaa4f91d2822d1ef870e846972942875d6d7cadec3becb8aa51705fb",
+        "run_id": "tatqa-api-200-20261027"
+      }
+    },
+    "files": {
+      "bench/run.py": "d9ec90181dbb1f6ea68d6e22fd961c11617b8167c38faa003346c0b615311d70",
+      "bench/judge.py": "8e4a446abadb368b4b5786c6693154b32dc97a6722648f3be3c652885238df02",
+      "bench/finqa.py": "bd4b05630aa05d80eecc3d9045f6c7465aa81041239df9dfeca661f08eb0cda8",
+      "bench/finqa_audited.py": "5c3bebb856196c593e4273a8283c0402bf9def4c14c5d6ed6cb1954caf03997a",
+      "bench/tatqa.py": "1c4834589582189d4a286ecab058b4d19644c82b5c86457af78e63cfb382d09c",
+      "scenarios/translation/prompt.txt": "002886c783e95ddbb6802dd9e425867a61bf2a4b3306afe513d8cb544f1c3ad8",
+      "scenarios/translation/rubric.txt": "d06c98b162adc83606dc6ed37eb230177b325fbeaf1347e81a37ceb8faccf139",
+      "scenarios/finqa_audited/prompt.txt": "723996abba008acfc67ec298ded769cbdcbd0af071b72f794d853b9aa50504c7",
+      "scenarios/tatqa/prompt.txt": "4737861665df7d791ce3ee76cc9f2804805f840d74127b1e5aeae1fb7889b4c5",
+      "uv.lock": "58de9e05712f779aa40b4b75899fe23d7eff8548069671337169b10923394c50"
+    },
+    "datasets": {
+      "ko_sha256": "9f1b6a8db80dab47be8d180007e13cbafec3dbeaf2137baadd0c6560e3fda8c9",
+      "en_sha256": "530c6af4e0b59ae9115a761c140f29979812768e7e760d041b6f5dc45c56768c",
+      "qa_sha256": "b814465bce83b3ba4afd168112d9e1059c6a41d3052b893a032cd9652aaba099",
+      "tatqa_sha256": "713461c944862edb65150dfd7ae2587746501860f7aafe54436003e8a41e6775"
+    },
+    "aws_region": "us-west-2",
+    "translation_scenario": {
+      "src_lang": "ko",
+      "targets": [
+        "en",
+        "ja",
+        "zh",
+        "es",
+        "fr",
+        "de",
+        "pt",
+        "ru",
+        "it",
+        "vi",
+        "id",
+        "th",
+        "ar",
+        "hi",
+        "tr"
+      ],
+      "directions": "both",
+      "concurrency_default": 8,
+      "flores_per_pair": 100,
+      "synthetic_per_pair": 10,
+      "judges": [
+        {
+          "name": "sol",
+          "api": "bedrock_mantle",
+          "model_id": "openai.gpt-5.6-sol",
+          "mantle_region": "us-east-1",
+          "price_in": 5.0,
+          "price_out": 30.0
+        },
+        {
+          "name": "fable-5",
+          "api": "bedrock",
+          "model_id": "us.anthropic.claude-fable-5",
+          "price_in": 10.0,
+          "price_out": 50.0,
+          "fallback_name": "fable-5-fallback",
+          "fallback_model_id": "us.anthropic.claude-opus-4-8",
+          "fallback_price_in": 5.0,
+          "fallback_price_out": 25.0
+        }
+      ],
+      "judge_sets": {
+        "astra-fable51": [
+          {
+            "name": "astra",
+            "api": "bedrock_mantle",
+            "model_id": "openai.gpt-6-astra",
+            "mantle_region": "us-east-1",
+            "mantle_reasoning_effort": "low",
+            "price_in": 11.0,
+            "price_out": 55.0,
+            "skip_for_models": [
+              "gpt-6-astra"
+            ]
+          },
+          {
+            "name": "fable51",
+            "api": "bedrock",
+            "model_id": "us.anthropic.claude-fable-5-1",
+            "price_in": 11.0,
+            "price_out": 55.0,
+            "skip_for_models": [
+              "claude-fable-5.1"
+            ],
+            "fallback_name": "fable51-fallback",
+            "fallback_model_id": "us.anthropic.claude-opus-4-8",
+            "fallback_price_in": 5.0,
+            "fallback_price_out": 25.0
+          }
+        ]
+      },
+      "flores_codes": {
+        "ko": "kor_Hang",
+        "en": "eng_Latn",
+        "ja": "jpn_Jpan",
+        "zh": "cmn_Hans",
+        "es": "spa_Latn",
+        "fr": "fra_Latn",
+        "de": "deu_Latn",
+        "pt": "por_Latn",
+        "ru": "rus_Cyrl",
+        "it": "ita_Latn",
+        "vi": "vie_Latn",
+        "id": "ind_Latn",
+        "th": "tha_Thai",
+        "ar": "arb_Arab",
+        "hi": "hin_Deva",
+        "tr": "tur_Latn"
+      }
+    },
+    "qa_scenario": {
+      "concurrency_default": 2,
+      "sample_size": 20,
+      "seed": 20260919,
+      "split": "dev",
+      "source_revision": "0f16e2867befa6840783e58be38c9efb9229d742",
+      "vllm_image": "vllm/vllm-openai@sha256:c2914767605584b6d8f45686b82de173ecc99e781897aa3d0a66dacd72c51ae1",
+      "max_model_len": 8192
+    },
+    "tatqa_scenario": {
+      "concurrency_default": 2,
+      "parallel_models": 4,
+      "sample_size": 200,
+      "seed": 20261027,
+      "split": "test",
+      "source_revision": "870accc41953dcde885aabeb963d94aabdc0fbc3"
+    },
+    "max_output_tokens": 4096,
+    "request_timeout_s": 600,
+    "temperature": 0,
+    "temperature_omitted_model_ids": [
+      "google.gemma-4-31b",
+      "openai.gpt-5.5",
+      "openai.gpt-5.6-luna",
+      "openai.gpt-5.6-sol",
+      "openai.gpt-5.6-terra",
+      "openai.gpt-6-astra",
+      "openai.gpt-6-luna",
+      "openai.gpt-6.1-sol",
+      "openai.gpt-6.1-terra",
+      "us.anthropic.claude-fable-5",
+      "us.anthropic.claude-fable-5-1",
+      "us.anthropic.claude-fable-5-2",
+      "us.anthropic.claude-haiku-5-5",
+      "us.anthropic.claude-opus-4-8",
+      "us.anthropic.claude-opus-5-5",
+      "us.anthropic.claude-sonnet-5",
+      "us.anthropic.claude-sonnet-5-5",
+      "us.moonshotai.kimi-k3",
+      "us.moonshotai.kimi-k3.1",
+      "us.xai.grok-4.7"
+    ],
+    "translation_cohort": "explicit",
+    "policy": "One candidate attempt per scheduled input with configured transport retries; an interrupted collection resumes only inputs without any recorded attempt. No candidate regeneration, reasoning change or cap increase after seeing outcomes. Empty/capped/failed responses remain failures. Returned translations are graded once per judge set with the unchanged rubric; the English responses are generated once and reused by both judge sets. Quality is conditional on gradable returned text. Costs are measured-usage estimates for successful calls (fresh input, output, cache read and cache write priced separately), not the experiment invoice. All prior model snapshots are preserved; prompt cohort and measurement dates are reported."
+  },
+  "extension_module_sha256": "d61ac212554690a6894c9d118587124c3542f4201d573a0b40a30d65901b5a85",
+  "cost_estimate": {
+    "reference": "gpt-6.1-terra extension 2026-10-27 (measured)",
+    "margin": 2.0,
+    "models": [
+      {
+        "model": "claude-fable-5.2",
+        "candidate_usd": 86.32,
+        "judges_usd": 175.53
+      }
+    ],
+    "total_usd": 261.85
+  },
+  "max_usd": 400.0
+}

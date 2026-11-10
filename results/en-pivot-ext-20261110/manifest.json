@@ -1,0 +1,128 @@
+{
+  "run_id": "en-pivot-ext-20261110",
+  "git_commit": "96c4a5d9f9e15f67a5c979b05bf7e4854cd651c7",
+  "prompt_sha256": "002886c783e9",
+  "rubric_sha256": "d06c98b162ad",
+  "dataset_segments": 3080,
+  "dataset_sha256": "530c6af4e0b59ae9115a761c140f29979812768e7e760d041b6f5dc45c56768c",
+  "aws_region": "us-west-2",
+  "judge_models": [
+    "openai.gpt-5.6-sol",
+    "us.anthropic.claude-fable-5"
+  ],
+  "generation_parameters": {
+    "temperature": 0,
+    "max_tokens": 4096
+  },
+  "models": [
+    {
+      "name": "claude-fable-5.2",
+      "api": "bedrock",
+      "model_id": "us.anthropic.claude-fable-5-2",
+      "concurrency": 8,
+      "gpu_hourly_usd": null,
+      "gpu_instance_type": null,
+      "tensor_parallel_size": null,
+      "extra_vllm_args": null,
+      "mantle_region": null,
+      "mantle_reasoning_effort": null,
+      "request_timeout_s": null,
+      "mantle_background": false,
+      "request_max_attempts": 1,
+      "bedrock_reasoning_effort": "low",
+      "translate_region": null,
+      "price_per_char": null,
+      "price_in": 8.8,
+      "price_out": 44.0,
+      "price_cache_read": 0.22,
+      "price_cache_write": 11.0,
+      "temperature_omitted": true,
+      "thinking_disabled": false,
+      "warmup_excluded": false
+    }
+  ],
+  "started_at": "2026-11-10T08:24:08.723076+00:00",
+  "finished_at": "2026-11-10T08:45:34.785913+00:00",
+  "completion_summary": {
+    "requested": 3080,
+    "successful": 3080,
+    "failed": 0,
+    "cached": 0,
+    "request_attempts": 3080,
+    "models": [
+      {
+        "model": "claude-fable-5.2",
+        "requested": 3080,
+        "cached": 0,
+        "successful": 3080,
+        "failed": 0,
+        "request_attempts": 3080
+      }
+    ]
+  },
+  "executions": [
+    {
+      "run_id": "en-pivot-ext-20261110",
+      "git_commit": "96c4a5d9f9e15f67a5c979b05bf7e4854cd651c7",
+      "prompt_sha256": "002886c783e9",
+      "rubric_sha256": "d06c98b162ad",
+      "dataset_segments": 3080,
+      "dataset_sha256": "530c6af4e0b59ae9115a761c140f29979812768e7e760d041b6f5dc45c56768c",
+      "aws_region": "us-west-2",
+      "judge_models": [
+        "openai.gpt-5.6-sol",
+        "us.anthropic.claude-fable-5"
+      ],
+      "generation_parameters": {
+        "temperature": 0,
+        "max_tokens": 4096
+      },
+      "models": [
+        {
+          "name": "claude-fable-5.2",
+          "api": "bedrock",
+          "model_id": "us.anthropic.claude-fable-5-2",
+          "concurrency": 8,
+          "gpu_hourly_usd": null,
+          "gpu_instance_type": null,
+          "tensor_parallel_size": null,
+          "extra_vllm_args": null,
+          "mantle_region": null,
+          "mantle_reasoning_effort": null,
+          "request_timeout_s": null,
+          "mantle_background": false,
+          "request_max_attempts": 1,
+          "bedrock_reasoning_effort": "low",
+          "translate_region": null,
+          "price_per_char": null,
+          "price_in": 8.8,
+          "price_out": 44.0,
+          "price_cache_read": 0.22,
+          "price_cache_write": 11.0,
+          "temperature_omitted": true,
+          "thinking_disabled": false,
+          "warmup_excluded": false
+        }
+      ],
+      "started_at": "2026-11-10T08:24:08.723076+00:00",
+      "finished_at": "2026-11-10T08:45:34.785913+00:00",
+      "completion_summary": {
+        "requested": 3080,
+        "successful": 3080,
+        "failed": 0,
+        "cached": 0,
+        "request_attempts": 3080,
+        "models": [
+          {
+            "model": "claude-fable-5.2",
+            "requested": 3080,
+            "cached": 0,
+            "successful": 3080,
+            "failed": 0,
+            "request_attempts": 3080
+          }
+        ]
+      }
+    }
+  ]
+}

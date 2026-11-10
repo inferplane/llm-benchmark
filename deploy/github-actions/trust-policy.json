@@ -7,7 +7,11 @@
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {"token.actions.githubusercontent.com:aud": "sts.amazonaws.com"},
-        "StringLike": {"token.actions.githubusercontent.com:sub": "repo:inferplane/llm-benchmark:ref:refs/heads/*"}
+        "StringLike": {"token.actions.githubusercontent.com:sub": [
+          "repo:inferplane/llm-benchmark:ref:refs/heads/main",
+          "repo:inferplane/llm-benchmark:ref:refs/heads/auto/*",
+          "repo:inferplane/llm-benchmark:ref:refs/heads/bench/*"
+        ]}
       }
     }
   ]

@@ -273,8 +273,12 @@ enabled = true
 # temperature ("doesn't support the temperature field"). Reasoning defaults
 # to `max`; the card says Converse accepts `reasoning_effort` but does not
 # validate it, so `bench.model_extension preflight` must confirm "low" is
-# honored before collection. Disabled until the account's Kimi K3.1 TPM
-# quota (L-B37A8021, 0 on 2026-11-10; 4M requested) is granted.
+# honored before collection. Account TPM quota (L-B37A8021) was 0 on
+# 2026-11-10, so every call throttled.
+# Excluded from the benchmark per user's 2026-11-11 decision (quota limits).
+# The entry stays so the 20261110 contract's temperature_omitted_model_ids
+# still verifies and the What's New watcher dedupes it as already
+# configured instead of redrafting it. Never benchmarked; no results exist.
 [[models]]
 name = "kimi-k3.1"
 api = "bedrock"

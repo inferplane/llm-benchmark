@@ -1,0 +1,19 @@
+{
+  "checked_at": "2026-11-18T12:54:31.740631+00:00",
+  "results": {
+    "gpt-6.2-astra": {
+      "ok": true,
+      "text": "Our consolidated operating profit for the third quarter of 2026 was KRW 1.2345 trillion, up 12.4% year over year.",
+      "tokens_in": 155,
+      "tokens_out": 36,
+      "finish_reason": null
+    },
+    "gpt-6.2-sol": {
+      "ok": true,
+      "text": "Our consolidated operating profit for the third quarter of 2026 was KRW 1.2345 trillion, up 12.4% year over year.",
+      "tokens_in": 155,
+      "tokens_out": 36,
+      "finish_reason": null
+    }
+  }
+}

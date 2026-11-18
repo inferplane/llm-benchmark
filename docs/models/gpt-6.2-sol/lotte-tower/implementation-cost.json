@@ -1,0 +1,46 @@
+{
+  "kind": "api_tokens",
+  "generation": "lotte-tower-models-20261013",
+  "currency": "USD",
+  "price_source": "config.toml",
+  "price_snapshot": {
+    "price_in": 2.2,
+    "price_out": 11,
+    "price_cache_read": 0.11,
+    "price_cache_write": 2.75
+  },
+  "estimated_total_usd": 0.0590832,
+  "estimated_final_response_usd": 0.0590832,
+  "recorded_attempts": 1,
+  "successful_code_responses": 1,
+  "additional_attempts": 0,
+  "known_cost_attempts": 1,
+  "unknown_usage_attempts": 0,
+  "missing_duration_attempts": 0,
+  "total_request_seconds": null,
+  "tokens": {
+    "tokens_in": 656,
+    "tokens_out": 5240,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "complete_request_estimate": true,
+  "excludes": [
+    "reviewer_and_coordinator_calls",
+    "historical_generations",
+    "taxes_and_discounts",
+    "requests_without_returned_usage"
+  ],
+  "attempts": [
+    {
+      "requested_at": "2026-11-18T12:53:40.315037+00:00",
+      "status": "generated",
+      "request_id": "req_w423ba5ke4u3k72tgr4bzpfxbnk7ewc5yo4zwmd73zcf25uf53ba",
+      "usage_available": true,
+      "estimated_cost_usd": 0.0590832,
+      "request_seconds": null,
+      "record_sha256": "d09a0b68db47c1c0f7a5704863d3ab2cbfad2603b604765602fca41bec9f9083",
+      "response_sha256": "50177a595c03cb98e4437672283be4597704a0c6a4e0a9695106a4b372889ff6"
+    }
+  ]
+}

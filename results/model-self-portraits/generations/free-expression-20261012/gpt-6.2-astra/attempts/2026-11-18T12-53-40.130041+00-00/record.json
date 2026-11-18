@@ -1,0 +1,33 @@
+{
+  "model": "gpt-6.2-astra",
+  "model_id": "openai.gpt-6.2-astra",
+  "api": "bedrock_mantle",
+  "generation": "free-expression-20261012",
+  "requested_at": "2026-11-18T12:53:40.130041+00:00",
+  "prompt_sha256": "30b5c1476a3a59a0b5d8fbfb83d0e19024083d9d639a2eb4cf18694ddc61bd2d",
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": true,
+  "tokens_in": 213,
+  "tokens_out": 1644,
+  "response_status": "completed",
+  "http_status": 200,
+  "reported_model": "openai.gpt-6.2-astra",
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low",
+    "context": "all_turns"
+  },
+  "reasoning_tokens": 0,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "reported_input_tokens": 213,
+  "request_id": "req_d4bgfj32g72gts3c44vkkxhjpn3ba7qtbmbon3jymnncecslt5ga",
+  "response_id": "resp_6il2doub5zoiwkcpguaolw3qlg6aqujp7co72ysubf5x2ercdqpq",
+  "status": "generated",
+  "generated_at": "2026-11-18T12:53:58.105823+00:00",
+  "artwork_sha256": "3a48abdd647ab1baded748b6beb4cd823783337d3a5328b176f8632c863ecaca"
+}

@@ -1,0 +1,83 @@
+{
+  "tag": "20261118",
+  "models": {
+    "gpt-6.2-astra": {
+      "ko": {
+        "segments": 3300,
+        "successful": 3300,
+        "judge_overall": 4.934,
+        "cost_total_usd": 20.9912,
+        "capped": 0
+      },
+      "en": {
+        "segments": 3080,
+        "successful": 3080,
+        "judge_overall": 4.947,
+        "cost_total_usd": 17.9264,
+        "capped": 0
+      },
+      "en2": {
+        "segments": 3080,
+        "successful": 3080,
+        "judge_overall": 4.958,
+        "cost_total_usd": 17.9264,
+        "capped": 0
+      },
+      "qa": {
+        "correct": 20,
+        "questions": 20,
+        "cost_usd": 0.4288
+      },
+      "tatqa": {
+        "exact_match": 0.795,
+        "f1": 0.8771,
+        "cost_usd": 1.4687
+      }
+    },
+    "gpt-6.2-sol": {
+      "ko": {
+        "segments": 3300,
+        "successful": 3300,
+        "judge_overall": 4.919,
+        "cost_total_usd": 5.2289,
+        "capped": 0
+      },
+      "en": {
+        "segments": 3080,
+        "successful": 3080,
+        "judge_overall": 4.942,
+        "cost_total_usd": 4.4556,
+        "capped": 0
+      },
+      "en2": {
+        "segments": 3080,
+        "successful": 3080,
+        "judge_overall": 4.95,
+        "cost_total_usd": 4.4556,
+        "capped": 0
+      },
+      "qa": {
+        "correct": 20,
+        "questions": 20,
+        "cost_usd": 0.1071
+      },
+      "tatqa": {
+        "exact_match": 0.78,
+        "f1": 0.86425,
+        "cost_usd": 0.3603
+      }
+    }
+  },
+  "judge_cost_usd": {
+    "ko": 137.6276,
+    "en": 106.8401,
+    "en2": 113.6952
+  },
+  "published": [
+    "docs/results/integrated-2026-11-18.json",
+    "docs/results/en-pivot-20261118.json",
+    "docs/results/en-pivot-20261118-judge2.json",
+    "docs/finqa-results/finqa-ext-20261118.json",
+    "docs/tatqa-results/tatqa-api-200-20261118.json"
+  ]
+}

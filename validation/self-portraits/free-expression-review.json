@@ -2302,6 +2302,80 @@
         "after_draws": 4,
         "button": "움직임 재생"
       }
+    },
+    {
+      "model": "gpt-6.2-astra",
+      "model_id": "openai.gpt-6.2-astra",
+      "reported_model": "openai.gpt-6.2-astra",
+      "artwork_sha256": "3a48abdd647ab1baded748b6beb4cd823783337d3a5328b176f8632c863ecaca",
+      "initial_prompt_sha256": "30b5c1476a3a59a0b5d8fbfb83d0e19024083d9d639a2eb4cf18694ddc61bd2d",
+      "generation": "free-expression-20261012",
+      "reviewed_at": "2026-11-18T12:57:40.313709+00:00",
+      "browser_evidence": "validation/extensions/20261118/artwork-browser.json",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "score": 100,
+      "verdict": "PASS",
+      "critical": 0,
+      "warnings": 0,
+      "findings": [],
+      "original_response_bytes_verified": true,
+      "notes": [
+        "First model response matched the published HTML after repository extraction. Desktop, mobile and 4K checks used an isolated offline iframe."
+      ]
+    },
+    {
+      "model": "gpt-6.2-sol",
+      "model_id": "openai.gpt-6.2-sol",
+      "reported_model": "openai.gpt-6.2-sol",
+      "artwork_sha256": "998cc1d3d8e5e59e2ea194c3588746e84675904b3b4778f30c2fae00ebe190d0",
+      "initial_prompt_sha256": "a4d36ea1ef60f139d77595b683945e0207c4cfc8488f1df546ff7158b7580d5e",
+      "generation": "free-expression-20261012",
+      "reviewed_at": "2026-11-18T12:57:40.313911+00:00",
+      "browser_evidence": "validation/extensions/20261118/artwork-browser.json",
+      "category_scores": {
+        "Layout": 8,
+        "Terminology": 8,
+        "No Hallucination": 12,
+        "Language Consistency": 8,
+        "No Sensitive Data": 12,
+        "Content-Type Quality": 2,
+        "Icon Usage": 5,
+        "Renders": 5,
+        "Interactions": 5,
+        "Readability": 5,
+        "Accessibility": 5,
+        "Structural Completeness": 5,
+        "Data Accuracy and References": 5,
+        "Legal Compliance": 5,
+        "Message Clarity": 5,
+        "Duplication and Gaps": 5
+      },
+      "score": 100,
+      "verdict": "PASS",
+      "critical": 0,
+      "warnings": 0,
+      "findings": [],
+      "original_response_bytes_verified": true,
+      "notes": [
+        "First model response matched the published HTML after repository extraction. Desktop, mobile and 4K checks used an isolated offline iframe."
+      ]
     }
   ],
   "reviewed_at": "2026-10-12T09:58:17.697191+00:00",

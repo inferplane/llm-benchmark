@@ -1,6 +1,10 @@
 {
-  "latest": "finqa-ext-20261110",
+  "latest": "finqa-ext-20261118",
   "runs": [
+    {
+      "id": "finqa-ext-20261118",
+      "label": "gpt-6.2-astra, gpt-6.2-sol 추가 · 감사된 금융 QA · 35개 모델"
+    },
     {
       "id": "finqa-ext-20261110",
       "label": "claude-fable-5.2 추가 · 감사된 금융 QA · 33개 모델"

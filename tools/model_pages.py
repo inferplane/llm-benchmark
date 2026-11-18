@@ -306,12 +306,14 @@ def main(argv=None):
         parser.error("--models requires nonempty configured model names")
     retained = {entry["model"]: entry for entry in read(MODELS / "catalog.json")} if selected is not None else {}
     retained_aliases = {entry["alias"]: entry for entry in read(MODELS / "aliases.json")} if selected is not None else {}
-    if selected is not None:
-        missing = [model["name"] for model in cfg["models"] if model["name"] not in selected
-                   and model["name"] not in (retained_aliases if model.get("page_alias") else retained)]
-        if missing:
-            parser.error("Missing retained records for unselected models: " + ", ".join(missing))
     for model in cfg["models"]:
+        name = model["name"]
+        if selected is not None and name not in selected:
+            published = retained_aliases if model.get("page_alias") else retained
+            if name not in published:
+                if (MODELS / name / "model.json").exists():
+                    parser.error(f"Missing retained record for published model: {name}")
+                continue  # Configured candidate with no published model page yet.
         if model.get("page_alias"):
             aliases.append(retained_aliases[model["name"]] if selected is not None and model["name"] not in selected
                            else model_alias(model, configured[model["page_alias"]]))

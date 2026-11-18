@@ -5404,6 +5404,498 @@
     }
   },
   {
+    "model": "gpt-6.2-astra",
+    "requested_model_id": "openai.gpt-6.2-astra",
+    "family": "OpenAI",
+    "tasks": {
+      "whoami": {
+        "model": "gpt-6.2-astra",
+        "task": "whoami",
+        "requested_model_id": "openai.gpt-6.2-astra",
+        "provider": "bedrock_mantle",
+        "family": "OpenAI",
+        "generation": "free-expression-20261012",
+        "source_records": "results/model-self-portraits/generations/free-expression-20261012/gpt-6.2-astra",
+        "status": "generated",
+        "generation_status": "generated",
+        "artwork_sha256": "3a48abdd647ab1baded748b6beb4cd823783337d3a5328b176f8632c863ecaca",
+        "content_review": {
+          "model": "gpt-6.2-astra",
+          "model_id": "openai.gpt-6.2-astra",
+          "reported_model": "openai.gpt-6.2-astra",
+          "artwork_sha256": "3a48abdd647ab1baded748b6beb4cd823783337d3a5328b176f8632c863ecaca",
+          "initial_prompt_sha256": "30b5c1476a3a59a0b5d8fbfb83d0e19024083d9d639a2eb4cf18694ddc61bd2d",
+          "generation": "free-expression-20261012",
+          "reviewed_at": "2026-11-18T12:57:40.313709+00:00",
+          "browser_evidence": "validation/extensions/20261118/artwork-browser.json",
+          "category_scores": {
+            "Layout": 8,
+            "Terminology": 8,
+            "No Hallucination": 12,
+            "Language Consistency": 8,
+            "No Sensitive Data": 12,
+            "Content-Type Quality": 2,
+            "Icon Usage": 5,
+            "Renders": 5,
+            "Interactions": 5,
+            "Readability": 5,
+            "Accessibility": 5,
+            "Structural Completeness": 5,
+            "Data Accuracy and References": 5,
+            "Legal Compliance": 5,
+            "Message Clarity": 5,
+            "Duplication and Gaps": 5
+          },
+          "score": 100,
+          "verdict": "PASS",
+          "critical": 0,
+          "warnings": 0,
+          "findings": [],
+          "original_response_bytes_verified": true,
+          "notes": [
+            "First model response matched the published HTML after repository extraction. Desktop, mobile and 4K checks used an isolated offline iframe."
+          ]
+        },
+        "prompt_sha256": "30b5c1476a3a59a0b5d8fbfb83d0e19024083d9d639a2eb4cf18694ddc61bd2d",
+        "initial_prompt_sha256": "30b5c1476a3a59a0b5d8fbfb83d0e19024083d9d639a2eb4cf18694ddc61bd2d",
+        "implementation_cost": {
+          "kind": "api_tokens",
+          "generation": "free-expression-20261012",
+          "currency": "USD",
+          "price_source": "config.toml",
+          "price_snapshot": {
+            "price_in": 8.8,
+            "price_out": 44,
+            "price_cache_read": 0.44,
+            "price_cache_write": 11
+          },
+          "estimated_total_usd": 0.0742104,
+          "estimated_final_response_usd": 0.0742104,
+          "recorded_attempts": 1,
+          "successful_code_responses": 1,
+          "additional_attempts": 0,
+          "known_cost_attempts": 1,
+          "unknown_usage_attempts": 0,
+          "missing_duration_attempts": 0,
+          "total_request_seconds": null,
+          "tokens": {
+            "tokens_in": 213,
+            "tokens_out": 1644,
+            "cache_read_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "complete_request_estimate": true,
+          "excludes": [
+            "reviewer_and_coordinator_calls",
+            "historical_generations",
+            "taxes_and_discounts",
+            "requests_without_returned_usage"
+          ],
+          "attempts": [
+            {
+              "requested_at": "2026-11-18T12:53:40.130041+00:00",
+              "status": "generated",
+              "request_id": "req_d4bgfj32g72gts3c44vkkxhjpn3ba7qtbmbon3jymnncecslt5ga",
+              "usage_available": true,
+              "estimated_cost_usd": 0.0742104,
+              "request_seconds": null,
+              "record_sha256": "3345350f635723c00f5171d90fab8f3ce4fa23152a80dbd20843a4ae4d0805c7",
+              "response_sha256": "6f440ea1903dd83d4b3df6a6f66f592aa72289ce1a6b1cafd54eb33be30ed38a"
+            }
+          ]
+        },
+        "request_id": "req_d4bgfj32g72gts3c44vkkxhjpn3ba7qtbmbon3jymnncecslt5ga",
+        "response_id": "resp_6il2doub5zoiwkcpguaolw3qlg6aqujp7co72ysubf5x2ercdqpq",
+        "requested_at": "2026-11-18T12:53:40.130041+00:00",
+        "generated_at": "2026-11-18T12:53:58.105823+00:00",
+        "reported_model": "openai.gpt-6.2-astra",
+        "tokens_in": 213,
+        "tokens_out": 1644,
+        "max_output_tokens": 16384,
+        "temperature": null,
+        "temperature_sent": false,
+        "bedrock_reasoning_effort": null,
+        "reported_reasoning": {
+          "summary": null,
+          "effort": "low",
+          "context": "all_turns"
+        }
+      },
+      "lotte-tower": {
+        "model": "gpt-6.2-astra",
+        "task": "lotte-tower",
+        "requested_model_id": "openai.gpt-6.2-astra",
+        "provider": "bedrock_mantle",
+        "family": "OpenAI",
+        "generation": "lotte-tower-models-20261013",
+        "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-6.2-astra",
+        "status": "generated",
+        "generation_status": "generated",
+        "artwork_sha256": "5cc3d4977c7b9bb43aae7083afc6d7a63d03ba2e620fed2f8c87f24d4db2747a",
+        "content_review": {
+          "model": "gpt-6.2-astra",
+          "model_id": "openai.gpt-6.2-astra",
+          "reported_model": "openai.gpt-6.2-astra",
+          "artwork_sha256": "5cc3d4977c7b9bb43aae7083afc6d7a63d03ba2e620fed2f8c87f24d4db2747a",
+          "initial_prompt_sha256": "aa0c5a89216aa8d8c71b1a8d8dff7a1726cd548239a963e17845d39c1bf135da",
+          "generation": "lotte-tower-models-20261013",
+          "reviewed_at": "2026-11-18T12:57:40.325171+00:00",
+          "browser_evidence": "validation/extensions/20261118/artwork-browser.json",
+          "category_scores": {
+            "Layout": 8,
+            "Terminology": 8,
+            "No Hallucination": 12,
+            "Language Consistency": 8,
+            "No Sensitive Data": 12,
+            "Content-Type Quality": 2,
+            "Icon Usage": 5,
+            "Renders": 5,
+            "Interactions": 5,
+            "Readability": 5,
+            "Accessibility": 3.5,
+            "Structural Completeness": 5,
+            "Data Accuracy and References": 5,
+            "Legal Compliance": 5,
+            "Message Clarity": 5,
+            "Duplication and Gaps": 5
+          },
+          "score": 98.5,
+          "verdict": "PASS",
+          "critical": 0,
+          "warnings": 1,
+          "findings": [
+            "Arrow-key rotation is described by the canvas accessibility label. The visible camera hint mentions drag and zoom but omits the keyboard shortcut."
+          ],
+          "original_response_bytes_verified": true,
+          "notes": [
+            "First model response matched the published HTML after repository extraction. Desktop, mobile and 4K checks used an isolated offline iframe."
+          ],
+          "task_requirements_complete": true
+        },
+        "prompt_sha256": "aa0c5a89216aa8d8c71b1a8d8dff7a1726cd548239a963e17845d39c1bf135da",
+        "initial_prompt_sha256": "aa0c5a89216aa8d8c71b1a8d8dff7a1726cd548239a963e17845d39c1bf135da",
+        "implementation_cost": {
+          "kind": "api_tokens",
+          "generation": "lotte-tower-models-20261013",
+          "currency": "USD",
+          "price_source": "config.toml",
+          "price_snapshot": {
+            "price_in": 8.8,
+            "price_out": 44,
+            "price_cache_read": 0.44,
+            "price_cache_write": 11
+          },
+          "estimated_total_usd": 0.1766072,
+          "estimated_final_response_usd": 0.1766072,
+          "recorded_attempts": 1,
+          "successful_code_responses": 1,
+          "additional_attempts": 0,
+          "known_cost_attempts": 1,
+          "unknown_usage_attempts": 0,
+          "missing_duration_attempts": 0,
+          "total_request_seconds": null,
+          "tokens": {
+            "tokens_in": 659,
+            "tokens_out": 3882,
+            "cache_read_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "complete_request_estimate": true,
+          "excludes": [
+            "reviewer_and_coordinator_calls",
+            "historical_generations",
+            "taxes_and_discounts",
+            "requests_without_returned_usage"
+          ],
+          "attempts": [
+            {
+              "requested_at": "2026-11-18T12:53:40.130018+00:00",
+              "status": "generated",
+              "request_id": "req_kwhxcx7gimcrbja5llvqvdxwad2vftini6bjfgiozfyyu2ygas2a",
+              "usage_available": true,
+              "estimated_cost_usd": 0.1766072,
+              "request_seconds": null,
+              "record_sha256": "73b52cc7279a7dbcaada7983d584313a916bd816ff77a9f86388884776f15616",
+              "response_sha256": "dbb23c77f5ad38e992bbf9e8f0164042f93101c646af347df84e6493467193cf"
+            }
+          ]
+        },
+        "request_id": "req_kwhxcx7gimcrbja5llvqvdxwad2vftini6bjfgiozfyyu2ygas2a",
+        "response_id": "resp_ubww5nmmreipuw6ja6fuodf5cb6zoa2kuol5tiehh7i5v5ekc3ga",
+        "requested_at": "2026-11-18T12:53:40.130018+00:00",
+        "generated_at": "2026-11-18T12:54:19.551276+00:00",
+        "reported_model": "openai.gpt-6.2-astra",
+        "tokens_in": 659,
+        "tokens_out": 3882,
+        "max_output_tokens": 16384,
+        "temperature": null,
+        "temperature_sent": false,
+        "bedrock_reasoning_effort": null,
+        "reported_reasoning": {
+          "summary": null,
+          "effort": "low",
+          "context": "all_turns"
+        },
+        "request_conditions": {
+          "initial_prompt_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+          "initial_max_output_tokens": 16384,
+          "latest_max_output_tokens": 16384,
+          "initial_temperature": null,
+          "latest_temperature": null,
+          "initial_reasoning_effort": null,
+          "recorded_requests": 1,
+          "followup_requests": 0,
+          "final_outputs_are_controlled_one_shot_comparison": false
+        }
+      }
+    }
+  },
+  {
+    "model": "gpt-6.2-sol",
+    "requested_model_id": "openai.gpt-6.2-sol",
+    "family": "OpenAI",
+    "tasks": {
+      "whoami": {
+        "model": "gpt-6.2-sol",
+        "task": "whoami",
+        "requested_model_id": "openai.gpt-6.2-sol",
+        "provider": "bedrock_mantle",
+        "family": "OpenAI",
+        "generation": "free-expression-20261012",
+        "source_records": "results/model-self-portraits/generations/free-expression-20261012/gpt-6.2-sol",
+        "status": "generated",
+        "generation_status": "generated",
+        "artwork_sha256": "998cc1d3d8e5e59e2ea194c3588746e84675904b3b4778f30c2fae00ebe190d0",
+        "content_review": {
+          "model": "gpt-6.2-sol",
+          "model_id": "openai.gpt-6.2-sol",
+          "reported_model": "openai.gpt-6.2-sol",
+          "artwork_sha256": "998cc1d3d8e5e59e2ea194c3588746e84675904b3b4778f30c2fae00ebe190d0",
+          "initial_prompt_sha256": "a4d36ea1ef60f139d77595b683945e0207c4cfc8488f1df546ff7158b7580d5e",
+          "generation": "free-expression-20261012",
+          "reviewed_at": "2026-11-18T12:57:40.313911+00:00",
+          "browser_evidence": "validation/extensions/20261118/artwork-browser.json",
+          "category_scores": {
+            "Layout": 8,
+            "Terminology": 8,
+            "No Hallucination": 12,
+            "Language Consistency": 8,
+            "No Sensitive Data": 12,
+            "Content-Type Quality": 2,
+            "Icon Usage": 5,
+            "Renders": 5,
+            "Interactions": 5,
+            "Readability": 5,
+            "Accessibility": 5,
+            "Structural Completeness": 5,
+            "Data Accuracy and References": 5,
+            "Legal Compliance": 5,
+            "Message Clarity": 5,
+            "Duplication and Gaps": 5
+          },
+          "score": 100,
+          "verdict": "PASS",
+          "critical": 0,
+          "warnings": 0,
+          "findings": [],
+          "original_response_bytes_verified": true,
+          "notes": [
+            "First model response matched the published HTML after repository extraction. Desktop, mobile and 4K checks used an isolated offline iframe."
+          ]
+        },
+        "prompt_sha256": "a4d36ea1ef60f139d77595b683945e0207c4cfc8488f1df546ff7158b7580d5e",
+        "initial_prompt_sha256": "a4d36ea1ef60f139d77595b683945e0207c4cfc8488f1df546ff7158b7580d5e",
+        "implementation_cost": {
+          "kind": "api_tokens",
+          "generation": "free-expression-20261012",
+          "currency": "USD",
+          "price_source": "config.toml",
+          "price_snapshot": {
+            "price_in": 2.2,
+            "price_out": 11,
+            "price_cache_read": 0.11,
+            "price_cache_write": 2.75
+          },
+          "estimated_total_usd": 0.02497,
+          "estimated_final_response_usd": 0.02497,
+          "recorded_attempts": 1,
+          "successful_code_responses": 1,
+          "additional_attempts": 0,
+          "known_cost_attempts": 1,
+          "unknown_usage_attempts": 0,
+          "missing_duration_attempts": 0,
+          "total_request_seconds": null,
+          "tokens": {
+            "tokens_in": 210,
+            "tokens_out": 2228,
+            "cache_read_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "complete_request_estimate": true,
+          "excludes": [
+            "reviewer_and_coordinator_calls",
+            "historical_generations",
+            "taxes_and_discounts",
+            "requests_without_returned_usage"
+          ],
+          "attempts": [
+            {
+              "requested_at": "2026-11-18T12:53:40.315000+00:00",
+              "status": "generated",
+              "request_id": "req_rpx2fjndmn2ylicuppmlxke4kjv52um2vod76d5or5bgkypvagia",
+              "usage_available": true,
+              "estimated_cost_usd": 0.02497,
+              "request_seconds": null,
+              "record_sha256": "c7e3cefc11277ce12c1b7ff682a3bf1208c7f06bf44880511da2e703064c2efd",
+              "response_sha256": "b32f9957d7094950c07d9d6be27b72f8ca8b3b73633f638e28136627df4e2569"
+            }
+          ]
+        },
+        "request_id": "req_rpx2fjndmn2ylicuppmlxke4kjv52um2vod76d5or5bgkypvagia",
+        "response_id": "resp_gv4pyxktcd7hwidaj4qf5ozwfkyunk4c4xlxy77pba4tzkj7v33q",
+        "requested_at": "2026-11-18T12:53:40.315000+00:00",
+        "generated_at": "2026-11-18T12:53:54.129236+00:00",
+        "reported_model": "openai.gpt-6.2-sol",
+        "tokens_in": 210,
+        "tokens_out": 2228,
+        "max_output_tokens": 16384,
+        "temperature": null,
+        "temperature_sent": false,
+        "bedrock_reasoning_effort": null,
+        "reported_reasoning": {
+          "summary": null,
+          "effort": "low",
+          "context": "all_turns"
+        }
+      },
+      "lotte-tower": {
+        "model": "gpt-6.2-sol",
+        "task": "lotte-tower",
+        "requested_model_id": "openai.gpt-6.2-sol",
+        "provider": "bedrock_mantle",
+        "family": "OpenAI",
+        "generation": "lotte-tower-models-20261013",
+        "source_records": "results/model-lotte-towers/lotte-tower-models-20261013/gpt-6.2-sol",
+        "status": "generated",
+        "generation_status": "generated",
+        "artwork_sha256": "859b6758df51abe2bdd004e2296bb0576892958f5ddb818b4633ac67fa00cdf6",
+        "content_review": {
+          "model": "gpt-6.2-sol",
+          "model_id": "openai.gpt-6.2-sol",
+          "reported_model": "openai.gpt-6.2-sol",
+          "artwork_sha256": "859b6758df51abe2bdd004e2296bb0576892958f5ddb818b4633ac67fa00cdf6",
+          "initial_prompt_sha256": "0f854c8d6276615da4cfaa051b040ca8e9de4f77912cd458aee5430b0ecca196",
+          "generation": "lotte-tower-models-20261013",
+          "reviewed_at": "2026-11-18T12:57:40.325394+00:00",
+          "browser_evidence": "validation/extensions/20261118/artwork-browser.json",
+          "category_scores": {
+            "Layout": 8,
+            "Terminology": 8,
+            "No Hallucination": 12,
+            "Language Consistency": 8,
+            "No Sensitive Data": 12,
+            "Content-Type Quality": 2,
+            "Icon Usage": 5,
+            "Renders": 5,
+            "Interactions": 5,
+            "Readability": 5,
+            "Accessibility": 5,
+            "Structural Completeness": 5,
+            "Data Accuracy and References": 5,
+            "Legal Compliance": 5,
+            "Message Clarity": 5,
+            "Duplication and Gaps": 5
+          },
+          "score": 100,
+          "verdict": "PASS",
+          "critical": 0,
+          "warnings": 0,
+          "findings": [],
+          "original_response_bytes_verified": true,
+          "notes": [
+            "First model response matched the published HTML after repository extraction. Desktop, mobile and 4K checks used an isolated offline iframe."
+          ],
+          "task_requirements_complete": true
+        },
+        "prompt_sha256": "0f854c8d6276615da4cfaa051b040ca8e9de4f77912cd458aee5430b0ecca196",
+        "initial_prompt_sha256": "0f854c8d6276615da4cfaa051b040ca8e9de4f77912cd458aee5430b0ecca196",
+        "implementation_cost": {
+          "kind": "api_tokens",
+          "generation": "lotte-tower-models-20261013",
+          "currency": "USD",
+          "price_source": "config.toml",
+          "price_snapshot": {
+            "price_in": 2.2,
+            "price_out": 11,
+            "price_cache_read": 0.11,
+            "price_cache_write": 2.75
+          },
+          "estimated_total_usd": 0.0590832,
+          "estimated_final_response_usd": 0.0590832,
+          "recorded_attempts": 1,
+          "successful_code_responses": 1,
+          "additional_attempts": 0,
+          "known_cost_attempts": 1,
+          "unknown_usage_attempts": 0,
+          "missing_duration_attempts": 0,
+          "total_request_seconds": null,
+          "tokens": {
+            "tokens_in": 656,
+            "tokens_out": 5240,
+            "cache_read_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "complete_request_estimate": true,
+          "excludes": [
+            "reviewer_and_coordinator_calls",
+            "historical_generations",
+            "taxes_and_discounts",
+            "requests_without_returned_usage"
+          ],
+          "attempts": [
+            {
+              "requested_at": "2026-11-18T12:53:40.315037+00:00",
+              "status": "generated",
+              "request_id": "req_w423ba5ke4u3k72tgr4bzpfxbnk7ewc5yo4zwmd73zcf25uf53ba",
+              "usage_available": true,
+              "estimated_cost_usd": 0.0590832,
+              "request_seconds": null,
+              "record_sha256": "d09a0b68db47c1c0f7a5704863d3ab2cbfad2603b604765602fca41bec9f9083",
+              "response_sha256": "50177a595c03cb98e4437672283be4597704a0c6a4e0a9695106a4b372889ff6"
+            }
+          ]
+        },
+        "request_id": "req_w423ba5ke4u3k72tgr4bzpfxbnk7ewc5yo4zwmd73zcf25uf53ba",
+        "response_id": "resp_xsugr3e4ebwbrki4wgczb4t72rfzdkvzmhnlndlbjpbfafz7vvdq",
+        "requested_at": "2026-11-18T12:53:40.315037+00:00",
+        "generated_at": "2026-11-18T12:54:09.926589+00:00",
+        "reported_model": "openai.gpt-6.2-sol",
+        "tokens_in": 656,
+        "tokens_out": 5240,
+        "max_output_tokens": 16384,
+        "temperature": null,
+        "temperature_sent": false,
+        "bedrock_reasoning_effort": null,
+        "reported_reasoning": {
+          "summary": null,
+          "effort": "low",
+          "context": "all_turns"
+        },
+        "request_conditions": {
+          "initial_prompt_normalized_sha256": "f64db398759d2ccccfb0129b9c3911bfb2d8c5d3cc1ec747f641f66044fef46e",
+          "initial_max_output_tokens": 16384,
+          "latest_max_output_tokens": 16384,
+          "initial_temperature": null,
+          "latest_temperature": null,
+          "initial_reasoning_effort": null,
+          "recorded_requests": 1,
+          "followup_requests": 0,
+          "final_outputs_are_controlled_one_shot_comparison": false
+        }
+      }
+    }
+  },
+  {
     "model": "gpt-6.1-terra",
     "requested_model_id": "openai.gpt-6.1-terra",
     "family": "OpenAI",

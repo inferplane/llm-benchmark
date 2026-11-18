@@ -1,0 +1,33 @@
+{
+  "model": "gpt-6.2-astra",
+  "model_id": "openai.gpt-6.2-astra",
+  "api": "bedrock_mantle",
+  "generation": "lotte-tower-models-20261013",
+  "requested_at": "2026-11-18T12:53:40.130018+00:00",
+  "prompt_sha256": "aa0c5a89216aa8d8c71b1a8d8dff7a1726cd548239a963e17845d39c1bf135da",
+  "max_output_tokens": 16384,
+  "temperature": null,
+  "temperature_sent": false,
+  "bedrock_reasoning_effort": null,
+  "art_thinking_disabled_requested": false,
+  "stream_response": true,
+  "tokens_in": 659,
+  "tokens_out": 3882,
+  "response_status": "completed",
+  "http_status": 200,
+  "reported_model": "openai.gpt-6.2-astra",
+  "reported_reasoning": {
+    "summary": null,
+    "effort": "low",
+    "context": "all_turns"
+  },
+  "reasoning_tokens": 0,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0,
+  "reported_input_tokens": 659,
+  "request_id": "req_kwhxcx7gimcrbja5llvqvdxwad2vftini6bjfgiozfyyu2ygas2a",
+  "response_id": "resp_ubww5nmmreipuw6ja6fuodf5cb6zoa2kuol5tiehh7i5v5ekc3ga",
+  "status": "generated",
+  "generated_at": "2026-11-18T12:54:19.551276+00:00",
+  "artwork_sha256": "5cc3d4977c7b9bb43aae7083afc6d7a63d03ba2e620fed2f8c87f24d4db2747a"
+}

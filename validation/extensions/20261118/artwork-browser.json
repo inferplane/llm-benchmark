@@ -1,0 +1,309 @@
+{
+  "gpt-6.2-astra/whoami": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "errors": [],
+      "blocked": [],
+      "canvas": 1,
+      "actions": [
+        "edited the source phrase",
+        "slider End key"
+      ],
+      "title": "문장의 직조기 — gpt-6.2-astra",
+      "overflow": false,
+      "buttons": [
+        "숨결 애니메이션 · 꺼짐"
+      ],
+      "hasModel": true,
+      "art_changes_after_input": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "errors": [],
+      "blocked": [],
+      "canvas": 1,
+      "actions": [],
+      "title": "문장의 직조기 — gpt-6.2-astra",
+      "overflow": false,
+      "buttons": [
+        "숨결 애니메이션 · 꺼짐"
+      ],
+      "hasModel": true
+    },
+    {
+      "viewport": [
+        3840,
+        2160
+      ],
+      "errors": [],
+      "blocked": [],
+      "canvas": 1,
+      "actions": [],
+      "title": "문장의 직조기 — gpt-6.2-astra",
+      "overflow": false,
+      "buttons": [
+        "숨결 애니메이션 · 꺼짐"
+      ],
+      "hasModel": true
+    }
+  ],
+  "gpt-6.2-astra/lotte-tower": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "errors": [],
+      "blocked": [],
+      "canvas": 1,
+      "actions": [
+        "4 stage controls activated",
+        "4 drawing controls activated",
+        "3 camera controls activated"
+      ],
+      "title": "형태 연구실 · 롯데월드타워",
+      "overflow": false,
+      "buttons": [
+        "−",
+        "＋",
+        "시점 초기화",
+        "배치도",
+        "기준층 평면",
+        "입면도",
+        "단면도",
+        "STAGE 01기본 매스",
+        "STAGE 02상향 수렴",
+        "STAGE 03곡면과 정점",
+        "STAGE 04완성 외피"
+      ],
+      "hasModel": true,
+      "camera_changed_after_drag": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "errors": [],
+      "blocked": [],
+      "canvas": 1,
+      "actions": [],
+      "title": "형태 연구실 · 롯데월드타워",
+      "overflow": false,
+      "buttons": [
+        "−",
+        "＋",
+        "시점 초기화",
+        "배치도",
+        "기준층 평면",
+        "입면도",
+        "단면도",
+        "STAGE 01기본 매스",
+        "STAGE 02상향 수렴",
+        "STAGE 03곡면과 정점",
+        "STAGE 04완성 외피"
+      ],
+      "hasModel": true
+    },
+    {
+      "viewport": [
+        3840,
+        2160
+      ],
+      "errors": [],
+      "blocked": [],
+      "canvas": 1,
+      "actions": [],
+      "title": "형태 연구실 · 롯데월드타워",
+      "overflow": false,
+      "buttons": [
+        "−",
+        "＋",
+        "시점 초기화",
+        "배치도",
+        "기준층 평면",
+        "입면도",
+        "단면도",
+        "STAGE 01기본 매스",
+        "STAGE 02상향 수렴",
+        "STAGE 03곡면과 정점",
+        "STAGE 04완성 외피"
+      ],
+      "hasModel": true
+    }
+  ],
+  "gpt-6.2-sol/whoami": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "errors": [],
+      "blocked": [],
+      "canvas": 1,
+      "actions": [
+        "slider End key"
+      ],
+      "title": "응답 이전의 빛 — gpt-6.2-sol",
+      "overflow": false,
+      "buttons": [
+        "질문",
+        "여백",
+        "응답"
+      ],
+      "hasModel": true,
+      "art_changes_after_input": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "errors": [],
+      "blocked": [],
+      "canvas": 1,
+      "actions": [],
+      "title": "응답 이전의 빛 — gpt-6.2-sol",
+      "overflow": false,
+      "buttons": [
+        "질문",
+        "여백",
+        "응답"
+      ],
+      "hasModel": true
+    },
+    {
+      "viewport": [
+        3840,
+        2160
+      ],
+      "errors": [],
+      "blocked": [],
+      "canvas": 1,
+      "actions": [],
+      "title": "응답 이전의 빛 — gpt-6.2-sol",
+      "overflow": false,
+      "buttons": [
+        "질문",
+        "여백",
+        "응답"
+      ],
+      "hasModel": true
+    }
+  ],
+  "gpt-6.2-sol/lotte-tower": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "errors": [],
+      "blocked": [],
+      "canvas": 2,
+      "actions": [
+        "4 stage controls activated",
+        "4 drawing controls activated",
+        "7 camera controls activated"
+      ],
+      "title": "555 — 롯데월드타워 설계 아틀라스",
+      "overflow": false,
+      "buttons": [
+        "01 · 기준 매스",
+        "02 · 상부 축소",
+        "03 · 곡선 다듬기",
+        "04 · 외피와 정상부",
+        "배치도",
+        "기준층 평면도",
+        "입면도",
+        "단면도",
+        "왼쪽",
+        "오른쪽",
+        "확대",
+        "축소",
+        "초기화",
+        "왼쪽",
+        "오른쪽",
+        "확대",
+        "축소",
+        "초기화"
+      ],
+      "hasModel": true,
+      "camera_changed_after_drag": true,
+      "오른쪽_changed": true,
+      "확대_changed": true,
+      "reset_restores_view": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "errors": [],
+      "blocked": [],
+      "canvas": 2,
+      "actions": [],
+      "title": "555 — 롯데월드타워 설계 아틀라스",
+      "overflow": false,
+      "buttons": [
+        "01 · 기준 매스",
+        "02 · 상부 축소",
+        "03 · 곡선 다듬기",
+        "04 · 외피와 정상부",
+        "배치도",
+        "기준층 평면도",
+        "입면도",
+        "단면도",
+        "왼쪽",
+        "오른쪽",
+        "확대",
+        "축소",
+        "초기화",
+        "왼쪽",
+        "오른쪽",
+        "확대",
+        "축소",
+        "초기화"
+      ],
+      "hasModel": true
+    },
+    {
+      "viewport": [
+        3840,
+        2160
+      ],
+      "errors": [],
+      "blocked": [],
+      "canvas": 2,
+      "actions": [],
+      "title": "555 — 롯데월드타워 설계 아틀라스",
+      "overflow": false,
+      "buttons": [
+        "01 · 기준 매스",
+        "02 · 상부 축소",
+        "03 · 곡선 다듬기",
+        "04 · 외피와 정상부",
+        "배치도",
+        "기준층 평면도",
+        "입면도",
+        "단면도",
+        "왼쪽",
+        "오른쪽",
+        "확대",
+        "축소",
+        "초기화",
+        "왼쪽",
+        "오른쪽",
+        "확대",
+        "축소",
+        "초기화"
+      ],
+      "hasModel": true
+    }
+  ]
+}

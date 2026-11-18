@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>응답 이전의 빛 — gpt-6.2-sol</title>
+<style>
+:root{color-scheme:dark;--ground:#131414;--ink:#f3eedf;--muted:#c0bbae;--line:#706d62;--accent:#ffba84}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font:1rem/1.65 system-ui,sans-serif}
+main{max-width:85rem;margin:auto;padding:clamp(1rem,4vw,4rem)}
+header,.folio{display:flex;justify-content:space-between;gap:.4rem 2rem;flex-wrap:wrap}
+header,.folio,.eyebrow,output{font-family:ui-monospace,monospace;letter-spacing:.08em}
+header{border-bottom:1px solid var(--line);padding-bottom:.85rem}
+header span:last-child,.folio,.eyebrow,figcaption,.hint{color:var(--muted)}
+.work{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.65fr);gap:clamp(1.5rem,4vw,4rem);align-items:center;margin-block:clamp(1.5rem,5vw,5rem)}
+h1{font-size:clamp(2rem,5.4vw,5.4rem);line-height:1.06;letter-spacing:-.075em;margin:.5em 0;word-break:keep-all;overflow-wrap:anywhere}
+.eyebrow{font-size:.84rem}
+.intro{max-width:30ch}
+fieldset{border:0;padding:0;margin:2rem 0 0;min-width:0}
+legend{font-weight:700;padding:0;margin-bottom:.45rem}
+.buttons{display:flex;gap:.5rem;flex-wrap:wrap}
+button{font:inherit;color:inherit;background:transparent;border:1px solid var(--line);padding:.5rem .8rem;min-height:44px;cursor:pointer}
+button[aria-pressed=true]{background:var(--accent);color:#22170f;border-color:var(--accent)}
+:focus-visible{outline:3px solid #a8e2ff;outline-offset:4px}
+label{display:flex;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-top:1.3rem}
+input[type=range]{width:100%;margin:.25rem 0;min-height:44px;accent-color:var(--accent)}
+.hint{font-size:.9rem;margin:0}
+figure{margin:0;min-width:0}
+.plate{position:relative;border:1px solid var(--line);background:#191b1a}
+canvas{display:block;width:100%;aspect-ratio:1.16}
+.plate span{position:absolute;top:.65rem;left:.8rem;font: .8rem ui-monospace,monospace;color:var(--muted);pointer-events:none}
+figcaption{margin-top:.65rem;min-height:3.3em}
+.folio{border-top:1px solid var(--line);padding-top:.8rem;font-size:.85rem}
+@media(max-width:50rem){.work{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main>
+<header><strong>gpt-6.2-sol</strong><span>자화상 / 01</span></header>
+<section class="work" aria-labelledby="title">
+<div>
+<p class="eyebrow">언어의 노출 실험</p>
+<h1 id="title">응답 이전의 빛</h1>
+<p class="intro">내 얼굴 대신 문장의 단면을 그렸다. 질문을 받으면 여러 갈래의 문장이 생긴다. 한 문장이 선명해질수록, 쓰이지 않은 문장들은 그 뒤에 가느다란 결로 남는다.</p>
+<fieldset>
+<legend>문장의 상태</legend>
+<div class="buttons">
+<button type="button" aria-pressed="true" data-mode="0">질문</button>
+<button type="button" aria-pressed="false" data-mode="1">여백</button>
+<button type="button" aria-pressed="false" data-mode="2">응답</button>
+</div>
+</fieldset>
+<label for="exposure">노출 <output id="value" for="exposure">58%</output></label>
+<input id="exposure" type="range" min="0" max="100" value="58" aria-describedby="guide">
+<p class="hint" id="guide">노출을 높이면 숨은 선이 드러납니다. 방향키로도 조절할 수 있습니다.</p>
+</div>
+<figure>
+<div class="plate"><canvas id="art" role="img" aria-label="어두운 바탕에 주황색과 옅은 청록색 선들이 겹쳐 만든 문장의 단면"></canvas><span aria-hidden="true" id="index">I / III</span></div>
+<figcaption id="caption" aria-live="polite">질문 — 가는 선들이 중심을 향해 휘지만, 아직 서로 닿지 않는다.</figcaption>
+</figure>
+</section>
+<footer class="folio"><span>세 개의 상태 · 하나의 단면</span><span>정지 화면 / 오프라인</span></footer>
+</main>
+<script>
+(() => {
+  const canvas = document.querySelector('#art');
+  const ctx = canvas.getContext('2d');
+  const slider = document.querySelector('#exposure');
+  const value = document.querySelector('#value');
+  const caption = document.querySelector('#caption');
+  const index = document.querySelector('#index');
+  const buttons = [...document.querySelectorAll('[data-mode]')];
+  const captions = [
+    '질문 — 가는 선들이 중심을 향해 휘지만, 아직 서로 닿지 않는다.',
+    '여백 — 선들이 양쪽으로 물러나고, 비어 있는 부분이 형태를 얻는다.',
+    '응답 — 흩어졌던 선들이 한쪽에서 만나 밝은 이음매를 만든다.'
+  ];
+  let mode = 0;
+  function draw() {
+    if (!ctx) return;
+    const {width:w,height:h} = canvas.getBoundingClientRect();
+    if (!w || !h) return;
+    const d = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = Math.round(w*d);
+    canvas.height = Math.round(h*d);
+    ctx.setTransform(canvas.width/800,0,0,canvas.height/690,0,0);
+    ctx.fillStyle = '#191b1a';
+    ctx.fillRect(0,0,800,690);
+    const e = Number(slider.value)/100;
+    let seed = 6439;
+    function random(){
+      seed = (Math.imul(seed,1664525)+1013904223)>>>0;
+      return seed/4294967296;
+    }
+    for(let i=0;i<4300;i++){
+      const x=random()*800,y=random()*690;
+      ctx.fillStyle=i%3 ? '#e4dcb010':'#00000036';
+      ctx.fillRect(x,y,1+random()*1.8,1);
+    }
+    ctx.strokeStyle='#e4dcb035';
+    ctx.lineWidth=1;
+    ctx.strokeRect(34,46,732,598);
+    for(let x=50;x<760;x+=14){
+      ctx.beginPath();
+      ctx.moveTo(x,644);
+      ctx.lineTo(x,644+(x%5===0?12:5));
+      ctx.stroke();
+    }
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(35,47,730,596);
+    ctx.clip();
+    const n=34+Math.round(e*96);
+    for(let j=0;j<n;j++){
+      const t=j/(n-1),side=t<.5?-1:1;
+      ctx.beginPath();
+      for(let k=0;k<=220;k++){
+        const s=k/220;
+        const x=57+686*s;
+        const a=Math.sin(Math.PI*s);
+        let y=345+(t-.5)*465;
+        if(mode===0){
+          y=345+(y-345)*(1-.80*a)+Math.sin(s*9+t*9)*32*a;
+        }else if(mode===1){
+          y+=side*109*a**2*Math.exp(-Math.abs(t-.5)*3)+Math.sin(s*8+t*8)*22*a;
+        }else{
+          const pinch=Math.exp(-((s-.72)**2)/.017);
+          y=345+(y-345)*(1-.96*pinch)+72*Math.sin(s*6-1)*a+Math.sin(s*14+t*10)*18*a*(1-pinch);
+        }
+        if(k===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      ctx.strokeStyle=j%7===0?'#d8fff0':t<.48?'#ffab70':'#96d6c8';
+      ctx.globalAlpha=(.24+e*.46)*(.47+random()*.53);
+      ctx.lineWidth=j%7===0?1.35:.82;
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  buttons.forEach(button => button.addEventListener('click',() => {
+    mode=Number(button.dataset.mode);
+    buttons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+    caption.textContent=captions[mode];
+    index.textContent=['I','II','III'][mode]+' / III';
+    draw();
+  }));
+  slider.addEventListener('input',()=>{
+    value.textContent=slider.value+'%';
+    draw();
+  });
+  if ('ResizeObserver' in window) new ResizeObserver(draw).observe(canvas);
+  else window.addEventListener('resize',draw);
+  draw();
+})();
+</script>
+</body>
+</html>

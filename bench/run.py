@@ -598,7 +598,8 @@ async def call_mantle(
             "reported_reasoning": data.get("reasoning"),
             "reasoning_tokens": (usage.get("output_tokens_details") or {}).get("reasoning_tokens"),
         }
-        if model_id in {"openai.gpt-6-luna", "openai.gpt-6-astra", "openai.gpt-6.1-sol", "openai.gpt-6.1-terra"}:
+        if model_id in {"openai.gpt-6-luna", "openai.gpt-6-astra", "openai.gpt-6.1-sol", "openai.gpt-6.1-terra",
+                        "openai.gpt-6.2-astra", "openai.gpt-6.2-sol"}:
             result.update(luna_usage(usage))
         if "request_id" in context:
             result["request_id"] = context["request_id"]
@@ -1050,7 +1051,8 @@ def _selfcheck_mantle():
         with patch("httpx.AsyncClient", side_effect=lambda **kwargs: client_class(transport=transport, **kwargs)):
             streamed = await call_mantle(session, "us-west-2", "xai.grok-4.6", "offline", stream_response=True)
         assert streamed["text"] == "translated" and streamed["tokens_out"] == 3
-        for model_id in ("openai.gpt-6-astra", "openai.gpt-6.1-sol", "openai.gpt-6.1-terra"):
+        for model_id in ("openai.gpt-6-astra", "openai.gpt-6.1-sol", "openai.gpt-6.1-terra",
+                         "openai.gpt-6.2-astra", "openai.gpt-6.2-sol"):
             cached = {**completed, "model": model_id, "usage": {
                 "input_tokens": 1_000_000, "output_tokens": 100_000,
                 "input_tokens_details": {"cached_tokens": 200_000, "cache_write_tokens": 400_000},

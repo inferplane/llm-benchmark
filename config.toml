@@ -400,6 +400,34 @@ price_cache_read = 0.11
 price_cache_write = 2.75
 enabled = true
 
+# https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-2-astra.html
+[[models]]
+name = "gpt-6.2-astra"
+api = "bedrock_mantle"
+model_id = "openai.gpt-6.2-astra"
+mantle_region = "us-east-1"
+mantle_reasoning_effort = "low"
+omit_temperature = true
+price_in = 8.8
+price_out = 44
+price_cache_read = 0.44
+price_cache_write = 11
+enabled = true
+
+# https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-2-sol.html
+[[models]]
+name = "gpt-6.2-sol"
+api = "bedrock_mantle"
+model_id = "openai.gpt-6.2-sol"
+mantle_region = "us-east-1"
+mantle_reasoning_effort = "low"
+omit_temperature = true
+price_in = 2.2
+price_out = 11
+price_cache_read = 0.11
+price_cache_write = 2.75
+enabled = true
+
 # Verified 2026-10-27 against the AWS model card and live Mantle Responses.
 # Standard short-context In-Region rates (regional fee already included).
 # https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-1-terra.html

@@ -1,6 +1,10 @@
 {
-  "latest": "tatqa-api-200-20261110",
+  "latest": "tatqa-api-200-20261118",
   "runs": [
+    {
+      "id": "tatqa-api-200-20261118",
+      "label": "tatqa-api-200-20261118"
+    },
     {
       "id": "tatqa-api-200-20261110",
       "label": "tatqa-api-200-20261110"

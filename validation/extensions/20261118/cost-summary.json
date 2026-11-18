@@ -1,0 +1,15 @@
+{
+  "currency": "USD",
+  "returned_usage_estimate": 409.4684,
+  "breakdown": {
+    "ko": 26.22,
+    "en": 22.382,
+    "finqa": 0.5359,
+    "tatqa": 1.829,
+    "judges": 358.1629,
+    "artwork": 0.3349,
+    "preflight": 0.0037
+  },
+  "grader_attempts_without_returned_usage": 3,
+  "note": "Returned token usage at the frozen rates. Failed grading attempts with no usage counters, tax and private discounts are excluded. This is not an invoice."
+}
